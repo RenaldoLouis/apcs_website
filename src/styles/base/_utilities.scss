@@ -1,0 +1,122 @@
+.imageSize {
+    &-icon {
+        width: 25px;
+        height: 25px;
+    }
+
+    &-logoTitle {
+        width: 150px;
+        height: 150px;
+        align-self: center;
+    }
+}
+
+.contentContainer {
+    padding-top: 20px;
+    padding-left: 32px;
+    padding-right: 32px;
+    padding-bottom: 5px;
+}
+
+.backgroundScreen {
+    background-color: $bg-color;
+    min-height: 100vh;
+    // height: 100vh;
+}
+
+.required:after {
+    content: " *";
+    color: red;
+}
+
+.cursorPointer {
+    cursor: pointer;
+}
+
+.align-self-center {
+    align-self: center;
+}
+
+.place-content {
+    &-end {
+        place-content: end;
+    }
+}
+
+
+.text {
+    &-align {
+        &-end {
+            text-align: end;
+        }
+
+        &-center {
+            text-align: center;
+        }
+    }
+}
+
+.align {
+    &-items {
+        &-center {
+            align-items: center;
+        }
+
+        &-end {
+            align-items: flex-end;
+        }
+    }
+
+    &-self {
+        &-center {
+            align-self: center;
+        }
+    }
+}
+
+.font {
+    &-weight {
+        &-normal {
+            font-weight: 400;
+        }
+
+        &-bold {
+            font-weight: bold;
+        }
+    }
+}
+
+.color {
+    &-primary {
+        &-dark {
+            background-color: $primary-color-dark  !important;
+            color: $color-light  !important;
+        }
+
+        &-button {
+            background-color: $primary-button-color  !important;
+            color: $color-light  !important;
+        }
+
+        &-pill {
+            background-color: $primary-color-pill  !important;
+            color: $color-light  !important;
+        }
+    }
+
+    &-secondary {
+        &-pill {
+            background-color: $secondary-color-pill  !important;
+            color: $color-light  !important;
+        }
+    }
+}
+
+// Modify Bootstrap
+.dropdown-toggle::after {
+    display: none;
+}
+
+.btn-primary {
+    border-color: white;
+}

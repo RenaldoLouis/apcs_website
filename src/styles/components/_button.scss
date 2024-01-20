@@ -1,0 +1,11 @@
+.button {
+    &-primary {
+        color: white !important;
+        background-color: $primary-button-color  !important;
+    }
+
+    &-danger {
+        color: black !important;
+        background-color: red !important;
+    }
+}

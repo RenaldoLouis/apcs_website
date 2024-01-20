@@ -1,0 +1,59 @@
+.navbar {
+    height: 50px;
+    padding: 0px 15px 0px 15px !important;
+    &-background {
+        background-color: $navbarColor;
+    }
+
+    &-round {
+        border-bottom-left-radius: 15px;
+        border-bottom-right-radius: 15px;
+    }
+
+    &-logo {
+        background: $color-light;
+        margin-bottom: 10px;
+        border-bottom-right-radius: 10px;
+        border-bottom-left-radius: 10px;
+        width: 74px;
+        height: 36px;
+        box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.5);
+
+        &-image {
+            width: 50px;
+        }
+    }
+
+    &-logout {
+        &-container {
+            background-color: transparent;
+            border-color: transparent;
+            margin: auto;
+            cursor: pointer;
+            color: $color-light;
+
+            &:hover {
+                background-color: transparent !important;
+                border-color: transparent !important;
+            }
+        }
+
+        &-button {
+            width: 30px;
+            height: 30px;
+        }
+    }
+
+    &-list {
+
+        &:hover,
+        &:active {
+            background-color: rgba($color-light, .2);
+        }
+    }
+
+    &-language {
+        color: $color-light;
+        font-size: 14px;
+    }
+}

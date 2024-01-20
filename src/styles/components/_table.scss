@@ -1,0 +1,49 @@
+.table {
+    &-tabs {
+        background-color: transparent !important;
+        color: $secondary-color-gray  !important;
+
+        &:hover {
+            color: $primary-color-dark  !important;
+        }
+
+        &-active {
+            background-color: transparent !important;
+            color: $primary-color-dark  !important;
+            border-bottom: 3px solid $primary-color-dark;
+        }
+    }
+
+    &-pill {
+        padding: 8px 12px;
+        border-radius: 18px;
+
+        &-active {
+            background-color: $primary-color-pill  !important;
+            color: $color-light  !important;
+        }
+
+        &-inactive {
+            background-color: $secondary-color-pill  !important;
+            color: $color-light  !important;
+        }
+    }
+
+    &-action {
+        background-color: transparent !important;
+        border-color: transparent !important;
+        outline: none !important;
+        border: 0 !important;
+
+        &:hover,
+        &:focus,
+        &:active,
+        &:visited {
+            background-color: transparent !important;
+            border-color: transparent !important;
+            outline: none !important;
+            box-shadow: none !important;
+            border: 0 !important;
+        }
+    }
+}

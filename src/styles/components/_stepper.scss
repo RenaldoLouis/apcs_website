@@ -1,0 +1,68 @@
+// li {
+//     width: 2em;
+//     height: 2em;
+//     text-align: center;
+//     line-height: 2em;
+//     border-radius: 1em;
+//     background: dodgerblue;
+//     margin: 0 1em;
+//     display: inline-block;
+//     color: white;
+//     position: relative;
+//     margin-top: 15px;
+// }
+
+.circle-step {
+    width: 2em;
+    height: 2em;
+    text-align: center;
+    line-height: 2em;
+    border-radius: 1em;
+    background: dodgerblue;
+    margin: 0 1em;
+    display: inline-block;
+    color: white;
+    position: relative;
+}
+
+.vertical-line {
+    width: 2em;
+    line-height: 2em;
+    border-left: 2px solid $primary-button-color;
+    height: 30px;
+    margin-left: 1.9em;
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+
+// can be used to show the line between list but for some reason its not working
+// li::before {
+//     content: ' ' !important;
+//     position: absolute !important;
+//     top: .9em !important;
+//     left: -4em !important;
+//     width: 4em !important;
+//     height: .2em !important;
+//     background: red !important;
+//     z-index: -1 !important;
+// }
+
+// li:first-child::before {
+//     display: none;
+// }
+
+.active {
+    background: dodgerblue;
+}
+
+.inActive {
+    background: lightblue;
+}
+
+// .active~li {
+//     background: lightblue;
+// }
+
+// .active~li::before {
+//     background: lightblue;
+// }

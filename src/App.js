@@ -1,23 +1,44 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import "./App.css";
+import {DataContextProvider} from "./context/DataContext";
+import {ToastContainer} from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom";
+import PublicRoute from "./PublicRoute";
+import Home from "./Pages/Home/Home";
+
+const Main = () => {
+  return (
+    <Routes>
+      <Route path="/home" element={<Home />} />
+      <Route path="*" element={<PublicRoute />} />
+    </Routes>
+  );
+};
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <DataContextProvider>
+        <Router>
+          <ToastContainer
+            autoClose={3000}
+            hideProgressBar={true}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnHover={false}
+            pauseOnFocusLoss={false}
+            position="bottom-left"
+          />
+          <Main />
+        </Router>
+      </DataContextProvider>
     </div>
   );
 }
