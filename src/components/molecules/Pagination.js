@@ -6,21 +6,30 @@ const Pagination = () => {
     const [datas, setDatas] = useState([])
 
     const fetchPost = async () => {
-        await getDocs(collection(db, "reviews"))
+        await getDocs(collection(db, "galeries"))
             .then((querySnapshot) => {
-                const newData = querySnapshot.docs
-                    .map((doc) => ({ ...doc.data(), id: doc.id }));
-                setDatas(newData);
+                if (querySnapshot) {
+                    const newData = querySnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
+                    setDatas(newData);
+                }
             })
     }
 
-    // useEffect(() => {
-    //     fetchPost();
-    // }, [])
+    useEffect(() => {
+        fetchPost();
+    }, [])
 
     return (
-        <div>
-            asd
+        <div className="container">
+            {datas && datas.length > 0 && datas.map((eachData) => {
+                console.log("eachData", eachData)
+                return (
+                    <div>
+                        {eachData.title}
+                        <img src={eachData.image} alt="ghibli" />
+                    </div>
+                )
+            })}
         </div>
     )
 }
