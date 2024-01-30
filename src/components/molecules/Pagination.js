@@ -56,12 +56,8 @@ const Pagination = () => {
         };
     }, []);
 
-    const handleLoadMore = () => {
-        fetchPost();
-    }
-
     return (
-        <div ref={containerRef} className="container" style={{ maxHeight: "1500px", overflow: "auto" }}>
+        <div ref={containerRef} className="container" style={{ maxHeight: "700px", overflow: "auto" }}>
             {datas && datas.length > 0 && datas.map((eachData) => {
                 return (
                     <div style={{ background: "red", margin: 15 }}>
@@ -70,11 +66,6 @@ const Pagination = () => {
                     </div>
                 )
             })}
-            <div>
-                <button onClick={() => handleLoadMore()}>
-                    Load More
-                </button>
-            </div>
         </div>
     )
 }
