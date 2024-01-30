@@ -1,28 +1,68 @@
-import React, { useEffect, useState } from "react";
-import { collection, addDoc, getDocs } from "firebase/firestore";
+import React, { useEffect, useRef, useState } from "react";
+import { collection, addDoc, getDocs, limit, query, startAfter, orderBy } from "firebase/firestore";
 import { db } from '../../firebase';
 
 const Pagination = () => {
+    const containerRef = useRef();
+
     const [datas, setDatas] = useState([])
+    // const [latestData, setLatestData] = useState(null)
+    const [isGetLatestImage, setIsGetLatestImage] = useState(false);
+
+    let latestData = null
 
     const fetchPost = async () => {
-        await getDocs(collection(db, "galeries"))
-            .then((querySnapshot) => {
-                if (querySnapshot) {
-                    const newData = querySnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
-                    setDatas(newData);
-                }
-            })
+        if (!isGetLatestImage && latestData !== undefined) {
+            const q = query(collection(db, "galeries"), orderBy("order"), startAfter(latestData || 0), limit(3));
+
+            await getDocs(q)
+                .then((querySnapshot) => {
+                    if (querySnapshot) {
+                        const newData = querySnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
+                        if (newData.length === 0) {
+                            setIsGetLatestImage(true)
+                        }
+                        setDatas((prevState) => [...prevState, ...newData]);
+                        console.log("querySnapshot.docs", querySnapshot.docs[querySnapshot.docs.length - 1])
+                        // setLatestData(querySnapshot.docs[querySnapshot.docs.length - 1])
+                        latestData = querySnapshot.docs[querySnapshot.docs.length - 1]
+                    }
+                })
+                .catch((error) => {
+                    console.error("Error getting documents: ", error);
+                });
+        }
     }
 
     useEffect(() => {
         fetchPost();
     }, [])
 
+    useEffect(() => {
+        const container = containerRef.current;
+
+        const handleScroll = () => {
+            const isAtBottom = container.scrollTop + container.clientHeight === container.scrollHeight;
+
+            if (isAtBottom) {
+                fetchPost();
+            }
+        };
+
+        container.addEventListener('scroll', handleScroll);
+
+        return () => {
+            container.removeEventListener('scroll', handleScroll);
+        };
+    }, []);
+
+    const handleLoadMore = () => {
+        fetchPost();
+    }
+
     return (
-        <div className="container">
+        <div ref={containerRef} className="container" style={{ maxHeight: "1500px", overflow: "auto" }}>
             {datas && datas.length > 0 && datas.map((eachData) => {
-                console.log("eachData", eachData)
                 return (
                     <div>
                         {eachData.title}
@@ -30,6 +70,11 @@ const Pagination = () => {
                     </div>
                 )
             })}
+            <div>
+                <button onClick={() => handleLoadMore()}>
+                    Load More
+                </button>
+            </div>
         </div>
     )
 }
