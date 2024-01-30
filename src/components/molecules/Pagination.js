@@ -61,26 +61,22 @@ const Pagination = () => {
     }
 
     return (
-<<<<<<< HEAD
         <div ref={containerRef} className="container" style={{ maxHeight: "1500px", overflow: "auto" }}>
-=======
-        <div className="container galeryContainer">
->>>>>>> 5f35dd5 (update ui)
-                {datas && datas.length > 0 && datas.map((eachData) => {
-                    return (
-                        <div style={{ background: "red", margin: 15 }}>
-                            {eachData.title}
-                            <img src={eachData.image} alt="ghibli" style={{ width: 305, height: 250 }} />
-                        </div>
-                    )
-                })}
-                <div>
-                    <button onClick={() => handleLoadMore()}>
-                        Load More
-                    </button>
-                </div>
+            {datas && datas.length > 0 && datas.map((eachData) => {
+                return (
+                    <div style={{ background: "red", margin: 15 }}>
+                        {eachData.title}
+                        <img src={eachData.image} alt="ghibli" style={{ width: 305, height: 250 }} />
+                    </div>
+                )
+            })}
+            <div>
+                <button onClick={() => handleLoadMore()}>
+                    Load More
+                </button>
             </div>
-            )
+        </div>
+    )
 }
 
-            export default Pagination;
+export default Pagination;
