@@ -4,36 +4,36 @@ import village from "../../assets/videos/village.mp4"
 import persona5 from "../../assets/audios/p5.mp3"
 
 const CoverImage = () => {
-    // useEffect(() => {
-    //     document.querySelector("video").play()
-    // }, [])
     useEffect(() => {
-        // Create an Audio object
-        const audio = new Audio(persona5);
+        document.querySelector("video").play()
+    }, [])
+    // useEffect(() => {
+    //     // Create an Audio object
+    //     const audio = new Audio(persona5);
 
-        // Log the audio object for debugging
-        console.log('Audio Object:', audio);
+    //     // Log the audio object for debugging
+    //     console.log('Audio Object:', audio);
 
-        // Play the audio when the component mounts
-        audio.play()
-            .then(() => {
-                console.log('Audio playback started successfully.');
-            })
-            .catch(error => {
-                console.error('Error playing audio:', error.message);
-            });
+    //     // Play the audio when the component mounts
+    //     audio.play()
+    //         .then(() => {
+    //             console.log('Audio playback started successfully.');
+    //         })
+    //         .catch(error => {
+    //             console.error('Error playing audio:', error.message);
+    //         });
 
-        // Clean up the audio object when the component unmounts
-        return () => {
-            audio.pause();
-            audio.currentTime = 0;
-        };
-    }, []);
+    //     // Clean up the audio object when the component unmounts
+    //     return () => {
+    //         audio.pause();
+    //         audio.currentTime = 0;
+    //     };
+    // }, []);
 
     return (
         <div className='overflow-x-hidden'>
             <video src={rengoku}
-                muted={true}
+                muted={false}
                 playsinline loop autoPlay className='video-container'></video>
 
             <div className='content-container'>
