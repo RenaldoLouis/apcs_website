@@ -23,7 +23,6 @@ const Pagination = () => {
                             setIsGetLatestImage(true)
                         }
                         setDatas((prevState) => [...prevState, ...newData]);
-                        console.log("querySnapshot.docs", querySnapshot.docs[querySnapshot.docs.length - 1])
                         // setLatestData(querySnapshot.docs[querySnapshot.docs.length - 1])
                         latestData = querySnapshot.docs[querySnapshot.docs.length - 1]
                     }

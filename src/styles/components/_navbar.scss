@@ -1,59 +1,56 @@
-.navbar {
-    height: 50px;
-    padding: 0px 15px 0px 15px !important;
-    &-background {
-        background-color: $navbarColor;
-    }
-
-    &-round {
-        border-bottom-left-radius: 15px;
-        border-bottom-right-radius: 15px;
-    }
-
-    &-logo {
-        background: $color-light;
-        margin-bottom: 10px;
-        border-bottom-right-radius: 10px;
-        border-bottom-left-radius: 10px;
-        width: 74px;
-        height: 36px;
-        box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.5);
-
-        &-image {
-            width: 50px;
-        }
-    }
-
-    &-logout {
-        &-container {
-            background-color: transparent;
-            border-color: transparent;
-            margin: auto;
-            cursor: pointer;
-            color: $color-light;
-
-            &:hover {
-                background-color: transparent !important;
-                border-color: transparent !important;
-            }
-        }
-
-        &-button {
-            width: 30px;
-            height: 30px;
-        }
-    }
-
-    &-list {
-
-        &:hover,
-        &:active {
-            background-color: rgba($color-light, .2);
-        }
-    }
-
-    &-language {
-        color: $color-light;
-        font-size: 14px;
-    }
+/* Navbar styles */
+.navbarContainer {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 1.5rem !important;
+    padding-bottom: 1.5rem !important;
+    padding-left: 18rem !important;
+    padding-right: 18rem !important;
+    text-align: center;
+    color: white;
+    position: fixed;
 }
+  
+.navbarContainer .text-3xl {
+font-size: 1.875rem;
+font-weight: bold;
+}
+
+.navbarContainer ul {
+display: flex;
+height: 100%;
+gap: 1rem;
+}
+
+.navbarContainer li {
+margin-right: 8px;
+cursor: pointer;
+transition-duration: 200ms; 
+
+}
+
+.navbarContainer li:hover {
+color: #8B5CF6;
+}
+
+.divider {
+width: 1px;
+height: 100%;
+background-color: white;
+}
+
+.navbarContainer li.portfolio {
+transition-duration: 200ms; 
+cursor: pointer; 
+}
+
+.navbarContainer li.portfolio:hover {
+color: #8B5CF6;
+}
+
+ul {
+list-style-type: none;
+}
+  

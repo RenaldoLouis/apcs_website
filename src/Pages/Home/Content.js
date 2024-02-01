@@ -1,11 +1,10 @@
 import React from "react";
-import homeCard from "../../assets/images/spiderman.jpg"
+import CoverImage from "./CoverImage";
 
 const Content = () => {
-
     return (
         <>
-            <img className="home-coverImage" src={homeCard} alt="Italian Trulli" />
+            <CoverImage />
             <div class="container">
                 <div class="row">
                     <div class="col">

@@ -3,37 +3,30 @@ import angLogo from '../../assets/images/ANG-Logo.png';
 
 
 const Navbar = () => {
-
     return (
-        <nav className="navbar">
-            <div className="">
-                <img className="navbar-logo" src={angLogo} alt="ang" ></img>
-            </div>
-
-            <ul class="nav nav-pills">
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="#">Active</a>
+        <div className="navbarContainer">
+            <span className="text-3xl">
+                BgVideo
+            </span>
+            <ul >
+                <li className="">
+                    Home
                 </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Dropdown</a>
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#">Action</a></li>
-                        <li><a class="dropdown-item" href="#">Another action</a></li>
-                        <li><a class="dropdown-item" href="#">Something else here</a></li>
-                        <li><a class="dropdown-divider" /></li>
-                        <li><a class="dropdown-item" href="#">Separated link</a></li>
-                    </ul>
+                <li className="">
+                    About
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Link</a>
+                <li className="">
+                    Contact
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+                <li>
+                    <div className="divider"></div>
+                </li>
+                <li className="portfolio">
+                    My portofolio
                 </li>
             </ul>
-        </nav>
-    )
-
+        </div>
+    );
 }
 
 export default Navbar;
