@@ -1,20 +1,21 @@
 import React from "react";
 import "./App.css";
-import {DataContextProvider} from "./context/DataContext";
-import {ToastContainer} from "react-toastify";
+import { DataContextProvider } from "./context/DataContext";
+import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import {
   BrowserRouter as Router,
   Routes,
   Route,
-  Navigate,
 } from "react-router-dom";
 import PublicRoute from "./PublicRoute";
 import Home from "./Pages/Home/Home";
+import LandingPage from "./Pages/Landing/LandingPage";
 
 const Main = () => {
   return (
     <Routes>
+      <Route path="/" element={<LandingPage />} />
       <Route path="/home" element={<Home />} />
       <Route path="*" element={<PublicRoute />} />
     </Routes>

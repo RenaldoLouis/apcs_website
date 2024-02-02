@@ -1,0 +1,71 @@
+.landingContiner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    min-height: 100vh;
+}
+
+.welcomeEntrance {
+    animation: fadeInEntrance 2s ease 0s 1 normal forwards;
+}
+
+@keyframes fadeInEntrance {
+    0% {
+        opacity: 0;
+        transform: translateX(-50px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.welcomeExit {
+    animation: fadeOutExit 2s ease 0s 1 normal forwards;
+}
+
+@keyframes fadeOutExit {
+    0% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+
+    100% {
+        opacity: 0;
+        transform: translateX(50px);
+    }
+}
+
+.buttonEntrance {
+    animation: fadeInBottomEntrance 2s ease 0s 1 normal forwards;
+}
+
+@keyframes fadeInBottomEntrance {
+    0% {
+        opacity: 0;
+        transform: translateY(50px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.buttonExit {
+    animation: faceOutTopExit 2s ease 0s 1 normal forwards;
+}
+
+@keyframes faceOutTopExit {
+    0% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    100% {
+        opacity: 0;
+        transform: translateY(-50px);
+    }
+}
