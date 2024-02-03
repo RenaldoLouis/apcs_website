@@ -11,12 +11,15 @@ import {
 import PublicRoute from "./PublicRoute";
 import Home from "./Pages/Home/Home";
 import LandingPage from "./Pages/Landing/LandingPage";
+import persona5 from "./assets/audios/p5.mp3"
 
+
+const audio = new Audio(persona5);
 const Main = () => {
   return (
     <Routes>
-      <Route path="/" element={<LandingPage />} />
-      <Route path="/home" element={<Home />} />
+      <Route path="/" element={<LandingPage audio={audio} />} />
+      <Route path="/home" element={<Home audio={audio} />} />
       <Route path="*" element={<PublicRoute />} />
     </Routes>
   );

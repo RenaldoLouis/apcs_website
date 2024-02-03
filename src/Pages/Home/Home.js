@@ -6,11 +6,14 @@ import GalerySlider from "../Galery/GalerySlider";
 import Pagination from "../../components/molecules/Pagination";
 import Accordion from "../../components/molecules/Accordion";
 
-const Home = () => {
+const Home = (props) => {
+    const { audio } = props
     return (
         <div>
             <Navbar />
-            <Content />
+            <Content
+                audio={audio}
+            />
             <Galery />
             <GalerySlider />
             <Pagination />

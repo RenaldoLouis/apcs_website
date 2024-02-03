@@ -3,8 +3,16 @@ import rengoku from "../../assets/videos/rengoku.mp4"
 import village from "../../assets/videos/village.mp4"
 import persona5 from "../../assets/audios/p5.mp3"
 
-const CoverImage = () => {
+const CoverImage = (props) => {
+    const { audio } = props
+
     const [isMutedVideo, setIsMutedVideo] = useState(false)
+
+    useEffect(() => {
+        audio.pause();
+        audio.currentTime = 0;
+        audio.load();
+    }, [audio])
 
     return (
         <div className='overflow-x-hidden'>

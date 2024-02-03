@@ -2,9 +2,10 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import persona5 from "../../assets/audios/p5.mp3"
 
-const audio = new Audio(persona5);
-const LandingPage = () => {
+// const audio = new Audio(persona5);
+const LandingPage = (props) => {
     const navigate = useNavigate();
+    const { audio } = props
 
     const [isWelcomeExit, setIsWelcomeExit] = useState(false)
 

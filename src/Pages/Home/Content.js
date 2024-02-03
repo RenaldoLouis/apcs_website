@@ -1,10 +1,14 @@
 import React from "react";
 import CoverImage from "./CoverImage";
 
-const Content = () => {
+const Content = (props) => {
+    const { audio } = props
+
     return (
         <>
-            <CoverImage />
+            <CoverImage
+                audio={audio}
+            />
             <div class="container">
                 <div class="row">
                     <div class="col">
