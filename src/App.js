@@ -12,16 +12,20 @@ import PublicRoute from "./PublicRoute";
 import Home from "./Pages/Home/Home";
 import LandingPage from "./Pages/Landing/LandingPage";
 import persona5 from "./assets/audios/p5.mp3"
+import { motion, AnimatePresence } from 'framer-motion';
+import Transition from "./components/atom/Transition";
 
 
 const audio = new Audio(persona5);
 const Main = () => {
   return (
-    <Routes>
-      <Route path="/" element={<LandingPage audio={audio} />} />
-      <Route path="/home" element={<Home audio={audio} />} />
-      <Route path="*" element={<PublicRoute />} />
-    </Routes>
+    <AnimatePresence mode='wait'>
+      <Routes>
+        <Route path="/" element={<LandingPage audio={audio} />} />
+        <Route path="/home" element={<Transition children={<Home audio={audio} />} />} />
+        <Route path="*" element={<PublicRoute />} />
+      </Routes>
+    </AnimatePresence>
   );
 };
 

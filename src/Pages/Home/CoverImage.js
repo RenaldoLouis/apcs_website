@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import rengoku from "../../assets/videos/rengoku.mp4"
 import village from "../../assets/videos/village.mp4"
-import persona5 from "../../assets/audios/p5.mp3"
 
 const CoverImage = (props) => {
     const { audio } = props
@@ -16,7 +15,7 @@ const CoverImage = (props) => {
 
     return (
         <div className='overflow-x-hidden'>
-            <video src={rengoku}
+            <video src={village}
                 muted={isMutedVideo}
                 playsinline loop autoPlay className='video-container'></video>
 
