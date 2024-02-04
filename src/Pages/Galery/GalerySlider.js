@@ -45,6 +45,7 @@ const GalerySlider = () => {
 
     useEffect(() => {
         if (track) {
+            console.log("track", track)
             window.onmousedown = e => handleOnDown(e);
 
             window.ontouchstart = e => handleOnDown(e.touches[0]);
