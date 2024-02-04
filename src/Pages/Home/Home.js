@@ -18,9 +18,9 @@ const Home = (props) => {
             <GalerySlider />
             <Pagination />
             <Accordion />
-            <div className="footer">
+            <footer className="footer">
                 <p>Footer</p>
-            </div>
+            </footer>
         </div>
     )
 }

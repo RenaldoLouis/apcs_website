@@ -12,7 +12,7 @@ import PublicRoute from "./PublicRoute";
 import Home from "./Pages/Home/Home";
 import LandingPage from "./Pages/Landing/LandingPage";
 import persona5 from "./assets/audios/p5.mp3"
-import { motion, AnimatePresence } from 'framer-motion';
+import { AnimatePresence } from 'framer-motion';
 import Transition from "./components/atom/Transition";
 
 

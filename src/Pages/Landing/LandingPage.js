@@ -1,8 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import persona5 from "../../assets/audios/p5.mp3"
 
-// const audio = new Audio(persona5);
 const LandingPage = (props) => {
     const navigate = useNavigate();
     const { audio } = props
@@ -32,22 +30,22 @@ const LandingPage = (props) => {
     }
 
     return (
-        <div className="landingContiner" >
+        <article className="landingContiner" >
             {!isWelcomeExit ? (
-                <div id="welcomeText" className="welcomeEntrance" onClick={() => handleClickWelcome()}>
+                <h2 id="welcomeText" className="welcomeEntrance" onClick={() => handleClickWelcome()}>
                     Welcome
-                </div>
+                </h2>
             ) : (
-                <div>
-                    <div id="apcsText" className="welcomeEntrance" onClick={() => handleClickAPCS()}>
+                <section>
+                    <h2 id="apcsText" className="welcomeEntrance" onClick={() => handleClickAPCS()}>
                         APC Website
-                    </div>
-                    <div id="buttonEntrance" className="buttonEntrance" onClick={() => handleExplore()}>
+                    </h2>
+                    <h2 id="buttonEntrance" className="buttonEntrance" onClick={() => handleExplore()}>
                         button
-                    </div>
-                </div>
+                    </h2>
+                </section>
             )}
-        </div>
+        </article>
     )
 }
 

@@ -5,44 +5,44 @@ const Content = (props) => {
     const { audio } = props
 
     return (
-        <>
+        <section>
             <CoverImage
                 audio={audio}
             />
-            <div class="container">
-                <div class="row">
-                    <div class="col">
+            <article className="container">
+                <div className="row">
+                    <div className="col">
                         1 of 2
                     </div>
-                    <div class="col">
+                    <div className="col">
                         2 of 2
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col">
+                <div className="row">
+                    <div className="col">
                         1 of 3
                     </div>
-                    <div class="col">
+                    <div className="col">
                         2 of 3
                     </div>
-                    <div class="col">
+                    <div className="col">
                         3 of 3
                     </div>
                 </div>
 
-                <div class="row">
-                    <div class="col align-self-start">
+                <div className="row">
+                    <div className="col align-self-start">
                         One of three columns
                     </div>
-                    <div class="col align-self-center">
+                    <div className="col align-self-center">
                         One of three columns
                     </div>
-                    <div class="col align-self-end">
+                    <div className="col align-self-end">
                         One of three columns
                     </div>
                 </div>
-            </div>
-        </>
+            </article>
+        </section>
     )
 }
 

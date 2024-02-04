@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 
 const Accordion = () => {
-
     const data = [
         {
             question: "Question 1",
@@ -36,10 +35,10 @@ const Accordion = () => {
     }
 
     return (
-        <div className="wrapper">
+        <section className="wrapper">
             <div className="accordion">
                 {data.map((item, i) => (
-                    <div className="item">
+                    <div key={`${item.question} ${i}`} id={item.answer} className="item">
                         <div className="title" onClick={() => toogle(i)}>
                             <h2>{item.question}</h2>
                             <span>{selected === i ? "-" : "+"}</span>
@@ -50,7 +49,7 @@ const Accordion = () => {
                     </div>
                 ))}
             </div>
-        </div>
+        </section>
     )
 }
 

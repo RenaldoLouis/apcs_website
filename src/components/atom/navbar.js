@@ -1,10 +1,8 @@
 import React from "react";
-import angLogo from '../../assets/images/ANG-Logo.png';
-
 
 const Navbar = () => {
     return (
-        <div className="navbarContainer">
+        <nav className="navbarContainer">
             <span className="text-3xl">
                 BgVideo
             </span>
@@ -25,7 +23,7 @@ const Navbar = () => {
                     My portofolio
                 </li>
             </ul>
-        </div>
+        </nav>
     );
 }
 

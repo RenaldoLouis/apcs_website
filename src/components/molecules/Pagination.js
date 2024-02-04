@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { collection, addDoc, getDocs, limit, query, startAfter, orderBy } from "firebase/firestore";
+import { collection, getDocs, limit, query, startAfter, orderBy } from "firebase/firestore";
 import { db } from '../../firebase';
 
 const Pagination = () => {
@@ -56,16 +56,16 @@ const Pagination = () => {
     }, []);
 
     return (
-        <div ref={containerRef} className="container" style={{ maxHeight: "700px", overflow: "auto" }}>
+        <article ref={containerRef} className="container" style={{ maxHeight: "700px", overflow: "auto" }}>
             {datas && datas.length > 0 && datas.map((eachData) => {
                 return (
-                    <div style={{ background: "red", margin: 15 }}>
+                    <div key={eachData.title} style={{ background: "red", margin: 15 }}>
                         {eachData.title}
                         <img src={eachData.image} alt="ghibli" style={{ width: 305, height: 250 }} />
                     </div>
                 )
             })}
-        </div>
+        </article>
     )
 }
 
