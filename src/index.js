@@ -15,3 +15,11 @@ root.render(
   <App />
 );
 
+// ReactDOM.hydrateRoot(
+//   document,
+//   <React.StrictMode>
+//     <App />
+//   </React.StrictMode>
+// );
+
+

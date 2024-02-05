@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { collection, getDocs, limit, query, startAfter, orderBy } from "firebase/firestore";
 import { db } from '../../firebase';
 
@@ -11,7 +11,7 @@ const Pagination = () => {
 
     let latestData = null
 
-    const fetchPost = async () => {
+    const fetchPost = useCallback(async () => {
         if (!isGetLatestImage && latestData !== undefined) {
             const q = query(collection(db, "galeries"), orderBy("order"), startAfter(latestData || 0), limit(3));
 
@@ -25,17 +25,18 @@ const Pagination = () => {
                         setDatas((prevState) => [...prevState, ...newData]);
                         // setLatestData(querySnapshot.docs[querySnapshot.docs.length - 1])
                         latestData = querySnapshot.docs[querySnapshot.docs.length - 1]
+                        // setLatestData(querySnapshot.docs[querySnapshot.docs.length - 1])
                     }
                 })
                 .catch((error) => {
                     console.error("Error getting documents: ", error);
                 });
         }
-    }
+    }, [])
 
     useEffect(() => {
         fetchPost();
-    }, [])
+    }, [fetchPost])
 
     useEffect(() => {
         const container = containerRef.current;
@@ -53,7 +54,7 @@ const Pagination = () => {
         return () => {
             container.removeEventListener('scroll', handleScroll);
         };
-    }, []);
+    }, [fetchPost]);
 
     return (
         <article ref={containerRef} className="container" style={{ maxHeight: "700px", overflow: "auto" }}>
