@@ -14,6 +14,7 @@ const CoverImage = (props) => {
     return (
         <div className='overflow-x-hidden'>
             <video src={village}
+                // preload="none"
                 muted={isMutedVideo}
                 playsInline loop autoPlay className='video-container'></video>
 

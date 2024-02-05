@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/alt-text */
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 
 const GalerySlider = () => {
     const [track, setTrack] = useState(null)
@@ -11,14 +11,16 @@ const GalerySlider = () => {
         }
     }, [])
 
-    const handleOnDown = e => track.dataset.mouseDownAt = e.clientX;
+    const handleOnDown = useCallback((e) => {
+        track.dataset.mouseDownAt = e.clientX
+    }, [track]);
 
-    const handleOnUp = () => {
+    const handleOnUp = useCallback((e) => {
         track.dataset.mouseDownAt = "0";
         track.dataset.prevPercentage = track.dataset.percentage;
-    }
+    }, [track]);
 
-    const handleOnMove = e => {
+    const handleOnMove = useCallback((e) => {
         if (track.dataset.mouseDownAt === "0") return;
 
         const mouseDelta = parseFloat(track.dataset.mouseDownAt) - e.clientX,
@@ -39,30 +41,21 @@ const GalerySlider = () => {
                 objectPosition: `${100 + nextPercentage}% center`
             }, { duration: 1200, fill: "forwards" });
         }
-    }
-
-    /* -- Had to add extra lines for touch events -- */
-
-    useEffect(() => {
-        if (track) {
-            console.log("track", track)
-            window.onmousedown = e => handleOnDown(e);
-
-            window.ontouchstart = e => handleOnDown(e.touches[0]);
-
-            window.onmouseup = e => handleOnUp(e);
-
-            window.ontouchend = e => handleOnUp(e.touches[0]);
-
-            window.onmousemove = e => handleOnMove(e);
-
-            window.ontouchmove = e => handleOnMove(e.touches[0]);
-        }
-    }, [track])
+    }, [track]);
 
     return (
         <section>
-            <div id="image-track" data-mouse-down-at="0" data-prev-percentage="0">
+            <div
+                id="image-track"
+                data-mouse-down-at="0"
+                data-prev-percentage="0"
+                onMouseDown={e => handleOnDown(e)}
+                onTouchStart={e => handleOnDown(e.touches[0])}
+                onMouseUp={e => handleOnUp(e)}
+                onTouchEnd={e => handleOnUp(e.touches[0])}
+                onMouseMove={e => handleOnMove(e)}
+                onTouchMove={e => handleOnMove(e.touches[0])}
+            >
                 <img className="image" src="https://images.unsplash.com/photo-1524781289445-ddf8f5695861?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80" draggable="false" alt='' />
                 <img className="image" src="https://images.unsplash.com/photo-1610194352361-4c81a6a8967e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1674&q=80" draggable="false" alt='' />
                 <img className="image" src="https://images.unsplash.com/photo-1618202133208-2907bebba9e1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80" draggable="false" alt='' />
