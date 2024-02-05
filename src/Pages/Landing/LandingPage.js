@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-const LandingPage = (props) => {
+const LandingPage = React.memo((props) => {
     const navigate = useNavigate();
     const { audio } = props
 
@@ -47,6 +47,6 @@ const LandingPage = (props) => {
             )}
         </article>
     )
-}
+});
 
 export default LandingPage;
