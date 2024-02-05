@@ -11,6 +11,10 @@ const CoverImage = (props) => {
         audio.load();
     }, [audio])
 
+    const handleClickPlayVideo = () => {
+        document.querySelector("video").play()
+    }
+
     return (
         <div className='overflow-x-hidden'>
             <video src={village}
@@ -25,8 +29,8 @@ const CoverImage = (props) => {
                 <span className='text-neutral-200'>
                     Welcome text
                 </span>
-                <button className="readMoreButtonContainer">
-                    Read More
+                <button className="readMoreButtonContainer" onClick={handleClickPlayVideo}>
+                    Play Video
                 </button>
             </div>
         </div>
