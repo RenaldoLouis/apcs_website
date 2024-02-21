@@ -5,6 +5,7 @@ import Galery from "../Galery/Galery";
 import GalerySlider from "../Galery/GalerySlider";
 import Pagination from "../../components/molecules/Pagination";
 import Accordion from "../../components/molecules/Accordion";
+import AvatarIcon from "../../components/molecules/AvatarIcon";
 
 const Home = (props) => {
     const { audio } = props
@@ -18,6 +19,7 @@ const Home = (props) => {
             <GalerySlider />
             <Pagination />
             <Accordion />
+            <AvatarIcon />
             <footer className="footer">
                 <p>Footer</p>
             </footer>
