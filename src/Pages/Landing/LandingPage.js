@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const LandingPage = React.memo((props) => {
@@ -6,6 +6,15 @@ const LandingPage = React.memo((props) => {
     const { audio } = props
 
     const [isWelcomeExit, setIsWelcomeExit] = useState(false)
+
+    useEffect(() => {
+        setTimeout(() => {
+            document.getElementById("welcomeText").classList.add('welcomeExit')
+            setTimeout(() => {
+                setIsWelcomeExit(true)
+            }, 2000);
+        }, 2000);
+    }, [audio])
 
     const handleClickWelcome = () => {
         audio.play()
