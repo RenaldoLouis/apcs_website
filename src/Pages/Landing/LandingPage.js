@@ -12,8 +12,8 @@ const LandingPage = React.memo((props) => {
             document.getElementById("welcomeText").classList.add('welcomeExit')
             setTimeout(() => {
                 setIsWelcomeExit(true)
-            }, 2000);
-        }, 2000);
+            }, 2100);
+        }, 2100);
     }, [audio])
 
     const handleClickWelcome = () => {
@@ -41,7 +41,9 @@ const LandingPage = React.memo((props) => {
     return (
         <article className="landingContiner" >
             {!isWelcomeExit ? (
-                <h2 id="welcomeText" className="welcomeEntrance" onClick={() => handleClickWelcome()}>
+                <h2 id="welcomeText" className="welcomeEntrance"
+                // onClick={() => handleClickWelcome()}
+                >
                     Welcome
                 </h2>
             ) : (
@@ -49,8 +51,8 @@ const LandingPage = React.memo((props) => {
                     <h2 id="apcsText" className="welcomeEntrance" onClick={() => handleClickAPCS()}>
                         APC Website
                     </h2>
-                    <h2 id="buttonEntrance" className="buttonEntrance" onClick={() => handleExplore()}>
-                        button
+                    <h2 id="buttonEntrance" className="buttonEntrance buttonStyle" onClick={() => handleExplore()} style={{ marginTop: 35 }}>
+                        Explore
                     </h2>
                 </section>
             )}
