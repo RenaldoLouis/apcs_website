@@ -27,7 +27,7 @@ const Carousel = ({ interval = 3000 }) => {
 
     return (
         <>
-            <div style={{ display: "flex", position: "relative" }}>
+            <div className='carouselContainer'>
                 {images.map((eachImage, index) => (
                     <img style={{ '--currentIndex': currentIndex }} className="carousel-image" id={`slide-${index}`} src={eachImage} alt={`photos-${index}`} />
                 ))}

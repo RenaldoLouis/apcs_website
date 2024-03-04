@@ -52,3 +52,10 @@
   transform: translateX(calc(-100% * var(--currentIndex)));
   transition: transform ease 600ms;
 }
+
+.carouselContainer {
+  scrollbar-width: none;
+  display: flex;
+  position: relative;
+  overflow-x: hidden;
+}
