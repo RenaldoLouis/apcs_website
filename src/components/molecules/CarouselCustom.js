@@ -10,17 +10,12 @@ const Carousel = ({ interval = 3000 }) => {
     const [currentIndex, setCurrentIndex] = useState(0);
 
     useEffect(() => {
-        // const intervalId = setInterval(() => {
-        setCurrentIndex((prevIndex) => (prevIndex === images.length - 1 ? 0 : prevIndex + 1));
-        // }, interval);
+        const intervalId = setInterval(() => {
+            setCurrentIndex((prevIndex) => (prevIndex === images.length - 1 ? 0 : prevIndex + 1));
+        }, interval);
 
-        // return () => clearInterval(intervalId);
-    }, [images.length, interval]);
-
-    useEffect(() => {
-        const element = document.getElementById(`slide-${currentIndex}`)
-        element.scrollIntoView()
-    }, [currentIndex])
+        return () => clearInterval(intervalId);
+    }, [interval]);
 
     const goToPrevSlide = () => {
         setCurrentIndex((prevIndex) => (prevIndex === 0 ? images.length - 1 : prevIndex - 1));
@@ -32,13 +27,10 @@ const Carousel = ({ interval = 3000 }) => {
 
     return (
         <>
-            <div class="slider-wrapper">
-                <div class="slider">
-                    {images.map((eachData, index) => (
-                        <img id={`slide-${index}`} src={eachData} alt="3D rendering of an imaginary orange planet in space" />
-
-                    ))}
-                </div>
+            <div style={{ display: "flex", position: "relative" }}>
+                {images.map((eachImage, index) => (
+                    <img style={{ '--currentIndex': currentIndex }} className="carousel-image" id={`slide-${index}`} src={eachImage} alt={`photos-${index}`} />
+                ))}
                 <div className="carousel-navigation">
                     <button className="carousel-prev" onClick={goToPrevSlide}>
                         &lt;
@@ -48,11 +40,11 @@ const Carousel = ({ interval = 3000 }) => {
                     </button>
                 </div>
                 <div class="slider-nav">
-                    <a href="#slide-0" style={{ opacity: currentIndex === 0 ? 1 : 0.75 }}></a>
-                    <a href="#slide-1" style={{ opacity: currentIndex === 1 ? 1 : 0.75 }}></a>
-                    <a href="#slide-2" style={{ opacity: currentIndex === 2 ? 1 : 0.75 }}></a>
+                    <div className='slider-nav-dot' style={{ opacity: currentIndex === 0 ? 1 : 0.75, cursor: "pointer" }} onClick={() => setCurrentIndex(0)}></div>
+                    <div className='slider-nav-dot' style={{ opacity: currentIndex === 1 ? 1 : 0.75, cursor: "pointer" }} onClick={() => setCurrentIndex(1)}></div>
+                    <div className='slider-nav-dot' style={{ opacity: currentIndex === 2 ? 1 : 0.75, cursor: "pointer" }} onClick={() => setCurrentIndex(2)}></div>
                 </div>
-            </div >
+            </div>
         </>
     );
 };

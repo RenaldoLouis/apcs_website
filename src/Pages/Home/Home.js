@@ -8,8 +8,6 @@ import Accordion from "../../components/molecules/Accordion";
 import AvatarIcon from "../../components/molecules/AvatarIcon";
 
 const Home = (props) => {
-
-
     const handleDirectToWhatsApp = () => {
         window.open("https://api.whatsapp.com/send/?phone=6285811192228", '_blank');
     }

@@ -14,9 +14,7 @@ const Content = (props) => {
 
             <CardHover />
 
-            <div className="container">
-                <CarouselCustom />
-            </div>
+            <CarouselCustom />
 
             <article className="container">
                 <div className="row">
