@@ -92,3 +92,17 @@ cursor: pointer;
                 0 0 200px #03e9f4;
     -webkit-box-reflect:below 1px linear-gradient(transparent, #0005);
 }
+
+
+.path { 
+    stroke-dasharray: 3000; 
+    stroke-dashoffset: 3000; 
+    animation: dash 5s linear forwards infinite; 
+} 
+
+@keyframes dash { 
+    to { 
+        stroke-dashoffset: 0; 
+    } 
+} 
+   
