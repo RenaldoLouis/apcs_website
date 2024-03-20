@@ -8,13 +8,12 @@ const Content = (props) => {
 
     return (
         <section>
-            <CoverImage
+            <CarouselCustom />
+            {/* <CoverImage
                 audio={audio}
-            />
+            /> */}
 
             <CardHover />
-
-            <CarouselCustom />
 
             <article className="container">
                 <div className="row">
