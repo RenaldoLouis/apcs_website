@@ -111,3 +111,30 @@
   background-color: $primary-color-dark;
   padding: 80px 16px 16px 16px;
 }
+
+.yearSelect {
+  cursor: pointer;
+  position: relative;
+  font-size: 20px;
+}
+
+.yearSelect::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background-color: white;
+  transition: width 600ms ease;
+}
+
+.yearSelect.selected::after {
+  width: 100%;
+  left: 0;
+}
+
+.yearSelect:hover::after {
+  width: 100%;
+  left: 0;
+}
