@@ -2,6 +2,7 @@ import React from "react";
 import CoverImage from "./CoverImage";
 import CardHover from "../../components/molecules/CardHover";
 import CarouselCustom from "../../components/molecules/CarouselCustom";
+import PeopleReviews from "./PeopleReviews";
 
 const Content = (props) => {
     const { audio } = props
@@ -12,6 +13,23 @@ const Content = (props) => {
             {/* <CoverImage
                 audio={audio}
             /> */}
+
+            <div className="homeContentContainer">
+                <div style={{ color: "white" }}>
+                    Test
+                </div>
+                <div style={{ color: "white" }}>
+                    Test
+                </div>
+            </div>
+
+            <PeopleReviews />
+
+            <div className="galeryHomeContentContainer">
+                <div className="color-white">
+                    asd
+                </div>
+            </div>
 
             <CardHover />
 

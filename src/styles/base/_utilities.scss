@@ -11,19 +11,6 @@
     }
 }
 
-.contentContainer {
-    padding-top: 20px;
-    padding-left: 32px;
-    padding-right: 32px;
-    padding-bottom: 5px;
-}
-
-.backgroundScreen {
-    background-color: $bg-color;
-    min-height: 100vh;
-    // height: 100vh;
-}
-
 .required:after {
     content: " *";
     color: red;
@@ -43,6 +30,24 @@
     }
 }
 
+.flex {
+    display: flex;
+
+    &-column {
+        display: flex;
+        flex-direction: column;
+    }
+}
+
+.justify {
+    &-evenly {
+        justify-content: space-evenly;
+    }
+
+    &-around {
+        justify-content: space-around;
+    }
+}
 
 .text {
     &-align {
@@ -87,39 +92,42 @@
 }
 
 .color {
-    &-primary {
-        &-dark {
-            background-color: $primary-color-dark  !important;
-            color: $color-light  !important;
-        }
-
-        &-button {
-            background-color: $primary-button-color  !important;
-            color: $color-light  !important;
-        }
-
-        &-pill {
-            background-color: $primary-color-pill  !important;
-            color: $color-light  !important;
-        }
+    &-primaryDark {
+        color: $primary-color-dark
     }
 
-    &-secondary {
-        &-pill {
-            background-color: $secondary-color-pill  !important;
-            color: $color-light  !important;
-        }
+    &-white {
+        color: white;
     }
 }
 
-// Modify Bootstrap
-.dropdown-toggle::after {
-    display: none;
-}
+// .color {
+//     &-primary {
+//         &-dark {
+//             background-color: $primary-color-dark !important;
+//             color: $color-light !important;
+//         }
 
-.btn-primary {
-    border-color: white;
-}
+//         &-button {
+//             background-color: $primary-button-color !important;
+//             color: $color-light !important;
+//         }
+
+//         &-pill {
+//             background-color: $primary-color-pill !important;
+//             color: $color-light !important;
+//         }
+//     }
+
+//     &-secondary {
+//         &-pill {
+//             background-color: $secondary-color-pill !important;
+//             color: $color-light !important;
+//         }
+//     }
+// }
+
+
 
 
 
@@ -128,53 +136,53 @@
 
 // Mobile container utility class:
 .container {
-  width: 100%;
-  margin-left: auto;
-  margin-right: auto;
-  padding-left: 0.5rem;
-  padding-right: 0.5rem;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
 }
 
 /* xs */
 @media (min-width: 475px) {
-  .container {
-    max-width: 475px;
-  }
+    .container {
+        max-width: 475px;
+    }
 }
 
 /* sm */
 @media (min-width: 640px) {
-  .container {
-    max-width: 640px;
-  }
+    .container {
+        max-width: 640px;
+    }
 }
 
 /* md */
 @media (min-width: 768px) {
-  .container {
-    max-width: 768px;
-  }
+    .container {
+        max-width: 768px;
+    }
 }
 
 /* lg */
 @media (min-width: 1024px) {
-  .container {
-    max-width: 1024px;
-  }
+    .container {
+        max-width: 1024px;
+    }
 }
 
 /* xl */
 @media (min-width: 1280px) {
-  .container {
-    max-width: 1280px;
-  }
+    .container {
+        max-width: 1280px;
+    }
 }
 
 /* 2xl */
 @media (min-width: 1536px) {
-  .container {
-    max-width: 1536px;
-  }
+    .container {
+        max-width: 1536px;
+    }
 }
 
 
