@@ -19,7 +19,7 @@ const Home = (props) => {
             <Content
                 audio={audio}
             />
-            <Galery />
+            {/* <Galery /> */}
             <GalerySlider />
             <Pagination />
             <Accordion />

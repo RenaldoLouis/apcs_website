@@ -1,11 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
 import CoverImage from "./CoverImage";
 import CardHover from "../../components/molecules/CardHover";
 import CarouselCustom from "../../components/molecules/CarouselCustom";
 import PeopleReviews from "./PeopleReviews";
+import Galery from "../Galery/Galery";
 
 const Content = (props) => {
     const { audio } = props
+
+    const [selectedYear, setSelectedYear] = useState(2019);
+
+    const handleClickChangeYear = (year) => {
+        setSelectedYear(year)
+    }
 
     return (
         <section>
@@ -25,10 +32,42 @@ const Content = (props) => {
 
             <PeopleReviews />
 
-            <div className="galeryHomeContentContainer">
-                <div className="color-white">
-                    asd
+            <div className="galeryHomeContentContainer color-white">
+                <div className="flex justify-around">
+                    <div>
+                        <div style={{ fontSize: 40 }}>
+                            Galery
+                        </div>
+                        <div style={{ fontSize: 16, width: 392 }}>
+                            Lorem ipsum dolor  sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt  ut labore et dolore magna aliqua.
+                        </div>
+                    </div>
+                    <div>
+                        <div>
+                            Year
+                        </div>
+                        <div className="flex" style={{ gap: 16 }}>()
+                            <div style={{ borderBottom: selectedYear === 2019 ? "1px solid white" : "", fontSize: 20 }} onClick={() => handleClickChangeYear(2019)}>
+                                2019
+                            </div>
+                            <div style={{ borderBottom: selectedYear === 2021 ? "1px solid white" : "", fontSize: 20 }} onClick={() => handleClickChangeYear(2021)}>
+                                2021
+                            </div>
+                            <div style={{ borderBottom: selectedYear === 2023 ? "1px solid white" : "", fontSize: 20 }} onClick={handleClickChangeYear(2023)}>
+                                2023
+                            </div>
+                        </div>
+                    </div>
                 </div>
+                <div style={{ textAlign: "center" }}>
+                    <div>
+                        2023
+                    </div>
+                    <div>
+                        Christmast Wonderland
+                    </div>
+                </div>
+                <Galery />
             </div>
 
             <CardHover />
