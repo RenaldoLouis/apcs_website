@@ -138,3 +138,23 @@
   width: 100%;
   left: 0;
 }
+
+.whitePill {
+  border: 1px solid white;
+  border-width: medium;
+  border-radius: 25px;
+  text-align: center;
+  width: fit-content;
+  padding: 6px 50px;
+  color: white
+}
+
+
+.blackPill {
+  border: 1px solid black;
+  border-width: medium;
+  border-radius: 25px;
+  text-align: center;
+  width: fit-content;
+  padding: 6px 50px
+}

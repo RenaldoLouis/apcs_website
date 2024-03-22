@@ -4,6 +4,7 @@ import CardHover from "../../components/molecules/CardHover";
 import CarouselCustom from "../../components/molecules/CarouselCustom";
 import PeopleReviews from "./PeopleReviews";
 import Galery from "../Galery/Galery";
+import PillButton from "../../components/atom/PillButton";
 
 const Content = (props) => {
     const { audio } = props
@@ -68,6 +69,9 @@ const Content = (props) => {
                     </div>
                 </div>
                 <Galery />
+                <div className="flex justify-center">
+                    <PillButton text={"View More"} />
+                </div>
             </div>
 
             <CardHover />

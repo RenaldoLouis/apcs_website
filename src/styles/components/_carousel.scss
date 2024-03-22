@@ -27,19 +27,21 @@
   z-index: 2;
 }
 
-.titleCoverContainer{
+.titleCoverContainer {
   display: flex;
   position: absolute;
   top: 50%;
   left: 0;
   transform: translateY(-50%);
-  width: 100%; /* Span the entire width of the relative container */
-  text-align: center; /* Center the text horizontally */
+  width: 100%;
+  /* Span the entire width of the relative container */
+  text-align: center;
+  /* Center the text horizontally */
   z-index: 1;
   pointer-events: none;
 }
 
-.titleCoverContainerText{
+.titleCoverContainerText {
   color: white;
 }
 
@@ -66,7 +68,7 @@
   display: flex;
   column-gap: 1rem;
   position: absolute;
-  bottom: 15%;
+  bottom: 12%;
   left: 50%;
   transform: translateX(-50%);
   z-index: 1;
@@ -87,7 +89,7 @@
   transform: translateX(calc(-100% * var(--currentIndex)));
   transition: transform ease 600ms;
   z-index: 2;
-  
+
 }
 
 .carouselContainer {
