@@ -5,6 +5,7 @@ import CarouselCustom from "../../components/molecules/CarouselCustom";
 import PeopleReviews from "./PeopleReviews";
 import Galery from "../Galery/Galery";
 import PillButton from "../../components/atom/PillButton";
+import goldenLine from "../../assets/images/goldenLine.png"
 
 const Content = (props) => {
     const { audio } = props
@@ -18,16 +19,32 @@ const Content = (props) => {
     return (
         <section>
             <CarouselCustom />
-            {/* <CoverImage
-                audio={audio}
-            /> */}
-
             <div className="homeContentContainer">
-                <div style={{ color: "white" }}>
-                    Test
-                </div>
-                <div style={{ color: "white" }}>
-                    Test
+                <div className="container">
+                    <div className="row justify-center">
+                        <div className="col-md-auto ">
+                            <img src={goldenLine} alt={`goldenLine`} style={{ width: "100%" }} />
+                        </div>
+                    </div>
+                    <div className="row justify-center">
+                        <div className="col-md-auto">
+                            <div style={{ color: "white" }}>
+                                LOREM IPSUM DOLOR SI AMET TARA
+                            </div>
+                        </div>
+                    </div>
+                    <div className="row justify-center">
+                        <div className="col-md-auto">
+                            <div style={{ color: "white" }}>
+                                Lorem ipsum dolor  sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt  ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud  exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.  Duis aute irure dolor in reprehenderit in voluptate velit esse cillum  dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non  proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                            </div>
+                        </div>
+                    </div>
+                    <div className="row justify-center">
+                        <div className="col-md-auto">
+                            <img src={goldenLine} alt={`goldenLine`} style={{ width: "100%" }} />
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -74,7 +91,7 @@ const Content = (props) => {
                 </div>
             </div>
 
-            <CardHover />
+            {/* <CardHover />
 
             <article className="container">
                 <div className="row">
@@ -108,7 +125,7 @@ const Content = (props) => {
                         One of three columns
                     </div>
                 </div>
-            </article>
+            </article> */}
         </section>
     )
 }

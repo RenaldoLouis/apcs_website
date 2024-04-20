@@ -6,6 +6,7 @@ import GalerySlider from "../Galery/GalerySlider";
 import Pagination from "../../components/molecules/Pagination";
 import Accordion from "../../components/molecules/Accordion";
 import AvatarIcon from "../../components/molecules/AvatarIcon";
+import Footer from "../../components/molecules/Footer";
 
 const Home = (props) => {
     const handleDirectToWhatsApp = () => {
@@ -20,18 +21,16 @@ const Home = (props) => {
                 audio={audio}
             />
             {/* <Galery /> */}
-            <GalerySlider />
-            <Pagination />
-            <Accordion />
+            {/* <GalerySlider /> */}
+            {/* <Pagination />
+            <Accordion /> */}
 
-            <div className="container" style={{ background: "grey", width: 300, margin: 25, cursor: "pointer" }} onClick={handleDirectToWhatsApp}>
+            {/* <div className="container" style={{ background: "grey", width: 300, margin: 25, cursor: "pointer" }} onClick={handleDirectToWhatsApp}>
                 Contact Admin Here
-            </div>
+            </div> */}
 
-            <AvatarIcon />
-            <footer className="footer">
-                <p>Footer</p>
-            </footer>
+            {/* <AvatarIcon /> */}
+            <Footer />
         </div>
     )
 }

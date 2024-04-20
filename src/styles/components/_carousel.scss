@@ -80,14 +80,14 @@
   object-fit: cover;
   height: 100vh;
   transform: translateX(calc(-100% * var(--currentIndex)));
-  transition: transform ease 600ms;
+  transition: transform ease 1200ms;
 }
 
 .titleCoverContainerText {
   flex: 1 0 100%;
   scroll-snap-align: start;
   transform: translateX(calc(-100% * var(--currentIndex)));
-  transition: transform ease 600ms;
+  transition: transform ease 1200ms;
   z-index: 2;
 
 }

@@ -1,15 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import arrowRight from "../../assets/icons/arrowRight.png"
-import arrowLeft from "../../assets/icons/arrowLeft.png"
+import arrowRightCover from "../../assets/icons/arrowRightCover.png"
+import arrowLeftCover from "../../assets/icons/arrowLeftCover.png"
 import PillButton from '../atom/PillButton';
+import coverImage1 from "../../assets/images/coverImage1.png"
 
 const images = [
-    "https://images.unsplash.com/photo-1656464868371-602be27fd4c2?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1200&q=80",
+    coverImage1,
     "https://images.unsplash.com/photo-1657586640569-4a3d4577328c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1200&q=80",
     "https://images.unsplash.com/photo-1656077217715-bdaeb06bd01f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1200&q=80"
 ]
 
-const Carousel = ({ interval = 3000 }) => {
+const Carousel = ({ interval = 5000 }) => {
     const [currentIndex, setCurrentIndex] = useState(0);
 
     useEffect(() => {
@@ -36,15 +37,15 @@ const Carousel = ({ interval = 3000 }) => {
                 ))}
                 <div className="carousel-navigation">
                     <button className="carousel-prev" onClick={goToPrevSlide}>
-                        <img src={arrowLeft} style={{ width: 54, height: 54 }} alt="arrowLeft" />
+                        <img src={arrowLeftCover} style={{ width: 54, height: 54 }} alt="arrowLeft" />
                     </button>
                     <button className="carousel-next" onClick={goToNextSlide}>
-                        <img src={arrowRight} style={{ width: 54, height: 54 }} alt="arrowRight" />
+                        <img src={arrowRightCover} style={{ width: 54, height: 54 }} alt="arrowRight" />
                     </button>
                 </div>
                 <div className='titleCoverContainer'>
                     <div style={{ '--currentIndex': currentIndex }} className='titleCoverContainerText'>
-                        titleCenter 1
+                        {/* titleCenter 1 */}
                     </div>
                     <div style={{ '--currentIndex': currentIndex }} className='titleCoverContainerText'>
                         titleCenter 2
