@@ -2,6 +2,7 @@ import React from "react";
 import CoverImage from "../../components/molecules/CoverImage";
 import Founder from "./Founder";
 import NotableConductors from "./NotableConductors";
+import AchieversSection from "./AchieversSection";
 
 const About = () => {
 
@@ -10,6 +11,7 @@ const About = () => {
             <CoverImage />
             <Founder />
             <NotableConductors />
+            <AchieversSection />
         </div>
     )
 }
