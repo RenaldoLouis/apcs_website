@@ -16,7 +16,6 @@ const Home = (props) => {
     const { audio } = props
     return (
         <div>
-            <Navbar />
             <Content
                 audio={audio}
             />
@@ -30,7 +29,6 @@ const Home = (props) => {
             </div> */}
 
             {/* <AvatarIcon /> */}
-            <Footer />
         </div>
     )
 }

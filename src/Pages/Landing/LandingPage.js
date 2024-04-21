@@ -11,7 +11,8 @@ const LandingPage = React.memo((props) => {
         setTimeout(() => {
             document.getElementById("welcomeText").classList.add('welcomeExit')
             setTimeout(() => {
-                setIsWelcomeExit(true)
+                // setIsWelcomeExit(true)
+                handleExplore()
             }, 2100);
         }, 2100);
     }, [audio])

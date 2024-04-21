@@ -14,6 +14,11 @@ import LandingPage from "./Pages/Landing/LandingPage";
 import persona5 from "./assets/audios/p5.mp3"
 import { AnimatePresence } from 'framer-motion';
 import Transition from "./components/atom/Transition";
+import Achievers from "./Pages/Achievers/Achievers";
+import About from "./Pages/About/About";
+import Podcast from "./Pages/Podcast/Podcast";
+import MainLayout from "./components/molecules/MainLayout";
+import GaleryPage from "./Pages/Galery/GaleryPage";
 
 
 const audio = new Audio(persona5);
@@ -22,7 +27,11 @@ const Main = () => {
     <AnimatePresence mode='wait'>
       <Routes>
         <Route path="/" element={<LandingPage audio={audio} />} />
-        <Route path="/home" element={<Transition children={<Home audio={audio} />} />} />
+        <Route path="/home" element={<Transition children={<MainLayout children={<Home audio={audio} />} />} />} />
+        <Route path="/about" element={<MainLayout children={<About />} />} />
+        <Route path="/achievers" element={<MainLayout children={<Achievers />} />} />
+        <Route path="/podcast" element={<MainLayout children={<Podcast />} />} />
+        <Route path="/galery" element={<MainLayout children={<GaleryPage />} />} />
         <Route path="*" element={<PublicRoute />} />
       </Routes>
     </AnimatePresence>

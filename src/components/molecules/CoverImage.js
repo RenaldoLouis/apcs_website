@@ -5,11 +5,11 @@ const CoverImage = (props) => {
     const { audio } = props
     const [isMutedVideo, setIsMutedVideo] = useState(false)
 
-    useEffect(() => {
-        audio.pause();
-        audio.currentTime = 0;
-        audio.load();
-    }, [audio])
+    // useEffect(() => {
+    //     audio.pause();
+    //     audio.currentTime = 0;
+    //     audio.load();
+    // }, [audio])
 
     const handleClickPlayVideo = () => {
         document.querySelector("video").play()

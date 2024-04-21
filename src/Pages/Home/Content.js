@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import CoverImage from "./CoverImage";
+import CoverImage from "../../components/molecules/CoverImage";
 import CardHover from "../../components/molecules/CardHover";
-import CarouselCustom from "../../components/molecules/CarouselCustom";
 import PeopleReviews from "./PeopleReviews";
 import Galery from "../Galery/Galery";
 import PillButton from "../../components/atom/PillButton";
 import goldenLine from "../../assets/images/goldenLine.png"
+import Carousel from "../../components/molecules/CarouselCustom";
 
 const Content = (props) => {
     const { audio } = props
@@ -17,8 +17,8 @@ const Content = (props) => {
     }
 
     return (
-        <section>
-            <CarouselCustom />
+        <div>
+            <Carousel />
             <div className="homeContentContainer">
                 <div className="container">
                     <div className="row justify-center">
@@ -126,7 +126,7 @@ const Content = (props) => {
                     </div>
                 </div>
             </article> */}
-        </section>
+        </div>
     )
 }
 

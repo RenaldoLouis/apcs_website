@@ -1,26 +1,35 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 const Navbar = () => {
+    const navigate = useNavigate();
+
+    const handleMovePage = (path) => {
+        navigate(path);
+    }
     return (
         <nav className="navbarContainer">
             <span className="text-3xl">
-                BgVideo
+                APC Logo
             </span>
             <ul >
-                <li className="">
-                    Home
+                <li onClick={() => handleMovePage("/home")}>
+                    HOME
                 </li>
-                <li className="">
-                    About
+                <li onClick={() => handleMovePage("/about")}>
+                    ABOUT
                 </li>
-                <li className="">
-                    Contact
+                <li onClick={() => handleMovePage("/podcast")}>
+                    PODCAST
                 </li>
-                <li>
+                {/* <li>
                     <div className="divider"></div>
+                </li> */}
+                <li onClick={() => handleMovePage("/galery")}>
+                    GALERY
                 </li>
-                <li className="portfolio">
-                    My portofolio
+                <li onClick={() => handleMovePage("/achievers")}>
+                    ACHIEVERS
                 </li>
             </ul>
         </nav>
