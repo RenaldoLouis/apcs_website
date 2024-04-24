@@ -50,44 +50,46 @@ const Content = (props) => {
 
             <PeopleReviews />
 
-            <div className="galeryHomeContentContainer color-white">
-                <div className="flex justify-around">
-                    <div>
-                        <div style={{ fontSize: 40 }}>
-                            Galery
-                        </div>
-                        <div style={{ fontSize: 16, width: 392 }}>
-                            Lorem ipsum dolor  sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt  ut labore et dolore magna aliqua.
-                        </div>
-                    </div>
-                    <div>
+            <div className="galeryHomeContentContainer">
+                <div className="container color-white">
+                    <div className="flex justify-around">
                         <div>
-                            Year
-                        </div>
-                        <div className="flex" style={{ gap: 16 }}>
-                            <div className={`yearSelect ${selectedYear === 2019 ? 'selected' : ''}`} style={{ fontSize: 20 }} onClick={() => handleClickChangeYear(2019)}>
-                                2019
+                            <div style={{ fontSize: 40 }}>
+                                Galery
                             </div>
-                            <div className={`yearSelect ${selectedYear === 2021 ? 'selected' : ''}`} style={{ fontSize: 20 }} onClick={() => handleClickChangeYear(2021)}>
-                                2021
-                            </div>
-                            <div className={`yearSelect ${selectedYear === 2023 ? 'selected' : ''}`} style={{ fontSize: 20 }} onClick={() => handleClickChangeYear(2023)}>
-                                2023
+                            <div style={{ fontSize: 16 }}>
+                                Lorem ipsum dolor  sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt  ut labore et dolore magna aliqua.
                             </div>
                         </div>
+                        <div>
+                            <div>
+                                Year
+                            </div>
+                            <div className="flex" style={{ gap: 16 }}>
+                                <div className={`yearSelect ${selectedYear === 2019 ? 'selected' : ''}`} style={{ fontSize: 20 }} onClick={() => handleClickChangeYear(2019)}>
+                                    2019
+                                </div>
+                                <div className={`yearSelect ${selectedYear === 2021 ? 'selected' : ''}`} style={{ fontSize: 20 }} onClick={() => handleClickChangeYear(2021)}>
+                                    2021
+                                </div>
+                                <div className={`yearSelect ${selectedYear === 2023 ? 'selected' : ''}`} style={{ fontSize: 20 }} onClick={() => handleClickChangeYear(2023)}>
+                                    2023
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <div style={{ textAlign: "center" }}>
-                    <div>
-                        2023
+                    <div style={{ textAlign: "center" }}>
+                        <div>
+                            2023
+                        </div>
+                        <div>
+                            Christmast Wonderland
+                        </div>
                     </div>
-                    <div>
-                        Christmast Wonderland
+                    <Galery />
+                    <div className="flex justify-center">
+                        <PillButton text={"View More"} />
                     </div>
-                </div>
-                <Galery />
-                <div className="flex justify-center">
-                    <PillButton text={"View More"} />
                 </div>
             </div>
 

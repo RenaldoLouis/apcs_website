@@ -25,7 +25,7 @@ const PeopleReviews = () => {
                             <div style={{ color: "white" }}>
                                 Lorem Ipsum
                             </div>
-                            <div style={{ width: 392, color: "white" }}>
+                            <div style={{ color: "white" }}>
                                 Lorem ipsum dolor  sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt  ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud  exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
                             </div>
                             <div style={{ marginTop: 23 }}>
