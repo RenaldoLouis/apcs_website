@@ -15,21 +15,19 @@ const Home = (props) => {
 
     const { audio } = props
     return (
-        <div>
-            <Content
-                audio={audio}
-            />
-            {/* <Galery /> */}
-            {/* <GalerySlider /> */}
-            {/* <Pagination />
-            <Accordion /> */}
+        <Content
+            audio={audio}
+        />
+        //            <Galery /> 
+        //    <GalerySlider /> 
+        //    <Pagination />
+        //             <Accordion /> 
 
-            {/* <div className="container" style={{ background: "grey", width: 300, margin: 25, cursor: "pointer" }} onClick={handleDirectToWhatsApp}>
-                Contact Admin Here
-            </div> */}
+        //    <div className="container" style={{ background: "grey", width: 300, margin: 25, cursor: "pointer" }} onClick={handleDirectToWhatsApp}>
+        //                 Contact Admin Here
+        //             </div> 
 
-            {/* <AvatarIcon /> */}
-        </div>
+        //    <AvatarIcon /> 
     )
 }
 

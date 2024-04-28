@@ -10,7 +10,7 @@ const images = [
     "https://images.unsplash.com/photo-1656077217715-bdaeb06bd01f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1200&q=80"
 ]
 
-const Carousel = ({ interval = 5000 }) => {
+const Carousel = ({ interval = 5000, homePage = true }) => {
     const [currentIndex, setCurrentIndex] = useState(0);
 
     useEffect(() => {
@@ -54,14 +54,42 @@ const Carousel = ({ interval = 5000 }) => {
                         titleCenter 3
                     </div>
                 </div>
-                <div className="slider-nav">
-                    <div className='slider-nav-dot' style={{ opacity: currentIndex === 0 ? 1 : 0.75, cursor: "pointer" }} onClick={() => setCurrentIndex(0)}></div>
-                    <div className='slider-nav-dot' style={{ opacity: currentIndex === 1 ? 1 : 0.75, cursor: "pointer" }} onClick={() => setCurrentIndex(1)}></div>
-                    <div className='slider-nav-dot' style={{ opacity: currentIndex === 2 ? 1 : 0.75, cursor: "pointer" }} onClick={() => setCurrentIndex(2)}></div>
-                </div>
-                <div className='registerButtonContainer'>
-                    <PillButton text={"Register Now"} />
-                </div>
+
+                {homePage ? (
+                    <div className={"slider-nav"}>
+                        <div className='slider-nav-dot' style={{ opacity: currentIndex === 0 ? 1 : 0.75, cursor: "pointer" }} onClick={() => setCurrentIndex(0)}></div>
+                        <div className='slider-nav-dot' style={{ opacity: currentIndex === 1 ? 1 : 0.75, cursor: "pointer" }} onClick={() => setCurrentIndex(1)}></div>
+                        <div className='slider-nav-dot' style={{ opacity: currentIndex === 2 ? 1 : 0.75, cursor: "pointer" }} onClick={() => setCurrentIndex(2)}></div>
+                    </div>
+                ) : (
+                    <div className="slider-nav-leftSide">
+                        <div
+                            style={{ marginLeft: 28, display: "flex", columnGap: "1rem" }}>
+                            <div className='slider-nav-dot' style={{ opacity: currentIndex === 0 ? 1 : 0.75, cursor: "pointer" }} onClick={() => setCurrentIndex(0)}></div>
+                            <div className='slider-nav-dot' style={{ opacity: currentIndex === 1 ? 1 : 0.75, cursor: "pointer" }} onClick={() => setCurrentIndex(1)}></div>
+                            <div className='slider-nav-dot' style={{ opacity: currentIndex === 2 ? 1 : 0.75, cursor: "pointer" }} onClick={() => setCurrentIndex(2)}></div>
+                        </div>
+                        <div className="carousel-next" />
+                    </div>
+                )}
+
+                {homePage ? (
+                    <div className='registerButtonContainer'>
+                        <PillButton text={"Register Now"} />
+                    </div>
+                ) : (
+                    <div className="registerButtonContainer-leftSide">
+                        <div style={{ color: "white", marginLeft: 25 }}>
+                            <p>
+                                2023 A Christmas Wonderland
+                            </p>
+                            <p style={{ width: "35vw" }}>
+                                Lorem ipsum dolor  sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt  ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud  exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                            </p>
+                        </div>
+                        <div className="carousel-next" />
+                    </div>
+                )}
             </div>
         </>
     );

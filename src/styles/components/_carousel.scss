@@ -7,6 +7,15 @@
   justify-content: space-between;
 }
 
+.registerButtonContainer-leftSide {
+  position: absolute;
+  top: 70%;
+  transform: translateY(-50%);
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
 .carousel-prev {
   background: transparent;
   border: none;
@@ -53,6 +62,15 @@
   left: 50%;
   transform: translateX(-50%);
   z-index: 1;
+}
+
+.slider-nav-leftSide {
+  position: absolute;
+  top: 62%;
+  transform: translateY(-50%);
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
 }
 
 .slider-nav-dot {
