@@ -83,7 +83,7 @@ const Carousel = ({ interval = 5000, homePage = true }) => {
                             <p>
                                 2023 A Christmas Wonderland
                             </p>
-                            <p style={{ width: "35vw" }}>
+                            <p style={{ width: "50vw", height: 100 }}>
                                 Lorem ipsum dolor  sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt  ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud  exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
                             </p>
                         </div>
