@@ -12,7 +12,7 @@ const AnimationWWScroll = (props) => {
         <div style={{ height: "100vh", width: "100vw", position: "relative" }}>
             <Canvas gl={{ antialias: false }} dpr={[1, 1.5]}>
                 <Suspense fallback={null}>
-                    <ScrollControls horizontal pages={3} distance={1} style={{ overflow: "hidden !important" }}>
+                    <ScrollControls infinite horizontal pages={3} distance={1} style={{ overflow: "hidden !important" }}>
                         <Scroll>
                             <Slides />
                         </Scroll>
