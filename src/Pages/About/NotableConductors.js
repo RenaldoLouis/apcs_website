@@ -47,7 +47,7 @@ const NotableConductors = () => {
                         </div>
                     </div>
                     <div className="col" style={{ color: "white" }}>
-                        <img style={{ width: 630, height: 522 }} />
+                        <img style={{ width: "100%", height: 522 }} />
                     </div>
                     <div className="col" style={{ color: "white" }}>
                         <div>

@@ -7,10 +7,10 @@ import TextSlides from "./TextSlides"
 const AnimationWWScroll = () => {
 
     return (
-        <div style={{ height: "100vh", overflowX: "hidden" }}>
+        <div style={{ height: "100vh" }}>
             <Canvas gl={{ antialias: false }} dpr={[1, 1.5]}>
                 <Suspense fallback={null}>
-                    <ScrollControls infinite horizontal pages={3} distance={1}>
+                    <ScrollControls infinite horizontal pages={3} distance={1} style={{ overflow: "hidden !important" }}>
                         <Scroll>
                             <Slides />
                         </Scroll>
