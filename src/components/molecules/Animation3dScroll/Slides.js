@@ -20,9 +20,7 @@ const Slides = () => {
                     delta
                 )
 
-                //   @ts-ignore
                 ref.current.material.grayscale = MathUtils.damp(
-                    // @ts-ignore
                     ref.current.material.grayscale,
                     Math.max(0, 1 - data.delta * 1000),
                     4,
