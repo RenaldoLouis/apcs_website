@@ -26,17 +26,19 @@ const Content = (props) => {
                             <img src={goldenLine} alt={`goldenLine`} style={{ width: "100%" }} />
                         </div>
                     </div>
-                    <div className="row justify-center">
-                        <div className="col-md-auto">
-                            <div style={{ color: "white" }}>
-                                LOREM IPSUM DOLOR SI AMET TARA
+                    <div style={{margin:"47px 0px 47px 0px"}}>
+                        <div className="row justify-center">
+                            <div className="col-md-6">
+                                <div className="goldenText">
+                                    A PIANO CONCERTO SERIES
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div className="row justify-center">
-                        <div className="col-md-auto">
-                            <div style={{ color: "white" }}>
-                                Lorem ipsum dolor  sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt  ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud  exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.  Duis aute irure dolor in reprehenderit in voluptate velit esse cillum  dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non  proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                        <div className="row justify-center">
+                            <div className="col-md-6">
+                                <div style={{ color: "white" }}>
+                                    A Piano Concerto Series is an annual music series, designed in a thematic project, shaped in a piano concerto format where the pianist is accompanied by orchestra and conductor.
+                                </div>
                             </div>
                         </div>
                     </div>
