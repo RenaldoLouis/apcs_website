@@ -110,13 +110,13 @@
   padding: 80px 16px 16px 16px;
 }
 
-.yearSelect {
+.itemMenuSelected {
   cursor: pointer;
   position: relative;
   font-size: 20px;
 }
 
-.yearSelect::after {
+.itemMenuSelected::after {
   content: '';
   position: absolute;
   bottom: 0;
@@ -127,12 +127,12 @@
   transition: width 600ms ease;
 }
 
-.yearSelect.selected::after {
+.itemMenuSelected.selected::after {
   width: 100%;
   left: 0;
 }
 
-.yearSelect:hover::after {
+.itemMenuSelected:hover::after {
   width: 100%;
   left: 0;
 }

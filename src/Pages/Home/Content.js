@@ -68,13 +68,13 @@ const Content = (props) => {
                                 Year
                             </div>
                             <div className="flex" style={{ gap: 16 }}>
-                                <div className={`yearSelect ${selectedYear === 2019 ? 'selected' : ''}`} style={{ fontSize: 20 }} onClick={() => handleClickChangeYear(2019)}>
+                                <div className={`itemMenuSelected ${selectedYear === 2019 ? 'selected' : ''}`} style={{ fontSize: 20 }} onClick={() => handleClickChangeYear(2019)}>
                                     2019
                                 </div>
-                                <div className={`yearSelect ${selectedYear === 2021 ? 'selected' : ''}`} style={{ fontSize: 20 }} onClick={() => handleClickChangeYear(2021)}>
+                                <div className={`itemMenuSelected ${selectedYear === 2021 ? 'selected' : ''}`} style={{ fontSize: 20 }} onClick={() => handleClickChangeYear(2021)}>
                                     2021
                                 </div>
-                                <div className={`yearSelect ${selectedYear === 2023 ? 'selected' : ''}`} style={{ fontSize: 20 }} onClick={() => handleClickChangeYear(2023)}>
+                                <div className={`itemMenuSelected ${selectedYear === 2023 ? 'selected' : ''}`} style={{ fontSize: 20 }} onClick={() => handleClickChangeYear(2023)}>
                                     2023
                                 </div>
                             </div>

@@ -21,7 +21,7 @@ const GaleryContent = () => {
                     {ListEvent.map((eachEvent) => {
 
                         return (
-                            <div className={`yearSelect ${selectedEvent === eachEvent.title ? 'selected' : ''}`} onClick={() => handleClickEvent(eachEvent.title)}>
+                            <div className={`itemMenuSelected ${selectedEvent === eachEvent.title ? 'selected' : ''}`} onClick={() => handleClickEvent(eachEvent.title)}>
                                 <div>
                                     {eachEvent.year}
                                 </div>
