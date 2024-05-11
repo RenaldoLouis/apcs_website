@@ -15,9 +15,11 @@ const AnimationWWScroll = (props) => {
             let child = animationScrollContainer.children
             let child2 = child[0].children[0].children
             let child3 = child2[1]
-            child3.style.overscrollBehavior = "contain"
-            child3.style.overflow = "hidden auto"
-        }, 800);
+            if (child3) {
+                child3.style.overscrollBehavior = "contain"
+                child3.style.overflow = "hidden auto"
+            }
+        }, 500);
     }, [])
 
     return (

@@ -19,7 +19,7 @@ const Content = (props) => {
     return (
         <div>
             <Carousel />
-            <div className="homeContentContainer">
+            <div className="primaryBackgroundBlack homeContentContainer">
                 <div className="container">
                     <div className="row justify-center">
                         <div className="col-md-auto ">
@@ -52,7 +52,7 @@ const Content = (props) => {
 
             <PeopleReviews />
 
-            <div className="galeryHomeContentContainer">
+            <div className="primaryBackgroundBlack galeryHomeContentContainer">
                 <div className="container color-white">
                     <div className="flex justify-around">
                         <div>
