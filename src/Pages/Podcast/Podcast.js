@@ -6,7 +6,6 @@ const Podcast = () => {
     return (
         <div>
             <CoverImage />
-
         </div>
     )
 }

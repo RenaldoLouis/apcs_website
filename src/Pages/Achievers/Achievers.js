@@ -1,10 +1,13 @@
 import React from "react";
+import CoverImage from "../../components/molecules/CoverImage";
+import SapphireWinnerSection from "./SapphireWinnerSection";
 
 const Achievers = () => {
 
     return (
         <div>
-            Achievers Page
+           <CoverImage/>
+            <SapphireWinnerSection />
         </div>
     )
 }
