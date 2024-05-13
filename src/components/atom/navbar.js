@@ -1,36 +1,38 @@
-import React from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import { PathName } from "../../constant/PathName";
 
 const Navbar = () => {
+
+    const [currentPage, setCurrentPage] = useState();
+
     const navigate = useNavigate();
+
+    const location = useLocation();
 
     const handleMovePage = (path) => {
         navigate(path);
     }
+
+    useEffect(() => {
+        setCurrentPage(location.pathname)
+    }, [location])
+
     return (
         <nav className="navbarContainer">
             <span className="text-3xl">
                 APC Logo
             </span>
             <ul >
-                <li onClick={() => handleMovePage("/home")}>
-                    HOME
-                </li>
-                <li onClick={() => handleMovePage("/about")}>
-                    ABOUT
-                </li>
-                <li onClick={() => handleMovePage("/podcast")}>
-                    PODCAST
-                </li>
-                {/* <li>
-                    <div className="divider"></div>
-                </li> */}
-                <li onClick={() => handleMovePage("/galery")}>
-                    GALERY
-                </li>
-                <li onClick={() => handleMovePage("/achievers")}>
-                    ACHIEVERS
-                </li>
+                {Object.keys(PathName).map((eachPath) => {
+                    let path = PathName[eachPath]
+                    let navbarName = PathName[eachPath].substring(1);
+                    return (
+                        <li className={currentPage === path ? "selectedNavbar" : ""} onClick={() => handleMovePage(path)}>
+                            {navbarName.toUpperCase()}
+                        </li>
+                    )
+                })}
             </ul>
         </nav>
     );

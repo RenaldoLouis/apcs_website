@@ -12,12 +12,14 @@ const AnimationWWScroll = (props) => {
     useEffect(() => {
         setTimeout(() => {
             const animationScrollContainer = document.getElementById('animationScrollContainer');
-            let child = animationScrollContainer.children
-            let child2 = child[0].children[0].children
-            let child3 = child2[1]
-            if (child3) {
-                child3.style.overscrollBehavior = "contain"
-                child3.style.overflow = "hidden auto"
+            if (animationScrollContainer) {
+                let child = animationScrollContainer.children
+                let child2 = child[0]?.children[0]?.children
+                let child3 = child2[1]
+                if (child3) {
+                    child3.style.overscrollBehavior = "contain"
+                    child3.style.overflow = "hidden auto"
+                }
             }
         }, 500);
     }, [])

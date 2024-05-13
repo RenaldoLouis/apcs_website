@@ -3,10 +3,14 @@ import ArrowUp from "../../assets/icons/ArrowUp.png"
 
 const Footer = () => {
 
+    const handleClickScrollToTop = ()=>{
+        window.scrollTo(0,0);
+    }
+
     return (
         <footer className="footer">
             <div class="container">
-                <img src={ArrowUp} style={{ width: 54, height: 54 }} alt="ArrowUp" />
+                <img className="cursorPointer" src={ArrowUp} style={{ width: 54, height: 54 }} alt="ArrowUp" onClick={handleClickScrollToTop}/>
 
                 <div class="row">
                     <div class="col">
