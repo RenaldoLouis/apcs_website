@@ -3,6 +3,8 @@ import arrowRightCover from "../../assets/icons/arrowRightCover.png"
 import arrowLeftCover from "../../assets/icons/arrowLeftCover.png"
 import PillButton from '../atom/PillButton';
 import coverImage1 from "../../assets/images/coverImage1.png"
+import { logEvent } from "firebase/analytics";
+import { analytics } from '../../firebase';
 
 const images = [
     coverImage1,
@@ -28,6 +30,10 @@ const Carousel = ({ interval = 5000, homePage = true }) => {
     const goToNextSlide = () => {
         setCurrentIndex((prevIndex) => (prevIndex === images.length - 1 ? 0 : prevIndex + 1));
     };
+
+    const handleClickRegisterNow = ()=>{
+        logEvent(analytics, 'register_now');
+    }
 
     return (
         <>
@@ -74,7 +80,7 @@ const Carousel = ({ interval = 5000, homePage = true }) => {
                 )}
 
                 {homePage ? (
-                    <div className='registerButtonContainer'>
+                    <div className='cursorPointer registerButtonContainer' onClick={handleClickRegisterNow}>
                         <PillButton text={"Register Now"} />
                     </div>
                 ) : (
