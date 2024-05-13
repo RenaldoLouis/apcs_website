@@ -32,7 +32,7 @@ const GaleryContent = () => {
                         )
                     })}
                 </div>
-                <Galery />
+                <Galery isDynamicType={true} />
                 <div className="flex justify-center">
                     <PillButton text={"View More"} />
                 </div>
