@@ -6,7 +6,6 @@ const Pagination = () => {
     const containerRef = useRef();
 
     const [datas, setDatas] = useState([])
-    // const [latestData, setLatestData] = useState(null)
     const [isGetLatestImage, setIsGetLatestImage] = useState(false);
 
     let latestData = null
@@ -23,9 +22,7 @@ const Pagination = () => {
                             setIsGetLatestImage(true)
                         }
                         setDatas((prevState) => [...prevState, ...newData]);
-                        // setLatestData(querySnapshot.docs[querySnapshot.docs.length - 1])
                         latestData = querySnapshot.docs[querySnapshot.docs.length - 1]
-                        // setLatestData(querySnapshot.docs[querySnapshot.docs.length - 1])
                     }
                 })
                 .catch((error) => {

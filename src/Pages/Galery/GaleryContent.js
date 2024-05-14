@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { ListEvent, YearlyEvent } from "../../constant/YearlyEvent";
 import Galery from "./Galery";
 import PillButton from "../../components/atom/PillButton";
+import Pagination from "../../components/molecules/Pagination";
 
 const GaleryContent = () => {
 
@@ -19,7 +20,6 @@ const GaleryContent = () => {
                 </div>
                 <div className="flex color-white" style={{ gap: 86 }}>
                     {ListEvent.map((eachEvent) => {
-
                         return (
                             <div className={`itemMenuSelected ${selectedEvent === eachEvent.title ? 'selected' : ''}`} onClick={() => handleClickEvent(eachEvent.title)}>
                                 <div>
@@ -33,9 +33,11 @@ const GaleryContent = () => {
                     })}
                 </div>
                 <Galery isDynamicType={true} />
-                <div className="flex justify-center">
+                <div className="flex justify-center" style={{ marginTop: 57 }}>
                     <PillButton text={"View More"} />
                 </div>
+
+                <Pagination />
             </div>
         </div>
     )
