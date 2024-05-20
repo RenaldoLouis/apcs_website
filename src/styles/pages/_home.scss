@@ -110,6 +110,14 @@
   padding: 80px 16px 16px 16px;
 }
 
+.itemMenuSelectedNavbarBackgoundColor::after {
+  background-color: $primary-golden-text-color !important;
+}
+
+.textColorNavbarSelected {
+  color: $primary-golden-text-color;
+}
+
 .itemMenuSelected {
   cursor: pointer;
   position: relative;
@@ -135,6 +143,12 @@
 .itemMenuSelected:hover::after {
   width: 100%;
   left: 0;
+}
+
+.itemMenuSelectedNavbarBackgoundColor:hover {
+  width: 100%;
+  left: 0;
+  color: $primary-golden-text-color;
 }
 
 .whitePill {

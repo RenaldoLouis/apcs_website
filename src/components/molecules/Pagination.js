@@ -54,7 +54,7 @@ const Pagination = () => {
     }, [fetchPost]);
 
     return (
-        <article ref={containerRef} className="container" style={{ maxHeight: "700px", overflow: "auto" }}>
+        <article ref={containerRef} className="container" style={{ maxHeight: "700px", overflow: "auto", scrollbarWidth: "none" }}>
             {datas && datas.length > 0 && datas.map((eachData) => {
                 return (
                     <div key={eachData.title} style={{ background: "red", margin: 15 }}>
