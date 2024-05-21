@@ -39,7 +39,7 @@ const Pagination = () => {
         const container = containerRef.current;
 
         const handleScroll = () => {
-            const isAtBottom = container.scrollTop + container.clientHeight === container.scrollHeight;
+            const isAtBottom = Math.abs(container.scrollTop + container.clientHeight - container.scrollHeight) < 1;
 
             if (isAtBottom) {
                 fetchPost();
