@@ -12,15 +12,17 @@ import { getAuth, signOut } from "firebase/auth";
 import { auth } from '../../firebase';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import UserContent from './UserContent';
+import AdminContent from './AdminContent';
 
 const { Header, Content, Footer, Sider } = Layout;
 function getItem(label, key, icon, onClick, children) {
     return {
+        label,
         key,
         icon,
-        children,
-        label,
         onClick,
+        children
     };
 }
 
@@ -31,30 +33,46 @@ const AdminDashboard = () => {
     const [collapsed, setCollapsed] = useState(false);
     const { token: { colorBgContainer, borderRadiusLG }, } = theme.useToken();
 
+    const [selectedKey, setSelectedKey] = useState('1'); // Initialize with default selected key
+
     const handleSignOut = () => {
-        console.log("sign out")
+        console.log("sign out");
         signOut(auth).then(() => {
-            navigate("/login")
+            setLoggedInAdmin(null);
+            navigate("/login");
+            toast.success("Succesfully Sign Out")
         }).catch((error) => {
-            toast.error("Sign Out Failed")
+            toast.error("Sign Out Failed");
         });
-    }
+    };
+
+    const onMenuClick = (e) => {
+        setSelectedKey(e.key); // Update selected key
+    };
 
     const items = [
-        getItem('Option 1', '1', <PieChartOutlined />),
-        getItem('Option 2', '2', <DesktopOutlined />),
-        getItem('User', 'sub1', <UserOutlined />, [
+        getItem('User Data', '1', <PieChartOutlined />),
+        getItem('ADmin Data', '2', <DesktopOutlined />),
+        getItem('User', 'sub1', <UserOutlined />, () => { }, [
             getItem('Tom', '3'),
             getItem('Bill', '4'),
             getItem('Alex', '5'),
         ]),
-        getItem('Team', 'sub2', <TeamOutlined />, [getItem('Team 1', '6'), getItem('Team 2', '8')]),
+        getItem('Team', 'sub2', <TeamOutlined />, () => { }, [getItem('Team 1', '6'), getItem('Team 2', '8')]),
         getItem('Sign out', '9', <FileOutlined />, handleSignOut),
     ];
 
 
-
-    console.log("loggedInAdmin", loggedInAdmin)
+    const ShowWhichContent = () => {
+        switch (selectedKey) {
+            case '1':
+                return <UserContent />;
+            case '2':
+                return <AdminContent />;
+            default:
+                return <UserContent />;
+        }
+    };
 
     return (
         <Layout
@@ -64,7 +82,7 @@ const AdminDashboard = () => {
         >
             <Sider collapsible collapsed={collapsed} onCollapse={(value) => setCollapsed(value)}>
                 <div className="demo-logo-vertical" />
-                <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline" items={items} />
+                <Menu onClick={onMenuClick} theme="dark" mode="inline" items={items} selectedKeys={[selectedKey]} />
             </Sider>
             <Layout>
                 <Header
@@ -73,30 +91,7 @@ const AdminDashboard = () => {
                         background: colorBgContainer,
                     }}
                 />
-                <Content
-                    style={{
-                        margin: '0 16px',
-                    }}
-                >
-                    <Breadcrumb
-                        style={{
-                            margin: '16px 0',
-                        }}
-                    >
-                        <Breadcrumb.Item>User</Breadcrumb.Item>
-                        <Breadcrumb.Item>Bill</Breadcrumb.Item>
-                    </Breadcrumb>
-                    <div
-                        style={{
-                            padding: 24,
-                            minHeight: 360,
-                            background: colorBgContainer,
-                            borderRadius: borderRadiusLG,
-                        }}
-                    >
-                        Bill is a cat.
-                    </div>
-                </Content>
+                {ShowWhichContent()}
                 <Footer
                     style={{
                         textAlign: 'center',

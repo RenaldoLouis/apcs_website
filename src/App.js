@@ -21,6 +21,7 @@ import MainLayout from "./components/molecules/MainLayout";
 import GaleryPage from "./Pages/Galery/GaleryPage";
 import Login from "./Pages/Login/Login";
 import AdminDashboard from "./Pages/AdminDashboard/AdminDashboard";
+import ProtectedRoute from "./ProtectedRoute";
 
 
 const audio = new Audio(persona5);
@@ -35,7 +36,11 @@ const Main = () => {
         <Route path="/podcast" element={<MainLayout children={<Podcast />} />} />
         <Route path="/galery" element={<MainLayout children={<GaleryPage />} />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/adminDashboard" element={<AdminDashboard />} />
+        <Route path="/adminDashboard" element={
+          <ProtectedRoute>
+            <AdminDashboard />
+          </ProtectedRoute>
+        } />
         <Route path="*" element={<PublicRoute />} />
       </Routes>
     </AnimatePresence>

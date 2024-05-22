@@ -5,6 +5,7 @@ import { signInWithGooglePopup } from "../../firebase";
 import { PoweroffOutlined } from '@ant-design/icons';
 import { DataContext } from "../../context/DataContext";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const Login = () => {
     const navigate = useNavigate();
@@ -12,12 +13,18 @@ const Login = () => {
     const [loading, setLoading] = useState(false);
 
     const handleSigninGoogle = async () => {
-        setLoading(true)
-        const response = await signInWithGooglePopup();
-        setLoggedInAdmin(response)
-        setLoading(false)
-        navigate("/adminDashboard")
-    }
+        try {
+            setLoading(true);
+            const response = await signInWithGooglePopup();
+            setLoggedInAdmin(response);
+            navigate("/adminDashboard");
+        } catch (error) {
+            console.error("Google sign-in failed", error);
+            toast.error("Google sign-in failed. Please try again.");
+        } finally {
+            setLoading(false);
+        }
+    };
 
     return (
         <div className="centerScreen">
