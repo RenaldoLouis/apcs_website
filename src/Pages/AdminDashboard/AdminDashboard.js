@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import {
     DesktopOutlined,
     FileOutlined,
@@ -7,32 +7,55 @@ import {
     UserOutlined,
 } from '@ant-design/icons';
 import { Breadcrumb, Layout, Menu, theme } from 'antd';
+import { DataContext } from '../../context/DataContext';
+import { getAuth, signOut } from "firebase/auth";
+import { auth } from '../../firebase';
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
+
 const { Header, Content, Footer, Sider } = Layout;
-function getItem(label, key, icon, children) {
+function getItem(label, key, icon, onClick, children) {
     return {
         key,
         icon,
         children,
         label,
+        onClick,
     };
 }
-const items = [
-    getItem('Option 1', '1', <PieChartOutlined />),
-    getItem('Option 2', '2', <DesktopOutlined />),
-    getItem('User', 'sub1', <UserOutlined />, [
-        getItem('Tom', '3'),
-        getItem('Bill', '4'),
-        getItem('Alex', '5'),
-    ]),
-    getItem('Team', 'sub2', <TeamOutlined />, [getItem('Team 1', '6'), getItem('Team 2', '8')]),
-    getItem('Files', '9', <FileOutlined />),
-];
 
 const AdminDashboard = () => {
+    const navigate = useNavigate();
+
+    const { loggedInAdmin, setLoggedInAdmin } = useContext(DataContext);
     const [collapsed, setCollapsed] = useState(false);
-    const {
-        token: { colorBgContainer, borderRadiusLG },
-    } = theme.useToken();
+    const { token: { colorBgContainer, borderRadiusLG }, } = theme.useToken();
+
+    const handleSignOut = () => {
+        console.log("sign out")
+        signOut(auth).then(() => {
+            navigate("/login")
+        }).catch((error) => {
+            toast.error("Sign Out Failed")
+        });
+    }
+
+    const items = [
+        getItem('Option 1', '1', <PieChartOutlined />),
+        getItem('Option 2', '2', <DesktopOutlined />),
+        getItem('User', 'sub1', <UserOutlined />, [
+            getItem('Tom', '3'),
+            getItem('Bill', '4'),
+            getItem('Alex', '5'),
+        ]),
+        getItem('Team', 'sub2', <TeamOutlined />, [getItem('Team 1', '6'), getItem('Team 2', '8')]),
+        getItem('Sign out', '9', <FileOutlined />, handleSignOut),
+    ];
+
+
+
+    console.log("loggedInAdmin", loggedInAdmin)
+
     return (
         <Layout
             style={{

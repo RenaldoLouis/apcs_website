@@ -1,82 +1,38 @@
-import React from "react";
+import React, { useContext, useState } from "react";
 
-import { Button, Checkbox, Form, Input, Card, Col, Row } from 'antd';
+import { Button, Checkbox, Form, Input, Card, Col, Row, Flex } from 'antd';
+import { signInWithGooglePopup } from "../../firebase";
+import { PoweroffOutlined } from '@ant-design/icons';
+import { DataContext } from "../../context/DataContext";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
-    const onFinish = (values) => {
-        console.log('Success:', values);
-    };
-    const onFinishFailed = (errorInfo) => {
-        console.log('Failed:', errorInfo);
-    };
+    const navigate = useNavigate();
+    const { loggedInAdmin, setLoggedInAdmin } = useContext(DataContext);
+    const [loading, setLoading] = useState(false);
+
+    const handleSigninGoogle = async () => {
+        setLoading(true)
+        const response = await signInWithGooglePopup();
+        setLoggedInAdmin(response)
+        setLoading(false)
+        navigate("/adminDashboard")
+    }
+
     return (
         <div className="centerScreen">
-            <Form
-                name="basic"
-                labelCol={{
-                    span: 8,
-                }}
-                wrapperCol={{
-                    span: 16,
-                }}
-                style={{
-                    maxWidth: 600,
-                }}
-                initialValues={{
-                    remember: true,
-                }}
-                onFinish={onFinish}
-                onFinishFailed={onFinishFailed}
-                autoComplete="off"
-            >
-                <Form.Item
-                    label="Username"
-                    name="username"
-                    rules={[
-                        {
-                            required: true,
-                            message: 'Please input your username!',
-                        },
-                    ]}
-                >
-                    <Input />
-                </Form.Item>
-
-                <Form.Item
-                    label="Password"
-                    name="password"
-                    rules={[
-                        {
-                            required: true,
-                            message: 'Please input your password!',
-                        },
-                    ]}
-                >
-                    <Input.Password />
-                </Form.Item>
-
-                <Form.Item
-                    name="remember"
-                    valuePropName="checked"
-                    wrapperCol={{
-                        offset: 8,
-                        span: 16,
-                    }}
-                >
-                    <Checkbox>Remember me</Checkbox>
-                </Form.Item>
-
-                <Form.Item
-                    wrapperCol={{
-                        offset: 8,
-                        span: 16,
-                    }}
-                >
-                    <Button type="primary" htmlType="submit">
-                        Submit
+            <Flex gap="small" vertical>
+                <Flex gap="small" wrap>
+                    <Button
+                        type="primary"
+                        icon={<PoweroffOutlined />}
+                        loading={loading}
+                        onClick={handleSigninGoogle}
+                    >
+                        Sign in
                     </Button>
-                </Form.Item>
-            </Form>
+                </Flex>
+            </Flex>
         </div>
     )
 }
