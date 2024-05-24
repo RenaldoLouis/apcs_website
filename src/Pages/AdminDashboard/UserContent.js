@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import {
     DesktopOutlined,
     FileOutlined,
@@ -12,11 +12,18 @@ import { getAuth, signOut } from "firebase/auth";
 import { auth } from '../../firebase';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import { collection, getDocs, limit, query, startAfter, orderBy } from "firebase/firestore";
 
+import { db } from '../../firebase';
 import { Table } from 'antd';
+import usePaginatedUsers from '../../hooks/useFetchUsersData';
 
 const { Header, Content, Footer, Sider } = Layout;
+
 const UserContent = () => {
+
+    const { userDatas, loading, error, page, setPage, totalPages } = usePaginatedUsers(10);
+
     const columns = [
         {
             title: 'Name',
@@ -63,6 +70,7 @@ const UserContent = () => {
             width: '40%',
         },
     ];
+
     const data = [
         {
             key: '1',
@@ -89,10 +97,19 @@ const UserContent = () => {
             address: 'London No. 2 Lake Park',
         },
     ];
+
+    const { token: { colorBgContainer, borderRadiusLG }, } = theme.useToken();
+
     const onChange = (pagination, filters, sorter, extra) => {
         console.log('params', pagination, filters, sorter, extra);
     };
-    const { token: { colorBgContainer, borderRadiusLG }, } = theme.useToken();
+
+    const handlePageChange = (newPage) => {
+        setPage(newPage);
+    };
+
+    console.log("userDatas", userDatas)
+
     return (
         <Content
             style={{
