@@ -9,6 +9,7 @@ import {
 const Navbar = () => {
 
     const [currentPage, setCurrentPage] = useState();
+    const [isNavbarMobileOpen, setIsNavbarMobileOpen] = useState(false);
 
     const navigate = useNavigate();
 
@@ -22,14 +23,27 @@ const Navbar = () => {
         setCurrentPage(location.pathname)
     }, [location])
 
+    const handleOpenMenuMobile = () => {
+        setIsNavbarMobileOpen(true)
+    }
+
+    const handleCloseMenuMobile = () => {
+        setIsNavbarMobileOpen(false)
+    }
+
     return (
         <nav className="navbarContainer">
             <span className="logoContainer">
                 <img src={apcLogo} alt="apcsLogo" />
             </span>
-            <div className="menuNavbarContainer">
-                <MenuOutlined />
-                <CloseOutlined />
+            <div className="logoContainerMobile">
+                <MenuOutlined style={{ visibility: "hidden" }} />
+                <MenuOutlined style={{ visibility: "hidden" }} />
+                <MenuOutlined style={{ visibility: "hidden" }} />
+                <MenuOutlined onClick={handleOpenMenuMobile} />
+            </div>
+            <div className={`menuNavbarContainer  ${isNavbarMobileOpen ? "open" : ""}`}>
+                <CloseOutlined className="logoContainerMobile" onClick={handleCloseMenuMobile} />
                 <span className="logoContainerMobile">
                     <img src={apcLogo} alt="apcsLogo" />
                 </span>
@@ -44,27 +58,6 @@ const Navbar = () => {
                 })}
             </div>
         </nav>
-        // <nav>
-        //     <input type="checkbox" id="sidebar-active" />
-        //     <label for="sidebar-active" className="open-sidebar-button">
-        //         <MenuOutlined />
-        //     </label>
-
-        //     <div className="links-container">
-        //         <label for="sidebar-active" className="close-sidebar-button">
-        //             <CloseOutlined />
-        //         </label>
-        //         {Object.keys(PathName).map((eachPath) => {
-        //             let path = PathName[eachPath]
-        //             let navbarName = PathName[eachPath].substring(1);
-        //             return (
-        //                 <div className={`itemMenuSelectedNavbarBackgoundColor itemMenuSelected ${currentPage === path ? "selected textColorNavbarSelected" : ""}`} onClick={() => handleMovePage(path)}>
-        //                     {navbarName.toUpperCase()}
-        //                 </div>
-        //             )
-        //         })}
-        //     </div>
-        // </nav>
     );
 }
 
