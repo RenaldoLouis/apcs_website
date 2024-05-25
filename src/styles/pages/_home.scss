@@ -140,16 +140,20 @@
   left: 0;
 }
 
-.itemMenuSelected:hover::after {
-  width: 100%;
-  left: 0;
+
+@media (min-width : 700px) {
+  .itemMenuSelectedNavbarBackgoundColor:hover {
+    width: 100%;
+    left: 0;
+    color: $primary-golden-text-color;
+  }
+
+  .itemMenuSelected:hover::after {
+    width: 100%;
+    left: 0;
+  }
 }
 
-.itemMenuSelectedNavbarBackgoundColor:hover {
-  width: 100%;
-  left: 0;
-  color: $primary-golden-text-color;
-}
 
 .whitePill {
   border: 1px solid white;

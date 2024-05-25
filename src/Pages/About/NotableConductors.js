@@ -10,7 +10,7 @@ const NotableConductors = () => {
                 </div>
                 <div className="text-align-center align-items-center row" style={{ paddingTop: 120, paddingBottom: 120 }}>
                     <div className="col" style={{ color: "white" }}>
-                        <img style={{ width: 630, height: 522 }} />
+                        <img style={{ width: "100%", height: 522 }} alt="" />
                     </div>
                     <div className="col" style={{ color: "white" }}>
                         <div>
@@ -31,7 +31,7 @@ const NotableConductors = () => {
                         </div>
                     </div>
                     <div className="col" style={{ color: "white" }}>
-                        <img style={{ width: 630, height: 522 }} />
+                        <img style={{ width: "100%", height: 522 }} alt="" />
                     </div>
                 </div>
                 <div className="text-align-center" style={{ color: "white" }}>

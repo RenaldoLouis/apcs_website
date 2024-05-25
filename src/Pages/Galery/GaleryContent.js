@@ -18,7 +18,7 @@ const GaleryContent = () => {
                 <div className="color-white" style={{ marginBottom: 74 }}>
                     YEAR
                 </div>
-                <div className="flex color-white" style={{ gap: 86 }}>
+                <div className="flex color-white">
                     {ListEvent.map((eachEvent) => {
                         return (
                             <div className={`itemMenuSelected ${selectedEvent === eachEvent.title ? 'selected' : ''}`} onClick={() => handleClickEvent(eachEvent.title)}>
