@@ -17,7 +17,7 @@ const usePaginatedUsers = (pageSize = 10) => {
             const offset = (pageNumber - 1) * pageSize;
             let q = query(
                 collection(db, "users"),
-                orderBy("name"), // Adjust the field according to your needs
+                orderBy("name"),
                 limit(pageSize)
             );
 

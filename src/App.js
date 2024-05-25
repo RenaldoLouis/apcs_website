@@ -22,6 +22,7 @@ import GaleryPage from "./Pages/Galery/GaleryPage";
 import Login from "./Pages/Login/Login";
 import AdminDashboard from "./Pages/AdminDashboard/AdminDashboard";
 import ProtectedRoute from "./ProtectedRoute";
+import { CookiesProvider } from "react-cookie";
 
 
 const audio = new Audio(persona5);
@@ -49,23 +50,23 @@ const Main = () => {
 
 function App() {
   return (
-    <div>
-      <DataContextProvider>
-        <Router>
-          <ToastContainer
-            autoClose={3000}
-            hideProgressBar={true}
-            newestOnTop={false}
-            closeOnClick
-            rtl={false}
-            pauseOnHover={false}
-            pauseOnFocusLoss={false}
-            position="bottom-left"
-          />
+    <DataContextProvider>
+      <Router>
+        <ToastContainer
+          autoClose={3000}
+          hideProgressBar={true}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnHover={false}
+          pauseOnFocusLoss={false}
+          position="bottom-left"
+        />
+        <CookiesProvider>
           <Main />
-        </Router>
-      </DataContextProvider>
-    </div>
+        </CookiesProvider>
+      </Router>
+    </DataContextProvider>
   );
 }
 

@@ -14,6 +14,8 @@ import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import UserContent from './UserContent';
 import AdminContent from './AdminContent';
+import { useCookies } from 'react-cookie';
+import { CookieKeys } from '../../constant/CookieKeys';
 
 const { Header, Content, Footer, Sider } = Layout;
 function getItem(label, key, icon, onClick, children) {
@@ -28,8 +30,7 @@ function getItem(label, key, icon, onClick, children) {
 
 const AdminDashboard = () => {
     const navigate = useNavigate();
-
-    const { loggedInAdmin, setLoggedInAdmin } = useContext(DataContext);
+    const [cookies, setCookie, removeCookie] = useCookies([CookieKeys.LOGGEDINUSER]);
     const [collapsed, setCollapsed] = useState(false);
     const { token: { colorBgContainer, borderRadiusLG }, } = theme.useToken();
 
@@ -38,7 +39,7 @@ const AdminDashboard = () => {
     const handleSignOut = () => {
         console.log("sign out");
         signOut(auth).then(() => {
-            setLoggedInAdmin(null);
+            removeCookie(CookieKeys.LOGGEDINUSER, { path: '/' });
             navigate("/login");
             toast.success("Succesfully Sign Out")
         }).catch((error) => {

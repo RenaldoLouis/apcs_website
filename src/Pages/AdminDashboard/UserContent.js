@@ -1,20 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import {
-    DesktopOutlined,
-    FileOutlined,
-    PieChartOutlined,
-    TeamOutlined,
-    UserOutlined,
-} from '@ant-design/icons';
 import { Breadcrumb, Layout, Menu, theme } from 'antd';
-import { DataContext } from '../../context/DataContext';
-import { getAuth, signOut } from "firebase/auth";
-import { auth } from '../../firebase';
-import { useNavigate } from 'react-router-dom';
-import { toast } from 'react-toastify';
-import { collection, getDocs, limit, query, startAfter, orderBy } from "firebase/firestore";
-
-import { db } from '../../firebase';
 import { Table } from 'antd';
 import usePaginatedUsers from '../../hooks/useFetchUsersData';
 
@@ -32,14 +17,6 @@ const UserContent = () => {
                 {
                     text: 'Joe',
                     value: 'Joe',
-                },
-                {
-                    text: 'Category 1',
-                    value: 'Category 1',
-                },
-                {
-                    text: 'Category 2',
-                    value: 'Category 2',
                 },
             ],
             filterMode: 'tree',
@@ -100,12 +77,9 @@ const UserContent = () => {
 
     const { token: { colorBgContainer, borderRadiusLG }, } = theme.useToken();
 
-    const onChange = (pagination, filters, sorter, extra) => {
-        console.log('params', pagination, filters, sorter, extra);
-    };
-
-    const handlePageChange = (newPage) => {
-        setPage(newPage);
+    const handlePageChange = (pagination, filters, sorter, extra) => {
+        console.log("pagination", pagination)
+        setPage(pagination);
     };
 
     console.log("userDatas", userDatas)
@@ -124,7 +98,7 @@ const UserContent = () => {
                     borderRadius: borderRadiusLG,
                 }}
             >
-                <Table columns={columns} dataSource={data} onChange={onChange} />
+                <Table columns={columns} dataSource={data} onChange={handlePageChange} />
             </div>
         </Content>
     )
