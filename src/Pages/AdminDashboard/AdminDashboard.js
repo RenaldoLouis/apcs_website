@@ -7,8 +7,8 @@ import {
     UserOutlined,
 } from '@ant-design/icons';
 import { Breadcrumb, Layout, Menu, theme } from 'antd';
-import { DataContext } from '../../context/DataContext';
-import { getAuth, signOut } from "firebase/auth";
+import { DataContext, useAuth } from '../../context/DataContext';
+// import { getAuth, signOut } from "firebase/auth";
 import { auth } from '../../firebase';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
@@ -30,21 +30,14 @@ function getItem(label, key, icon, onClick, children) {
 
 const AdminDashboard = () => {
     const navigate = useNavigate();
-    const [cookies, setCookie, removeCookie] = useCookies([CookieKeys.LOGGEDINUSER]);
+    const { signOut } = useAuth();
     const [collapsed, setCollapsed] = useState(false);
     const { token: { colorBgContainer, borderRadiusLG }, } = theme.useToken();
 
     const [selectedKey, setSelectedKey] = useState('1'); // Initialize with default selected key
 
     const handleSignOut = () => {
-        console.log("sign out");
-        signOut(auth).then(() => {
-            removeCookie(CookieKeys.LOGGEDINUSER, { path: '/' });
-            navigate("/login");
-            toast.success("Succesfully Sign Out")
-        }).catch((error) => {
-            toast.error("Sign Out Failed");
-        });
+        signOut();
     };
 
     const onMenuClick = (e) => {

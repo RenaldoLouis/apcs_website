@@ -50,8 +50,8 @@ const Main = () => {
 
 function App() {
   return (
-    <DataContextProvider>
-      <Router>
+    <Router>
+      <DataContextProvider>
         <ToastContainer
           autoClose={3000}
           hideProgressBar={true}
@@ -65,8 +65,8 @@ function App() {
         <CookiesProvider>
           <Main />
         </CookiesProvider>
-      </Router>
-    </DataContextProvider>
+      </DataContextProvider>
+    </Router>
   );
 }
 
