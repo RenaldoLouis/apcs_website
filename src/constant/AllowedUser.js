@@ -1,0 +1,1 @@
+export const AllowedUser = "renaldolouis555@gmail.com"

@@ -1,8 +1,12 @@
 import { useState, useEffect, useCallback } from 'react';
 import { collection, query, orderBy, limit, startAt, getDocs } from 'firebase/firestore';
 import { db } from '../firebase';
+import { useAuth } from '../context/DataContext';
+import { isEmpty } from 'lodash';
 
 const usePaginatedUsers = (pageSize = 10) => {
+    const { user } = useAuth()
+
     const [userDatas, setUserDatas] = useState([]);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
@@ -57,8 +61,10 @@ const usePaginatedUsers = (pageSize = 10) => {
     }, [pageSize]);
 
     useEffect(() => {
-        fetchUserData(page);
-    }, [fetchUserData, page]);
+        if (!isEmpty(user.token)) {
+            fetchUserData(page);
+        }
+    }, [fetchUserData, page, user.token]);
 
     const totalPages = Math.ceil(totalDocs / pageSize);
 

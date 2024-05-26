@@ -5,6 +5,7 @@ import { auth, provider } from '../firebase';
 import { CookieKeys } from '../constant/CookieKeys';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import { AllowedUser } from '../constant/AllowedUser';
 
 const DataContext = createContext();
 
@@ -35,15 +36,24 @@ export const DataContextProvider = ({ children }) => {
     const signInWithGoogle = async () => {
         const result = await signInWithPopup(auth, provider);
         const token = await result.user.getIdToken();
-        setUser({ ...result.user, token });
-        navigate("/adminDashboard");
+        const tokenResult = await result.user.getIdTokenResult();
+        const userEmail = await result.user.email;
+        if (userEmail === AllowedUser) {
+            setUser({ ...result.user, token });
+            navigate("/adminDashboard");
+        } else {
+            toast.error("Account Is Not Allowed");
+            signOut(true);
+        }
     };
 
-    const signOut = async () => {
+    const signOut = async (withoutToast = false) => {
         try {
             await auth.signOut();
             setUser(null);
-            toast.success("Succesfully Sign Out")
+            if (!withoutToast) {
+                toast.success("Succesfully Sign Out")
+            }
         } catch (e) {
             toast.error("Sign Out Failed");
         }

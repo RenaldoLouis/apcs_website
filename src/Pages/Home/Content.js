@@ -1,6 +1,4 @@
 import React, { useState } from "react";
-import CoverImage from "../../components/molecules/CoverImage";
-import CardHover from "../../components/molecules/CardHover";
 import PeopleReviews from "./PeopleReviews";
 import Galery from "../Galery/Galery";
 import PillButton from "../../components/atom/PillButton";
@@ -26,7 +24,7 @@ const Content = (props) => {
                             <img src={goldenLine} alt={`goldenLine`} style={{ width: "100%" }} />
                         </div>
                     </div>
-                    <div style={{margin:"47px 0px 47px 0px"}}>
+                    <div style={{ margin: "47px 0px 47px 0px" }}>
                         <div className="row justify-center">
                             <div className="col-md-6">
                                 <div className="goldenText">
