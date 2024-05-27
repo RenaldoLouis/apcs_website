@@ -83,11 +83,8 @@ const UserContent = () => {
     const { token: { colorBgContainer, borderRadiusLG }, } = theme.useToken();
 
     const handlePageChange = (pagination, filters, sorter, extra) => {
-        console.log("pagination", pagination)
         setPage(pagination);
     };
-
-    console.log("userDatas", userDatas)
 
     return (
         <Content

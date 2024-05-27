@@ -5,7 +5,7 @@ import { auth, provider } from '../firebase';
 import { CookieKeys } from '../constant/CookieKeys';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { AllowedUser } from '../constant/AllowedUser';
+import FirebaseApi from '../middleware/firebaseApi';
 
 const DataContext = createContext();
 
@@ -16,8 +16,6 @@ export const DataContextProvider = ({ children }) => {
 
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
-    // const [cookies, setCookie, removeCookie] = useCookies([CookieKeys.LOGGEDINUSER]);
-
     useEffect(() => {
         const unsubscribe = auth.onAuthStateChanged(async (user) => {
             if (user) {
@@ -31,14 +29,21 @@ export const DataContextProvider = ({ children }) => {
         });
 
         return () => unsubscribe();
-    }, [navigate]);
+    }, []);
 
     const signInWithGoogle = async () => {
         const result = await signInWithPopup(auth, provider);
         const token = await result.user.getIdToken();
         const tokenResult = await result.user.getIdTokenResult();
         const userEmail = await result.user.email;
-        if (userEmail === AllowedUser) {
+        const whitelistDatas = await FirebaseApi.getWhitelist();
+        let allowed = false;
+        whitelistDatas.forEach((eachData) => {
+            if (eachData.id === userEmail) {
+                allowed = true
+            }
+        })
+        if (allowed) {
             setUser({ ...result.user, token });
             navigate("/adminDashboard");
         } else {
