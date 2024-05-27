@@ -1,9 +1,38 @@
 import React from "react";
+import goldenLine from "../../assets/images/goldenLine.png"
 
 const SapphireWinnerSection = () => {
 
     return (
-        <div className="primaryBackgroundBlack" style={{ paddingTop: 300, paddingBottom: 110 }}>
+        <div className="primaryBackgroundBlack " style={{ paddingTop: 150 }}>
+            <div className="container" style={{ marginBottom: 150 }}>
+                <div className="row justify-center">
+                    <div className="col-md-auto ">
+                        <img src={goldenLine} alt={`goldenLine`} style={{ width: "100%" }} />
+                    </div>
+                </div>
+                <div style={{ margin: "47px 0px 47px 0px" }}>
+                    <div className="row justify-center">
+                        <div className="col-md-6">
+                            <div className="goldenText">
+                                A PIANO CONCERTO SERIES
+                            </div>
+                        </div>
+                    </div>
+                    <div className="row justify-center">
+                        <div className="col-md-6">
+                            <div style={{ color: "white" }}>
+                                A Piano Concerto Series is an annual music series, designed in a thematic project, shaped in a piano concerto format where the pianist is accompanied by orchestra and conductor.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div className="row justify-center">
+                    <div className="col-md-auto">
+                        <img src={goldenLine} alt={`goldenLine`} style={{ width: "100%" }} />
+                    </div>
+                </div>
+            </div>
             <div class="container color-white">
                 <div class="row">
                     <div class="col-sm">
