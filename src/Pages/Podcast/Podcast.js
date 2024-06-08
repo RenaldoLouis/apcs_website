@@ -5,7 +5,7 @@ const Podcast = () => {
 
     return (
         <div>
-            <CoverImage />
+            <CoverImage isVideo={true} />
         </div>
     )
 }

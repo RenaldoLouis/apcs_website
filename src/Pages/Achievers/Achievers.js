@@ -6,7 +6,7 @@ const Achievers = () => {
 
     return (
         <div>
-            <CoverImage />
+            <CoverImage isVideo={true} />
             <SapphireWinnerSection />
         </div>
     )

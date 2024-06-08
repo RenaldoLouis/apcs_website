@@ -4,6 +4,7 @@ import Galery from "../Galery/Galery";
 import PillButton from "../../components/atom/PillButton";
 import goldenLine from "../../assets/images/goldenLine.png"
 import Carousel from "../../components/molecules/CarouselCustom";
+import CoverImage from "../../components/molecules/CoverImage";
 
 const Content = (props) => {
     const { audio } = props
@@ -16,8 +17,7 @@ const Content = (props) => {
 
     return (
         <div>
-            <Carousel />
-            <div className="primaryBackgroundBlack homeContentContainer">
+            <div className="backgroundBlack homeContentContainer">
                 <div className="container">
                     <div className="row justify-center">
                         <div className="col-md-auto ">
