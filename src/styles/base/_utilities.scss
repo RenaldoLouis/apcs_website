@@ -131,7 +131,7 @@
     top: 0;
     left: 0;
     width: 100%;
-    height: 97vh;
+    height: 83vh;
     // background: linear-gradient(to bottom,
     //     rgba(0, 0, 0, 1) 0%,
     //     rgba(0, 0, 0, 1) 10%,
@@ -148,6 +148,37 @@
     pointer-events: none;
 }
 
+
+// if use imageContainer by default should use height auto
+.autoHeight {
+    height: auto;
+}
+
+.image-container-fadedTopBottom {
+    position: relative;
+    // display: inline-block;
+}
+
+.image-container-fadedTopBottom img {
+    display: block;
+    width: 100%;
+    // height: auto;
+}
+
+.image-container-fadedTopBottom::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom,
+            rgb(0, 0, 0) 7%,
+            rgba(0, 0, 0, 0) 15%,
+            rgba(0, 0, 0, 0) 80%,
+            rgb(0, 0, 0) 92%);
+    pointer-events: none;
+}
 
 
 

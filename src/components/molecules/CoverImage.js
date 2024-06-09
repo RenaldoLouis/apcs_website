@@ -10,7 +10,7 @@ const CoverImage = () => {
             <div className="fadeDarkImageTopBottom">
                 <img src={homeScreen}
                     alt="homeScreen"
-                    className='image-container' />
+                    className='homeScreenimage' />
             </div>
 
             <div className="registerButtonContainer-center">
