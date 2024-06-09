@@ -17,51 +17,6 @@ const Content = (props) => {
     return (
         <div>
 
-            <div className="primaryBackgroundBlack galeryHomeContentContainer">
-                <div className="container color-white">
-                    <div className="flex justify-around">
-                        <div>
-                            <div style={{ fontSize: 40 }}>
-                                Galery
-                            </div>
-                            <div style={{ fontSize: 16 }}>
-                                Lorem ipsum dolor  sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt  ut labore et dolore magna aliqua.
-                            </div>
-                        </div>
-                        <div>
-                            <div>
-                                Year
-                            </div>
-                            <div className="flex" style={{ gap: 16 }}>
-                                <div className={`itemMenuSelected ${selectedYear === 2019 ? 'selected' : ''}`} style={{ fontSize: 20 }} onClick={() => handleClickChangeYear(2019)}>
-                                    2019
-                                </div>
-                                <div className={`itemMenuSelected ${selectedYear === 2021 ? 'selected' : ''}`} style={{ fontSize: 20 }} onClick={() => handleClickChangeYear(2021)}>
-                                    2021
-                                </div>
-                                <div className={`itemMenuSelected ${selectedYear === 2023 ? 'selected' : ''}`} style={{ fontSize: 20 }} onClick={() => handleClickChangeYear(2023)}>
-                                    2023
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div style={{ textAlign: "center" }}>
-                        <div>
-                            2023
-                        </div>
-                        <div>
-                            Christmast Wonderland
-                        </div>
-                    </div>
-                    <Galery />
-                    <div className="flex justify-center">
-                        <PillButton text={"View More"} />
-                    </div>
-                </div>
-            </div>
-
-            {/* <CardHover />
-
             <article className="container">
                 <div className="row">
                     <div className="col">
@@ -94,7 +49,7 @@ const Content = (props) => {
                         One of three columns
                     </div>
                 </div>
-            </article> */}
+            </article>
         </div>
     )
 }

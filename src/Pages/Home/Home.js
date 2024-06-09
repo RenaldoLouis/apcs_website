@@ -10,6 +10,9 @@ import Footer from "../../components/molecules/Footer";
 import CoverImage from "../../components/molecules/CoverImage";
 import goldenLine from "../../assets/images/goldenLine.png"
 import PeopleReviews from "./PeopleReviews";
+import pianoKeys from '../../assets/images/pianoKeys.svg';
+import musicForEveryone from "../../assets/images/musicForEveryone.svg"
+import PillButton from "../../components/atom/PillButton";
 
 const Home = (props) => {
     const handleDirectToWhatsApp = () => {
@@ -54,9 +57,25 @@ const Home = (props) => {
 
             <PeopleReviews />
 
-            <Content
+            <div className="image-container-fadedTopBottom autoHeight">
+                <img src={pianoKeys} alt={`pianoKeys`} style={{ width: "100%" }} />
+
+                <div className="musicForEveryone">
+                    <img src={musicForEveryone} alt="apcsLogo" style={{ width: "35%" }} />
+                    <div style={{ color: 'white', width: 370 }}>
+                        We offer a prestigious stage for musicians of all ages and levels to share their deep passion for music with audiences
+
+                        <div style={{ marginTop: 24 }}>
+                            <PillButton text={"see our story"} />
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            {/* <Content
                 audio={audio}
-            />
+            /> */}
             {/* <Galery /> 
             <GalerySlider /> 
             <Pagination />

@@ -193,3 +193,12 @@
   display: flex;
   justify-content: center;
 }
+
+.musicForEveryone {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+}
