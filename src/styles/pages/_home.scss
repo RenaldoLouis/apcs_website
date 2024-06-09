@@ -202,3 +202,13 @@
   display: flex;
   justify-content: space-around;
 }
+
+.experienceDesc {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  text-align: center;
+}

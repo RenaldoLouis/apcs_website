@@ -7,12 +7,15 @@ import Pagination from "../../components/molecules/Pagination";
 import Accordion from "../../components/molecules/Accordion";
 import AvatarIcon from "../../components/molecules/AvatarIcon";
 import Footer from "../../components/molecules/Footer";
+import PillButton from "../../components/atom/PillButton";
 import CoverImage from "../../components/molecules/CoverImage";
 import goldenLine from "../../assets/images/goldenLine.png"
 import PeopleReviews from "./PeopleReviews";
 import pianoKeys from '../../assets/images/pianoKeys.svg';
 import musicForEveryone from "../../assets/images/musicForEveryone.svg"
-import PillButton from "../../components/atom/PillButton";
+import firdyHomeScreen from "../../assets/images/firdyHomeScreen.svg"
+import experienceHomeCropped from "../../assets/images/experienceHomeCropped.jpg"
+import Carousel from "../../components/molecules/CarouselCustom";
 
 const Home = (props) => {
     const handleDirectToWhatsApp = () => {
@@ -72,6 +75,59 @@ const Home = (props) => {
 
                 </div>
             </div>
+
+            <div className="image-container-fadedTopBottom autoHeight">
+                <img src={experienceHomeCropped} alt={`experienceHomeCropped`} style={{ width: "100%" }} />
+
+                <div className="experienceDesc">
+                    <div style={{ color: 'white' }}>
+                        <div className="mangolaineFont" style={{ fontSize: 96, color: "#FFF2DB" }}>
+                            Expereience APCS
+                        </div>
+                        <div >
+                            We bring different experience on each series to give every musicians unforgettable live
+                        </div>
+                        <div >
+                            performances. We can’t wait to welcome you to our next musical Journey.
+                        </div>
+                        <div className="flex justify-center" style={{ marginTop: 24 }}>
+                            <PillButton text={"JOIN US"} />
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div className="image-container-fadedTopBottom autoHeight">
+                <img src={firdyHomeScreen} alt={`firdyHomeScreen`} style={{ width: "100%" }} />
+
+                <div className="musicForEveryone">
+                    <img
+                        src={musicForEveryone}
+                        alt="apcsLogo"
+                        style={{ width: "35%", visibility: "hidden" }}
+                    />
+                    <div style={{ color: 'white', width: 370, textAlign: "center" }}>
+                        <div className="mangolaineFont" style={{ color: "#FFD990" }}>
+                            “SAYA YAKIN ANAK-ANAK MUDA INI
+                            AKAN MENJADI BINTANG DI MASA YANG MENDATANG.”
+                        </div>
+                        <div>
+                            "Selain itu, persiapannya sangat baik, penampilannya seperti kualitas profesional, fondasinya kuat, terlihat langsung kualitas pesertanya yang sudah lebih siap (yang telah melewati audisi dan memenangkan Diamond / Sapphire).
+                            Menurut saya, APCS berkesan sekali"
+                        </div>
+                        <div style={{ marginTop: 24 }}>
+                            - Firdy Salim -
+                            <div>
+                                jury & conductor
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <Carousel />
 
             {/* <Content
                 audio={audio}
