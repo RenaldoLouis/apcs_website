@@ -8,6 +8,8 @@ import Accordion from "../../components/molecules/Accordion";
 import AvatarIcon from "../../components/molecules/AvatarIcon";
 import Footer from "../../components/molecules/Footer";
 import CoverImage from "../../components/molecules/CoverImage";
+import goldenLine from "../../assets/images/goldenLine.png"
+import PeopleReviews from "./PeopleReviews";
 
 const Home = (props) => {
     const handleDirectToWhatsApp = () => {
@@ -18,6 +20,40 @@ const Home = (props) => {
     return (
         <>
             <CoverImage />
+
+            <div className="backgroundBlack homeContentContainer">
+                <div className="container">
+                    <div className="row justify-center">
+                        <div className="col-md-auto ">
+                            <img src={goldenLine} alt={`goldenLine`} style={{ width: "100%" }} />
+                        </div>
+                    </div>
+                    <div style={{ margin: "15px 0px" }}>
+                        <div className="row justify-center">
+                            <div className="col-md-6">
+                                <div className="goldenText mangolaineFont" style={{ fontSize: 40 }}>
+                                    A PIANO CONCERTO SERIES
+                                </div>
+                            </div>
+                        </div>
+                        <div className="row justify-center">
+                            <div className="col-md-6">
+                                <div style={{ color: "white" }}>
+                                    An annual music series, designed in a thematic project and constructed in a piano concerto format where the pianist as the central maestro complemented by the orchestra and conductor.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="row justify-center">
+                        <div className="col-md-auto">
+                            <img src={goldenLine} alt={`goldenLine`} style={{ width: "100%" }} />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <PeopleReviews />
+
             <Content
                 audio={audio}
             />

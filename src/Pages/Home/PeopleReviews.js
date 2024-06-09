@@ -1,12 +1,14 @@
 import React from "react";
 import PeopleQuotes from "../../components/molecules/PeopleQuotes";
 import PillButton from "../../components/atom/PillButton";
-
+import background2 from '../../assets/images/Background2.svg';
 const PeopleReviews = () => {
 
     return (
         <div className="peopleReviewContainer">
-            <div className="container" style={{ paddingTop: 32, paddingBottom: 32 }}>
+            <img src={background2} alt={`background2`} style={{ width: "100%", marginBottom: "-3px" }} />
+
+            {/* <div className="container" style={{ paddingTop: 32, paddingBottom: 32 }}>
                 <div className="row">
                     <div className="col">
                         <div style={{ display: 'flex', gap: 88 }}>
@@ -34,7 +36,7 @@ const PeopleReviews = () => {
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> */}
         </div>
     )
 }

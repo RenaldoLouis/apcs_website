@@ -121,6 +121,32 @@
     transform: translate(-50%, -50%);
 }
 
+.mangolaineFont {
+    font-family: "mangolaine";
+}
+
+.fadeDarkImageTopBottom {
+    content: "";
+    // position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 97vh;
+    // background: linear-gradient(to bottom,
+    //     rgba(0, 0, 0, 1) 0%,
+    //     rgba(0, 0, 0, 1) 10%,
+    //     rgba(0, 0, 0, 0) 50%,
+    //     rgba(0, 0, 0, 1) 80%,
+    //     rgba(0, 0, 0, 1) 100%);
+    background: linear-gradient(to bottom,
+            rgba(0, 0, 0, 1) 0%,
+            rgba(0, 0, 0, 1) 10%,
+            rgba(0, 0, 0, 0) 35%,
+            rgba(0, 0, 0, 0) 60%,
+            rgba(0, 0, 0, 1) 85%,
+            rgba(0, 0, 0, 1) 100%);
+    pointer-events: none;
+}
 
 
 

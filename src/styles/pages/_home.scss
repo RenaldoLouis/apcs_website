@@ -104,6 +104,7 @@
   align-items: center;
   justify-content: center;
   text-align: center;
+  padding-bottom: 43px;
 }
 
 .galeryHomeContentContainer {
@@ -173,11 +174,4 @@
   text-align: center;
   width: fit-content;
   padding: 6px 50px
-}
-
-.peopleReviewContainer {
-  background-image: url('../../assets/images/coverImage1.png');
-  background-size: cover;
-  height: 550px;
-  align-content: center;
 }

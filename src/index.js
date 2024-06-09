@@ -10,6 +10,10 @@ import './styles/main.scss'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.min.js';
 
+import './assets/fonts/mangolaine/mangolaine.ttf';
+import './assets/fonts/mosafin/Mosafin-Bold.ttf';
+
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <App />
