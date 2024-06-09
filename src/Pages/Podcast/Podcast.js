@@ -1,11 +1,11 @@
 import React from "react";
-import CoverImage from "../../components/molecules/CoverImage";
+import CoverVideo from "../../components/molecules/CoverVideo";
 
 const Podcast = () => {
 
     return (
         <div>
-            <CoverImage isVideo={true} />
+            <CoverVideo isVideo={true} />
         </div>
     )
 }

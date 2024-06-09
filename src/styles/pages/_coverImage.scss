@@ -12,6 +12,16 @@
   z-index: -10;
 }
 
+.image-container {
+  position: absolute;
+  top: 58px;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover;
+  z-index: -10;
+}
+
 //   .video-container video {
 //     object-fit: cover;
 //     width: 100%;

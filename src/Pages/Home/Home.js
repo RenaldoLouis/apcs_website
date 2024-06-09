@@ -7,7 +7,7 @@ import Pagination from "../../components/molecules/Pagination";
 import Accordion from "../../components/molecules/Accordion";
 import AvatarIcon from "../../components/molecules/AvatarIcon";
 import Footer from "../../components/molecules/Footer";
-import CoverVideo from "../../components/molecules/CoverVideo";
+import CoverImage from "../../components/molecules/CoverImage";
 
 const Home = (props) => {
     const handleDirectToWhatsApp = () => {
@@ -17,7 +17,7 @@ const Home = (props) => {
     const { audio } = props
     return (
         <>
-            <CoverVideo noText={false} />
+            <CoverImage />
             <Content
                 audio={audio}
             />

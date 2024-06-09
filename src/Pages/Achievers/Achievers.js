@@ -1,12 +1,12 @@
 import React from "react";
-import CoverImage from "../../components/molecules/CoverImage";
+import CoverVideo from "../../components/molecules/CoverVideo";
 import SapphireWinnerSection from "./SapphireWinnerSection";
 
 const Achievers = () => {
 
     return (
         <div>
-            <CoverImage isVideo={true} />
+            <CoverVideo isVideo={true} />
             <SapphireWinnerSection />
         </div>
     )
