@@ -1,14 +1,5 @@
 import React from "react";
-import Navbar from "../../components/atom/navbar";
-import Content from "./Content";
-import Galery from "../Galery/Galery";
-import GalerySlider from "../Galery/GalerySlider";
-import Pagination from "../../components/molecules/Pagination";
-import Accordion from "../../components/molecules/Accordion";
-import AvatarIcon from "../../components/molecules/AvatarIcon";
-import Footer from "../../components/molecules/Footer";
 import PillButton from "../../components/atom/PillButton";
-// import CoverImage from "../../components/molecules/CoverImage";
 import goldenLine from "../../assets/images/goldenLine.png"
 import PeopleReviews from "./PeopleReviews";
 import pianoKeys from '../../assets/images/pianoKeys.svg';

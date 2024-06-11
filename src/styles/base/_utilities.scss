@@ -130,6 +130,19 @@
     font-family: "mangolaine";
 }
 
+.boxed-text {
+    // max-width: 600px;
+    /* Adjust the max-width to your desired width */
+    margin: 0 auto;
+    /* Center the text block */
+    text-align: justify;
+    /* Justify the text to align both left and right edges */
+    padding: 20px;
+    /* Add padding to create space around the text */
+    border-radius: 8px;
+    /* Optional: Add border radius for rounded corners */
+}
+
 .fadeDarkImageTopBottom {
     content: "";
     // position: absolute;
