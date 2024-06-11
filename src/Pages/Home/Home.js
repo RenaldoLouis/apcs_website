@@ -8,7 +8,7 @@ import Accordion from "../../components/molecules/Accordion";
 import AvatarIcon from "../../components/molecules/AvatarIcon";
 import Footer from "../../components/molecules/Footer";
 import PillButton from "../../components/atom/PillButton";
-import CoverImage from "../../components/molecules/CoverImage";
+// import CoverImage from "../../components/molecules/CoverImage";
 import goldenLine from "../../assets/images/goldenLine.png"
 import PeopleReviews from "./PeopleReviews";
 import pianoKeys from '../../assets/images/pianoKeys.svg';
@@ -16,6 +16,9 @@ import musicForEveryone from "../../assets/images/musicForEveryone.svg"
 import firdyHomeScreen from "../../assets/images/firdyHomeScreen.svg"
 import experienceHomeCropped from "../../assets/images/experienceHomeCropped.jpg"
 import Carousel from "../../components/molecules/CarouselCustom";
+import apcLogoBold from "../../assets/images/apc_logo_bold.svg"
+import homeScreen from "../../assets/images/homeScreenImage.svg"
+import CoverImageHome from "../../components/molecules/CoverImageHome";
 
 const Home = (props) => {
     const handleDirectToWhatsApp = () => {
@@ -25,7 +28,7 @@ const Home = (props) => {
     const { audio } = props
     return (
         <>
-            <CoverImage />
+            <CoverImageHome background={homeScreen} logo={apcLogoBold} />
 
             <div className="backgroundBlack homeContentContainer">
                 <div className="container">

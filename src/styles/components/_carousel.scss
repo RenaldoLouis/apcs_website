@@ -25,6 +25,16 @@
   justify-content: center;
 }
 
+.registerButtonContainer-centerLeft {
+  position: absolute;
+  top: 50%;
+  right: 25%;
+  transform: translateY(-50%);
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
 .carousel-prev {
   background: transparent;
   border: none;
