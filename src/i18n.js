@@ -31,28 +31,23 @@ import id from './constant/translations/id.json';
 //     },
 //     cacheUserLanguage: () => { },
 // };
-
+const resources = {
+    en: {
+        translation: en,
+    },
+    id: {
+        translation: id,
+    },
+};
 /*---------------------------------
             I18N CONFIG
 ---------------------------------*/
 i18n
-    //   .use(languageDetector)
     .use(initReactI18next)
     .init({
-        fallbackLng: 'en',
-        resources: {
-            id,
-            en,
-        },
-
-        // have a common namespace used around the full app
-        ns: ['translation'],
-        defaultNS: 'translation',
-        react: {
-            useSuspense: false,
-        },
-        debug: false,
-        keySeparator: false, // we do not use keys in form messages.welcome
+        resources,
+        lng: "en", //default language
+        keySeparator: false,
         interpolation: {
             escapeValue: false,
         },

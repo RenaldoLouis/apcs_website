@@ -23,6 +23,8 @@ import Login from "./Pages/Login/Login";
 import AdminDashboard from "./Pages/AdminDashboard/AdminDashboard";
 import ProtectedRoute from "./ProtectedRoute";
 import { CookiesProvider } from "react-cookie";
+import { I18nextProvider } from "react-i18next";
+import i18next from "i18next";
 
 
 const audio = new Audio(persona5);
@@ -63,7 +65,9 @@ function App() {
           position="bottom-left"
         />
         <CookiesProvider>
-          <Main />
+          <I18nextProvider i18n={i18next}>
+            <Main />
+          </I18nextProvider>
         </CookiesProvider>
       </DataContextProvider>
     </Router>

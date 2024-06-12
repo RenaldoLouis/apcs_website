@@ -59,18 +59,18 @@ const NotableConductors = () => {
                     </div>
                 </div>
                 <div style={{ color: "white" }}>
-                    <div class="text-align-center align-items-center row" style={{ paddingBottom: 36 }}>
-                        <div class="col">
+                    <div className="text-align-center align-items-center row" style={{ paddingBottom: 36 }}>
+                        <div className="col">
                             <img style={{ width: 250, height: 250 }} />
 
                         </div>
-                        <div class="col">
+                        <div className="col">
                             <img style={{ width: 250, height: 250 }} />
                         </div>
-                        <div class="col">
+                        <div className="col">
                             <img style={{ width: 250, height: 250 }} />
                         </div>
-                        <div class="col">
+                        <div className="col">
                             <img style={{ width: 250, height: 250 }} />
                         </div>
                     </div>

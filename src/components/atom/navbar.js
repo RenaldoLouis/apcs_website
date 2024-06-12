@@ -6,7 +6,15 @@ import {
     MenuOutlined,
     CloseOutlined
 } from '@ant-design/icons';
+import { useTranslation } from "react-i18next";
 const Navbar = () => {
+    const { t, i18n } = useTranslation();
+
+    //Creating a method to change the language onChnage from select box
+    const changeLanguageHandler = (e) => {
+        const languageValue = e.target.value
+        i18n.changeLanguage(languageValue);
+    }
 
     const [currentPage, setCurrentPage] = useState();
     const [isNavbarMobileOpen, setIsNavbarMobileOpen] = useState(false);
@@ -57,6 +65,10 @@ const Navbar = () => {
                     )
                 })}
             </div>
+            <select className="custom-select" style={{ width: 200 }} onChange={changeLanguageHandler}>
+                <option value="en" >English</option>
+                <option value="id" >Indo</option>
+            </select>
         </nav>
     );
 }

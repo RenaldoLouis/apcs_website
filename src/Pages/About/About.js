@@ -13,6 +13,8 @@ import saphireAbout from "../../assets/images/saphireAbout.svg"
 import saphireAchiever from "../../assets/images/saphireAchiever.svg"
 import PillButton from "../../components/atom/PillButton";
 import { useTranslation } from "react-i18next";
+import i18n from '../../i18n';
+
 
 
 const About = () => {
@@ -25,15 +27,15 @@ const About = () => {
             {/* <AnimationWWScroll setIsScrollDownAvailable={setIsScrollDownAvailable} /> */}
             <CoverImage background={aboutCover} logo={musiciswhatapcs} isMiddleLeft={true} />
             <div style={{ background: "black", color: "white" }}>
-                <div class="container">
-                    <div class="row justify-content-md-center text-align-center">
-                        <div class="col ">
+                <div className="container">
+                    <div className="row justify-content-md-center text-align-center">
+                        <div className="col ">
                             <img src={apcLogo} alt="apcsLogo" style={{ width: 360 }} />
 
                         </div>
-                        <div class="col ">
+                        <div className="col ">
                             <img src={goldenLine} alt={`goldenLine`} style={{ width: "100%" }} />
-                            <div class="boxed-text">
+                            <div className="boxed-text">
                                 A Piano Concerto Series (APCS) is the first musical platform in Indonesia that offers musicians the opportunity to share their music and talents on a prestigious stage. We unite pianists with orchestras and conductors to experience unforgettable performances. APCS aims to be an inclusive platform where musicians of all ages, from all cities, and in all genres are welcome.
                             </div>
                             <img src={goldenLine} alt={`goldenLine`} style={{ width: "100%" }} />
@@ -52,24 +54,24 @@ const About = () => {
             <img src={michaelaAbout} alt={`michaelaAbout`} style={{ width: "100%" }} />
 
             <div style={{ background: "black", color: "white" }}>
-                <div class="container">
-                    <div class="row justify-content-md-center text-align-center">
-                        <div class="col" style={{ fontSize: 40 }}>
+                <div className="container">
+                    <div className="row justify-content-md-center text-align-center">
+                        <div className="col" style={{ fontSize: 40 }}>
                             MICHAELA SUTEJO
                         </div>
                     </div>
-                    <div class="row justify-content-md-center text-align-center">
-                        <div class="col" style={{ fontSize: 40 }}>
+                    <div className="row justify-content-md-center text-align-center">
+                        <div className="col" style={{ fontSize: 40 }}>
                             Founder of APCS
                         </div>
                     </div>
-                    <div class="row justify-content-md-center text-align-center">
-                        <div class="col col-lg-8">
+                    <div className="row justify-content-md-center text-align-center">
+                        <div className="col col-lg-8">
                             <img src={goldenLine} alt={`goldenLine`} style={{ width: "60%" }} />
-                            <div class="boxed-text">
+                            <div className="boxed-text">
                                 Born in Indonesia, Michaella Sutejo began her musical journey at the age of 9. She achieved Cum Laude honors from Universitas Pelita Harapan in 2017 under the mentorship of Firdy Salim, Ong Seng Choo, and Elaine Waworuntu. Michaella's passion for music was fostered through her participation in national and international competitions, festivals, and masterclasses, including a music camp in Europe.
                             </div>
-                            <div class="boxed-text">
+                            <div className="boxed-text">
                                 These experiences and her passion inspired her to create the A Piano Concerto Series Music (APCS) in 2022. Her vision is to grow the potential and set a new benchmark in the music industry, not just locally but globally.
                             </div>
                             <img src={goldenLine} alt={`goldenLine`} style={{ width: "60%" }} />

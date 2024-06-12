@@ -3,17 +3,17 @@ import ArrowUp from "../../assets/icons/ArrowUp.png"
 
 const Footer = () => {
 
-    const handleClickScrollToTop = ()=>{
-        window.scrollTo(0,0);
+    const handleClickScrollToTop = () => {
+        window.scrollTo(0, 0);
     }
 
     return (
         <footer className="footer">
-            <div class="container">
-                <img className="cursorPointer" src={ArrowUp} style={{ width: 54, height: 54 }} alt="ArrowUp" onClick={handleClickScrollToTop}/>
+            <div className="container">
+                <img className="cursorPointer" src={ArrowUp} style={{ width: 54, height: 54 }} alt="ArrowUp" onClick={handleClickScrollToTop} />
 
-                <div class="row">
-                    <div class="col">
+                <div className="row">
+                    <div className="col">
                         <div>
                             Lorem Ipsum Dolor
                         </div>
@@ -24,11 +24,11 @@ const Footer = () => {
                             Lorem ipsum dolor  sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt  ut labore et dolore magna aliqua
                         </div>
                     </div>
-                    <div class="col">
+                    <div className="col">
                         Column
                     </div>
-                    <div class="col" />
-                    <div class="col">
+                    <div className="col" />
+                    <div className="col">
                         Column
                     </div>
                 </div>

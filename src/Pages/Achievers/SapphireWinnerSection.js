@@ -33,16 +33,16 @@ const SapphireWinnerSection = () => {
                     </div>
                 </div>
             </div>
-            <div class="container color-white">
-                <div class="row">
-                    <div class="col-sm">
+            <div className="container color-white">
+                <div className="row">
+                    <div className="col-sm">
                         <img style={{ aspectRatio: "1/1", objectFit: "cover", width: "100%" }} src='https://images.unsplash.com/photo-1661435805196-81136edfa297?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwzMjM4NDZ8MHwxfHJhbmRvbXx8fHx8fHx8fDE2NjI5OTQxMTQ&ixlib=rb-1.2.1&q=80&w=400' alt='' />
                         John Doe
                     </div>
-                    <div class="col-sm">
+                    <div className="col-sm">
                         One of three columns
                     </div>
-                    <div class="col-sm">
+                    <div className="col-sm">
                         One of three columns
                     </div>
                 </div>
