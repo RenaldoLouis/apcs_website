@@ -12,9 +12,12 @@ import michaelaAbout from "../../assets/images/michaelaAbout.svg"
 import saphireAbout from "../../assets/images/saphireAbout.svg"
 import saphireAchiever from "../../assets/images/saphireAchiever.svg"
 import PillButton from "../../components/atom/PillButton";
+import { useTranslation } from "react-i18next";
 
 
 const About = () => {
+    const { t, i18n } = useTranslation();
+
     const [isScrollDownAvailable, setIsScrollDownAvailable] = useState(false)
 
     return (
@@ -40,7 +43,7 @@ const About = () => {
 
                     <div className="mangolaineFont text-align-center" style={{ color: "#FFCA68", marginTop: 100, fontSize: 64 }}>
                         HERE’S HOW<br />
-                        OUR STORIES BEGIN
+                        {t("ourStoriesBegin")}
                     </div>
                 </div>
             </div>
