@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import Founder from "./Founder";
 import NotableConductors from "./NotableConductors";
 import AchieversSection from "./AchieversSection";
 import AnimationWWScroll from "../../components/molecules/Animation3dScroll/AnimationWWScroll";
@@ -14,6 +13,7 @@ import saphireAchiever from "../../assets/images/saphireAchiever.svg"
 import PillButton from "../../components/atom/PillButton";
 import { useTranslation } from "react-i18next";
 import i18n from '../../i18n';
+import NotableJurist from "./NotableJurist";
 
 
 
@@ -106,9 +106,8 @@ const About = () => {
                 </div>
             </div>
 
-
-            <Founder />
             <NotableConductors />
+            <NotableJurist />
             <AchieversSection />
         </div>
     )
