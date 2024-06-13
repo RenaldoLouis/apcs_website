@@ -14,6 +14,7 @@ import PillButton from "../../components/atom/PillButton";
 import { useTranslation } from "react-i18next";
 import i18n from '../../i18n';
 import NotableJurist from "./NotableJurist";
+import GuestArtist from "./GuestArtist";
 
 
 
@@ -108,6 +109,7 @@ const About = () => {
 
             <NotableConductors />
             <NotableJurist />
+            <GuestArtist />
             <AchieversSection />
         </div>
     )
