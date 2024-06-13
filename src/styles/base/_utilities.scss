@@ -67,6 +67,10 @@
         &-center {
             text-align: center;
         }
+
+        &-justify {
+            text-align: justify;
+        }
     }
 }
 
@@ -128,6 +132,14 @@
 
 .mangolaineFont {
     font-family: "mangolaine";
+}
+
+.lineHeightNormal {
+    line-height: normal;
+}
+
+.goldenTextColor {
+    color: $primary-golden-text-color;
 }
 
 .boxed-text {

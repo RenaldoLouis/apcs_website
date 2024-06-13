@@ -1,13 +1,14 @@
 import React from "react";
+import HeaderTitle from "../../components/atom/HeaderTitle";
 
 const NotableJurist = () => {
 
     return (
         <div style={{ background: "black" }} >
             <div className="container" >
-                <div className="text-align-center" style={{ color: "white" }}>
-                    Notable Jurist
-                </div>
+                <HeaderTitle>
+                    Our Notable <br /> Jurist
+                </HeaderTitle>
                 <div className="text-align-center align-items-center row" style={{ paddingTop: 120, paddingBottom: 120 }}>
                     <div className="col" style={{ color: "white" }}>
                         <div>
