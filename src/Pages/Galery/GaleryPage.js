@@ -6,8 +6,8 @@ const GaleryPage = () => {
 
     return (
         <div>
-            <Carousel homePage={false} />
-            <GaleryContent/>
+            {/* <Carousel homePage={false} /> */}
+            <GaleryContent />
         </div>
     )
 }

@@ -18,19 +18,21 @@ const GaleryContent = () => {
                 <div className="color-white" style={{ marginBottom: 74 }}>
                     YEAR
                 </div>
-                <div className="flex color-white">
-                    {ListEvent.map((eachEvent) => {
-                        return (
-                            <div className={`itemMenuSelected ${selectedEvent === eachEvent.title ? 'selected' : ''}`} onClick={() => handleClickEvent(eachEvent.title)}>
-                                <div>
-                                    {eachEvent.year}
+                <div class="container">
+                    <div class="row" style={{ color: "white" }}>
+                        {ListEvent.map((eachEvent) => {
+                            return (
+                                <div className={`col-sm itemMenuSelected ${selectedEvent === eachEvent.title ? 'selected' : ''}`} onClick={() => handleClickEvent(eachEvent.title)}>
+                                    <div>
+                                        {eachEvent.year}
+                                    </div>
+                                    <div>
+                                        {eachEvent.title}
+                                    </div>
                                 </div>
-                                <div>
-                                    {eachEvent.title}
-                                </div>
-                            </div>
-                        )
-                    })}
+                            )
+                        })}
+                    </div>
                 </div>
                 <Galery isDynamicType={true} />
                 <div className="flex justify-center" style={{ marginTop: 57 }}>
