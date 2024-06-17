@@ -1,24 +1,139 @@
-import React from "react";
-import PaginationGalery from "../../components/molecules/PaginationGalery";
+import React, { useCallback, useEffect, useRef, useState } from "react";
+import { collection, getDocs, limit, query, startAfter, orderBy } from "firebase/firestore";
+import { db } from '../../firebase';
 
 const Galery = (props) => {
     const { isDynamicType = false } = props
 
-    return (
-        <section className={isDynamicType ? "image-galleryDynamic" : "image-gallery"}>
-            <div>
-                <img src='https://images.unsplash.com/photo-1661335996027-0a65af891c27?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwzMjM4NDZ8MHwxfHJhbmRvbXx8fHx8fHx8fDE2NjI5OTQwNDU&ixlib=rb-1.2.1&q=80&w=400' alt='' />
-                <img src='https://images.unsplash.com/photo-1661189626525-3d7ec5d3087c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwzMjM4NDZ8MHwxfHJhbmRvbXx8fHx8fHx8fDE2NjI5OTQwNDU&ixlib=rb-1.2.1&q=80&w=400' alt='' />
-                <img src='https://images.unsplash.com/photo-1660628504006-9416dd2a411f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwzMjM4NDZ8MHwxfHJhbmRvbXx8fHx8fHx8fDE2NjI5OTQwNDU&ixlib=rb-1.2.1&q=80&w=400' alt='' />
-                <img src='https://images.unsplash.com/photo-1662441896128-691f7ac658ad?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwzMjM4NDZ8MHwxfHJhbmRvbXx8fHx8fHx8fDE2NjI5OTQwNDU&ixlib=rb-1.2.1&q=80&w=400' alt='' />
-                <img src='https://images.unsplash.com/photo-1661880374687-4ce390284f86?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwzMjM4NDZ8MHwxfHJhbmRvbXx8fHx8fHx8fDE2NjI5OTQwNDU&ixlib=rb-1.2.1&q=80&w=400' alt='' />
-                <img src='https://images.unsplash.com/photo-1661691111071-42c262ca061e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwzMjM4NDZ8MHwxfHJhbmRvbXx8fHx8fHx8fDE2NjI5OTQwNDU&ixlib=rb-1.2.1&q=80&w=400' alt='' />
-                <img src='https://images.unsplash.com/photo-1696644542260-c0960b3b7233?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wzMjM4NDZ8MHwxfHJhbmRvbXx8fHx8fHx8fDE2OTk0NTAwMTF8&ixlib=rb-4.0.3&q=80&w=400' alt='' />
-                <img src='https://images.unsplash.com/photo-1661435805196-81136edfa297?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwzMjM4NDZ8MHwxfHJhbmRvbXx8fHx8fHx8fDE2NjI5OTQxMTQ&ixlib=rb-1.2.1&q=80&w=400' alt='' />
-                <img src='https://images.unsplash.com/photo-1660584658489-a15f806f463c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwzMjM4NDZ8MHwxfHJhbmRvbXx8fHx8fHx8fDE2NjI5OTQxMTQ&ixlib=rb-1.2.1&q=80&w=400' alt='' />
-            </div>
+    const [datas, setDatas] = useState([])
+    const [chunkedDatas, setChunkedDatas] = useState([])
+    const [isGetLatestImage, setIsGetLatestImage] = useState(false);
 
-            <PaginationGalery />
+    const [animatedKeys, setAnimatedKeys] = useState([]);
+
+    useEffect(() => {
+        // Determine new keys that need to be animated
+        const newKeys = datas.map(data => data.title);
+
+        // Filter out keys that were already animated
+        const keysToAnimate = newKeys.filter(key => !animatedKeys.includes(key));
+
+        // Set keys to animate
+        setAnimatedKeys([...animatedKeys, ...keysToAnimate]);
+
+        // Reset animation after 500ms (same as transition duration)
+        const timer = setTimeout(() => {
+            setAnimatedKeys([]);
+        }, 500);
+
+        return () => clearTimeout(timer);
+    }, [datas]);
+
+    let latestData = null
+
+    const imageThresholdRef = useRef(null);
+
+    const chunkArray = (array, size) => {
+        const chunkedArray = [];
+        for (let i = 0; i < array.length; i += size) {
+            chunkedArray.push(array.slice(i, i + size));
+        }
+        return chunkedArray;
+    };
+
+    useEffect(() => {
+        if (datas.length > 0) {
+            const chunkedImages = chunkArray(datas, 3);
+            setChunkedDatas(chunkedImages)
+        }
+    }, [datas])
+
+    useEffect(() => {
+        const observer = new IntersectionObserver(
+            (entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        console.log('Element is in view!');
+                        fetchPost();
+                    }
+                });
+            },
+            {
+                root: null, // Use the viewport as the root
+                rootMargin: '0px',
+                threshold: 0.1, // Trigger when 10% of the element is in view
+            }
+        );
+
+        if (imageThresholdRef.current) {
+            observer.observe(imageThresholdRef.current);
+        }
+
+        // Clean up the observer on component unmount
+        return () => {
+            if (imageThresholdRef.current) {
+                observer.unobserve(imageThresholdRef.current);
+            }
+        };
+    }, []);
+
+    const fetchPost = useCallback(async () => {
+        if (!isGetLatestImage && latestData !== undefined) {
+            const q = query(collection(db, "galeryTurningPoint"), orderBy("order"), startAfter(latestData || 0), limit(3));
+
+            await getDocs(q)
+                .then((querySnapshot) => {
+                    if (querySnapshot) {
+                        const newData = querySnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
+                        if (newData.length === 0) {
+                            setIsGetLatestImage(true)
+                        }
+                        setDatas((prevState) => [...prevState, ...newData]);
+                        latestData = querySnapshot.docs[querySnapshot.docs.length - 1]
+                    }
+                })
+                .catch((error) => {
+                    console.error("Error getting documents: ", error);
+                });
+        }
+    }, [])
+
+    useEffect(() => {
+        fetchPost();
+    }, [fetchPost])
+
+    console.log('datas', datas)
+    console.log('animatedKeys', animatedKeys)
+
+    return (
+        <section>
+            <div className={isDynamicType ? "image-galleryDynamic" : "image-gallery"}>
+                <div>
+                    {datas && datas.length > 0 && datas.map((eachData, index) => {
+                        return (
+                            <img
+                                // className={animatedKeys.includes(eachData.title) ? 'image-fade-in fade-in' : ''}
+                                // style={{ transitionDelay: `${index * 100}ms` }} // Delay each image slightly
+                                key={eachData.title} src={eachData.image} alt={eachData.title} />
+                        )
+                    })}
+                </div>
+            </div>
+            <div ref={imageThresholdRef} id="imageThreshold" />
+
+            {/* <div class="image-gallery">
+                {chunkedDatas && chunkedDatas.length > 0 && chunkedDatas.map((column, columnIndex) => (
+                    <div className="column" key={columnIndex}>
+                        {column.map((src, index) => (
+                            <div className="image-item" key={index}>
+                                <img src={src.image} alt={`Image ${columnIndex}-${index}`} />
+                            </div>
+                        ))}
+                    </div>
+                ))}
+
+                <div ref={imageThresholdRef} id="imageThreshold" />
+            </div> */}
         </section>
     )
 }

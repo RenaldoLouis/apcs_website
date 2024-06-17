@@ -13,6 +13,7 @@ import 'bootstrap/dist/js/bootstrap.min.js';
 
 import './assets/fonts/mangolaine/mangolaine.ttf';
 import './assets/fonts/mosafin/Mosafin-Bold.ttf';
+import 'animate.css';
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));

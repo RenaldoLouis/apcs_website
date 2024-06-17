@@ -1,7 +1,7 @@
 .image-gallery {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  max-width: 50rem;
+  // max-width: 50rem;
   margin-inline: auto;
   margin-top: 16px;
   margin-bottom: 16px;
@@ -55,4 +55,37 @@
 .image-galleryDynamic:has(img:hover) img:not(:hover) {
   scale: 0.8;
   opacity: 0.7;
+}
+
+
+
+
+
+
+.image-gallery {
+  /* Mobile first */
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.image-gallery .column {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.image-item img {
+  width: 100%;
+  border-radius: 5px;
+  height: 100%;
+  object-fit: cover;
+
+  transition: scale 350ms ease, opacity 350ms linear;
+}
+
+@media only screen and (min-width: 768px) {
+  .image-gallery {
+    flex-direction: row;
+  }
 }
