@@ -11423,6 +11423,11 @@ react-is@^18.2.0:
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-18.3.1.tgz#e83557dc12eae63a99e003a46388b1dcbb44db7e"
   integrity sha512-/LLMVyas0ljjAtoYiPqYiL8VWXzUUdThrmU5+n20DZv+a+ClRoevUzw5JxU+Ieh5/c87ytoTBV9G1FiKfNJdmg==
 
+react-photo-album@^2.4.0:
+  version "2.4.0"
+  resolved "https://registry.yarnpkg.com/react-photo-album/-/react-photo-album-2.4.0.tgz#e28d89349e29a46fb64db72ab2da5b2b141d6188"
+  integrity sha512-HSTxQKTYK6rLRM0dFlOMf2QgyrwffQHO21JjmffYBw6BQPPijYv3kLL5c+hwhxWhaZwLBY5TmJkb6sBZSy3UGw==
+
 react-reconciler@^0.27.0:
   version "0.27.0"
   resolved "https://registry.npmjs.org/react-reconciler/-/react-reconciler-0.27.0.tgz"

@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { collection, getDocs, limit, query, startAfter, orderBy } from "firebase/firestore";
 import { db } from '../../firebase';
+import PhotoAlbum from "react-photo-album";
 
 const Galery = (props) => {
     const { isDynamicType = false } = props
@@ -11,23 +12,25 @@ const Galery = (props) => {
 
     const [animatedKeys, setAnimatedKeys] = useState([]);
 
-    useEffect(() => {
-        // Determine new keys that need to be animated
-        const newKeys = datas.map(data => data.title);
+    const [galeryPhotos, setGaleryPhotos] = useState([]);
 
-        // Filter out keys that were already animated
-        const keysToAnimate = newKeys.filter(key => !animatedKeys.includes(key));
+    // useEffect(() => {
+    //     // Determine new keys that need to be animated
+    //     const newKeys = datas.map(data => data.title);
 
-        // Set keys to animate
-        setAnimatedKeys([...animatedKeys, ...keysToAnimate]);
+    //     // Filter out keys that were already animated
+    //     const keysToAnimate = newKeys.filter(key => !animatedKeys.includes(key));
 
-        // Reset animation after 500ms (same as transition duration)
-        const timer = setTimeout(() => {
-            setAnimatedKeys([]);
-        }, 500);
+    //     // Set keys to animate
+    //     setAnimatedKeys([...animatedKeys, ...keysToAnimate]);
 
-        return () => clearTimeout(timer);
-    }, [datas]);
+    //     // Reset animation after 500ms (same as transition duration)
+    //     const timer = setTimeout(() => {
+    //         setAnimatedKeys([]);
+    //     }, 500);
+
+    //     return () => clearTimeout(timer);
+    // }, [datas]);
 
     let latestData = null
 
@@ -43,8 +46,22 @@ const Galery = (props) => {
 
     useEffect(() => {
         if (datas.length > 0) {
-            const chunkedImages = chunkArray(datas, 3);
-            setChunkedDatas(chunkedImages)
+            // const chunkedImages = chunkArray(datas, 3);
+            // setChunkedDatas(chunkedImages)
+
+            let tempPhotos = []
+            console.log('datas', datas)
+            datas.forEach((eachData) => {
+                let tempObject = {
+                    src: eachData.image,
+                    // width: "100%",
+                    // height: "100%",
+                }
+                tempPhotos.push(tempObject)
+            })
+
+            console.log("tempPhotos", tempPhotos)
+            setGaleryPhotos(tempPhotos)
         }
     }, [datas])
 
@@ -79,7 +96,7 @@ const Galery = (props) => {
 
     const fetchPost = useCallback(async () => {
         if (!isGetLatestImage && latestData !== undefined) {
-            const q = query(collection(db, "galeryTurningPoint"), orderBy("order"), startAfter(latestData || 0), limit(3));
+            const q = query(collection(db, "galeryTurningPoint"), orderBy("order"), startAfter(latestData || 0), limit(6));
 
             await getDocs(q)
                 .then((querySnapshot) => {
@@ -102,12 +119,9 @@ const Galery = (props) => {
         fetchPost();
     }, [fetchPost])
 
-    console.log('datas', datas)
-    console.log('animatedKeys', animatedKeys)
-
     return (
         <section>
-            <div className={isDynamicType ? "image-galleryDynamic" : "image-gallery"}>
+            {/* <div className={isDynamicType ? "image-galleryDynamic" : "image-gallery"}>
                 <div>
                     {datas && datas.length > 0 && datas.map((eachData, index) => {
                         return (
@@ -118,8 +132,23 @@ const Galery = (props) => {
                         )
                     })}
                 </div>
-            </div>
+            </div> */}
+            <PhotoAlbum layout="masonry" photos={galeryPhotos} />;
             <div ref={imageThresholdRef} id="imageThreshold" />
+
+            {/* <div class="container">
+                <div class="row text-align-center">
+                    <div class="col-sm">
+                        <img src="https://firebasestorage.googleapis.com/v0/b/apcs-profile.appspot.com/o/APCS_TP%2FTP1.png?alt=media&token=bc65e785-acab-4355-93b2-4b420b50559a"/>
+                    </div>
+                    <div class="col-sm">
+                       <img src="https://firebasestorage.googleapis.com/v0/b/apcs-profile.appspot.com/o/APCS_TP%2FTP2.png?alt=media&token=910eea24-331b-4099-a26e-83e84b1e2ee5"/>
+                    </div>
+                    <div class="col-sm">
+                        <img src="https://firebasestorage.googleapis.com/v0/b/apcs-profile.appspot.com/o/APCS_TP%2FTP5.png?alt=media&token=ed1caf83-824a-493d-b7d0-75ca53161c28"/>
+                    </div>
+                </div>
+            </div> */}
 
             {/* <div class="image-gallery">
                 {chunkedDatas && chunkedDatas.length > 0 && chunkedDatas.map((column, columnIndex) => (
