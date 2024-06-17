@@ -35,7 +35,7 @@ const Main = () => {
         <Route path="/" element={<LandingPage audio={audio} />} />
         <Route path="/home" element={<Transition children={<MainLayout children={<Home audio={audio} />} />} />} />
         <Route path="/about" element={<MainLayout children={<About />} />} />
-        <Route path="/galery" element={<MainLayout children={<GaleryPage />} />} />
+        <Route path="/gallery" element={<MainLayout children={<GaleryPage />} />} />
         <Route path="/achievers" element={<MainLayout children={<Achievers />} />} />
         <Route path="/podcast" element={<MainLayout children={<Podcast />} />} />
         <Route path="/login" element={<Login />} />

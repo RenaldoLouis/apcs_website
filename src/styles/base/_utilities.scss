@@ -11,7 +11,17 @@
     }
 }
 
-.fullScreeHeight {
+.textColor {
+    color: white;
+}
+
+.fullScreenImage {
+    object-fit: cover;
+    width: 100vw;
+    height: 101vh;
+}
+
+.fullScreenHeight {
     width: 100%;
     height: 100vh;
 }

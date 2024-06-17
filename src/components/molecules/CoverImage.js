@@ -7,7 +7,7 @@ const CoverImage = (props) => {
     return (
         <div className='overflow-x-hidden'>
             <div
-                className="fullScreeHeight"
+                className="fullScreenHeight"
             >
                 <img src={background}
                     alt="homeScreen"
