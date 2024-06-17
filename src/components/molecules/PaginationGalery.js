@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useRef, useState } from "react";
 import { collection, getDocs, limit, query, startAfter, orderBy } from "firebase/firestore";
 import { db } from '../../firebase';
 
-const Pagination = () => {
+const PaginationGalery = () => {
     const containerRef = useRef();
 
     const [datas, setDatas] = useState([])
@@ -67,4 +67,4 @@ const Pagination = () => {
     )
 }
 
-export default Pagination;
+export default PaginationGalery;
