@@ -66,34 +66,34 @@ const Galery = (props) => {
         }
     }, [datas])
 
-    useEffect(() => {
-        const observer = new IntersectionObserver(
-            (entries) => {
-                entries.forEach((entry) => {
-                    if (entry.isIntersecting) {
-                        console.log('Element is in view!');
-                        fetchPost();
-                    }
-                });
-            },
-            {
-                root: null, // Use the viewport as the root
-                rootMargin: '0px',
-                threshold: 0.1, // Trigger when 10% of the element is in view
-            }
-        );
+    // useEffect(() => {
+    //     const observer = new IntersectionObserver(
+    //         (entries) => {
+    //             entries.forEach((entry) => {
+    //                 if (entry.isIntersecting) {
+    //                     console.log('Element is in view!');
+    //                     fetchPost();
+    //                 }
+    //             });
+    //         },
+    //         {
+    //             root: null, // Use the viewport as the root
+    //             rootMargin: '0px',
+    //             threshold: 0.1, // Trigger when 10% of the element is in view
+    //         }
+    //     );
 
-        if (imageThresholdRef.current) {
-            observer.observe(imageThresholdRef.current);
-        }
+    //     if (imageThresholdRef.current) {
+    //         observer.observe(imageThresholdRef.current);
+    //     }
 
-        // Clean up the observer on component unmount
-        return () => {
-            if (imageThresholdRef.current) {
-                observer.unobserve(imageThresholdRef.current);
-            }
-        };
-    }, []);
+    //     // Clean up the observer on component unmount
+    //     return () => {
+    //         if (imageThresholdRef.current) {
+    //             observer.unobserve(imageThresholdRef.current);
+    //         }
+    //     };
+    // }, []);
 
     const fetchPost = useCallback(async () => {
         if (!isGetLatestImage && latestData !== undefined) {
