@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useRef, useState } from "react";
 import { collection, getDocs, limit, query, startAfter, orderBy } from "firebase/firestore";
 import { db } from '../../firebase';
 import PhotoAlbum from "react-photo-album";
+import MasonryLayout from "../../components/molecules/MasonryLayout";
 
 const Galery = (props) => {
     const { isDynamicType = false } = props
@@ -96,7 +97,7 @@ const Galery = (props) => {
 
     const fetchPost = useCallback(async () => {
         if (!isGetLatestImage && latestData !== undefined) {
-            const q = query(collection(db, "galeryTurningPoint"), orderBy("order"), startAfter(latestData || 0), limit(6));
+            const q = query(collection(db, "galeryTurningPoint"), orderBy("order"), startAfter(latestData || 0), limit(2));
 
             await getDocs(q)
                 .then((querySnapshot) => {
@@ -121,6 +122,7 @@ const Galery = (props) => {
 
     return (
         <section>
+            <MasonryLayout />
             {/* <div className={isDynamicType ? "image-galleryDynamic" : "image-gallery"}>
                 <div>
                     {datas && datas.length > 0 && datas.map((eachData, index) => {
@@ -132,9 +134,9 @@ const Galery = (props) => {
                         )
                     })}
                 </div>
-            </div> */}
+            </div>
             <PhotoAlbum layout="masonry" photos={galeryPhotos} />;
-            <div ref={imageThresholdRef} id="imageThreshold" />
+            <div ref={imageThresholdRef} id="imageThreshold" /> */}
 
             {/* <div class="container">
                 <div class="row text-align-center">
