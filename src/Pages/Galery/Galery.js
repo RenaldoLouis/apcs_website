@@ -1,7 +1,6 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { collection, getDocs, limit, query, startAfter, orderBy } from "firebase/firestore";
 import { db } from '../../firebase';
-import PhotoAlbum from "react-photo-album";
 import MasonryLayout from "../../components/molecules/MasonryLayout";
 
 const Galery = (props) => {
