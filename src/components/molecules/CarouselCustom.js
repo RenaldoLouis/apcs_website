@@ -31,7 +31,7 @@ const Carousel = ({ interval = 5000, homePage = true }) => {
         setCurrentIndex((prevIndex) => (prevIndex === images.length - 1 ? 0 : prevIndex + 1));
     };
 
-    const handleClickRegisterNow = ()=>{
+    const handleClickRegisterNow = () => {
         logEvent(analytics, 'register_now');
     }
 
@@ -39,14 +39,14 @@ const Carousel = ({ interval = 5000, homePage = true }) => {
         <>
             <div className='carouselContainer'>
                 {images.map((eachImage, index) => (
-                    <img style={{ '--currentIndex': currentIndex }} className="carousel-image" id={`slide-${index}`} src={eachImage} alt={`photos-${index}`} />
+                    <img loading="lazy" style={{ '--currentIndex': currentIndex }} className="carousel-image" id={`slide-${index}`} src={eachImage} alt={`photos-${index}`} />
                 ))}
                 <div className="carousel-navigation">
                     <button className="carousel-prev" onClick={goToPrevSlide}>
-                        <img src={arrowLeftCover} style={{ width: 54, height: 54 }} alt="arrowLeft" />
+                        <img loading="lazy" src={arrowLeftCover} style={{ width: 54, height: 54 }} alt="arrowLeft" />
                     </button>
                     <button className="carousel-next" onClick={goToNextSlide}>
-                        <img src={arrowRightCover} style={{ width: 54, height: 54 }} alt="arrowRight" />
+                        <img loading="lazy" src={arrowRightCover} style={{ width: 54, height: 54 }} alt="arrowRight" />
                     </button>
                 </div>
                 <div className='titleCoverContainer'>

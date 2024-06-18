@@ -40,7 +40,7 @@ const AnimationWWScroll = (props) => {
                 </Suspense>
             </Canvas>
             <div style={{ position: "absolute", left: "50%", top: "90%", color: 'black' }}>
-                <img src={ArrowUp} style={{ width: 54, height: 54, rotate: "180deg" }} alt="ArrowUp" />
+                <img loading="lazy" src={ArrowUp} style={{ width: 54, height: 54, rotate: "180deg" }} alt="ArrowUp" />
             </div>
         </div>
     )

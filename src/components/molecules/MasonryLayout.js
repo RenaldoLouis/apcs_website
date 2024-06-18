@@ -62,7 +62,7 @@ const MasonryLayout = () => {
                 {items.map((item, index) => (
                     <div key={index} className="masonry-item">
                         {/* Render your item content here */}
-                        <img src={item.image} alt={item.title} />
+                        <img loading="lazy" src={item.image} alt={item.title} />
                         <p>{item.title}</p>
                     </div>
                 ))}

@@ -65,7 +65,7 @@ const NotableJurist = () => {
                         </div>
                     </div>
                     <div className="col" style={{ color: "white" }}>
-                        <img src={wishnuProfile} style={{ width: "100%", height: "100%" }} alt="" />
+                        <img loading="lazy" src={wishnuProfile} style={{ width: "100%", height: "100%" }} alt="" />
                     </div>
                 </div>
                 <div style={{ color: "white" }}>
@@ -73,7 +73,7 @@ const NotableJurist = () => {
                         {juristList.map((eachData) => {
                             return (
                                 <div className="col" style={{ marginBottom: 60 }}>
-                                    <img src={eachData.image} alt="jurist1" style={{ marginBottom: "1.25rem" }} />
+                                    <img loading="lazy" src={eachData.image} alt="jurist1" style={{ marginBottom: "1.25rem" }} />
                                     <div>
                                         {eachData.name}
                                     </div>

@@ -8,7 +8,7 @@ import firdyHomeScreen from "../../assets/images/firdyHomeScreen.svg"
 import experienceHomeCropped from "../../assets/images/experienceHomeCropped.jpg"
 import Carousel from "../../components/molecules/CarouselCustom";
 import apcLogoBold from "../../assets/images/apc_logo_bold.svg"
-import homeScreen from "../../assets/images/homeScreenImage.svg"
+import homeScreen from "../../assets/images/homeScreenImage.jpg"
 import CoverImageHome from "../../components/molecules/CoverImageHome";
 
 const Home = (props) => {
@@ -25,7 +25,7 @@ const Home = (props) => {
                 <div className="container">
                     <div className="row justify-center">
                         <div className="col-md-auto ">
-                            <img src={goldenLine} alt={`goldenLine`} style={{ width: "100%" }} />
+                            <img loading="lazy" src={goldenLine} alt={`goldenLine`} style={{ width: "100%" }} />
                         </div>
                     </div>
                     <div style={{ margin: "15px 0px" }}>
@@ -46,7 +46,7 @@ const Home = (props) => {
                     </div>
                     <div className="row justify-center">
                         <div className="col-md-auto">
-                            <img src={goldenLine} alt={`goldenLine`} style={{ width: "100%" }} />
+                            <img loading="lazy" src={goldenLine} alt={`goldenLine`} style={{ width: "100%" }} />
                         </div>
                     </div>
                 </div>
@@ -55,10 +55,10 @@ const Home = (props) => {
             <PeopleReviews />
 
             <div className="image-container-fadedTopBottom autoHeight">
-                <img src={pianoKeys} alt={`pianoKeys`} style={{ width: "100%" }} />
+                <img loading="lazy" src={pianoKeys} alt={`pianoKeys`} style={{ width: "100%" }} />
 
                 <div className="musicForEveryone">
-                    <img src={musicForEveryone} alt="apcsLogo" style={{ width: "35%" }} />
+                    <img loading="lazy" src={musicForEveryone} alt="apcsLogo" style={{ width: "35%" }} />
                     <div style={{ color: 'white', width: 370 }}>
                         We offer a prestigious stage for musicians of all ages and levels to share their deep passion for music with audiences
 
@@ -71,7 +71,7 @@ const Home = (props) => {
             </div>
 
             <div className="image-container-fadedTopBottom autoHeight">
-                <img src={experienceHomeCropped} alt={`experienceHomeCropped`} style={{ width: "100%" }} />
+                <img loading="lazy" src={experienceHomeCropped} alt={`experienceHomeCropped`} style={{ width: "100%" }} />
 
                 <div className="experienceDesc">
                     <div style={{ color: 'white' }}>
@@ -93,10 +93,10 @@ const Home = (props) => {
             </div>
 
             <div className="image-container-fadedTopBottom autoHeight">
-                <img src={firdyHomeScreen} alt={`firdyHomeScreen`} style={{ width: "100%" }} />
+                <img loading="lazy" src={firdyHomeScreen} alt={`firdyHomeScreen`} style={{ width: "100%" }} />
 
                 <div className="musicForEveryone">
-                    <img
+                    <img loading="lazy"
                         src={musicForEveryone}
                         alt="apcsLogo"
                         style={{ width: "35%", visibility: "hidden" }}

@@ -59,7 +59,7 @@ const PaginationGalery = () => {
                 return (
                     <div key={eachData.title} style={{ background: "red", margin: 15 }}>
                         {eachData.title}
-                        <img src={eachData.image} alt="ghibli" style={{ width: 305, height: 250 }} />
+                        <img loading="lazy" src={eachData.image} alt="ghibli" style={{ width: 305, height: 250 }} />
                     </div>
                 )
             })}

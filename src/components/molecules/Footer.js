@@ -10,7 +10,7 @@ const Footer = () => {
     return (
         <footer className="footer">
             <div className="container">
-                <img className="cursorPointer" src={ArrowUp} style={{ width: 54, height: 54 }} alt="ArrowUp" onClick={handleClickScrollToTop} />
+                <img loading="lazy" className="cursorPointer" src={ArrowUp} style={{ width: 54, height: 54 }} alt="ArrowUp" onClick={handleClickScrollToTop} />
 
                 <div className="row">
                     <div className="col">

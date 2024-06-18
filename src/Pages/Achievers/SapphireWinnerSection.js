@@ -8,7 +8,7 @@ const SapphireWinnerSection = () => {
             <div className="container" style={{ marginBottom: 150 }}>
                 <div className="row justify-center">
                     <div className="col-md-auto ">
-                        <img src={goldenLine} alt={`goldenLine`} style={{ width: "100%" }} />
+                        <img loading="lazy" src={goldenLine} alt={`goldenLine`} style={{ width: "100%" }} />
                     </div>
                 </div>
                 <div style={{ margin: "47px 0px 47px 0px" }}>
@@ -29,14 +29,14 @@ const SapphireWinnerSection = () => {
                 </div>
                 <div className="row justify-center">
                     <div className="col-md-auto">
-                        <img src={goldenLine} alt={`goldenLine`} style={{ width: "100%" }} />
+                        <img loading="lazy" src={goldenLine} alt={`goldenLine`} style={{ width: "100%" }} />
                     </div>
                 </div>
             </div>
             <div className="container color-white">
                 <div className="row">
                     <div className="col-sm">
-                        <img style={{ aspectRatio: "1/1", objectFit: "cover", width: "100%" }} src='https://images.unsplash.com/photo-1661435805196-81136edfa297?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwzMjM4NDZ8MHwxfHJhbmRvbXx8fHx8fHx8fDE2NjI5OTQxMTQ&ixlib=rb-1.2.1&q=80&w=400' alt='' />
+                        <img loading="lazy" style={{ aspectRatio: "1/1", objectFit: "cover", width: "100%" }} src='https://images.unsplash.com/photo-1661435805196-81136edfa297?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwzMjM4NDZ8MHwxfHJhbmRvbXx8fHx8fHx8fDE2NjI5OTQxMTQ&ixlib=rb-1.2.1&q=80&w=400' alt='' />
                         John Doe
                     </div>
                     <div className="col-sm">

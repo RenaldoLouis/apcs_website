@@ -31,15 +31,15 @@ const About = () => {
                 <div className="container">
                     <div className="row justify-content-md-center text-align-center">
                         <div className="col ">
-                            <img src={apcLogo} alt="apcsLogo" style={{ width: 360 }} />
+                            <img loading="lazy" src={apcLogo} alt="apcsLogo" style={{ width: 360 }} />
 
                         </div>
                         <div className="col ">
-                            <img src={goldenLine} alt={`goldenLine`} style={{ width: "100%" }} />
+                            <img loading="lazy" src={goldenLine} alt={`goldenLine`} style={{ width: "100%" }} />
                             <div className="boxed-text">
                                 A Piano Concerto Series (APCS) is the first musical platform in Indonesia that offers musicians the opportunity to share their music and talents on a prestigious stage. We unite pianists with orchestras and conductors to experience unforgettable performances. APCS aims to be an inclusive platform where musicians of all ages, from all cities, and in all genres are welcome.
                             </div>
-                            <img src={goldenLine} alt={`goldenLine`} style={{ width: "100%" }} />
+                            <img loading="lazy" src={goldenLine} alt={`goldenLine`} style={{ width: "100%" }} />
                         </div>
                     </div>
 
@@ -52,7 +52,7 @@ const About = () => {
             </div>
 
 
-            <img src={michaelaAbout} alt={`michaelaAbout`} style={{ width: "100%" }} />
+            <img loading="lazy" src={michaelaAbout} alt={`michaelaAbout`} style={{ width: "100%" }} />
 
             <div style={{ background: "black", color: "white" }}>
                 <div className="container">
@@ -68,14 +68,14 @@ const About = () => {
                     </div>
                     <div className="row justify-content-md-center text-align-center">
                         <div className="col col-lg-8">
-                            <img src={goldenLine} alt={`goldenLine`} style={{ width: "60%" }} />
+                            <img loading="lazy" src={goldenLine} alt={`goldenLine`} style={{ width: "60%" }} />
                             <div className="boxed-text">
                                 Born in Indonesia, Michaella Sutejo began her musical journey at the age of 9. She achieved Cum Laude honors from Universitas Pelita Harapan in 2017 under the mentorship of Firdy Salim, Ong Seng Choo, and Elaine Waworuntu. Michaella's passion for music was fostered through her participation in national and international competitions, festivals, and masterclasses, including a music camp in Europe.
                             </div>
                             <div className="boxed-text">
                                 These experiences and her passion inspired her to create the A Piano Concerto Series Music (APCS) in 2022. Her vision is to grow the potential and set a new benchmark in the music industry, not just locally but globally.
                             </div>
-                            <img src={goldenLine} alt={`goldenLine`} style={{ width: "60%" }} />
+                            <img loading="lazy" src={goldenLine} alt={`goldenLine`} style={{ width: "60%" }} />
                         </div>
                     </div>
 
@@ -89,10 +89,10 @@ const About = () => {
             </div>
 
             <div style={{ position: "relative" }}>
-                <img src={saphireAbout} alt={`saphireAbout`} style={{ width: "100%" }} />
+                <img loading="lazy" src={saphireAbout} alt={`saphireAbout`} style={{ width: "100%" }} />
                 <div className="registerButtonContainer-bottom" style={{ color: "white" }}>
                     <div>
-                        <img src={saphireAchiever} alt={`saphireAchiever`} style={{ width: "100%" }} />
+                        <img loading="lazy" src={saphireAchiever} alt={`saphireAchiever`} style={{ width: "100%" }} />
                     </div>
                     <div className="container">
                         <div className="row justify-content-md-center text-align-center">

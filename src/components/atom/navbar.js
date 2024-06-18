@@ -42,7 +42,7 @@ const Navbar = () => {
     return (
         <nav className="navbarContainer">
             <span className="logoContainer">
-                <img src={apcLogo} alt="apcsLogo" />
+                <img loading="lazy" src={apcLogo} alt="apcsLogo" />
             </span>
             <div className="logoContainerMobile">
                 <MenuOutlined style={{ visibility: "hidden" }} />
@@ -53,7 +53,7 @@ const Navbar = () => {
             <div className={`menuNavbarContainer  ${isNavbarMobileOpen ? "open" : ""}`}>
                 <CloseOutlined className="logoContainerMobile" onClick={handleCloseMenuMobile} />
                 <span className="logoContainerMobile">
-                    <img src={apcLogo} alt="apcsLogo" />
+                    <img loading="lazy" src={apcLogo} alt="apcsLogo" />
                 </span>
                 {Object.keys(PathName).map((eachPath) => {
                     let path = PathName[eachPath]

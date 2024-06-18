@@ -8,15 +8,15 @@ const PeopleReviews = () => {
 
     return (
         <div className="image-container-fadedTopBottom autoHeight">
-            <img src={background2} alt={`background2`} style={{ width: "100%", marginBottom: "-3px" }} />
+            <img loading="lazy" src={background2} alt={`background2`} style={{ width: "100%", marginBottom: "-3px" }} />
 
 
             <div className="letUsGuideYou">
-                <img src={letUsGuideYou} alt="apcsLogo" style={{ width: 360 }} />
+                <img loading="lazy" src={letUsGuideYou} alt="apcsLogo" style={{ width: 360 }} />
             </div>
 
             <div className="taleMusical">
-                <img src={taleMusicalJourney} alt="apcsLogo" style={{ width: 995 }} />
+                <img loading="lazy" src={taleMusicalJourney} alt="apcsLogo" style={{ width: 995 }} />
             </div>
         </div>
     )

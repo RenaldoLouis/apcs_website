@@ -9,13 +9,13 @@ const CoverImage = (props) => {
             <div
                 className="fullScreenHeight"
             >
-                <img src={background}
+                <img loading="lazy" src={background}
                     alt="homeScreen"
                     className='CoverImageContainer' />
             </div>
 
             <div className={isMiddleLeft ? "registerButtonContainer-centerLeft" : "registerButtonContainer-center"}>
-                <img src={logo} alt="apcsLogo" style={{ width: 400 }} />
+                <img loading="lazy" src={logo} alt="apcsLogo" style={{ width: 400 }} />
             </div>
 
         </div>

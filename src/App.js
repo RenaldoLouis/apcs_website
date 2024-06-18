@@ -33,7 +33,8 @@ const Main = () => {
     <AnimatePresence mode='wait'>
       <Routes>
         <Route path="/" element={<LandingPage audio={audio} />} />
-        <Route path="/home" element={<Transition children={<MainLayout children={<Home audio={audio} />} />} />} />
+        {/* <Route path="/home" element={<Transition children={<MainLayout children={<Home audio={audio} />} />} />} /> */}
+        <Route path="/home" element={<MainLayout children={<Home audio={audio} />} />} />
         <Route path="/about" element={<MainLayout children={<About />} />} />
         <Route path="/gallery" element={<MainLayout children={<GaleryPage />} />} />
         <Route path="/achievers" element={<MainLayout children={<Achievers />} />} />

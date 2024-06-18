@@ -7,13 +7,13 @@ const CoverImageHome = (props) => {
     return (
         <div className='overflow-x-hidden'>
             <div className="fadeDarkImageTopBottom">
-                <img src={background}
+                <img loading="lazy" src={background}
                     alt="homeScreen"
                     className='homeScreenimage' />
             </div>
 
             <div className={isMiddleLeft ? "registerButtonContainer-centerLeft" : "registerButtonContainer-center"}>
-                <img src={logo} alt="apcsLogo" style={{ width: 400 }} />
+                <img loading="lazy" src={logo} alt="apcsLogo" style={{ width: 400 }} />
             </div>
 
         </div>

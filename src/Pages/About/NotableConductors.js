@@ -27,12 +27,12 @@ const NotableConductors = () => {
                         </div>
                     </div>
                     <div className="col" style={{ color: "white" }}>
-                        <img src={wishnuProfile} style={{ width: "100%", height: "100%" }} alt="" />
+                        <img loading="lazy" src={wishnuProfile} style={{ width: "100%", height: "100%" }} alt="" />
                     </div>
                 </div>
                 <div className="text-align-center align-items-center row" style={{ paddingTop: 120, paddingBottom: 120 }}>
                     <div className="col" style={{ color: "white" }}>
-                        <img style={{ width: "100%", height: 522 }} alt="" />
+                        <img loading="lazy" style={{ width: "100%", height: 522 }} alt="" />
                     </div>
                     <div className="col" style={{ color: "white" }}>
                         <div>

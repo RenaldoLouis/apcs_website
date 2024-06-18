@@ -127,7 +127,7 @@ const Galery = (props) => {
                 <div>
                     {datas && datas.length > 0 && datas.map((eachData, index) => {
                         return (
-                            <img
+                            <img loading="lazy"
                                 // className={animatedKeys.includes(eachData.title) ? 'image-fade-in fade-in' : ''}
                                 // style={{ transitionDelay: `${index * 100}ms` }} // Delay each image slightly
                                 key={eachData.title} src={eachData.image} alt={eachData.title} />
@@ -141,13 +141,13 @@ const Galery = (props) => {
             {/* <div class="container">
                 <div class="row text-align-center">
                     <div class="col-sm">
-                        <img src="https://firebasestorage.googleapis.com/v0/b/apcs-profile.appspot.com/o/APCS_TP%2FTP1.png?alt=media&token=bc65e785-acab-4355-93b2-4b420b50559a"/>
+                        <img loading="lazy" src="https://firebasestorage.googleapis.com/v0/b/apcs-profile.appspot.com/o/APCS_TP%2FTP1.png?alt=media&token=bc65e785-acab-4355-93b2-4b420b50559a"/>
                     </div>
                     <div class="col-sm">
-                       <img src="https://firebasestorage.googleapis.com/v0/b/apcs-profile.appspot.com/o/APCS_TP%2FTP2.png?alt=media&token=910eea24-331b-4099-a26e-83e84b1e2ee5"/>
+                       <img loading="lazy" src="https://firebasestorage.googleapis.com/v0/b/apcs-profile.appspot.com/o/APCS_TP%2FTP2.png?alt=media&token=910eea24-331b-4099-a26e-83e84b1e2ee5"/>
                     </div>
                     <div class="col-sm">
-                        <img src="https://firebasestorage.googleapis.com/v0/b/apcs-profile.appspot.com/o/APCS_TP%2FTP5.png?alt=media&token=ed1caf83-824a-493d-b7d0-75ca53161c28"/>
+                        <img loading="lazy" src="https://firebasestorage.googleapis.com/v0/b/apcs-profile.appspot.com/o/APCS_TP%2FTP5.png?alt=media&token=ed1caf83-824a-493d-b7d0-75ca53161c28"/>
                     </div>
                 </div>
             </div> */}
@@ -157,7 +157,7 @@ const Galery = (props) => {
                     <div className="column" key={columnIndex}>
                         {column.map((src, index) => (
                             <div className="image-item" key={index}>
-                                <img src={src.image} alt={`Image ${columnIndex}-${index}`} />
+                                <img loading="lazy" src={src.image} alt={`Image ${columnIndex}-${index}`} />
                             </div>
                         ))}
                     </div>

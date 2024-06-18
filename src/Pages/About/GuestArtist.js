@@ -55,7 +55,7 @@ const GuestArtist = () => {
                         {guestArtistList.map((eachData) => {
                             return (
                                 <div className="col" style={{ marginBottom: 60 }}>
-                                    <img src={eachData.image} alt="jurist1" style={{ marginBottom: "1.25rem" }} />
+                                    <img loading="lazy" src={eachData.image} alt="jurist1" style={{ marginBottom: "1.25rem" }} />
                                     <div>
                                         {eachData.name}
                                     </div>

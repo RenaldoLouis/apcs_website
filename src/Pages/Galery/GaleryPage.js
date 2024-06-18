@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { ListEvent, YearlyEvent } from "../../constant/YearlyEvent";
 import Galery from "./Galery";
-import homeScreen from "../../assets/images/homeScreenImage.svg"
+import homeScreen from "../../assets/images/homeScreenImage.jpg"
 import HeaderTitle from "../../components/atom/HeaderTitle";
 import { FontSizeTitle } from "../../constant/FontSizeTitle";
 import { Spin } from 'antd';
@@ -59,7 +59,7 @@ const GaleryPage = () => {
                 </div>
             ) : (
                 <>
-                    <img src={homeScreen}
+                    <img loading="lazy" src={homeScreen}
                         alt="homeScreen"
                         className='fullScreenImage'
                         style={{ marginTop: 80 }}
