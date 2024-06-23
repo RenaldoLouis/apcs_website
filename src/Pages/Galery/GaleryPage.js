@@ -5,8 +5,9 @@ import homeScreen from "../../assets/images/homeScreenImage.jpg"
 import HeaderTitle from "../../components/atom/HeaderTitle";
 import { FontSizeTitle } from "../../constant/FontSizeTitle";
 import { Spin } from 'antd';
+import { useTranslation } from "react-i18next";
 const GaleryPage = () => {
-
+    const { t, i18n } = useTranslation();
     const [selectedEvent, setSelectenEvent] = useState(YearlyEvent.GHIBLI);
     const [isLoading, setIsLoading] = useState(false)
 
@@ -68,7 +69,7 @@ const GaleryPage = () => {
                         THE INITIAL TURNING POINT
                     </HeaderTitle>
                     <HeaderTitle fontSize={FontSizeTitle.small}>
-                        UNDER THE BATON OF WISHNU DEWANTA
+                        {t("underWishnu")}
                     </HeaderTitle>
                     <div className="textColor container">
                         featuring Michaela Sutejo as the main soloist (Pianist), Wishnu Dewanta (Conductor), Vahur Luhtsalu (Cellist), Andreas Arianto (Accordionist) and Amelia Tionanda (Violinist)

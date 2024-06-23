@@ -4,6 +4,7 @@ import { db } from '../../firebase';
 
 import Masonry from 'react-masonry-css';
 import InfiniteScroll from 'react-infinite-scroll-component';
+import { Spin } from "antd";
 
 const MasonryLayout = () => {
     const [items, setItems] = useState([]);
@@ -47,26 +48,31 @@ const MasonryLayout = () => {
     };
 
     return (
-        <InfiniteScroll
-            dataLength={items.length}
-            next={fetchPost}
-            hasMore={hasMore}
-            loader={<h4>Loading...</h4>}
-            endMessage={<p>All items loaded</p>}
-        >
-            <Masonry
-                breakpointCols={breakpointColumnsObj}
-                className="my-masonry-grid"
-                columnClassName="my-masonry-grid_column"
+        <>
+            <InfiniteScroll
+                dataLength={items.length}
+                next={fetchPost}
+                hasMore={hasMore}
+                loader={<Spin tip="Loading" />}
+                endMessage={""}
+                style={{
+                    overflow: 'hidden',
+                }}
             >
-                {items.map((item, index) => (
-                    <div key={index} className="masonry-item">
-                        <img loading="lazy" src={item.image} alt={item.title} />
-                        <p>{item.title}</p>
-                    </div>
-                ))}
-            </Masonry>
-        </InfiniteScroll>
+                <Masonry
+                    breakpointCols={breakpointColumnsObj}
+                    className="my-masonry-grid"
+                    columnClassName="my-masonry-grid_column"
+                >
+                    {items.map((item, index) => (
+                        <div key={index} className="masonry-item">
+                            <img loading="lazy" src={item.image} alt={item.title} />
+                        </div>
+                    ))}
+                </Masonry>
+            </InfiniteScroll>
+
+        </>
     );
 };
 

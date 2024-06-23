@@ -108,6 +108,15 @@
     }
 }
 
+.textColorSelected {
+    color: $primary-golden-text-color;
+}
+
+.separator::before {
+    content: "|";
+    margin: 0 5px;
+}
+
 .align {
     &-items {
         &-center {
@@ -126,6 +135,12 @@
     &-self {
         &-center {
             align-self: center;
+        }
+    }
+
+    &-content {
+        &-center {
+            align-content: center;
         }
     }
 }

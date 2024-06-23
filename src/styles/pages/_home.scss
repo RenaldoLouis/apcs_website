@@ -113,10 +113,7 @@
 
 .itemMenuSelectedNavbarBackgoundColor::after {
   background-color: $primary-golden-text-color !important;
-}
 
-.textColorNavbarSelected {
-  color: $primary-golden-text-color;
 }
 
 .itemMenuSelected {
@@ -129,10 +126,10 @@
 .itemMenuSelected::after {
   content: '';
   position: absolute;
-  bottom: 0;
+  bottom: -2px;
   left: 0;
   width: 0;
-  height: 1px;
+  height: 3px;
   background-color: white;
   transition: width 600ms ease;
 }
