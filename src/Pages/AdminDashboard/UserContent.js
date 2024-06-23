@@ -1,9 +1,9 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { Breadcrumb, Layout, Menu, theme } from 'antd';
+import React from 'react';
+import { Layout, theme } from 'antd';
 import { Table } from 'antd';
 import usePaginatedUsers from '../../hooks/useFetchUsersData';
 
-const { Header, Content, Footer, Sider } = Layout;
+const { Content } = Layout;
 
 const UserContent = () => {
 

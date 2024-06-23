@@ -1,19 +1,14 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 
-import { Button, Checkbox, Form, Input, Card, Col, Row, Flex } from 'antd';
+import { Button, Flex } from 'antd';
 // import { signInWithGooglePopup } from "../../firebase";
 import { PoweroffOutlined } from '@ant-design/icons';
-import { DataContext, useAuth } from "../../context/DataContext";
-import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../context/DataContext";
 import { toast } from "react-toastify";
-import { useCookies } from "react-cookie";
-import { CookieKeys } from "../../constant/CookieKeys";
 
 const Login = () => {
-    const navigate = useNavigate();
-    const { signInWithGoogle, user } = useAuth();
+    const { signInWithGoogle } = useAuth();
 
-    const [cookies, setCookie, removeCookie] = useCookies([CookieKeys.LOGGEDINUSER]);
     const [loading, setLoading] = useState(false);
 
     const handleSigninGoogle = async () => {

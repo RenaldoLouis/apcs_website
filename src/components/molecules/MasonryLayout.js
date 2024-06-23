@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { collection, getDocs, limit, query, startAfter, orderBy } from "firebase/firestore";
 import { db } from '../../firebase';
 
@@ -61,7 +61,6 @@ const MasonryLayout = () => {
             >
                 {items.map((item, index) => (
                     <div key={index} className="masonry-item">
-                        {/* Render your item content here */}
                         <img loading="lazy" src={item.image} alt={item.title} />
                         <p>{item.title}</p>
                     </div>

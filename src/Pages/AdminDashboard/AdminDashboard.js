@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import {
     DesktopOutlined,
     FileOutlined,
@@ -6,18 +6,14 @@ import {
     TeamOutlined,
     UserOutlined,
 } from '@ant-design/icons';
-import { Breadcrumb, Layout, Menu, theme } from 'antd';
-import { DataContext, useAuth } from '../../context/DataContext';
+import { Layout, Menu, theme } from 'antd';
+import { useAuth } from '../../context/DataContext';
 // import { getAuth, signOut } from "firebase/auth";
-import { auth } from '../../firebase';
 import { useNavigate } from 'react-router-dom';
-import { toast } from 'react-toastify';
 import UserContent from './UserContent';
 import AdminContent from './AdminContent';
-import { useCookies } from 'react-cookie';
-import { CookieKeys } from '../../constant/CookieKeys';
 
-const { Header, Content, Footer, Sider } = Layout;
+const { Header, Footer, Sider } = Layout;
 function getItem(label, key, icon, onClick, children) {
     return {
         label,
@@ -29,10 +25,9 @@ function getItem(label, key, icon, onClick, children) {
 }
 
 const AdminDashboard = () => {
-    const navigate = useNavigate();
     const { signOut } = useAuth();
     const [collapsed, setCollapsed] = useState(false);
-    const { token: { colorBgContainer, borderRadiusLG }, } = theme.useToken();
+    const { token: { colorBgContainer }, } = theme.useToken();
 
     const [selectedKey, setSelectedKey] = useState('1'); // Initialize with default selected key
 

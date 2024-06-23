@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from "react";
-import village from "../../assets/videos/village.mp4"
+import React from "react";
 // import homeScreen from "../../assets/images/homeScreenImage.svg"
 
 const CoverImageHome = (props) => {

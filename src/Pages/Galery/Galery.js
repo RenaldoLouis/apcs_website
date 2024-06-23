@@ -7,50 +7,16 @@ const Galery = (props) => {
     const { isDynamicType = false } = props
 
     const [datas, setDatas] = useState([])
-    const [chunkedDatas, setChunkedDatas] = useState([])
     const [isGetLatestImage, setIsGetLatestImage] = useState(false);
-
-    const [animatedKeys, setAnimatedKeys] = useState([]);
-
-    const [galeryPhotos, setGaleryPhotos] = useState([]);
-
-    // useEffect(() => {
-    //     // Determine new keys that need to be animated
-    //     const newKeys = datas.map(data => data.title);
-
-    //     // Filter out keys that were already animated
-    //     const keysToAnimate = newKeys.filter(key => !animatedKeys.includes(key));
-
-    //     // Set keys to animate
-    //     setAnimatedKeys([...animatedKeys, ...keysToAnimate]);
-
-    //     // Reset animation after 500ms (same as transition duration)
-    //     const timer = setTimeout(() => {
-    //         setAnimatedKeys([]);
-    //     }, 500);
-
-    //     return () => clearTimeout(timer);
-    // }, [datas]);
 
     let latestData = null
 
     const imageThresholdRef = useRef(null);
 
-    const chunkArray = (array, size) => {
-        const chunkedArray = [];
-        for (let i = 0; i < array.length; i += size) {
-            chunkedArray.push(array.slice(i, i + size));
-        }
-        return chunkedArray;
-    };
-
     useEffect(() => {
         if (datas.length > 0) {
-            // const chunkedImages = chunkArray(datas, 3);
-            // setChunkedDatas(chunkedImages)
 
             let tempPhotos = []
-            console.log('datas', datas)
             datas.forEach((eachData) => {
                 let tempObject = {
                     src: eachData.image,
@@ -59,40 +25,8 @@ const Galery = (props) => {
                 }
                 tempPhotos.push(tempObject)
             })
-
-            console.log("tempPhotos", tempPhotos)
-            setGaleryPhotos(tempPhotos)
         }
     }, [datas])
-
-    // useEffect(() => {
-    //     const observer = new IntersectionObserver(
-    //         (entries) => {
-    //             entries.forEach((entry) => {
-    //                 if (entry.isIntersecting) {
-    //                     console.log('Element is in view!');
-    //                     fetchPost();
-    //                 }
-    //             });
-    //         },
-    //         {
-    //             root: null, // Use the viewport as the root
-    //             rootMargin: '0px',
-    //             threshold: 0.1, // Trigger when 10% of the element is in view
-    //         }
-    //     );
-
-    //     if (imageThresholdRef.current) {
-    //         observer.observe(imageThresholdRef.current);
-    //     }
-
-    //     // Clean up the observer on component unmount
-    //     return () => {
-    //         if (imageThresholdRef.current) {
-    //             observer.unobserve(imageThresholdRef.current);
-    //         }
-    //     };
-    // }, []);
 
     const fetchPost = useCallback(async () => {
         if (!isGetLatestImage && latestData !== undefined) {

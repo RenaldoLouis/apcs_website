@@ -1,13 +1,13 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect } from "react";
 import { Preload, Scroll, ScrollControls } from "@react-three/drei"
-import { Canvas, useThree } from "@react-three/fiber"
+import { Canvas } from "@react-three/fiber"
 import { Suspense } from "react"
 import Slides from "./Slides"
 import TextSlides from "./TextSlides"
 import ArrowUp from "../../../assets/icons/ArrowUp.png"
 
 const AnimationWWScroll = (props) => {
-    const { setIsScrollDownAvailable } = props
+    // const { setIsScrollDownAvailable } = props
 
     useEffect(() => {
         setTimeout(() => {

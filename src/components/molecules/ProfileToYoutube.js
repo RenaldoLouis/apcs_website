@@ -23,9 +23,11 @@ const ProfileToYoutube = (props) => {
                 <div style={{ marginTop: 16, fontSize: 20, fontWeight: "semi-bold" }}>
                     Sapphire Winner
                 </div>
-                <div style={{ fontSize: 16 }}>
-                    2022 Christmas Wonderland
-                </div>
+                {event.map((eachEvent) => (
+                    <div style={{ fontSize: 16 }}>
+                        {eachEvent}
+                    </div>
+                ))}
             </div>
         </>
     )

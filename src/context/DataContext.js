@@ -1,8 +1,6 @@
-import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
+import { signInWithPopup } from 'firebase/auth';
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import { useCookies } from 'react-cookie';
 import { auth, provider } from '../firebase';
-import { CookieKeys } from '../constant/CookieKeys';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import FirebaseApi from '../middleware/firebaseApi';
@@ -34,7 +32,7 @@ export const DataContextProvider = ({ children }) => {
     const signInWithGoogle = async () => {
         const result = await signInWithPopup(auth, provider);
         const token = await result.user.getIdToken();
-        const tokenResult = await result.user.getIdTokenResult();
+        // const tokenResult = await result.user.getIdTokenResult();
         const userEmail = await result.user.email;
         const whitelistDatas = await FirebaseApi.getWhitelist();
         let allowed = false;

@@ -1,19 +1,7 @@
-import React, { useContext, useState } from 'react';
-import {
-    DesktopOutlined,
-    FileOutlined,
-    PieChartOutlined,
-    TeamOutlined,
-    UserOutlined,
-} from '@ant-design/icons';
-import { Breadcrumb, Layout, Menu, theme } from 'antd';
-import { DataContext } from '../../context/DataContext';
-import { getAuth, signOut } from "firebase/auth";
-import { auth } from '../../firebase';
-import { useNavigate } from 'react-router-dom';
-import { toast } from 'react-toastify';
+import React from 'react';
+import { Layout, theme } from 'antd';
 
-const { Header, Content, Footer, Sider } = Layout;
+const { Content } = Layout;
 const AdminContent = () => {
 
     const { token: { colorBgContainer, borderRadiusLG }, } = theme.useToken();

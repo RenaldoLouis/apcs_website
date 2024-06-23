@@ -36,7 +36,7 @@ const sapphireWinners = [
         name: "Sydney Mikaela Tan",
         image: saphire2,
         country: "Tangerang",
-        event: ["2022 Christmas Wonderland"]
+        event: ["2022 Christmas Wonderland", "2022 Classical Festival Surabaya"]
     },
     {
         name: "Sydney Mikaela Tan",
