@@ -1,8 +1,6 @@
 import React from "react";
-import goldenLine from "../../assets/images/goldenLine.png"
 import textureBackground from "../../assets/images/textureBackground.png"
-import lineAchievers from "../../assets/images/lineAchievers.png"
-import apcLogoBold from "../../assets/images/apc_logo_bold.svg"
+import saphireAchieverText from "../../assets/images/saphireAchieverText.svg"
 import ProfileToYoutube from "../../components/molecules/ProfileToYoutube";
 import AchieversHeader from "../../components/molecules/AchieversHeader";
 
@@ -12,6 +10,7 @@ const SapphireWinnerSection = (props) => {
         <div style={{ paddingTop: 150, backgroundImage: `url(${textureBackground})` }}>
             <AchieversHeader
                 title="THOSE WHO HAD BRILLIANT PERFORMANCE"
+                image={saphireAchieverText}
                 description="Contestants who achieved a score of 100 points deserve to play with the orchestra of the respective festival / events." />
             <div className="container color-white">
                 <div className="row gx-5 gy-5">

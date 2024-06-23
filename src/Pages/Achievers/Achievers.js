@@ -1,5 +1,4 @@
 import React from "react";
-import CoverVideo from "../../components/molecules/CoverVideo";
 import SapphireWinnerSection from "./SapphireWinnerSection";
 import CoverImage from "../../components/molecules/CoverImage";
 import aboutCover from "../../assets/images/AboutCover.jpg"

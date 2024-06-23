@@ -1,12 +1,8 @@
 import React from "react";
-import goldenLine from "../../assets/images/goldenLine.png"
-import textureBackground from "../../assets/images/textureBackground.png"
 import lineAchievers from "../../assets/images/lineAchievers.png"
-import apcLogoBold from "../../assets/images/apc_logo_bold.svg"
-import ProfileToYoutube from "./ProfileToYoutube";
 
 const AchieversHeader = (props) => {
-    const { title, description } = props
+    const { title, description, image } = props
     return (
         <div className="container" style={{ marginBottom: 150 }}>
             <div className="row justify-center">
@@ -16,7 +12,7 @@ const AchieversHeader = (props) => {
             </div>
             <div className="row justify-center place-items-center gx-5" style={{ margin: "47px 0px 47px 0px" }}>
                 <div className="col-md-6 text-align-last-end">
-                    <img loading="lazy" src={apcLogoBold} alt="apcsLogo" style={{ width: 400 }} />
+                    <img loading="lazy" src={image} alt="apcsLogo" style={{ width: 400 }} />
                 </div>
                 <div className="col-md-6">
                     <div className="goldenText">
