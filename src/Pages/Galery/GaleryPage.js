@@ -8,7 +8,7 @@ import { Spin } from 'antd';
 import { useTranslation } from "react-i18next";
 const GaleryPage = () => {
     const { t, i18n } = useTranslation();
-    const [selectedEvent, setSelectenEvent] = useState(YearlyEvent.GHIBLI);
+    const [selectedEvent, setSelectenEvent] = useState(YearlyEvent.TURNINGPOINT);
     const [isLoading, setIsLoading] = useState(false)
 
     const handleClickEvent = (eventName) => {
@@ -29,7 +29,7 @@ const GaleryPage = () => {
             <div className="container">
                 <div className="row">
                     <div className="col-sm">
-                        <div className="color-white">
+                        <div className="color-white mangolaineFont">
                             YEAR
                         </div>
                     </div>
@@ -41,11 +41,11 @@ const GaleryPage = () => {
                         return (
                             <div className="col-sm" >
                                 <div onClick={() => handleClickEvent(eachEvent.title)}
-                                    className={`itemMenuSelected ${selectedEvent === eachEvent.title ? 'selected' : ''}`}>
-                                    <div>
+                                    className={`itemMenuSelected special-case ${selectedEvent === eachEvent.title ? 'selected textColorSelected' : ''}`}>
+                                    <div className="mangolaineFont" style={{ fontSize: 16 }}>
                                         {eachEvent.year}
                                     </div>
-                                    <div>
+                                    <div className={`nowrap ${selectedEvent === eachEvent.title ? "mosafinFont" : "mangolaineFont"}`} style={{ fontSize: 18 }}>
                                         {eachEvent.title}
                                     </div>
                                 </div>
