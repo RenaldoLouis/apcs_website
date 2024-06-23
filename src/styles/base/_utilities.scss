@@ -72,6 +72,10 @@
     &-center {
         justify-content: center;
     }
+
+    &-spaceBetween {
+        justify-content: space-between;
+    }
 }
 
 .text {
@@ -86,6 +90,20 @@
 
         &-justify {
             text-align: justify;
+        }
+
+        &-last {
+            &-end {
+                text-align-last: end;
+            }
+        }
+    }
+}
+
+.place {
+    &-items {
+        &-center {
+            place-items: center;
         }
     }
 }
@@ -137,6 +155,8 @@
 .primaryBackgroundBlack {
     background-color: $primary-color-dark;
 }
+
+.backgroundTexture {}
 
 .backgroundBlack {
     background-color: black;

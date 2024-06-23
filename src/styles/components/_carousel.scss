@@ -16,9 +16,18 @@
   justify-content: space-between;
 }
 
-.registerButtonContainer-center {
+.registerButtonContainer-center-top {
   position: absolute;
   top: 25%;
+  transform: translateY(-50%);
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.registerButtonContainer-center {
+  position: absolute;
+  top: 50%;
   transform: translateY(-50%);
   width: 100%;
   display: flex;
