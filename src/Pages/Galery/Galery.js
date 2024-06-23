@@ -56,50 +56,39 @@ const Galery = (props) => {
     return (
         <section>
             <MasonryLayout />
-            {/* <div className={isDynamicType ? "image-galleryDynamic" : "image-gallery"}>
-                <div>
-                    {datas && datas.length > 0 && datas.map((eachData, index) => {
-                        return (
-                            <img loading="lazy"
-                                // className={animatedKeys.includes(eachData.title) ? 'image-fade-in fade-in' : ''}
-                                // style={{ transitionDelay: `${index * 100}ms` }} // Delay each image slightly
-                                key={eachData.title} src={eachData.image} alt={eachData.title} />
-                        )
-                    })}
-                </div>
-            </div>
-            <PhotoAlbum layout="masonry" photos={galeryPhotos} />;
-            <div ref={imageThresholdRef} id="imageThreshold" /> */}
-
-            {/* <div class="container">
-                <div class="row text-align-center">
-                    <div class="col-sm">
-                        <img loading="lazy" src="https://firebasestorage.googleapis.com/v0/b/apcs-profile.appspot.com/o/APCS_TP%2FTP1.png?alt=media&token=bc65e785-acab-4355-93b2-4b420b50559a"/>
-                    </div>
-                    <div class="col-sm">
-                       <img loading="lazy" src="https://firebasestorage.googleapis.com/v0/b/apcs-profile.appspot.com/o/APCS_TP%2FTP2.png?alt=media&token=910eea24-331b-4099-a26e-83e84b1e2ee5"/>
-                    </div>
-                    <div class="col-sm">
-                        <img loading="lazy" src="https://firebasestorage.googleapis.com/v0/b/apcs-profile.appspot.com/o/APCS_TP%2FTP5.png?alt=media&token=ed1caf83-824a-493d-b7d0-75ca53161c28"/>
-                    </div>
-                </div>
-            </div> */}
-
-            {/* <div class="image-gallery">
-                {chunkedDatas && chunkedDatas.length > 0 && chunkedDatas.map((column, columnIndex) => (
-                    <div className="column" key={columnIndex}>
-                        {column.map((src, index) => (
-                            <div className="image-item" key={index}>
-                                <img loading="lazy" src={src.image} alt={`Image ${columnIndex}-${index}`} />
-                            </div>
-                        ))}
-                    </div>
-                ))}
-
-                <div ref={imageThresholdRef} id="imageThreshold" />
-            </div> */}
         </section>
     )
 }
 
 export default Galery;
+
+
+
+
+
+
+
+
+// import React from "react";
+
+// const Galery = (props) => {
+//     const { isDynamicType = false } = props
+
+//     return (
+//         <section className={"image-galleryDynamic"}>
+//             <div>
+//                 <img src='https://images.unsplash.com/photo-1661335996027-0a65af891c27?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwzMjM4NDZ8MHwxfHJhbmRvbXx8fHx8fHx8fDE2NjI5OTQwNDU&ixlib=rb-1.2.1&q=80&w=400' alt='' />
+//                 <img src='https://images.unsplash.com/photo-1661189626525-3d7ec5d3087c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwzMjM4NDZ8MHwxfHJhbmRvbXx8fHx8fHx8fDE2NjI5OTQwNDU&ixlib=rb-1.2.1&q=80&w=400' alt='' />
+//                 <img src='https://images.unsplash.com/photo-1660628504006-9416dd2a411f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwzMjM4NDZ8MHwxfHJhbmRvbXx8fHx8fHx8fDE2NjI5OTQwNDU&ixlib=rb-1.2.1&q=80&w=400' alt='' />
+//                 <img src='https://images.unsplash.com/photo-1662441896128-691f7ac658ad?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwzMjM4NDZ8MHwxfHJhbmRvbXx8fHx8fHx8fDE2NjI5OTQwNDU&ixlib=rb-1.2.1&q=80&w=400' alt='' />
+//                 <img src='https://images.unsplash.com/photo-1661880374687-4ce390284f86?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwzMjM4NDZ8MHwxfHJhbmRvbXx8fHx8fHx8fDE2NjI5OTQwNDU&ixlib=rb-1.2.1&q=80&w=400' alt='' />
+//                 <img src='https://images.unsplash.com/photo-1661691111071-42c262ca061e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwzMjM4NDZ8MHwxfHJhbmRvbXx8fHx8fHx8fDE2NjI5OTQwNDU&ixlib=rb-1.2.1&q=80&w=400' alt='' />
+//                 <img src='https://images.unsplash.com/photo-1696644542260-c0960b3b7233?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wzMjM4NDZ8MHwxfHJhbmRvbXx8fHx8fHx8fDE2OTk0NTAwMTF8&ixlib=rb-4.0.3&q=80&w=400' alt='' />
+//                 <img src='https://images.unsplash.com/photo-1661435805196-81136edfa297?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwzMjM4NDZ8MHwxfHJhbmRvbXx8fHx8fHx8fDE2NjI5OTQxMTQ&ixlib=rb-1.2.1&q=80&w=400' alt='' />
+//                 <img src='https://images.unsplash.com/photo-1660584658489-a15f806f463c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwzMjM4NDZ8MHwxfHJhbmRvbXx8fHx8fHx8fDE2NjI5OTQxMTQ&ixlib=rb-1.2.1&q=80&w=400' alt='' />
+//             </div>
+//         </section>
+//     )
+// }
+
+// export default Galery;

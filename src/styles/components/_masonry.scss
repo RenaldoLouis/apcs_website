@@ -1,14 +1,41 @@
 .my-masonry-grid {
     display: flex;
-    margin-left: -30px;
+    margin-left: 140px;
     /* gutter size offset */
     width: auto;
 }
 
 .my-masonry-grid_column {
-    padding-left: 30px;
+    margin-left: -25px;
     /* gutter size */
     background-clip: padding-box;
+}
+
+@media (max-width : 700px) {
+    .my-masonry-grid {
+        display: flex;
+        margin-left: 55px;
+        /* gutter size offset */
+        width: auto;
+    }
+}
+
+@media (max-width : 375px) {
+    .my-masonry-grid {
+        display: flex;
+        margin-left: 20px;
+        /* gutter size offset */
+        width: auto;
+    }
+}
+
+@media (max-width : 320px) {
+    .my-masonry-grid {
+        display: flex;
+        margin-left: 10px;
+        /* gutter size offset */
+        width: auto;
+    }
 }
 
 @keyframes fadeIn {
@@ -24,7 +51,29 @@
 }
 
 .masonry-item {
-    margin-bottom: 30px;
+    margin-bottom: 8px;
     animation: fadeIn 0.5s ease-in-out;
     animation-fill-mode: both;
+    text-align: center;
+    transition: transform 350ms ease, opacity 350ms linear;
+}
+
+.masonry-item img {
+    transition: transform 350ms ease, opacity 350ms linear;
+}
+
+.masonry-item img:hover {
+    transform: scale(1);
+    /* Scale up the hovered image */
+    opacity: 1;
+    /* Full opacity for the hovered image */
+}
+
+/* Apply styles to sibling images when one image is hovered */
+.masonry-item img:hover~.masonry-item img,
+.masonry-item img:not(:hover) {
+    transform: scale(0.9);
+    /* Scale down non-hovered images */
+    opacity: 0.7;
+    /* Reduce opacity for non-hovered images */
 }

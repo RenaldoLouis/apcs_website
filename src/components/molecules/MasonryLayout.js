@@ -10,6 +10,7 @@ const MasonryLayout = () => {
     const [items, setItems] = useState([]);
     const [hasMore, setHasMore] = useState(true);
     const [isGetLatestImage, setIsGetLatestImage] = useState(false);
+    const [hoveredIndex, setHoveredIndex] = useState(null);
 
     let latestData = null
 
@@ -43,12 +44,12 @@ const MasonryLayout = () => {
 
     const breakpointColumnsObj = {
         default: 3,
-        1100: 2,
+        1100: 1,
         700: 1
     };
 
     return (
-        <>
+        <div style={{ justifyContent: "center" }}>
             <InfiniteScroll
                 dataLength={items.length}
                 next={fetchPost}
@@ -65,14 +66,19 @@ const MasonryLayout = () => {
                     columnClassName="my-masonry-grid_column"
                 >
                     {items.map((item, index) => (
-                        <div key={index} className="masonry-item">
-                            <img loading="lazy" src={item.image} alt={item.title} />
+                        <div
+                            key={index}
+                            className={`masonry-item ${hoveredIndex === index ? 'hovered' : ''}`}
+                        // onMouseEnter={() => setHoveredIndex(index)}
+                        // onMouseLeave={() => setHoveredIndex(null)}
+                        >
+                            <img src={item.image} alt={item.title} className="masonry-img" />
                         </div>
                     ))}
                 </Masonry>
             </InfiniteScroll>
 
-        </>
+        </div>
     );
 };
 
