@@ -1,11 +1,12 @@
 import React from "react";
+import textureBackground from "../../assets/images/textureBackground.png"
 import wishnuProfile from "../../assets/images/wishnuProfile.svg"
 import HeaderTitle from "../../components/atom/HeaderTitle";
 
 const NotableConductors = () => {
 
     return (
-        <div className="NotableConductorContainer" style={{ background: "black" }}>
+        <div className="NotableConductorContainer" style={{ backgroundImage: `url(${textureBackground})` }}>
             <div className="container" >
                 <div style={{ paddingTop: 153 }}>
                     <HeaderTitle>
