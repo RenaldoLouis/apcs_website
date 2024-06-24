@@ -1,3 +1,27 @@
 .NotableConductorContainer {
     background-image: url("../../../src/assets//images/BackgroundImage.png");
 }
+
+.jurist-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.jurist-image-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 430px;
+    /* Adjust this value as needed */
+    overflow: hidden;
+    margin-bottom: 1.25rem;
+}
+
+.jurist-image {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: cover;
+}

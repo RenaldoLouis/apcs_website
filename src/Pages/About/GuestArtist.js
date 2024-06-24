@@ -1,7 +1,6 @@
 import React from "react";
 import HeaderTitle from "../../components/atom/HeaderTitle";
-import wishnuProfile from "../../assets/images/wishnuProfile.svg"
-import jurist1 from "../../assets/images/jurists/jurist1.svg"
+import jurist1 from "../../assets/images/jurists/jurist1.png"
 
 const GuestArtist = () => {
 
