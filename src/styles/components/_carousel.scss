@@ -45,6 +45,17 @@
   align-items: center;
 }
 
+.registerButtonContainer-center {
+  position: absolute;
+  top: 35%;
+  transform: translateY(-50%);
+  width: 100%;
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 .registerButtonContainer-centerLeft {
   position: absolute;
   top: 50%;

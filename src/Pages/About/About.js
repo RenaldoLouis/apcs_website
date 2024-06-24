@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import NotableConductors from "./NotableConductors";
-import AchieversSection from "./AchieversSection";
 import AnimationWWScroll from "../../components/molecules/Animation3dScroll/AnimationWWScroll";
 import CoverImage from "../../components/molecules/CoverImage";
 import musiciswhatapcs from "../../assets/images/musiciswhatapcs.svg"
@@ -9,12 +8,15 @@ import apcLogo from "../../assets/images/apc_logo.svg"
 import goldenLine from "../../assets/images/goldenLine.png"
 import michaelaAbout from "../../assets/images/michaelaAbout.svg"
 import saphireAbout from "../../assets/images/saphireAbout.svg"
+import contactUsPicture from "../../assets/images/contactUsPicture.png"
 import saphireAchiever from "../../assets/images/saphireAchiever.svg"
 import PillButton from "../../components/atom/PillButton";
 import { useTranslation } from "react-i18next";
 import i18n from '../../i18n';
 import NotableJurist from "./NotableJurist";
 import GuestArtist from "./GuestArtist";
+import BackgroundWithText from "../../components/molecules/BacgkroundWithText";
+import { ContentPosition } from "../../constant/ContentPosition";
 
 
 
@@ -88,29 +90,27 @@ const About = () => {
                 </div>
             </div>
 
-            <div style={{ position: "relative" }}>
-                <img loading="lazy" src={saphireAbout} alt={`saphireAbout`} style={{ width: "100%" }} />
-                <div className="registerButtonContainer-bottom" style={{ color: "white" }}>
-                    <div>
-                        <img loading="lazy" src={saphireAchiever} alt={`saphireAchiever`} style={{ width: "100%" }} />
-                    </div>
-                    <div className="container">
-                        <div className="row justify-content-md-center text-align-center">
-                            <div className="col col-lg-8">
-                                APCS is more than a Piano Concert, it’s an open platform to provide greater access to all musicians. We curated our performers by audition, every participant will be auditioned by notable juries, and contestants who achieve Sapphire Awards are entitled to play with the APCS orchestra.
-                            </div>
-                        </div>
-                    </div>
-                    <div>
-                        <PillButton text={"View More"} />
-                    </div>
-                </div>
-            </div>
+            <BackgroundWithText
+                image={saphireAbout}
+                logo={saphireAchiever}
+                text={"APCS is more than a Piano Concert, it’s an open platform to provide greater access to all musicians. We curated our performers by audition, every participant will be auditioned by notable juries, and contestants who achieve Sapphire Awards are entitled to play with the APCS orchestra."}
+                buttonText={"View More"}
+                contentPosition={ContentPosition.MIDDLEBOTTOM}
+            />
 
             <NotableConductors />
             <NotableJurist />
             <GuestArtist />
-            <AchieversSection />
+            <BackgroundWithText
+                image={contactUsPicture}
+                text={
+                    <div className="mangolaineFont goldenTextColor" style={{ fontSize: 48 }}>
+                        WE BRING MUSICIAN TOGETHER TO SHARE EXPERIENCE
+                    </div>
+                }
+                buttonText={"CONTACT US"}
+                contentPosition={ContentPosition.MIDDLE}
+            />
         </div>
     )
 }
