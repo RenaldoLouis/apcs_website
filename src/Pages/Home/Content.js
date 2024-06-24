@@ -1,9 +1,4 @@
 import React, { useState } from "react";
-import PeopleReviews from "./PeopleReviews";
-import Galery from "../Galery/Galery";
-import PillButton from "../../components/atom/PillButton";
-import goldenLine from "../../assets/images/goldenLine.png"
-import Carousel from "../../components/molecules/CarouselCustom";
 
 const Content = (props) => {
     const { audio } = props

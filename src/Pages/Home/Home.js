@@ -1,7 +1,7 @@
 import React from "react";
 import PillButton from "../../components/atom/PillButton";
 import goldenLine from "../../assets/images/goldenLine.png"
-import PeopleReviews from "./PeopleReviews";
+import LetUsGuideTo from "./LetUsGuideTo";
 import pianoKeys from '../../assets/images/pianoKeys.svg';
 import musicForEveryone from "../../assets/images/musicForEveryone.svg"
 import firdyHomeScreen from "../../assets/images/firdyHomeScreen.svg"
@@ -52,7 +52,7 @@ const Home = (props) => {
                 </div>
             </div>
 
-            <PeopleReviews />
+            <LetUsGuideTo />
 
             <div className="image-container-fadedTopBottom autoHeight">
                 <img loading="lazy" src={pianoKeys} alt={`pianoKeys`} style={{ width: "100%" }} />
