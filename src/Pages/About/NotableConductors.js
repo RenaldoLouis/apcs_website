@@ -4,6 +4,7 @@ import wishnuProfile from "../../assets/images/wishnuProfile.svg"
 import chikita from "../../assets/images/chikita.svg"
 import HeaderTitle from "../../components/atom/HeaderTitle";
 import ConductorProfile from "../../components/molecules/ConductorProfile";
+import AnimatedComponent from "../../components/atom/AnimatedComponent";
 
 const NotableConductors = () => {
 
@@ -22,12 +23,16 @@ const NotableConductors = () => {
                         eventYear={'apcs 2019 '}
                         eventName={"the initial turning point"} />
                     <div className="col" style={{ color: "white" }}>
-                        <img loading="lazy" src={wishnuProfile} style={{ width: "100%", height: "100%" }} alt="" />
+                        <AnimatedComponent animationClass="animate__fadeInDown">
+                            <img loading="lazy" src={wishnuProfile} style={{ width: "100%", height: "100%" }} alt="" />
+                        </AnimatedComponent>
                     </div>
                 </div>
                 <div className="text-align-center align-items-center row" style={{ paddingTop: 120, paddingBottom: 120 }}>
                     <div className="col" style={{ color: "white" }}>
-                        <img loading="lazy" src={chikita} style={{ width: "100%", height: "100%" }} alt="" />
+                        <AnimatedComponent animationClass="animate__fadeInDown">
+                            <img loading="lazy" src={chikita} style={{ width: "100%", height: "100%" }} alt="" />
+                        </AnimatedComponent>
                     </div>
                     <div className="col" style={{ color: "white" }}>
                         <ConductorProfile
