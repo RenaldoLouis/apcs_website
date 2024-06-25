@@ -6,8 +6,8 @@ import musiciswhatapcs from "../../assets/images/musiciswhatapcs.svg"
 import aboutCover from "../../assets/images/AboutCover.jpg"
 import apcLogo from "../../assets/images/apc_logo.svg"
 import goldenLine from "../../assets/images/goldenLine.png"
-import michaelaAbout from "../../assets/images/michaelaAbout.svg"
-import saphireAbout from "../../assets/images/saphireAbout.svg"
+import michaelaAbout from "../../assets/images/michaelaAbout.png"
+import saphireAbout from "../../assets/images/saphireAbout.png"
 import contactUsPicture from "../../assets/images/contactUsPicture.png"
 import saphireAchiever from "../../assets/images/saphireAchiever.svg"
 import PillButton from "../../components/atom/PillButton";
@@ -17,8 +17,6 @@ import NotableJurist from "./NotableJurist";
 import GuestArtist from "./GuestArtist";
 import BackgroundWithText from "../../components/molecules/BacgkroundWithText";
 import { ContentPosition } from "../../constant/ContentPosition";
-
-
 
 const About = () => {
     const { t, i18n } = useTranslation();

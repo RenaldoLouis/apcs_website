@@ -46,6 +46,11 @@ const Navbar = () => {
     return (
         <>
             <nav className="navbarContainer">
+                <div>
+                    <YoutubeOutlined style={{ fontSize: 32 }} />
+                    <InstagramOutlined style={{ fontSize: 32 }} />
+                    <TikTokOutlined style={{ fontSize: 32 }} />
+                </div>
                 <span className="logoContainer">
                     <img loading="lazy" src={apcLogo} alt="apcsLogo" />
                 </span>
@@ -78,22 +83,23 @@ const Navbar = () => {
                         className={`cursorPointer ${currentLanguage === "en" ? "textColorSelected" : ""}`}>EN</span>
                 </div>
             </nav>
-            {/* <div class="container">
-                <div className={`row menuNavbarContainer  ${isNavbarMobileOpen ? "open" : ""}`}>
-                    <div class="col">
-
-                        <YoutubeOutlined />
-                        <InstagramOutlined />
-                        <TikTokOutlined />
-                    </div>
-                    <div class="col">
-                        Column
-                    </div>
-                    <div class="col">
-                        Column
+            {/* <nav>
+                <div class="container" style={{ position: "absolute" }}>
+                    <div className={`row`}>
+                        <div class="col">
+                            <YoutubeOutlined />
+                            <InstagramOutlined />
+                            <TikTokOutlined />
+                        </div>
+                        <div class="col">
+                            Column
+                        </div>
+                        <div class="col">
+                            Column
+                        </div>
                     </div>
                 </div>
-            </div> */}
+            </nav> */}
         </>
     );
 }

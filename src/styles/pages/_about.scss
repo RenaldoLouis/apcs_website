@@ -1,6 +1,13 @@
-.NotableConductorContainer {
-    background-image: url("../../../src/assets//images/BackgroundImage.png");
-}
+.NotableConductorContainer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.6); /* Black color with 0.5 opacity */
+    z-index: 1;
+  }
 
 .jurist-container {
     display: flex;
