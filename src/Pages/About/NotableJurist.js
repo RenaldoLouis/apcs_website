@@ -94,7 +94,7 @@ const NotableJurist = () => {
                     </div>
                 </div>
                 <div style={{ color: "white" }}>
-                    <div className="text-align-justify align-items-start row g-5" style={{ paddingBottom: 36 }}>
+                    <div className="text-align-justify align-items-start row g-5" style={{}}>
                         {juristList.map((eachData) => {
                             return (
                                 <div className="col-12 col-md-4" style={{ marginBottom: 60 }}>

@@ -46,9 +46,11 @@ const GuestArtist = () => {
     return (
         <div style={{ background: "black" }} >
             <div className="container" >
-                <HeaderTitle>
-                    Guest Artist
-                </HeaderTitle>
+                <div style={{ paddingBottom: 100, paddingTop: 100 }}>
+                    <HeaderTitle >
+                        Guest Artist
+                    </HeaderTitle>
+                </div>
                 <div style={{ color: "white" }}>
                     <div className="text-align-justify align-items-start row" style={{ paddingBottom: 36 }}>
                         {guestArtistList.map((eachData) => {
