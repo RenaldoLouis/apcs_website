@@ -5,6 +5,7 @@ import { db } from '../../firebase';
 import Masonry from 'react-masonry-css';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { Spin } from "antd";
+import { turningPointImages } from "../../constant/GaleryImages";
 
 const MasonryLayout = () => {
     const [items, setItems] = useState([]);
@@ -72,7 +73,7 @@ const MasonryLayout = () => {
                         // onMouseEnter={() => setHoveredIndex(index)}
                         // onMouseLeave={() => setHoveredIndex(null)}
                         >
-                            <img src={item.image} alt={item.title} className="masonry-img" />
+                            <img src={item.image} alt={`galery-${index}`} className="masonry-img" />
                         </div>
                     ))}
                 </Masonry>
