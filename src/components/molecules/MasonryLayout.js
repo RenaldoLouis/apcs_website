@@ -51,7 +51,7 @@ const MasonryLayout = () => {
 
     return (
         <div style={{ justifyContent: "center" }}>
-            <InfiniteScroll
+            {/* <InfiniteScroll
                 dataLength={items.length}
                 next={fetchPost}
                 hasMore={hasMore}
@@ -60,24 +60,24 @@ const MasonryLayout = () => {
                 style={{
                     overflow: 'hidden',
                 }}
+            > */}
+            <Masonry
+                breakpointCols={breakpointColumnsObj}
+                className="my-masonry-grid"
+                columnClassName="my-masonry-grid_column"
             >
-                <Masonry
-                    breakpointCols={breakpointColumnsObj}
-                    className="my-masonry-grid"
-                    columnClassName="my-masonry-grid_column"
-                >
-                    {items.map((item, index) => (
-                        <div
-                            key={index}
-                            className={`masonry-item ${hoveredIndex === index ? 'hovered' : ''}`}
-                        // onMouseEnter={() => setHoveredIndex(index)}
-                        // onMouseLeave={() => setHoveredIndex(null)}
-                        >
-                            <img src={item.image} alt={`galery-${index}`} className="masonry-img" />
-                        </div>
-                    ))}
-                </Masonry>
-            </InfiniteScroll>
+                {turningPointImages.map((item, index) => (
+                    <div
+                        key={index}
+                        className={`masonry-item ${hoveredIndex === index ? 'hovered' : ''}`}
+                    // onMouseEnter={() => setHoveredIndex(index)}
+                    // onMouseLeave={() => setHoveredIndex(null)}
+                    >
+                        <img src={item} alt={`galery-${index}`} className="masonry-img" />
+                    </div>
+                ))}
+            </Masonry>
+            {/* </InfiniteScroll> */}
 
         </div>
     );
