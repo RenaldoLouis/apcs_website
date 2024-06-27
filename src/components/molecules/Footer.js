@@ -24,14 +24,14 @@ const Footer = () => {
 
     return (
         <footer className="footer">
-            <div className="container">
+            <div className="container-fluid">
                 {/* <img loading="lazy" className="cursorPointer" src={ArrowUp} style={{ width: 54, height: 54 }} alt="ArrowUp" onClick={handleClickScrollToTop} /> */}
 
                 <div className="row">
-                    <div className="col">
-                        <img loading="lazy" src={apcLogo} alt="apcsLogo" />
+                    <div className="col d-flex align-items-center justify-content-center">
+                        <img loading="lazy" src={apcLogo} alt="apcsLogo" style={{ height: "8rem" }} />
                     </div>
-                    <div className="col">
+                    <div className="col-2 d-flex flex-column align-items-start">
                         <div className="headerFooter">
                             APCS
                         </div>
@@ -48,7 +48,7 @@ const Footer = () => {
                             )
                         })}
                     </div>
-                    <div className="col">
+                    <div className="col-2 d-flex flex-column align-items-start">
                         <div className="headerFooter">
                             Contact
                         </div>
@@ -59,7 +59,7 @@ const Footer = () => {
                             (+62)821-1234-1234
                         </div>
                     </div>
-                    <div className="col" >
+                    <div className="col-2 d-flex flex-column align-items-start" >
                         <div className="headerFooter">
                             Location
                         </div>
@@ -70,10 +70,15 @@ const Footer = () => {
                             Jakarta, Indonesia
                         </div>
                     </div>
-                    <div className="col-4 d-flex justify-content-end">
-                        <YoutubeOutlined style={{ fontSize: 32 }} />
-                        <InstagramOutlined style={{ marginLeft: 36, marginRight: 36, fontSize: 32 }} />
-                        <TikTokOutlined style={{ fontSize: 32 }} />
+                    <div className="col-3 d-flex flex-column justify-content-center">
+                        <div className="">
+                            <YoutubeOutlined style={{ fontSize: 32 }} />
+                            <InstagramOutlined style={{ marginLeft: 36, marginRight: 36, fontSize: 32 }} />
+                            <TikTokOutlined style={{ fontSize: 32 }} />
+                        </div>
+                        <div className="">
+                            (c)2024 APCS. All Rights Reserved
+                        </div>
                     </div>
                 </div>
             </div>
