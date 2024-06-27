@@ -3,7 +3,7 @@ import PillButton from "../atom/PillButton";
 import { ContentPosition } from "../../constant/ContentPosition";
 
 const BackgroundWithText = (props) => {
-    const { image, logo, text, buttonText, contentPosition } = props
+    const { image, logo, text, buttonText, contentPosition, centerText = true } = props
 
     const returnTextPosition = () => {
         switch (contentPosition) {
@@ -11,6 +11,8 @@ const BackgroundWithText = (props) => {
                 return "registerButtonContainer-bottom"
             case ContentPosition.MIDDLE:
                 return "registerButtonContainer-center"
+            case ContentPosition.MIDDLELEFT:
+                return "registerButtonContainer-center-left"
             default:
                 return "registerButtonContainer-bottom"
         }
@@ -24,13 +26,13 @@ const BackgroundWithText = (props) => {
                     <img loading="lazy" src={logo} alt={logo} style={{ width: "100%" }} />
                 </div>
                 <div className="container">
-                    <div className="row justify-content-md-center text-align-center">
+                    <div className={`row ${centerText ? "justify-content-md-center" : "justify-content-md-start"} text-align-center`}>
                         <div className="col col-lg-8">
                             {text}
                         </div>
                     </div>
                 </div>
-                <div>
+                <div style={{ display: buttonText === "" ? "none" : "" }}>
                     <PillButton text={buttonText} />
                 </div>
             </div>

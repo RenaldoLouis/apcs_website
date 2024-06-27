@@ -7,8 +7,7 @@
 @font-face {
   font-family: "mosafin";
   src: local("mosafin"),
-    url("./assets/fonts/mosafin/Mosafin-Bold.ttf") format("truetype");
-  font-weight: bold;
+    url("./assets/fonts/mosafin/Mosafin-Medium.ttf") format("truetype");
 }
 
 body {
