@@ -45,7 +45,7 @@ const Navbar = () => {
 
     return (
         <>
-            <nav className="navbarContainer">
+            {/* <nav className="navbarContainer">
                 <div>
                     <YoutubeOutlined style={{ fontSize: 32 }} />
                     <InstagramOutlined style={{ fontSize: 32 }} />
@@ -82,24 +82,43 @@ const Navbar = () => {
                     <span onClick={() => changeLanguageHandler("en")}
                         className={`cursorPointer ${currentLanguage === "en" ? "textColorSelected" : ""}`}>EN</span>
                 </div>
-            </nav>
-            {/* <nav>
-                <div class="container" style={{ position: "absolute" }}>
-                    <div className={`row`}>
-                        <div class="col">
-                            <YoutubeOutlined />
-                            <InstagramOutlined />
-                            <TikTokOutlined />
+            </nav> */}
+            <nav>
+                <div className="container-fluid mt-3" style={{ position: "absolute", color: "white" }}>
+                    <div className="row">
+                        <div className="col-2 d-flex justify-content-end">
+                            <YoutubeOutlined style={{ fontSize: 32 }} />
+                            <InstagramOutlined style={{ marginLeft: 36, marginRight: 36, fontSize: 32 }} />
+                            <TikTokOutlined style={{ fontSize: 32 }} />
                         </div>
-                        <div class="col">
-                            Column
+                        <div className="col-2">
+                            <span className="logoContainer">
+                                <img loading="lazy" src={apcLogo} alt="apcsLogo" />
+                            </span>
                         </div>
-                        <div class="col">
-                            Column
+                        <div className="col d-flex align-items-center justify-content-between">
+                            {Object.keys(PathName).map((eachPath) => {
+                                let path = PathName[eachPath]
+                                let navbarName = PathName[eachPath].substring(1);
+                                return (
+                                    <div
+                                        style={{ height: "fit-content", fontSize: 16 }}
+                                        className={`itemMenuSelected ${currentPage === path ? "selected textColorSelected" : ""}`} onClick={() => handleMovePage(path)}>
+                                        {navbarName.toUpperCase()}
+                                    </div>
+                                )
+                            })}
+                        </div>
+                        <div className="col-2 d-flex align-items-center justify-content-center">
+                            <span onClick={() => changeLanguageHandler("id")}
+                                className={`cursorPointer ${currentLanguage === "id" ? "textColorSelected" : ""}`}>ID</span>
+                            <span className="separator"></span>
+                            <span onClick={() => changeLanguageHandler("en")}
+                                className={`cursorPointer ${currentLanguage === "en" ? "textColorSelected" : ""}`}>EN</span>
                         </div>
                     </div>
                 </div>
-            </nav> */}
+            </nav>
         </>
     );
 }
