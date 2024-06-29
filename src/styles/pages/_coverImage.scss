@@ -12,6 +12,33 @@
   z-index: -10;
 }
 
+.homeScreenLogo {
+  width: 400px;
+}
+
+@media (max-width : 375px) {
+  .homeScreenLogo {
+    width: 300px;
+  }
+}
+
+.experinceText {
+  font-size: 96px;
+  letter-spacing: 25px;
+}
+
+
+@media (max-width : 1200px) {
+  .experinceText {
+    font-size: 5vmin;
+    letter-spacing: 0px;
+  }
+
+  .experienceContentText {
+    font-size: 2vmin;
+  }
+}
+
 .homeScreenimage {
   position: absolute;
   top: 58px;

@@ -4,7 +4,7 @@ const PillButton = (props) => {
     const { text, isWhite = true } = props;
     return (
         <div className={`cursorPointer ${isWhite ? "whitePill" : "blackPill"}`} >
-            <div style={{}}>
+            <div className="pillButtonFontSize">
                 {text}
             </div>
         </div>

@@ -216,3 +216,38 @@
   justify-content: space-around;
   text-align: center;
 }
+
+.testimonyContainer {
+  width: 43vw;
+}
+
+@media (max-width : 1200px) {
+  .testimonyContainer {
+    width: 100%;
+  }
+}
+
+.weOfferContainer {
+  width: 370px;
+}
+
+@media (max-width : 768px) {
+  .weOfferContainer {
+    width: 50%;
+    font-size: 2vmin;
+  }
+}
+
+@media (max-width : 1024px) {
+  .testimonyContainer {
+    width: 100%;
+    height: 18vmin;
+    overflow: auto;
+  }
+}
+
+@media (max-width : 765px) {
+  .pillButtonFontSize {
+    font-size: 2vmin;
+  }
+}

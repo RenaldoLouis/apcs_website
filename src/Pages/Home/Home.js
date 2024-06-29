@@ -6,7 +6,6 @@ import pianoKeys from '../../assets/images/pianoKeys.svg';
 import musicForEveryone from "../../assets/images/musicForEveryone.svg"
 import firdyHomeScreen from "../../assets/images/firdyHomeScreen.svg"
 import experienceHomeCropped from "../../assets/images/experienceHomeCropped.jpg"
-import christmasBanner from "../../assets/images/homeBanner/christmasBanner.jpg"
 import Carousel from "../../components/molecules/CarouselCustom";
 import apcLogoBold from "../../assets/images/apc_logo_bold.svg"
 import homeScreen from "../../assets/images/homeScreenImage.jpg"
@@ -63,15 +62,16 @@ const Home = (props) => {
 
             <div className="image-container-fadedTopBottom autoHeight">
                 <img loading="lazy" src={pianoKeys} alt={`pianoKeys`} style={{ width: "100%" }} />
-
                 <div className="musicForEveryone">
                     <img loading="lazy" src={musicForEveryone} alt="apcsLogo" style={{ width: "35%" }} />
-                    <div style={{ color: 'white', width: 370 }}>
-                        We offer a prestigious stage for musicians of all ages and levels to share their deep passion for music with audiences
+                    <div className="weOfferContainer" style={{ color: 'white' }}>
+                        <AnimatedComponent animationClass={AnimationClass.fadeIn}>
+                            We offer a prestigious stage for musicians of all ages and levels to share their deep passion for music with audiences
 
-                        <div style={{ marginTop: 24 }}>
-                            <PillButton text={"see our story"} />
-                        </div>
+                            <div style={{ marginTop: "2vmin" }}>
+                                <PillButton text={"see our story"} />
+                            </div>
+                        </AnimatedComponent>
                     </div>
                 </div>
             </div>
@@ -82,13 +82,13 @@ const Home = (props) => {
                 <div className="experienceDesc">
                     <AnimatedComponent animationClass={AnimationClass.fadeIn}>
                         <div style={{ color: 'white' }}>
-                            <div className="mangolaineFont" style={{ fontSize: 96, color: "#FFF2DB" }}>
-                                Expereience APCS
+                            <div className="mangolaineFont experinceText" style={{ color: "#FFF2DB" }}>
+                                EXPERIENCE APCS
                             </div>
-                            <div >
+                            <div className="experienceContentText">
                                 We bring different experience on each series to give every musicians unforgettable live
                             </div>
-                            <div >
+                            <div className="experienceContentText">
                                 performances. We can’t wait to welcome you to our next musical Journey.
                             </div>
                             <div className="flex justify-center" style={{ marginTop: 24 }}>
@@ -104,11 +104,12 @@ const Home = (props) => {
 
                 <div className="musicForEveryone">
                     <img loading="lazy"
+                        className="d-none d-xl-block"
                         src={musicForEveryone}
                         alt="apcsLogo"
                         style={{ width: "35%", visibility: "hidden" }}
                     />
-                    <div style={{ color: 'white', width: "35vw", textAlign: "center" }}>
+                    <div className="testimonyContainer" style={{ color: 'white', textAlign: "center" }}>
                         <div className="mangolaineFont" style={{ color: "#FFD990", fontSize: 36 }}>
                             {t("theseAreNotJustYoung")}
                         </div>
@@ -122,7 +123,6 @@ const Home = (props) => {
                             </div>
                         </div>
                     </div>
-
                 </div>
             </div>
 

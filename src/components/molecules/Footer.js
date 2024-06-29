@@ -27,7 +27,8 @@ const Footer = () => {
             <div className="container-fluid">
                 {/* <img loading="lazy" className="cursorPointer" src={ArrowUp} style={{ width: 54, height: 54 }} alt="ArrowUp" onClick={handleClickScrollToTop} /> */}
 
-                <div className="row">
+                <div className="row row-cols-1 row-cols-lg-5">
+                    {/* <div className="row"> */}
                     <div className="col d-flex align-items-center justify-content-center">
                         <img loading="lazy" src={apcLogo} alt="apcsLogo" style={{ height: "8rem" }} />
                     </div>
@@ -71,6 +72,7 @@ const Footer = () => {
                         </div>
                     </div>
                     <div className="col-3 d-flex flex-column justify-content-center">
+                        {/* <div className="col-sm-4 col-lg-3 d-flex flex-column justify-content-center"> */}
                         <div className="">
                             <YoutubeOutlined style={{ fontSize: 32 }} />
                             <InstagramOutlined style={{ marginLeft: 36, marginRight: 36, fontSize: 32 }} />

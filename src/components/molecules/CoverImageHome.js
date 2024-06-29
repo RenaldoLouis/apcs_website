@@ -21,7 +21,7 @@ const CoverImageHome = (props) => {
 
             <div className={isMiddleLeft ? "registerButtonContainer-centerLeft" : "registerButtonContainer-center-top"}>
                 <AnimatedComponent animationClass="animate__fadeIn">
-                    <img loading="lazy" src={logo} alt="apcsLogo" style={{ width: 400 }} />
+                    <img className="homeScreenLogo" loading="lazy" src={logo} alt="apcsLogo" />
                 </AnimatedComponent>
             </div>
 
