@@ -18,55 +18,55 @@ const NotableJurist = () => {
             image: jurist1,
             name: "CHRISTINE UTOMO",
             title: "Jurist 2023",
-            quote: "“Untuk kegiatan APCS, saya lihat banyak ada temanya, ada christmas, lagu-lagu populer dan bukan hanya musik klasik, karena musik banyak genrenya bukan hanya musik klasik dari Mozart, Bach, Beethoven. Tapi ada juga banyak banyak musik dari musikal atau lagu populer lainnya yang kita sering dengar,, Jadi ini merupakan kegiatan musik yang sangat-sangat kreatif yang bisa menarik generasi muda ini.”"
+            quote: "Praised by Chinese Weibo Weekly Broadcast as the pianist who enthralled her audience with her performance that they willingly immersed themselves into her realm of musical wonder, and that she has truly breathed new life into the classical masterpiece of Rachmaninoff's second piano concerto in C minor*, Dr. Christine Utomo has established her career as soloist and collaborative pianist, and is an active music educator, piano masterclass clinician, and an adjudicator."
         },
         {
             image: jurist2,
-            name: "CHRISTINE UTOMO",
+            name: "ISWARGIA SUDARNO",
             title: "Jurist 2023",
-            quote: "“Untuk kegiatan APCS, saya lihat banyak ada temanya, ada christmas, lagu-lagu populer dan bukan hanya musik klasik, karena musik banyak genrenya bukan hanya musik klasik dari Mozart, Bach, Beethoven. Tapi ada juga banyak banyak musik dari musikal atau lagu populer lainnya yang kita sering dengar,, Jadi ini merupakan kegiatan musik yang sangat-sangat kreatif yang bisa menarik generasi muda ini.”"
+            quote: "Iswargia Renardi Sudarno was born in Bandung, Indonesia, and started his piano lesson there at the age of eleven, with Mrs. Wibanu, Partosiswojo, John Gobée and Oerip S. Santoso. After finishing his bachelor degree in architecture at the Bandung Institute of Technology, he continued his musical education at the Manhattan School of Music in New York, USA, and completed his study with a Master of Music degree, under the tutelage of renowned pianist and pedagog, the late Karl Ulrich Schnabel."
         },
         {
             image: jurist3,
-            name: "CHRISTINE UTOMO",
+            name: "MYRA K PRANAJAYA",
             title: "Jurist 2023",
-            quote: "“Untuk kegiatan APCS, saya lihat banyak ada temanya, ada christmas, lagu-lagu populer dan bukan hanya musik klasik, karena musik banyak genrenya bukan hanya musik klasik dari Mozart, Bach, Beethoven. Tapi ada juga banyak banyak musik dari musikal atau lagu populer lainnya yang kita sering dengar,, Jadi ini merupakan kegiatan musik yang sangat-sangat kreatif yang bisa menarik generasi muda ini.”"
+            quote: "Myra Karlina Pranajaya began her piano studies'at the agé of four. A few years later, she began performing in concerts at Symphony Musical Art Center, Lembaga Musik Murni, and Irama Music Studio in Medan, Indonesia. She also performed, for example, at the Indonesian Young Musician Performance Concert, Euro Music Festival and Academy (2019), International Piano Academy Freiburg (2017), MusicAlp International Music Academy in France (2021), and the 13th Summer Academy of Music in Uelzen, Germany (2022), where she performed with the Wratislavia Chamber Orchestra."
         },
         {
             image: jurist4,
-            name: "CHRISTINE UTOMO",
+            name: "AMELIA SANTOSO",
             title: "Jurist 2023",
-            quote: "“Untuk kegiatan APCS, saya lihat banyak ada temanya, ada christmas, lagu-lagu populer dan bukan hanya musik klasik, karena musik banyak genrenya bukan hanya musik klasik dari Mozart, Bach, Beethoven. Tapi ada juga banyak banyak musik dari musikal atau lagu populer lainnya yang kita sering dengar,, Jadi ini merupakan kegiatan musik yang sangat-sangat kreatif yang bisa menarik generasi muda ini.”"
+            quote: "Ms. Amelia Santoso is an Indonesian pianist, graduated her Bachelor's degree from Codarts Hogeschool voor de Kunsten (formerly Rotterdam Conservatorium) majoring in classical piano performance (2009), Master's Degree with Nuffic Huygens scholarship full tuition (2011) and her second Master degree at Institut Supérieur de Musique et de Pédagogie in Namur, Belgium (2013). During her musical journey in Europe as soloist and chamber musician, She has performed in Belgium, Malta, Switzerland, South Korea, Japan, Vietnam, and the Netherlands"
         },
         {
             image: jurist5,
-            name: "CHRISTINE UTOMO",
+            name: "NADYA JANITRA",
             title: "Jurist 2023",
-            quote: "“Untuk kegiatan APCS, saya lihat banyak ada temanya, ada christmas, lagu-lagu populer dan bukan hanya musik klasik, karena musik banyak genrenya bukan hanya musik klasik dari Mozart, Bach, Beethoven. Tapi ada juga banyak banyak musik dari musikal atau lagu populer lainnya yang kita sering dengar,, Jadi ini merupakan kegiatan musik yang sangat-sangat kreatif yang bisa menarik generasi muda ini.”"
+            quote: "Nadya Janitra has both her Bachelor (2011) and Master Degree (2013) from Den Haag Royal Conservatoire, under the guidance of Ellen Corver. Before pursuing her studies in the Netherlands, Nadya debuted her first piano solo recital at 16 years old in Erasmus Huis Jakarta. Known for her musical talent, Nadya had always got the highest mark on each examination she did for 11 consecutive years in Yayasan Pendidikan Musik (YPM). She then graduated with “YPM Artist Award” in 2004 under the guidance of Aisha Adriana Pletscher. After graduating from the Netherlands, she performed many solo recitals in various cities and countries, such as Jakarta, Ball, Surabaya, Yogyakarta, Makassar, Medan, Macau and Den Haag."
         },
         {
             image: jurist6,
-            name: "CHRISTINE UTOMO",
+            name: "CARLA SUHARTO",
             title: "Jurist 2023",
-            quote: "“Untuk kegiatan APCS, saya lihat banyak ada temanya, ada christmas, lagu-lagu populer dan bukan hanya musik klasik, karena musik banyak genrenya bukan hanya musik klasik dari Mozart, Bach, Beethoven. Tapi ada juga banyak banyak musik dari musikal atau lagu populer lainnya yang kita sering dengar,, Jadi ini merupakan kegiatan musik yang sangat-sangat kreatif yang bisa menarik generasi muda ini.”"
+            quote: "As a solo pianist, chamber musician, and edu-cator. Carla Suharto combines the best of technicality and showmanship. On the piano, she possesses the emotional range and passionate force required to communicate the universality of music for the modern audience.Indonesian by birth. Carla received a full scholarship to study under Iswargia Sudarno at Pelita Harapan University. After graduating summa cum laude in 2014, she continued her studies at Folkwang Universität der Künste in Germany. Under the guidance of Professor Thomas Günther and Yannick Rafalimanana."
         },
         {
             image: jurist7,
-            name: "CHRISTINE UTOMO",
+            name: "MARTIN KESUMA",
             title: "Jurist 2023",
-            quote: "“Untuk kegiatan APCS, saya lihat banyak ada temanya, ada christmas, lagu-lagu populer dan bukan hanya musik klasik, karena musik banyak genrenya bukan hanya musik klasik dari Mozart, Bach, Beethoven. Tapi ada juga banyak banyak musik dari musikal atau lagu populer lainnya yang kita sering dengar,, Jadi ini merupakan kegiatan musik yang sangat-sangat kreatif yang bisa menarik generasi muda ini.”"
+            quote: "Dr. Martin Kesuma is an award-winning pianist praised for his heartfelt flexibility and harmonic sensitivity (Fanfare Magazine) and clearly articulated playing of the highest order (The Art Music Lounge). He has extensively performed as a solo pianist and chamber musician throughout Asia, Europe and North America. He has been recognized with major prizes in competitions including the San Jose International Piano Competition, Vancouver International Music Competition, PianoHouse International Piano Competition, Betty Dickinson Piano Competition, New York International Music Concours, Canadian International Music Competition, ASEAN International Concerto Competition, Petroff College Level Piano Com-petition, and Texas State International Piano Festival Concerto Competition."
         },
         {
             image: jurist8,
-            name: "CHRISTINE UTOMO",
+            name: "MICHELLE K BAHARI",
             title: "Jurist 2023",
-            quote: "“Untuk kegiatan APCS, saya lihat banyak ada temanya, ada christmas, lagu-lagu populer dan bukan hanya musik klasik, karena musik banyak genrenya bukan hanya musik klasik dari Mozart, Bach, Beethoven. Tapi ada juga banyak banyak musik dari musikal atau lagu populer lainnya yang kita sering dengar,, Jadi ini merupakan kegiatan musik yang sangat-sangat kreatif yang bisa menarik generasi muda ini.”"
+            quote: "Classical pianist and music educator, Michelle Bahari, received her undergraduate degree in Piano Performance at University Pelita Harapan Conservatory of Music. Furthermore, she completed her Master of Music and Performance Diploma at the Jacobs School of Music, Indiana University to deepen her study both in solo and collaborative performances. During her study at Jacobs School of Music, she was awarded the Artistic Excellence Award and Graduate Associate Instructor Fellowship, which gave her the opportunity to serve as a piano instructor in a secondary piano program for undergraduate level."
         },
         {
             image: jurist9,
-            name: "CHRISTINE UTOMO",
+            name: "RM CONDRO KASMOYO",
             title: "Jurist 2023",
-            quote: "“Untuk kegiatan APCS, saya lihat banyak ada temanya, ada christmas, lagu-lagu populer dan bukan hanya musik klasik, karena musik banyak genrenya bukan hanya musik klasik dari Mozart, Bach, Beethoven. Tapi ada juga banyak banyak musik dari musikal atau lagu populer lainnya yang kita sering dengar,, Jadi ini merupakan kegiatan musik yang sangat-sangat kreatif yang bisa menarik generasi muda ini.”"
+            quote: "RM Condro Kasmoyo is an Indonesian violinist, graduated from Institut Kesenian Jakarta majoring in Musicology (2020). During his musical journey, he has been actively participated in Masterclass with Robert Brown (USA), Tjeerd Top (Netherlands), Bagus Wiswakarma (Indonesia), Grace Soedargo (Jakarta), Jean-Paul Minali-Bella (France) and Tatjana Kolchanova (Russia). Starting from 2010 until today, he has been chosen to be the Concertmaster & Assistant Conductor for Erwin Gutawa Orchestra"
         },
     ]
 

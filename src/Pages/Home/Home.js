@@ -6,12 +6,17 @@ import pianoKeys from '../../assets/images/pianoKeys.svg';
 import musicForEveryone from "../../assets/images/musicForEveryone.svg"
 import firdyHomeScreen from "../../assets/images/firdyHomeScreen.svg"
 import experienceHomeCropped from "../../assets/images/experienceHomeCropped.jpg"
+import christmasBanner from "../../assets/images/homeBanner/christmasBanner.jpg"
 import Carousel from "../../components/molecules/CarouselCustom";
 import apcLogoBold from "../../assets/images/apc_logo_bold.svg"
 import homeScreen from "../../assets/images/homeScreenImage.jpg"
 import CoverImageHome from "../../components/molecules/CoverImageHome";
+import AnimatedComponent from "../../components/atom/AnimatedComponent";
+import { AnimationClass } from "../../constant/AnimationClass";
+import { useTranslation } from "react-i18next";
 
 const Home = (props) => {
+    const { t, i18n } = useTranslation();
     const handleDirectToWhatsApp = () => {
         window.open("https://api.whatsapp.com/send/?phone=6285811192228", '_blank');
     }
@@ -29,20 +34,22 @@ const Home = (props) => {
                         </div>
                     </div>
                     <div style={{ margin: "15px 0px" }}>
-                        <div className="row justify-center">
-                            <div className="col-md-6">
-                                <div className="goldenText mangolaineFont" style={{ fontSize: 40 }}>
-                                    A PIANO CONCERTO SERIES
+                        <AnimatedComponent animationClass={AnimationClass.fadeIn}>
+                            <div className="row justify-center">
+                                <div className="col-md-6">
+                                    <div className="goldenText mangolaineFont" style={{ fontSize: 40 }}>
+                                        A PIANO CONCERTO SERIES
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div className="row justify-center">
-                            <div className="col-md-6">
-                                <div style={{ color: "white" }}>
-                                    An annual music series, designed in a thematic project and constructed in a piano concerto format where the pianist as the central maestro complemented by the orchestra and conductor.
+                            <div className="row justify-center">
+                                <div className="col-md-6">
+                                    <div style={{ color: "white" }}>
+                                        An annual music series, designed in a thematic project and constructed in a piano concerto format where the pianist as the central maestro complemented by the orchestra and conductor.
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        </AnimatedComponent>
                     </div>
                     <div className="row justify-center">
                         <div className="col-md-auto">
@@ -66,7 +73,6 @@ const Home = (props) => {
                             <PillButton text={"see our story"} />
                         </div>
                     </div>
-
                 </div>
             </div>
 
@@ -74,21 +80,22 @@ const Home = (props) => {
                 <img loading="lazy" src={experienceHomeCropped} alt={`experienceHomeCropped`} style={{ width: "100%" }} />
 
                 <div className="experienceDesc">
-                    <div style={{ color: 'white' }}>
-                        <div className="mangolaineFont" style={{ fontSize: 96, color: "#FFF2DB" }}>
-                            Expereience APCS
+                    <AnimatedComponent animationClass={AnimationClass.fadeIn}>
+                        <div style={{ color: 'white' }}>
+                            <div className="mangolaineFont" style={{ fontSize: 96, color: "#FFF2DB" }}>
+                                Expereience APCS
+                            </div>
+                            <div >
+                                We bring different experience on each series to give every musicians unforgettable live
+                            </div>
+                            <div >
+                                performances. We can’t wait to welcome you to our next musical Journey.
+                            </div>
+                            <div className="flex justify-center" style={{ marginTop: 24 }}>
+                                <PillButton text={"JOIN US"} />
+                            </div>
                         </div>
-                        <div >
-                            We bring different experience on each series to give every musicians unforgettable live
-                        </div>
-                        <div >
-                            performances. We can’t wait to welcome you to our next musical Journey.
-                        </div>
-                        <div className="flex justify-center" style={{ marginTop: 24 }}>
-                            <PillButton text={"JOIN US"} />
-                        </div>
-                    </div>
-
+                    </AnimatedComponent>
                 </div>
             </div>
 
@@ -101,14 +108,12 @@ const Home = (props) => {
                         alt="apcsLogo"
                         style={{ width: "35%", visibility: "hidden" }}
                     />
-                    <div style={{ color: 'white', width: 370, textAlign: "center" }}>
-                        <div className="mangolaineFont" style={{ color: "#FFD990" }}>
-                            “SAYA YAKIN ANAK-ANAK MUDA INI
-                            AKAN MENJADI BINTANG DI MASA YANG MENDATANG.”
+                    <div style={{ color: 'white', width: "35vw", textAlign: "center" }}>
+                        <div className="mangolaineFont" style={{ color: "#FFD990", fontSize: 36 }}>
+                            {t("theseAreNotJustYoung")}
                         </div>
-                        <div>
-                            "Selain itu, persiapannya sangat baik, penampilannya seperti kualitas profesional, fondasinya kuat, terlihat langsung kualitas pesertanya yang sudah lebih siap (yang telah melewati audisi dan memenangkan Diamond / Sapphire).
-                            Menurut saya, APCS berkesan sekali"
+                        <div style={{ fontSize: 20, marginTop: 40 }}>
+                            {t("withSuchStrong")}
                         </div>
                         <div style={{ marginTop: 24 }}>
                             - Firdy Salim -

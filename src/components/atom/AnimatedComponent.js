@@ -9,7 +9,10 @@ const AnimatedComponent = ({ children, animationClass }) => {
     });
 
     return (
-        <div ref={ref} className={`animate__animated ${inView ? animationClass : ''}`}>
+        <div
+            ref={ref} className={`animate__animated ${inView ? animationClass : ''}`}
+            style={{ visibility: inView ? "" : "hidden" }}
+        >
             {children}
         </div>
     );

@@ -11,7 +11,7 @@ const NotableConductors = () => {
 
     return (
         <div style={{ position: "relative" }}>
-            <div className="NotableConductorContainer" style={{ backgroundImage: `url(${notableConductorBackground})`,backgroundSize:"cover"  }}>
+            <div className="NotableConductorContainer" style={{ backgroundImage: `url(${notableConductorBackground})`, backgroundSize: "cover" }}>
                 <div className="container" style={{ zIndex: 2, position: "relative" }}>
                     <div style={{ paddingTop: 153 }}>
                         <HeaderTitle>
@@ -39,7 +39,7 @@ const NotableConductors = () => {
                         <div className="col" style={{ color: "white" }}>
                             <ConductorProfile
                                 title={"CHIKITA AMANDA"}
-                                desc={"Kegiatan ini merupakan kegiatan yang sangat-sangat positif.. Peserta yang bener-bener dapat award ditampilkan didalam konser ini yang dimana ini merupakan suatu konser celebration untuk mereka."}
+                                desc={"Chikita Amanda is a talented Indonesian composer, arranger, and conductor known for her orchestral scores reminiscent of Hollywood and Disney. She has collaborated with prominent musicians such as Topati, Ariel Noah, and Miriam Eka. Her talents have also been recognized internationally through contributions to the music scoring team of the UK's SKY TV series “Gangs of London”"}
                                 eventYear={'APCS 2020, 2022, 2023'}
                                 eventName={""} />
                         </div>

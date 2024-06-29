@@ -37,7 +37,8 @@ const About = () => {
                         <div className="col ">
                             <img loading="lazy" src={goldenLine} alt={`goldenLine`} style={{ width: "100%" }} />
                             <div className="boxed-text">
-                                A Piano Concerto Series (APCS) is the first musical platform in Indonesia that offers musicians the opportunity to share their music and talents on a prestigious stage. We unite pianists with orchestras and conductors to experience unforgettable performances. APCS aims to be an inclusive platform where musicians of all ages, from all cities, and in all genres are welcome.
+                                A Piano Concerto Series (APCS) is the pioneer of Indonesian musical platforms that offer musicians the opportunity to share their music and talents on a prestigious stage.  APCS is designed for everyone, regardless of the age, nationality, or musical style. We bring pianists, orchestras, and conductors together to create memorable performances. Our passion goes beyond the stage, we are optimists to grow and build a positive impact  for the music industry in  Indonesia and the world beyond.
+
                             </div>
                             <img loading="lazy" src={goldenLine} alt={`goldenLine`} style={{ width: "100%" }} />
                         </div>
@@ -70,10 +71,10 @@ const About = () => {
                         <div className="col col-lg-8">
                             <img loading="lazy" src={goldenLine} alt={`goldenLine`} style={{ width: "60%" }} />
                             <div className="boxed-text">
-                                Born in Indonesia, Michaella Sutejo began her musical journey at the age of 9. She achieved Cum Laude honors from Universitas Pelita Harapan in 2017 under the mentorship of Firdy Salim, Ong Seng Choo, and Elaine Waworuntu. Michaella's passion for music was fostered through her participation in national and international competitions, festivals, and masterclasses, including a music camp in Europe.
+                                Born and raised in Indonesia, Michaela Sutejo started her musical journey at the early age of 9 under Junia. Throughout her development as a musician, she participated in national and international musical competitions, festivals, and masterclasses. In 2017, Michaela graduated with Cum Laude honors from Universitas Pelita Harapan, earning her Bachelor of Arts in Music Education under the tutelage of Firdy Salim, Ong Seng Choo, and Elaine Waworuntu
                             </div>
                             <div className="boxed-text">
-                                These experiences and her passion inspired her to create the A Piano Concerto Series Music (APCS) in 2022. Her vision is to grow the potential and set a new benchmark in the music industry, not just locally but globally.
+                                Drawing on her experiences and passion, Michaela founded A Piano Concerto Series Music (APCS) in 2022. She believes APCS could be a platform that bring musicians together and develops their talents. Today, APCS provides a distinctive opportunity for all musicians to learn and grow their musical journey.
                             </div>
                             <img loading="lazy" src={goldenLine} alt={`goldenLine`} style={{ width: "60%" }} />
                         </div>
@@ -91,7 +92,7 @@ const About = () => {
             <BackgroundWithText
                 image={saphireAbout}
                 logo={saphireAchiever}
-                text={"APCS is more than a Piano Concert, it’s an open platform to provide greater access to all musicians. We curated our performers by audition, every participant will be auditioned by notable juries, and contestants who achieve Sapphire Awards are entitled to play with the APCS orchestra."}
+                text={"We curated our performers by audition, every participant will be preliminary by notable juries, and contestants who achieve Sapphire Awards are entitled to perform with the APCS orchestra."}
                 buttonText={"View More"}
                 contentPosition={ContentPosition.MIDDLEBOTTOM}
             />

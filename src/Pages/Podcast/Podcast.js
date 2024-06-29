@@ -28,6 +28,7 @@ const Podcast = () => {
                 buttonText={""}
                 contentPosition={ContentPosition.MIDDLELEFT}
                 centerText={false}
+                noRelativeContainer={true}
             />
         </div>
     )

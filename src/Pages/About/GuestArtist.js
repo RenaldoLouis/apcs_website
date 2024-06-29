@@ -1,6 +1,7 @@
 import React from "react";
 import HeaderTitle from "../../components/atom/HeaderTitle";
 import jurist1 from "../../assets/images/jurists/jurist1.png"
+import ProfileToYoutube from "../../components/molecules/ProfileToYoutube";
 
 const GuestArtist = () => {
 
@@ -53,22 +54,34 @@ const GuestArtist = () => {
                 </div>
                 <div style={{ color: "white" }}>
                     <div className="text-align-justify align-items-start row" style={{ paddingBottom: 36 }}>
-                        {guestArtistList.map((eachData) => {
+                        {/* {guestArtistList.map((eachData) => {
                             return (
-                                <div className="col" style={{ marginBottom: 60 }}>
-                                    <img loading="lazy" src={eachData.image} alt="jurist1" style={{ marginBottom: "1.25rem" }} />
-                                    <div>
-                                        {eachData.name}
-                                    </div>
-                                    <div>
-                                        {eachData.title}
-                                    </div>
-                                    <div>
-                                        {eachData.quote}
-                                    </div>
-                                </div>
+                                // <div className="col" style={{ marginBottom: 60 }}>
+                                //     <img loading="lazy" src={eachData.image} alt="jurist1" style={{ marginBottom: "1.25rem" }} />
+                                //     <div>
+                                //         {eachData.name}
+                                //     </div>
+                                //     <div>
+                                //         {eachData.title}
+                                //     </div>
+                                //     <div>
+                                //         {eachData.quote}
+                                //     </div>
+                                // </div>
+
+                                <ProfileToYoutube data={eachData} noImage={true} />
                             )
-                        })}
+                        })} */}
+                        <div className="container color-white">
+                            <div className="row gx-5 gy-5">
+                                {guestArtistList.map((eachData) => (
+                                    <div className="col-12 col-md-4" style={{ padding: 50 }}>
+                                        <ProfileToYoutube data={eachData} noImage={true} />
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+
                     </div>
                 </div>
             </div>

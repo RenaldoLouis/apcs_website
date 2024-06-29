@@ -25,7 +25,7 @@ const LetUsGuideTo = () => {
             <div className={`letUsGuideYou`}>
                 <img
                     ref={ref1} className={`animate__animated ${inView2 ? "animate__fadeIn" : ''}`}
-                    loading="lazy" src={letUsGuideYou} alt="apcsLogo" style={{ width: "26%", visibility: inView2 ? "" : "hidden"  }} />
+                    loading="lazy" src={letUsGuideYou} alt="apcsLogo" style={{ width: "26%", visibility: inView2 ? "" : "hidden" }} />
             </div>
 
             <div className={`taleMusical`}>
