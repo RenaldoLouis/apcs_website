@@ -10,6 +10,8 @@ import jurist6 from "../../assets/images/jurists/jurist6.png"
 import jurist7 from "../../assets/images/jurists/jurist7.png"
 import jurist8 from "../../assets/images/jurists/jurist8.png"
 import jurist9 from "../../assets/images/jurists/jurist9.png"
+import ConductorProfile from "../../components/molecules/ConductorProfile";
+import AnimatedComponent from "../../components/atom/AnimatedComponent";
 
 const NotableJurist = () => {
 
@@ -76,23 +78,28 @@ const NotableJurist = () => {
                 <HeaderTitle>
                     Our Notable <br /> Jurist
                 </HeaderTitle>
-                <div className="text-align-center align-items-center row" style={{ paddingTop: 10, paddingBottom: 120 }}>
+                <div className="text-align-center align-items-center row row-cols-1 row-cols-md-2" style={{ paddingTop: 10, paddingBottom: 120 }}>
                     <div className="col" style={{ color: "white" }}>
-                        <div className="mangolaineFont lineHeightNormal text-align-justify" style={{ fontSize: 40 }}>
-                            FIRDY SALIM
-                        </div>
-                        <div className="text-align-justify" style={{ fontSize: 20 }}>
-                            Head of Jourist
-                        </div>
+                        <AnimatedComponent animationClass="animate__fadeInDown">
+                            <div className="mangolaineFont lineHeightNormal text-align-justify" style={{ fontSize: 40 }}>
+                                FIRDY SALIM
+                            </div>
+                            <div className="text-align-justify" style={{ fontSize: 20 }}>
+                                Head of Jourist
+                            </div>
 
-                        <div className="text-align-justify mangolaineFont" style={{ fontSize: 40, marginTop: 60 }}>
-                            "Join us at the music festival to showcase your talent, connect with others, and make lasting memories."
-                        </div>
+                            <div className="text-align-justify mangolaineFont" style={{ fontSize: 40, marginTop: 60 }}>
+                                "Join us at the music festival to showcase your talent, connect with others, and make lasting memories."
+                            </div>
+                        </AnimatedComponent>
                     </div>
                     <div className="col" style={{ color: "white" }}>
-                        <img loading="lazy" src={jurist0} style={{ width: "100%", height: "100%" }} alt="" />
+                        <AnimatedComponent animationClass="animate__fadeInDown">
+                            <img loading="lazy" src={jurist0} style={{ width: "100%", height: "100%" }} alt="" />
+                        </AnimatedComponent>
                     </div>
                 </div>
+
                 <div style={{ color: "white" }}>
                     <div className="text-align-justify align-items-start row g-5" style={{}}>
                         {juristList.map((eachData) => {

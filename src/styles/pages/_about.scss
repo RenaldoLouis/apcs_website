@@ -5,9 +5,10 @@
     right: 0;
     bottom: 0;
     left: 0;
-    background-color: rgba(0, 0, 0, 0.6); /* Black color with 0.5 opacity */
+    background-color: rgba(0, 0, 0, 0.6);
+    /* Black color with 0.5 opacity */
     z-index: 1;
-  }
+}
 
 .jurist-container {
     display: flex;
@@ -31,4 +32,22 @@
     max-width: 100%;
     max-height: 100%;
     object-fit: cover;
+}
+
+.apcsLogoAbout {
+    width: 360px;
+}
+
+.webringMusicianText {
+    font-size: 64px;
+}
+
+@media (max-width : 1024px) {
+    .apcsLogoAbout {
+        width: 70vmin;
+    }
+
+    .webringMusicianText {
+        font-size: 10vmin;
+    }
 }

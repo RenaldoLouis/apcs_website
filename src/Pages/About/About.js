@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import NotableConductors from "./NotableConductors";
 import AnimationWWScroll from "../../components/molecules/Animation3dScroll/AnimationWWScroll";
 import CoverImage from "../../components/molecules/CoverImage";
@@ -22,6 +22,25 @@ const About = () => {
     const { t, i18n } = useTranslation();
 
     const [isScrollDownAvailable, setIsScrollDownAvailable] = useState(false)
+    const [windowDimensions, setWindowDimensions] = useState({
+        width: window.innerWidth,
+        height: window.innerHeight,
+    });
+
+    useEffect(() => {
+        const handleResize = () => {
+            setWindowDimensions({
+                width: window.innerWidth,
+                height: window.innerHeight,
+            });
+        };
+
+        window.addEventListener('resize', handleResize);
+
+        return () => {
+            window.removeEventListener('resize', handleResize);
+        };
+    }, []);
 
     return (
         <div>
@@ -31,7 +50,7 @@ const About = () => {
                 <div className="container">
                     <div className="row justify-content-md-center text-align-center">
                         <div className="col ">
-                            <img loading="lazy" src={apcLogo} alt="apcsLogo" style={{ width: 360 }} />
+                            <img className="apcsLogoAbout" loading="lazy" src={apcLogo} alt="apcsLogo" />
 
                         </div>
                         <div className="col ">
@@ -81,7 +100,7 @@ const About = () => {
                     </div>
 
 
-                    <div className="mangolaineFont text-align-center" style={{ color: "#FFCA68", marginTop: 100, fontSize: 64 }}>
+                    <div className="mangolaineFont text-align-center webringMusicianText" style={{ color: "#FFCA68", marginTop: 100 }}>
                         WE BRING MUSICIAN TOGETHER
                         <br />
                         TO SHARE THE EXPERIENCE
@@ -94,7 +113,7 @@ const About = () => {
                 logo={saphireAchiever}
                 text={"We curated our performers by audition, every participant will be preliminary by notable juries, and contestants who achieve Sapphire Awards are entitled to perform with the APCS orchestra."}
                 buttonText={"View More"}
-                contentPosition={ContentPosition.MIDDLEBOTTOM}
+                contentPosition={windowDimensions.width <= 768 ? ContentPosition.MIDDLE : ContentPosition.MIDDLEBOTTOM}
             />
 
             <NotableConductors />
@@ -104,7 +123,7 @@ const About = () => {
                 image={contactUsPicture}
                 text={
                     <div className="mangolaineFont goldenTextColor" style={{ fontSize: 48 }}>
-                        WE BRING MUSICIAN TOGETHER TO SHARE EXPERIENCE
+                        BE A PART OF OUR MUSICAL JOURNEY!
                     </div>
                 }
                 buttonText={"CONTACT US"}

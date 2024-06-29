@@ -1,46 +1,115 @@
 import React from "react";
 import HeaderTitle from "../../components/atom/HeaderTitle";
-import jurist1 from "../../assets/images/jurists/jurist1.png"
-import ProfileToYoutube from "../../components/molecules/ProfileToYoutube";
+import artist1 from "../../assets/images/guestArtist/artist1.png"
+import artist2 from "../../assets/images/guestArtist/artist2.png"
+import artist3 from "../../assets/images/guestArtist/artist3.png"
+import artist4 from "../../assets/images/guestArtist/artist4.png"
+import artist5 from "../../assets/images/guestArtist/artist5.png"
+import artist6 from "../../assets/images/guestArtist/artist6.png"
+import artist7 from "../../assets/images/guestArtist/artist7.png"
+import artist8 from "../../assets/images/guestArtist/artist8.png"
+import artist9 from "../../assets/images/guestArtist/artist9.png"
+import artist10 from "../../assets/images/guestArtist/artist10.png"
+import artist11 from "../../assets/images/guestArtist/artist11.png"
+import artist12 from "../../assets/images/guestArtist/artist12.png"
+import artist13 from "../../assets/images/guestArtist/artist13.png"
+import artist14 from "../../assets/images/guestArtist/artist14.png"
+import artist15 from "../../assets/images/guestArtist/artist15.png"
+import GuestArtistCard from "../../components/molecules/GuestArtisCard";
+import { CountryConst } from "../../constant/CountryConst";
 
 const GuestArtist = () => {
 
     const guestArtistList = [
         {
-            image: jurist1,
-            name: "CHRISTINE UTOMO",
-            title: "Jurist 2023",
-            quote: "“Untuk kegiatan APCS, saya lihat banyak ada temanya, ada christmas, lagu-lagu populer dan bukan hanya musik klasik, karena musik banyak genrenya bukan hanya musik klasik dari Mozart, Bach, Beethoven. Tapi ada juga banyak banyak musik dari musikal atau lagu populer lainnya yang kita sering dengar,, Jadi ini merupakan kegiatan musik yang sangat-sangat kreatif yang bisa menarik generasi muda ini.”"
+            name: "Iswargia Sudarno",
+            image: artist1,
+            country: CountryConst.IDN,
+            title: "SG | Indonesia | Juries",
         },
         {
-            image: jurist1,
-            name: "CHRISTINE UTOMO",
-            title: "Jurist 2023",
-            quote: "“Untuk kegiatan APCS, saya lihat banyak ada temanya, ada christmas, lagu-lagu populer dan bukan hanya musik klasik, karena musik banyak genrenya bukan hanya musik klasik dari Mozart, Bach, Beethoven. Tapi ada juga banyak banyak musik dari musikal atau lagu populer lainnya yang kita sering dengar,, Jadi ini merupakan kegiatan musik yang sangat-sangat kreatif yang bisa menarik generasi muda ini.”"
+            name: "Ify Alyssa",
+            image: artist2,
+            country: CountryConst.IDN,
+            title: "SG | Indonesia | Singer",
         },
         {
-            image: jurist1,
-            name: "CHRISTINE UTOMO",
-            title: "Jurist 2023",
-            quote: "“Untuk kegiatan APCS, saya lihat banyak ada temanya, ada christmas, lagu-lagu populer dan bukan hanya musik klasik, karena musik banyak genrenya bukan hanya musik klasik dari Mozart, Bach, Beethoven. Tapi ada juga banyak banyak musik dari musikal atau lagu populer lainnya yang kita sering dengar,, Jadi ini merupakan kegiatan musik yang sangat-sangat kreatif yang bisa menarik generasi muda ini.”"
+            name: "Andreas Arianto",
+            image: artist3,
+            country: CountryConst.IDN,
+            title: "SG | Indonesia | Accordion",
         },
         {
-            image: jurist1,
-            name: "CHRISTINE UTOMO",
-            title: "Jurist 2023",
-            quote: "“Untuk kegiatan APCS, saya lihat banyak ada temanya, ada christmas, lagu-lagu populer dan bukan hanya musik klasik, karena musik banyak genrenya bukan hanya musik klasik dari Mozart, Bach, Beethoven. Tapi ada juga banyak banyak musik dari musikal atau lagu populer lainnya yang kita sering dengar,, Jadi ini merupakan kegiatan musik yang sangat-sangat kreatif yang bisa menarik generasi muda ini.”"
+            name: "Filda Salim",
+            image: artist4,
+            country: CountryConst.IDN,
+            title: "SG | Indonesia | Pianist",
         },
         {
-            image: jurist1,
-            name: "CHRISTINE UTOMO",
-            title: "Jurist 2023",
-            quote: "“Untuk kegiatan APCS, saya lihat banyak ada temanya, ada christmas, lagu-lagu populer dan bukan hanya musik klasik, karena musik banyak genrenya bukan hanya musik klasik dari Mozart, Bach, Beethoven. Tapi ada juga banyak banyak musik dari musikal atau lagu populer lainnya yang kita sering dengar,, Jadi ini merupakan kegiatan musik yang sangat-sangat kreatif yang bisa menarik generasi muda ini.”"
+            name: "Vahur Luhtsalu",
+            image: artist5,
+            country: CountryConst.RSA,
+            title: "SG | Indonesia | Cello",
         },
         {
-            image: jurist1,
-            name: "CHRISTINE UTOMO",
-            title: "Jurist 2023",
-            quote: "“Untuk kegiatan APCS, saya lihat banyak ada temanya, ada christmas, lagu-lagu populer dan bukan hanya musik klasik, karena musik banyak genrenya bukan hanya musik klasik dari Mozart, Bach, Beethoven. Tapi ada juga banyak banyak musik dari musikal atau lagu populer lainnya yang kita sering dengar,, Jadi ini merupakan kegiatan musik yang sangat-sangat kreatif yang bisa menarik generasi muda ini.”"
+            name: "Nathania Jualim",
+            image: artist6,
+            country: CountryConst.IDN,
+            title: "SG | Indonesia | Guitarist",
+        },
+        {
+            name: "Firdy Salim",
+            image: artist7,
+            country: CountryConst.IDN,
+            title: "SG | Indonesia | Juries",
+        },
+        {
+            name: "Michaela Sutejo",
+            image: artist8,
+            country: CountryConst.IDN,
+            title: "SG | Indonesia | Pianist",
+        },
+        {
+            name: "Christine Utomo",
+            image: artist9,
+            country: CountryConst.IDN,
+            title: "SG | CHI | juries",
+        },
+        {
+            name: "Stephanie Jingga",
+            image: artist10,
+            country: CountryConst.IDN,
+            title: "SG | Indonesia | Pianist",
+        },
+        {
+            name: "Amelia Tionanda",
+            image: artist11,
+            country: CountryConst.IDN,
+            title: "SG | Indonesia | Violin",
+        },
+        {
+            name: "Michelle Hendra",
+            image: artist12,
+            country: CountryConst.IDN,
+            title: "SG | Indonesia | Singer",
+        },
+        {
+            name: "Myra Karlina Pranajaya",
+            image: artist13,
+            country: CountryConst.CHI,
+            title: "SG | FIN | Juries",
+        },
+        {
+            name: "Park Keun Woo",
+            image: artist14,
+            country: CountryConst.KR,
+            title: "KR | Singer",
+        },
+        {
+            name: "Michelle Kartika Bahari",
+            image: artist15,
+            country: CountryConst.IDN,
+            title: "SG | Indonesia | Juries",
         },
     ]
 
@@ -54,29 +123,11 @@ const GuestArtist = () => {
                 </div>
                 <div style={{ color: "white" }}>
                     <div className="text-align-justify align-items-start row" style={{ paddingBottom: 36 }}>
-                        {/* {guestArtistList.map((eachData) => {
-                            return (
-                                // <div className="col" style={{ marginBottom: 60 }}>
-                                //     <img loading="lazy" src={eachData.image} alt="jurist1" style={{ marginBottom: "1.25rem" }} />
-                                //     <div>
-                                //         {eachData.name}
-                                //     </div>
-                                //     <div>
-                                //         {eachData.title}
-                                //     </div>
-                                //     <div>
-                                //         {eachData.quote}
-                                //     </div>
-                                // </div>
-
-                                <ProfileToYoutube data={eachData} noImage={true} />
-                            )
-                        })} */}
                         <div className="container color-white">
                             <div className="row gx-5 gy-5">
                                 {guestArtistList.map((eachData) => (
                                     <div className="col-12 col-md-4" style={{ padding: 50 }}>
-                                        <ProfileToYoutube data={eachData} noImage={true} />
+                                        <GuestArtistCard data={eachData} />
                                     </div>
                                 ))}
                             </div>

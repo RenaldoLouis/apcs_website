@@ -18,7 +18,7 @@ const NotableConductors = () => {
                             Notable <br /> Conductor
                         </HeaderTitle>
                     </div>
-                    <div className="text-align-center align-items-center row" style={{ paddingTop: 10, paddingBottom: 120 }}>
+                    <div className="text-align-center align-items-center row row-cols-1 row-cols-md-2" style={{ paddingTop: 10, paddingBottom: 120 }}>
                         <ConductorProfile
                             title={"WISHNU DEWANTA"}
                             desc={"Wishnu Dewanta is a dynamic force in musical theatre, known for his exceptional talent and dedication as a music director. With a passion for storytelling through music, he captivates audiences with innovative arrangements and impeccable musical direction."}
@@ -30,7 +30,7 @@ const NotableConductors = () => {
                             </AnimatedComponent>
                         </div>
                     </div>
-                    <div className="text-align-center align-items-center row" style={{ paddingTop: 120, paddingBottom: 120 }}>
+                    <div className="text-align-center align-items-center row row-cols-1 row-cols-md-2" style={{ paddingTop: 120, paddingBottom: 120 }}>
                         <div className="col" style={{ color: "white" }}>
                             <AnimatedComponent animationClass="animate__fadeInDown">
                                 <img loading="lazy" src={chikita} style={{ width: "100%", height: "100%" }} alt="" />

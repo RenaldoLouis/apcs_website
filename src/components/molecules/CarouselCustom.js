@@ -3,13 +3,24 @@ import arrowRightCover from "../../assets/icons/arrowRightCover.png"
 import arrowLeftCover from "../../assets/icons/arrowLeftCover.png"
 import PillButton from '../atom/PillButton';
 import coverImage1 from "../../assets/images/coverImage1.png"
+import banner1 from "../../assets/images/homeBanner/banner1.jpg"
+import banner2 from "../../assets/images/homeBanner/banner2.jpg"
+import banner3 from "../../assets/images/homeBanner/banner3.jpg"
+import banner4 from "../../assets/images/homeBanner/banner4.jpg"
+import banner5 from "../../assets/images/homeBanner/banner5.jpg"
+import banner6 from "../../assets/images/homeBanner/banner6.jpg"
+import banner7 from "../../assets/images/homeBanner/banner7.jpg"
 import { logEvent } from "firebase/analytics";
 import { analytics } from '../../firebase';
 
 const images = [
-    coverImage1,
-    "https://images.unsplash.com/photo-1657586640569-4a3d4577328c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1200&q=80",
-    "https://images.unsplash.com/photo-1656077217715-bdaeb06bd01f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1200&q=80"
+    banner1,
+    banner2,
+    banner3,
+    banner4,
+    banner5,
+    banner6,
+    banner7
 ]
 
 const Carousel = ({ interval = 5000, homePage = true }) => {
