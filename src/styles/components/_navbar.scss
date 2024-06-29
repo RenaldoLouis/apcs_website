@@ -7,7 +7,7 @@
 }
 
 /* Navbar styles */
-.navbarContainer {
+.navbarContainerMobile {
     width: 100%;
     display: flex;
     justify-content: space-around;
@@ -27,7 +27,7 @@
 .menuNavbarContainer {
     list-style-type: none;
     // remove display flex later
-    display: flex;
+    display: none;
     height: 100%;
     gap: 1rem;
 }
@@ -36,7 +36,7 @@
     display: none;
 }
 
-@media (max-width : 700px) {
+@media (max-width : 992px) {
     .menuNavbarContainer {
         list-style-type: none;
         display: flex;
@@ -58,9 +58,9 @@
         transform: translate(0px, 0px);
     }
 
-    .logoContainer {
-        display: none;
-    }
+    // .logoContainerNavbar {
+    //     display: none;
+    // }
 
     .logoContainerMobile {
         display: contents;
