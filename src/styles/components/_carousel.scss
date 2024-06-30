@@ -16,6 +16,20 @@
   justify-content: space-between;
 }
 
+.registerButtonContainer-leftSide-Bottom {
+  position: absolute;
+  // top: 120%;
+  transform: translateY(-120%);
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.closeMute {
+  position: absolute;
+  transform: translate(-38px, 16px);
+}
+
 .registerButtonContainer-center-top {
   position: absolute;
   top: 25%;

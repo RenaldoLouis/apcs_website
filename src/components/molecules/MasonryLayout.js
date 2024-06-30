@@ -5,9 +5,9 @@ import { db } from '../../firebase';
 import Masonry from 'react-masonry-css';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { Spin } from "antd";
-import { turningPointImages } from "../../constant/GaleryImages";
 
-const MasonryLayout = () => {
+const MasonryLayout = (props) => {
+    const { images } = props
     const [items, setItems] = useState([]);
     const [hasMore, setHasMore] = useState(true);
     const [isGetLatestImage, setIsGetLatestImage] = useState(false);
@@ -66,7 +66,7 @@ const MasonryLayout = () => {
                 className="my-masonry-grid"
                 columnClassName="my-masonry-grid_column"
             >
-                {turningPointImages.map((item, index) => (
+                {images?.map((item, index) => (
                     <div
                         key={index}
                         className={`masonry-item ${hoveredIndex === index ? 'hovered' : ''}`}

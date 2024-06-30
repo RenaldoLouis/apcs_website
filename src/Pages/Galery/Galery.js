@@ -4,7 +4,7 @@ import { db } from '../../firebase';
 import MasonryLayout from "../../components/molecules/MasonryLayout";
 
 const Galery = (props) => {
-    const { isDynamicType = false } = props
+    const { isDynamicType = false, images } = props
 
     const [datas, setDatas] = useState([])
     const [isGetLatestImage, setIsGetLatestImage] = useState(false);
@@ -55,7 +55,7 @@ const Galery = (props) => {
 
     return (
         <section>
-            <MasonryLayout />
+            <MasonryLayout images={images} />
         </section>
     )
 }

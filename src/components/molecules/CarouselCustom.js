@@ -65,10 +65,10 @@ const Carousel = ({ interval = 5000, homePage = true }) => {
                         {/* titleCenter 1 */}
                     </div>
                     <div style={{ '--currentIndex': currentIndex }} className='titleCoverContainerText'>
-                        titleCenter 2
+                        {/* titleCenter 2 */}
                     </div>
                     <div style={{ '--currentIndex': currentIndex }} className='titleCoverContainerText'>
-                        titleCenter 3
+                        {/* titleCenter 3 */}
                     </div>
                 </div>
 
@@ -77,6 +77,10 @@ const Carousel = ({ interval = 5000, homePage = true }) => {
                         <div className='slider-nav-dot' style={{ opacity: currentIndex === 0 ? 1 : 0.75, cursor: "pointer" }} onClick={() => setCurrentIndex(0)}></div>
                         <div className='slider-nav-dot' style={{ opacity: currentIndex === 1 ? 1 : 0.75, cursor: "pointer" }} onClick={() => setCurrentIndex(1)}></div>
                         <div className='slider-nav-dot' style={{ opacity: currentIndex === 2 ? 1 : 0.75, cursor: "pointer" }} onClick={() => setCurrentIndex(2)}></div>
+                        <div className='slider-nav-dot' style={{ opacity: currentIndex === 3 ? 1 : 0.75, cursor: "pointer" }} onClick={() => setCurrentIndex(3)}></div>
+                        <div className='slider-nav-dot' style={{ opacity: currentIndex === 4 ? 1 : 0.75, cursor: "pointer" }} onClick={() => setCurrentIndex(4)}></div>
+                        <div className='slider-nav-dot' style={{ opacity: currentIndex === 5 ? 1 : 0.75, cursor: "pointer" }} onClick={() => setCurrentIndex(5)}></div>
+                        <div className='slider-nav-dot' style={{ opacity: currentIndex === 6 ? 1 : 0.75, cursor: "pointer" }} onClick={() => setCurrentIndex(6)}></div>
                     </div>
                 ) : (
                     <div className="slider-nav-leftSide">

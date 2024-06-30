@@ -1,6 +1,4 @@
 import React from "react";
-import CoverVideo from "../../components/molecules/CoverVideo";
-import CoverImage from "../../components/molecules/CoverImage";
 import podcastBacgkorund from "../../assets/images/podcastBacgkorund.png"
 import musiciswhatapcs from "../../assets/images/musiciswhatapcs.svg"
 import BackgroundWithText from "../../components/molecules/BacgkroundWithText";
@@ -10,7 +8,6 @@ const Podcast = () => {
 
     return (
         <div>
-            {/* <CoverVideo isVideo={true} /> */}
             {/* <CoverImage background={podcastBacgkorund} logo={musiciswhatapcs} isMiddleLeft={true} /> */}
             <BackgroundWithText
                 image={podcastBacgkorund}

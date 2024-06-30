@@ -50,9 +50,8 @@ const Achievers = () => {
 
     return (
         <div>
-            {/* <CoverVideo isVideo={true} /> */}
             <CoverImage background={aboutCover} logo={musiciswhatapcs} isMiddleLeft={false} />
-            <SapphireWinnerSection dataDiamond={sapphireWinners} dataSaphire={sapphireWinners}/>
+            <SapphireWinnerSection dataDiamond={sapphireWinners} dataSaphire={sapphireWinners} />
             {/* <DiamondAchievers data={sapphireWinners} /> */}
         </div>
     )
