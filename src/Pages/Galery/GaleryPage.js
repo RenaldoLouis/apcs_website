@@ -12,6 +12,10 @@ import { db } from '../../firebase';
 
 import { TurningPointImages } from "../../constant/TurningPointImages";
 import { AutumnInKoreaImages } from "../../constant/AutumnInKoreaImages";
+import { MagicalMusicSoundtractImages } from "../../constant/MagicalMusicSoundtract";
+import { ClassicalFestivalSurabayaImages } from "../../constant/ClassicalFestivalSurabayaImages";
+import { ClassicalFestivalJakartaImages } from "../../constant/ClassicalFestivalJakarta";
+import { ChristmasInWonderlandImages } from "../../constant/ChristmasWonderlandImages";
 
 const GaleryPage = () => {
     const { t, i18n } = useTranslation();
@@ -54,6 +58,74 @@ const GaleryPage = () => {
             ],
             images: AutumnInKoreaImages
         },
+        {
+            name: YearlyEvent.MAGICALMUSICSOUNDTRACT,
+            video: null,
+            title: "The First National Orchestra Series for all generations",
+            subTitle: "UNDER THE BATON OF CHIKITA AMANDA",
+            featuring: [
+                {
+                    name: "Michaela Sutejo as the main soloist",
+                    role: "Pianist"
+                },
+                {
+                    name: "Chikita Amanda",
+                    role: "conductor"
+                }
+            ],
+            images: MagicalMusicSoundtractImages
+        },
+        {
+            name: YearlyEvent.CLASSICALFESTIVALSBY,
+            video: null,
+            title: "THE FIRST NATIONAL CLASSICAL SERIES FOR ALL GENERATIONS, SHANGRI-LA",
+            subTitle: "UNDER THE BATON OF CHIKITA AMANDA",
+            featuring: [
+                {
+                    name: "Michaela Sutejo as the main soloist",
+                    role: "Pianist"
+                },
+                {
+                    name: "Chikita Amanda",
+                    role: "conductor"
+                }
+            ],
+            images: ClassicalFestivalSurabayaImages
+        },
+        {
+            name: YearlyEvent.CLASSICALFESTIVALJKT,
+            video: null,
+            title: "THE SECOND NATIONAL CLASSICAL SERIES FOR ALL GENERATIONS, SOEHANNA HALL",
+            subTitle: "",
+            featuring: [
+                {
+                    name: "Michaela Sutejo as the main soloist",
+                    role: "Pianist"
+                },
+                {
+                    name: "Chikita Amanda",
+                    role: "conductor"
+                }
+            ],
+            images: ClassicalFestivalJakartaImages
+        },
+        {
+            name: YearlyEvent.CHRISTMASWONDERLAND,
+            video: null,
+            title: "APCS CHRISTMAS WONDERLAND",
+            subTitle: "UNDER THE BATON OF CHIKITA AMANDA",
+            featuring: [
+                {
+                    name: "Michaela Sutejo as the main soloist",
+                    role: "Pianist"
+                },
+                {
+                    name: "Chikita Amanda",
+                    role: "conductor"
+                }
+            ],
+            images: ChristmasInWonderlandImages
+        },
     ])
 
     useEffect(() => {
@@ -94,7 +166,6 @@ const GaleryPage = () => {
                 }
                 return event;
             });
-            console.log("updatedEvents", updatedEvents)
             setListGaleryContent(updatedEvents)
             setIsLoading(false)
         }
@@ -102,7 +173,6 @@ const GaleryPage = () => {
     }, [videoList])
 
     useEffect(() => {
-        console.log("ListGaleryContent", ListGaleryContent)
         let tempData = ListGaleryContent.filter((data) => data.name === selectedEvent)
         setGaleryContent(tempData[0])
         setIsLoading(false)
