@@ -29,6 +29,7 @@ import saphireAchievers23 from "../../assets/images/saphireAchiever/saphireAchie
 import saphireAchievers24 from "../../assets/images/saphireAchiever/saphireAchievers24.png";
 import saphireAchieverText from "../../assets/images/saphireAchieverText.svg"
 import PillButton from "../../components/atom/PillButton";
+import { dataDiamond } from "../../constant/datas/DiamondAchieverData";
 
 const sapphireWinners = [
     {
@@ -199,7 +200,7 @@ const Achievers = () => {
                     <div />
                 </>
             } />
-            <SapphireWinnerSection dataDiamond={sapphireWinners} dataSaphire={sapphireWinners} />
+            <SapphireWinnerSection dataSaphire={sapphireWinners} dataDiamond={dataDiamond} />
             {/* <DiamondAchievers data={sapphireWinners} /> */}
         </div>
     )

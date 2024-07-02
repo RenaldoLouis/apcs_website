@@ -4,7 +4,11 @@ import playButton from "../../assets/icons/playButton.svg"
 
 const ProfileToYoutube = (props) => {
     const { data, noImage = false } = props
-    const { name, image, country, event } = data;
+    const { name, image, country, event, YoutubeLink } = data;
+
+    const handleOpenLink = () => {
+        window.open(YoutubeLink, "_blank");
+    }
 
     return (
         <>
@@ -14,7 +18,7 @@ const ProfileToYoutube = (props) => {
             <div>
                 <div className="flex justify-spaceBetween" style={{ marginTop: 40, fontSize: 24, fontWeight: "bold" }}>
                     {name}
-                    <img src={playButton} alt='playButton' />
+                    <img className="cursorPointer" src={playButton} alt='playButton' onClick={handleOpenLink} />
                 </div>
                 <div style={{ marginTop: 8 }}>
                     <img src={indFlag} alt={indFlag} style={{ marginRight: 13 }} />
