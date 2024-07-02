@@ -45,7 +45,7 @@ const Navbar = () => {
 
     return (
         <nav>
-            <div className="container-fluid mt-3" style={{ position: "absolute", color: "white" }}>
+            <div className="container-fluid mt-3" style={{ position: "absolute", color: "white", zIndex: 10 }}>
                 <div className="row d-flex justify-content-between">
                     <div className="col-2 d-flex d-none d-lg-flex justify-content-end">
                         <YoutubeOutlined style={{ fontSize: 32 }} />

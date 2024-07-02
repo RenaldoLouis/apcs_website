@@ -2,10 +2,11 @@ import React from "react";
 import SapphireWinnerSection from "./SapphireWinnerSection";
 import CoverImage from "../../components/molecules/CoverImage";
 import aboutCover from "../../assets/images/AboutCover.jpg"
-import musiciswhatapcs from "../../assets/images/musiciswhatapcs.svg"
 import DiamondAchievers from "./DiamondAchievers";
 import saphire1 from "../../assets/images/saphire1.png"
 import saphire2 from "../../assets/images/saphire2.png"
+import saphireAchieverText from "../../assets/images/saphireAchieverText.svg"
+import PillButton from "../../components/atom/PillButton";
 
 const sapphireWinners = [
     {
@@ -50,7 +51,22 @@ const Achievers = () => {
 
     return (
         <div>
-            <CoverImage background={aboutCover} logo={musiciswhatapcs} isMiddleLeft={false} />
+            <CoverImage background={aboutCover} logo={saphireAchieverText} isMiddleLeft={false} content={
+                <>
+                    <div style={{ marginLeft: "8vw", color: "white" }}>
+                        <div style={{ fontSize: 24 }}>
+                            Testting
+                        </div>
+                        <div style={{ fontSize: 40 }}>
+                            button
+                        </div>
+                        <div>
+                            <PillButton text={"Watch Performance"} />
+                        </div>
+                    </div>
+                    <div />
+                </>
+            } />
             <SapphireWinnerSection dataDiamond={sapphireWinners} dataSaphire={sapphireWinners} />
             {/* <DiamondAchievers data={sapphireWinners} /> */}
         </div>

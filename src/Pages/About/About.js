@@ -45,7 +45,7 @@ const About = () => {
     return (
         <div>
             {/* <AnimationWWScroll setIsScrollDownAvailable={setIsScrollDownAvailable} /> */}
-            <CoverImage background={aboutCover} logo={musiciswhatapcs} isMiddleLeft={true} />
+            <CoverImage background={aboutCover} logo={musiciswhatapcs} position={ContentPosition.MIDDLELEFT} />
             <div style={{ background: "black", color: "white" }}>
                 <div className="container">
                     <div className="row justify-content-md-center text-align-center">
