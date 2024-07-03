@@ -8,14 +8,17 @@ import { ContentPosition } from "../../constant/ContentPosition";
 import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
+import { db } from '../../firebase';
+import { collection, addDoc } from "firebase/firestore";
+import { toast } from 'react-toastify';
 
 const ContactUs = () => {
     const [formData, setFormData] = useState({
-        field1: '',
-        field2: '',
-        field3: '',
-        field4: '',
-        multilineField: '',
+        name: '',
+        email: '',
+        country: '',
+        phone_number: '',
+        comment: '',
     });
 
     const handleChange = (event) => {
@@ -25,11 +28,22 @@ const ContactUs = () => {
         });
     };
 
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        console.log(formData);
-        // Handle form submission here
+    const handleSubmit = async (event) => {
+
+        try {
+            event.preventDefault();
+            console.log(formData);
+
+            // Add a new document to a collection
+            const docRef = await addDoc(collection(db, "users"), formData);
+            toast.success("Data Saved, Thank you")
+            console.log("Document written with ID: ", docRef.id);
+        } catch (e) {
+            toast.error("failed to save data, please try again");
+            console.error("Error adding document: ", e);
+        }
     };
+
 
     return (
         <div class="container-fluid mx-0 my-0 px-0 py-0" style={{ background: "black" }}>
@@ -48,23 +62,44 @@ const ContactUs = () => {
                                             <div className="row">
                                                 <div className="col-12 d-flex flex-column justify-content-center align-items-center">
                                                     <TextField
+                                                        required
+                                                        onChange={handleChange}
+                                                        name="name"
                                                         id="standard-basic"
-                                                        label="Standard" variant="standard" className="custom-textfield mb-4" />
+                                                        label="Name" variant="standard" className="custom-textfield mb-4" />
+                                                    <TextField
+                                                        required
+                                                        onChange={handleChange}
+                                                        name="email"
+                                                        id="standard-basic"
+                                                        label="Email" variant="standard" className="custom-textfield mb-4" />
+                                                    <TextField
+                                                        required
+                                                        onChange={handleChange}
+                                                        name="country"
+                                                        id="standard-basic"
+                                                        label="Country" variant="standard" className="custom-textfield mb-4" />
+                                                    <TextField
+                                                        required
+                                                        onChange={handleChange}
+                                                        name="phone_number"
+                                                        id="standard-basic"
+                                                        label="Phone Number" variant="standard" className="custom-textfield mb-4" />
                                                     <TextField
                                                         id="filled-multiline-static"
-                                                        label="Multiline"
+                                                        name="comment"
+                                                        label="Comment"
                                                         multiline
                                                         rows={4}
-                                                        defaultValue="Default Value"
-                                                        variant="filled"
+                                                        variant="standard"
                                                         className="custom-textfield mb-4"
                                                         value={formData.multilineField}
                                                         onChange={handleChange}
                                                         sx={{
                                                             margin: 0,
                                                             padding: 0,
-                                                            '& .MuiInput-underline:before': { borderBottomColor: 'green' },
-                                                            '& .MuiInput-underline:after': { borderBottomColor: 'green' },
+                                                            '& .MuiInput-underline:before': { borderBottomColor: 'orange' },
+                                                            '& .MuiInput-underline:after': { borderBottomColor: 'orange' },
                                                         }}
                                                     />
 
@@ -74,43 +109,6 @@ const ContactUs = () => {
                                                 </div>
                                             </div>
                                         </div>
-                                        {/* <TextField
-                                            className="custom-textfield"
-                                            name="field1"
-                                            label="Field 1"
-                                            value={formData.field1}
-                                            onChange={handleChange}
-                                        />
-                                        <TextField
-                                            className="custom-textfield"
-                                            name="field2"
-                                            label="Field 2"
-                                            value={formData.field2}
-                                            onChange={handleChange}
-                                        />
-                                        <TextField
-                                            className="custom-textfield"
-                                            name="field3"
-                                            label="Field 3"
-                                            value={formData.field3}
-                                            onChange={handleChange}
-                                        />
-                                        <TextField
-                                            className="custom-textfield"
-                                            name="field4"
-                                            label="Field 4"
-                                            value={formData.field4}
-                                            onChange={handleChange}
-                                        />
-                                        <TextField
-                                            className="custom-textfield"
-                                            name="multilineField"
-                                            label="Multiline Field"
-                                            multiline
-                                            rows={4}
-                                            value={formData.multilineField}
-                                            onChange={handleChange}
-                                        /> */}
                                     </Box>
                                     <img className="mt-5" src={lineContactUs} style={{ width: "60%" }} />
                                 </div>

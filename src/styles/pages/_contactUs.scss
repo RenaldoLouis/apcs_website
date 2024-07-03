@@ -25,3 +25,12 @@
 .custom-textfield .MuiInputBase-input {
     color: $primary-golden-text-color;
 }
+
+.custom-textfield .MuiInputBase-root:hover:not(.Mui-disabled)::before {
+    border-bottom-color: orange;
+}
+
+// .custom-textfield .MuiInputBase-root-MuiFilledInput-root.Mui-focused {
+//     color: $primary-golden-text-color;
+//     border-bottom-color: green;
+// }
