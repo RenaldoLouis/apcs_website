@@ -12,6 +12,8 @@ import {
 import { useTranslation } from "react-i18next";
 const Navbar = () => {
     const { t, i18n } = useTranslation();
+    const navigate = useNavigate();
+    const location = useLocation();
 
     //Creating a method to change the language onChnage from select box
     const changeLanguageHandler = (lang) => {
@@ -22,10 +24,6 @@ const Navbar = () => {
     const [currentPage, setCurrentPage] = useState();
     const [currentLanguage, setCurrentLanguage] = useState(i18n.language);
     const [isNavbarMobileOpen, setIsNavbarMobileOpen] = useState(false);
-
-    const navigate = useNavigate();
-
-    const location = useLocation();
 
     const handleMovePage = (path) => {
         navigate(path);
