@@ -221,9 +221,17 @@
   width: 43vw;
 }
 
+// @media (max-width : 1200px) {
+//   .testimonyContainer {
+//     width: 100%;
+//   }
+// }
+
 @media (max-width : 1200px) {
   .testimonyContainer {
-    width: 100%;
+    width: 43vw;
+    height: 30vmin;
+    overflow: auto;
   }
 }
 
@@ -238,13 +246,6 @@
   }
 }
 
-@media (max-width : 1024px) {
-  .testimonyContainer {
-    width: 100%;
-    height: 18vmin;
-    overflow: auto;
-  }
-}
 
 @media (max-width : 765px) {
   .pillButtonFontSize {

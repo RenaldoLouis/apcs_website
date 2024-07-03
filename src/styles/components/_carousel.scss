@@ -123,9 +123,9 @@
 .titleCoverContainer {
   display: flex;
   position: absolute;
-  top: 75%;
+  // top: 75%;
   left: 0;
-  transform: translateY(-50%);
+  transform: translate(50%, 10vmin);
   width: 100%;
   /* Span the entire width of the relative container */
   text-align: center;

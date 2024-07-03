@@ -15,6 +15,7 @@ import CoverImageHome from "../../components/molecules/CoverImageHome";
 import AnimatedComponent from "../../components/atom/AnimatedComponent";
 import { AnimationClass } from "../../constant/AnimationClass";
 import { useTranslation } from "react-i18next";
+import JuryCarousel from "../../components/molecules/JuryCarousel";
 
 const Home = (props) => {
     const { t, i18n } = useTranslation();
@@ -101,9 +102,8 @@ const Home = (props) => {
                 </div>
             </div>
 
-            <div className="image-container-fadedTopBottom autoHeight">
-                {/* <img loading="lazy" src={jury1noText} alt={`jury1noText`} style={{ width: "100%" }} /> */}
-                <img loading="lazy" src={jury2noText} alt={`jury2noText`} style={{ width: "100%" }} />
+            {/* <div className="image-container-fadedTopBottom autoHeight">
+                <img loading="lazy" src={jury1noText} alt={`jury1noText`} style={{ width: "100%" }} />
 
                 <div className="musicForEveryone">
                     <img loading="lazy"
@@ -127,7 +127,13 @@ const Home = (props) => {
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> */}
+
+            <JuryCarousel />
+
+
+
+
             <div class="container-fluid" style={{ background: "black" }}>
                 <div class="row">
                     <div class="col mangolaineFont goldenTextColor text-align-center" style={{ fontSize: 64 }}>
