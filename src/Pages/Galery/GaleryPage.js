@@ -141,7 +141,6 @@ const GaleryPage = () => {
                 if (querySnapshot) {
                     const newData = querySnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
                     setVideoList(newData)
-
                 }
             })
             .catch((error) => {
