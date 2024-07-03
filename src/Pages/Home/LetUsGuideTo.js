@@ -31,7 +31,7 @@ const LetUsGuideTo = () => {
             <div className={`taleMusical`}>
                 <img
                     ref={ref2} className={`animate__animated ${inView2 ? "animate__fadeIn" : ''}`}
-                    loading="lazy" src={taleMusicalJourney} alt="apcsLogo" style={{ width: "72%", visibility: inView2 ? "" : "hidden" }} />
+                    loading="lazy" src={taleMusicalJourney} alt="apcsLogo" style={{ width: "50%", visibility: inView2 ? "" : "hidden" }} />
             </div>
         </div>
     )

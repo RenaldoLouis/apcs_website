@@ -128,7 +128,13 @@ const Home = (props) => {
                     </div>
                 </div>
             </div>
-
+            <div class="container-fluid" style={{ background: "black" }}>
+                <div class="row">
+                    <div class="col mangolaineFont goldenTextColor text-align-center" style={{ fontSize: 64 }}>
+                        Venture our events
+                    </div>
+                </div>
+            </div>
             <Carousel />
 
             {/* <Content
