@@ -4,11 +4,13 @@ import goldenLine from "../../assets/images/goldenLine.png"
 import LetUsGuideTo from "./LetUsGuideTo";
 import pianoKeys from '../../assets/images/pianoKeys.svg';
 import musicForEveryone from "../../assets/images/musicForEveryone.svg"
-import firdyHomeScreen from "../../assets/images/firdyHomeScreen.svg"
+import jury1noText from "../../assets/images/jurySlider/jury1noText.svg"
+import jury2noText from "../../assets/images/jurySlider/jury2noText.png"
 import experienceHomeCropped from "../../assets/images/experienceHomeCropped.jpg"
 import Carousel from "../../components/molecules/CarouselCustom";
 import apcLogoBold from "../../assets/images/apc_logo_bold.svg"
 import homeScreen from "../../assets/images/homeScreenImage.jpg"
+import homeScreenImageCropped from "../../assets/images/homeScreenImageCropped.png"
 import CoverImageHome from "../../components/molecules/CoverImageHome";
 import AnimatedComponent from "../../components/atom/AnimatedComponent";
 import { AnimationClass } from "../../constant/AnimationClass";
@@ -23,7 +25,7 @@ const Home = (props) => {
     const { audio } = props
     return (
         <>
-            <CoverImageHome background={homeScreen} logo={apcLogoBold} />
+            <CoverImageHome background={homeScreenImageCropped} logo={apcLogoBold} />
 
             <div className="backgroundBlack homeContentContainer">
                 <div className="container">
@@ -100,7 +102,8 @@ const Home = (props) => {
             </div>
 
             <div className="image-container-fadedTopBottom autoHeight">
-                <img loading="lazy" src={firdyHomeScreen} alt={`firdyHomeScreen`} style={{ width: "100%" }} />
+                {/* <img loading="lazy" src={jury1noText} alt={`jury1noText`} style={{ width: "100%" }} /> */}
+                <img loading="lazy" src={jury2noText} alt={`jury2noText`} style={{ width: "100%" }} />
 
                 <div className="musicForEveryone">
                     <img loading="lazy"

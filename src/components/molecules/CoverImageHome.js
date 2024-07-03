@@ -12,7 +12,7 @@ const CoverImageHome = (props) => {
 
     const { logo, isMiddleLeft, background } = props
     return (
-        <div className='overflow-x-hidden'>
+        <div className='overflow-x-hidden' style={{ position: "relative" }}>
             <div className="fadeDarkImageTopBottom">
                 <img loading="lazy" src={background}
                     alt="homeScreen"

@@ -10,10 +10,15 @@ import {
     TikTokOutlined
 } from '@ant-design/icons';
 import { useTranslation } from "react-i18next";
+import { useTheme } from '@mui/material/styles';
+import useMediaQuery from '@mui/material/useMediaQuery';
+
 const Navbar = () => {
     const { t, i18n } = useTranslation();
     const navigate = useNavigate();
     const location = useLocation();
+    const theme = useTheme();
+    const isTabletAndSmaller = useMediaQuery(theme.breakpoints.down('md'));
 
     //Creating a method to change the language onChnage from select box
     const changeLanguageHandler = (lang) => {
@@ -47,12 +52,14 @@ const Navbar = () => {
                 <div className="row d-flex justify-content-between">
                     <div className="col-2 d-flex d-none d-lg-flex justify-content-end">
                         <YoutubeOutlined style={{ fontSize: 32 }} />
-                        <InstagramOutlined style={{ marginLeft: 36, marginRight: 36, fontSize: 32 }} />
+                        <InstagramOutlined style={{ marginLeft: 18, marginRight: 18, fontSize: 32 }} />
                         <TikTokOutlined style={{ fontSize: 32 }} />
                     </div>
                     <div className="col-2">
                         <span className="logoContainerNavbar">
-                            <img loading="lazy" src={apcLogo} alt="apcsLogo" />
+                            {!isTabletAndSmaller && (
+                                <img loading="lazy" src={apcLogo} alt="apcsLogo" />
+                            )}
                         </span>
                     </div>
                     <div className="col d-flex d-none d-lg-flex align-items-center justify-content-between">
