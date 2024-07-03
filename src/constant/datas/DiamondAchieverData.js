@@ -230,11 +230,6 @@ export const dataDiamond = [
         "event": ["Classical Festival Jakarta"]
     },
     {
-        "name": "Woodseed Quintet (Gadang Wahyu Arafah - Flute, Braindi Ari Setiawan - Oboe, Dwi Adi Kurniawan - French Horn, Azkal Azkiya - Bassoon, Sa'id Dwi Santosa - Clarinet)",
-        "country": "Yogyakarta",
-        "event": ["Classical Festival Jakarta"]
-    },
-    {
         "name": "Jehoshua Amadeus Samuel amanta Nainggolan",
         "country": "Yogyakarta",
         "YoutubeLink": "https://www.youtube.com/watch?v=2Li-73xu7rI&ab_channel=APIANOCONCERTOSERIES",

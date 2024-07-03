@@ -18,7 +18,9 @@ const ProfileToYoutube = (props) => {
             <div>
                 <div className="flex justify-spaceBetween" style={{ marginTop: 40, fontSize: 24, fontWeight: "bold" }}>
                     {name}
-                    <img className="cursorPointer" src={playButton} alt='playButton' onClick={handleOpenLink} />
+                    {YoutubeLink && (
+                        <img className="cursorPointer" src={playButton} alt='playButton' onClick={handleOpenLink} />
+                    )}
                 </div>
                 <div style={{ marginTop: 8 }}>
                     <img src={indFlag} alt={indFlag} style={{ marginRight: 13 }} />

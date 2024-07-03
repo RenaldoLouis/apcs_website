@@ -26,6 +26,7 @@ import { CookiesProvider } from "react-cookie";
 import { I18nextProvider } from "react-i18next";
 import i18next from "i18next";
 import { PathName } from "./constant/PathName";
+import ContactUs from "./Pages/ContactUs/ContactUs";
 
 
 const audio = new Audio(persona5);
@@ -40,7 +41,7 @@ const Main = () => {
         <Route path={PathName.gallery} element={<MainLayout children={<GaleryPage />} />} />
         <Route path={PathName.achievers} element={<MainLayout children={<Achievers />} />} />
         <Route path={PathName.podcast} element={<MainLayout children={<Podcast />} />} />
-        <Route path={PathName.contactUs} element={<MainLayout children={<Podcast />} />} />
+        <Route path={PathName.contactUs} element={<MainLayout children={<ContactUs />} />} />
         <Route path="/login" element={<Login />} />
         <Route path="/adminDashboard" element={
           <ProtectedRoute>

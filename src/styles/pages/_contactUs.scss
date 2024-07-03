@@ -1,0 +1,27 @@
+.custom-textfield {
+    width: 75%;
+}
+
+.custom-textfield .MuiInputLabel-root {
+    color: $primary-golden-text-color;
+}
+
+.custom-textfield .MuiInputLabel-root.Mui-focused {
+    color: $primary-golden-text-color !important;
+}
+
+.custom-textfield .MuiInput-root::before {
+    border-bottom-color: green;
+}
+
+.custom-textfield .MuiInput-root:hover:not(.Mui-disabled)::before {
+    border-bottom-color: orange;
+}
+
+.custom-textfield .MuiInput-root::after {
+    border-bottom-color: $primary-golden-text-color;
+}
+
+.custom-textfield .MuiInputBase-input {
+    color: $primary-golden-text-color;
+}

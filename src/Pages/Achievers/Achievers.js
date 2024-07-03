@@ -1,7 +1,7 @@
 import React from "react";
 import SapphireWinnerSection from "./SapphireWinnerSection";
 import CoverImage from "../../components/molecules/CoverImage";
-import aboutCover from "../../assets/images/AboutCover.jpg"
+import achieverBackground from "../../assets/images/achieverBackground.png"
 import DiamondAchievers from "./DiamondAchievers";
 import saphireAchievers1 from "../../assets/images/saphireAchiever/saphireAchievers1.png";
 import saphireAchievers2 from "../../assets/images/saphireAchiever/saphireAchievers2.png";
@@ -183,7 +183,7 @@ const Achievers = () => {
 
     return (
         <div>
-            <CoverImage background={aboutCover} logo={saphireAchieverText} isMiddleLeft={false} content={
+            <CoverImage background={achieverBackground} logo={saphireAchieverText} isMiddleLeft={false} content={
                 <>
                     <div style={{ marginLeft: "8vw", color: "white" }}>
                         <div style={{ fontSize: 24 }}>
