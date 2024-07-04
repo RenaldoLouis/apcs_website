@@ -219,8 +219,12 @@ const GaleryPage = () => {
                 </div>
             ) : (
                 <>
-                    <div style={{ marginTop: 64, marginBottom: 100 }}>
-                        <CoverVideo video={galeryContent.video} />
+                    <div class="container" style={{ marginTop: 64, marginBottom: 100 }}>
+                        <div class="row">
+                            <div class="col">
+                                <CoverVideo video={galeryContent.video} />
+                            </div>
+                        </div>
                     </div>
                     <HeaderTitle>
                         {galeryContent.title}

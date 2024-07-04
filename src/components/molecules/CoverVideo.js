@@ -70,7 +70,7 @@ const CoverVideo = (props) => {
             <video ref={videoRef} src={video}
                 // preload="none"
                 muted={isMutedVideo}
-                playsInline loop autoPlay className='video-container'></video>
+                playsInline loop autoPlay className='video-container' style={{ objectFit: "cover", width: "100%", height: "100%" }} ></video>
 
             {/* <div className='content-container'>
                 <span className='text-6xl'>
@@ -85,15 +85,15 @@ const CoverVideo = (props) => {
             </div> */}
 
 
-            <div className="registerButtonContainer-leftSide-Bottom cursorPointer" >
+            <div className="registerButtonContainer-leftSide-Bottom cursorPointer justify-content-center" style={{ marginBottom: 16 }} >
                 <div style={{ color: "white", marginLeft: 25 }}>
                     {/* <p>
                         2023 A Christmas Wonderland
                     </p> */}
                     {isVideoPlay ? (
-                        <PauseCircleOutlined style={{ fontSize: 60 }} onClick={handleClickPauseVideo} />
+                        <PauseCircleOutlined style={{ fontSize: 40, marginRight: 16 }} onClick={handleClickPauseVideo} />
                     ) : (
-                        <PlayCircleOutlined style={{ fontSize: 60 }} onClick={handleClickPlayVideo} />
+                        <PlayCircleOutlined style={{ fontSize: 40, marginRight: 16 }} onClick={handleClickPlayVideo} />
                     )}
                     <MutedOutlined style={{ fontSize: 40 }} onClick={handleClickMuteVideo} />
                     <CloseOutlined className="closeMute" onClick={handleClickUnmuteVideo} style={{ fontSize: 40, display: isMutedVideo ? "" : "none" }} />

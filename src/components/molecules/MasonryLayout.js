@@ -45,7 +45,7 @@ const MasonryLayout = (props) => {
 
     const breakpointColumnsObj = {
         default: 3,
-        1100: 1,
+        1100: 2,
         700: 1
     };
 
