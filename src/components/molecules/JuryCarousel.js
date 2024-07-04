@@ -6,7 +6,7 @@ import coverImage1 from "../../assets/images/coverImage1.png"
 import { logEvent } from "firebase/analytics";
 import { analytics } from '../../firebase';
 
-import jury1noText from "../../assets/images/jurySlider/jury1noText.svg"
+import jury1noText from "../../assets/images/jurySlider/jury1noText.png"
 import jury2noText from "../../assets/images/jurySlider/jury2noText.png"
 import jury3noText from "../../assets/images/jurySlider/jury3noText.png"
 import { useTranslation } from 'react-i18next';
