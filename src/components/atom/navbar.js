@@ -13,7 +13,8 @@ import { useTranslation } from "react-i18next";
 import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 
-const Navbar = () => {
+const Navbar = (props) => {
+    const { isNavbarMobileOpen, setIsNavbarMobileOpen } = props
     const { t, i18n } = useTranslation();
     const navigate = useNavigate();
     const location = useLocation();
@@ -28,7 +29,6 @@ const Navbar = () => {
 
     const [currentPage, setCurrentPage] = useState();
     const [currentLanguage, setCurrentLanguage] = useState(i18n.language);
-    const [isNavbarMobileOpen, setIsNavbarMobileOpen] = useState(false);
 
     const handleMovePage = (path) => {
         navigate(path);
@@ -48,7 +48,7 @@ const Navbar = () => {
 
     return (
         <nav>
-            <div className="container-fluid mt-3" style={{ position: "absolute", color: "white", zIndex: 10 }}>
+            <div className="container-fluid mt-3" style={{ position: "absolute", color: "white", zIndex: 999 }}>
                 <div className="row d-flex justify-content-between">
                     <div className="col-2 d-flex d-none d-lg-flex justify-content-end">
                         <YoutubeOutlined style={{ fontSize: 32 }} />
@@ -76,7 +76,7 @@ const Navbar = () => {
                         })}
                     </div>
                     <div className="col-2 d-flex align-items-center justify-content-center">
-                        <div className="logoContainerMobile">
+                        <div className="logoContainerMobile" style={{ zIndex: 999 }}>
                             <MenuOutlined onClick={handleOpenMenuMobile} />
                         </div>
                         <span onClick={() => changeLanguageHandler("id")}
@@ -90,19 +90,21 @@ const Navbar = () => {
 
             <div className="navbarContainerMobile">
                 <div className={`menuNavbarContainer  ${isNavbarMobileOpen ? "open" : ""}`}>
-                    <CloseOutlined className="logoContainerMobile" onClick={handleCloseMenuMobile} />
+                    <CloseOutlined className=" logoContainerMobile" onClick={handleCloseMenuMobile} style={{ display: "flex", alignSelf: "self-end" }} />
+                    <div style={{ display: 'flex', flexDirection: "column", gap: "1rem" }}>
+                        {Object.keys(PathName).map((eachPath) => {
+                            let path = PathName[eachPath]
+                            let navbarName = PathName[eachPath].substring(1);
+                            return (
+                                <div className={`plus-jakarta-sans-font itemMenuSelected ${currentPage === path ? "selected textColorSelected" : ""}`} onClick={() => handleMovePage(path)}>
+                                    {navbarName.toUpperCase()}
+                                </div>
+                            )
+                        })}
+                    </div>
                     <span className="logoContainerMobile">
                         <img loading="lazy" src={apcLogo} alt="apcsLogo" />
                     </span>
-                    {Object.keys(PathName).map((eachPath) => {
-                        let path = PathName[eachPath]
-                        let navbarName = PathName[eachPath].substring(1);
-                        return (
-                            <div className={`plus-jakarta-sans-font itemMenuSelected ${currentPage === path ? "selected textColorSelected" : ""}`} onClick={() => handleMovePage(path)}>
-                                {navbarName.toUpperCase()}
-                            </div>
-                        )
-                    })}
                 </div>
             </div>
         </nav>
