@@ -91,20 +91,22 @@ const Navbar = (props) => {
             <div className="navbarContainerMobile">
                 <div className={`menuNavbarContainer  ${isNavbarMobileOpen ? "open" : ""}`}>
                     <CloseOutlined className=" logoContainerMobile" onClick={handleCloseMenuMobile} style={{ display: "flex", alignSelf: "self-end" }} />
-                    <div style={{ display: 'flex', flexDirection: "column", gap: "1rem" }}>
-                        {Object.keys(PathName).map((eachPath) => {
-                            let path = PathName[eachPath]
-                            let navbarName = PathName[eachPath].substring(1);
-                            return (
-                                <div className={`plus-jakarta-sans-font itemMenuSelected ${currentPage === path ? "selected textColorSelected" : ""}`} onClick={() => handleMovePage(path)}>
-                                    {navbarName.toUpperCase()}
-                                </div>
-                            )
-                        })}
+                    <div className="d-flex flex-column" style={{ width: '100%', height: "100%", justifyContent: "space-between" }}>
+                        <div style={{ display: 'flex', flexDirection: "column", gap: "1rem" }}>
+                            {Object.keys(PathName).map((eachPath) => {
+                                let path = PathName[eachPath]
+                                let navbarName = PathName[eachPath].substring(1);
+                                return (
+                                    <div className={`plus-jakarta-sans-font itemMenuSelected ${currentPage === path ? "selected textColorSelected" : ""}`} onClick={() => handleMovePage(path)}>
+                                        {navbarName.toUpperCase()}
+                                    </div>
+                                )
+                            })}
+                        </div>
+                        <span className="logoContainerMobile">
+                            <img className="align-self-center" loading="lazy" src={apcLogo} alt="apcsLogo" style={{ marginBottom: 64 }} />
+                        </span>
                     </div>
-                    <span className="logoContainerMobile">
-                        <img loading="lazy" src={apcLogo} alt="apcsLogo" />
-                    </span>
                 </div>
             </div>
         </nav>
