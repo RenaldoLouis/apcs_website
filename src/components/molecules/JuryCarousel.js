@@ -46,13 +46,13 @@ const JuryCarousel = ({ interval = 5000, homePage = true }) => {
         },
     ]
 
-    useEffect(() => {
-        const intervalId = setInterval(() => {
-            setCurrentIndex((prevIndex) => (prevIndex === images.length - 1 ? 0 : prevIndex + 1));
-        }, interval);
+    // useEffect(() => {
+    //     const intervalId = setInterval(() => {
+    //         setCurrentIndex((prevIndex) => (prevIndex === images.length - 1 ? 0 : prevIndex + 1));
+    //     }, interval);
 
-        return () => clearInterval(intervalId);
-    }, [interval]);
+    //     return () => clearInterval(intervalId);
+    // }, [interval]);
 
     const goToPrevSlide = () => {
         setCurrentIndex((prevIndex) => (prevIndex === 0 ? images.length - 1 : prevIndex - 1));

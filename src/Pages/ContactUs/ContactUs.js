@@ -56,6 +56,7 @@ const ContactUs = () => {
                         <div className="container" style={{ color: "white" }}>
                             <div className="row">
                                 <div className="col-12 d-flex flex-column justify-content-center align-items-center">
+                                    Leave us a message
                                     <img className="mb-5" src={lineContactUs} style={{ width: "60%" }} />
                                     <Box component="form" onSubmit={handleSubmit} style={{ width: "100%", display: "flex", flexDirection: "column" }}>
                                         <div className="contaier">
@@ -88,7 +89,7 @@ const ContactUs = () => {
                                                     <TextField
                                                         id="filled-multiline-static"
                                                         name="comment"
-                                                        label="Comment"
+                                                        label="How can we help you?"
                                                         multiline
                                                         rows={4}
                                                         variant="standard"

@@ -1,21 +1,50 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { collection, getDocs, limit, query, startAfter, orderBy } from "firebase/firestore";
+import { db } from '../../firebase';
 
 const LandingPage = React.memo((props) => {
     const navigate = useNavigate();
     const { audio } = props
 
     const [isWelcomeExit, setIsWelcomeExit] = useState(false)
+    const [isLoading, setIsLoading] = useState(true)
+    const [videoHome, setVideoHome] = useState("")
 
     useEffect(() => {
-        setTimeout(() => {
-            document.getElementById("welcomeText").classList.add('welcomeExit')
+        if (isLoading) {
             setTimeout(() => {
-                // setIsWelcomeExit(true)
-                handleExplore()
-            }, 2100);
-        }, 2100);
-    }, [audio])
+                document.getElementById("welcomeText").classList.add('welcomeExit')
+                setTimeout(() => {
+                    // setIsWelcomeExit(true)
+                    handleExplore()
+                }, 5100);
+            }, 5100);
+        }
+    }, [isLoading])
+
+    useEffect(() => {
+        fetchPost()
+    }, [])
+
+    const fetchPost = useCallback(async () => {
+        setIsLoading(true)
+        const q = query(collection(db, "homeVideos"));
+
+        await getDocs(q)
+            .then((querySnapshot) => {
+                if (querySnapshot) {
+                    const newData = querySnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
+                    setVideoHome(newData[0].video)
+                    setIsLoading(false)
+                }
+            })
+            .catch((error) => {
+                console.error("Error getting documents: ", error);
+            });
+    }, [])
+
+    console.log(videoHome, "videoHome")
 
     const handleClickWelcome = () => {
         audio.play()
@@ -41,7 +70,7 @@ const LandingPage = React.memo((props) => {
 
     return (
         <article className="landingContiner" >
-            {!isWelcomeExit ? (
+            {/* {!isWelcomeExit ? (
                 <h2 id="welcomeText" className="welcomeEntrance"
                 // onClick={() => handleClickWelcome()}
                 >
@@ -56,7 +85,14 @@ const LandingPage = React.memo((props) => {
                         Explore
                     </h2>
                 </section>
-            )}
+            )} */}
+            <video
+                id="welcomeText"
+                // ref={videoRef} 
+                src={videoHome}
+                // preload="none"
+                muted={true}
+                playsInline autoPlay className='video-container-home'></video>
         </article>
     )
 });
