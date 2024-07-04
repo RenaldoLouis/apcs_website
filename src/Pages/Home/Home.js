@@ -11,6 +11,7 @@ import Carousel from "../../components/molecules/CarouselCustom";
 import apcLogoBold from "../../assets/images/apc_logo_bold.svg"
 import homeScreen from "../../assets/images/homeScreenImage.jpg"
 import homeScreenImageCropped from "../../assets/images/homeScreenImageCropped.png"
+import homeScreenImageGradient from "../../assets/images/homeScreenImageGradient.png"
 import CoverImageHome from "../../components/molecules/CoverImageHome";
 import AnimatedComponent from "../../components/atom/AnimatedComponent";
 import { AnimationClass } from "../../constant/AnimationClass";
@@ -26,7 +27,9 @@ const Home = (props) => {
     const { audio } = props
     return (
         <>
-            <CoverImageHome background={homeScreenImageCropped} logo={apcLogoBold} />
+            <CoverImageHome background={homeScreenImageGradient}
+                logo={apcLogoBold}
+            />
 
             <div className="backgroundBlack homeContentContainer">
                 <div className="container">
