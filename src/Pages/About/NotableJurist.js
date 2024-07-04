@@ -106,7 +106,9 @@ const NotableJurist = () => {
                             return (
                                 <div className="col-12 col-md-4" style={{ marginBottom: 60 }}>
                                     <div className="jurist-image-container">
-                                        <img loading="lazy" src={eachData.image} alt={eachData.name} className="jurist-image" />
+                                        <AnimatedComponent animationClass="animate__fadeIn">
+                                            <img loading="lazy" src={eachData.image} alt={eachData.name} className="jurist-image" />
+                                        </AnimatedComponent>
                                     </div>
                                     <div>
                                         {eachData.name}

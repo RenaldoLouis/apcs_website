@@ -5,6 +5,7 @@ import { db } from '../../firebase';
 import Masonry from 'react-masonry-css';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { Spin } from "antd";
+import AnimatedComponent from "../atom/AnimatedComponent";
 
 const MasonryLayout = (props) => {
     const { images } = props
@@ -73,7 +74,9 @@ const MasonryLayout = (props) => {
                     // onMouseEnter={() => setHoveredIndex(index)}
                     // onMouseLeave={() => setHoveredIndex(null)}
                     >
-                        <img src={item} alt={`galery-${index}`} className="masonry-img" />
+                        <AnimatedComponent animationClass="animate__fadeIn">
+                            <img src={item} alt={`galery-${index}`} className="masonry-img" />
+                        </AnimatedComponent>
                     </div>
                 ))}
             </Masonry>

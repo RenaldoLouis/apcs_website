@@ -5,6 +5,7 @@ import denmarkflag from "../../assets/images/denmarkflag.jpg" // fidland
 import koreaflag from "../../assets/images/koreaflag.jpg"
 import chinaflag from "../../assets/images/chinaflag.jpg"
 import { CountryConst } from "../../constant/CountryConst";
+import AnimatedComponent from "../atom/AnimatedComponent";
 
 const GuestArtistCard = (props) => {
     const { data } = props
@@ -35,7 +36,7 @@ const GuestArtistCard = (props) => {
     }
 
     return (
-        <>
+        <AnimatedComponent animationClass="animate__fadeIn">
             <img loading="lazy" src={image} alt='saphire2' style={{ width: "100%" }} />
             <div>
                 <div className="flex justify-spaceBetween" style={{ marginTop: 40, fontSize: 24, fontWeight: "bold" }}>
@@ -46,7 +47,7 @@ const GuestArtistCard = (props) => {
                     {title}
                 </div>
             </div>
-        </>
+        </AnimatedComponent>
     )
 }
 
