@@ -62,8 +62,7 @@ const About = () => {
                         <div className="col ">
                             <img loading="lazy" src={goldenLine} alt={`goldenLine`} style={{ width: "100%" }} />
                             <div className="boxed-text">
-                                A Piano Concerto Series (APCS) is the pioneer of Indonesian musical platforms that offer musicians the opportunity to share their music and talents on a prestigious stage.  APCS is designed for everyone, regardless of the age, nationality, or musical style. We bring pianists, orchestras, and conductors together to create memorable performances. Our passion goes beyond the stage, we are optimists to grow and build a positive impact  for the music industry in  Indonesia and the world beyond.
-
+                                A Piano Concerto Series (APCS) is the pioneer of Indonesian musical platforms that offer musicians the opportunity to share their music and talents on a prestigious stage.  APCS is crafted for everyone, regardless of the age, nationality, or musical style. We bring pianists, orchestras, and conductors together to create memorable performances. Our passion goes beyond the stage, we are optimists to grow and build a positive impact  for the music industry in  Indonesia and the world beyond.
                             </div>
                             <img loading="lazy" src={goldenLine} alt={`goldenLine`} style={{ width: "100%" }} />
                         </div>
@@ -96,10 +95,13 @@ const About = () => {
                         <div className="col col-lg-8">
                             <img loading="lazy" src={goldenLine} alt={`goldenLine`} style={{ width: "60%" }} />
                             <div className="boxed-text">
-                                Born and raised in Indonesia, Michaela Sutejo started her musical journey at the early age of 9 under Junia. Throughout her development as a musician, she participated in national and international musical competitions, festivals, and masterclasses. In 2017, Michaela graduated with Cum Laude honors from Universitas Pelita Harapan, earning her Bachelor of Arts in Music Education under the tutelage of Firdy Salim, Ong Seng Choo, and Elaine Waworuntu
+                                Born and raised in Indonesia, Michaela Sutejo started her musical journey at the early age of 9 under<span className="goldenTextColor"> the guidance of her piano tutor</span>, Junia. Throughout her development as a musician, she participated in national and international musical competitions, festivals, and masterclasses.
                             </div>
                             <div className="boxed-text">
-                                Drawing on her experiences and passion, Michaela founded A Piano Concerto Series Music (APCS) in 2022. She believes APCS could be a platform that bring musicians together and develops their talents. Today, APCS provides a distinctive opportunity for all musicians to learn and grow their musical journey.
+                                In 2017, Michaela graduated with Cum Laude honors from Universitas Pelita Harapan, earning her Bachelor of Arts in Music Education under the tutelage of Firdy Salim, Ong Seng Choo, and Elaine Waworuntu
+                            </div>
+                            <div className="boxed-text">
+                                Drawing on her experiences and passion, Michaela established A Piano Concerto Series Music (APCS) in 2022. She believes APCS could be a platform that brings musicians together and develops their talents. Today, APCS provides a distinctive opportunity for all musicians to learn and advance in  their musical journey.
                             </div>
                             <img loading="lazy" src={goldenLine} alt={`goldenLine`} style={{ width: "60%" }} />
                         </div>
@@ -107,9 +109,9 @@ const About = () => {
 
 
                     <div className="mangolaineFont text-align-center webringMusicianText" style={{ color: "#FFCA68", marginTop: 100 }}>
-                        WE BRING MUSICIAN TOGETHER
+                        Unveiling The Stars
                         <br />
-                        TO SHARE THE EXPERIENCE
+                        We Discovered  The Musical Gems
                     </div>
                 </div>
             </div>
@@ -117,7 +119,7 @@ const About = () => {
             <BackgroundWithText
                 image={saphireAbout}
                 logo={saphireAchiever}
-                text={"We curated our performers by audition, every participant will be preliminary by notable juries, and contestants who achieve Sapphire Awards are entitled to perform with the APCS orchestra."}
+                text={<>We curate our performers <span className="goldenTextColor">through</span> auditions where every participant will be <span className="goldenTextColor">evaluated</span> by notable juries, and contestants who achieve Sapphire Awards are entitled to perform with the APCS orchestra.</>}
                 buttonText={"View More"}
                 contentPosition={windowDimensions.width <= 768 ? ContentPosition.MIDDLE : ContentPosition.MIDDLEBOTTOM}
             />

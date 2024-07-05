@@ -3,5 +3,6 @@ export const CountryConst = {
     DNMRK: "DNMRK",
     KR: "KR",
     RSA: "RSA",
-    CHI: "CHI"
+    CHI: "CHI",
+    AMR: "AMR",
 }

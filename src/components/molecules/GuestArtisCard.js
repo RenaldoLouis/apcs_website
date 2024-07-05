@@ -12,8 +12,8 @@ const GuestArtistCard = (props) => {
 
     const { name, image, country, title } = data;
 
-    const flagIcon = () => {
-        switch (country) {
+    const flagIcon = (countryLocal) => {
+        switch (countryLocal) {
             case CountryConst.DNMRK:
                 return denmarkflag;
 
@@ -43,7 +43,9 @@ const GuestArtistCard = (props) => {
                     {name}
                 </div>
                 <div style={{ marginTop: 8 }}>
-                    <img src={flagIcon()} alt={country} style={{ marginRight: 13 }} />
+                    {country.map((eachCountry) => (
+                        <img src={flagIcon(eachCountry)} alt={eachCountry} style={{ marginRight: 13 }} />
+                    ))}
                     {title}
                 </div>
             </div>
