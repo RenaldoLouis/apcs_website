@@ -16,6 +16,8 @@ import Button from '@mui/material/Button';
 import zIndex from '@mui/material/styles/zIndex';
 import { PathName } from '../../constant/PathName';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../../context/DataContext';
+import { YearlyEvent } from '../../constant/YearlyEvent';
 
 const images = [
     banner1,
@@ -30,6 +32,7 @@ const images = [
 const Carousel = ({ interval = 5000, homePage = true }) => {
     const [currentIndex, setCurrentIndex] = useState(0);
     const navigate = useNavigate();
+    const { setSelectedEvent, selectedEvent } = useAuth()
 
     useEffect(() => {
         const intervalId = setInterval(() => {
@@ -55,7 +58,8 @@ const Carousel = ({ interval = 5000, homePage = true }) => {
         window.open("https://api.whatsapp.com/send/?phone=6285811192228", '_blank');
     }
 
-    const handleMovePage = (path) => {
+    const handleMovePage = (path, event) => {
+        setSelectedEvent(event)
         navigate(path);
         window.scrollTo(0, 0);
     }
@@ -77,7 +81,7 @@ const Carousel = ({ interval = 5000, homePage = true }) => {
                 <div className='titleCoverContainer-Banner'>
                     <div style={{ '--currentIndex': currentIndex }} className='titleCoverContainerText'>
                         <div>
-                            <Button variant="outlined" sx={{ zIndex: 10 }} onClick={() => handleMovePage(PathName.gallery)}>Watch Now</Button>
+                            <Button variant="outlined" sx={{ zIndex: 10 }} onClick={() => handleMovePage(PathName.gallery, YearlyEvent.CHRISTMASWONDERLAND)}>Watch Now</Button>
                         </div>
                     </div>
                     <div style={{ '--currentIndex': currentIndex }} className='titleCoverContainerText'>
@@ -92,7 +96,7 @@ const Carousel = ({ interval = 5000, homePage = true }) => {
                     </div>
                     <div style={{ '--currentIndex': currentIndex }} className='titleCoverContainerText'>
                         <div>
-                            <Button variant="outlined" sx={{ zIndex: 10 }} onClick={() => handleMovePage(PathName.gallery)}>Watch Now</Button>
+                            <Button variant="outlined" sx={{ zIndex: 10 }} onClick={() => handleMovePage(PathName.gallery, YearlyEvent.MAGICALMUSICSOUNDTRACT)}>Watch Now</Button>
                         </div>
                     </div>
                     <div style={{ '--currentIndex': currentIndex }} className='titleCoverContainerText'>
@@ -102,12 +106,12 @@ const Carousel = ({ interval = 5000, homePage = true }) => {
                     </div>
                     <div style={{ '--currentIndex': currentIndex }} className='titleCoverContainerText'>
                         <div>
-                            <Button variant="outlined" sx={{ zIndex: 10 }} onClick={() => handleMovePage(PathName.gallery)}>Watch Now</Button>
+                            <Button variant="outlined" sx={{ zIndex: 10 }} onClick={() => handleMovePage(PathName.gallery, YearlyEvent.CLASSICALFESTIVALJKT)}>Watch Now</Button>
                         </div>
                     </div>
                     <div style={{ '--currentIndex': currentIndex }} className='titleCoverContainerText'>
                         <div>
-                            <Button variant="outlined" sx={{ zIndex: 10 }} onClick={() => handleMovePage(PathName.gallery)}>Watch Now</Button>
+                            <Button variant="outlined" sx={{ zIndex: 10 }} onClick={() => handleMovePage(PathName.gallery, YearlyEvent.CLASSICALFESTIVALSBY)}>Watch Now</Button>
                         </div>
                     </div>
                 </div>

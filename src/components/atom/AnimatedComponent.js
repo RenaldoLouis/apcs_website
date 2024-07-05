@@ -2,9 +2,9 @@ import React from 'react';
 import { useInView } from 'react-intersection-observer';
 import 'animate.css';
 
-const AnimatedComponent = ({ children, animationClass }) => {
+const AnimatedComponent = ({ children, animationClass, triggerOnce = true }) => {
     const { ref, inView } = useInView({
-        triggerOnce: true,
+        triggerOnce: triggerOnce,
         threshold: 0,
     });
 

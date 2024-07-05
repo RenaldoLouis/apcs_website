@@ -16,10 +16,13 @@ import { MagicalMusicSoundtractImages } from "../../constant/MagicalMusicSoundtr
 import { ClassicalFestivalSurabayaImages } from "../../constant/ClassicalFestivalSurabayaImages";
 import { ClassicalFestivalJakartaImages } from "../../constant/ClassicalFestivalJakarta";
 import { ChristmasInWonderlandImages } from "../../constant/ChristmasWonderlandImages";
+import { useAuth } from "../../context/DataContext";
 
 const GaleryPage = () => {
     const { t, i18n } = useTranslation();
-    const [selectedEvent, setSelectenEvent] = useState(YearlyEvent.TURNINGPOINT);
+    const { setSelectedEvent, selectedEvent } = useAuth()
+
+    // const [selectedEvent, setSelectedEvent] = useState(YearlyEvent.TURNINGPOINT);
     const [isLoading, setIsLoading] = useState(false)
     const [galeryContent, setGaleryContent] = useState({})
     const [videoList, setVideoList] = useState([])
@@ -180,7 +183,7 @@ const GaleryPage = () => {
 
     const handleClickEvent = (eventName) => {
         setIsLoading(true)
-        setSelectenEvent(eventName)
+        setSelectedEvent(eventName)
     }
 
     return (

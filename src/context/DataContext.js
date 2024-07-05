@@ -4,6 +4,7 @@ import { auth, provider } from '../firebase';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import FirebaseApi from '../middleware/firebaseApi';
+import { YearlyEvent } from '../constant/YearlyEvent';
 
 const DataContext = createContext();
 
@@ -15,6 +16,7 @@ export const DataContextProvider = ({ children }) => {
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
     const [imageHomeLoaded, setImageHomeLoaded] = useState(false);
+    const [selectedEvent, setSelectedEvent] = useState(YearlyEvent.TURNINGPOINT);
 
     useEffect(() => {
         const unsubscribe = auth.onAuthStateChanged(async (user) => {
@@ -65,7 +67,7 @@ export const DataContextProvider = ({ children }) => {
     };
 
     return (
-        <DataContext.Provider value={{ user, signInWithGoogle, signOut, loading, setImageHomeLoaded, imageHomeLoaded }}>
+        <DataContext.Provider value={{ user, signInWithGoogle, signOut, loading, setImageHomeLoaded, imageHomeLoaded, setSelectedEvent, selectedEvent }}>
             {!loading && children}
         </DataContext.Provider>
     );

@@ -30,7 +30,6 @@ const Home = (props) => {
         <>
             <CoverImageHome background={homeImagehero}
                 logo={apcLogoBold}
-                checkLoad={true}
             />
 
             <div className="backgroundBlack homeContentContainer">

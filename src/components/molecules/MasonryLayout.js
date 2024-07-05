@@ -74,7 +74,7 @@ const MasonryLayout = (props) => {
                     // onMouseEnter={() => setHoveredIndex(index)}
                     // onMouseLeave={() => setHoveredIndex(null)}
                     >
-                        <AnimatedComponent animationClass="animate__fadeIn">
+                        <AnimatedComponent animationClass="animate__fadeIn" triggerOnce={false} >
                             <img src={item} alt={`galery-${index}`} className="masonry-img" />
                         </AnimatedComponent>
                     </div>
