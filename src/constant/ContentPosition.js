@@ -1,5 +1,6 @@
 export const ContentPosition = {
     MIDDLE: "MIDDLE",
     MIDDLELEFT: "MIDDLELEFT",
+    MIDDLELEFT40: "MIDDLELEFT40",
     MIDDLEBOTTOM: "MIDDLEBOTTOM"
 }

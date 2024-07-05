@@ -1,5 +1,6 @@
 import React from "react";
 import podcastBacgkorund from "../../assets/images/podcastBacgkorund.png"
+import stayTuned from "../../assets/images/stayTuned.png"
 import musiciswhatapcs from "../../assets/images/musiciswhatapcs.svg"
 import BackgroundWithText from "../../components/molecules/BacgkroundWithText";
 import { ContentPosition } from "../../constant/ContentPosition";
@@ -10,8 +11,8 @@ const Podcast = () => {
     return (
         <div>
             {/* <CoverImage background={podcastBacgkorund} logo={musiciswhatapcs} isMiddleLeft={true} /> */}
-            <CoverImageHome background={podcastBacgkorund}
-            // logo={musiciswhatapcs}
+            <CoverImageHome background={podcastBacgkorund} logo={stayTuned}
+                position={ContentPosition.MIDDLELEFT}
             />
             {/* <BackgroundWithText
                 image={podcastBacgkorund}

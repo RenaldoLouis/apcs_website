@@ -49,6 +49,7 @@ const About = () => {
             {/* <AnimationWWScroll setIsScrollDownAvailable={setIsScrollDownAvailable} /> */}
             <CoverImageHome background={aboutCover2}
                 logo={musiciswhatapcs}
+                position={ContentPosition.MIDDLELEFT40}
             />
             {/* <CoverImage background={aboutCover} logo={musiciswhatapcs} position={ContentPosition.MIDDLELEFT} /> */}
             <div style={{ background: "black", color: "white" }}>

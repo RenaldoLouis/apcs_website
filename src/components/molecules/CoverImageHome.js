@@ -2,12 +2,12 @@ import React, { useEffect, useState } from "react";
 import { useInView } from "react-intersection-observer";
 import AnimatedComponent from "../atom/AnimatedComponent";
 import { useLocation } from "react-router-dom";
+import { ContentPosition } from "../../constant/ContentPosition";
 
 // import homeScreen from "../../assets/images/homeScreenImage.svg"
 
 const CoverImageHome = (props) => {
-    const { logo, isMiddleLeft, background } = props
-
+    const { logo, isMiddleLeft, background, position } = props
     const location = useLocation();
     const { ref: ref1, inView: inView1 } = useInView({
         triggerOnce: true,
@@ -17,9 +17,18 @@ const CoverImageHome = (props) => {
 
     const [isImageLoaded, setIsImageLoaded] = useState(false);
 
-    useEffect(() => {
-        setIsImageLoaded(false);  // Reset when background prop changes
-    }, [background, location]);
+    const returnTextPosition = () => {
+        switch (position) {
+            case ContentPosition.MIDDLE:
+                return "registerButtonContainer-center"
+            case ContentPosition.MIDDLELEFT:
+                return "registerButtonContainer-centerLeft"
+            case ContentPosition.MIDDLELEFT40:
+                return "registerButtonContainer-centerLeft40"
+            default:
+                return "registerButtonContainer-center-top"
+        }
+    }
 
     const handleImageLoad = () => {
         setIsImageLoaded(true);
@@ -38,7 +47,7 @@ const CoverImageHome = (props) => {
                 <div style={{ background: 'black', width: "100vw", height: "100vh", display: isImageLoaded ? "none" : "" }} />
             </div>
 
-            <div className={isMiddleLeft ? "registerButtonContainer-centerLeft" : "registerButtonContainer-center-top"}>
+            <div className={returnTextPosition()}>
                 <AnimatedComponent animationClass="animate__fadeIn">
                     {logo && (
                         <img className="homeScreenLogo" loading="lazy" src={logo} alt="apcsLogo" />
