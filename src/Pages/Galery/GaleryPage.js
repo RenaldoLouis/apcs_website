@@ -34,13 +34,27 @@ const GaleryPage = () => {
             subTitle: "UNDER THE BATON OF WISHNU DEWANTA",
             featuring: [
                 {
-                    name: "Michaela Sutejo as the main soloist",
-                    role: "Pianist"
+                    name: "Michaela Sutejo",
+                    title: "main soloist",
+                    role: "Pianist",
+                    founder: true
                 },
                 {
-                    name: "Wishnu",
+                    name: "Wishnu Dewanta",
                     role: "conductor"
-                }
+                },
+                {
+                    name: "Vahur Luhtsalu",
+                    role: "Cellist"
+                },
+                {
+                    name: "Andreas Ariant",
+                    role: "Accordionist"
+                },
+                {
+                    name: "Amelia Tionanda",
+                    role: "Violinist"
+                },
             ],
             images: TurningPointImages
         },
@@ -51,13 +65,27 @@ const GaleryPage = () => {
             subTitle: "UNDER THE BATON OF CHIKITA AMANDA",
             featuring: [
                 {
-                    name: "Michaela Sutejo as the main soloist",
-                    role: "Pianist"
+                    name: "Michaela Sutejo",
+                    title: "main soloist",
+                    role: "Pianist",
+                    founder: true
                 },
                 {
                     name: "Chikita Amanda",
-                    role: "conductor"
-                }
+                    role: "Conductor"
+                },
+                {
+                    name: "Nathania Jualim",
+                    role: "Guitarist"
+                },
+                {
+                    name: "Michelle Hendra / michimomo",
+                    role: "Singer"
+                },
+                {
+                    name: "Park Keun Woo",
+                    role: "Singer"
+                },
             ],
             images: AutumnInKoreaImages
         },
@@ -68,13 +96,24 @@ const GaleryPage = () => {
             subTitle: "UNDER THE BATON OF CHIKITA AMANDA",
             featuring: [
                 {
-                    name: "Michaela Sutejo as the main soloist",
+                    name: "Michaela Sutejo",
+                    title: "guest artist",
+                    role: "Pianist",
+                    founder: true
+                },
+                {
+                    name: "Filda Salim",
+                    role: "Pianist"
+                },
+                {
+                    name: "Stephanie Jingga",
                     role: "Pianist"
                 },
                 {
                     name: "Chikita Amanda",
-                    role: "conductor"
-                }
+                    role: "Conductor",
+                    achivement: "APCS 2021 & 2022"
+                },
             ],
             images: MagicalMusicSoundtractImages
         },
@@ -84,14 +123,34 @@ const GaleryPage = () => {
             title: "THE FIRST NATIONAL CLASSICAL SERIES FOR ALL GENERATIONS, SHANGRI-LA",
             subTitle: "UNDER THE BATON OF CHIKITA AMANDA",
             featuring: [
+                // {
+                //     name: "Michaela Sutejo",
+                //     title: "main soloist",
+                //     role: "Pianist",
+                //     founder: true
+                // },
                 {
-                    name: "Michaela Sutejo as the main soloist",
+                    name: "Firdy Salim",
                     role: "Pianist"
                 },
                 {
-                    name: "Chikita Amanda",
-                    role: "conductor"
-                }
+                    name: "Christine Utomo",
+                    role: "Pianist"
+                },
+                {
+                    name: "Iswargia Sudarno",
+                    role: "Pianist"
+                },
+                {
+                    name: "Myra Karlina Pranajaya",
+                    role: "Pianist"
+                },
+                {
+                    name: "Michelle Kartika Bahari",
+                    role: "Pianist",
+                    title: "guest artist",
+                    achivement: " APCS Classical Festival 2023"
+                },
             ],
             images: ClassicalFestivalSurabayaImages
         },
@@ -101,14 +160,27 @@ const GaleryPage = () => {
             title: "THE SECOND NATIONAL CLASSICAL SERIES FOR ALL GENERATIONS, SOEHANNA HALL",
             subTitle: "",
             featuring: [
+                // {
+                //     name: "Michaela Sutejo",
+                //     title: "main soloist",
+                //     role: "Pianist",
+                //     founder: true
+                // },
                 {
-                    name: "Michaela Sutejo as the main soloist",
+                    name: "Firdy Salim",
                     role: "Pianist"
                 },
                 {
-                    name: "Chikita Amanda",
-                    role: "conductor"
-                }
+                    name: "Christine Utomo",
+                    role: "Pianist"
+                },
+                {
+                    name: "Iswargia Sudarno",
+                    role: "Pianist",
+                    title: "guest artist",
+                    achivement: " APCS Classical Festival 2023"
+
+                },
             ],
             images: ClassicalFestivalJakartaImages
         },
@@ -119,13 +191,28 @@ const GaleryPage = () => {
             subTitle: "UNDER THE BATON OF CHIKITA AMANDA",
             featuring: [
                 {
-                    name: "Michaela Sutejo as the main soloist",
+                    name: "Michaela Sutejo",
+                    title: "guest artist",
+                    role: "Pianist",
+                    founder: true
+                },
+                {
+                    name: "Stephanie Jingga",
                     role: "Pianist"
                 },
                 {
+                    name: "Ify Alyssa",
+                    role: "Pianist"
+                },
+                {
+                    name: "Stephanie Jingga",
+                    role: "Singer-Pianist"
+                },
+                {
                     name: "Chikita Amanda",
-                    role: "conductor"
-                }
+                    role: "Conductor",
+                    achivement: "APCS 2022 & 2023"
+                },
             ],
             images: ChristmasInWonderlandImages
         },
@@ -243,7 +330,15 @@ const GaleryPage = () => {
                                     featuring
                                 </div>
                                 <div className="textColor text-align-center mb-5">
-                                    Michaela Sutejo as the main soloist (Pianist), Wishnu Dewanta (Conductor), Vahur Luhtsalu (Cellist), Andreas Arianto (Accordionist) and Amelia Tionanda (Violinist)
+                                    {galeryContent?.featuring?.map((eachFeature, index) => (
+                                        <React.Fragment key={index}>
+                                            {index > 0 && " • "}
+                                            <span className="feature-name">{eachFeature.name} {eachFeature.founder && (<span className="goldenTextColor"> (founder) </span>)}</span>{" "}
+                                            <span className="italicText">
+                                                {eachFeature.title && (`as the ${eachFeature.title}`)} ({eachFeature.role}) {eachFeature?.achivement && (` and winners of ${eachFeature?.achivement}`)}
+                                            </span>
+                                        </React.Fragment>
+                                    ))}
                                 </div>
                             </div>
                         </div>

@@ -19,6 +19,8 @@
 
 .textColor {
     color: white;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
 }
 
 .fullScreenImage {
@@ -206,6 +208,10 @@
 
 .mangolaineFont {
     font-family: "mangolaine";
+}
+
+.italicText {
+    font-style: italic;
 }
 
 .mosafinFont {
