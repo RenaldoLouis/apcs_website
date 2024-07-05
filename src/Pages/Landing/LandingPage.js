@@ -1,27 +1,32 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { collection, getDocs, limit, query, startAfter, orderBy } from "firebase/firestore";
 import { db } from '../../firebase';
+import { useAuth } from "../../context/DataContext";
 
 const LandingPage = React.memo((props) => {
     const navigate = useNavigate();
     const { audio } = props
+    const { imageHomeLoaded } = useAuth();
+    const videoRef = useRef(null);
 
+
+    const [isVideoLoaded, setIsVideoLoaded] = useState(false);
     const [isWelcomeExit, setIsWelcomeExit] = useState(false)
     const [isLoading, setIsLoading] = useState(true)
     const [videoHome, setVideoHome] = useState("")
 
     useEffect(() => {
-        if (isLoading) {
+        if (!isLoading && isVideoLoaded && imageHomeLoaded) {
             setTimeout(() => {
                 document.getElementById("welcomeText").classList.add('welcomeExit')
                 setTimeout(() => {
                     // setIsWelcomeExit(true)
                     handleExplore()
-                }, 5100);
+                }, 2100);
             }, 5100);
         }
-    }, [isLoading])
+    }, [isLoading, isVideoLoaded, imageHomeLoaded])
 
     useEffect(() => {
         fetchPost()
@@ -62,11 +67,15 @@ const LandingPage = React.memo((props) => {
     }
 
     const handleExplore = () => {
-        audio.pause();
-        audio.currentTime = 0;
-        audio.load();
+        // audio.pause();
+        // audio.currentTime = 0;
+        // audio.load();
         navigate("/home");
     }
+
+    const handleVideoLoaded = () => {
+        setIsVideoLoaded(true);
+    };
 
     return (
         <article className="landingContiner" >
@@ -87,6 +96,8 @@ const LandingPage = React.memo((props) => {
                 </section>
             )} */}
             <video
+                onLoadedData={handleVideoLoaded}
+                ref={videoRef}
                 id="welcomeText"
                 // ref={videoRef} 
                 src={videoHome}

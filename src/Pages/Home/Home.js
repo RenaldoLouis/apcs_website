@@ -19,16 +19,18 @@ import { useTranslation } from "react-i18next";
 import JuryCarousel from "../../components/molecules/JuryCarousel";
 
 const Home = (props) => {
+    const { homeImagehero } = props
     const { t, i18n } = useTranslation();
     const handleDirectToWhatsApp = () => {
         window.open("https://api.whatsapp.com/send/?phone=6285811192228", '_blank');
     }
 
-    const { audio } = props
+
     return (
         <>
-            <CoverImageHome background={homeScreenImageGradient}
+            <CoverImageHome background={homeImagehero}
                 logo={apcLogoBold}
+                checkLoad={true}
             />
 
             <div className="backgroundBlack homeContentContainer">

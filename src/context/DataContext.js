@@ -14,6 +14,8 @@ export const DataContextProvider = ({ children }) => {
 
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
+    const [imageHomeLoaded, setImageHomeLoaded] = useState(false);
+
     useEffect(() => {
         const unsubscribe = auth.onAuthStateChanged(async (user) => {
             if (user) {
@@ -63,7 +65,7 @@ export const DataContextProvider = ({ children }) => {
     };
 
     return (
-        <DataContext.Provider value={{ user, signInWithGoogle, signOut, loading }}>
+        <DataContext.Provider value={{ user, signInWithGoogle, signOut, loading, setImageHomeLoaded, imageHomeLoaded }}>
             {!loading && children}
         </DataContext.Provider>
     );

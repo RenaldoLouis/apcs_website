@@ -3,13 +3,17 @@ import podcastBacgkorund from "../../assets/images/podcastBacgkorund.png"
 import musiciswhatapcs from "../../assets/images/musiciswhatapcs.svg"
 import BackgroundWithText from "../../components/molecules/BacgkroundWithText";
 import { ContentPosition } from "../../constant/ContentPosition";
+import CoverImageHome from "../../components/molecules/CoverImageHome";
 
 const Podcast = () => {
 
     return (
         <div>
             {/* <CoverImage background={podcastBacgkorund} logo={musiciswhatapcs} isMiddleLeft={true} /> */}
-            <BackgroundWithText
+            <CoverImageHome background={podcastBacgkorund}
+            // logo={musiciswhatapcs}
+            />
+            {/* <BackgroundWithText
                 image={podcastBacgkorund}
                 logo={""}
                 text={
@@ -26,7 +30,7 @@ const Podcast = () => {
                 contentPosition={ContentPosition.MIDDLELEFT}
                 centerText={false}
                 noRelativeContainer={true}
-            />
+            /> */}
         </div>
     )
 }

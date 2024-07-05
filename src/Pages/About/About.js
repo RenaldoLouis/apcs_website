@@ -4,6 +4,7 @@ import AnimationWWScroll from "../../components/molecules/Animation3dScroll/Anim
 import CoverImage from "../../components/molecules/CoverImage";
 import musiciswhatapcs from "../../assets/images/musiciswhatapcs.svg"
 import aboutCover from "../../assets/images/AboutCover.jpg"
+import aboutCover2 from "../../assets/images/aboutCover2.png"
 import apcLogo from "../../assets/images/apc_logo.svg"
 import goldenLine from "../../assets/images/goldenLine.png"
 import michaelaAbout from "../../assets/images/michaelaAbout.png"
@@ -17,6 +18,7 @@ import NotableJurist from "./NotableJurist";
 import GuestArtist from "./GuestArtist";
 import BackgroundWithText from "../../components/molecules/BacgkroundWithText";
 import { ContentPosition } from "../../constant/ContentPosition";
+import CoverImageHome from "../../components/molecules/CoverImageHome";
 
 const About = () => {
     const { t, i18n } = useTranslation();
@@ -45,7 +47,10 @@ const About = () => {
     return (
         <div>
             {/* <AnimationWWScroll setIsScrollDownAvailable={setIsScrollDownAvailable} /> */}
-            <CoverImage background={aboutCover} logo={musiciswhatapcs} position={ContentPosition.MIDDLELEFT} />
+            <CoverImageHome background={aboutCover2}
+                logo={musiciswhatapcs}
+            />
+            {/* <CoverImage background={aboutCover} logo={musiciswhatapcs} position={ContentPosition.MIDDLELEFT} /> */}
             <div style={{ background: "black", color: "white" }}>
                 <div className="container">
                     <div className="row justify-content-md-center text-align-center">

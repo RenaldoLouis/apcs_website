@@ -1,6 +1,7 @@
 import React from "react";
 import { useInView } from "react-intersection-observer";
 import AnimatedComponent from "../atom/AnimatedComponent";
+
 // import homeScreen from "../../assets/images/homeScreenImage.svg"
 
 const CoverImageHome = (props) => {
@@ -21,7 +22,9 @@ const CoverImageHome = (props) => {
 
             <div className={isMiddleLeft ? "registerButtonContainer-centerLeft" : "registerButtonContainer-center-top"}>
                 <AnimatedComponent animationClass="animate__fadeIn">
-                    <img className="homeScreenLogo" loading="lazy" src={logo} alt="apcsLogo" />
+                    {logo && (
+                        <img className="homeScreenLogo" loading="lazy" src={logo} alt="apcsLogo" />
+                    )}
                 </AnimatedComponent>
             </div>
 
