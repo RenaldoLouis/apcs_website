@@ -58,7 +58,7 @@ const Navbar = (props) => {
                     <div className="col-2">
                         <span className="logoContainerNavbar">
                             {!isTabletAndSmaller && (
-                                <img loading="lazy" src={apcLogo} alt="apcsLogo" />
+                                <img loading="lazy" src={apcLogo} alt="apcsLogo" style={{ width: "14vmin" }} />
                             )}
                         </span>
                     </div>

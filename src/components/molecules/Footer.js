@@ -40,7 +40,7 @@ const Footer = () => {
                 {isTabletAndSmaller ? (
                     <div class="d-flex flex-column">
                         <div class="p-2">
-                            <img loading="lazy" src={apcLogo} alt="apcsLogo" style={{ height: "8rem" }} />
+                            <img loading="lazy" src={apcLogo} alt="apcsLogo" style={{ height: "6rem" }} />
                         </div>
                         <div className="d-flex flex-column align-items-start">
                             <div class="p-2 text-align-start">
@@ -95,7 +95,7 @@ const Footer = () => {
                 ) : (
                     <div className="row">
                         <div className="col d-flex align-items-start justify-content-center">
-                            <img loading="lazy" src={apcLogo} alt="apcsLogo" style={{ height: "8rem" }} />
+                            <img loading="lazy" src={apcLogo} alt="apcsLogo" style={{ height: "6rem" }} />
                         </div>
                         <div className="col-2 d-flex flex-column align-items-start">
                             <div className="headerFooter">

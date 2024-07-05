@@ -3,7 +3,6 @@ import podcastBacgkorund from "../../assets/images/podcastBacgkorund.png"
 import contactUsPageBackground from "../../assets/images/contactUsPageBackground.png"
 import lineContactUs from "../../assets/images/lineContactUs.png"
 import musiciswhatapcs from "../../assets/images/musiciswhatapcs.svg"
-import BackgroundWithText from "../../components/molecules/BacgkroundWithText";
 import { ContentPosition } from "../../constant/ContentPosition";
 import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
