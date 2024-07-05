@@ -10,6 +10,8 @@ import jury1noText from "../../assets/images/jurySlider/jury1noText.png"
 import jury2noText from "../../assets/images/jurySlider/jury2noText.png"
 import jury3noText from "../../assets/images/jurySlider/jury3noText.png"
 import { useTranslation } from 'react-i18next';
+import { useTheme } from '@mui/material/styles';
+import useMediaQuery from '@mui/material/useMediaQuery';
 
 const images = [
     jury1noText,
@@ -20,7 +22,8 @@ const images = [
 const JuryCarousel = ({ interval = 5000, homePage = true }) => {
     const [currentIndex, setCurrentIndex] = useState(0);
     const { t, i18n } = useTranslation();
-
+    const theme = useTheme();
+    const isTabletAndSmaller = useMediaQuery(theme.breakpoints.down('lg'));
 
     const dataJury = [
         {
@@ -46,13 +49,13 @@ const JuryCarousel = ({ interval = 5000, homePage = true }) => {
         },
     ]
 
-    useEffect(() => {
-        const intervalId = setInterval(() => {
-            setCurrentIndex((prevIndex) => (prevIndex === images.length - 1 ? 0 : prevIndex + 1));
-        }, interval);
+    // useEffect(() => {
+    //     const intervalId = setInterval(() => {
+    //         setCurrentIndex((prevIndex) => (prevIndex === images.length - 1 ? 0 : prevIndex + 1));
+    //     }, interval);
 
-        return () => clearInterval(intervalId);
-    }, [interval]);
+    //     return () => clearInterval(intervalId);
+    // }, [interval]);
 
     const goToPrevSlide = () => {
         setCurrentIndex((prevIndex) => (prevIndex === 0 ? images.length - 1 : prevIndex - 1));
@@ -76,13 +79,15 @@ const JuryCarousel = ({ interval = 5000, homePage = true }) => {
                     {dataJury.map((eachData, index) => (
                         <div style={{ '--currentIndex': currentIndex }} className='titleCoverContainerText'>
                             <div className="testimonyContainer" style={{ color: 'white', textAlign: "center" }}>
-                                <div className="mangolaineFont" style={{ color: "#FFD990", fontSize: 36 }}>
+                                <div className="mangolaineFont" style={{ color: "#FFD990", fontSize: isTabletAndSmaller ? "3vmin" : 36 }}>
                                     {eachData.firstQuote}
                                 </div>
-                                <div style={{ fontSize: 20, marginTop: 40 }}>
-                                    {eachData.secondQuote}
-                                </div>
-                                <div style={{ marginTop: 24 }}>
+                                {!isTabletAndSmaller && (
+                                    <div style={{ fontSize: 20, marginTop: 40 }}>
+                                        {eachData.secondQuote}
+                                    </div>
+                                )}
+                                <div style={{ marginTop: 24, fontSize: '2vmin' }}>
                                     {eachData.name}
                                     <div>
                                         {eachData.title}

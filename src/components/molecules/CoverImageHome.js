@@ -7,7 +7,7 @@ import { ContentPosition } from "../../constant/ContentPosition";
 // import homeScreen from "../../assets/images/homeScreenImage.svg"
 
 const CoverImageHome = (props) => {
-    const { logo, isMiddleLeft, background, position } = props
+    const { logo, isMiddleLeft, background, position, content } = props
     const location = useLocation();
     const { ref: ref1, inView: inView1 } = useInView({
         triggerOnce: true,
@@ -53,6 +53,10 @@ const CoverImageHome = (props) => {
                         <img className="homeScreenLogo" loading="lazy" src={logo} alt="apcsLogo" />
                     )}
                 </AnimatedComponent>
+            </div>
+
+            <div className="AchieversCoverText">
+                {content}
             </div>
 
         </div>

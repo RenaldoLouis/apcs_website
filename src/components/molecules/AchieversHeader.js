@@ -1,8 +1,14 @@
 import React from "react";
 import lineAchievers from "../../assets/images/lineAchievers.png"
+import { useTheme } from '@mui/material/styles';
+import useMediaQuery from '@mui/material/useMediaQuery';
 
 const AchieversHeader = (props) => {
     const { title, description, image } = props
+
+    const theme = useTheme();
+    const isTabletAndSmaller = useMediaQuery(theme.breakpoints.down('md'));
+
     return (
         <div className="container" style={{ marginBottom: 150 }}>
             <div className="row justify-center">
@@ -11,7 +17,7 @@ const AchieversHeader = (props) => {
                 </div>
             </div>
             <div className="row justify-center place-items-center gx-5" style={{ margin: "47px 0px 47px 0px" }}>
-                <div className="col-md-6 text-align-last-end">
+                <div className={`col-md-6 ${isTabletAndSmaller ? "text-align-last-center" : "text-align-last-end"}`}>
                     <img loading="lazy" src={image} alt="apcsLogo" style={{ width: 400 }} />
                 </div>
                 <div className="col-md-6">

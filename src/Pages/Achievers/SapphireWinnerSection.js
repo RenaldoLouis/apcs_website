@@ -9,7 +9,7 @@ import diamondAchieversText from "../../assets/images/diamondAchieversText.svg"
 const SapphireWinnerSection = (props) => {
     const { dataSaphire, dataDiamond } = props
     return (
-        <div style={{ paddingTop: 150, backgroundImage: `url(${textureBackgroundLong})`,backgroundSize:"cover" }}>
+        <div style={{ paddingTop: 150, backgroundImage: `url(${textureBackgroundLong})`, backgroundSize: "contain" }}>
             <AchieversHeader
                 title="THOSE WHO HAD BRILLIANT PERFORMANCE"
                 image={saphireAchieverText}

@@ -17,14 +17,21 @@ import AnimatedComponent from "../../components/atom/AnimatedComponent";
 import { AnimationClass } from "../../constant/AnimationClass";
 import { useTranslation } from "react-i18next";
 import JuryCarousel from "../../components/molecules/JuryCarousel";
+import { useNavigate } from "react-router-dom";
+import { PathName } from "../../constant/PathName";
 
 const Home = (props) => {
     const { homeImagehero } = props
     const { t, i18n } = useTranslation();
+    const navigate = useNavigate();
     const handleDirectToWhatsApp = () => {
         window.open("https://api.whatsapp.com/send/?phone=6285811192228", '_blank');
     }
 
+    const handleMovePage = (path) => {
+        window.scrollTo(0, 0);
+        navigate(path);
+    }
 
     return (
         <>
@@ -51,7 +58,7 @@ const Home = (props) => {
                             <div className="row justify-center">
                                 <div className="col-md-6">
                                     <div style={{ color: "white" }}>
-                                        An annual music series, designed in a thematic project and constructed in a piano concerto format where the pianist as the central maestro complemented by the orchestra and conductor.
+                                        An annual music series that presents the beauty of piano concertos through a thematic project. Led by the conductor and orchestra, we <span className="goldenTextColor">produce</span> the finest piano concerto featuring talented pianists performances.
                                     </div>
                                 </div>
                             </div>
@@ -73,10 +80,9 @@ const Home = (props) => {
                     <img loading="lazy" src={musicForEveryone} alt="apcsLogo" style={{ width: "35%" }} />
                     <div className="weOfferContainer" style={{ color: 'white' }}>
                         <AnimatedComponent animationClass={AnimationClass.fadeIn}>
-                            We offer a prestigious stage for musicians of all ages and levels to share their deep passion for music with audiences
-
+                            A Piano Concerto Series (APCS) <span className="goldenTextColor">introduces</span>  the orchestra to new audiences in a fresh and modern way. We present a prestigious stage for musicians of all ages, levels, and nationalities <span className="goldenTextColor">to express their deep passion for music.</span>
                             <div style={{ marginTop: "2vmin" }}>
-                                <PillButton text={"see our story"} />
+                                <PillButton text={"see our story"} onClick={() => handleMovePage(PathName.about)} />
                             </div>
                         </AnimatedComponent>
                     </div>
@@ -93,10 +99,10 @@ const Home = (props) => {
                                 EXPERIENCE APCS
                             </div>
                             <div className="experienceContentText">
-                                We bring different experience on each series to give every musicians unforgettable live
+                                Each series, we bring different experiences to give every musician unforgettable live
                             </div>
                             <div className="experienceContentText">
-                                performances. We can’t wait to welcome you to our next musical Journey.
+                                performances. <span className="">Grow and show your talent on our next musical journey.</span>
                             </div>
                             <div className="flex justify-center" style={{ marginTop: 24 }}>
                                 <PillButton text={"JOIN US"} />
@@ -140,7 +146,7 @@ const Home = (props) => {
 
             <div class="container-fluid" style={{ background: "black" }}>
                 <div class="row">
-                    <div class="col  mangolaineFont goldenTextColor text-align-center" style={{ fontSize: 40 }}>
+                    <div class="col  mangolaineFont goldenTextColor text-align-center" style={{ fontSize: '9vmin' }}>
                         Venture our events
                     </div>
                 </div>

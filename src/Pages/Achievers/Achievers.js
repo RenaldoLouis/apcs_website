@@ -30,6 +30,9 @@ import saphireAchievers24 from "../../assets/images/saphireAchiever/saphireAchie
 import saphireAchieverText from "../../assets/images/saphireAchieverText.svg"
 import PillButton from "../../components/atom/PillButton";
 import { dataDiamond } from "../../constant/datas/DiamondAchieverData";
+import CoverImageHome from "../../components/molecules/CoverImageHome";
+import { ContentPosition } from "../../constant/ContentPosition";
+import AnimatedComponent from "../../components/atom/AnimatedComponent";
 
 const sapphireWinners = [
     {
@@ -183,7 +186,30 @@ const Achievers = () => {
 
     return (
         <div>
-            <CoverImage background={achieverBackground} logo={saphireAchieverText} isMiddleLeft={false} content={
+            <CoverImageHome background={achieverBackground}
+                logo={saphireAchieverText}
+                position={ContentPosition.MIDDLE}
+                content={
+                    <>
+                        <AnimatedComponent animationClass="animate__fadeIn">
+                            <div style={{ marginLeft: "8vw", color: "white" }}>
+                                <div style={{ fontSize: 24 }}>
+                                    2023 HIGHLIGHTS
+                                </div>
+                                <div style={{ fontSize: 40, lineHeight: "40px", marginBottom: 36, fontStyle: "italic" }}>
+                                    Christmas<br />
+                                    Wonderland
+                                </div>
+                                <div>
+                                    <PillButton text={"Watch Performance"} />
+                                </div>
+                            </div>
+                            <div />
+                        </AnimatedComponent>
+                    </>
+                }
+            />
+            {/* <CoverImage background={achieverBackground} logo={saphireAchieverText} isMiddleLeft={false} content={
                 <>
                     <div style={{ marginLeft: "8vw", color: "white" }}>
                         <div style={{ fontSize: 24 }}>
@@ -199,7 +225,7 @@ const Achievers = () => {
                     </div>
                     <div />
                 </>
-            } />
+            } /> */}
             <SapphireWinnerSection dataSaphire={sapphireWinners} dataDiamond={dataDiamond} />
             {/* <DiamondAchievers data={sapphireWinners} /> */}
         </div>
