@@ -10,6 +10,7 @@ import Button from '@mui/material/Button';
 import { db } from '../../firebase';
 import { collection, addDoc } from "firebase/firestore";
 import { toast } from 'react-toastify';
+import AnimatedComponent from "../../components/atom/AnimatedComponent";
 
 const ContactUs = () => {
     const [formData, setFormData] = useState({
@@ -54,70 +55,74 @@ const ContactUs = () => {
                     <div className="d-flex flex-column justify-content-center" style={{ height: "100%" }}>
                         <div className="container" style={{ color: "white" }}>
                             <div className="row">
-                                <div className="col-12 d-flex flex-column justify-content-center align-items-center">
-                                    Leave us a message
-                                    <img className="mb-5" src={lineContactUs} style={{ width: "60%" }} />
-                                    <Box component="form" onSubmit={handleSubmit} style={{ width: "100%", display: "flex", flexDirection: "column" }}>
-                                        <div className="contaier">
-                                            <div className="row">
-                                                <div className="col-12 d-flex flex-column justify-content-center align-items-center">
-                                                    <TextField
-                                                        required
-                                                        onChange={handleChange}
-                                                        name="name"
-                                                        id="standard-basic"
-                                                        label="Name" variant="standard" className="custom-textfield mb-4" />
-                                                    <TextField
-                                                        required
-                                                        onChange={handleChange}
-                                                        name="email"
-                                                        id="standard-basic"
-                                                        label="Email" variant="standard" className="custom-textfield mb-4" />
-                                                    <TextField
-                                                        required
-                                                        onChange={handleChange}
-                                                        name="country"
-                                                        id="standard-basic"
-                                                        label="Country" variant="standard" className="custom-textfield mb-4" />
-                                                    <TextField
-                                                        required
-                                                        onChange={handleChange}
-                                                        name="phone_number"
-                                                        id="standard-basic"
-                                                        label="Phone Number" variant="standard" className="custom-textfield mb-4" />
-                                                    <TextField
-                                                        id="filled-multiline-static"
-                                                        name="comment"
-                                                        label="How can we help you?"
-                                                        multiline
-                                                        rows={4}
-                                                        variant="standard"
-                                                        className="custom-textfield mb-4"
-                                                        value={formData.multilineField}
-                                                        onChange={handleChange}
-                                                        sx={{
-                                                            margin: 0,
-                                                            padding: 0,
-                                                            '& .MuiInput-underline:before': { borderBottomColor: 'orange' },
-                                                            '& .MuiInput-underline:after': { borderBottomColor: 'orange' },
-                                                        }}
-                                                    />
+                                <AnimatedComponent animationClass="animate__fadeIn">
+                                    <div className="col-12 d-flex flex-column justify-content-center align-items-center">
+                                        <div className="mangolaineFont goldenTextColor" style={{ fontSize: "5vmin" }}>
+                                            Leave us a message
+                                        </div>
+                                        {/* <img className="mb-5" src={lineContactUs} style={{ width: "60%" }} /> */}
+                                        <Box component="form" onSubmit={handleSubmit} style={{ width: "100%", display: "flex", flexDirection: "column" }}>
+                                            <div className="contaier">
+                                                <div className="row">
+                                                    <div className="col-12 d-flex flex-column justify-content-center align-items-center">
+                                                        <TextField
+                                                            required
+                                                            onChange={handleChange}
+                                                            name="name"
+                                                            id="standard-basic"
+                                                            label="Name" variant="standard" className="custom-textfield mb-4" />
+                                                        <TextField
+                                                            required
+                                                            onChange={handleChange}
+                                                            name="email"
+                                                            id="standard-basic"
+                                                            label="Email" variant="standard" className="custom-textfield mb-4" />
+                                                        <TextField
+                                                            required
+                                                            onChange={handleChange}
+                                                            name="country"
+                                                            id="standard-basic"
+                                                            label="Country" variant="standard" className="custom-textfield mb-4" />
+                                                        <TextField
+                                                            required
+                                                            onChange={handleChange}
+                                                            name="phone_number"
+                                                            id="standard-basic"
+                                                            label="Phone Number" variant="standard" className="custom-textfield mb-4" />
+                                                        <TextField
+                                                            id="filled-multiline-static"
+                                                            name="comment"
+                                                            label="How can we help you?"
+                                                            multiline
+                                                            rows={4}
+                                                            variant="standard"
+                                                            className="custom-textfield mb-4"
+                                                            value={formData.multilineField}
+                                                            onChange={handleChange}
+                                                            sx={{
+                                                                margin: 0,
+                                                                padding: 0,
+                                                                '& .MuiInput-underline:before': { borderBottomColor: 'orange' },
+                                                                '& .MuiInput-underline:after': { borderBottomColor: 'orange' },
+                                                            }}
+                                                        />
 
-                                                    <Button type="submit" variant="contained" sx={{ mt: 2 }}>
-                                                        Submit
-                                                    </Button>
+                                                        <Button type="submit" variant="contained" sx={{ mt: 2 }}>
+                                                            Submit
+                                                        </Button>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    </Box>
-                                    <img className="mt-5" src={lineContactUs} style={{ width: "60%" }} />
-                                </div>
+                                        </Box>
+                                        <img className="mt-5" src={lineContactUs} style={{ width: "60%" }} />
+                                    </div>
+                                </AnimatedComponent>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </div >
     )
 }
 

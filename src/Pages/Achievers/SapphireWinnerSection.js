@@ -5,6 +5,7 @@ import saphireAchieverText from "../../assets/images/saphireAchieverText.svg"
 import ProfileToYoutube from "../../components/molecules/ProfileToYoutube";
 import AchieversHeader from "../../components/molecules/AchieversHeader";
 import diamondAchieversText from "../../assets/images/diamondAchieversText.svg"
+import AnimatedComponent from "../../components/atom/AnimatedComponent";
 
 const SapphireWinnerSection = (props) => {
     const { dataSaphire, dataDiamond } = props
