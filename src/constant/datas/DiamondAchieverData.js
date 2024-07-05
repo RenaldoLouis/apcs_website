@@ -324,58 +324,58 @@ export const dataDiamond = [
         "name": "Sydney Mikaela Tan",
         "country": "Tangerang",
         "YoutubeLink": "https://www.youtube.com/watch?v=gItdcXGQqSM&ab_channel=APIANOCONCERTOSERIES",
-        "event": ["2021 Christmas Online", "2023 Classical Festival Surabaya", "2023 Classical Festival Jakarta"]
+        "event": ["2021 Christmas Wonderland", "2023 Classical Festival Surabaya", "2023 Classical Festival Jakarta"]
     },
     {
         "name": "Ashton Micah Poh",
         "country": "Tangerang",
         "YoutubeLink": "https://www.youtube.com/watch?v=UH8J4olztEo&ab_channel=APIANOCONCERTOSERIES",
-        "event": ["2021 Christmas Online", "2023 Classical Festival Jakarta", "2023 Christmas Wonderland"]
+        "event": ["2021 Christmas Wonderland", "2023 Classical Festival Jakarta", "2023 Christmas Wonderland"]
     },
     {
         "name": "Darius Tairisya",
         "country": "Tangerang",
-        "event": ["2021 Christmas Online"]
+        "event": ["2021 Christmas Wonderland"]
     },
     {
         "name": "Chindy Anastasya",
         "country": "Tangerang",
-        "event": ["2021 Christmas Online"]
+        "event": ["2021 Christmas Wonderland"]
     },
     {
         "name": "Katherine Natalie Mulyadi",
         "country": "Bogor",
-        "event": ["2021 Christmas Online", "2023 Classical Festival Jakarta"]
+        "event": ["2021 Christmas Wonderland", "2023 Classical Festival Jakarta"]
     },
     {
         "name": "Fairlyn Dharmawan",
         "country": "Tangerang",
-        "event": ["2021 Christmas Online"]
+        "event": ["2021 Christmas Wonderland"]
     },
     {
         "name": "Nadya Adeline Hermanto",
         "country": "Tangerang",
-        "event": ["2021 Christmas Online"]
+        "event": ["2021 Christmas Wonderland"]
     },
     {
         "name": "Mikhayla Sofilia Widjaja",
         "country": "Tangerang",
-        "event": ["2021 Christmas Online"]
+        "event": ["2021 Christmas Wonderland"]
     },
     {
         "name": "Liselle Fendbee Soo",
         "country": "Batam",
-        "event": ["2021 Christmas Online"]
+        "event": ["2021 Christmas Wonderland"]
     },
     {
         "name": "Pakpahan Aminan Shantlerine A.R",
         "country": "Bekasi",
-        "event": ["2021 Christmas Online"]
+        "event": ["2021 Christmas Wonderland"]
     },
     {
         "name": "Issac Mulya Putra",
         "country": "Tangerang",
-        "event": ["2021 Christmas Online"]
+        "event": ["2021 Christmas Wonderland"]
     },
     {
         "name": "Megan Magdalene Liem",
@@ -405,7 +405,7 @@ export const dataDiamond = [
         "name": "Fiona Lynn Sie",
         "country": "Semarang",
         "YoutubeLink": "https://www.youtube.com/watch?v=jwQk6n4h144&ab_channel=APIANOCONCERTOSERIES",
-        "event": ["2021 Christmas Online", "2022 Disney and Soundtrack Movies"]
+        "event": ["2021 Christmas Wonderland", "2022 Disney and Soundtrack Movies"]
     },
     {
         "name": "Mary Kate Onggowijoyo",
@@ -423,7 +423,7 @@ export const dataDiamond = [
         "name": "Arissa Eillin Budiono",
         "country": "Palembang",
         "YoutubeLink": "https://www.youtube.com/watch?v=-p6JIOod6_c&ab_channel=APIANOCONCERTOSERIES",
-        "event": ["2021 Christmas Online", "2022 Disney and Soundtrack Movies", "2023 Christmas Wonderland"]
+        "event": ["2021 Christmas Wonderland", "2022 Disney and Soundtrack Movies", "2023 Christmas Wonderland"]
     },
     {
         "name": "Lougan Steinson Wiranto",

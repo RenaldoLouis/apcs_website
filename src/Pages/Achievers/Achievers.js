@@ -38,146 +38,177 @@ const sapphireWinners = [
     {
         name: "Sydney Mikaela Tan",
         image: saphireAchievers1,
-        country: "Tangerang",
-        event: ["2022 Christmas Wonderland"]
+        "country": "Tangerang",
+        "YoutubeLink": "https://www.youtube.com/watch?v=gItdcXGQqSM&ab_channel=APIANOCONCERTOSERIES",
+        "event": ["2021 Christmas Wonderland", "2023 Classical Festival Surabaya", "2023 Classical Festival Jakarta"]
     },
     {
         name: "Ashton Micah Poh",
         image: saphireAchievers2,
-        country: "Tangerang",
-        event: ["2022 Christmas Wonderland"]
+        "country": "Tangerang",
+        "YoutubeLink": "https://www.youtube.com/watch?v=UH8J4olztEo&ab_channel=APIANOCONCERTOSERIES",
+        "event": ["2021 Christmas Wonderland", "2023 Classical Festival Jakarta", "2023 Christmas Wonderland"]
     },
     {
         name: "Darius Tairisya",
         image: saphireAchievers3,
-        country: "Tangerang",
-        event: ["2022 Christmas Wonderland"]
+        "country": "Tangerang",
+        "event": ["2021 Christmas Wonderland"]
     },
     {
         name: "Chindy Anastasya",
         image: saphireAchievers4,
-        country: "Tangerang",
-        event: ["2022 Christmas Wonderland"]
+        "country": "Tangerang",
+        "event": ["2021 Christmas Wonderland"]
     },
     {
         name: "Katherine Natalie M.",
         image: saphireAchievers5,
-        country: "Tangerang",
-        event: ["2022 Christmas Wonderland", "2022 Classical Festival Surabaya"]
+        "country": "Bogor",
+        "event": ["2021 Christmas Wonderland", "2023 Classical Festival Jakarta"]
     },
     {
         name: "Fairlyn Dharmawan",
         image: saphireAchievers6,
-        country: "Tangerang",
-        event: ["2022 Christmas Wonderland"]
+        "country": "Tangerang",
+        "event": ["2021 Christmas Wonderland"]
     },
     {
         name: "Nadya Adeline H.",
         image: saphireAchievers7,
-        country: "Tangerang",
-        event: ["2022 Christmas Wonderland"]
+        "country": "Tangerang",
+        "event": ["2021 Christmas Wonderland"]
     },
     {
         name: "Mikhayla Sofilia W.",
         image: saphireAchievers8,
-        country: "Tangerang",
-        event: ["2022 Christmas Wonderland"]
+        "country": "Tangerang",
+        "event": ["2021 Christmas Wonderland"]
     },
     {
         name: "Liselle Fendbee S.",
         image: saphireAchievers9,
-        country: "Tangerang",
-        event: ["2022 Christmas Wonderland"]
+        "country": "Batam",
+        "event": ["2021 Christmas Wonderland"]
     },
     {
         name: "Pakpahan Aminan Shantlerine A.R",
         image: saphireAchievers10,
-        country: "Tangerang",
-        event: ["2022 Christmas Wonderland"]
+        "country": "Bekasi",
+        "event": ["2021 Christmas Wonderland"]
     },
     {
         name: "Issac Mulya Putra",
         image: saphireAchievers11,
-        country: "Tangerang",
-        event: ["2022 Christmas Wonderland"]
+        "country": "Tangerang",
+        "event": ["2021 Christmas Wonderland"]
     },
     {
         name: "Gregorius Reinhardt",
         image: saphireAchievers12,
-        country: "Tangerang",
-        event: ["2022 Christmas Wonderland"]
+        "country": "Palembang",
+        "YoutubeLink": "https://www.youtube.com/watch?v=TntCfGmzFSU&ab_channel=APIANOCONCERTOSERIES",
+        "event": ["2022 Disney and Soundtrack Movies", "2023 Classical Festival Jakarta"]
     },
     {
         name: "Jaden William Tang",
         image: saphireAchievers13,
-        country: "Tangerang",
-        event: ["2022 Christmas Wonderland"]
+        "country": "Surabaya",
+        "YoutubeLink": "https://www.youtube.com/watch?v=U4ewR5bJwKA&ab_channel=APIANOCONCERTOSERIES",
+        "event": ["2022 Disney and Soundtrack Movies"]
     },
     {
         name: "Jeffren Leliga",
         image: saphireAchievers14,
-        country: "Tangerang",
-        event: ["2022 Christmas Wonderland"]
+        "country": "Surabaya",
+        "YoutubeLink": "https://www.youtube.com/watch?v=9PKinsw17Oc&ab_channel=APIANOCONCERTOSERIES",
+        "event": ["2022 Disney and Soundtrack Movies", "2023 Classical Festival Surabaya"]
     },
     {
         name: "Charice Elleanore K. B.",
         image: saphireAchievers15,
-        country: "Tangerang",
-        event: ["2022 Christmas Wonderland"]
+        "country": "Surabaya",
+        "YoutubeLink": "https://www.youtube.com/watch?v=NewtKsNhs_4&ab_channel=APIANOCONCERTOSERIES",
+        "event": ["2022 Disney and Soundtrack Movies"]
     },
     {
         name: "Ann Shereen Yao",
         image: saphireAchievers16,
-        country: "Tangerang",
-        event: ["2022 Christmas Wonderland"]
+        "country": "Jakarta",
+        "YoutubeLink": "https://www.youtube.com/watch?v=779gXnPTs-0&ab_channel=APIANOCONCERTOSERIES",
+        "event": ["2022 Disney and Soundtrack Movies", "2023 Classical Festival Jakarta", "2023 Christmas Wonderland"]
     },
     {
         name: "Cathleen Scarlett H.",
         image: saphireAchievers17,
-        country: "Tangerang",
-        event: ["2022 Christmas Wonderland"]
+        "country": "Jakarta",
+        "YoutubeLink": "https://www.youtube.com/watch?v=D1ct_m0XJtY&ab_channel=APIANOCONCERTOSERIES",
+        "events": [
+            "2022 Disney and Soundtrack Movies",
+            "2023 Classical Festival Jakarta",
+            "2023 Christmas Wonderland"
+        ]
     },
     {
         name: "Alf Elijah Beloved S.",
         image: saphireAchievers18,
-        country: "Tangerang",
-        event: ["2022 Christmas Wonderland"]
+        "country": "Jakarta",
+        "YoutubeLink": "https://www.youtube.com/watch?v=9iMrg1T1p_w&ab_channel=APIANOCONCERTOSERIES",
+        "events": [
+            "2022 Disney and Soundtrack Movies",
+            "2023 Classical Festival Jakarta"
+        ]
     },
     {
         name: "Keenan Kwok",
         image: saphireAchievers19,
-        country: "Tangerang",
-        event: ["2022 Christmas Wonderland"]
+        "country": "Jakarta",
+        "YoutubeLink": "https://www.youtube.com/watch?v=MRbkf3Jlm9I&ab_channel=APIANOCONCERTOSERIES",
+        "events": [
+            "2023 Classical Festival Surabaya",
+            "2023 Christmas Wonderland"
+        ]
     },
     {
         name: "Edward Nathaniel H.",
         image: saphireAchievers20,
-        country: "Tangerang",
-        event: ["2022 Christmas Wonderland"]
+        "YoutubeLink": "https://www.youtube.com/watch?v=twdiVI7WYNA&ab_channel=APIANOCONCERTOSERIES",
+        "events": [
+            "2023 Classical Festival Surabaya",
+            "2023 Christmas Wonderland"
+        ]
     },
     {
         name: "Michael Phillipe A.",
         image: saphireAchievers21,
-        country: "Tangerang",
-        event: ["2022 Christmas Wonderland"]
+        "country": "Surabaya",
+        "YoutubeLink": "https://www.youtube.com/watch?v=9Xgu6PLNNg0&ab_channel=APIANOCONCERTOSERIES",
+        "events": [
+            "2023 Classical Festival Surabaya"
+        ]
     },
     {
         name: "Cheryl Pandora",
         image: saphireAchievers22,
-        country: "Tangerang",
-        event: ["2022 Christmas Wonderland"]
+        "country": "Medan",
+        "YoutubeLink": "https://www.youtube.com/watch?v=XFvWVT0Wroc&ab_channel=APIANOCONCERTOSERIES",
+        "events": [
+            "2023 Classical Festival Surabaya"
+        ]
     },
     {
         name: "Joshua Kevin H.",
         image: saphireAchievers23,
-        country: "Tangerang",
-        event: ["2022 Christmas Wonderland"]
+        "country": "Surabaya",
+        "YoutubeLink": "https://www.youtube.com/watch?v=JDU_q_ZjfW0&ab_channel=APIANOCONCERTOSERIES",
+        "event": ["Classical Festival Surabaya"]
     },
     {
         name: "Clarissa Stefanny",
         image: saphireAchievers24,
-        country: "Tangerang",
-        event: ["2022 Christmas Wonderland"]
+        country: "Pontianak",
+        "YoutubeLink": "https://www.youtube.com/watch?v=XR8yYVUsBzo&ab_channel=APIANOCONCERTOSERIES",
+        "event": ["Classical Festival Jakarta", "Christmas Wonderland"]
     },
 ];
 
