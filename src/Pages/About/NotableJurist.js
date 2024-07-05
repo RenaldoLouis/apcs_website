@@ -12,6 +12,7 @@ import jurist8 from "../../assets/images/jurists/jurist8.png"
 import jurist9 from "../../assets/images/jurists/jurist9.png"
 import ConductorProfile from "../../components/molecules/ConductorProfile";
 import AnimatedComponent from "../../components/atom/AnimatedComponent";
+import EllipsisText from "../../components/atom/EllipsisText";
 
 const NotableJurist = () => {
 
@@ -117,7 +118,7 @@ const NotableJurist = () => {
                                         {eachData.title}
                                     </div>
                                     <div>
-                                        {eachData.quote}
+                                        <EllipsisText quote={eachData.quote} />
                                     </div>
                                 </div>
                             )

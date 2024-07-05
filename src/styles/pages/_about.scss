@@ -51,3 +51,48 @@
         font-size: 10vmin;
     }
 }
+
+
+.quote-container {
+    position: relative;
+}
+
+.quote-text {
+    margin: 0;
+    max-height: 6em;
+    /* Adjust this to control the number of visible lines */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    /* Number of lines to show */
+    -webkit-box-orient: vertical;
+    line-height: 1.5em;
+    /* Adjust as needed */
+}
+
+.quote-text.expanded {
+    max-height: none;
+    -webkit-line-clamp: unset;
+}
+
+.see-more-btn,
+.see-less-btn {
+    background: none;
+    border: none;
+    color: $primary-golden-text-color;
+    /* Or any color you prefer */
+    cursor: pointer;
+    padding: 0;
+    font-size: 0.9em;
+    margin-left: 5px;
+}
+
+.see-more-btn {
+    display: inline;
+}
+
+.see-less-btn {
+    display: block;
+    margin-top: 5px;
+}
