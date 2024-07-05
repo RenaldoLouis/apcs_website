@@ -134,6 +134,20 @@
   pointer-events: none;
 }
 
+.titleCoverContainer-Banner {
+  display: flex;
+  position: absolute;
+  top: 75%;
+  left: 0;
+  transform: translateY(-50%);
+  width: 100%;
+  /* Span the entire width of the relative container */
+  text-align: center;
+  /* Center the text horizontally */
+  z-index: 10;
+  // pointer-events: none;
+}
+
 .titleCoverContainerText {
   color: white;
 }
@@ -180,7 +194,7 @@
   flex: 1 0 100%;
   scroll-snap-align: start;
   object-fit: contain;
-  max-height: 100vh;
+  max-height: 100%;
   max-width: 100vw;
   width: auto;
   height: auto;

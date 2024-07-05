@@ -12,6 +12,10 @@ import banner6 from "../../assets/images/homeBanner/banner6.jpg"
 import banner7 from "../../assets/images/homeBanner/banner7.jpg"
 import { logEvent } from "firebase/analytics";
 import { analytics } from '../../firebase';
+import Button from '@mui/material/Button';
+import zIndex from '@mui/material/styles/zIndex';
+import { PathName } from '../../constant/PathName';
+import { useNavigate } from 'react-router-dom';
 
 const images = [
     banner1,
@@ -25,6 +29,7 @@ const images = [
 
 const Carousel = ({ interval = 5000, homePage = true }) => {
     const [currentIndex, setCurrentIndex] = useState(0);
+    const navigate = useNavigate();
 
     useEffect(() => {
         const intervalId = setInterval(() => {
@@ -46,6 +51,15 @@ const Carousel = ({ interval = 5000, homePage = true }) => {
         logEvent(analytics, 'register_now');
     }
 
+    const handleDirectToWhatsApp = () => {
+        window.open("https://api.whatsapp.com/send/?phone=6285811192228", '_blank');
+    }
+
+    const handleMovePage = (path) => {
+        navigate(path);
+        window.scrollTo(0, 0);
+    }
+
     return (
         <>
             <div className='carouselContainer'>
@@ -60,23 +74,43 @@ const Carousel = ({ interval = 5000, homePage = true }) => {
                         <img loading="lazy" src={arrowRightCover} style={{ width: "6vmin" }} alt="arrowRight" />
                     </button>
                 </div>
-                {/* <div className='titleCoverContainer'>
+                <div className='titleCoverContainer-Banner'>
                     <div style={{ '--currentIndex': currentIndex }} className='titleCoverContainerText'>
                         <div>
-                            asd
+                            <Button variant="outlined" sx={{ zIndex: 10 }} onClick={() => handleMovePage(PathName.gallery)}>Watch Now</Button>
                         </div>
                     </div>
                     <div style={{ '--currentIndex': currentIndex }} className='titleCoverContainerText'>
                         <div>
-                            asd
+                            <Button variant="outlined" sx={{ zIndex: 10 }} onClick={handleDirectToWhatsApp}>More Info</Button>
                         </div>
                     </div>
                     <div style={{ '--currentIndex': currentIndex }} className='titleCoverContainerText'>
                         <div>
-                            asd
+                            <Button variant="outlined" sx={{ zIndex: 10 }} onClick={handleDirectToWhatsApp}>More Info</Button>
                         </div>
                     </div>
-                </div> */}
+                    <div style={{ '--currentIndex': currentIndex }} className='titleCoverContainerText'>
+                        <div>
+                            <Button variant="outlined" sx={{ zIndex: 10 }} onClick={() => handleMovePage(PathName.gallery)}>Watch Now</Button>
+                        </div>
+                    </div>
+                    <div style={{ '--currentIndex': currentIndex }} className='titleCoverContainerText'>
+                        <div>
+                            <Button variant="outlined" sx={{ zIndex: 10 }} disabled>Coming Soon</Button>
+                        </div>
+                    </div>
+                    <div style={{ '--currentIndex': currentIndex }} className='titleCoverContainerText'>
+                        <div>
+                            <Button variant="outlined" sx={{ zIndex: 10 }} onClick={() => handleMovePage(PathName.gallery)}>Watch Now</Button>
+                        </div>
+                    </div>
+                    <div style={{ '--currentIndex': currentIndex }} className='titleCoverContainerText'>
+                        <div>
+                            <Button variant="outlined" sx={{ zIndex: 10 }} onClick={() => handleMovePage(PathName.gallery)}>Watch Now</Button>
+                        </div>
+                    </div>
+                </div>
 
                 {homePage ? (
                     <div className={"slider-nav"}>
@@ -102,7 +136,7 @@ const Carousel = ({ interval = 5000, homePage = true }) => {
 
                 {homePage ? (
                     <div className='cursorPointer registerButtonContainer' onClick={handleClickRegisterNow}>
-                        <PillButton text={"Register Now"} />
+                        {/* <PillButton text={"Register Now"} /> */}
                     </div>
                 ) : (
                     <div className="registerButtonContainer-leftSide">

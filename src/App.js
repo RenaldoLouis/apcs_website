@@ -27,6 +27,7 @@ import { I18nextProvider } from "react-i18next";
 import i18next from "i18next";
 import { PathName } from "./constant/PathName";
 import ContactUs from "./Pages/ContactUs/ContactUs";
+import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 
 const audio = new Audio(persona5);
@@ -55,6 +56,36 @@ const Main = () => {
 };
 
 function App() {
+
+  const theme = createTheme({
+    components: {
+      MuiButton: {
+        styleOverrides: {
+          outlined: {
+            borderRadius: '50px',
+            color: 'white',
+            borderColor: 'white',
+            fontSize: {
+              xs: '2vmin',
+              sm: '2vmin',
+              md: '1rem',
+              lg: '1.1rem'
+            },
+            padding: {
+              xs: '6px 16px',
+              sm: '8px 20px',
+              md: '10px 24px',
+              lg: '12px 28px'
+            },
+            '&:hover': {
+              borderColor: 'white',
+              backgroundColor: 'rgba(255, 255, 255, 0.1)'
+            }
+          },
+        },
+      },
+    },
+  });
   return (
     <Router>
       <DataContextProvider>
@@ -68,11 +99,13 @@ function App() {
           pauseOnFocusLoss={false}
           position="bottom-left"
         />
-        <CookiesProvider>
-          <I18nextProvider i18n={i18next}>
-            <Main />
-          </I18nextProvider>
-        </CookiesProvider>
+        <ThemeProvider theme={theme}>
+          <CookiesProvider>
+            <I18nextProvider i18n={i18next}>
+              <Main />
+            </I18nextProvider>
+          </CookiesProvider>
+        </ThemeProvider>
       </DataContextProvider>
     </Router>
   );
