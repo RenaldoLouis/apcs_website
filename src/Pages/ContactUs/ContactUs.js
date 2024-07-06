@@ -14,6 +14,33 @@ import AnimatedComponent from "../../components/atom/AnimatedComponent";
 import {
     WhatsAppOutlined
 } from '@ant-design/icons';
+
+import Fab from '@mui/material/Fab';
+import Zoom from '@mui/material/Zoom';
+
+
+const fabStyle = {
+    position: 'fixed',
+    bottom: 16,
+    right: 16,
+};
+
+const fabGreenStyle = {
+    color: 'common.white',
+    bgcolor: '#25D366',
+    '&:hover': {
+        bgcolor: '#128C7E',
+    },
+};
+
+const fab = {
+    color: 'primary',
+    sx: { ...fabStyle, ...fabGreenStyle },
+    icon: <WhatsAppOutlined />,
+    label: 'WhatsApp',
+};
+
+
 const ContactUs = () => {
     const [formData, setFormData] = useState({
         name: '',
@@ -29,6 +56,8 @@ const ContactUs = () => {
             [event.target.name]: event.target.value,
         });
     };
+
+    const [isFabVisible, setIsFabVisible] = useState(true);
 
     const handleSubmit = async (event) => {
 
@@ -120,17 +149,6 @@ const ContactUs = () => {
                                             </div>
                                         </Box>
                                         <img className="mt-5" src={lineContactUs} style={{ width: "60%" }} />
-                                        <Button variant="contained" endIcon={<WhatsAppOutlined />} onClick={handleDirectToWhatsApp}
-                                            sx={{
-                                                mt: 10,
-                                                backgroundColor: '#25D366',
-                                                '&:hover': {
-                                                    backgroundColor: '#128C7E',
-                                                },
-                                            }}
-                                        >
-                                            Contact us
-                                        </Button>
                                     </div>
                                 </AnimatedComponent>
                             </div>
@@ -138,6 +156,24 @@ const ContactUs = () => {
                     </div>
                 </div>
             </div>
+
+            <Zoom
+                in={isFabVisible}
+                timeout={500}
+                style={{
+                    transitionDelay: `${isFabVisible ? 500 : 0}ms`,
+                }}
+                unmountOnExit
+            >
+                <Fab
+                    sx={fab.sx}
+                    aria-label={fab.label}
+                    color={fab.color}
+                    onClick={handleDirectToWhatsApp}
+                >
+                    {fab.icon}
+                </Fab>
+            </Zoom>
         </div >
     )
 }
