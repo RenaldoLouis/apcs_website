@@ -23,7 +23,7 @@ const LandingPage = React.memo((props) => {
                 setTimeout(() => {
                     // setIsWelcomeExit(true)
                     handleExplore()
-                }, 2100);
+                }, 500);
             }, 5100);
         }
     }, [isLoading, isVideoLoaded, imageHomeLoaded])

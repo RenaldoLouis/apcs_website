@@ -19,6 +19,22 @@ import { useTranslation } from "react-i18next";
 import JuryCarousel from "../../components/molecules/JuryCarousel";
 import { useNavigate } from "react-router-dom";
 import { PathName } from "../../constant/PathName";
+import sponsor1 from "../../assets/images/sponsors/sponsor1.png";
+import sponsor2 from "../../assets/images/sponsors/sponsor2.png";
+import sponsor3 from "../../assets/images/sponsors/sponsor3.png";
+import sponsor4 from "../../assets/images/sponsors/sponsor4.png";
+import sponsor5 from "../../assets/images/sponsors/sponsor5.png";
+import sponsor6 from "../../assets/images/sponsors/sponsor6.png";
+import sponsor7 from "../../assets/images/sponsors/sponsor7.png";
+import sponsor8 from "../../assets/images/sponsors/sponsor8.png";
+import sponsor9 from "../../assets/images/sponsors/sponsor9.png";
+
+const listOfSponsor = [
+    sponsor1, sponsor2, sponsor3, sponsor4
+]
+const listOfSponsor2 = [
+    sponsor5, sponsor6, sponsor7, sponsor8, sponsor9
+]
 
 const Home = (props) => {
     const { homeImagehero } = props
@@ -34,7 +50,7 @@ const Home = (props) => {
     }
 
     return (
-        <>
+        <div style={{ background: "black" }}>
             <CoverImageHome background={homeImagehero}
                 logo={apcLogoBold}
             />
@@ -153,6 +169,23 @@ const Home = (props) => {
             </div>
             <Carousel />
 
+            <div className="container" style={{ background: "black" }}>
+                <div className="row text-align-center">
+                    <div className="col">
+                        {listOfSponsor.map((eachSponsor) => (
+                            <img src={eachSponsor} alt={"eachSponsor"} className=" me-5" style={{ width: "20vmin" }} />
+                        ))}
+                    </div>
+                </div>
+                <div className="row text-align-center">
+                    <div className="col">
+                        {listOfSponsor2.map((eachSponsor, index) => (
+                            <img src={eachSponsor} alt={"eachSponsor"} className=" me-5" style={{ width: index === 2 ? "10vmin" : "20vmin" }} />
+                        ))}
+                    </div>
+                </div>
+            </div>
+
             {/* <Content
                 audio={audio}
             /> */}
@@ -166,7 +199,7 @@ const Home = (props) => {
                      </div> 
 
             <AvatarIcon />  */}
-        </>
+        </div>
     )
 }
 
