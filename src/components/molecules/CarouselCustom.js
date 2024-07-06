@@ -18,6 +18,7 @@ import { PathName } from '../../constant/PathName';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/DataContext';
 import { YearlyEvent } from '../../constant/YearlyEvent';
+import { useSwipeable } from 'react-swipeable';
 
 const images = [
     banner1,
@@ -55,7 +56,7 @@ const Carousel = ({ interval = 5000, homePage = true }) => {
     }
 
     const handleDirectToWhatsApp = () => {
-        window.open("https://api.whatsapp.com/send/?phone=6285811192228", '_blank');
+        window.open("https://api.whatsapp.com/send/?phone=6282112341234", '_blank');
     }
 
     const handleMovePage = (path, event) => {
@@ -64,9 +65,17 @@ const Carousel = ({ interval = 5000, homePage = true }) => {
         window.scrollTo(0, 0);
     }
 
+    const swipeHandlers = useSwipeable({
+        onSwipedLeft: () => goToNextSlide(),
+        onSwipedRight: () => goToPrevSlide(),
+        swipeDuration: 500,
+        preventDefaultTouchmoveEvent: true,
+        trackMouse: true
+    });
+
     return (
         <>
-            <div className='carouselContainer'>
+            <div className='carouselContainer' {...swipeHandlers}>
                 {images.map((eachImage, index) => (
                     <img loading="lazy" style={{ '--currentIndex': currentIndex }} className="carousel-image" id={`slide-${index}`} src={eachImage} alt={`photos-${index}`} />
                 ))}

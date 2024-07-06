@@ -17,6 +17,7 @@ import artist14 from "../../assets/images/guestArtist/artist14.png"
 import artist15 from "../../assets/images/guestArtist/artist15.png"
 import GuestArtistCard from "../../components/molecules/GuestArtisCard";
 import { CountryConst } from "../../constant/CountryConst";
+import HeaderAbout from "../../components/atom/HeaderAbout";
 
 const GuestArtist = () => {
 
@@ -25,91 +26,91 @@ const GuestArtist = () => {
             name: "Iswargia Sudarno",
             image: artist1,
             country: [CountryConst.IDN],
-            title: "SG | Indonesia | Juries",
+            // title: "Indonesia | Juries",
         },
         {
             name: "Ify Alyssa",
             image: artist2,
             country: [CountryConst.IDN],
-            title: "SG | Indonesia | Singer",
+            // title: "Indonesia | Singer",
         },
         {
             name: "Andreas Arianto",
             image: artist3,
             country: [CountryConst.IDN],
-            title: "SG | Indonesia | Accordion",
+            // title: "Indonesia | Accordion",
         },
         {
             name: "Filda Salim",
             image: artist4,
             country: [CountryConst.IDN],
-            title: "SG | Indonesia | Pianist",
+            // title: "Indonesia | Pianist",
         },
         {
             name: "Vahur Luhtsalu",
             image: artist5,
             country: [CountryConst.RSA],
-            title: "SG | Indonesia | Cello",
+            // title: "",
         },
         {
             name: "Nathania Jualim",
             image: artist6,
             country: [CountryConst.IDN],
-            title: "SG | Indonesia | Guitarist",
+            // title: "Indonesia | Guitarist",
         },
         {
             name: "Firdy Salim",
             image: artist7,
             country: [CountryConst.IDN],
-            title: "SG | Indonesia | Juries",
+            // title: "Indonesia | Juries",
         },
         {
             name: "Michaela Sutejo",
             image: artist8,
             country: [CountryConst.IDN],
-            title: "SG | Indonesia | Pianist",
+            // title: "Indonesia | Pianist",
         },
         {
             name: "Christine Utomo",
             image: artist9,
             country: [CountryConst.IDN, CountryConst.CHI],
-            title: "SG | CHI | juries",
+            // title: "CHI | juries",
         },
         {
             name: "Stephanie Jingga",
             image: artist10,
             country: [CountryConst.IDN],
-            title: "SG | Indonesia | Pianist",
+            // title: "Indonesia | Pianist",
         },
         {
             name: "Amelia Tionanda",
             image: artist11,
             country: [CountryConst.IDN],
-            title: "SG | Indonesia | Violin",
+            // title: "Indonesia | Violin",
         },
         {
             name: "Michelle Hendra",
             image: artist12,
             country: [CountryConst.IDN],
-            title: "SG | Indonesia | Singer",
+            // title: "Indonesia | Singer",
         },
         {
             name: "Myra Karlina Pranajaya",
             image: artist13,
             country: [CountryConst.CHI, CountryConst.DNMRK],
-            title: "SG | FIN | Juries",
+            // title: "FIN | Juries",
         },
         {
             name: "Park Keun Woo",
             image: artist14,
             country: [CountryConst.KR],
-            title: "KR | Singer",
+            // title: "KR | Singer",
         },
         {
             name: "Michelle Kartika Bahari",
             image: artist15,
             country: [CountryConst.IDN],
-            title: "SG | Indonesia | Juries",
+            // title: "SG | Indonesia | Juries",
         },
     ]
 
@@ -118,11 +119,11 @@ const GuestArtist = () => {
             <div className="container" >
                 <div style={{ paddingBottom: 100, paddingTop: 100 }}>
                     <HeaderTitle >
-                        Guest Artist
+                        <HeaderAbout title={"GUEST ARTIST"} />
                     </HeaderTitle>
                 </div>
                 <div style={{ color: "white" }}>
-                    <div className="text-align-justify align-items-start row" style={{ paddingBottom: 36 }}>
+                    <div className="text-align-justify align-items-start row" style={{ paddingBottom: 36, margin: 0 }}>
                         <div className="container color-white">
                             <div className="row gx-5 gy-5">
                                 {guestArtistList.map((eachData) => (

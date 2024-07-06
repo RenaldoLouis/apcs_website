@@ -5,6 +5,8 @@ import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import FirebaseApi from '../middleware/firebaseApi';
 import { YearlyEvent } from '../constant/YearlyEvent';
+import { useTheme } from '@mui/material/styles';
+import useMediaQuery from '@mui/material/useMediaQuery';
 
 const DataContext = createContext();
 
@@ -12,6 +14,9 @@ export const useAuth = () => useContext(DataContext);
 
 export const DataContextProvider = ({ children }) => {
     const navigate = useNavigate();
+    const theme = useTheme();
+    const isLaptopAndSmaller = useMediaQuery(theme.breakpoints.down('md'));
+    const isLaptopAndBigger = useMediaQuery(theme.breakpoints.up('md'));
 
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
@@ -67,7 +72,7 @@ export const DataContextProvider = ({ children }) => {
     };
 
     return (
-        <DataContext.Provider value={{ user, signInWithGoogle, signOut, loading, setImageHomeLoaded, imageHomeLoaded, setSelectedEvent, selectedEvent }}>
+        <DataContext.Provider value={{ user, signInWithGoogle, signOut, loading, setImageHomeLoaded, imageHomeLoaded, setSelectedEvent, selectedEvent, isLaptopAndSmaller, isLaptopAndBigger }}>
             {!loading && children}
         </DataContext.Provider>
     );

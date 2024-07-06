@@ -46,14 +46,22 @@ const Navbar = (props) => {
         setIsNavbarMobileOpen(false)
     }
 
+    const handleOpenYoutube = () => {
+        window.open("https://www.youtube.com/@apcsmusic", '_blank');
+    }
+
+    const handleOpenInstagram = () => {
+        window.open("https://www.instagram.com/apcs.music/?img_index=6", '_blank');
+    }
+
     return (
         <nav>
             <div className="container-fluid mt-3" style={{ position: "absolute", color: "white", zIndex: 999 }}>
                 <div className="row d-flex justify-content-between">
                     <div className="col-2 d-flex d-none d-lg-flex justify-content-end">
-                        <YoutubeOutlined style={{ fontSize: 32 }} />
-                        <InstagramOutlined style={{ marginLeft: 18, marginRight: 18, fontSize: 32 }} />
-                        <TikTokOutlined style={{ fontSize: 32 }} />
+                        <YoutubeOutlined className="cursorPointer" style={{ fontSize: 32 }} onClick={handleOpenYoutube} />
+                        <InstagramOutlined className="cursorPointer" style={{ marginLeft: 18, marginRight: 18, fontSize: 32 }} onClick={handleOpenInstagram} />
+                        {/* <TikTokOutlined style={{ fontSize: 32 }} /> */}
                     </div>
                     <div className="col-2">
                         <span className="logoContainerNavbar">

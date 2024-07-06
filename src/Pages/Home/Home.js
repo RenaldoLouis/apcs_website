@@ -25,7 +25,7 @@ const Home = (props) => {
     const { t, i18n } = useTranslation();
     const navigate = useNavigate();
     const handleDirectToWhatsApp = () => {
-        window.open("https://api.whatsapp.com/send/?phone=6285811192228", '_blank');
+        window.open("https://api.whatsapp.com/send/?phone=6282112341234", '_blank');
     }
 
     const handleMovePage = (path) => {
@@ -147,7 +147,7 @@ const Home = (props) => {
             <div class="container-fluid" style={{ background: "black" }}>
                 <div class="row">
                     <div class="col  mangolaineFont goldenTextColor text-align-center" style={{ fontSize: '9vmin' }}>
-                        Venture our events
+                        OUR LATEST EVENTS
                     </div>
                 </div>
             </div>

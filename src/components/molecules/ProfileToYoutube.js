@@ -29,7 +29,7 @@ const ProfileToYoutube = (props) => {
                         IDN | {country}
                     </div>
                     <div style={{ marginTop: 16, fontSize: 20, fontWeight: "semi-bold" }}>
-                        Sapphire Winner
+                        {noImage ? "Diamond Winner" : "Sapphire Winner"}
                     </div>
                     {event?.map((eachEvent) => (
                         <div style={{ fontSize: 16 }}>

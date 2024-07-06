@@ -44,6 +44,10 @@ const About = () => {
         };
     }, []);
 
+    const handleDirectToWhatsApp = () => {
+        window.open("https://api.whatsapp.com/send/?phone=6282112341234", '_blank');
+    }
+
     return (
         <div>
             {/* <AnimationWWScroll setIsScrollDownAvailable={setIsScrollDownAvailable} /> */}
@@ -130,12 +134,13 @@ const About = () => {
             <BackgroundWithText
                 image={contactUsPicture}
                 text={
-                    <div className="mangolaineFont goldenTextColor" style={{ fontSize: "5vmin" }}>
-                        BE A PART OF OUR MUSICAL JOURNEY!
+                    <div className="mangolaineFont goldenTextColor" style={{ fontSize: "5vmin", marginBottom: 16 }}>
+                        BE A PART OF OUR MUSICAL JOURNEY !
                     </div>
                 }
                 buttonText={"CONTACT US"}
                 contentPosition={ContentPosition.MIDDLE}
+                buttonOnclick={handleDirectToWhatsApp}
             />
         </div>
     )

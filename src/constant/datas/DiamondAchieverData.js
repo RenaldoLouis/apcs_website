@@ -590,7 +590,7 @@ export const dataDiamond = [
         "name": "Tabita Indri Nugroho",
         "country": "Semarang",
         "YoutubeLink": "https://www.youtube.com/watch?v=QIxGekVqrsc&ab_channel=APIANOCONCERTOSERIES",
-        "events": [
+        "event": [
             "2022 Disney and Soundtrack Movies"
         ]
     },
@@ -598,7 +598,7 @@ export const dataDiamond = [
         "name": "Pramita Dwinovianti J",
         "country": "Semarang",
         "YoutubeLink": "https://www.youtube.com/watch?v=QIxGekVqrsc&ab_channel=APIANOCONCERTOSERIES",
-        "events": [
+        "event": [
             "2022 Disney and Soundtrack Movies"
         ]
     },
@@ -606,7 +606,7 @@ export const dataDiamond = [
         "name": "Clayton Oliver Hayasi",
         "country": "Jakarta",
         "YoutubeLink": "https://www.youtube.com/watch?v=Fke-4LVyGno&ab_channel=APIANOCONCERTOSERIES",
-        "events": [
+        "event": [
             "2022 Disney and Soundtrack Movies",
             "2023 Classical Festival Jakarta"
         ]
@@ -615,7 +615,7 @@ export const dataDiamond = [
         "name": "Cathleen Scarlett Hayasi",
         "country": "Jakarta",
         "YoutubeLink": "https://www.youtube.com/watch?v=D1ct_m0XJtY&ab_channel=APIANOCONCERTOSERIES",
-        "events": [
+        "event": [
             "2022 Disney and Soundtrack Movies",
             "2023 Classical Festival Jakarta",
             "2023 Christmas Wonderland"
@@ -624,7 +624,7 @@ export const dataDiamond = [
     {
         "name": "Azzarine Ishana Syailendra",
         "country": "Surabaya",
-        "events": [
+        "event": [
             "2022 Disney and Soundtrack Movies"
         ]
     },
@@ -632,7 +632,7 @@ export const dataDiamond = [
         "name": "Rehuel Aurelius Ethan Sitompul",
         "country": "Medan",
         "YoutubeLink": "https://www.youtube.com/watch?v=AMQsmLyiQrk&ab_channel=APIANOCONCERTOSERIES",
-        "events": [
+        "event": [
             "2022 Disney and Soundtrack Movies"
         ]
     },
@@ -640,7 +640,7 @@ export const dataDiamond = [
         "name": "Peter Frey Widjaja",
         "country": "Semarang",
         "YoutubeLink": "https://www.youtube.com/watch?v=TZXlegYqovQ&ab_channel=APIANOCONCERTOSERIES",
-        "events": [
+        "event": [
             "2022 Disney and Soundtrack Movies"
         ]
     },
@@ -648,7 +648,7 @@ export const dataDiamond = [
         "name": "Kani Kalavati",
         "country": "Depok",
         "YoutubeLink": "https://www.youtube.com/watch?v=UgJooW0GCzE&ab_channel=APIANOCONCERTOSERIES",
-        "events": [
+        "event": [
             "2022 Disney and Soundtrack Movies"
         ]
     },
@@ -656,7 +656,7 @@ export const dataDiamond = [
         "name": "Iris Araceli Ma",
         "country": "Surabaya",
         "YoutubeLink": "https://www.youtube.com/watch?v=KLFuAi6iha0&ab_channel=APIANOCONCERTOSERIES",
-        "events": [
+        "event": [
             "2022 Disney and Soundtrack Movies",
             "2023 Classical Festival Jakarta"
         ]
@@ -665,7 +665,7 @@ export const dataDiamond = [
         "name": "Hazel Everly Wantana",
         "country": "Jakarta",
         "YoutubeLink": "https://www.youtube.com/watch?v=Hn6OZoc9ujU&ab_channel=APIANOCONCERTOSERIES",
-        "events": [
+        "event": [
             "2022 Disney and Soundtrack Movies",
             "2023 Classical Festival Jakarta"
         ]
@@ -674,7 +674,7 @@ export const dataDiamond = [
         "name": "Celine Lie",
         "country": "Jakarta",
         "YoutubeLink": "https://www.youtube.com/watch?v=glmCvkRxmWA&ab_channel=APIANOCONCERTOSERIES",
-        "events": [
+        "event": [
             "2022 Disney and Soundtrack Movies"
         ]
     },
@@ -682,7 +682,7 @@ export const dataDiamond = [
         "name": "Alf Elijah Beloved Sigarlaki",
         "country": "Jakarta",
         "YoutubeLink": "https://www.youtube.com/watch?v=9iMrg1T1p_w&ab_channel=APIANOCONCERTOSERIES",
-        "events": [
+        "event": [
             "2022 Disney and Soundtrack Movies",
             "2023 Classical Festival Jakarta"
         ]
@@ -691,7 +691,7 @@ export const dataDiamond = [
         "name": "Stephanie Gwen Liem",
         "country": "Jakarta",
         "YoutubeLink": "https://www.youtube.com/watch?v=uh6gOSspbrs&ab_channel=APIANOCONCERTOSERIES",
-        "events": [
+        "event": [
             "2022 Disney and Soundtrack Movies",
             "2023 Classical Festival Jakarta"
         ]
@@ -700,7 +700,7 @@ export const dataDiamond = [
         "name": "Sharon Hanrin Christian Chandra",
         "country": "Jakarta",
         "YoutubeLink": "https://www.youtube.com/watch?v=RuNUFbKDmME&ab_channel=APIANOCONCERTOSERIES",
-        "events": [
+        "event": [
             "2022 Disney and Soundtrack Movies",
             "2023 Classical Festival Jakarta"
         ]
@@ -709,7 +709,7 @@ export const dataDiamond = [
         "name": "Kayla Calista Ayal",
         "country": "Bogor",
         "YoutubeLink": "https://www.youtube.com/watch?v=oivwx12q0Do&ab_channel=APIANOCONCERTOSERIES",
-        "events": [
+        "event": [
             "2022 Disney and Soundtrack Movies",
             "2023 Christmas Wonderland"
         ]
@@ -718,7 +718,7 @@ export const dataDiamond = [
         "name": "Jordan Eli Santoso",
         "country": "Jakarta",
         "YoutubeLink": "https://www.youtube.com/watch?v=x1A-bb3hh4I&ab_channel=APIANOCONCERTOSERIES",
-        "events": [
+        "event": [
             "2023 Classical Festival Surabaya"
         ]
     },
@@ -726,14 +726,14 @@ export const dataDiamond = [
         "name": "Jennise Tiana Suwono",
         "country": "Surabaya",
         "YoutubeLink": "https://www.youtube.com/watch?v=LIT9VMex_i8&ab_channel=APIANOCONCERTOSERIES",
-        "events": [
+        "event": [
             "2023 Classical Festival Surabaya"
         ]
     },
     {
         "name": "Michelle Aileen Harjarudra",
         "country": "Surabaya",
-        "events": [
+        "event": [
             "2023 Classical Festival Surabaya"
         ]
     },
@@ -741,7 +741,7 @@ export const dataDiamond = [
         "name": "Allison Gwen Handojo",
         "country": "Surabaya",
         "YoutubeLink": "https://www.youtube.com/watch?v=tnI0gfy9xjA&ab_channel=APIANOCONCERTOSERIES",
-        "events": [
+        "event": [
             "2023 Classical Festival Surabaya"
         ]
     },
@@ -749,7 +749,7 @@ export const dataDiamond = [
         "name": "Warren Newton Ma",
         "country": "Surabaya",
         "YoutubeLink": "https://www.youtube.com/watch?v=VJ9BM1O4EwI&ab_channel=APIANOCONCERTOSERIES",
-        "events": [
+        "event": [
             "2023 Classical Festival Surabaya"
         ]
     },
@@ -757,7 +757,7 @@ export const dataDiamond = [
         "name": "Minka Corine Lim",
         "country": "Surabaya",
         "YoutubeLink": "https://www.youtube.com/watch?v=mN_e9ls3zis&ab_channel=APIANOCONCERTOSERIES",
-        "events": [
+        "event": [
             "2023 Classical Festival Surabaya"
         ]
     },
@@ -765,7 +765,7 @@ export const dataDiamond = [
         "name": "Joan Annette",
         "country": "Surabaya",
         "YoutubeLink": "https://www.youtube.com/watch?v=vE8jRWMotBM&ab_channel=APIANOCONCERTOSERIES",
-        "events": [
+        "event": [
             "2023 Classical Festival Surabaya"
         ]
     },
@@ -773,7 +773,7 @@ export const dataDiamond = [
         "name": "Keenan Kwok",
         "country": "Jakarta",
         "YoutubeLink": "https://www.youtube.com/watch?v=MRbkf3Jlm9I&ab_channel=APIANOCONCERTOSERIES",
-        "events": [
+        "event": [
             "2023 Classical Festival Surabaya",
             "2023 Christmas Wonderland"
         ]
@@ -782,7 +782,7 @@ export const dataDiamond = [
         "name": "Kate Simmons",
         "country": "Surabaya",
         "YoutubeLink": "https://www.youtube.com/watch?v=s5CRH-7MWP0&ab_channel=APIANOCONCERTOSERIES",
-        "events": [
+        "event": [
             "2023 Classical Festival Surabaya"
         ]
     },
@@ -790,7 +790,7 @@ export const dataDiamond = [
         "name": "Allegra Alcira Foo Ing Yue",
         "country": "Tangerang",
         "YoutubeLink": "https://www.youtube.com/watch?v=h9jRMGO66mA&ab_channel=APIANOCONCERTOSERIES",
-        "events": [
+        "event": [
             "2023 Classical Festival Surabaya",
             "2023 Classical Festival Jakarta"
         ]
@@ -799,14 +799,14 @@ export const dataDiamond = [
         "name": "Reyna Gratia Ivanka",
         "country": "Kudus",
         "YoutubeLink": "https://www.youtube.com/watch?v=p1a5mKD6StE&ab_channel=APIANOCONCERTOSERIES",
-        "events": [
+        "event": [
             "2023 Classical Festival Surabaya"
         ]
     },
     {
         "name": "Winston Lawrence Wattimena",
         "YoutubeLink": "https://www.youtube.com/watch?v=QbVIU4lYSWQ&ab_channel=APIANOCONCERTOSERIES",
-        "events": [
+        "event": [
             "2023 Classical Festival Surabaya"
         ]
     },
@@ -814,7 +814,7 @@ export const dataDiamond = [
         "name": "Edward Nathaniel Handoko",
         "country": "Surabaya",
         "YoutubeLink": "https://www.youtube.com/watch?v=twdiVI7WYNA&ab_channel=APIANOCONCERTOSERIES",
-        "events": [
+        "event": [
             "2023 Classical Festival Surabaya",
             "2023 Christmas Wonderland"
         ]
@@ -822,7 +822,7 @@ export const dataDiamond = [
     {
         "name": "Pauline Lim",
         "country": "Palembang",
-        "events": [
+        "event": [
             "2023 Classical Festival Surabaya"
         ]
     },
@@ -830,7 +830,7 @@ export const dataDiamond = [
         "name": "Juan Hubert Huang",
         "country": "Madiun",
         "YoutubeLink": "https://www.youtube.com/watch?v=bDLSB0Osliw&ab_channel=APIANOCONCERTOSERIES",
-        "events": [
+        "event": [
             "2023 Classical Festival Surabaya"
         ]
     },
@@ -838,7 +838,7 @@ export const dataDiamond = [
         "name": "Vanessa Hardianto",
         "country": "Tangerang",
         "YoutubeLink": "https://www.youtube.com/watch?v=ha4YHiPchII&ab_channel=APIANOCONCERTOSERIES",
-        "events": [
+        "event": [
             "2023 Classical Festival Surabaya",
             "2023 Christmas Wonderland"
         ]
@@ -847,7 +847,7 @@ export const dataDiamond = [
         "name": "Michael Phillipe Andree",
         "country": "Surabaya",
         "YoutubeLink": "https://www.youtube.com/watch?v=9Xgu6PLNNg0&ab_channel=APIANOCONCERTOSERIES",
-        "events": [
+        "event": [
             "2023 Classical Festival Surabaya"
         ]
     },
@@ -855,21 +855,21 @@ export const dataDiamond = [
         "name": "Sinclair Justin Gohandi",
         "country": "Surabaya",
         "YoutubeLink": "https://www.youtube.com/watch?v=qHdWA7y4Z38&ab_channel=APIANOCONCERTOSERIES",
-        "events": [
+        "event": [
             "2023 Classical Festival Surabaya"
         ]
     },
     {
         "name": "Abigail Kimberly Indrajaya",
         "country": "Palembang",
-        "events": [
+        "event": [
             "2023 Classical Festival Surabaya"
         ]
     },
     {
         "name": "Dionisius Gilbert Hartono",
         "country": "Palembang",
-        "events": [
+        "event": [
             "2023 Classical Festival Surabaya"
         ]
     },
@@ -877,7 +877,7 @@ export const dataDiamond = [
         "name": "Rheine Yessa Siregar",
         "country": "Jakarta",
         "YoutubeLink": "https://www.youtube.com/watch?v=hlYQbi2_rDY&ab_channel=APIANOCONCERTOSERIES",
-        "events": [
+        "event": [
             "2023 Classical Festival Surabaya"
         ]
     },
@@ -885,7 +885,7 @@ export const dataDiamond = [
         "name": "Sean Kenneth Hudyana",
         "country": "Blora",
         "YoutubeLink": "https://www.youtube.com/watch?v=hlYQbi2_rDY&ab_channel=APIANOCONCERTOSERIES",
-        "events": [
+        "event": [
             "2023 Classical Festival Surabaya"
         ]
     },
@@ -893,7 +893,7 @@ export const dataDiamond = [
         "name": "Isabel Arwen Kurniawan",
         "country": "Pontianak",
         "YoutubeLink": "https://www.youtube.com/watch?v=fuSYMwZtjtY&ab_channel=APIANOCONCERTOSERIES",
-        "events": [
+        "event": [
             "2023 Classical Festival Surabaya"
         ]
     },
@@ -901,14 +901,14 @@ export const dataDiamond = [
         "name": "Cheryl Pandora",
         "country": "Medan",
         "YoutubeLink": "https://www.youtube.com/watch?v=XFvWVT0Wroc&ab_channel=APIANOCONCERTOSERIES",
-        "events": [
+        "event": [
             "2023 Classical Festival Surabaya"
         ]
     },
     {
         "name": "Shelley Jovanca",
         "country": "Surabaya",
-        "events": [
+        "event": [
             "2023 Classical Festival Surabaya"
         ]
     },

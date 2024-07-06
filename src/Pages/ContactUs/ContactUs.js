@@ -11,7 +11,9 @@ import { db } from '../../firebase';
 import { collection, addDoc } from "firebase/firestore";
 import { toast } from 'react-toastify';
 import AnimatedComponent from "../../components/atom/AnimatedComponent";
-
+import {
+    WhatsAppOutlined
+} from '@ant-design/icons';
 const ContactUs = () => {
     const [formData, setFormData] = useState({
         name: '',
@@ -44,6 +46,9 @@ const ContactUs = () => {
         }
     };
 
+    const handleDirectToWhatsApp = () => {
+        window.open("https://api.whatsapp.com/send/?phone=6282112341234", '_blank');
+    }
 
     return (
         <div class="container-fluid mx-0 my-0 px-0 py-0" style={{ background: "black" }}>
@@ -57,8 +62,8 @@ const ContactUs = () => {
                             <div className="row">
                                 <AnimatedComponent animationClass="animate__fadeIn">
                                     <div className="col-12 d-flex flex-column justify-content-center align-items-center">
-                                        <div className="mangolaineFont goldenTextColor" style={{ fontSize: "5vmin" }}>
-                                            Leave us a message
+                                        <div className="mangolaineFont goldenTextColor" style={{ fontSize: "6vmin" }}>
+                                            CONTACT US
                                         </div>
                                         {/* <img className="mb-5" src={lineContactUs} style={{ width: "60%" }} /> */}
                                         <Box component="form" onSubmit={handleSubmit} style={{ width: "100%", display: "flex", flexDirection: "column" }}>
@@ -115,6 +120,17 @@ const ContactUs = () => {
                                             </div>
                                         </Box>
                                         <img className="mt-5" src={lineContactUs} style={{ width: "60%" }} />
+                                        <Button variant="contained" endIcon={<WhatsAppOutlined />} onClick={handleDirectToWhatsApp}
+                                            sx={{
+                                                mt: 10,
+                                                backgroundColor: '#25D366',
+                                                '&:hover': {
+                                                    backgroundColor: '#128C7E',
+                                                },
+                                            }}
+                                        >
+                                            Contact us
+                                        </Button>
                                     </div>
                                 </AnimatedComponent>
                             </div>

@@ -143,7 +143,7 @@ const sapphireWinners = [
         image: saphireAchievers17,
         "country": "Jakarta",
         "YoutubeLink": "https://www.youtube.com/watch?v=D1ct_m0XJtY&ab_channel=APIANOCONCERTOSERIES",
-        "events": [
+        "event": [
             "2022 Disney and Soundtrack Movies",
             "2023 Classical Festival Jakarta",
             "2023 Christmas Wonderland"
@@ -154,7 +154,7 @@ const sapphireWinners = [
         image: saphireAchievers18,
         "country": "Jakarta",
         "YoutubeLink": "https://www.youtube.com/watch?v=9iMrg1T1p_w&ab_channel=APIANOCONCERTOSERIES",
-        "events": [
+        "event": [
             "2022 Disney and Soundtrack Movies",
             "2023 Classical Festival Jakarta"
         ]
@@ -164,7 +164,7 @@ const sapphireWinners = [
         image: saphireAchievers19,
         "country": "Jakarta",
         "YoutubeLink": "https://www.youtube.com/watch?v=MRbkf3Jlm9I&ab_channel=APIANOCONCERTOSERIES",
-        "events": [
+        "event": [
             "2023 Classical Festival Surabaya",
             "2023 Christmas Wonderland"
         ]
@@ -173,7 +173,7 @@ const sapphireWinners = [
         name: "Edward Nathaniel H.",
         image: saphireAchievers20,
         "YoutubeLink": "https://www.youtube.com/watch?v=twdiVI7WYNA&ab_channel=APIANOCONCERTOSERIES",
-        "events": [
+        "event": [
             "2023 Classical Festival Surabaya",
             "2023 Christmas Wonderland"
         ]
@@ -183,7 +183,7 @@ const sapphireWinners = [
         image: saphireAchievers21,
         "country": "Surabaya",
         "YoutubeLink": "https://www.youtube.com/watch?v=9Xgu6PLNNg0&ab_channel=APIANOCONCERTOSERIES",
-        "events": [
+        "event": [
             "2023 Classical Festival Surabaya"
         ]
     },
@@ -192,7 +192,7 @@ const sapphireWinners = [
         image: saphireAchievers22,
         "country": "Medan",
         "YoutubeLink": "https://www.youtube.com/watch?v=XFvWVT0Wroc&ab_channel=APIANOCONCERTOSERIES",
-        "events": [
+        "event": [
             "2023 Classical Festival Surabaya"
         ]
     },

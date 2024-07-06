@@ -6,6 +6,7 @@ import {
     CloseOutlined,
     YoutubeOutlined,
     InstagramOutlined,
+    WhatsAppOutlined,
     TikTokOutlined
 } from '@ant-design/icons';
 import { PathName } from "../../constant/PathName";
@@ -34,6 +35,14 @@ const Footer = () => {
         setCurrentPage(location.pathname)
     }, [location])
 
+    const handleOpenYoutube = () => {
+        window.open("https://www.youtube.com/@apcsmusic", '_blank');
+    }
+
+    const handleOpenInstagram = () => {
+        window.open("https://www.instagram.com/apcs.music/?img_index=6", '_blank');
+    }
+
     return (
         <footer className="footer">
             <div className="container-fluid">
@@ -43,7 +52,7 @@ const Footer = () => {
                             <img loading="lazy" src={apcLogo} alt="apcsLogo" style={{ height: "6rem" }} />
                         </div>
                         <div className="d-flex flex-column align-items-start">
-                            <div class="p-2 text-align-start">
+                            <div class="p-2 text-align-start" style={{ display: "grid", gap: 5 }}>
                                 <div className="mb-3" style={{ fontWeight: 900 }}>
                                     APCS
                                 </div>
@@ -68,7 +77,7 @@ const Footer = () => {
                                     apcs@gmail.com
                                 </div>
                                 <div>
-                                    (+62)821-1234-1234
+                                    (+62) 821-1234-1234
                                 </div>
                             </div>
                             <div class="p-2 text-align-start mb-5">
@@ -97,7 +106,7 @@ const Footer = () => {
                         <div className="col d-flex align-items-start justify-content-center">
                             <img loading="lazy" src={apcLogo} alt="apcsLogo" style={{ height: "6rem" }} />
                         </div>
-                        <div className="col-2 d-flex flex-column align-items-start">
+                        <div className="col-2 d-flex flex-column align-items-start gap-3">
                             <div className="headerFooter">
                                 APCS
                             </div>
@@ -122,10 +131,10 @@ const Footer = () => {
                                 apcs@gmail.com
                             </div>
                             <div>
-                                (+62)821-1234-1234
+                                (+62) 821-1234-1234
                             </div>
                             {/* <div> */}
-                            <div className="headerFooter mt-3">
+                            {/* <div className="headerFooter mt-3">
                                 Location
                             </div>
                             <div>
@@ -133,7 +142,7 @@ const Footer = () => {
                             </div>
                             <div>
                                 Jakarta, Indonesia
-                            </div>
+                            </div> */}
                             {/* </div> */}
                         </div>
                         {/* <div className="col-1 d-flex flex-column align-items-start" >
@@ -142,9 +151,10 @@ const Footer = () => {
                         <div className="col-3 d-flex flex-column">
                             {/* <div className="col-sm-4 col-lg-3 d-flex flex-column justify-content-center"> */}
                             <div className="text-align-end">
-                                <YoutubeOutlined style={{ fontSize: 32 }} />
-                                <InstagramOutlined style={{ marginLeft: 36, marginRight: 36, fontSize: 32 }} />
-                                <TikTokOutlined style={{ fontSize: 32 }} />
+                                <WhatsAppOutlined style={{ fontSize: 30, marginRight: 36 }} />
+                                <YoutubeOutlined className="cursorPointer" style={{ fontSize: 32 }} onClick={handleOpenYoutube} />
+                                <InstagramOutlined className="cursorPointer" style={{ marginLeft: 36, fontSize: 32 }} onClick={handleOpenInstagram} />
+                                {/* <TikTokOutlined style={{ fontSize: 32 }} /> */}
                             </div>
                             <div className="text-align-end">
                                 (c)2024 APCS. All Rights Reserved

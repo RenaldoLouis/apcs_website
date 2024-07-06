@@ -3,7 +3,7 @@ import PillButton from "../atom/PillButton";
 import { ContentPosition } from "../../constant/ContentPosition";
 
 const BackgroundWithText = (props) => {
-    const { image, logo, text, buttonText, contentPosition, centerText = true, noRelativeContainer } = props
+    const { image, logo, text, buttonText, contentPosition, centerText = true, noRelativeContainer, buttonOnclick = () => { } } = props
 
     const returnTextPosition = () => {
         switch (contentPosition) {
@@ -35,7 +35,7 @@ const BackgroundWithText = (props) => {
                     </div>
                 </div>
                 <div style={{ display: buttonText === "" ? "none" : "" }}>
-                    <PillButton text={buttonText} />
+                    <PillButton text={buttonText} onClick={buttonOnclick} />
                 </div>
             </div>
         </div>

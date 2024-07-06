@@ -92,7 +92,7 @@ const GaleryPage = () => {
         {
             name: YearlyEvent.MAGICALMUSICSOUNDTRACT,
             video: null,
-            title: "The First National Orchestra Series for all generations",
+            title: "The First National Orchestra Series for All Generations",
             subTitle: "UNDER THE BATON OF CHIKITA AMANDA",
             featuring: [
                 {
@@ -120,8 +120,8 @@ const GaleryPage = () => {
         {
             name: YearlyEvent.CLASSICALFESTIVALSBY,
             video: null,
-            title: "THE FIRST NATIONAL CLASSICAL SERIES FOR ALL GENERATIONS, SHANGRI-LA",
-            subTitle: "UNDER THE BATON OF CHIKITA AMANDA",
+            title: "THE FIRST NATIONAL CLASSICAL SERIES FOR ALL GENERATIONS",
+            subTitle: "SHANGRI-LA Surabaya",
             featuring: [
                 // {
                 //     name: "Michaela Sutejo",
@@ -157,8 +157,8 @@ const GaleryPage = () => {
         {
             name: YearlyEvent.CLASSICALFESTIVALJKT,
             video: null,
-            title: "THE SECOND NATIONAL CLASSICAL SERIES FOR ALL GENERATIONS, SOEHANNA HALL",
-            subTitle: "",
+            title: "THE SECOND NATIONAL CLASSICAL SERIES FOR ALL GENERATIONS",
+            subTitle: "SOEHANNA HALL Jakarta",
             featuring: [
                 // {
                 //     name: "Michaela Sutejo",
@@ -320,13 +320,13 @@ const GaleryPage = () => {
                         {galeryContent.title}
                     </HeaderTitle>
                     <HeaderTitle fontSize={FontSizeTitle.small}>
-                        {galeryContent.subTitle}
+                        <span className="">{galeryContent.subTitle}</span>
                     </HeaderTitle>
 
                     <div class="container">
                         <div class="row">
                             <div class="col-xs-12 col-lg-5 mx-auto d-flex flex-column justify-content-center align-items-center">
-                                <div className="textColor mt-5 mb-5">
+                                <div className="italicText textColor mt-4 mb-4">
                                     featuring
                                 </div>
                                 <div className="textColor text-align-center mb-5">

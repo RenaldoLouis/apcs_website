@@ -6,6 +6,7 @@ import chikita from "../../assets/images/chikita.svg"
 import HeaderTitle from "../../components/atom/HeaderTitle";
 import ConductorProfile from "../../components/molecules/ConductorProfile";
 import AnimatedComponent from "../../components/atom/AnimatedComponent";
+import HeaderAbout from "../../components/atom/HeaderAbout";
 
 const NotableConductors = () => {
 
@@ -15,7 +16,7 @@ const NotableConductors = () => {
                 <div className="container" style={{ zIndex: 2, position: "relative" }}>
                     <div style={{ paddingTop: 153 }}>
                         <HeaderTitle>
-                            Notable <br /> Conductor
+                            <HeaderAbout title={"CONDUCTORS"} />
                         </HeaderTitle>
                     </div>
                     <div className="text-align-center align-items-center row row-cols-1 row-cols-md-2" style={{ paddingTop: 10, paddingBottom: 120 }}>
