@@ -67,18 +67,21 @@ const MasonryLayout = (props) => {
                 className="my-masonry-grid"
                 columnClassName="my-masonry-grid_column"
             >
-                {images?.map((item, index) => (
-                    <div
-                        key={index}
-                        className={`masonry-item ${hoveredIndex === index ? 'hovered' : ''}`}
-                    // onMouseEnter={() => setHoveredIndex(index)}
-                    // onMouseLeave={() => setHoveredIndex(null)}
-                    >
-                        <AnimatedComponent animationClass="animate__fadeIn" triggerOnce={false} >
-                            <img src={item} alt={`galery-${index}`} className="masonry-img" />
-                        </AnimatedComponent>
-                    </div>
-                ))}
+                {images?.map((item, index) => {
+                    return (
+                        <div
+                            key={index}
+                            className={`masonry-item ${hoveredIndex === index ? 'hovered' : ''}`}
+                        // onMouseEnter={() => setHoveredIndex(index)}
+                        // onMouseLeave={() => setHoveredIndex(null)}
+                        >
+                            <AnimatedComponent animationClass="animate__fadeIn" triggerOnce={false} >
+                                <img src={item} alt={`galery-${index}`} className="masonry-img" />
+                                {/* <div style={{ color: "white" }}>{index}</div> */}
+                            </AnimatedComponent>
+                        </div>
+                    )
+                })}
             </Masonry>
             {/* </InfiniteScroll> */}
 

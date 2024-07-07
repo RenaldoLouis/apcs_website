@@ -211,6 +211,9 @@ const sapphireWinners = [
     },
 ];
 
+const handleOpenYoutube = () => {
+    window.open("https://www.youtube.com/@apcsmusic", '_blank');
+}
 
 const Achievers = () => {
 
@@ -231,7 +234,7 @@ const Achievers = () => {
                                     Wonderland
                                 </div>
                                 <div>
-                                    <PillButton text={"Watch Performance"} />
+                                    <PillButton text={"Watch Performance"} onClick={handleOpenYoutube} />
                                 </div>
                             </div>
                             <div />

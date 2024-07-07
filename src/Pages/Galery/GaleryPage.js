@@ -16,6 +16,7 @@ import { MagicalMusicSoundtractImages } from "../../constant/MagicalMusicSoundtr
 import { ClassicalFestivalSurabayaImages } from "../../constant/ClassicalFestivalSurabayaImages";
 import { ClassicalFestivalJakartaImages } from "../../constant/ClassicalFestivalJakarta";
 import { ChristmasInWonderlandImages } from "../../constant/ChristmasWonderlandImages";
+import { MasterClassImages } from "../../constant/MasterClassImages";
 import { useAuth } from "../../context/DataContext";
 
 const GaleryPage = () => {
@@ -216,6 +217,35 @@ const GaleryPage = () => {
             ],
             images: ChristmasInWonderlandImages
         },
+        {
+            name: YearlyEvent.MASTERCLASS,
+            video: null,
+            title: "MASTERCLASS",
+            subTitle: "𝐘𝐨𝐠𝐲𝐚𝐤𝐚𝐫𝐭𝐚, 𝐒𝐮𝐫𝐚𝐛𝐚𝐲𝐚 & 𝐉𝐚𝐤𝐚𝐫𝐭𝐚",
+            featuring: [
+                {
+                    name: "𝐅𝐢𝐫𝐝𝐲 𝐒𝐚𝐥𝐢𝐦",
+                    role: "Guest Coach"
+                },
+                {
+                    name: "𝐌𝐢𝐜𝐡𝐞𝐥𝐥𝐞 𝐊𝐚𝐫𝐭𝐢𝐤𝐚 𝐁𝐚𝐡𝐚𝐫𝐢",
+                    role: "Guest Coach"
+                },
+                {
+                    name: "𝐌𝐲𝐫𝐚 𝐊𝐚𝐫𝐥𝐢𝐧𝐚 𝐏𝐫𝐚𝐧𝐚𝐣𝐚𝐲𝐚",
+                    role: "Guest Coach"
+                },
+                {
+                    name: "𝐂𝐡𝐫𝐢𝐬𝐭𝐢𝐧𝐞 𝐔𝐭𝐨𝐦𝐨",
+                    role: "Guest Coach"
+                },
+                {
+                    name: "𝐈𝐬𝐰𝐚𝐫𝐠𝐢𝐚 𝐒𝐮𝐝𝐚𝐫𝐧𝐨",
+                    role: "Guest Coach"
+                },
+            ],
+            images: MasterClassImages
+        },
     ])
 
     useEffect(() => {
@@ -316,13 +346,15 @@ const GaleryPage = () => {
                 </div>
             ) : (
                 <>
-                    <div class="container" style={{ marginTop: 64, marginBottom: 100 }}>
-                        <div class="row">
-                            <div class="col">
-                                <CoverVideo video={galeryContent.video} />
+                    {galeryContent?.video && (
+                        <div class="container" style={{ marginTop: 64, marginBottom: 100 }}>
+                            <div class="row">
+                                <div class="col">
+                                    <CoverVideo video={galeryContent.video} />
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    )}
                     <HeaderTitle>
                         {galeryContent.title}
                     </HeaderTitle>

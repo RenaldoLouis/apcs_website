@@ -28,28 +28,30 @@ import turningPoint27 from "../assets/images/galery/turningPoint/turningpoint27.
 import turningPoint28 from "../assets/images/galery/turningPoint/turningpoint28.jpg";
 import turningPoint29 from "../assets/images/galery/turningPoint/turningpoint29.jpg";
 import turningPoint30 from "../assets/images/galery/turningPoint/turningpoint30.jpg";
+import turningPoint31 from "../assets/images/galery/turningPoint/turningpoint31.jpg";
+import turningPoint32 from "../assets/images/galery/turningPoint/turningpoint32.jpg";
+import turningPoint33 from "../assets/images/galery/turningPoint/turningpoint33.jpg";
 
 export const TurningPointImages = [
     turningPoint1,
     turningPoint2,
-    turningPoint3,
     turningPoint4,
+    turningPoint21,
+    turningPoint29,
+    turningPoint20,
     turningPoint15,
     turningPoint13,
     turningPoint19,
     turningPoint28,
     turningPoint7,
     turningPoint14,
-    turningPoint25,
+    // turningPoint25,
     turningPoint26,
-    turningPoint10,
+    // turningPoint10,
     turningPoint11,
     turningPoint12,
-    turningPoint20,
-    turningPoint21,
     turningPoint16,
     turningPoint17,
-    turningPoint29,
     turningPoint5,
     turningPoint6,
     turningPoint18,
@@ -59,5 +61,9 @@ export const TurningPointImages = [
     turningPoint23,
     turningPoint24,
     turningPoint27,
-    turningPoint30
+    turningPoint30,
+    turningPoint3,
+    turningPoint31,
+    turningPoint32,
+    turningPoint33,
 ];
