@@ -21,8 +21,11 @@ import koreaflag from "../../assets/images/koreaflag.jpg"
 import chinaflag from "../../assets/images/chinaflag.jpg"
 import amrFlag from "../../assets/images/amrFlag.jpg"
 import HeaderAbout from "../../components/atom/HeaderAbout";
+import { useAuth } from "../../context/DataContext";
 
 const NotableJurist = () => {
+
+    const { isLaptopAndSmaller, isMobileAndSmaller } = useAuth();
 
     const juristList = [
         {
@@ -57,14 +60,14 @@ const NotableJurist = () => {
             country: [CountryConst.IDN],
             link: "https://www.instagram.com/p/Cb4RXpGL4Gf/?igsh=MTIweG85aG83ejFqcw%3D%3D"
         },
-        {
-            image: jurist5,
-            name: "NADYA JANITRA",
-            title: "Jurist 2023",
-            quote: "Nadya Janitra has both her Bachelor (2011) and Master Degree (2013) from Den Haag Royal Conservatoire, under the guidance of Ellen Corver. Before pursuing her studies in the Netherlands, Nadya debuted her first piano solo recital at 16 years old in Erasmus Huis Jakarta. Known for her musical talent, Nadya had always got the highest mark on each examination she did for 11 consecutive years in Yayasan Pendidikan Musik (YPM). She then graduated with “YPM Artist Award” in 2004 under the guidance of Aisha Adriana Pletscher. After graduating from the Netherlands, she performed many solo recitals in various cities and countries, such as Jakarta, Ball, Surabaya, Yogyakarta, Makassar, Medan, Macau and Den Haag.",
-            country: [CountryConst.IDN],
-            link: "https://www.instagram.com/p/CvEvFaOSOPl/?igsh=MW41bzh6cmp4NDl0&img_index=2"
-        },
+        // {
+        //     image: jurist5,
+        //     name: "NADYA JANITRA",
+        //     title: "Jurist 2023",
+        //     quote: "Nadya Janitra has both her Bachelor (2011) and Master Degree (2013) from Den Haag Royal Conservatoire, under the guidance of Ellen Corver. Before pursuing her studies in the Netherlands, Nadya debuted her first piano solo recital at 16 years old in Erasmus Huis Jakarta. Known for her musical talent, Nadya had always got the highest mark on each examination she did for 11 consecutive years in Yayasan Pendidikan Musik (YPM). She then graduated with “YPM Artist Award” in 2004 under the guidance of Aisha Adriana Pletscher. After graduating from the Netherlands, she performed many solo recitals in various cities and countries, such as Jakarta, Ball, Surabaya, Yogyakarta, Makassar, Medan, Macau and Den Haag.",
+        //     country: [CountryConst.IDN],
+        //     link: "https://www.instagram.com/p/CvEvFaOSOPl/?igsh=MW41bzh6cmp4NDl0&img_index=2"
+        // },
         {
             image: jurist6,
             name: "CARLA SUHARTO",
@@ -129,7 +132,7 @@ const NotableJurist = () => {
 
                 <div style={{ color: "white" }}>
                     <div className="text-align-justify align-items-start row g-5" style={{}}>
-                        {juristList.map((eachData) => {
+                        {juristList.map((eachData, index, array) => {
                             const flagIcon = (country) => {
                                 switch (country) {
                                     case CountryConst.DNMRK:
@@ -155,14 +158,26 @@ const NotableJurist = () => {
 
                                 }
                             }
+
+                            // Calculate if this is part of the last row
+                            const isLastRow = index >= array.length - (array.length % 3 || 3);
+
+                            // Determine the column class based on whether it's the last row
+                            // const colClass = isLastRow
+                            //     ? `col-12 col-md-4 ${array.length % 3 === 1 ? 'offset-md-4' : array.length % 3 === 2 ? 'offset-md-2' : ''}`
+                            //     : "col-12 col-md-4";
+                            const colClass = index === 6 ? "col-12 col-md-4 offset-md-2" : "col-12 col-md-4";
+
+                            console.log("isLastRow", isLastRow)
+                            console.log("colClass", colClass)
                             return (
-                                <div className="col-12 col-md-4" style={{ marginBottom: 60 }}>
+                                <div className={colClass} style={{ marginBottom: 60 }}>
                                     <div className="jurist-image-container">
                                         <AnimatedComponent animationClass="animate__fadeIn">
                                             <img loading="lazy" src={eachData.image} alt={eachData.name} className="jurist-image" />
                                         </AnimatedComponent>
                                     </div>
-                                    <div className="mangolaineFont text-align-center" style={{ fontSize: "3vmin", marginBottom: 20 }}>
+                                    <div className="mangolaineFont text-align-center" style={{ fontSize: isMobileAndSmaller ? "7vmin" : isLaptopAndSmaller ? "5vmin" : "4vmin", marginBottom: 20 }}>
                                         {eachData.name}
                                     </div>
                                     <div style={{ marginBottom: 20 }}>

@@ -5,6 +5,7 @@ export const YearlyEvent = {
     CLASSICALFESTIVALSBY: "CLASSICAL FESTIVAL SBY",
     CLASSICALFESTIVALJKT: "CLASSICAL FESTIVAL JKT",
     CHRISTMASWONDERLAND: "CHRISTMAS WONDERLAND",
+    MASTERCLASS: "MASTERCLASS",
 }
 
 export const ListEvent = [
@@ -30,6 +31,10 @@ export const ListEvent = [
     },
     {
         title: YearlyEvent.CHRISTMASWONDERLAND,
+        year: "2023"
+    },
+    {
+        title: YearlyEvent.MASTERCLASS,
         year: "2023"
     },
 ]
