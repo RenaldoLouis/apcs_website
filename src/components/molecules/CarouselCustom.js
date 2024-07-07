@@ -21,13 +21,13 @@ import { YearlyEvent } from '../../constant/YearlyEvent';
 import { useSwipeable } from 'react-swipeable';
 
 const images = [
-    banner1,
     banner2,
-    banner3,
-    banner4,
     banner5,
+    banner1,
     banner6,
-    banner7
+    banner7,
+    banner4,
+    banner3,
 ]
 
 const Carousel = ({ interval = 5000, homePage = true }) => {

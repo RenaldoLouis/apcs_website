@@ -3,6 +3,44 @@ import { useNavigate } from "react-router-dom";
 import { collection, getDocs, limit, query, startAfter, orderBy } from "firebase/firestore";
 import { db } from '../../firebase';
 import { useAuth } from "../../context/DataContext";
+import PropTypes from 'prop-types';
+import CircularProgress from '@mui/material/CircularProgress';
+import Typography from '@mui/material/Typography';
+import Box from '@mui/material/Box';
+
+const CircularProgressWithLabel = (props) => {
+    return (
+        <Box sx={{ position: 'relative', display: 'inline-flex' }}>
+            <CircularProgress variant="determinate" {...props} />
+            <Box
+                sx={{
+                    top: 0,
+                    left: 0,
+                    bottom: 0,
+                    right: 0,
+                    position: 'absolute',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                }}
+            >
+                <Typography variant="caption" component="div" color="text.secondary">
+                    {`${Math.round(props.value)}%`}
+                </Typography>
+            </Box>
+        </Box>
+    );
+}
+
+CircularProgressWithLabel.propTypes = {
+    /**
+     * The value of the progress indicator for the determinate variant.
+     * Value between 0 and 100.
+     * @default 0
+     */
+    value: PropTypes.number.isRequired,
+};
+
 
 const LandingPage = React.memo((props) => {
     const navigate = useNavigate();
@@ -15,16 +53,17 @@ const LandingPage = React.memo((props) => {
     const [isWelcomeExit, setIsWelcomeExit] = useState(false)
     const [isLoading, setIsLoading] = useState(true)
     const [videoHome, setVideoHome] = useState("")
+    const [progress, setProgress] = React.useState(10);
 
     useEffect(() => {
         if (!isLoading && isVideoLoaded && imageHomeLoaded) {
             setTimeout(() => {
-                document.getElementById("welcomeText").classList.add('welcomeExit')
+                // document.getElementById("welcomeText").classList.add('welcomeExit')
                 setTimeout(() => {
                     // setIsWelcomeExit(true)
                     handleExplore()
                 }, 500);
-            }, 5100);
+            }, 2000);
         }
     }, [isLoading, isVideoLoaded, imageHomeLoaded])
 
@@ -41,7 +80,7 @@ const LandingPage = React.memo((props) => {
                 if (querySnapshot) {
                     const newData = querySnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
                     setVideoHome(newData[0].video)
-                    setIsLoading(false)
+                    // setIsLoading(false)
                 }
             })
             .catch((error) => {
@@ -49,33 +88,40 @@ const LandingPage = React.memo((props) => {
             });
     }, [])
 
-    console.log(videoHome, "videoHome")
-
-    const handleClickWelcome = () => {
-        audio.play()
-
-        document.getElementById("welcomeText").classList.add('welcomeExit')
-
-        setTimeout(() => {
-            setIsWelcomeExit(true)
-        }, 2000);
-    }
-
-    const handleClickAPCS = () => {
-        document.getElementById("apcsText").classList.add('welcomeExit')
-        document.getElementById("buttonEntrance").classList.add('buttonExit')
-    }
-
     const handleExplore = () => {
         // audio.pause();
         // audio.currentTime = 0;
         // audio.load();
+
         navigate("/home");
     }
 
     const handleVideoLoaded = () => {
         setIsVideoLoaded(true);
     };
+
+    useEffect(() => {
+        const video = videoRef.current;
+        if (!video) return;
+
+        const handleProgress = () => {
+            if (video.buffered.length > 0) {
+                const percentLoaded = (video.buffered.end(0) / video.duration) * 100;
+                setProgress(percentLoaded);
+                if (percentLoaded === 100) {
+                    setIsLoading(false);
+                }
+            }
+        };
+
+        video.addEventListener('progress', handleProgress);
+        video.addEventListener('canplaythrough', () => setIsLoading(false));
+
+        return () => {
+            video.removeEventListener('progress', handleProgress);
+            video.removeEventListener('canplaythrough', () => setIsLoading(false));
+        };
+    }, []);
 
     return (
         <article className="landingContiner" >
@@ -103,8 +149,12 @@ const LandingPage = React.memo((props) => {
                 src={videoHome}
                 // preload="none"
                 muted={true}
+                style={{ display: isVideoLoaded ? "" : "none" }}
                 playsInline autoPlay className='video-container-home'></video>
-        </article>
+            {!isVideoLoaded && (
+                <CircularProgressWithLabel value={progress} />
+            )}
+        </article >
     )
 });
 
