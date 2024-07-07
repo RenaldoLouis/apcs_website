@@ -7,7 +7,7 @@ import { ContentPosition } from "../../constant/ContentPosition";
 // import homeScreen from "../../assets/images/homeScreenImage.svg"
 
 const CoverImageHome = (props) => {
-    const { logo, isMiddleLeft, background, position, content } = props
+    const { logo, isMiddleLeft, background, position, content, bigLogo = false } = props
     const location = useLocation();
     const { ref: ref1, inView: inView1 } = useInView({
         triggerOnce: true,
@@ -50,7 +50,7 @@ const CoverImageHome = (props) => {
             <div className={returnTextPosition()}>
                 <AnimatedComponent animationClass="animate__fadeIn">
                     {logo && (
-                        <img className="homeScreenLogo" loading="lazy" src={logo} alt="apcsLogo" />
+                        <img className={bigLogo ? "homeScreenLogoBig" : "homeScreenLogo"} loading="lazy" src={logo} alt="apcsLogo" />
                     )}
                 </AnimatedComponent>
             </div>

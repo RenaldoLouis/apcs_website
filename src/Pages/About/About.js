@@ -54,6 +54,7 @@ const About = () => {
             <CoverImageHome background={aboutCover2}
                 logo={musiciswhatapcs}
                 position={ContentPosition.MIDDLELEFT40}
+                bigLogo={true}
             />
             {/* <CoverImage background={aboutCover} logo={musiciswhatapcs} position={ContentPosition.MIDDLELEFT} /> */}
             <div style={{ background: "black", color: "white" }}>
@@ -99,7 +100,7 @@ const About = () => {
                         <div className="col col-lg-8">
                             <img loading="lazy" src={goldenLine} alt={`goldenLine`} style={{ width: "60%" }} />
                             <div className="boxed-text">
-                                Born and raised in Indonesia, Michaela Sutejo started her musical journey at the early age of 9 under<span className="goldenTextColor"> the guidance of her piano tutor</span>, Junia. Throughout her development as a musician, she participated in national and international musical competitions, festivals, and masterclasses.
+                                Born and raised in Indonesia, Michaela Sutejo started her musical journey at the early age of 9 under the guidance of her piano tutor, Junia. Throughout her development as a musician, she participated in national and international musical competitions, festivals, and masterclasses.
                             </div>
                             <div className="boxed-text">
                                 In 2017, Michaela graduated with Cum Laude honors from Universitas Pelita Harapan, earning her Bachelor of Arts in Music Education under the tutelage of Firdy Salim, Ong Seng Choo, and Elaine Waworuntu
@@ -123,7 +124,7 @@ const About = () => {
             <BackgroundWithText
                 image={saphireAbout}
                 logo={saphireAchiever}
-                text={<>We curate our performers <span className="goldenTextColor">through</span> auditions where every participant will be <span className="goldenTextColor">evaluated</span> by notable juries, and contestants who achieve Sapphire Awards are entitled to perform with the APCS orchestra.</>}
+                text={<>We curate our performers through auditions where every participant will be evaluated by notable juries, and contestants who achieve Sapphire Awards are entitled to perform with the APCS orchestra.</>}
                 buttonText={"View More"}
                 contentPosition={windowDimensions.width <= 768 ? ContentPosition.MIDDLE : ContentPosition.MIDDLEBOTTOM}
             />

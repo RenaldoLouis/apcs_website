@@ -74,7 +74,7 @@ const Home = (props) => {
                             <div className="row justify-center">
                                 <div className="col-md-6">
                                     <div style={{ color: "white" }}>
-                                        An annual music series that presents the beauty of piano concertos through a thematic project. Led by the conductor and orchestra, we <span className="goldenTextColor">produce</span> the finest piano concerto featuring talented pianists performances.
+                                        An annual music series that presents the beauty of piano concertos through a thematic project. Led by the conductor and orchestra, we produce the finest piano concerto featuring talented pianists performances.
                                     </div>
                                 </div>
                             </div>
@@ -96,7 +96,7 @@ const Home = (props) => {
                     <img loading="lazy" src={musicForEveryone} alt="apcsLogo" style={{ width: "35%" }} />
                     <div className="weOfferContainer" style={{ color: 'white' }}>
                         <AnimatedComponent animationClass={AnimationClass.fadeIn}>
-                            A Piano Concerto Series (APCS) <span className="goldenTextColor">introduces</span>  the orchestra to new audiences in a fresh and modern way. We present a prestigious stage for musicians of all ages, levels, and nationalities <span className="goldenTextColor">to express their deep passion for music.</span>
+                            A Piano Concerto Series (APCS) introduces the orchestra to new audiences in a fresh and modern way. We present a prestigious stage for musicians of all ages, levels, and nationalities to express their deep passion for music.
                             <div style={{ marginTop: "2vmin" }}>
                                 <PillButton text={"see our story"} onClick={() => handleMovePage(PathName.about)} />
                             </div>
