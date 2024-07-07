@@ -76,7 +76,7 @@ const ContactUs = () => {
     };
 
     const handleDirectToWhatsApp = () => {
-        window.open("https://api.whatsapp.com/send/?phone=6282112341234", '_blank');
+        window.open("https://api.whatsapp.com/send/?phone=082213002686", '_blank');
     }
 
     return (
@@ -140,9 +140,8 @@ const ContactUs = () => {
                                                                 '& .MuiInput-underline:after': { borderBottomColor: 'orange' },
                                                             }}
                                                         />
-
-                                                        <Button type="submit" variant="contained" sx={{ mt: 2 }}>
-                                                            Submit
+                                                        <Button type="submit" variant="outlined" sx={{ mt: 2, padding: " 8px 50px 8px 50px" }}>
+                                                            Send
                                                         </Button>
                                                     </div>
                                                 </div>

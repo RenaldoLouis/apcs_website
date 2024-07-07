@@ -74,6 +74,9 @@ const Navbar = (props) => {
                         {Object.keys(PathName).map((eachPath) => {
                             let path = PathName[eachPath]
                             let navbarName = PathName[eachPath].substring(1);
+                            if (navbarName === "contactUs") {
+                                navbarName = "CONTACT US"
+                            }
                             return (
                                 <div
                                     style={{ height: "fit-content", fontSize: 16 }}
@@ -104,6 +107,9 @@ const Navbar = (props) => {
                             {Object.keys(PathName).map((eachPath) => {
                                 let path = PathName[eachPath]
                                 let navbarName = PathName[eachPath].substring(1);
+                                if (navbarName === "contactUs") {
+                                    navbarName = "CONTACT US"
+                                }
                                 return (
                                     <div className={`plus-jakarta-sans-font itemMenuSelected ${currentPage === path ? "selected textColorSelected" : ""}`} onClick={() => handleMovePage(path)}>
                                         {navbarName.toUpperCase()}

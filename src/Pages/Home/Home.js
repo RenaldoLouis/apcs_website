@@ -4,8 +4,6 @@ import goldenLine from "../../assets/images/goldenLine.png"
 import LetUsGuideTo from "./LetUsGuideTo";
 import pianoKeys from '../../assets/images/pianoKeys.svg';
 import musicForEveryone from "../../assets/images/musicForEveryone.svg"
-import jury1noText from "../../assets/images/jurySlider/jury1noText.svg"
-import jury2noText from "../../assets/images/jurySlider/jury2noText.png"
 import experienceHomeCropped from "../../assets/images/experienceHomeCropped.jpg"
 import Carousel from "../../components/molecules/CarouselCustom";
 import apcLogoBold from "../../assets/images/apc_logo_bold.svg"
@@ -41,7 +39,7 @@ const Home = (props) => {
     const { t, i18n } = useTranslation();
     const navigate = useNavigate();
     const handleDirectToWhatsApp = () => {
-        window.open("https://api.whatsapp.com/send/?phone=6282112341234", '_blank');
+        window.open("https://api.whatsapp.com/send/?phone=082213002686", '_blank');
     }
 
     const handleMovePage = (path) => {
@@ -123,7 +121,7 @@ const Home = (props) => {
                                 performances. <span className="">Grow and show your talent on our next musical journey.</span>
                             </div>
                             <div className="flex justify-center" style={{ marginTop: 24 }}>
-                                <PillButton text={"JOIN US"} />
+                                <PillButton text={"JOIN US"} onClick={() => handleMovePage(PathName.contactUs)} />
                             </div>
                         </div>
                     </AnimatedComponent>

@@ -56,7 +56,7 @@ const Carousel = ({ interval = 5000, homePage = true }) => {
     }
 
     const handleDirectToWhatsApp = () => {
-        window.open("https://api.whatsapp.com/send/?phone=6282112341234", '_blank');
+        window.open("https://api.whatsapp.com/send/?phone=082213002686", '_blank');
     }
 
     const handleMovePage = (path, event) => {

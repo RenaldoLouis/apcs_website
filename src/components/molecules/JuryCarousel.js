@@ -9,6 +9,8 @@ import { analytics } from '../../firebase';
 import jury1noText from "../../assets/images/jurySlider/jury1noText.png"
 import jury2noText from "../../assets/images/jurySlider/jury2noText.png"
 import jury3noText from "../../assets/images/jurySlider/jury3noText.png"
+import jury4noText from "../../assets/images/jurySlider/jury4noText.png"
+import jury5noText from "../../assets/images/jurySlider/jury5noText.png"
 import { useTranslation } from 'react-i18next';
 import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
@@ -17,6 +19,8 @@ const images = [
     jury1noText,
     jury2noText,
     jury3noText,
+    jury4noText,
+    jury5noText,
 ]
 
 const JuryCarousel = ({ interval = 5000, homePage = true }) => {
@@ -34,18 +38,32 @@ const JuryCarousel = ({ interval = 5000, homePage = true }) => {
             image: jury1noText
         },
         {
-            firstQuote: t("theseAreNotJustYoung"),
-            secondQuote: t("withSuchStrong"),
-            name: "- Firdy Salim -",
+            firstQuote: t("christineQuote"),
+            secondQuote: t("christineExp"),
+            name: "- Christine Utomo -",
             title: "jury & conductor",
             image: jury2noText
         },
         {
-            firstQuote: t("theseAreNotJustYoung"),
-            secondQuote: t("withSuchStrong"),
-            name: "- Firdy Salim -",
+            firstQuote: t("iswargiaQuote"),
+            secondQuote: t("iswargiaExp"),
+            name: "- Iswargia Sudarno -",
             title: "jury & conductor",
             image: jury3noText
+        },
+        {
+            firstQuote: t("michelleQuote"),
+            secondQuote: t("michelleExp"),
+            name: "- Michelle Kartika Bahari -",
+            title: "jury & conductor",
+            image: jury4noText
+        },
+        {
+            firstQuote: t("myraQuote"),
+            secondQuote: t("myraExp"),
+            name: "- Myra Karlina Pranajaya -",
+            title: "jury & conductor",
+            image: jury5noText
         },
     ]
 
