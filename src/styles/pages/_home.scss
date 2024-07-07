@@ -111,9 +111,32 @@
   padding: 80px 16px 16px 16px;
 }
 
+.scrollable-container {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.scrollable-content {
+  display: flex;
+  flex-wrap: nowrap;
+  white-space: nowrap;
+  padding-bottom: 5px;
+  /* Add padding to show the underline */
+}
+
+.col-auto {
+  flex: 0 0 auto;
+  padding: 0 10px;
+}
+
 /* Default height */
 .itemMenuSelected {
+  position: relative;
+  display: inline-block;
+  margin-right: 10px;
+  padding-bottom: 5px;
   --line-height: 3px;
+
 }
 
 /* Specific case with different height */
@@ -131,17 +154,17 @@
 .itemMenuSelected::after {
   content: '';
   position: absolute;
-  bottom: -5px;
+  bottom: 0;
   left: 0;
   width: 0;
-  height: var(--line-height);
-  background-color: $primary-golden-text-color !important;
-  transition: width 600ms ease;
+  height: 2px;
+  /* Adjust the height of the underline as needed */
+  background-color: transparent;
+  transition: width 0.3s ease, background-color 0.3s ease;
 }
 
 .itemMenuSelected.selected::after {
   width: 100%;
-  left: 0;
   background-color: $primary-golden-text-color !important;
 }
 
@@ -149,8 +172,8 @@
 @media (min-width : 700px) {
   .itemMenuSelected:hover::after {
     width: 100%;
-    left: 0;
-    color: $primary-golden-text-color !important;
+    background-color: $primary-golden-text-color !important;
+    transition: width 0.3s ease, background-color 0.3s ease;
   }
 
   .itemMenuSelected:hover {

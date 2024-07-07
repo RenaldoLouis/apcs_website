@@ -284,12 +284,12 @@ const GaleryPage = () => {
                     </div>
                 </div>
             </div>
-            {/* <div className="container">
+            <div className="container">
                 <div className="row">
                     <div className="scrollable-container">
                         <div className="scrollable-content">
                             {ListEvent.map((eachEvent) => (
-                                <div className="col-auto" key={eachEvent.title}>
+                                <div className="col-auto" key={eachEvent.title} style={{ color: "white" }}>
                                     <div
                                         onClick={() => handleClickEvent(eachEvent.title)}
                                         className={`itemMenuSelected special-case ${selectedEvent === eachEvent.title ? 'selected textColorSelected' : ''}`}
@@ -308,25 +308,6 @@ const GaleryPage = () => {
                             ))}
                         </div>
                     </div>
-                </div>
-            </div> */}
-            <div className="container">
-                <div class="row" style={{ color: "white" }}>
-                    {ListEvent.map((eachEvent) => {
-                        return (
-                            <div className="col-sm gx-3 gy-3" >
-                                <div onClick={() => handleClickEvent(eachEvent.title)}
-                                    className={`itemMenuSelected special-case ${selectedEvent === eachEvent.title ? 'selected textColorSelected' : ''}`}>
-                                    <div className="mangolaineFont" style={{ fontSize: 16 }}>
-                                        {eachEvent.year}
-                                    </div>
-                                    <div className={`nowrap ${selectedEvent === eachEvent.title ? "mosafinFont" : "mangolaineFont"}`} style={{ fontSize: 18 }}>
-                                        {eachEvent.title}
-                                    </div>
-                                </div>
-                            </div>
-                        )
-                    })}
                 </div>
             </div>
             {isLoading ? (
