@@ -25,7 +25,7 @@ const BackgroundWithText = (props) => {
             <img loading="lazy" src={image} alt={`saphireAbout`} style={{ width: "100%" }} />
             <div className={returnTextPosition()} style={{ color: "white" }}>
                 <div>
-                    <img loading="lazy" src={logo} alt={logo} style={{ width: "38vmin" }} />
+                    <img loading="lazy" src={logo} alt={logo} style={{ width: "38vmin", marginBottom: 25 }} />
                 </div>
                 <div className="container">
                     <div className={`row ${centerText ? "justify-content-md-center" : "justify-content-md-start"} text-align-center`}>
@@ -34,7 +34,7 @@ const BackgroundWithText = (props) => {
                         </div>
                     </div>
                 </div>
-                <div style={{ display: buttonText === "" ? "none" : "" }}>
+                <div style={{ display: buttonText === "" ? "none" : "", marginTop: 30 }}>
                     <PillButton text={buttonText} onClick={buttonOnclick} />
                 </div>
             </div>
