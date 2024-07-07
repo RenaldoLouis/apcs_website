@@ -3,6 +3,7 @@ import React from "react";
 import notableConductorBackground from "../../assets/images/notableConductorBackground.png"
 import wishnuProfile from "../../assets/images/wishnuProfile.svg"
 import chikita from "../../assets/images/chikita.svg"
+import nadyaAdvisor from "../../assets/images/nadyaAdvisor.svg"
 import HeaderTitle from "../../components/atom/HeaderTitle";
 import ConductorProfile from "../../components/molecules/ConductorProfile";
 import AnimatedComponent from "../../components/atom/AnimatedComponent";
@@ -31,7 +32,7 @@ const NotableConductors = () => {
                             </AnimatedComponent>
                         </div>
                     </div>
-                    <div className="text-align-center align-items-center row row-cols-1 row-cols-md-2" style={{ paddingTop: 60, paddingBottom: 120 }}>
+                    <div className="text-align-center align-items-center row row-cols-1 row-cols-md-2" style={{ paddingTop: 60, paddingBottom: 60 }}>
                         <div className="col" style={{ color: "white" }}>
                             <AnimatedComponent animationClass="animate__fadeInDown">
                                 <img loading="lazy" src={chikita} style={{ width: "100%", height: "100%" }} alt="" />
@@ -43,6 +44,26 @@ const NotableConductors = () => {
                                 desc={"Chikita Amanda is a talented Indonesian composer, arranger, and conductor known for her orchestral scores reminiscent of Hollywood and Disney. She has collaborated with prominent musicians such as Topati, Ariel Noah, and Miriam Eka. Her talents have also been recognized internationally through contributions to the music scoring team of the UK's SKY TV series “Gangs of London”"}
                                 eventYear={'APCS 2020, 2022, 2023'}
                                 eventName={""} />
+                        </div>
+                    </div>
+
+                    <div>
+                        <HeaderTitle>
+                            <HeaderAbout title={"ADVISOR"} />
+                        </HeaderTitle>
+                    </div>
+
+                    <div className="text-align-center align-items-center row row-cols-1 row-cols-md-2" style={{ paddingTop: 10 }}>
+                        <ConductorProfile
+                            title={"NADYA JANITRA"}
+                            titleUser="Presiden Director"
+                            desc={"Acara ini adalah sangat baik untuk seluruh musisi muda karena tidak hanya memberikan wadah bagi merka untuk sharing musik mereka, tapi juga membuat mereka termotivasi untuk menjadi lebih baik terutama dengan adanya Gala concert, memacu seluruh peserta memainkan permainan mereka yang terbaik."}
+                            eventYear={''}
+                            eventName={""} />
+                        <div className="col" style={{ color: "white" }}>
+                            <AnimatedComponent animationClass="animate__fadeInDown">
+                                <img loading="lazy" src={nadyaAdvisor} style={{ width: "100%", height: "100%" }} alt="" />
+                            </AnimatedComponent>
                         </div>
                     </div>
                 </div>

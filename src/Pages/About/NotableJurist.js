@@ -100,12 +100,17 @@ const NotableJurist = () => {
     ]
 
     return (
-        <div style={{ background: "black" }} >
+        <div style={{ background: "black", paddingTop: 70 }} >
             <div className="container" >
                 <HeaderTitle>
                     <HeaderAbout title={"JURIST"} />
                 </HeaderTitle>
                 <div className="text-align-center align-items-center row row-cols-1 row-cols-md-2" style={{ paddingTop: 10, paddingBottom: 120, margin: 0 }}>
+                    <div className="col" style={{ color: "white" }}>
+                        <AnimatedComponent animationClass="animate__fadeInDown">
+                            <img loading="lazy" src={jurist0} style={{ width: "100%", height: "100%" }} alt="" />
+                        </AnimatedComponent>
+                    </div>
                     <div className="col" style={{ color: "white" }}>
                         <AnimatedComponent animationClass="animate__fadeInDown">
                             <div className="mangolaineFont lineHeightNormal text-align-justify" style={{ fontSize: 40 }}>
@@ -118,11 +123,6 @@ const NotableJurist = () => {
                             <div className="text-align-justify mangolaineFont" style={{ fontSize: 40, marginTop: 60, width: "80%" }}>
                                 "Join us at the music festival to showcase your talent, connect with others, and make lasting memories."
                             </div>
-                        </AnimatedComponent>
-                    </div>
-                    <div className="col" style={{ color: "white" }}>
-                        <AnimatedComponent animationClass="animate__fadeInDown">
-                            <img loading="lazy" src={jurist0} style={{ width: "100%", height: "100%" }} alt="" />
                         </AnimatedComponent>
                     </div>
                 </div>

@@ -63,12 +63,10 @@ const ContactUs = () => {
 
         try {
             event.preventDefault();
-            console.log(formData);
 
             // Add a new document to a collection
             const docRef = await addDoc(collection(db, "users"), formData);
             toast.success("Data Saved, Thank you")
-            console.log("Document written with ID: ", docRef.id);
         } catch (e) {
             toast.error("failed to save data, please try again");
             console.error("Error adding document: ", e);

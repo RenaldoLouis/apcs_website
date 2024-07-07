@@ -2,7 +2,7 @@ import React from "react";
 import AnimatedComponent from "../atom/AnimatedComponent";
 
 const ConductorProfile = (props) => {
-    const { title, desc, eventYear, eventName } = props
+    const { title, desc, eventYear, eventName, titleUser = null } = props
 
     return (
         <div className="col" style={{ color: "white" }}>
@@ -10,6 +10,12 @@ const ConductorProfile = (props) => {
                 <div className="mangolaineFont lineHeightNormal text-align-justify" style={{ fontSize: 40 }}>
                     {title}
                 </div>
+
+                {titleUser && (
+                    <div className="text-align-justify" style={{ fontSize: 20 }}>
+                        {titleUser}
+                    </div>
+                )}
 
                 <div className="text-align-justify" style={{ marginTop: 30 }}>
                     {desc}

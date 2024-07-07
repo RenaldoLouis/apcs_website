@@ -157,7 +157,7 @@ const Footer = () => {
                                 {/* <TikTokOutlined style={{ fontSize: 32 }} /> */}
                             </div>
                             <div className="text-align-end">
-                                (c)2024 APCS. All Rights Reserved
+                                &copy; 2024 APCS. All Rights Reserved
                             </div>
                         </div>
                     </div>
