@@ -168,8 +168,6 @@ const NotableJurist = () => {
                             //     : "col-12 col-md-4";
                             const colClass = index === 6 ? "col-12 col-md-4 offset-md-2" : "col-12 col-md-4";
 
-                            console.log("isLastRow", isLastRow)
-                            console.log("colClass", colClass)
                             return (
                                 <div className={colClass} style={{ marginBottom: 60 }}>
                                     <div className="jurist-image-container">

@@ -117,7 +117,7 @@ const Home = (props) => {
                             <div className="experienceContentText textWithShadow">
                                 Each series, we bring different experiences to give every musician unforgettable live
                             </div>
-                            <div className="experienceContentText">
+                            <div className="experienceContentText textWithShadow">
                                 performances. <span className="">Grow and show your talent on our next musical journey.</span>
                             </div>
                             <div className="flex justify-center" style={{ marginTop: 24 }}>

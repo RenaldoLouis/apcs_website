@@ -19,9 +19,12 @@ import GuestArtist from "./GuestArtist";
 import BackgroundWithText from "../../components/molecules/BacgkroundWithText";
 import { ContentPosition } from "../../constant/ContentPosition";
 import CoverImageHome from "../../components/molecules/CoverImageHome";
+import { useNavigate } from "react-router-dom";
+import { PathName } from "../../constant/PathName";
 
 const About = () => {
     const { t, i18n } = useTranslation();
+    const navigate = useNavigate();
 
     const [isScrollDownAvailable, setIsScrollDownAvailable] = useState(false)
     const [windowDimensions, setWindowDimensions] = useState({
@@ -46,6 +49,11 @@ const About = () => {
 
     const handleDirectToWhatsApp = () => {
         window.open("https://api.whatsapp.com/send/?phone=082213002686", '_blank');
+    }
+
+    const handleMovePage = (path) => {
+        window.scrollTo(0, 0);
+        navigate(path);
     }
 
     return (
@@ -141,7 +149,7 @@ const About = () => {
                 }
                 buttonText={"CONTACT US"}
                 contentPosition={ContentPosition.MIDDLE}
-                buttonOnclick={handleDirectToWhatsApp}
+                buttonOnclick={() => handleMovePage(PathName.contactUs)}
             />
         </div>
     )

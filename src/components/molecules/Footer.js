@@ -43,6 +43,10 @@ const Footer = () => {
         window.open("https://www.instagram.com/apcs.music/?img_index=6", '_blank');
     }
 
+    const handleOpenWhatsapp = () => {
+        window.open("https://api.whatsapp.com/send/?phone=082213002686", '_blank');
+    }
+
     return (
         <footer className="footer">
             <div className="container-fluid">
@@ -148,10 +152,10 @@ const Footer = () => {
                         {/* <div className="col-1 d-flex flex-column align-items-start" >
                         
                     </div> */}
-                        <div className="col-3 d-flex flex-column">
+                        <div className="col-3 d-flex flex-column justify-content-sm-between">
                             {/* <div className="col-sm-4 col-lg-3 d-flex flex-column justify-content-center"> */}
                             <div className="text-align-end">
-                                <WhatsAppOutlined style={{ fontSize: 30, marginRight: 36 }} />
+                                <WhatsAppOutlined style={{ fontSize: 30, marginRight: 36 }} onClick={handleOpenWhatsapp} />
                                 <YoutubeOutlined className="cursorPointer" style={{ fontSize: 32 }} onClick={handleOpenYoutube} />
                                 <InstagramOutlined className="cursorPointer" style={{ marginLeft: 36, fontSize: 32 }} onClick={handleOpenInstagram} />
                                 {/* <TikTokOutlined style={{ fontSize: 32 }} /> */}
