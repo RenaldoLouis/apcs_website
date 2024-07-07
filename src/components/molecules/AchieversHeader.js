@@ -1,13 +1,12 @@
-import React from "react";
+import React, { useContext } from "react";
 import lineAchievers from "../../assets/images/lineAchievers.png"
-import { useTheme } from '@mui/material/styles';
-import useMediaQuery from '@mui/material/useMediaQuery';
+import { useAuth } from "../../context/DataContext";
+import { ResponsiveText } from "../atom/ResponsiveText";
 
 const AchieversHeader = (props) => {
     const { title, description, image } = props
 
-    const theme = useTheme();
-    const isTabletAndSmaller = useMediaQuery(theme.breakpoints.down('md'));
+    const { isLaptopAndSmaller } = useAuth()
 
     return (
         <div className="container" style={{ marginBottom: 150 }}>
@@ -17,14 +16,17 @@ const AchieversHeader = (props) => {
                 </div>
             </div>
             <div className="row justify-center place-items-center gx-5" style={{ margin: "47px 0px 47px 0px" }}>
-                <div className={`col-md-6 ${isTabletAndSmaller ? "text-align-last-center" : "text-align-last-end"}`}>
-                    <img loading="lazy" src={image} alt="apcsLogo" style={{ width: 400 }} />
+                <div className={`col-md-6 ${isLaptopAndSmaller ? "text-align-last-center" : "text-align-last-end"}`}>
+                    <img loading="lazy" src={image} alt="apcsLogo" style={{ width: isLaptopAndSmaller ? "100%" : "65%" }} />
                 </div>
                 <div className="col-md-6">
-                    <div className="goldenText">
+                    {/* <div className="goldenText mangolaineFont" style={{ fontSize: 40 }}>
                         {title}
-                    </div>
-                    <div style={{ color: "white" }}>
+                    </div> */}
+                    <ResponsiveText className="goldenText mangolaineFont">
+                        {title}
+                    </ResponsiveText>
+                    <div style={{ color: "white", fontSize: 20 }}>
                         {description}
                     </div>
                 </div>

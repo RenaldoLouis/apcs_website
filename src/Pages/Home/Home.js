@@ -96,7 +96,9 @@ const Home = (props) => {
                     <img loading="lazy" src={musicForEveryone} alt="apcsLogo" style={{ width: "35%" }} />
                     <div className="weOfferContainer" style={{ color: 'white' }}>
                         <AnimatedComponent animationClass={AnimationClass.fadeIn}>
-                            A Piano Concerto Series (APCS) introduces the orchestra to new audiences in a fresh and modern way. We present a prestigious stage for musicians of all ages, levels, and nationalities to express their deep passion for music.
+                            <div className="textWithShadow">
+                                A Piano Concerto Series (APCS) introduces the orchestra to new audiences in a fresh and modern way. We present a prestigious stage for musicians of all ages, levels, and nationalities to express their deep passion for music.
+                            </div>
                             <div style={{ marginTop: "2vmin" }}>
                                 <PillButton text={"see our story"} onClick={() => handleMovePage(PathName.about)} />
                             </div>
@@ -114,7 +116,7 @@ const Home = (props) => {
                             <div className="mangolaineFont experinceText" style={{ color: "#FFF2DB" }}>
                                 EXPERIENCE APCS
                             </div>
-                            <div className="experienceContentText">
+                            <div className="experienceContentText textWithShadow">
                                 Each series, we bring different experiences to give every musician unforgettable live
                             </div>
                             <div className="experienceContentText">

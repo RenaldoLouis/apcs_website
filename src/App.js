@@ -27,7 +27,7 @@ import { I18nextProvider } from "react-i18next";
 import i18next from "i18next";
 import { PathName } from "./constant/PathName";
 import ContactUs from "./Pages/ContactUs/ContactUs";
-import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { createTheme, ThemeProvider, responsiveFontSizes } from '@mui/material/styles';
 import homeScreenImageGradient from "./assets/images/homeScreenImageGradient.png"
 
 const audio = new Audio(persona5);
@@ -74,7 +74,7 @@ const Main = () => {
 
 function App() {
 
-  const theme = createTheme({
+  let theme = createTheme({
     components: {
       MuiButton: {
         styleOverrides: {
@@ -103,6 +103,8 @@ function App() {
       },
     },
   });
+  // theme = responsiveFontSizes(theme);
+
   return (
     <Router>
       <DataContextProvider>

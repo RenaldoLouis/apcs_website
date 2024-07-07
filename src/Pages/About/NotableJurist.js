@@ -115,7 +115,7 @@ const NotableJurist = () => {
                                 Head of Jurist
                             </div>
 
-                            <div className="text-align-justify mangolaineFont" style={{ fontSize: 40, marginTop: 60 }}>
+                            <div className="text-align-justify mangolaineFont" style={{ fontSize: 40, marginTop: 60, width: "80%" }}>
                                 "Join us at the music festival to showcase your talent, connect with others, and make lasting memories."
                             </div>
                         </AnimatedComponent>

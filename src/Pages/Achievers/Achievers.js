@@ -2,7 +2,6 @@ import React from "react";
 import SapphireWinnerSection from "./SapphireWinnerSection";
 import CoverImage from "../../components/molecules/CoverImage";
 import achieverBackground from "../../assets/images/achieverBackground.png"
-import DiamondAchievers from "./DiamondAchievers";
 import saphireAchievers1 from "../../assets/images/saphireAchiever/saphireAchievers1.png";
 import saphireAchievers2 from "../../assets/images/saphireAchiever/saphireAchievers2.png";
 import saphireAchievers3 from "../../assets/images/saphireAchiever/saphireAchievers3.png";
@@ -258,7 +257,6 @@ const Achievers = () => {
                 </>
             } /> */}
             <SapphireWinnerSection dataSaphire={sapphireWinners} dataDiamond={dataDiamond} />
-            {/* <DiamondAchievers data={sapphireWinners} /> */}
         </div>
     )
 }
