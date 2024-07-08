@@ -28,6 +28,7 @@ import classicalFestivalSurabaya27 from "../assets/images/galery/classicalFestiv
 import classicalFestivalSurabaya28 from "../assets/images/galery/classicalFestivalSurabaya/classicalFestivalSurabaya28.jpg";
 import classicalFestivalSurabaya29 from "../assets/images/galery/classicalFestivalSurabaya/classicalFestivalSurabaya29.jpg";
 import classicalFestivalSurabaya30 from "../assets/images/galery/classicalFestivalSurabaya/classicalFestivalSurabaya30.jpg";
+import classicalFestivalSurabaya31 from "../assets/images/galery/classicalFestivalSurabaya/classicalFestivalSurabaya31.jpg";
 
 export const ClassicalFestivalSurabayaImages = [
     classicalFestivalSurabaya1,
@@ -59,5 +60,7 @@ export const ClassicalFestivalSurabayaImages = [
     classicalFestivalSurabaya27,
     classicalFestivalSurabaya28,
     classicalFestivalSurabaya29,
-    classicalFestivalSurabaya30
+    classicalFestivalSurabaya31,
+    classicalFestivalSurabaya30,
+    classicalFestivalSurabaya31
 ];
