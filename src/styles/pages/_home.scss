@@ -130,35 +130,35 @@
   display: flex;
   flex-wrap: nowrap;
   white-space: nowrap;
-  padding: 0 20px;
+  // padding: 0 20px;
   /* Add some padding to prevent content from being under the fade */
 }
 
-/* Left fade */
-.scrollable-container::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 100%;
-  width: 30px;
-  background: linear-gradient(to right, rgba(0, 0, 0, 0.15), transparent);
-  z-index: 1;
-  pointer-events: none;
-}
+// /* Left fade */
+// .scrollable-container::before {
+//   content: '';
+//   position: absolute;
+//   top: 0;
+//   left: 0;
+//   height: 100%;
+//   width: 30px;
+//   background: linear-gradient(to right, white, transparent);
+//   z-index: 1;
+//   pointer-events: none;
+// }
 
-/* Right fade */
-.scrollable-container::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  right: 0;
-  height: 100%;
-  width: 30px;
-  background: linear-gradient(to left, rgba(0, 0, 0, 0.15), transparent);
-  z-index: 1;
-  pointer-events: none;
-}
+// /* Right fade */
+// .scrollable-container::after {
+//   content: '';
+//   position: absolute;
+//   top: 0;
+//   right: 0;
+//   height: 100%;
+//   width: 30px;
+//   background: linear-gradient(to left, white, transparent);
+//   z-index: 1;
+//   pointer-events: none;
+// }
 
 .col-auto {
   flex: 0 0 auto;

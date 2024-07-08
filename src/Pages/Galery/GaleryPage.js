@@ -316,7 +316,7 @@ const GaleryPage = () => {
             </div>
             <div className="container">
                 <div className="row">
-                    <div className="scrollable-container">
+                    <div className="scrollable-container" style={{ padding: 0 }}>
                         <div className="scrollable-content">
                             {ListEvent.map((eachEvent) => (
                                 <div className="col-auto" key={eachEvent.title} style={{ color: "white" }}>

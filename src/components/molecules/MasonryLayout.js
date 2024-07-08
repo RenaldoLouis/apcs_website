@@ -77,7 +77,7 @@ const MasonryLayout = (props) => {
                         >
                             <AnimatedComponent animationClass="animate__fadeIn" triggerOnce={false} >
                                 <img src={item} alt={`galery-${index}`} className="masonry-img" />
-                                <div style={{ color: "white" }}>{index}</div>
+                                {/* <div style={{ color: "white" }}>{index}</div> */}
                             </AnimatedComponent>
                         </div>
                     )

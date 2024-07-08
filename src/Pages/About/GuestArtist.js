@@ -15,6 +15,7 @@ import artist12 from "../../assets/images/guestArtist/artist12.png"
 import artist13 from "../../assets/images/guestArtist/artist13.png"
 import artist14 from "../../assets/images/guestArtist/artist14.png"
 import artist15 from "../../assets/images/guestArtist/artist15.png"
+import artist16 from "../../assets/images/guestArtist/artist16.png"
 import GuestArtistCard from "../../components/molecules/GuestArtisCard";
 import { CountryConst } from "../../constant/CountryConst";
 import HeaderAbout from "../../components/atom/HeaderAbout";
@@ -23,10 +24,10 @@ const GuestArtist = () => {
 
     const guestArtistList = [
         {
-            name: "Iswargia Sudarno",
-            image: artist1,
-            country: [CountryConst.IDN],
-            title: "Juries",
+            name: "Vahur Luhtsalu",
+            image: artist5,
+            country: [CountryConst.RSA],
+            title: "Cellists",
         },
         {
             name: "Ify Alyssa",
@@ -47,34 +48,10 @@ const GuestArtist = () => {
             title: "Pianist",
         },
         {
-            name: "Vahur Luhtsalu",
-            image: artist5,
-            country: [CountryConst.RSA],
-            title: "Cellists",
-        },
-        {
-            name: "Nathania Jualim",
-            image: artist6,
-            country: [CountryConst.IDN],
-            title: "Guitarist",
-        },
-        {
-            name: "Firdy Salim",
-            image: artist7,
-            country: [CountryConst.IDN],
-            title: "Juries",
-        },
-        {
             name: "Michaela Sutejo",
             image: artist8,
             country: [CountryConst.IDN],
             title: "Pianist",
-        },
-        {
-            name: "Christine Utomo",
-            image: artist9,
-            country: [CountryConst.IDN, CountryConst.CHI],
-            title: "juries",
         },
         {
             name: "Stephanie Jingga",
@@ -89,6 +66,30 @@ const GuestArtist = () => {
             title: "Violin",
         },
         {
+            name: "Firdy Salim",
+            image: artist7,
+            country: [CountryConst.IDN],
+            title: "Juries",
+        },
+        {
+            name: "Christine Utomo",
+            image: artist9,
+            country: [CountryConst.IDN, CountryConst.CHI],
+            title: "juries",
+        },
+        {
+            name: "Park Keun Woo",
+            image: artist14,
+            country: [CountryConst.KR],
+            title: "Singer",
+        },
+        {
+            name: "Nathania Jualim",
+            image: artist6,
+            country: [CountryConst.IDN],
+            title: "Guitarist",
+        },
+        {
             name: "Michelle Hendra",
             image: artist12,
             country: [CountryConst.IDN],
@@ -101,10 +102,10 @@ const GuestArtist = () => {
             title: "Juries",
         },
         {
-            name: "Park Keun Woo",
-            image: artist14,
-            country: [CountryConst.KR],
-            title: "Singer",
+            name: "Iswargia Sudarno",
+            image: artist1,
+            country: [CountryConst.IDN],
+            title: "Juries",
         },
         {
             name: "Michelle Kartika Bahari",
@@ -131,6 +132,16 @@ const GuestArtist = () => {
                                         <GuestArtistCard data={eachData} />
                                     </div>
                                 ))}
+                            </div>
+                            <div className="row gx-5 gy-5">
+                                <div className="col-12 col-md-2" style={{ padding: 50 }} />
+                                <div className="col-12 col-md-8">
+                                    <img src={artist16} alt="artist16" style={{ width: "100%" }} />
+                                    <div className="d-flex justify-content-center mangolaineFont" style={{ fontSize: 40, marginTop: 30 }}>
+                                        CMC Choir
+                                    </div>
+                                </div>
+                                <div className="col-12 col-md-2" style={{ padding: 50 }} />
                             </div>
                         </div>
 
