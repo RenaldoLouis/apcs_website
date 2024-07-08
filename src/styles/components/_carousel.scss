@@ -48,13 +48,14 @@
   justify-content: center;
 }
 
-.registerButtonContainer-center {
+.registerButtonContainer-center50 {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
   width: 100%;
   display: flex;
   justify-content: center;
+  align-items: center;
 }
 
 .registerButtonContainer-bottom {
@@ -135,13 +136,29 @@
   position: absolute;
   // top: 75%;
   left: 0;
-  transform: translate(50%, 10vmin);
+  transform: translate(50%, 50%);
   width: 100%;
   /* Span the entire width of the relative container */
   text-align: center;
   /* Center the text horizontally */
   z-index: 1;
   pointer-events: none;
+}
+
+@media (max-width : 1445px) {
+  .titleCoverContainer {
+    display: flex;
+    position: absolute;
+    // top: 75%;
+    left: 0;
+    transform: translate(50%, 10vmin);
+    width: 100%;
+    /* Span the entire width of the relative container */
+    text-align: center;
+    /* Center the text horizontally */
+    z-index: 1;
+    pointer-events: none;
+  }
 }
 
 .titleCoverContainer-Banner {

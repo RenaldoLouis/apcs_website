@@ -39,68 +39,68 @@ const sapphireWinners = [
         image: saphireAchievers1,
         "country": "Tangerang",
         "YoutubeLink": "https://www.youtube.com/watch?v=gItdcXGQqSM&ab_channel=APIANOCONCERTOSERIES",
-        "event": ["2021 Christmas Wonderland", "2023 Classical Festival Surabaya", "2023 Classical Festival Jakarta"]
+        "event": ["2023 Christmas Wonderland", "2023 Classical Festival Surabaya", "2023 Classical Festival Jakarta"]
     },
     {
         name: "Ashton Micah Poh",
         image: saphireAchievers2,
         "country": "Tangerang",
         "YoutubeLink": "https://www.youtube.com/watch?v=UH8J4olztEo&ab_channel=APIANOCONCERTOSERIES",
-        "event": ["2021 Christmas Wonderland", "2023 Classical Festival Jakarta", "2023 Christmas Wonderland"]
+        "event": ["2023 Classical Festival Jakarta", "2023 Christmas Wonderland"]
     },
     {
         name: "Darius Tairisya",
         image: saphireAchievers3,
         "country": "Tangerang",
-        "event": ["2021 Christmas Wonderland"]
+        "event": ["2023 Christmas Wonderland"]
     },
     {
         name: "Chindy Anastasya",
         image: saphireAchievers4,
         "country": "Tangerang",
-        "event": ["2021 Christmas Wonderland"]
+        "event": ["2023 Christmas Wonderland"]
     },
     {
         name: "Katherine Natalie M.",
         image: saphireAchievers5,
         "country": "Bogor",
-        "event": ["2021 Christmas Wonderland", "2023 Classical Festival Jakarta"]
+        "event": ["2023 Christmas Wonderland", "2023 Classical Festival Jakarta"]
     },
     {
         name: "Fairlyn Dharmawan",
         image: saphireAchievers6,
         "country": "Tangerang",
-        "event": ["2021 Christmas Wonderland"]
+        "event": ["2023 Christmas Wonderland"]
     },
     {
         name: "Nadya Adeline H.",
         image: saphireAchievers7,
         "country": "Tangerang",
-        "event": ["2021 Christmas Wonderland"]
+        "event": ["2023 Christmas Wonderland"]
     },
     {
         name: "Mikhayla Sofilia W.",
         image: saphireAchievers8,
         "country": "Tangerang",
-        "event": ["2021 Christmas Wonderland"]
+        "event": ["2023 Christmas Wonderland"]
     },
     {
         name: "Liselle Fendbee S.",
         image: saphireAchievers9,
         "country": "Batam",
-        "event": ["2021 Christmas Wonderland"]
+        "event": ["2023 Christmas Wonderland"]
     },
     {
         name: "Pakpahan Aminan Shantlerine A.R",
         image: saphireAchievers10,
         "country": "Bekasi",
-        "event": ["2021 Christmas Wonderland"]
+        "event": ["2023 Christmas Wonderland"]
     },
     {
         name: "Issac Mulya Putra",
         image: saphireAchievers11,
         "country": "Tangerang",
-        "event": ["2021 Christmas Wonderland"]
+        "event": ["2023 Christmas Wonderland"]
     },
     {
         name: "Gregorius Reinhardt",
@@ -221,7 +221,7 @@ const Achievers = () => {
         <div>
             <CoverImageHome background={achieverBackground}
                 logo={saphireAchieverText}
-                position={ContentPosition.MIDDLE}
+                position={ContentPosition.MIDDLE50}
                 content={
                     <>
                         <AnimatedComponent animationClass="animate__fadeIn">

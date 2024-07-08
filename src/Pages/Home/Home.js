@@ -39,7 +39,7 @@ const Home = (props) => {
     const { t, i18n } = useTranslation();
     const navigate = useNavigate();
     const handleDirectToWhatsApp = () => {
-        window.open("https://api.whatsapp.com/send/?phone=082213002686", '_blank');
+        window.open("https://api.whatsapp.com/send/?phone=6282213002686", '_blank');
     }
 
     const handleMovePage = (path) => {

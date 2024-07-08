@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { ListEvent, YearlyEvent } from "../../constant/YearlyEvent";
 import Galery from "./Galery";
 import homeScreen from "../../assets/images/homeScreenImage.jpg"
@@ -18,6 +18,8 @@ import { ClassicalFestivalJakartaImages } from "../../constant/ClassicalFestival
 import { ChristmasInWonderlandImages } from "../../constant/ChristmasWonderlandImages";
 import { MasterClassImages } from "../../constant/MasterClassImages";
 import { useAuth } from "../../context/DataContext";
+import { useSwipeable } from 'react-swipeable';
+
 
 const GaleryPage = () => {
     const { t, i18n } = useTranslation();
@@ -303,6 +305,23 @@ const GaleryPage = () => {
         setSelectedEvent(eventName)
     }
 
+    const scrollContainerRef = useRef(null);
+
+    const handlers = useSwipeable({
+        onSwipedLeft: () => {
+            if (scrollContainerRef.current) {
+                scrollContainerRef.current.scrollLeft += 100; // Adjust scroll amount as needed
+            }
+        },
+        onSwipedRight: () => {
+            if (scrollContainerRef.current) {
+                scrollContainerRef.current.scrollLeft -= 100; // Adjust scroll amount as needed
+            }
+        },
+        preventDefaultTouchmoveEvent: true,
+        trackMouse: true
+    });
+
     return (
         <div className="primaryBackgroundBlack" style={{ padding: "128px 0px 48px 0px" }}>
             <div className="container" style={{ marginBottom: 30 }}>
@@ -316,7 +335,12 @@ const GaleryPage = () => {
             </div>
             <div className="container">
                 <div className="row">
-                    <div className="scrollable-container" style={{ padding: 0 }}>
+                    <div
+                        className="scrollable-container"
+                        style={{ padding: 0 }}
+                        ref={scrollContainerRef}
+                        {...handlers}
+                    >
                         <div className="scrollable-content">
                             {ListEvent.map((eachEvent) => (
                                 <div className="col-auto" key={eachEvent.title} style={{ color: "white" }}>
@@ -372,7 +396,7 @@ const GaleryPage = () => {
                                     {galeryContent?.featuring?.map((eachFeature, index) => (
                                         <React.Fragment key={index}>
                                             {index > 0 && " • "}
-                                            <span className="feature-name">{eachFeature.name} {eachFeature.founder && (<span className="goldenTextColor"> (founder) </span>)}</span>{" "}
+                                            <span className="feature-name">{eachFeature.name} {eachFeature.founder && (<span> (founder) </span>)}</span>{" "}
                                             <span className="italicText">
                                                 {eachFeature.title && (`as the ${eachFeature.title}`)} ({eachFeature.role}) {eachFeature?.achivement && (` and winners of ${eachFeature?.achivement}`)}
                                             </span>

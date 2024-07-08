@@ -58,7 +58,7 @@ const Navbar = (props) => {
     }
 
     const handleOpenWhatsapp = () => {
-        window.open("https://api.whatsapp.com/send/?phone=082213002686", '_blank');
+        window.open("https://api.whatsapp.com/send/?phone=6282213002686", '_blank');
     }
 
     return (

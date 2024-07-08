@@ -75,6 +75,10 @@ const JuryCarousel = ({ interval = 5000, homePage = true }) => {
         return () => clearInterval(intervalId);
     }, [interval]);
 
+    useEffect(() => {
+        setCurrentIndex(0)
+    }, [])
+
     const goToPrevSlide = () => {
         setCurrentIndex((prevIndex) => (prevIndex === 0 ? images.length - 1 : prevIndex - 1));
     };

@@ -72,12 +72,13 @@ const MasonryLayout = (props) => {
                         <div
                             key={index}
                             className={`masonry-item ${hoveredIndex === index ? 'hovered' : ''}`}
+                            style={{ display: index === 33 ? "none" : "" }}
                         // onMouseEnter={() => setHoveredIndex(index)}
                         // onMouseLeave={() => setHoveredIndex(null)}
                         >
                             <AnimatedComponent animationClass="animate__fadeIn" triggerOnce={false} >
                                 <img src={item} alt={`galery-${index}`} className="masonry-img" />
-                                {/* <div style={{ color: "white" }}>{index}</div> */}
+                                {/* <div style={{ color: "white" }}>{index + 1}</div> */}
                             </AnimatedComponent>
                         </div>
                     )

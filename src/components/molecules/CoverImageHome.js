@@ -21,6 +21,8 @@ const CoverImageHome = (props) => {
         switch (position) {
             case ContentPosition.MIDDLE:
                 return "registerButtonContainer-center"
+            case ContentPosition.MIDDLE50:
+                return "registerButtonContainer-center50"
             case ContentPosition.MIDDLELEFT:
                 return "registerButtonContainer-centerLeft"
             case ContentPosition.MIDDLELEFT40:

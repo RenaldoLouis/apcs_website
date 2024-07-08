@@ -68,4 +68,5 @@ export const TurningPointImages = [
     turningPoint32,
     turningPoint33,
     turningPoint34,
+    turningPoint34,
 ];
