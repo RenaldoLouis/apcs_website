@@ -47,11 +47,11 @@ export const MasterClassImages = [
     masterClass17,
     masterClass18,
     masterClass19,
-    masterClass20,
     masterClass21,
+    masterClass20,//21
     masterClass22,
     masterClass23,
     masterClass24,
-    masterClass26,
     masterClass28,
+    masterClass26,
 ];

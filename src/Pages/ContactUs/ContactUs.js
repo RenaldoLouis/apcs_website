@@ -211,7 +211,7 @@ const ContactUs = () => {
                     >
                         {({ TransitionProps }) => (
                             <Zoom {...TransitionProps}>
-                                <img src={textPromptWa} alt="textPromptWa" />
+                                <img src={textPromptWa} alt="textPromptWa" style={{ width: 120, paddingBottom: 36 }} />
                             </Zoom>
                         )}
                     </Popper>
