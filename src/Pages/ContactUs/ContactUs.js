@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import podcastBacgkorund from "../../assets/images/podcastBacgkorund.png"
 import contactUsPageBackground from "../../assets/images/contactUsPageBackground.png"
+import textPromptWa from "../../assets/images/textPromptWa.png"
 import lineContactUs from "../../assets/images/lineContactUs.png"
 import musiciswhatapcs from "../../assets/images/musiciswhatapcs.svg"
 import { ContentPosition } from "../../constant/ContentPosition";
@@ -14,9 +15,7 @@ import AnimatedComponent from "../../components/atom/AnimatedComponent";
 import {
     WhatsAppOutlined
 } from '@ant-design/icons';
-
-import Fab from '@mui/material/Fab';
-import Zoom from '@mui/material/Zoom';
+import { Zoom, Fab, Paper, Popper } from '@mui/material';
 
 
 const fabStyle = {
@@ -76,6 +75,36 @@ const ContactUs = () => {
     const handleDirectToWhatsApp = () => {
         window.open("https://api.whatsapp.com/send/?phone=6282213002686", '_blank');
     }
+
+    const [showInitialPopper, setShowInitialPopper] = useState(false);
+    const fabRef = useRef(null);
+
+
+    const [anchorEl, setAnchorEl] = useState(null);
+
+    const handlePopperOpen = (event) => {
+        setAnchorEl(event.currentTarget);
+        setShowInitialPopper(false);
+    };
+
+    const handlePopperClose = () => {
+        setAnchorEl(null);
+    };
+
+    useEffect(() => {
+        setTimeout(() => {
+            setShowInitialPopper(true)
+            if (fabRef.current) {
+                setAnchorEl(fabRef.current);
+            }
+            const timer = setTimeout(() => {
+                setShowInitialPopper(false);
+                setAnchorEl(null);
+            }, 5000); // Hide after 5 seconds
+
+            return () => clearTimeout(timer);
+        }, 2000);
+    }, []);
 
     return (
         <div class="container-fluid mx-0 my-0 px-0 py-0" style={{ background: "black" }}>
@@ -162,14 +191,31 @@ const ContactUs = () => {
                 }}
                 unmountOnExit
             >
-                <Fab
-                    sx={fab.sx}
-                    aria-label={fab.label}
-                    color={fab.color}
-                    onClick={handleDirectToWhatsApp}
-                >
-                    {fab.icon}
-                </Fab>
+                <div>
+                    <Fab
+                        ref={fabRef}
+                        sx={fab.sx}
+                        aria-label={fab.label}
+                        color={fab.color}
+                        onClick={handleDirectToWhatsApp}
+                        onMouseEnter={handlePopperOpen}
+                        onMouseLeave={handlePopperClose}
+                    >
+                        {fab.icon}
+                    </Fab>
+                    <Popper
+                        open={showInitialPopper || Boolean(anchorEl)}
+                        anchorEl={anchorEl || fabRef.current}
+                        placement="left"
+                        transition
+                    >
+                        {({ TransitionProps }) => (
+                            <Zoom {...TransitionProps}>
+                                <img src={textPromptWa} alt="textPromptWa" />
+                            </Zoom>
+                        )}
+                    </Popper>
+                </div>
             </Zoom>
         </div >
     )

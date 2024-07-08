@@ -173,14 +173,14 @@ const Home = (props) => {
                 <div className="row text-align-center">
                     <div className="col">
                         {listOfSponsor.map((eachSponsor) => (
-                            <img src={eachSponsor} alt={"eachSponsor"} className=" me-5" style={{ width: "20vmin" }} />
+                            <img src={eachSponsor} alt={"eachSponsor"} className=" me-5" style={{ width: "15vmin" }} />
                         ))}
                     </div>
                 </div>
                 <div className="row text-align-center">
                     <div className="col">
                         {listOfSponsor2.map((eachSponsor, index) => (
-                            <img src={eachSponsor} alt={"eachSponsor"} className=" me-5" style={{ width: index === 2 ? "10vmin" : "20vmin" }} />
+                            <img src={eachSponsor} alt={"eachSponsor"} className=" me-5" style={{ width: index === 2 ? "8vmin" : "15vmin" }} />
                         ))}
                     </div>
                 </div>

@@ -39,27 +39,27 @@ export const AutumnInKoreaImages = [
     autummInKorea6,
     autummInKorea7,
     autummInKorea8,
-    autummInKorea9,
-    autummInKorea10,
+    autummInKorea9,  // moved to correct position
+    autummInKorea10, // moved to correct position
     autummInKorea11,
     autummInKorea12,
     autummInKorea13,
     autummInKorea14,
     autummInKorea15,
-    autummInKorea16,
-    autummInKorea18,
-    autummInKorea17,
-    autummInKorea19,
-    autummInKorea20,
-    autummInKorea21,
-    autummInKorea22,
+    autummInKorea16, // moved to correct position
+    autummInKorea17, // moved to correct position
+    autummInKorea18, // moved to correct position
+    autummInKorea19, // moved to correct position
+    autummInKorea20, // moved to correct position
+    autummInKorea21, // moved to correct position
+    autummInKorea22, // moved to correct position
     autummInKorea23,
     autummInKorea24,
     autummInKorea25,
-    autummInKorea26,
+    autummInKorea30,
     autummInKorea27,
     autummInKorea28,
     autummInKorea29,
-    autummInKorea30,
+    autummInKorea26,
     autummInKorea31,
 ];
