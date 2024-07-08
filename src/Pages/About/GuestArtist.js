@@ -75,7 +75,7 @@ const GuestArtist = () => {
             name: "Christine Utomo",
             image: artist9,
             country: [CountryConst.IDN, CountryConst.CHI],
-            title: "juries",
+            title: "Juries",
         },
         {
             name: "Park Keun Woo",

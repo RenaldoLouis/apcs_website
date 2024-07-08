@@ -51,8 +51,6 @@ const MasonryLayout = (props) => {
         700: 1
     };
 
-    console.log("name", name)
-
     let displayStyle = (index) => {
         switch (name) {
             case YearlyEvent.TURNINGPOINT:
@@ -65,6 +63,8 @@ const MasonryLayout = (props) => {
             case YearlyEvent.CLASSICALFESTIVALSBY:
                 return index === 30 ? "none" : ""
             case YearlyEvent.CHRISTMASWONDERLAND:
+                return index === 33 ? "none" : ""
+            case YearlyEvent.CLASSICALFESTIVALJKT:
                 return index === 33 ? "none" : ""
             default:
             // code block
@@ -99,7 +99,7 @@ const MasonryLayout = (props) => {
                         >
                             <AnimatedComponent animationClass="animate__fadeIn" triggerOnce={false} >
                                 <img src={item} alt={`galery-${index}`} className="masonry-img" />
-                                <div style={{ color: "white" }}>{index + 1}</div>
+                                {/* <div style={{ color: "white" }}>{index + 1}</div> */}
                             </AnimatedComponent>
                         </div>
                     )

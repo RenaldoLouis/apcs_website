@@ -40,9 +40,6 @@ const CoverVideo = (props) => {
         const video = videoRef.current;
         if (video.paused) {
             video.play();
-            console.log("Video is now playing");
-        } else {
-            console.log("Video is already playing");
         }
     };
 
@@ -51,9 +48,6 @@ const CoverVideo = (props) => {
         const video = videoRef.current;
         if (!video.paused) {
             video.pause();
-            console.log("Video is now paused");
-        } else {
-            console.log("Video is already paused");
         }
     };
 

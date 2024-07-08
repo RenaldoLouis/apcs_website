@@ -69,6 +69,19 @@
   align-items: center;
 }
 
+@media (max-width : 1025px) {
+  .registerButtonContainer-bottom {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 100%;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
 .registerButtonContainer-center {
   position: absolute;
   top: 35%;

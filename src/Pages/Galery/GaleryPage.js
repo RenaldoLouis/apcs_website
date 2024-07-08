@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useRef, useState } from "react";
 import { ListEvent, YearlyEvent } from "../../constant/YearlyEvent";
 import Galery from "./Galery";
 import homeScreen from "../../assets/images/homeScreenImage.jpg"
+import arrowMoreGalery from "../../assets/images/arrowMoreGalery.PNG"
 import HeaderTitle from "../../components/atom/HeaderTitle";
 import { FontSizeTitle } from "../../constant/FontSizeTitle";
 import { Spin } from 'antd';
@@ -24,6 +25,7 @@ import { useSwipeable } from 'react-swipeable';
 const GaleryPage = () => {
     const { t, i18n } = useTranslation();
     const { setSelectedEvent, selectedEvent } = useAuth()
+    const scrollContainerRef = useRef(null);
 
     // const [selectedEvent, setSelectedEvent] = useState(YearlyEvent.TURNINGPOINT);
     const [isLoading, setIsLoading] = useState(false)
@@ -64,7 +66,7 @@ const GaleryPage = () => {
         {
             name: YearlyEvent.AUTUMINKOREA,
             video: null,
-            title: "천고마비 - THE PANDEMIC ERA",
+            title: "천고마비 - FIND THE RHYTHM IN QUARANTINE",
             subTitle: "UNDER THE BATON OF CHIKITA AMANDA",
             featuring: [
                 {
@@ -82,7 +84,7 @@ const GaleryPage = () => {
                     role: "Guitarist"
                 },
                 {
-                    name: "Michelle Hendra / michimomo",
+                    name: "Michelle Hendra / Michimomo",
                     role: "Singer"
                 },
                 {
@@ -95,7 +97,7 @@ const GaleryPage = () => {
         {
             name: YearlyEvent.MAGICALMUSICSOUNDTRACT,
             video: null,
-            title: "The First National Orchestra Series for All Generations",
+            title: "THE FIRST NATIONAL ORCHESTRA SERIES FOR ALL GENERATIONS",
             subTitle: "UNDER THE BATON OF CHIKITA AMANDA",
             featuring: [
                 {
@@ -190,7 +192,7 @@ const GaleryPage = () => {
         {
             name: YearlyEvent.CHRISTMASWONDERLAND,
             video: null,
-            title: "APCS CHRISTMAS WONDERLAND",
+            title: "THE SECOND NATIONAL ORCHESTRA SERIES FOR ALL GENERATIONS",
             subTitle: "UNDER THE BATON OF CHIKITA AMANDA",
             featuring: [
                 {
@@ -223,26 +225,26 @@ const GaleryPage = () => {
             name: YearlyEvent.MASTERCLASS,
             video: null,
             title: "MASTERCLASS",
-            subTitle: "𝐘𝐨𝐠𝐲𝐚𝐤𝐚𝐫𝐭𝐚, 𝐒𝐮𝐫𝐚𝐛𝐚𝐲𝐚 & 𝐉𝐚𝐤𝐚𝐫𝐭𝐚",
+            subTitle: "Yogyakarta, Surabaya & Jakarta",
             featuring: [
                 {
-                    name: "𝐅𝐢𝐫𝐝𝐲 𝐒𝐚𝐥𝐢𝐦",
+                    name: "Firdy Salim",
                     role: "Guest Coach"
                 },
                 {
-                    name: "𝐌𝐢𝐜𝐡𝐞𝐥𝐥𝐞 𝐊𝐚𝐫𝐭𝐢𝐤𝐚 𝐁𝐚𝐡𝐚𝐫𝐢",
+                    name: "Michelle Kartika Bahari",
                     role: "Guest Coach"
                 },
                 {
-                    name: "𝐌𝐲𝐫𝐚 𝐊𝐚𝐫𝐥𝐢𝐧𝐚 𝐏𝐫𝐚𝐧𝐚𝐣𝐚𝐲𝐚",
+                    name: "Myra Karlina Pranajaya",
                     role: "Guest Coach"
                 },
                 {
-                    name: "𝐂𝐡𝐫𝐢𝐬𝐭𝐢𝐧𝐞 𝐔𝐭𝐨𝐦𝐨",
+                    name: "Christine Utomo",
                     role: "Guest Coach"
                 },
                 {
-                    name: "𝐈𝐬𝐰𝐚𝐫𝐠𝐢𝐚 𝐒𝐮𝐝𝐚𝐫𝐧𝐨",
+                    name: "Iswargia Sudarno",
                     role: "Guest Coach"
                 },
             ],
@@ -305,22 +307,25 @@ const GaleryPage = () => {
         setSelectedEvent(eventName)
     }
 
-    const scrollContainerRef = useRef(null);
+    const handleScrollEvents = (scrollAmount) => {
+        if (scrollContainerRef.current) {
+            scrollContainerRef.current.scrollBy({
+                left: scrollAmount,
+                behavior: 'smooth'
+            });
+        }
+    }
 
     const handlers = useSwipeable({
-        onSwipedLeft: () => {
-            if (scrollContainerRef.current) {
-                scrollContainerRef.current.scrollLeft += 100; // Adjust scroll amount as needed
-            }
-        },
-        onSwipedRight: () => {
-            if (scrollContainerRef.current) {
-                scrollContainerRef.current.scrollLeft -= 100; // Adjust scroll amount as needed
-            }
-        },
+        onSwipedLeft: () => handleScrollEvents(100),
+        onSwipedRight: () => handleScrollEvents(-100),
         preventDefaultTouchmoveEvent: true,
         trackMouse: true
     });
+
+    useEffect(() => {
+        console.log("scrollContainerRef in useEffect:", scrollContainerRef.current);
+    }, [scrollContainerRef]);
 
     return (
         <div className="primaryBackgroundBlack" style={{ padding: "128px 0px 48px 0px" }}>
@@ -336,7 +341,7 @@ const GaleryPage = () => {
             <div className="container">
                 <div className="row">
                     <div
-                        className="scrollable-container"
+                        className="scrollable-container col-11"
                         style={{ padding: 0 }}
                         ref={scrollContainerRef}
                         {...handlers}
@@ -361,6 +366,10 @@ const GaleryPage = () => {
                                 </div>
                             ))}
                         </div>
+                    </div>
+
+                    <div className="col-1 align-self-center cursorPointer" onClick={() => handleScrollEvents(100)}>
+                        <img src={arrowMoreGalery} alt="arrowMoreGalery" style={{ width: 32 }} />
                     </div>
                 </div>
             </div>
@@ -396,9 +405,9 @@ const GaleryPage = () => {
                                     {galeryContent?.featuring?.map((eachFeature, index) => (
                                         <React.Fragment key={index}>
                                             {index > 0 && " • "}
-                                            <span className="feature-name">{eachFeature.name} {eachFeature.founder && (<span> (founder) </span>)}</span>{" "}
+                                            <span className="feature-name">{eachFeature.name} {eachFeature.founder && (<span className="italicText"> (Founder) </span>)}</span>{" "}
                                             <span className="italicText">
-                                                {eachFeature.title && (`as the ${eachFeature.title}`)} ({eachFeature.role}) {eachFeature?.achivement && (` and winners of ${eachFeature?.achivement}`)}
+                                                {eachFeature.title && (`as the ${eachFeature.title}`)} ({eachFeature.role}) {eachFeature?.achivement && (` and Winners of ${eachFeature?.achivement}`)}
                                             </span>
                                         </React.Fragment>
                                     ))}
