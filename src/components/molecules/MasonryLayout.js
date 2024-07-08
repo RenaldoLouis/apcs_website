@@ -64,6 +64,8 @@ const MasonryLayout = (props) => {
                 return index === 33 ? "none" : ""
             case YearlyEvent.CLASSICALFESTIVALSBY:
                 return index === 30 ? "none" : ""
+            case YearlyEvent.CHRISTMASWONDERLAND:
+                return index === 33 ? "none" : ""
             default:
             // code block
         }

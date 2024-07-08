@@ -28,6 +28,10 @@ import christmasInWonderland27 from "../assets/images/galery/christmasInWonderla
 import christmasInWonderland28 from "../assets/images/galery/christmasInWonderland/christmasInWonderland28.jpg";
 import christmasInWonderland29 from "../assets/images/galery/christmasInWonderland/christmasInWonderland29.jpg";
 import christmasInWonderland30 from "../assets/images/galery/christmasInWonderland/christmasInWonderland30.jpg";
+import christmasInWonderland31 from "../assets/images/galery/christmasInWonderland/christmasInWonderland31.jpg";
+import christmasInWonderland32 from "../assets/images/galery/christmasInWonderland/christmasInWonderland32.jpg";
+import christmasInWonderland33 from "../assets/images/galery/christmasInWonderland/christmasInWonderland33.jpg";
+import christmasInWonderland34 from "../assets/images/galery/christmasInWonderland/christmasInWonderland34.jpg";
 
 export const ChristmasInWonderlandImages = [
     christmasInWonderland1,
@@ -59,5 +63,10 @@ export const ChristmasInWonderlandImages = [
     christmasInWonderland27,
     christmasInWonderland28,
     christmasInWonderland29,
-    christmasInWonderland30
+    christmasInWonderland30,
+    christmasInWonderland31,
+    christmasInWonderland32,
+    christmasInWonderland33,
+    christmasInWonderland34,
+    christmasInWonderland34,
 ];
