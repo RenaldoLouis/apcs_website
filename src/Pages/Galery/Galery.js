@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useRef, useState } from "react";
 import { collection, getDocs, limit, query, startAfter, orderBy } from "firebase/firestore";
 import { db } from '../../firebase';
 import MasonryLayout from "../../components/molecules/MasonryLayout";
+import ListOfGaleryRow from "../../components/molecules/ListOfGaleryRow";
 
 const Galery = (props) => {
     const { isDynamicType = false, images } = props
@@ -56,6 +57,7 @@ const Galery = (props) => {
     return (
         <section>
             <MasonryLayout images={images} />
+            {/* <ListOfGaleryRow images={images} /> */}
         </section>
     )
 }
