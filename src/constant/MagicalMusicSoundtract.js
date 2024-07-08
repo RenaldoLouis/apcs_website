@@ -28,17 +28,25 @@ import soundTrackMovies27 from "../assets/images/galery/soundTrackMovies/soundTr
 import soundTrackMovies28 from "../assets/images/galery/soundTrackMovies/soundTrackMovies28.jpg";
 import soundTrackMovies29 from "../assets/images/galery/soundTrackMovies/soundTrackMovies29.jpg";
 import soundTrackMovies30 from "../assets/images/galery/soundTrackMovies/soundTrackMovies30.jpg";
+import soundTrackMovies31 from "../assets/images/galery/soundTrackMovies/soundTrackMovies31.jpg";
+import soundTrackMovies32 from "../assets/images/galery/soundTrackMovies/soundTrackMovies32.jpg";
+import soundTrackMovies33 from "../assets/images/galery/soundTrackMovies/soundTrackMovies33.jpg";
+import soundTrackMovies34 from "../assets/images/galery/soundTrackMovies/soundTrackMovies34.jpg";
+import soundTrackMovies35 from "../assets/images/galery/soundTrackMovies/soundTrackMovies35.jpg";
 
 export const MagicalMusicSoundtractImages = [
     soundTrackMovies1,
     soundTrackMovies2,
     soundTrackMovies3,
-    soundTrackMovies4,
+
+    soundTrackMovies9,
+
     soundTrackMovies5,
     soundTrackMovies6,
     soundTrackMovies7,
     soundTrackMovies8,
-    soundTrackMovies9,
+
+    soundTrackMovies4,
     soundTrackMovies10,
     soundTrackMovies11,
     soundTrackMovies12,
@@ -59,5 +67,10 @@ export const MagicalMusicSoundtractImages = [
     soundTrackMovies27,
     soundTrackMovies28,
     soundTrackMovies29,
-    soundTrackMovies30
+    soundTrackMovies30,
+    soundTrackMovies31,
+    soundTrackMovies32,
+    soundTrackMovies33,
+    soundTrackMovies35,
+    soundTrackMovies34,
 ];

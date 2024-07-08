@@ -405,7 +405,7 @@ const GaleryPage = () => {
                                 </div>
                             </div>
                         </div>
-                        <Galery images={galeryContent.images} isDynamicType={true} />
+                        <Galery name={galeryContent.name} images={galeryContent.images} isDynamicType={true} />
                     </div>
                 </>
             )}

@@ -5,7 +5,7 @@ import MasonryLayout from "../../components/molecules/MasonryLayout";
 import ListOfGaleryRow from "../../components/molecules/ListOfGaleryRow";
 
 const Galery = (props) => {
-    const { isDynamicType = false, images } = props
+    const { isDynamicType = false, images, name } = props
 
     const [datas, setDatas] = useState([])
     const [isGetLatestImage, setIsGetLatestImage] = useState(false);
@@ -56,7 +56,7 @@ const Galery = (props) => {
 
     return (
         <section>
-            <MasonryLayout images={images} />
+            <MasonryLayout images={images} name={name} />
             {/* <ListOfGaleryRow images={images} /> */}
         </section>
     )

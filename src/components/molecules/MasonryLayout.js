@@ -6,9 +6,10 @@ import Masonry from 'react-masonry-css';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { Spin } from "antd";
 import AnimatedComponent from "../atom/AnimatedComponent";
+import { YearlyEvent } from "../../constant/YearlyEvent";
 
 const MasonryLayout = (props) => {
-    const { images } = props
+    const { images, name } = props
     const [items, setItems] = useState([]);
     const [hasMore, setHasMore] = useState(true);
     const [isGetLatestImage, setIsGetLatestImage] = useState(false);
@@ -50,6 +51,22 @@ const MasonryLayout = (props) => {
         700: 1
     };
 
+    console.log("name", name)
+
+    let displayStyle = (index) => {
+        switch (name) {
+            case YearlyEvent.TURNINGPOINT:
+                return index === 33 ? "none" : ""
+            case YearlyEvent.MAGICALMUSICSOUNDTRACT:
+                // return index === 33 ? "none" : ""
+                break
+            case YearlyEvent.AUTUMINKOREA:
+                return index === 33 ? "none" : ""
+            default:
+            // code block
+        }
+    }
+
     return (
         <div style={{ justifyContent: "center" }}>
             {/* <InfiniteScroll
@@ -72,7 +89,7 @@ const MasonryLayout = (props) => {
                         <div
                             key={index}
                             className={`masonry-item ${hoveredIndex === index ? 'hovered' : ''}`}
-                            style={{ display: index === 33 ? "none" : "" }}
+                            style={{ display: displayStyle(index) }}
                         // onMouseEnter={() => setHoveredIndex(index)}
                         // onMouseLeave={() => setHoveredIndex(null)}
                         >
