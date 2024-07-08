@@ -101,7 +101,7 @@ const sapphireWinners = [
         image: saphireAchievers12,
         "country": "Palembang",
         "YoutubeLink": "https://www.youtube.com/watch?v=TntCfGmzFSU&ab_channel=APIANOCONCERTOSERIES",
-        "event": ["2022 Disney and Soundtrack Movies", "2023 Classical Festival Jakarta"]
+        "event": ["2022 Magical Music Soundtrack", "2023 Classical Festival Jakarta"]
     },
     {
         name: "Issac Mulya Putra",
@@ -114,28 +114,28 @@ const sapphireWinners = [
         image: saphireAchievers13,
         "country": "Surabaya",
         "YoutubeLink": "https://www.youtube.com/watch?v=U4ewR5bJwKA&ab_channel=APIANOCONCERTOSERIES",
-        "event": ["2022 Disney and Soundtrack Movies"]
+        "event": ["2022 Magical Music Soundtrack"]
     },
     {
         name: "Jeffren Leliga",
         image: saphireAchievers14,
         "country": "Surabaya",
         "YoutubeLink": "https://www.youtube.com/watch?v=9PKinsw17Oc&ab_channel=APIANOCONCERTOSERIES",
-        "event": ["2022 Disney and Soundtrack Movies", "2023 Classical Festival Surabaya"]
+        "event": ["2022 Magical Music Soundtrack", "2023 Classical Festival Surabaya"]
     },
     {
         name: "Charice Elleanore K. B.",
         image: saphireAchievers15,
         "country": "Surabaya",
         "YoutubeLink": "https://www.youtube.com/watch?v=NewtKsNhs_4&ab_channel=APIANOCONCERTOSERIES",
-        "event": ["2022 Disney and Soundtrack Movies"]
+        "event": ["2022 Magical Music Soundtrack"]
     },
     {
         name: "Ann Shereen Yao",
         image: saphireAchievers16,
         "country": "Jakarta",
         "YoutubeLink": "https://www.youtube.com/watch?v=779gXnPTs-0&ab_channel=APIANOCONCERTOSERIES",
-        "event": ["2022 Disney and Soundtrack Movies", "2023 Classical Festival Jakarta", "2023 Christmas Wonderland"]
+        "event": ["2022 Magical Music Soundtrack", "2023 Classical Festival Jakarta", "2023 Christmas Wonderland"]
     },
     {
         name: "Cathleen Scarlett H.",
@@ -143,7 +143,7 @@ const sapphireWinners = [
         "country": "Jakarta",
         "YoutubeLink": "https://www.youtube.com/watch?v=D1ct_m0XJtY&ab_channel=APIANOCONCERTOSERIES",
         "event": [
-            "2022 Disney and Soundtrack Movies",
+            "2022 Magical Music Soundtrack",
             "2023 Classical Festival Jakarta",
             "2023 Christmas Wonderland"
         ]
@@ -154,7 +154,7 @@ const sapphireWinners = [
         "country": "Jakarta",
         "YoutubeLink": "https://www.youtube.com/watch?v=9iMrg1T1p_w&ab_channel=APIANOCONCERTOSERIES",
         "event": [
-            "2022 Disney and Soundtrack Movies",
+            "2022 Magical Music Soundtrack",
             "2023 Classical Festival Jakarta"
         ]
     },

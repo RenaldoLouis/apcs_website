@@ -28,6 +28,7 @@ const JuryCarousel = ({ interval = 5000, homePage = true }) => {
     const { t, i18n } = useTranslation();
     const theme = useTheme();
     const isTabletAndSmaller = useMediaQuery(theme.breakpoints.down('lg'));
+    const [isPaused, setIsPaused] = useState(false);
 
     const dataJury = [
         {
@@ -68,12 +69,15 @@ const JuryCarousel = ({ interval = 5000, homePage = true }) => {
     ]
 
     useEffect(() => {
-        const intervalId = setInterval(() => {
-            setCurrentIndex((prevIndex) => (prevIndex === images.length - 1 ? 0 : prevIndex + 1));
-        }, interval);
+        let intervalId;
+        if (!isPaused) {
+            intervalId = setInterval(() => {
+                setCurrentIndex((prevIndex) => (prevIndex === images.length - 1 ? 0 : prevIndex + 1));
+            }, interval);
+        }
 
         return () => clearInterval(intervalId);
-    }, [interval]);
+    }, [interval, isPaused]);
 
     useEffect(() => {
         setCurrentIndex(0)
@@ -91,9 +95,20 @@ const JuryCarousel = ({ interval = 5000, homePage = true }) => {
         logEvent(analytics, 'register_now');
     }
 
+    const handleMouseEnter = () => {
+        setIsPaused(true);
+    };
+
+    const handleMouseLeave = () => {
+        setIsPaused(false);
+    };
+
     return (
         <>
-            <div className='carouselContainer'>
+            <div className='carouselContainer'
+                onMouseDown={handleMouseEnter}
+                onMouseUp={handleMouseLeave}
+            >
                 {dataJury.map((eachData, index) => (
                     <img loading="lazy" style={{ '--currentIndex': currentIndex }} className="carousel-image" id={`slide-${index}`} src={eachData.image} alt={`photos-${index}`} />
                 ))}

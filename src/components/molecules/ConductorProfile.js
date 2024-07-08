@@ -23,7 +23,7 @@ const ConductorProfile = (props) => {
 
                 <div className="text-align-justify" style={{ marginTop: 30 }}>
                     {eventYear}<br />
-                    {eventName}
+                    <span className="italicText">   {eventName}</span>
                 </div>
             </AnimatedComponent>
         </div>

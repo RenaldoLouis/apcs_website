@@ -55,7 +55,7 @@ const NotableJurist = () => {
         {
             image: jurist4,
             name: "AMELIA SANTOSO",
-            title: "Jurist 2023",
+            title: "Jurist 2022",
             quote: "Ms. Amelia Santoso is an Indonesian pianist, graduated her Bachelor's degree from Codarts Hogeschool voor de Kunsten (formerly Rotterdam Conservatorium) majoring in classical piano performance (2009), Master's Degree with Nuffic Huygens scholarship full tuition (2011) and her second Master degree at Institut Supérieur de Musique et de Pédagogie in Namur, Belgium (2013). During her musical journey in Europe as soloist and chamber musician, She has performed in Belgium, Malta, Switzerland, South Korea, Japan, Vietnam, and the Netherlands",
             country: [CountryConst.IDN],
             link: "https://www.instagram.com/p/Cb4RXpGL4Gf/?igsh=MTIweG85aG83ejFqcw%3D%3D"
@@ -64,7 +64,7 @@ const NotableJurist = () => {
         //     image: jurist5,
         //     name: "NADYA JANITRA",
         //     title: "Jurist 2023",
-        //     quote: "Nadya Janitra has both her Bachelor (2011) and Master Degree (2013) from Den Haag Royal Conservatoire, under the guidance of Ellen Corver. Before pursuing her studies in the Netherlands, Nadya debuted her first piano solo recital at 16 years old in Erasmus Huis Jakarta. Known for her musical talent, Nadya had always got the highest mark on each examination she did for 11 consecutive years in Yayasan Pendidikan Musik (YPM). She then graduated with “YPM Artist Award” in 2004 under the guidance of Aisha Adriana Pletscher. After graduating from the Netherlands, she performed many solo recitals in various cities and countries, such as Jakarta, Ball, Surabaya, Yogyakarta, Makassar, Medan, Macau and Den Haag.",
+        //     quote: "Nadya Janitra has both her Bachelor (2011) and Master Degree (2013) from Den Haag Royal Conservatoire, under the guidance of Ellen Corver. Before pursuing her studies in the Netherlands, Nadya debuted her first piano solo recital at 16 years old in Erasmus Huis Jakarta. Known for her musical talent, Nadya had always got the highest mark on each examination she did for 11 consecutive years in Yayasan Pendidikan Musik (YPM). She then graduated with “YPM Artist Award” in 2004 under the guidance of Aisha Adriana Pletscher. After graduating from the Netherlands, she performed many solo recitals in various cities and countries, such as Jakarta, Bali, Surabaya, Yogyakarta, Makassar, Medan, Macau and Den Haag.",
         //     country: [CountryConst.IDN],
         //     link: "https://www.instagram.com/p/CvEvFaOSOPl/?igsh=MW41bzh6cmp4NDl0&img_index=2"
         // },
@@ -106,7 +106,7 @@ const NotableJurist = () => {
         <div style={{ background: "black", paddingTop: 70 }} >
             <div className="container" >
                 <HeaderTitle>
-                    <HeaderAbout title={"JURIST"} />
+                    <HeaderAbout title={"JURISTS"} />
                 </HeaderTitle>
                 <div className="text-align-center align-items-center row row-cols-1 row-cols-md-2" style={{ paddingTop: 10, paddingBottom: 120, margin: 0 }}>
                     <div className="col" style={{ color: "white" }}>
@@ -123,7 +123,11 @@ const NotableJurist = () => {
                                 Head of Jurist
                             </div>
 
-                            <div className="text-align-justify mangolaineFont" style={{ fontSize: 40, marginTop: 60, width: "80%" }}>
+                            <div className="text-align-justify" style={{ fontSize: 20, marginTop: 30 }}>
+                                Firdy Salim is an alumnus of the Koninklijk Conservatorium at Den Haag and the Head of Piano at one of the Conservatories of Music in Indonesia, where he teaches piano performance and piano pedagogy. His extensive pedagogical endeavors include fostering growth in both students and fellow educators within the music education community.
+                            </div>
+
+                            <div className="text-align-justify mangolaineFont italicText goldenTextColor" style={{ fontSize: 24, marginTop: 20, width: "100%" }}>
                                 "Join us at the music festival to showcase your talent, connect with others, and make lasting memories."
                             </div>
                         </AnimatedComponent>
@@ -175,7 +179,7 @@ const NotableJurist = () => {
                                             <img loading="lazy" src={eachData.image} alt={eachData.name} className="jurist-image" />
                                         </AnimatedComponent>
                                     </div>
-                                    <div className="mangolaineFont text-align-center" style={{ fontSize: isMobileAndSmaller ? "7vmin" : isLaptopAndSmaller ? "5vmin" : "4vmin", marginBottom: 20 }}>
+                                    <div className="mangolaineFont text-align-center" style={{ fontSize: isMobileAndSmaller ? "7vmin" : isLaptopAndSmaller ? "5vmin" : "3.5vmin", marginBottom: 20 }}>
                                         {eachData.name}
                                     </div>
                                     <div style={{ marginBottom: 20 }}>

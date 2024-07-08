@@ -31,17 +31,24 @@ const images = [
 ]
 
 const Carousel = ({ interval = 5000, homePage = true }) => {
-    const [currentIndex, setCurrentIndex] = useState(0);
     const navigate = useNavigate();
     const { setSelectedEvent, selectedEvent } = useAuth()
 
+    const [currentIndex, setCurrentIndex] = useState(0);
+    const [isPaused, setIsPaused] = useState(false);
+
     useEffect(() => {
-        const intervalId = setInterval(() => {
-            setCurrentIndex((prevIndex) => (prevIndex === images.length - 1 ? 0 : prevIndex + 1));
-        }, interval);
+        let intervalId;
+        if (!isPaused) {
+            intervalId = setInterval(() => {
+                setCurrentIndex((prevIndex) => (prevIndex === images.length - 1 ? 0 : prevIndex + 1));
+            }, interval);
+        }
 
         return () => clearInterval(intervalId);
-    }, [interval]);
+    }, [interval, isPaused, images.length]);
+
+
 
     const goToPrevSlide = () => {
         setCurrentIndex((prevIndex) => (prevIndex === 0 ? images.length - 1 : prevIndex - 1));
@@ -73,9 +80,23 @@ const Carousel = ({ interval = 5000, homePage = true }) => {
         trackMouse: true
     });
 
+    const handleMouseDown = () => {
+        setIsPaused(true);
+    };
+
+    const handleMouseUp = () => {
+        setIsPaused(false);
+    };
+
     return (
         <>
-            <div className='carouselContainer' {...swipeHandlers}>
+            <div className='carouselContainer'
+                onMouseDown={handleMouseDown}
+                onMouseUp={handleMouseUp}
+                onMouseLeave={handleMouseUp}
+                {...swipeHandlers}
+
+            >
                 {images.map((eachImage, index) => (
                     <img loading="lazy" style={{ '--currentIndex': currentIndex }} className="carousel-image" id={`slide-${index}`} src={eachImage} alt={`photos-${index}`} />
                 ))}
@@ -90,27 +111,17 @@ const Carousel = ({ interval = 5000, homePage = true }) => {
                 <div className='titleCoverContainer-Banner'>
                     <div style={{ '--currentIndex': currentIndex }} className='titleCoverContainerText'>
                         <div>
-                            <Button variant="outlined" sx={{ zIndex: 10 }} onClick={() => handleMovePage(PathName.gallery, YearlyEvent.CHRISTMASWONDERLAND)}>Watch Now</Button>
-                        </div>
-                    </div>
-                    <div style={{ '--currentIndex': currentIndex }} className='titleCoverContainerText'>
-                        <div>
-                            <Button variant="outlined" sx={{ zIndex: 10 }} onClick={handleDirectToWhatsApp}>More Info</Button>
-                        </div>
-                    </div>
-                    <div style={{ '--currentIndex': currentIndex }} className='titleCoverContainerText'>
-                        <div>
-                            <Button variant="outlined" sx={{ zIndex: 10 }} onClick={handleDirectToWhatsApp}>More Info</Button>
-                        </div>
-                    </div>
-                    <div style={{ '--currentIndex': currentIndex }} className='titleCoverContainerText'>
-                        <div>
-                            <Button variant="outlined" sx={{ zIndex: 10 }} onClick={() => handleMovePage(PathName.gallery, YearlyEvent.MAGICALMUSICSOUNDTRACT)}>Watch Now</Button>
+                            <Button variant="outlined" sx={{ zIndex: 10 }} onClick={() => handleMovePage(PathName.contactUs)}>More Info</Button>
                         </div>
                     </div>
                     <div style={{ '--currentIndex': currentIndex }} className='titleCoverContainerText'>
                         <div>
                             <Button variant="outlined" sx={{ zIndex: 10 }} disabled>Coming Soon</Button>
+                        </div>
+                    </div>
+                    <div style={{ '--currentIndex': currentIndex }} className='titleCoverContainerText'>
+                        <div>
+                            <Button variant="outlined" sx={{ zIndex: 10 }} onClick={() => handleMovePage(PathName.gallery, YearlyEvent.CHRISTMASWONDERLAND)}>Watch Now</Button>
                         </div>
                     </div>
                     <div style={{ '--currentIndex': currentIndex }} className='titleCoverContainerText'>
@@ -121,6 +132,16 @@ const Carousel = ({ interval = 5000, homePage = true }) => {
                     <div style={{ '--currentIndex': currentIndex }} className='titleCoverContainerText'>
                         <div>
                             <Button variant="outlined" sx={{ zIndex: 10 }} onClick={() => handleMovePage(PathName.gallery, YearlyEvent.CLASSICALFESTIVALSBY)}>Watch Now</Button>
+                        </div>
+                    </div>
+                    <div style={{ '--currentIndex': currentIndex }} className='titleCoverContainerText'>
+                        <div>
+                            <Button variant="outlined" sx={{ zIndex: 10 }} onClick={() => handleMovePage(PathName.gallery, YearlyEvent.MAGICALMUSICSOUNDTRACT)}>Watch Now</Button>
+                        </div>
+                    </div>
+                    <div style={{ '--currentIndex': currentIndex }} className='titleCoverContainerText'>
+                        <div>
+                            <Button variant="outlined" sx={{ zIndex: 10 }} onClick={() => handleMovePage(PathName.gallery, YearlyEvent.MASTERCLASS)}>Watch Now</Button>
                         </div>
                     </div>
                 </div>

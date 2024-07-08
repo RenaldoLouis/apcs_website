@@ -121,6 +121,9 @@ const Footer = () => {
                             {Object.keys(PathName).map((eachPath) => {
                                 let path = PathName[eachPath]
                                 let navbarName = PathName[eachPath].substring(1);
+                                if (navbarName === "contactUs") {
+                                    navbarName = "CONTACT US"
+                                }
                                 return (
                                     <div
                                         style={{ fontSize: 16 }}
@@ -142,7 +145,7 @@ const Footer = () => {
                             <div className="headerFooter mt-5" >
                                 Info Registration
                             </div>
-                            <div>
+                            <div onClick={handleOpenWhatsapp} className="cursorPointer">
                                 (+62) 822-1300-2686
                             </div>
                             {/* <a href="https://api.whatsapp.com/send/?phone=6281944163410">
