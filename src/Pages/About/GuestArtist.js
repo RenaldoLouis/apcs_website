@@ -19,6 +19,7 @@ import artist16 from "../../assets/images/guestArtist/artist16.png"
 import GuestArtistCard from "../../components/molecules/GuestArtisCard";
 import { CountryConst } from "../../constant/CountryConst";
 import HeaderAbout from "../../components/atom/HeaderAbout";
+import indFlag from "../../assets/images/indFlag.jpg"
 
 const GuestArtist = () => {
 
@@ -42,14 +43,14 @@ const GuestArtist = () => {
             title: "Accordion",
         },
         {
-            name: "Filda Salim",
-            image: artist4,
+            name: "Michaela Sutejo",
+            image: artist8,
             country: [CountryConst.IDN],
             title: "Pianist",
         },
         {
-            name: "Michaela Sutejo",
-            image: artist8,
+            name: "Filda Salim",
+            image: artist4,
             country: [CountryConst.IDN],
             title: "Pianist",
         },
@@ -60,16 +61,16 @@ const GuestArtist = () => {
             title: "Pianist",
         },
         {
-            name: "Amelia Tionanda",
-            image: artist11,
-            country: [CountryConst.IDN],
-            title: "Violin",
-        },
-        {
             name: "Firdy Salim",
             image: artist7,
             country: [CountryConst.IDN],
             title: "Juries",
+        },
+        {
+            name: "Amelia Tionanda",
+            image: artist11,
+            country: [CountryConst.IDN],
+            title: "Violin",
         },
         {
             name: "Christine Utomo",
@@ -78,16 +79,16 @@ const GuestArtist = () => {
             title: "Juries",
         },
         {
+            name: "Michelle Kartika Bahari",
+            image: artist15,
+            country: [CountryConst.IDN],
+            title: "Juries",
+        },
+        {
             name: "Park Keun Woo",
             image: artist14,
             country: [CountryConst.KR],
             title: "Singer",
-        },
-        {
-            name: "Nathania Jualim",
-            image: artist6,
-            country: [CountryConst.IDN],
-            title: "Guitarist",
         },
         {
             name: "Michelle Hendra",
@@ -108,10 +109,10 @@ const GuestArtist = () => {
             title: "Juries",
         },
         {
-            name: "Michelle Kartika Bahari",
-            image: artist15,
+            name: "Nathania Jualim",
+            image: artist6,
             country: [CountryConst.IDN],
-            title: "Juries",
+            title: "Guitarist",
         },
     ]
 
@@ -137,8 +138,10 @@ const GuestArtist = () => {
                                 <div className="col-12 col-md-2" style={{ padding: 50 }} />
                                 <div className="col-12 col-md-8">
                                     <img src={artist16} alt="artist16" style={{ width: "100%" }} />
-                                    <div className="d-flex justify-content-center mangolaineFont" style={{ fontSize: 40, marginTop: 30 }}>
+                                    <div className="d-flex justify-content-center" style={{ fontSize: 40, marginTop: 30 }}>
                                         CMC Choir
+                                        {/* <img src={indFlag} alt={"indFlag"} style={{}} /> */}
+
                                     </div>
                                 </div>
                                 <div className="col-12 col-md-2" style={{ padding: 50 }} />

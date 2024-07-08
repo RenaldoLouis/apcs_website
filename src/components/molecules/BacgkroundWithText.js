@@ -29,12 +29,12 @@ const BackgroundWithText = (props) => {
                 </div>
                 <div className="container">
                     <div className={`row ${centerText ? "justify-content-md-center" : "justify-content-md-start"} text-align-center`}>
-                        <div className="col col-lg-9" style={{ fontSize: "2vmin" }}>
+                        <div className="col col-lg-10" style={{ fontSize: "2vmin" }}>
                             {text}
                         </div>
                     </div>
                 </div>
-                <div style={{ display: buttonText === "" ? "none" : "", marginTop: 30 }}>
+                <div style={{ display: buttonText === "" ? "none" : "", marginTop: 5 }}>
                     <PillButton text={buttonText} onClick={buttonOnclick} />
                 </div>
             </div>

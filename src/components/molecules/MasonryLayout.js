@@ -71,6 +71,47 @@ const MasonryLayout = (props) => {
         }
     }
 
+    let marginBottomGalery = (index) => {
+        switch (name) {
+            case YearlyEvent.AUTUMINKOREA:
+                if (index === 27) {
+                    return 20
+                }
+                else if (index === 24) {
+                    return 20
+                }
+                else if (index === 21) {
+                    return 20
+                }
+                break;
+            case YearlyEvent.MAGICALMUSICSOUNDTRACT:
+                if (index === 27) {
+                    return 40
+                }
+                else if (index === 24) {
+                    return 40
+                }
+                else if (index === 21) {
+                    return 40
+                }
+                else if (index === 18) {
+                    return 40
+                }
+                else if (index === 31) {
+                    return 35
+                }
+                else if (index === 28) {
+                    return 35
+                }
+                else if (index === 19) {
+                    return 35
+                }
+                break;
+            default:
+            // code block
+        }
+    }
+
     return (
         <div style={{ justifyContent: "center" }}>
             {/* <InfiniteScroll
@@ -98,7 +139,7 @@ const MasonryLayout = (props) => {
                         // onMouseLeave={() => setHoveredIndex(null)}
                         >
                             <AnimatedComponent animationClass="animate__fadeIn" triggerOnce={false} >
-                                <img src={item} alt={`galery-${index}`} className="masonry-img" />
+                                <img src={item} alt={`galery-${index}`} className="masonry-img" style={{ paddingBottom: marginBottomGalery(index) }} />
                                 {/* <div style={{ color: "white" }}>{index + 1}</div> */}
                             </AnimatedComponent>
                         </div>

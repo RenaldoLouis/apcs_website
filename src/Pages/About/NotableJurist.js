@@ -69,20 +69,20 @@ const NotableJurist = () => {
         //     link: "https://www.instagram.com/p/CvEvFaOSOPl/?igsh=MW41bzh6cmp4NDl0&img_index=2"
         // },
         {
-            image: jurist6,
-            name: "CARLA SUHARTO",
-            title: "Jurist 2023",
-            quote: "As a solo pianist, chamber musician, and edu-cator. Carla Suharto combines the best of technicality and showmanship. On the piano, she possesses the emotional range and passionate force required to communicate the universality of music for the modern audience.Indonesian by birth. Carla received a full scholarship to study under Iswargia Sudarno at Pelita Harapan University. After graduating summa cum laude in 2014, she continued her studies at Folkwang Universität der Künste in Germany. Under the guidance of Professor Thomas Günther and Yannick Rafalimanana.",
-            country: [CountryConst.IDN],
-            link: "https://www.instagram.com/p/C4pZ41uvxCp/?igsh=MW1pd2tuYWpsN29haw%3D%3D&img_index=3"
-        },
-        {
             image: jurist7,
             name: "MARTIN KESUMA",
             title: "Jurist 2023",
             quote: "Dr. Martin Kesuma is an award-winning pianist praised for his heartfelt flexibility and harmonic sensitivity (Fanfare Magazine) and clearly articulated playing of the highest order (The Art Music Lounge). He has extensively performed as a solo pianist and chamber musician throughout Asia, Europe and North America. He has been recognized with major prizes in competitions including the San Jose International Piano Competition, Vancouver International Music Competition, PianoHouse International Piano Competition, Betty Dickinson Piano Competition, New York International Music Concours, Canadian International Music Competition, ASEAN International Concerto Competition, Petroff College Level Piano Com-petition, and Texas State International Piano Festival Concerto Competition.",
             country: [CountryConst.IDN, CountryConst.AMR],
             link: "https://www.instagram.com/p/C4pZ41uvxCp/?igsh=MW1pd2tuYWpsN29haw%3D%3D&img_index=5"
+        },
+        {
+            image: jurist6,
+            name: "CARLA SUHARTO",
+            title: "Jurist 2023",
+            quote: "As a solo pianist, chamber musician, and edu-cator. Carla Suharto combines the best of technicality and showmanship. On the piano, she possesses the emotional range and passionate force required to communicate the universality of music for the modern audience.Indonesian by birth. Carla received a full scholarship to study under Iswargia Sudarno at Pelita Harapan University. After graduating summa cum laude in 2014, she continued her studies at Folkwang Universität der Künste in Germany. Under the guidance of Professor Thomas Günther and Yannick Rafalimanana.",
+            country: [CountryConst.IDN],
+            link: "https://www.instagram.com/p/C4pZ41uvxCp/?igsh=MW1pd2tuYWpsN29haw%3D%3D&img_index=3"
         },
         {
             image: jurist8,

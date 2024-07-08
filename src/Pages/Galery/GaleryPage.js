@@ -356,10 +356,14 @@ const GaleryPage = () => {
                 </div>
             </div>
             <div className="container">
-                <div className="row">
+                <div className="row justify-content-center">
+                    <div className="col-1 align-self-center cursorPointer" onClick={() => handleScrollEvents(-100)} style={{ width: "5%" }}>
+                        <img src={arrowMoreGalery} alt="arrowMoreGalery" style={{ width: 32, rotate: "180deg" }} />
+                    </div>
+
                     <div
                         {...handlers}
-                        className="scrollable-container col-11"
+                        className="scrollable-container col-10"
                         style={{ padding: 0 }}
                         ref={scrollContainerRef}
                     >
@@ -386,7 +390,7 @@ const GaleryPage = () => {
                         </div>
                     </div>
 
-                    <div className="col-1 align-self-center cursorPointer" onClick={() => handleScrollEvents(100)}>
+                    <div className="col-1 align-self-center cursorPointer" onClick={() => handleScrollEvents(100)} style={{ width: "5%" }}>
                         <img src={arrowMoreGalery} alt="arrowMoreGalery" style={{ width: 32 }} />
                     </div>
                 </div>

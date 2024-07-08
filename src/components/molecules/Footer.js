@@ -47,6 +47,10 @@ const Footer = () => {
         window.open("https://api.whatsapp.com/send/?phone=6282213002686", '_blank');
     }
 
+    const handleDirectToWhatsApp = () => {
+        window.open("https://api.whatsapp.com/send/?phone=6281944163410", '_blank');
+    }
+
     return (
         <footer className="footer">
             <div className="container-fluid">
@@ -132,11 +136,24 @@ const Footer = () => {
                                 Contact
                             </div>
                             <div>
-                                apcs@gmail.com
+                                hello@apcsmusic.com
+                            </div>
+
+                            <div className="headerFooter mt-5" >
+                                Info Registration
                             </div>
                             <div>
-                                (+62) 821-1234-1234
+                                (+62) 822-1300-2686
                             </div>
+                            {/* <a href="https://api.whatsapp.com/send/?phone=6281944163410">
+                                (+62) 819-4416-3410
+                            </a> */}
+                            {/* <div onClick={handleDirectToWhatsApp} className="cursorPointer">
+                                Partnership
+                            </div> */}
+                            {/* <div >
+                                
+                            </div> */}
                             {/* <div> */}
                             {/* <div className="headerFooter mt-3">
                                 Location

@@ -144,8 +144,8 @@ const About = () => {
             <BackgroundWithText
                 image={contactUsPicture}
                 text={
-                    <div className="mangolaineFont goldenTextColor" style={{ fontSize: "5vmin", marginBottom: 16, whiteSpace: "break-spaces" }}>
-                        BE A PART OF OUR MUSICAL JOURNEY !
+                    <div className="mangolaineFont goldenTextColor" style={{ fontSize: "5vmin", marginBottom: 16, whiteSpace: "break-spaces", letterSpacing: 3 }}>
+                        BE A PART OF OUR MUSICAL JOURNEY!
                     </div>
                 }
                 buttonText={"CONTACT US"}

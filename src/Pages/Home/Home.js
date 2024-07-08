@@ -28,10 +28,10 @@ import sponsor8 from "../../assets/images/sponsors/sponsor8.png";
 import sponsor9 from "../../assets/images/sponsors/sponsor9.png";
 
 const listOfSponsor = [
-    sponsor1, sponsor2, sponsor3, sponsor4
+    sponsor1, sponsor6, sponsor8, sponsor4
 ]
 const listOfSponsor2 = [
-    sponsor5, sponsor6, sponsor7, sponsor8, sponsor9
+    sponsor5, sponsor2, sponsor7, sponsor9, sponsor3
 ]
 
 const Home = (props) => {
@@ -172,8 +172,8 @@ const Home = (props) => {
             <div className="container" style={{ background: "black" }}>
                 <div className="row text-align-center">
                     <div className="col">
-                        {listOfSponsor.map((eachSponsor) => (
-                            <img src={eachSponsor} alt={"eachSponsor"} className=" me-5" style={{ width: "15vmin" }} />
+                        {listOfSponsor.map((eachSponsor, index) => (
+                            <img src={eachSponsor} alt={"eachSponsor"} className=" me-5" style={{ width: index === 1 ? "18vmin" : index === 3 ? "13vmin" : "15vmin" }} />
                         ))}
                     </div>
                 </div>

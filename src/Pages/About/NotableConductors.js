@@ -43,13 +43,13 @@ const NotableConductors = () => {
                                 title={"CHIKITA AMANDA"}
                                 desc={"Chikita Amanda is a talented Indonesian composer, arranger, and conductor known for her orchestral scores reminiscent of Hollywood and Disney. She has collaborated with prominent musicians such as Topati, Ariel Noah, and Miriam Eka. Her talents have also been recognized internationally through contributions to the music scoring team of the UK's SKY TV series “Gangs of London”"}
                                 eventYear={'APCS 2020, 2022, 2023'}
-                                eventName={""} />
+                                eventName={"Autumn In Korea, Magical Music Soundtrack, Christmas Wonderland"} />
                         </div>
                     </div>
 
                     <div>
                         <HeaderTitle>
-                            <HeaderAbout title={"ADVISOR"} />
+                            <HeaderAbout title={"ACADEMIC ADVISOR"} />
                         </HeaderTitle>
                     </div>
 
