@@ -7,7 +7,8 @@ import {
     CloseOutlined,
     YoutubeOutlined,
     InstagramOutlined,
-    TikTokOutlined
+    TikTokOutlined,
+    WhatsAppOutlined
 } from '@ant-design/icons';
 import { useTranslation } from "react-i18next";
 import { useTheme } from '@mui/material/styles';
@@ -56,11 +57,16 @@ const Navbar = (props) => {
         window.open("https://www.instagram.com/apcs.music/?img_index=6", '_blank');
     }
 
+    const handleOpenWhatsapp = () => {
+        window.open("https://api.whatsapp.com/send/?phone=082213002686", '_blank');
+    }
+
     return (
         <nav>
             <div className="container-fluid mt-3" style={{ position: "absolute", color: "white", zIndex: 999 }}>
                 <div className="row d-flex justify-content-between">
                     <div className="col-2 d-flex d-none d-lg-flex justify-content-end">
+                        <WhatsAppOutlined style={{ fontSize: 30, marginRight: 18 }} onClick={handleOpenWhatsapp} />
                         <YoutubeOutlined className="cursorPointer" style={{ fontSize: 32 }} onClick={handleOpenYoutube} />
                         <InstagramOutlined className="cursorPointer" style={{ marginLeft: 18, marginRight: 18, fontSize: 32 }} onClick={handleOpenInstagram} />
                         {/* <TikTokOutlined style={{ fontSize: 32 }} /> */}
@@ -92,7 +98,7 @@ const Navbar = (props) => {
                         <div className="logoContainerMobile" style={{ zIndex: 999 }}>
                             <MenuOutlined onClick={handleOpenMenuMobile} />
                         </div>
-                        <img className="d-none d-lg-blockcursorPointer" src={indFlag} alt="indFlag" style={{ width: 24, marginRight: 8 }} onClick={() => changeLanguageHandler("id")} />
+                        <img className="d-none d-lg-block cursorPointer" src={indFlag} alt="indFlag" style={{ width: 24, marginRight: 8 }} onClick={() => changeLanguageHandler("id")} />
                         <span onClick={() => changeLanguageHandler("id")}
                             className={`d-none d-lg-block cursorPointer ${currentLanguage === "id" ? "textColorSelected" : ""}`}>ID</span>
                         <span className="d-none d-lg-block separator"></span>

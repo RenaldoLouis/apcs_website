@@ -56,8 +56,8 @@ const NotableConductors = () => {
                     <div className="text-align-center align-items-center row row-cols-1 row-cols-md-2" style={{ paddingTop: 10 }}>
                         <ConductorProfile
                             title={"NADYA JANITRA"}
-                            titleUser="Presiden Director"
-                            desc={"Acara ini adalah sangat baik untuk seluruh musisi muda karena tidak hanya memberikan wadah bagi merka untuk sharing musik mereka, tapi juga membuat mereka termotivasi untuk menjadi lebih baik terutama dengan adanya Gala concert, memacu seluruh peserta memainkan permainan mereka yang terbaik."}
+                            titleUser="Academic Advisor"
+                            desc={"Nadya Janitra is a distinguished pianist who completed both her Bachelor’s (2011) and Master’s (2013) degrees at the Royal Conservatoire in Den Haag under Ellen Corver's guidance.  After graduating from the Netherlands, she performed many solo recitals in various cities and countries, such as Jakarta, Ball, Surabaya, Yogyakarta, Makassar, Medan, Macau and Den Haag."}
                             eventYear={''}
                             eventName={""} />
                         <div className="col" style={{ color: "white" }}>
