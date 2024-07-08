@@ -225,14 +225,10 @@ const GaleryPage = () => {
             name: YearlyEvent.MASTERCLASS,
             video: null,
             title: "MASTERCLASS",
-            subTitle: "Yogyakarta, Surabaya & Jakarta",
+            subTitle: "Surabaya & Jakarta",
             featuring: [
                 {
                     name: "Firdy Salim",
-                    role: "Guest Coach"
-                },
-                {
-                    name: "Michelle Kartika Bahari",
                     role: "Guest Coach"
                 },
                 {

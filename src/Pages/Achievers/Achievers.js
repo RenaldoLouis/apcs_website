@@ -42,23 +42,17 @@ const sapphireWinners = [
         "event": ["2023 Christmas Wonderland", "2023 Classical Festival Surabaya", "2023 Classical Festival Jakarta"]
     },
     {
-        name: "Ashton Micah Poh",
-        image: saphireAchievers2,
-        "country": "Tangerang",
-        "YoutubeLink": "https://www.youtube.com/watch?v=UH8J4olztEo&ab_channel=APIANOCONCERTOSERIES",
-        "event": ["2023 Classical Festival Jakarta", "2023 Christmas Wonderland"]
-    },
-    {
         name: "Darius Tairisya",
         image: saphireAchievers3,
         "country": "Tangerang",
         "event": ["2023 Christmas Wonderland"]
     },
     {
-        name: "Chindy Anastasya",
-        image: saphireAchievers4,
+        name: "Ashton Micah Poh",
+        image: saphireAchievers2,
         "country": "Tangerang",
-        "event": ["2023 Christmas Wonderland"]
+        "YoutubeLink": "https://www.youtube.com/watch?v=UH8J4olztEo&ab_channel=APIANOCONCERTOSERIES",
+        "event": ["2023 Classical Festival Jakarta", "2023 Christmas Wonderland"]
     },
     {
         name: "Katherine Natalie M.",
@@ -67,20 +61,26 @@ const sapphireWinners = [
         "event": ["2023 Christmas Wonderland", "2023 Classical Festival Jakarta"]
     },
     {
+        name: "Chindy Anastasya",
+        image: saphireAchievers4,
+        "country": "Tangerang",
+        "event": ["2023 Christmas Wonderland"]
+    },
+    {
         name: "Fairlyn Dharmawan",
         image: saphireAchievers6,
         "country": "Tangerang",
         "event": ["2023 Christmas Wonderland"]
     },
     {
-        name: "Nadya Adeline H.",
-        image: saphireAchievers7,
+        name: "Mikhayla Sofilia W.",
+        image: saphireAchievers8,
         "country": "Tangerang",
         "event": ["2023 Christmas Wonderland"]
     },
     {
-        name: "Mikhayla Sofilia W.",
-        image: saphireAchievers8,
+        name: "Nadya Adeline H.",
+        image: saphireAchievers7,
         "country": "Tangerang",
         "event": ["2023 Christmas Wonderland"]
     },
@@ -97,17 +97,17 @@ const sapphireWinners = [
         "event": ["2023 Christmas Wonderland"]
     },
     {
-        name: "Issac Mulya Putra",
-        image: saphireAchievers11,
-        "country": "Tangerang",
-        "event": ["2023 Christmas Wonderland"]
-    },
-    {
         name: "Gregorius Reinhardt",
         image: saphireAchievers12,
         "country": "Palembang",
         "YoutubeLink": "https://www.youtube.com/watch?v=TntCfGmzFSU&ab_channel=APIANOCONCERTOSERIES",
         "event": ["2022 Disney and Soundtrack Movies", "2023 Classical Festival Jakarta"]
+    },
+    {
+        name: "Issac Mulya Putra",
+        image: saphireAchievers11,
+        "country": "Tangerang",
+        "event": ["2023 Christmas Wonderland"]
     },
     {
         name: "Jaden William Tang",

@@ -144,6 +144,12 @@ const GuestArtist = () => {
 
                                     </div>
                                 </div>
+                                <div className="col-12 col-md-12" style={{ marginTop: 0 }}>
+                                    <div className="d-flex justify-content-center" style={{ fontSize: 40 }}>
+                                        <img src={indFlag} alt={"indFlag"} style={{}} />
+
+                                    </div>
+                                </div>
                                 <div className="col-12 col-md-2" style={{ padding: 50 }} />
                             </div>
                         </div>
