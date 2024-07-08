@@ -28,6 +28,7 @@ import autummInKorea27 from "../assets/images/galery/autummInKorea/autummInKorea
 import autummInKorea28 from "../assets/images/galery/autummInKorea/autummInKorea28.jpg";
 import autummInKorea29 from "../assets/images/galery/autummInKorea/autummInKorea29.jpg";
 import autummInKorea30 from "../assets/images/galery/autummInKorea/autummInKorea30.jpg";
+import autummInKorea31 from "../assets/images/galery/autummInKorea/autummInKorea31.jpg";
 
 export const AutumnInKoreaImages = [
     autummInKorea1,
@@ -59,5 +60,6 @@ export const AutumnInKoreaImages = [
     autummInKorea27,
     autummInKorea28,
     autummInKorea29,
-    autummInKorea30
+    autummInKorea30,
+    autummInKorea31,
 ];
