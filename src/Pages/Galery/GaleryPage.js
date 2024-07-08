@@ -309,10 +309,11 @@ const GaleryPage = () => {
 
     const handleScrollEvents = (scrollAmount) => {
         if (scrollContainerRef.current) {
-            scrollContainerRef.current.scrollBy({
-                left: scrollAmount,
-                behavior: 'smooth'
-            });
+            // scrollContainerRef.current.scrollBy({
+            //     left: scrollAmount,
+            //     behavior: 'smooth'
+            // });
+            scrollContainerRef.current.scrollLeft += scrollAmount;
         }
     }
 
@@ -341,12 +342,13 @@ const GaleryPage = () => {
             <div className="container">
                 <div className="row">
                     <div
+                        {...handlers}
                         className="scrollable-container col-11"
                         style={{ padding: 0 }}
                         ref={scrollContainerRef}
-                        {...handlers}
                     >
-                        <div className="scrollable-content">
+                        <div
+                            className="scrollable-content">
                             {ListEvent.map((eachEvent) => (
                                 <div className="col-auto" key={eachEvent.title} style={{ color: "white" }}>
                                     <div
@@ -380,7 +382,7 @@ const GaleryPage = () => {
             ) : (
                 <>
                     {galeryContent?.video && (
-                        <div class="container" style={{ marginTop: 64, marginBottom: 100 }}>
+                        <div class="container" style={{ marginTop: 64 }}>
                             <div class="row">
                                 <div class="col">
                                     <CoverVideo video={galeryContent.video} />
@@ -388,9 +390,11 @@ const GaleryPage = () => {
                             </div>
                         </div>
                     )}
-                    <HeaderTitle>
-                        {galeryContent.title}
-                    </HeaderTitle>
+                    <div style={{ marginTop: 100 }}>
+                        <HeaderTitle>
+                            {galeryContent.title}
+                        </HeaderTitle>
+                    </div>
                     <HeaderTitle fontSize={FontSizeTitle.small}>
                         <span className="">{galeryContent.subTitle}</span>
                     </HeaderTitle>

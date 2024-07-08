@@ -52,7 +52,7 @@ const GoldSection = () => {
             <div class="container">
                 <div class="row">
                     <div class="col text-align-center textColor" style={{ marginBottom: 50 }}>
-                        PLEACE CLICK BUTTONS BELOW TO VIEW MORE
+                        Discover more of our award-winning achievers below:
                     </div>
                 </div>
             </div>
@@ -86,6 +86,7 @@ const GoldSection = () => {
                     <div class="col">
                         <FormControl fullWidth>
                             <InputLabel
+                                className="mosafinFont"
                                 id="demo-simple-select-label"
                                 sx={{
                                     color: 'white',
@@ -97,6 +98,7 @@ const GoldSection = () => {
                                 Magical Music Soundtract
                             </InputLabel>
                             <Select
+                                className="mosafinFont"
                                 labelId="demo-simple-select-label"
                                 id="demo-simple-select"
                                 value={christmastGold}
