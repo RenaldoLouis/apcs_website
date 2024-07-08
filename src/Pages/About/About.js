@@ -135,6 +135,7 @@ const About = () => {
                 text={<>We curate our performers through auditions where every participant will be evaluated by notable juries, and contestants who achieve Sapphire Awards are entitled to perform with the APCS orchestra.</>}
                 buttonText={"View More"}
                 contentPosition={windowDimensions.width <= 768 ? ContentPosition.MIDDLE : ContentPosition.MIDDLEBOTTOM}
+                buttonOnclick={() => handleMovePage(PathName.achievers)}
             />
 
             <NotableConductors />

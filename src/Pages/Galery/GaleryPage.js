@@ -307,15 +307,35 @@ const GaleryPage = () => {
         setSelectedEvent(eventName)
     }
 
+    const smoothScroll = (element, targetPosition, duration) => {
+        const startPosition = element.scrollLeft;
+        const distance = targetPosition - startPosition;
+        let startTime = null;
+
+        function animation(currentTime) {
+            if (startTime === null) startTime = currentTime;
+            const timeElapsed = currentTime - startTime;
+            const run = ease(timeElapsed, startPosition, distance, duration);
+            element.scrollLeft = run;
+            if (timeElapsed < duration) requestAnimationFrame(animation);
+        }
+
+        function ease(t, b, c, d) {
+            t /= d / 2;
+            if (t < 1) return c / 2 * t * t + b;
+            t--;
+            return -c / 2 * (t * (t - 2) - 1) + b;
+        }
+
+        requestAnimationFrame(animation);
+    }
+
     const handleScrollEvents = (scrollAmount) => {
         if (scrollContainerRef.current) {
-            // scrollContainerRef.current.scrollBy({
-            //     left: scrollAmount,
-            //     behavior: 'smooth'
-            // });
-            scrollContainerRef.current.scrollLeft += scrollAmount;
+            const targetPosition = scrollContainerRef.current.scrollLeft + scrollAmount;
+            smoothScroll(scrollContainerRef.current, targetPosition, 300);
         }
-    }
+    };
 
     const handlers = useSwipeable({
         onSwipedLeft: () => handleScrollEvents(100),
@@ -323,10 +343,6 @@ const GaleryPage = () => {
         preventDefaultTouchmoveEvent: true,
         trackMouse: true
     });
-
-    useEffect(() => {
-        console.log("scrollContainerRef in useEffect:", scrollContainerRef.current);
-    }, [scrollContainerRef]);
 
     return (
         <div className="primaryBackgroundBlack" style={{ padding: "128px 0px 48px 0px" }}>

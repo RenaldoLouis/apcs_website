@@ -65,7 +65,7 @@ const GoldSection = () => {
                                 borderRadius: 5,
                                 height: 56
                             }}
-                            variant="outlined"> <span className="mosafinFont" onClick={() => handleClickWinner("https://www.instagram.com/p/Cz1BiUrv_2P/?igsh=MWczODQwMGZ5Zm4ybA%3D%3D&img_index=4")}> Christmast Wonderland</span></Button>
+                            variant="outlined"> <span className="mosafinFont" onClick={() => handleClickWinner("https://www.instagram.com/p/Cz1BiUrv_2P/?igsh=MWczODQwMGZ5Zm4ybA%3D%3D&img_index=4")}> Christmas Wonderland</span></Button>
                     </div>
                     <div class="col">
                         <Button
@@ -95,14 +95,14 @@ const GoldSection = () => {
                                     },
                                 }}
                             >
-                                Magical Music Soundtract
+                                Magical Music Soundtrack
                             </InputLabel>
                             <Select
                                 className="mosafinFont"
                                 labelId="demo-simple-select-label"
                                 id="demo-simple-select"
                                 value={christmastGold}
-                                label="Magical Music Soundtract"
+                                label="Magical Music Soundtrack"
                                 onChange={handleChange}
                                 sx={{
                                     color: 'white',
