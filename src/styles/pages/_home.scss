@@ -112,16 +112,52 @@
 }
 
 .scrollable-container {
+  position: relative;
   width: 100%;
   overflow-x: auto;
+  scrollbar-width: none;
+  /* Firefox */
+  -ms-overflow-style: none;
+  /* Internet Explorer 10+ */
+}
+
+.scrollable-container::-webkit-scrollbar {
+  display: none;
+  /* Chrome, Safari, newer versions of Edge */
 }
 
 .scrollable-content {
   display: flex;
   flex-wrap: nowrap;
   white-space: nowrap;
-  padding-bottom: 5px;
-  /* Add padding to show the underline */
+  padding: 0 20px;
+  /* Add some padding to prevent content from being under the fade */
+}
+
+/* Left fade */
+.scrollable-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 30px;
+  background: linear-gradient(to right, rgba(0, 0, 0, 0.15), transparent);
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* Right fade */
+.scrollable-container::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 100%;
+  width: 30px;
+  background: linear-gradient(to left, rgba(0, 0, 0, 0.15), transparent);
+  z-index: 1;
+  pointer-events: none;
 }
 
 .col-auto {

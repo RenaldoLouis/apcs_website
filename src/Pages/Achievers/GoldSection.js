@@ -27,7 +27,7 @@ const GoldSection = () => {
     }
 
     return (
-        <div>
+        <div style={{ paddingBottom: 50 }}>
             <div className="container" style={{ marginBottom: 50 }}>
                 <div className="row justify-center">
                     <div className="col-md-auto ">
