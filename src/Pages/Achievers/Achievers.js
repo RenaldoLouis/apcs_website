@@ -33,178 +33,174 @@ import { dataDiamond } from "../../constant/datas/DiamondAchieverData";
 import CoverImageHome from "../../components/molecules/CoverImageHome";
 import { ContentPosition } from "../../constant/ContentPosition";
 import AnimatedComponent from "../../components/atom/AnimatedComponent";
+import { ListOfCity } from "../../constant/ListOfCity";
+import { ListOfEventAchiever } from "../../constant/ListOfEventAchiever";
 
 const sapphireWinners = [
     {
         name: "Ann Sheren Yao",
-        image: saphireAchievers25,
-        "country": "Jakarta",
-        "YoutubeLink": "https://www.youtube.com/watch?v=gItdcXGQqSM&ab_channel=APIANOCONCERTOSERIES",
-        "event": ["2025 Upcoming APCS Festival"]
+        image: saphireAchievers1,
+        country: ListOfCity.JKT,
+        YoutubeLink: "https://www.youtube.com/watch?v=gItdcXGQqSM&ab_channel=APIANOCONCERTOSERIES",
+        event: [ListOfEventAchiever["2025UPCOMING"]]
     },
     {
-        name: "Clarissa Stefanny",
-        image: saphireAchievers24,
-        country: "Pontianak",
-        "YoutubeLink": "https://www.youtube.com/watch?v=XR8yYVUsBzo&ab_channel=APIANOCONCERTOSERIES",
-        "event": ["2025 Upcoming APCS Festival"]
+        name: "Clarissa stefanny",
+        image: saphireAchievers2,
+        country: ListOfCity.PNT,
+        YoutubeLink: "https://www.youtube.com/watch?v=UH8J4olztEo&ab_channel=APIANOCONCERTOSERIES",
+        event: [ListOfEventAchiever["2025UPCOMING"]]
     },
     {
         name: "Cathleen Scarlett H.",
-        image: saphireAchievers17,
-        "country": "Jakarta",
-        "YoutubeLink": "https://www.youtube.com/watch?v=D1ct_m0XJtY&ab_channel=APIANOCONCERTOSERIES",
-        "event": ["2025 Upcoming APCS Festival"]
+        image: saphireAchievers3,
+        country: ListOfCity.JKT,
+        event: [ListOfEventAchiever["2025UPCOMING"]]
     },
     {
         name: "Edward Nathaniel H.",
-        image: saphireAchievers20,
-        "YoutubeLink": "https://www.youtube.com/watch?v=twdiVI7WYNA&ab_channel=APIANOCONCERTOSERIES",
-        "event": [
-            "2023 Classical Festival Surabaya",
-            "2023 Christmas Wonderland"
-        ]
-    },
-    {
-        name: "Sydney Mikaela Tan",
-        image: saphireAchievers1,
-        "country": "Tangerang",
-        "YoutubeLink": "https://www.youtube.com/watch?v=gItdcXGQqSM&ab_channel=APIANOCONCERTOSERIES",
-        "event": ["2022 Magical Music Soundtrack"]
-    },
-    {
-        name: "Darius Tairisya",
-        image: saphireAchievers3,
-        "country": "Tangerang",
-        "event": ["2022 Magical Music Soundtrack"]
-    },
-    {
-        name: "Ashton Micah Poh",
-        image: saphireAchievers2,
-        "country": "Tangerang",
-        "YoutubeLink": "https://www.youtube.com/watch?v=UH8J4olztEo&ab_channel=APIANOCONCERTOSERIES",
-        "event": ["2022 Magical Music Soundtrack"]
-    },
-    {
-        name: "Chindy Anastasya",
         image: saphireAchievers4,
-        "country": "Tangerang",
-        "event": ["2023 Christmas Wonderland"]
+        country: ListOfCity.SRB,
+        event: [ListOfEventAchiever["2025UPCOMING"]]
     },
     {
-        name: "Katherine Natalie M.",
+        name: "Jaden William Tang",
         image: saphireAchievers5,
-        "country": "Bogor",
-        "event": ["2022 Magical Music Soundtrack"]
+        country: ListOfCity.SRB,
+        event: [ListOfEventAchiever["2023CHRISTMAS"]]
     },
     {
-        name: "Fairlyn Dharmawan",
+        name: "Keena Kwok",
         image: saphireAchievers6,
-        "country": "Tangerang",
-        "event": ["2022 Magical Music Soundtrack"]
+        country: ListOfCity.JKT,
+        event: [ListOfEventAchiever["2025UPCOMING"]]
     },
     {
-        name: "Nadya Adeline H.",
+        name: "jeffren Leliga",
         image: saphireAchievers7,
-        "country": "Tangerang",
-        "event": ["2022 Magical Music Soundtrack"]
-    },
-    {
-        name: "Mikhayla Sofilia W.",
-        image: saphireAchievers8,
-        "country": "Tangerang",
-        "event": ["2022 Magical Music Soundtrack"]
-    },
-    {
-        name: "Liselle Fendbee S.",
-        image: saphireAchievers9,
-        "country": "Batam",
-        "event": ["2022 Magical Music Soundtrack"]
-    },
-    {
-        name: "Pakpahan Aminan Shantlerine A.R",
-        image: saphireAchievers10,
-        "country": "Bekasi",
-        "event": ["2022 Magical Music Soundtrack"]
-    },
-    {
-        name: "Gregorius Reinhardt",
-        image: saphireAchievers12,
-        "country": "Palembang",
-        "YoutubeLink": "https://www.youtube.com/watch?v=TntCfGmzFSU&ab_channel=APIANOCONCERTOSERIES",
-        "event": ["2022 Magical Music Soundtrack"]
-    },
-    {
-        name: "Issac Mulya Putra",
-        image: saphireAchievers11,
-        "country": "Tangerang",
-        "event": ["2023 Christmas Wonderland"]
-    },
-    {
-        name: "Jeffren Leliga",
-        image: saphireAchievers14,
-        "country": "Surabaya",
-        "YoutubeLink": "https://www.youtube.com/watch?v=9PKinsw17Oc&ab_channel=APIANOCONCERTOSERIES",
-        "event": ["2023 Christmas Wonderland", "2022 Classical Festival Surabaya"]
+        country: ListOfCity.SRB,
+        event: [ListOfEventAchiever["2023CHRISTMAS"], ListOfEventAchiever["2022CLASSICSRBY"]]
     },
     {
         name: "Charice Elleanore K. B.",
-        image: saphireAchievers15,
-        "country": "Surabaya",
-        "YoutubeLink": "https://www.youtube.com/watch?v=NewtKsNhs_4&ab_channel=APIANOCONCERTOSERIES",
-        "event": ["2023 Christmas Wonderland"]
-    },
-    {
-        name: "Ann Shereen Yao & Adrianne Shanelle Yao",
-        image: saphireAchievers16,
-        "country": "Jakarta",
-        "YoutubeLink": "https://www.youtube.com/watch?v=779gXnPTs-0&ab_channel=APIANOCONCERTOSERIES",
-        "event": ["2022 Magical Music Soundtrack", "2023 Classical Festival Jakarta", "2023 Christmas Wonderland"]
+        image: saphireAchievers8,
+        country: ListOfCity.SRB,
+        event: [ListOfEventAchiever["2023CHRISTMAS"]]
     },
     {
         name: "Alf Elijah Beloved S.",
+        image: saphireAchievers9,
+        country: ListOfCity.JKT,
+        event: [ListOfEventAchiever["2023CHRISTMAS"], ListOfEventAchiever["2022CLASSICJKT"]]
+    },
+    {
+        name: "Sydney Mikaela Tan",
+        image: saphireAchievers10,
+        country: ListOfCity.TNG,
+        event: [ListOfEventAchiever["2022MAGICMUSIC"]]
+    },
+    {
+        name: "Gregoris Reinhardt",
+        image: saphireAchievers11,
+        country: ListOfCity.PLB,
+        event: [ListOfEventAchiever["2023CHRISTMAS"]]
+    },
+    {
+        name: "Ashton Micah Poh",
+        image: saphireAchievers12,
+        country: ListOfCity.TNG,
+        YoutubeLink: "https://www.youtube.com/watch?v=TntCfGmzFSU&ab_channel=APIANOCONCERTOSERIES",
+        event: [ListOfEventAchiever["2022MAGICMUSIC"]]
+    },
+    {
+        name: "Darius Tairisya",
+        image: saphireAchievers13,
+        country: ListOfCity.TNG,
+        YoutubeLink: "https://www.youtube.com/watch?v=TntCfGmzFSU&ab_channel=APIANOCONCERTOSERIES",
+        event: [ListOfEventAchiever["2022MAGICMUSIC"]]
+    },
+    {
+        name: "Katherine Natalie M.",
+        image: saphireAchievers14,
+        country: ListOfCity.BGR,
+        event: [ListOfEventAchiever["2022MAGICMUSIC"]]
+    },
+    {
+        name: "Fairlyn Dharmawan",
+        image: saphireAchievers15,
+        country: ListOfCity.TNG,
+        YoutubeLink: "https://www.youtube.com/watch?v=TntCfGmzFSU&ab_channel=APIANOCONCERTOSERIES",
+        event: [ListOfEventAchiever["2022MAGICMUSIC"]]
+    },
+    {
+        name: "Mikhayla Sofilia W.",
+        image: saphireAchievers16,
+        country: ListOfCity.TNG,
+        YoutubeLink: "https://www.youtube.com/watch?v=779gXnPTs-0&ab_channel=APIANOCONCERTOSERIES",
+        event: [ListOfEventAchiever["2022MAGICMUSIC"]]
+    },
+    {
+        name: "Chindy Anastasya",
+        image: saphireAchievers17,
+        country: ListOfCity.TNG,
+        YoutubeLink: "https://www.youtube.com/watch?v=D1ct_m0XJtY&ab_channel=APIANOCONCERTOSERIES",
+        event: [ListOfEventAchiever["2022MAGICMUSIC"]]
+    },
+    {
+        name: "Liselle Fendbee S.",
         image: saphireAchievers18,
-        "country": "Jakarta",
-        "YoutubeLink": "https://www.youtube.com/watch?v=9iMrg1T1p_w&ab_channel=APIANOCONCERTOSERIES",
-        "event": [
-            "2022 Magical Music Soundtrack",
-            "2023 Classical Festival Jakarta"
-        ]
+        country: ListOfCity.BTM,
+        YoutubeLink: "https://www.youtube.com/watch?v=9iMrg1T1p_w&ab_channel=APIANOCONCERTOSERIES",
+        event: [ListOfEventAchiever["2022MAGICMUSIC"]]
     },
     {
-        name: "Keenan Kwok",
+        name: "Issac Mulya Putra",
         image: saphireAchievers19,
-        "country": "Jakarta",
-        "YoutubeLink": "https://www.youtube.com/watch?v=MRbkf3Jlm9I&ab_channel=APIANOCONCERTOSERIES",
-        "event": [
-            "2023 Classical Festival Surabaya",
-            "2023 Christmas Wonderland"
-        ]
+        country: ListOfCity.TNG,
+        YoutubeLink: "https://www.youtube.com/watch?v=MRbkf3Jlm9I&ab_channel=APIANOCONCERTOSERIES",
+        event: [ListOfEventAchiever["2022MAGICMUSIC"]]
     },
     {
-        name: "Michael Phillipe A.",
+        name: "Pakpahan Aminan Shantlerine A.R",
+        image: saphireAchievers20,
+        country: ListOfCity.BKS,
+        YoutubeLink: "https://www.youtube.com/watch?v=twdiVI7WYNA&ab_channel=APIANOCONCERTOSERIES",
+        event: [ListOfEventAchiever["2022MAGICMUSIC"]]
+    },
+    {
+        name: "Nadya Adeline H.",
         image: saphireAchievers21,
-        "country": "Surabaya",
-        "YoutubeLink": "https://www.youtube.com/watch?v=9Xgu6PLNNg0&ab_channel=APIANOCONCERTOSERIES",
-        "event": [
-            "2023 Classical Festival Surabaya"
-        ]
+        country: ListOfCity.TNG,
+        YoutubeLink: "https://www.youtube.com/watch?v=9Xgu6PLNNg0&ab_channel=APIANOCONCERTOSERIES",
+        event: [ListOfEventAchiever["2022MAGICMUSIC"]]
     },
     {
         name: "Cheryl Pandora",
         image: saphireAchievers22,
-        "country": "Medan",
-        "YoutubeLink": "https://www.youtube.com/watch?v=XFvWVT0Wroc&ab_channel=APIANOCONCERTOSERIES",
-        "event": [
-            "2023 Classical Festival Surabaya"
-        ]
+        country: ListOfCity.MD,
+        YoutubeLink: "https://www.youtube.com/watch?v=XFvWVT0Wroc&ab_channel=APIANOCONCERTOSERIES",
+        event: [ListOfEventAchiever["2022CLASSICSRBY"]]
     },
     {
-        name: "Joshua Kevin H.",
+        name: "Ann Shereen Yao &Adrianne Shanelle Yao",
         image: saphireAchievers23,
-        "country": "Surabaya",
-        "YoutubeLink": "https://www.youtube.com/watch?v=JDU_q_ZjfW0&ab_channel=APIANOCONCERTOSERIES",
-        "event": ["Classical Festival Surabaya"]
+        country: ListOfCity.JKT,
+        YoutubeLink: "https://www.youtube.com/watch?v=JDU_q_ZjfW0&ab_channel=APIANOCONCERTOSERIES",
+        event: [ListOfEventAchiever["2022CLASSICJKT"]]
+    },
+    {
+        name: "Joshua Kevin H. ",
+        image: saphireAchievers24,
+        country: ListOfCity.SRB,
+        YoutubeLink: "https://www.youtube.com/watch?v=XR8yYVUsBzo&ab_channel=APIANOCONCERTOSERIES",
+        event: [ListOfEventAchiever["2022CLASSICSRBY"]]
+    },
+    {
+        name: "Michael Phillipe A.",
+        image: saphireAchievers25,
+        country: ListOfCity.SRB,
+        YoutubeLink: "https://www.youtube.com/watch?v=gItdcXGQqSM&ab_channel=APIANOCONCERTOSERIES",
+        event: [ListOfEventAchiever["2022CLASSICSRBY"]]
     },
 ];
 
