@@ -67,6 +67,9 @@ const Footer = () => {
                                 {Object.keys(PathName).map((eachPath) => {
                                     let path = PathName[eachPath]
                                     let navbarName = PathName[eachPath].substring(1);
+                                    if (navbarName === "contactUs") {
+                                        navbarName = "CONTACT US"
+                                    }
                                     return (
                                         <div
                                             style={{ fontSize: 16 }}
@@ -85,7 +88,7 @@ const Footer = () => {
                                     apcs@gmail.com
                                 </div>
                                 <div>
-                                    (+62) 821-1234-1234
+                                    (+62) 822-1300-2686
                                 </div>
                             </div>
                             <div class="p-2 text-align-start mb-5">

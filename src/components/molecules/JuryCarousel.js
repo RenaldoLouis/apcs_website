@@ -35,7 +35,7 @@ const JuryCarousel = ({ interval = 5000, homePage = true }) => {
             firstQuote: t("theseAreNotJustYoung"),
             secondQuote: t("withSuchStrong"),
             name: "- Firdy Salim -",
-            title: "Jury & Conductor",
+            title: "APCS CLASSICAL FESTIVAL 2023 Jurist",
             image: jury1noText
         },
         {

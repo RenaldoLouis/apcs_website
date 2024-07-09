@@ -86,6 +86,20 @@ const MasonryLayout = (props) => {
                     return 20
                 }
                 break;
+            case YearlyEvent.CHRISTMASWONDERLAND:
+                if (index === 27) {
+                    return 40
+                }
+                else if (index === 24) {
+                    return 40
+                }
+                else if (index === 21) {
+                    return 50
+                }
+                else if (index === 18) {
+                    return 50
+                }
+                break;
             case YearlyEvent.MASTERCLASS:
                 if (index === 3) {
                     return 20

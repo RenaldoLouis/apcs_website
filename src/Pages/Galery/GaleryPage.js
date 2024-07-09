@@ -46,7 +46,7 @@ const GaleryPage = () => {
                 },
                 {
                     name: "Wishnu Dewanta",
-                    role: "conductor"
+                    role: "Conductor"
                 },
                 {
                     name: "Vahur Luhtsalu",
@@ -102,9 +102,9 @@ const GaleryPage = () => {
             featuring: [
                 {
                     name: "Michaela Sutejo",
-                    title: "guest artist",
+                    // title: "guest artist",
                     role: "Pianist",
-                    founder: true
+                    // founder: true
                 },
                 {
                     name: "Filda Salim",
@@ -153,7 +153,7 @@ const GaleryPage = () => {
                 {
                     name: "Michelle Kartika Bahari",
                     role: "Pianist",
-                    title: "guest artist",
+                    // title: "guest artist",
                     achivement: " APCS Classical Festival 2023"
                 },
             ],
@@ -182,7 +182,7 @@ const GaleryPage = () => {
                 {
                     name: "Iswargia Sudarno",
                     role: "Pianist",
-                    title: "guest artist",
+                    // title: "guest artist",
                     achivement: " APCS Classical Festival 2023"
 
                 },
@@ -197,21 +197,21 @@ const GaleryPage = () => {
             featuring: [
                 {
                     name: "Michaela Sutejo",
-                    title: "guest artist",
+                    // title: "guest artist",
                     role: "Pianist",
-                    founder: true
+                    // founder: true
                 },
-                {
-                    name: "Stephanie Jingga",
-                    role: "Pianist"
-                },
+                // {
+                //     name: "Stephanie Jingga",
+                //     role: "Pianist"
+                // },
                 {
                     name: "Ify Alyssa",
                     role: "Pianist"
                 },
                 {
                     name: "Stephanie Jingga",
-                    role: "Singer-Pianist"
+                    role: "Pianist"
                 },
                 {
                     name: "Chikita Amanda",
