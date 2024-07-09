@@ -1,3 +1,4 @@
+import masterClass1 from "../assets/images/galery/masterClass/masterClass1.jpg";
 import masterClass2 from "../assets/images/galery/masterClass/masterClass2.jpg";
 import masterClass3 from "../assets/images/galery/masterClass/masterClass3.jpg";
 import masterClass4 from "../assets/images/galery/masterClass/masterClass4.jpg";
@@ -19,20 +20,13 @@ import masterClass19 from "../assets/images/galery/masterClass/masterClass19.jpg
 import masterClass20 from "../assets/images/galery/masterClass/masterClass20.jpg";
 import masterClass21 from "../assets/images/galery/masterClass/masterClass21.jpg";
 import masterClass22 from "../assets/images/galery/masterClass/masterClass22.jpg";
-import masterClass23 from "../assets/images/galery/masterClass/masterClass23.jpg";
-import masterClass24 from "../assets/images/galery/masterClass/masterClass24.jpg";
-import masterClass25 from "../assets/images/galery/masterClass/masterClass25.jpg";
-import masterClass26 from "../assets/images/galery/masterClass/masterClass26.jpg";
-import masterClass27 from "../assets/images/galery/masterClass/masterClass27.jpg";
-import masterClass28 from "../assets/images/galery/masterClass/masterClass28.jpg";
 
 export const MasterClassImages = [
-    masterClass25,
+    masterClass1,
     masterClass2,
     masterClass3,
     masterClass4,
     masterClass5,
-    masterClass27,
     masterClass6,
     masterClass7,
     masterClass8,
@@ -47,11 +41,8 @@ export const MasterClassImages = [
     masterClass17,
     masterClass18,
     masterClass19,
+    masterClass20,
     masterClass21,
-    masterClass20,//21
     masterClass22,
-    masterClass23,
-    masterClass24,
-    masterClass28,
-    masterClass26,
+    masterClass22,
 ];

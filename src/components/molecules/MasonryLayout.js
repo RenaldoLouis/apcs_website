@@ -66,6 +66,8 @@ const MasonryLayout = (props) => {
                 return index === 33 ? "none" : ""
             case YearlyEvent.CLASSICALFESTIVALJKT:
                 return index === 33 ? "none" : ""
+            case YearlyEvent.MASTERCLASS:
+                return index === 21 ? "none" : ""
             default:
             // code block
         }
@@ -81,6 +83,20 @@ const MasonryLayout = (props) => {
                     return 20
                 }
                 else if (index === 21) {
+                    return 20
+                }
+                break;
+            case YearlyEvent.MASTERCLASS:
+                if (index === 3) {
+                    return 20
+                }
+                if (index === 6) {
+                    return 30
+                }
+                else if (index === 4) {
+                    return 20
+                }
+                else if (index === 7) {
                     return 20
                 }
                 break;
