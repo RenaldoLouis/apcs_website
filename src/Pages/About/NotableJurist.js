@@ -10,6 +10,7 @@ import jurist6 from "../../assets/images/jurists/jurist6.png"
 import jurist7 from "../../assets/images/jurists/jurist7.png"
 import jurist8 from "../../assets/images/jurists/jurist8.png"
 import jurist9 from "../../assets/images/jurists/jurist9.png"
+import jurist10 from "../../assets/images/jurists/jurist10.png"
 import ConductorProfile from "../../components/molecules/ConductorProfile";
 import AnimatedComponent from "../../components/atom/AnimatedComponent";
 import EllipsisText from "../../components/atom/EllipsisText";
@@ -83,6 +84,14 @@ const NotableJurist = () => {
             quote: "As a solo pianist, chamber musician, and edu-cator. Carla Suharto combines the best of technicality and showmanship. On the piano, she possesses the emotional range and passionate force required to communicate the universality of music for the modern audience.Indonesian by birth. Carla received a full scholarship to study under Iswargia Sudarno at Pelita Harapan University. After graduating summa cum laude in 2014, she continued her studies at Folkwang Universität der Künste in Germany. Under the guidance of Professor Thomas Günther and Yannick Rafalimanana.",
             country: [CountryConst.IDN],
             link: "https://www.instagram.com/p/C4pZ41uvxCp/?igsh=MW1pd2tuYWpsN29haw%3D%3D&img_index=3"
+        },
+        {
+            image: jurist10,
+            name: "CHIKITA AMANDA",
+            title: "Jurist 2023",
+            quote: "Chikita Amanda is a talented Indonesian composer, arranger, and conductor known for her orchestral scores reminiscent of Hollywood and Disney. She has collaborated with prominent musicians such as Topati, Ariel Noah, and Miriam Eka. Her talents have also been recognized internationally through contributions to the music scoring team of the UK's SKY TV series “Gangs of London.”",
+            country: [CountryConst.IDN],
+            link: "https://www.instagram.com/p/CvRD0tYhJI8/?igsh=eTZsd21ieXd3eGJ0&img_index=2"
         },
         {
             image: jurist8,
@@ -170,7 +179,8 @@ const NotableJurist = () => {
                             // const colClass = isLastRow
                             //     ? `col-12 col-md-4 ${array.length % 3 === 1 ? 'offset-md-4' : array.length % 3 === 2 ? 'offset-md-2' : ''}`
                             //     : "col-12 col-md-4";
-                            const colClass = index === 6 ? "col-12 col-md-4 offset-md-2" : "col-12 col-md-4";
+                            // const colClass = index === 6 ? "col-12 col-md-4 offset-md-2" : "col-12 col-md-4";
+                            const colClass = "col-12 col-md-4";
 
                             return (
                                 <div className={colClass} style={{ marginBottom: 60 }}>

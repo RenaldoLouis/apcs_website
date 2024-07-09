@@ -26,12 +26,17 @@ import sponsor6 from "../../assets/images/sponsors/sponsor6.png";
 import sponsor7 from "../../assets/images/sponsors/sponsor7.png";
 import sponsor8 from "../../assets/images/sponsors/sponsor8.png";
 import sponsor9 from "../../assets/images/sponsors/sponsor9.png";
+import { useAuth } from "../../context/DataContext";
 
 const listOfSponsor = [
     sponsor1, sponsor6, sponsor8, sponsor4
 ]
 const listOfSponsor2 = [
     sponsor5, sponsor2, sponsor7, sponsor9, sponsor3
+]
+
+const completeListOfSponsor = [
+    sponsor1, sponsor6, sponsor8, sponsor4, sponsor5, sponsor2, sponsor7, sponsor9, sponsor3
 ]
 
 const Home = (props) => {
@@ -41,6 +46,8 @@ const Home = (props) => {
     const handleDirectToWhatsApp = () => {
         window.open("https://api.whatsapp.com/send/?phone=6282213002686", '_blank');
     }
+
+    const { isLaptopAndSmaller } = useAuth();
 
     const handleMovePage = (path) => {
         window.scrollTo(0, 0);
@@ -169,22 +176,36 @@ const Home = (props) => {
             </div>
             <Carousel />
 
-            <div className="container" style={{ background: "black" }}>
-                <div className="row text-align-center">
-                    <div className="col">
-                        {listOfSponsor.map((eachSponsor, index) => (
-                            <img src={eachSponsor} alt={"eachSponsor"} className=" me-5" style={{ width: index === 1 ? "18vmin" : index === 3 ? "13vmin" : "15vmin" }} />
-                        ))}
+            {isLaptopAndSmaller ? (
+                <div className="container" style={{ background: "black" }}>
+                    <div className="row text-align-center ">
+                        <div className="col gx-5 gy-3">
+                            {completeListOfSponsor.map((eachSponsor, index) => (
+                                <img src={eachSponsor} alt={"eachSponsor"} style={{ width: index === 1 ? "18vmin" : index === 3 ? "13vmin" : "15vmin" }} />
+                            ))}
+                        </div>
                     </div>
                 </div>
-                <div className="row text-align-center">
-                    <div className="col">
-                        {listOfSponsor2.map((eachSponsor, index) => (
-                            <img src={eachSponsor} alt={"eachSponsor"} className=" me-5" style={{ width: index === 2 ? "8vmin" : "15vmin" }} />
-                        ))}
+            ) : (
+                <>
+                    <div className="container" style={{ background: "black" }}>
+                        <div className="row text-align-center">
+                            <div className="col">
+                                {listOfSponsor.map((eachSponsor, index) => (
+                                    <img src={eachSponsor} alt={"eachSponsor"} className=" me-5" style={{ width: index === 1 ? "18vmin" : index === 3 ? "13vmin" : "15vmin" }} />
+                                ))}
+                            </div>
+                        </div>
+                        <div className="row text-align-center">
+                            <div className="col">
+                                {listOfSponsor2.map((eachSponsor, index) => (
+                                    <img src={eachSponsor} alt={"eachSponsor"} className=" me-5" style={{ width: index === 2 ? "8vmin" : "15vmin" }} />
+                                ))}
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
+                </>
+            )}
 
             {/* <Content
                 audio={audio}
@@ -199,7 +220,7 @@ const Home = (props) => {
                      </div> 
 
             <AvatarIcon />  */}
-        </div>
+        </div >
     )
 }
 
