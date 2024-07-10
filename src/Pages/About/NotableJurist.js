@@ -143,71 +143,69 @@ const NotableJurist = () => {
                     </div>
                 </div>
 
-                <div style={{ color: "white" }}>
-                    <div className="text-align-justify align-items-start row g-5" style={{}}>
-                        {juristList.map((eachData, index, array) => {
-                            const flagIcon = (country) => {
-                                switch (country) {
-                                    case CountryConst.DNMRK:
-                                        return denmarkflag;
+                <div className="text-align-justify align-items-start row" style={{ color: "white" }}>
+                    {juristList.map((eachData, index, array) => {
+                        const flagIcon = (country) => {
+                            switch (country) {
+                                case CountryConst.DNMRK:
+                                    return denmarkflag;
 
-                                    case CountryConst.IDN:
-                                        return indFlag;
+                                case CountryConst.IDN:
+                                    return indFlag;
 
-                                    case CountryConst.KR:
-                                        return koreaflag;
+                                case CountryConst.KR:
+                                    return koreaflag;
 
-                                    case CountryConst.RSA:
-                                        return russiaflag;
+                                case CountryConst.RSA:
+                                    return russiaflag;
 
-                                    case CountryConst.CHI:
-                                        return chinaflag;
+                                case CountryConst.CHI:
+                                    return chinaflag;
 
-                                    case CountryConst.AMR:
-                                        return amrFlag;
+                                case CountryConst.AMR:
+                                    return amrFlag;
 
-                                    default:
-                                        return indFlag;
+                                default:
+                                    return indFlag;
 
-                                }
                             }
+                        }
 
-                            // Calculate if this is part of the last row
-                            const isLastRow = index >= array.length - (array.length % 3 || 3);
+                        // Calculate if this is part of the last row
+                        const isLastRow = index >= array.length - (array.length % 3 || 3);
 
-                            // Determine the column class based on whether it's the last row
-                            // const colClass = isLastRow
-                            //     ? `col-12 col-md-4 ${array.length % 3 === 1 ? 'offset-md-4' : array.length % 3 === 2 ? 'offset-md-2' : ''}`
-                            //     : "col-12 col-md-4";
-                            // const colClass = index === 6 ? "col-12 col-md-4 offset-md-2" : "col-12 col-md-4";
-                            const colClass = "col-12 col-md-4";
+                        // Determine the column class based on whether it's the last row
+                        // const colClass = isLastRow
+                        //     ? `col-12 col-md-4 ${array.length % 3 === 1 ? 'offset-md-4' : array.length % 3 === 2 ? 'offset-md-2' : ''}`
+                        //     : "col-12 col-md-4";
+                        // const colClass = index === 6 ? "col-12 col-md-4 offset-md-2" : "col-12 col-md-4";
+                        const colClass = "col-12 col-md-4";
 
-                            return (
-                                <div className={colClass} style={{ marginBottom: 60 }}>
-                                    <div className="jurist-image-container">
-                                        <AnimatedComponent animationClass="animate__fadeIn">
-                                            <img loading="lazy" src={eachData.image} alt={eachData.name} className="jurist-image" />
-                                        </AnimatedComponent>
-                                    </div>
-                                    <div className="mangolaineFont text-align-center" style={{ fontSize: isSmallMobileAndSmaller ? "7vmin" : isMobileAndSmaller ? "5vmin" : "3.5vmin", marginBottom: 20 }}>
-                                        {eachData.name}
-                                    </div>
-                                    <div style={{ marginBottom: 20 }}>
-                                        {eachData.title}
-                                    </div>
-                                    <div className="d-flex" style={{ marginBottom: 40 }}>
-                                        {eachData.country.map((eachCountry) => (
-                                            <img src={flagIcon(eachCountry)} alt={eachCountry} style={{ marginRight: 13 }} />
-                                        ))}
-
-                                    </div>
-                                    <div>
-                                        <EllipsisText quote={eachData.quote} link={eachData.link} />
-                                    </div>
+                        return (
+                            <div className={colClass} style={{ marginBottom: 60 }}>
+                                <div className="jurist-image-container">
+                                    <AnimatedComponent animationClass="animate__fadeIn">
+                                        <img loading="lazy" src={eachData.image} alt={eachData.name} className="jurist-image" />
+                                    </AnimatedComponent>
                                 </div>
-                            )
-                        })}
-                    </div>
+                                <div className="mangolaineFont text-align-center" style={{ fontSize: isSmallMobileAndSmaller ? "7vmin" : isMobileAndSmaller ? "5vmin" : "3.5vmin", marginBottom: 20 }}>
+                                    {eachData.name}
+                                </div>
+                                <div style={{ marginBottom: 20 }}>
+                                    {eachData.title}
+                                </div>
+                                <div className="d-flex" style={{ marginBottom: 40 }}>
+                                    {eachData.country.map((eachCountry) => (
+                                        <img src={flagIcon(eachCountry)} alt={eachCountry} style={{ marginRight: 13 }} />
+                                    ))}
+
+                                </div>
+                                <div>
+                                    <EllipsisText quote={eachData.quote} link={eachData.link} />
+                                </div>
+                            </div>
+                        )
+                    })}
                 </div>
             </div>
         </div >

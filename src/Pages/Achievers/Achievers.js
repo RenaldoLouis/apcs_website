@@ -73,7 +73,7 @@ const sapphireWinners = [
         event: [ListOfEventAchiever["2023CHRISTMAS"]]
     },
     {
-        name: "Keena Kwok",
+        name: "Keenan Kwok",
         image: saphireAchievers6,
         country: ListOfCity.JKT,
         YoutubeLink: "https://www.youtube.com/watch?v=MRbkf3Jlm9I&ab_channel=APIANOCONCERTOSERIES",
@@ -229,10 +229,10 @@ const Achievers = () => {
                     <>
                         <AnimatedComponent animationClass="animate__fadeIn">
                             <div style={{ marginLeft: "8vw", color: "white" }}>
-                                <div style={{ fontSize: 24 }}>
+                                <div style={{ fontSize: "3vmin" }}>
                                     2023 HIGHLIGHTS
                                 </div>
-                                <div style={{ fontSize: 40, lineHeight: "40px", marginBottom: 36, fontStyle: "italic" }}>
+                                <div style={{ fontSize: "5vmin", lineHeight: "5vmin", marginBottom: "3vmin", fontStyle: "italic" }}>
                                     Christmas<br />
                                     Wonderland
                                 </div>

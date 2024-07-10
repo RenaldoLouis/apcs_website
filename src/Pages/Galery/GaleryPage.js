@@ -26,6 +26,7 @@ const GaleryPage = () => {
     const { t, i18n } = useTranslation();
     const { setSelectedEvent, selectedEvent } = useAuth()
     const scrollContainerRef = useRef(null);
+    const { isMobileAndSmaller } = useAuth();
 
     // const [selectedEvent, setSelectedEvent] = useState(YearlyEvent.TURNINGPOINT);
     const [isLoading, setIsLoading] = useState(false)
@@ -352,14 +353,14 @@ const GaleryPage = () => {
                 </div>
             </div>
             <div className="container">
-                <div className="row justify-content-center">
-                    <div className="col-1 align-self-center cursorPointer" onClick={() => handleScrollEvents(-100)} style={{ width: "5%" }}>
+                <div className={`row ${isMobileAndSmaller ? "" : "justify-content-center"}`}>
+                    <div className="col-1 align-self-center cursorPointer" onClick={() => handleScrollEvents(-100)} style={{ width: "5%", marginRight: 20 }}>
                         <img src={arrowMoreGalery} alt="arrowMoreGalery" style={{ width: 32, rotate: "180deg" }} />
                     </div>
 
                     <div
                         {...handlers}
-                        className="scrollable-container col-10"
+                        className="scrollable-container col-md-10 col-9 "
                         style={{ padding: 0 }}
                         ref={scrollContainerRef}
                     >
@@ -386,7 +387,7 @@ const GaleryPage = () => {
                         </div>
                     </div>
 
-                    <div className="col-1 align-self-center cursorPointer" onClick={() => handleScrollEvents(100)} style={{ width: "5%" }}>
+                    <div className="col-2 col-md-1 align-self-center cursorPointer" onClick={() => handleScrollEvents(100)} style={{ width: "5%" }}>
                         <img src={arrowMoreGalery} alt="arrowMoreGalery" style={{ width: 32 }} />
                     </div>
                 </div>

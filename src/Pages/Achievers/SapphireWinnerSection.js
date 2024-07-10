@@ -17,7 +17,7 @@ const SapphireWinnerSection = (props) => {
                 image={saphireAchieverText}
                 description="Contestants who achieved a score of 100 points deserve to play with the orchestra of the respective festival / events." />
             <div className="container color-white">
-                <div className="row gx-5 gy-5">
+                <div className="row ">
                     {dataSaphire.map((eachData, index) => {
                         const colClass = index === 24 ? "col-12 col-md-4 offset-md-4" : "col-12 col-md-4";
                         return (
@@ -35,7 +35,7 @@ const SapphireWinnerSection = (props) => {
                     image={diamondAchieversText}
                     description="Contestants who achieved a spectacular score of 95+ points." />
                 <div className="container color-white" style={{ paddingBottom: 200 }}>
-                    <div className="row gx-5 gy-5">
+                    <div className="row ">
                         {dataDiamond.map((eachData) => (
                             <div className="col-12 col-md-4" style={{ padding: 50 }}>
                                 <ProfileToYoutube data={eachData} noImage={true} />
