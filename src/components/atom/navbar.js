@@ -34,6 +34,7 @@ const Navbar = (props) => {
     const [currentLanguage, setCurrentLanguage] = useState(i18n.language);
 
     const handleMovePage = (path) => {
+        setIsNavbarMobileOpen(false)
         navigate(path);
     }
 
