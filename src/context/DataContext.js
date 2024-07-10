@@ -15,9 +15,9 @@ export const useAuth = () => useContext(DataContext);
 export const DataContextProvider = ({ children }) => {
     const navigate = useNavigate();
     const theme = useTheme();
-    const isMobileAndSmaller = useMediaQuery(theme.breakpoints.down('sm'));
-    const isLaptopAndSmaller = useMediaQuery(theme.breakpoints.down('md'));
-    const isLaptopAndBigger = useMediaQuery(theme.breakpoints.up('md'));
+    const isSmallMobileAndSmaller = useMediaQuery(theme.breakpoints.down('sm')); // 600
+    const isMobileAndSmaller = useMediaQuery(theme.breakpoints.down('md'));// 900
+    const isMobileAndBigger = useMediaQuery(theme.breakpoints.up('md'));
 
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
@@ -73,7 +73,7 @@ export const DataContextProvider = ({ children }) => {
     };
 
     return (
-        <DataContext.Provider value={{ user, signInWithGoogle, signOut, loading, setImageHomeLoaded, imageHomeLoaded, setSelectedEvent, selectedEvent, isLaptopAndSmaller, isLaptopAndBigger, isMobileAndSmaller }}>
+        <DataContext.Provider value={{ user, signInWithGoogle, signOut, loading, setImageHomeLoaded, imageHomeLoaded, setSelectedEvent, selectedEvent, isMobileAndSmaller, isMobileAndBigger, isSmallMobileAndSmaller }}>
             {!loading && children}
         </DataContext.Provider>
     );

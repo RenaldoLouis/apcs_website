@@ -26,7 +26,7 @@ import { useAuth } from "../../context/DataContext";
 
 const NotableJurist = () => {
 
-    const { isLaptopAndSmaller, isMobileAndSmaller } = useAuth();
+    const { isMobileAndSmaller, isSmallMobileAndSmaller } = useAuth();
 
     const juristList = [
         {
@@ -81,7 +81,7 @@ const NotableJurist = () => {
             image: jurist6,
             name: "CARLA SUHARTO",
             title: "Jurist 2023",
-            quote: "As a solo pianist, chamber musician, and edu-cator. Carla Suharto combines the best of technicality and showmanship. On the piano, she possesses the emotional range and passionate force required to communicate the universality of music for the modern audience.Indonesian by birth. Carla received a full scholarship to study under Iswargia Sudarno at Pelita Harapan University. After graduating summa cum laude in 2014, she continued her studies at Folkwang Universität der Künste in Germany. Under the guidance of Professor Thomas Günther and Yannick Rafalimanana.",
+            quote: "As a solo pianist, chamber musician, and educator. Carla Suharto combines the best of technicality and showmanship. On the piano, she possesses the emotional range and passionate force required to communicate the universality of music for the modern audience.Indonesian by birth. Carla received a full scholarship to study under Iswargia Sudarno at Pelita Harapan University. After graduating summa cum laude in 2014, she continued her studies at Folkwang Universität der Künste in Germany. Under the guidance of Professor Thomas Günther and Yannick Rafalimanana.",
             country: [CountryConst.IDN],
             link: "https://www.instagram.com/p/C4pZ41uvxCp/?igsh=MW1pd2tuYWpsN29haw%3D%3D&img_index=3"
         },
@@ -189,7 +189,7 @@ const NotableJurist = () => {
                                             <img loading="lazy" src={eachData.image} alt={eachData.name} className="jurist-image" />
                                         </AnimatedComponent>
                                     </div>
-                                    <div className="mangolaineFont text-align-center" style={{ fontSize: isMobileAndSmaller ? "7vmin" : isLaptopAndSmaller ? "5vmin" : "3.5vmin", marginBottom: 20 }}>
+                                    <div className="mangolaineFont text-align-center" style={{ fontSize: isSmallMobileAndSmaller ? "7vmin" : isMobileAndSmaller ? "5vmin" : "3.5vmin", marginBottom: 20 }}>
                                         {eachData.name}
                                     </div>
                                     <div style={{ marginBottom: 20 }}>

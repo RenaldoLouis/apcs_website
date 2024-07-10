@@ -47,7 +47,7 @@ const Home = (props) => {
         window.open("https://api.whatsapp.com/send/?phone=6282213002686", '_blank');
     }
 
-    const { isLaptopAndSmaller } = useAuth();
+    const { isMobileAndSmaller } = useAuth();
 
     const handleMovePage = (path) => {
         window.scrollTo(0, 0);
@@ -176,7 +176,7 @@ const Home = (props) => {
             </div>
             <Carousel />
 
-            {isLaptopAndSmaller ? (
+            {isMobileAndSmaller ? (
                 <div className="container" style={{ background: "black" }}>
                     <div className="row text-align-center ">
                         <div className="col gx-5 gy-3">

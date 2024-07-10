@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import arrowRightCover from "../../assets/icons/arrowRightCover.png"
 import arrowLeftCover from "../../assets/icons/arrowLeftCover.png"
-import PillButton from '../atom/PillButton';
 import coverImage1 from "../../assets/images/coverImage1.png"
 import { logEvent } from "firebase/analytics";
 import { analytics } from '../../firebase';
@@ -23,7 +22,7 @@ const images = [
     jury5noText,
 ]
 
-const JuryCarousel = ({ interval = 5000, homePage = true }) => {
+const JuryCarousel = ({ interval = 10000, homePage = true }) => {
     const [currentIndex, setCurrentIndex] = useState(0);
     const { t, i18n } = useTranslation();
     const theme = useTheme();

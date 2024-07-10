@@ -6,7 +6,7 @@ import { ResponsiveText } from "../atom/ResponsiveText";
 const AchieversHeader = (props) => {
     const { title, description, image } = props
 
-    const { isLaptopAndSmaller } = useAuth()
+    const { isMobileAndSmaller } = useAuth()
 
     return (
         <div className="container" style={{ marginBottom: 150 }}>
@@ -16,8 +16,8 @@ const AchieversHeader = (props) => {
                 </div>
             </div>
             <div className="row justify-center place-items-center gx-5" style={{ margin: "47px 0px 47px 0px" }}>
-                <div className={`col-md-6 ${isLaptopAndSmaller ? "text-align-last-center" : "text-align-last-end"}`}>
-                    <img loading="lazy" src={image} alt="apcsLogo" style={{ width: isLaptopAndSmaller ? "100%" : "65%" }} />
+                <div className={`col-md-6 ${isMobileAndSmaller ? "text-align-last-center" : "text-align-last-end"}`}>
+                    <img loading="lazy" src={image} alt="apcsLogo" style={{ width: isMobileAndSmaller ? "100%" : "65%" }} />
                 </div>
                 <div className="col-md-6">
                     {/* <div className="goldenText mangolaineFont" style={{ fontSize: 40 }}>

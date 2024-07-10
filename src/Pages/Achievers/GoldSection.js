@@ -14,7 +14,7 @@ import Select, { SelectChangeEvent } from '@mui/material/Select';
 
 const GoldSection = () => {
 
-    const { isLaptopAndSmaller } = useAuth()
+    const { isMobileAndSmaller } = useAuth()
     const [christmastGold, setChristmastGold] = useState('');
 
     const handleChange = (event) => {

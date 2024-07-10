@@ -11,7 +11,6 @@ import michaelaAbout from "../../assets/images/michaelaAbout.png"
 import saphireAbout from "../../assets/images/saphireAbout.png"
 import contactUsPicture from "../../assets/images/contactUsPicture.png"
 import saphireAchiever from "../../assets/images/saphireAchiever.svg"
-import PillButton from "../../components/atom/PillButton";
 import { useTranslation } from "react-i18next";
 import i18n from '../../i18n';
 import NotableJurist from "./NotableJurist";

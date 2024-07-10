@@ -28,7 +28,7 @@ const GuestArtist = () => {
             name: "Vahur Luhtsalu",
             image: artist5,
             country: [CountryConst.RSA],
-            title: "Cellists",
+            title: "Cellist",
         },
         {
             name: "Ify Alyssa",

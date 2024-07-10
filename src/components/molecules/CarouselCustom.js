@@ -48,8 +48,6 @@ const Carousel = ({ interval = 5000, homePage = true }) => {
         return () => clearInterval(intervalId);
     }, [interval, isPaused, images.length]);
 
-
-
     const goToPrevSlide = () => {
         setCurrentIndex((prevIndex) => (prevIndex === 0 ? images.length - 1 : prevIndex - 1));
     };
@@ -111,37 +109,37 @@ const Carousel = ({ interval = 5000, homePage = true }) => {
                 <div className='titleCoverContainer-Banner'>
                     <div style={{ '--currentIndex': currentIndex }} className='titleCoverContainerText'>
                         <div>
-                            <Button variant="outlined" sx={{ zIndex: 10 }} onClick={() => handleMovePage(PathName.contactUs)}>More Info</Button>
+                            <PillButton onClick={() => handleMovePage(PathName.contactUs)} text={"More Info"} />
                         </div>
                     </div>
                     <div style={{ '--currentIndex': currentIndex }} className='titleCoverContainerText'>
                         <div>
-                            <Button variant="outlined" sx={{ zIndex: 10 }} disabled>Coming Soon</Button>
+                            {/* <Button variant="outlined" sx={{ zIndex: 10 }} disabled>Coming Soon</Button> */}
                         </div>
                     </div>
                     <div style={{ '--currentIndex': currentIndex }} className='titleCoverContainerText'>
                         <div>
-                            <Button variant="outlined" sx={{ zIndex: 10 }} onClick={() => handleMovePage(PathName.gallery, YearlyEvent.CHRISTMASWONDERLAND)}>Watch Now</Button>
+                            <PillButton onClick={() => handleMovePage(PathName.gallery, YearlyEvent.CHRISTMASWONDERLAND)} text={"Watch Now"} />
                         </div>
                     </div>
                     <div style={{ '--currentIndex': currentIndex }} className='titleCoverContainerText'>
                         <div>
-                            <Button variant="outlined" sx={{ zIndex: 10 }} onClick={() => handleMovePage(PathName.gallery, YearlyEvent.CLASSICALFESTIVALJKT)}>Watch Now</Button>
+                            <PillButton onClick={() => handleMovePage(PathName.gallery, YearlyEvent.CLASSICALFESTIVALJKT)} text={"Watch Now"} />
                         </div>
                     </div>
                     <div style={{ '--currentIndex': currentIndex }} className='titleCoverContainerText'>
                         <div>
-                            <Button variant="outlined" sx={{ zIndex: 10 }} onClick={() => handleMovePage(PathName.gallery, YearlyEvent.CLASSICALFESTIVALSBY)}>Watch Now</Button>
+                            <PillButton onClick={() => handleMovePage(PathName.gallery, YearlyEvent.CLASSICALFESTIVALJKT)} text={"Watch Now"} />
                         </div>
                     </div>
                     <div style={{ '--currentIndex': currentIndex }} className='titleCoverContainerText'>
                         <div>
-                            <Button variant="outlined" sx={{ zIndex: 10 }} onClick={() => handleMovePage(PathName.gallery, YearlyEvent.MAGICALMUSICSOUNDTRACT)}>Watch Now</Button>
+                            <PillButton onClick={() => handleMovePage(PathName.gallery, YearlyEvent.MAGICALMUSICSOUNDTRACT)} text={"Watch Now"} />
                         </div>
                     </div>
                     <div style={{ '--currentIndex': currentIndex }} className='titleCoverContainerText'>
                         <div>
-                            <Button variant="outlined" sx={{ zIndex: 10 }} onClick={() => handleMovePage(PathName.gallery, YearlyEvent.MASTERCLASS)}>Watch Now</Button>
+                            <PillButton onClick={() => handleMovePage(PathName.gallery, YearlyEvent.MASTERCLASS)} text={"Watch Now"} />
                         </div>
                     </div>
                 </div>
