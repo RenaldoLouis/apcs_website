@@ -363,7 +363,7 @@ export const dataDiamond = [
         "event": ["2023 Christmas Wonderland"]
     },
     {
-        "name": "Liselle Fendbee Soo",
+        "name": "Liselle Fendbee Soe",
         "country": "Batam",
         "event": ["2023 Christmas Wonderland"]
     },

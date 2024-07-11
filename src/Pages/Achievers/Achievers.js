@@ -42,24 +42,24 @@ const sapphireWinners = [
         image: saphireAchievers1,
         country: ListOfCity.JKT,
         YoutubeLink: "https://www.youtube.com/watch?v=is5ie02NnyA&ab_channel=APIANOCONCERTOSERIES",
-        event: [ListOfEventAchiever["2025UPCOMING"]]
+        event: [ListOfEventAchiever["2025UPCOMING"], ListOfEventAchiever["2023CLASSICJKT"]]
     },
     {
-        name: "Clarissa stefanny",
+        name: "Clarissa Stefanny",
         image: saphireAchievers2,
         country: ListOfCity.PNT,
         YoutubeLink: "https://www.youtube.com/watch?v=XR8yYVUsBzo&ab_channel=APIANOCONCERTOSERIES",
         event: [ListOfEventAchiever["2025UPCOMING"]]
     },
     {
-        name: "Cathleen Scarlett H.",
+        name: "Cathleen Scarlett Hayasi",
         image: saphireAchievers3,
         country: ListOfCity.JKT,
         YoutubeLink: "https://www.youtube.com/watch?v=D1ct_m0XJtY&ab_channel=APIANOCONCERTOSERIES",
         event: [ListOfEventAchiever["2025UPCOMING"]]
     },
     {
-        name: "Edward Nathaniel H.",
+        name: "Edward Nathaniel Handoko",
         image: saphireAchievers4,
         country: ListOfCity.SRB,
         YoutubeLink: "https://www.youtube.com/watch?v=twdiVI7WYNA&ab_channel=APIANOCONCERTOSERIES",
@@ -87,14 +87,14 @@ const sapphireWinners = [
         event: [ListOfEventAchiever["2023CHRISTMAS"], ListOfEventAchiever["2023CLASSICSRBY"]]
     },
     {
-        name: "Charice Elleanore K. B.",
+        name: "Charice Elleanore Konggo Budiman",
         image: saphireAchievers8,
         country: ListOfCity.SRB,
         YoutubeLink: "https://www.youtube.com/watch?v=__sIBAeIqCE&ab_channel=APIANOCONCERTOSERIES",
         event: [ListOfEventAchiever["2023CHRISTMAS"]]
     },
     {
-        name: "Alf Elijah Beloved S.",
+        name: "Alf Elijah Beloved Sigarlaki",
         image: saphireAchievers9,
         country: ListOfCity.JKT,
         YoutubeLink: "https://www.youtube.com/watch?v=1sqUiE7SP30&ab_channel=APIANOCONCERTOSERIES",
@@ -108,7 +108,7 @@ const sapphireWinners = [
         event: [ListOfEventAchiever["2022MAGICMUSIC"]]
     },
     {
-        name: "Gregoris Reinhardt",
+        name: "Gregorius Reinhardt",
         image: saphireAchievers11,
         country: ListOfCity.PLB,
         // YoutubeLink: "https://www.youtube.com/watch?v=XR8yYVUsBzo&ab_channel=APIANOCONCERTOSERIES",
@@ -129,7 +129,7 @@ const sapphireWinners = [
         event: [ListOfEventAchiever["2022MAGICMUSIC"]]
     },
     {
-        name: "Katherine Natalie M.",
+        name: "Katherine Natalie Mulyadi",
         image: saphireAchievers14,
         country: ListOfCity.BGR,
         YoutubeLink: "https://youtu.be/apgUhkXAIVs",
@@ -143,7 +143,7 @@ const sapphireWinners = [
         event: [ListOfEventAchiever["2022MAGICMUSIC"]]
     },
     {
-        name: "Mikhayla Sofilia W.",
+        name: "Mikhayla Sofilia Widjaja",
         image: saphireAchievers16,
         country: ListOfCity.TNG,
         YoutubeLink: " https://www.youtube.com/watch?v=8pCkvjzr8RE&ab_channel=APIANOCONCERTOSERIES",
@@ -157,7 +157,7 @@ const sapphireWinners = [
         event: [ListOfEventAchiever["2022MAGICMUSIC"]]
     },
     {
-        name: "Liselle Fendbee S.",
+        name: "Liselle Fendbee Soe",
         image: saphireAchievers18,
         country: ListOfCity.BTM,
         YoutubeLink: "https://youtu.be/8pCkvjzr8RE?t=59",
@@ -178,7 +178,7 @@ const sapphireWinners = [
         event: [ListOfEventAchiever["2022MAGICMUSIC"]]
     },
     {
-        name: "Nadya Adeline H.",
+        name: "Nadya Adeline Hermanto",
         image: saphireAchievers21,
         country: ListOfCity.TNG,
         YoutubeLink: ":https://www.youtube.com/watch?v=4WdAL9usTK8&ab_channel=APIANOCONCERTOSERIES",
@@ -192,21 +192,21 @@ const sapphireWinners = [
         event: [ListOfEventAchiever["2023CLASSICSRBY"]]
     },
     {
-        name: "Ann Shereen Yao &Adrianne Shanelle Yao",
+        name: "Ann Shereen Yao & Adrianne Shanelle Yao",
         image: saphireAchievers23,
         country: ListOfCity.JKT,
         YoutubeLink: "https://www.youtube.com/watch?v=779gXnPTs-0&ab_channel=APIANOCONCERTOSERIES",
         event: [ListOfEventAchiever["2023CLASSICJKT"]]
     },
     {
-        name: "Joshua Kevin H. ",
+        name: "Joshua Kevin Hudyana",
         image: saphireAchievers24,
         country: ListOfCity.SRB,
         YoutubeLink: "https://www.youtube.com/watch?v=JDU_q_ZjfW0&ab_channel=APIANOCONCERTOSERIES",
         event: [ListOfEventAchiever["2023CLASSICSRBY"]]
     },
     {
-        name: "Michael Phillipe A.",
+        name: "Michael Phillipe Andree",
         image: saphireAchievers25,
         country: ListOfCity.SRB,
         YoutubeLink: "https://www.youtube.com/watch?v=9Xgu6PLNNg0&ab_channel=APIANOCONCERTOSERIES",
