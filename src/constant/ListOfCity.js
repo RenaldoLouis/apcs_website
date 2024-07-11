@@ -9,5 +9,6 @@ export const ListOfCity = {
     "PLB": "Palembang",
     "BGR": "Bogor",
     "BTM": "Batam",
-    "BKS": "Bekasi"
+    "BKS": "Bekasi",
+    "SLT": "Salatiga",
 }

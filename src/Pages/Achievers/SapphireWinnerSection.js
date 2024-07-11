@@ -19,9 +19,9 @@ const SapphireWinnerSection = (props) => {
             <div className="container color-white">
                 <div className="row ">
                     {dataSaphire.map((eachData, index) => {
-                        const colClass = index === 24 ? "col-12 col-md-4 offset-md-4" : "col-12 col-md-4";
+                        // const colClass = index === 24 ? "col-12 col-md-4 offset-md-4" : "col-12 col-md-4";
                         return (
-                            <div className={colClass} style={{ padding: 50 }}>
+                            <div className={"col-12 col-md-4"} style={{ padding: 50 }}>
                                 <ProfileToYoutube data={eachData} />
                             </div>
                         )

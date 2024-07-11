@@ -27,6 +27,8 @@ import saphireAchievers22 from "../../assets/images/saphireAchiever/saphireAchie
 import saphireAchievers23 from "../../assets/images/saphireAchiever/saphireAchievers23.png";
 import saphireAchievers24 from "../../assets/images/saphireAchiever/saphireAchievers24.png";
 import saphireAchievers25 from "../../assets/images/saphireAchiever/saphireAchievers25.png";
+import saphireAchievers26 from "../../assets/images/saphireAchiever/saphireAchievers26.png";
+import saphireAchievers27 from "../../assets/images/saphireAchiever/saphireAchievers27.png";
 import saphireAchieverText from "../../assets/images/saphireAchieverText.svg"
 import PillButton from "../../components/atom/PillButton";
 import { dataDiamond } from "../../constant/datas/DiamondAchieverData";
@@ -206,11 +208,25 @@ const sapphireWinners = [
         event: [ListOfEventAchiever["2023CLASSICSRBY"]]
     },
     {
+        name: "Clayton Oliver Hayasi",
+        image: saphireAchievers26,
+        country: ListOfCity.JKT,
+        YoutubeLink: "https://www.youtube.com/watch?v=Fke-4LVyGno&ab_channel=APIANOCONCERTOSERIES",
+        event: [ListOfEventAchiever["2023CLASSICJKT"]]
+    },
+    {
         name: "Michael Phillipe Andree",
         image: saphireAchievers25,
         country: ListOfCity.SRB,
         YoutubeLink: "https://www.youtube.com/watch?v=9Xgu6PLNNg0&ab_channel=APIANOCONCERTOSERIES",
         event: [ListOfEventAchiever["2023CLASSICSRBY"]]
+    },
+    {
+        name: "Kaleb Yuseli",
+        image: saphireAchievers27,
+        country: ListOfCity.SLT,
+        YoutubeLink: "https://www.youtube.com/watch?v=OrQ2tsXxe6o&ab_channel=APIANOCONCERTOSERIES",
+        event: [ListOfEventAchiever["2023CLASSICJKT"]]
     },
 ];
 

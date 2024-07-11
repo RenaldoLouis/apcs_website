@@ -60,28 +60,150 @@ const GoldSection = () => {
             <div class="container">
                 <div class="row">
                     <div class="col">
-                        <Button
+                        {/* <Button
                             style={{
                                 borderRadius: 5,
                                 height: 56
                             }}
-                            variant="outlined"> <span className="mosafinFont" onClick={() => handleClickWinner("https://www.instagram.com/p/Cz1BiUrv_2P/?igsh=MWczODQwMGZ5Zm4ybA%3D%3D&img_index=4")}> Christmas Wonderland</span></Button>
+                            variant="outlined"> <span className="mosafinFont" onClick={() => handleClickWinner("https://www.instagram.com/p/Cz1BiUrv_2P/?igsh=MWczODQwMGZ5Zm4ybA%3D%3D&img_index=4")}> Christmas Wonderland</span></Button> */}
+                        <FormControl fullWidth>
+                            <InputLabel
+                                className="mosafinFont"
+                                id="demo-simple-select-label"
+                                sx={{
+                                    color: 'white',
+                                    '&.Mui-focused': {
+                                        color: 'white',
+                                    },
+                                }}
+                            >
+                                Christmas Wonderland
+                            </InputLabel>
+                            <Select
+                                className="mosafinFont"
+                                labelId="demo-simple-select-label"
+                                id="demo-simple-select"
+                                value={christmastGold}
+                                label="Christmas Wonderland"
+                                onChange={handleChange}
+                                sx={{
+                                    color: 'white',
+                                    '.MuiOutlinedInput-notchedOutline': {
+                                        borderColor: 'white',
+                                    },
+                                    '&:hover .MuiOutlinedInput-notchedOutline': {
+                                        borderColor: 'white',
+                                    },
+                                    '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                                        borderColor: 'white',
+                                    },
+                                    '& .MuiSvgIcon-root': {
+                                        color: 'white',
+                                    },
+                                }}
+                            >
+                                <MenuItem value={"https://www.instagram.com/p/Cz1BiUrv_2P/?igsh=MWczODQwMGZ5Zm4ybA%3D%3D&img_index=4"}>Gold</MenuItem>
+                                <MenuItem value={"https://www.instagram.com/p/Cz1BiUrv_2P/?igsh=MWczODQwMGZ5Zm4ybA%3D%3D&img_index=2"}>Silver</MenuItem>
+                            </Select>
+                        </FormControl>
                     </div>
                     <div class="col">
-                        <Button
+                        {/* <Button
                             style={{
                                 borderRadius: 5,
                                 height: 56
                             }}
-                            variant="outlined"> <span className="mosafinFont" onClick={() => handleClickWinner("https://www.instagram.com/p/CwsQegmBlDW/?igsh=MW81dGgxMHNyN2I4bw%3D%3D&img_index=1")}>Classical Festival Jakarta</span> </Button>
+                            variant="outlined"> <span className="mosafinFont" onClick={() => handleClickWinner("https://www.instagram.com/p/CwsQegmBlDW/?igsh=MW81dGgxMHNyN2I4bw%3D%3D&img_index=1")}>Classical Festival Jakarta</span> </Button> */}
+                        <FormControl fullWidth>
+                            <InputLabel
+                                className="mosafinFont"
+                                id="demo-simple-select-label"
+                                sx={{
+                                    color: 'white',
+                                    '&.Mui-focused': {
+                                        color: 'white',
+                                    },
+                                }}
+                            >
+                                Classical Festival Jakarta
+                            </InputLabel>
+                            <Select
+                                className="mosafinFont"
+                                labelId="demo-simple-select-label"
+                                id="demo-simple-select"
+                                value={christmastGold}
+                                label="Classical Festival Jakarta"
+                                onChange={handleChange}
+                                sx={{
+                                    color: 'white',
+                                    '.MuiOutlinedInput-notchedOutline': {
+                                        borderColor: 'white',
+                                    },
+                                    '&:hover .MuiOutlinedInput-notchedOutline': {
+                                        borderColor: 'white',
+                                    },
+                                    '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                                        borderColor: 'white',
+                                    },
+                                    '& .MuiSvgIcon-root': {
+                                        color: 'white',
+                                    },
+                                }}
+                            >
+                                <MenuItem value={"https://www.instagram.com/p/CwsQegmBlDW/?igsh=MW81dGgxMHNyN2I4bw%3D%3D&img_index=5"}>Gold</MenuItem>
+                                <MenuItem value={"https://www.instagram.com/p/CwsQegmBlDW/?igsh=MW81dGgxMHNyN2I4bw%3D%3D&img_index=4"}>Silver</MenuItem>
+                                <MenuItem value={"https://www.instagram.com/p/CwsQegmBlDW/?igsh=MW81dGgxMHNyN2I4bw%3D%3D&img_index=2"}>Bronze</MenuItem>
+                            </Select>
+                        </FormControl>
                     </div>
                     <div class="col">
-                        <Button
+                        {/* <Button
                             style={{
                                 borderRadius: 5,
                                 height: 56
                             }}
-                            variant="outlined"> <span className="mosafinFont" onClick={() => handleClickWinner("https://www.instagram.com/p/Cv6OG9xhB5b/?igsh=MXF4N3AxbHJvdWQxOQ%3D%3D&img_index=1")}>Classical Festival Surabaya</span></Button>
+                            variant="outlined"> <span className="mosafinFont" onClick={() => handleClickWinner("https://www.instagram.com/p/Cv6OG9xhB5b/?igsh=MXF4N3AxbHJvdWQxOQ%3D%3D&img_index=1")}>Classical Festival Surabaya</span></Button> */}
+                        <FormControl fullWidth>
+                            <InputLabel
+                                className="mosafinFont"
+                                id="demo-simple-select-label"
+                                sx={{
+                                    color: 'white',
+                                    '&.Mui-focused': {
+                                        color: 'white',
+                                    },
+                                }}
+                            >
+                                Classical Festival Surabaya
+                            </InputLabel>
+                            <Select
+                                className="mosafinFont"
+                                labelId="demo-simple-select-label"
+                                id="demo-simple-select"
+                                value={christmastGold}
+                                label="Classical Festival Surabaya"
+                                onChange={handleChange}
+                                sx={{
+                                    color: 'white',
+                                    '.MuiOutlinedInput-notchedOutline': {
+                                        borderColor: 'white',
+                                    },
+                                    '&:hover .MuiOutlinedInput-notchedOutline': {
+                                        borderColor: 'white',
+                                    },
+                                    '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                                        borderColor: 'white',
+                                    },
+                                    '& .MuiSvgIcon-root': {
+                                        color: 'white',
+                                    },
+                                }}
+                            >
+                                <MenuItem value={"https://www.instagram.com/p/Cv6OG9xhB5b/?igsh=MXF4N3AxbHJvdWQxOQ%3D%3D&img_index=4"}>Gold</MenuItem>
+                                <MenuItem value={"https://www.instagram.com/p/Cv6OG9xhB5b/?igsh=MXF4N3AxbHJvdWQxOQ%3D%3D&img_index=3"}>Silver</MenuItem>
+                                <MenuItem value={"https://www.instagram.com/p/Cv6OG9xhB5b/?igsh=MXF4N3AxbHJvdWQxOQ%3D%3D&img_index=2"}>Bronze</MenuItem>
+                            </Select>
+                        </FormControl>
                     </div>
                     <div class="col">
                         <FormControl fullWidth>
