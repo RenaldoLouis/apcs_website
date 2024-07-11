@@ -27,7 +27,7 @@ const BackgroundWithText = (props) => {
                 <div>
                     <img loading="lazy" src={logo} alt={logo} style={{ width: "38vmin", marginBottom: 25 }} />
                 </div>
-                <div className="container">
+                <div className="container mb-2">
                     <div className={`row ${centerText ? "justify-content-md-center" : "justify-content-md-start"} text-align-center`}>
                         <div className="col col-lg-10" style={{ fontSize: "2vmin" }}>
                             {text}

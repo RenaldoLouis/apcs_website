@@ -8,6 +8,7 @@ import HeaderTitle from "../../components/atom/HeaderTitle";
 import ConductorProfile from "../../components/molecules/ConductorProfile";
 import AnimatedComponent from "../../components/atom/AnimatedComponent";
 import HeaderAbout from "../../components/atom/HeaderAbout";
+import { CountryConst } from "../../constant/CountryConst";
 
 const NotableConductors = () => {
 
@@ -25,7 +26,9 @@ const NotableConductors = () => {
                             title={"WISHNU DEWANTA"}
                             desc={"Wishnu Dewanta is a dynamic force in musical theatre, known for his exceptional talent and dedication as a music director. With a passion for storytelling through music, he captivates audiences with innovative arrangements and impeccable musical direction."}
                             eventYear={'APCS 2019 '}
-                            eventName={"The Initial Turning Point"} />
+                            eventName={"The Initial Turning Point"}
+                            country={CountryConst.IDN}
+                        />
                         <div className="col" style={{ color: "white" }}>
                             <AnimatedComponent animationClass="animate__fadeInDown">
                                 <img loading="lazy" src={wishnuProfile} style={{ width: "100%", height: "100%" }} alt="" />
@@ -41,9 +44,11 @@ const NotableConductors = () => {
                         <div className="col" style={{ color: "white" }}>
                             <ConductorProfile
                                 title={"CHIKITA AMANDA"}
-                                desc={"Chikita Amanda is a talented Indonesian composer, arranger, and conductor known for her orchestral scores reminiscent of Hollywood and Disney. She has collaborated with prominent musicians such as Topati, Ariel Noah, and Miriam Eka. Her talents have also been recognized internationally through contributions to the music scoring team of the UK's SKY TV series “Gangs of London”."}
+                                desc={"Chikita Amanda is a talented Indonesian composer, arranger, and conductor known for her orchestral scores reminiscent of Hollywood and Disney. She has collaborated with prominent musicians such as Tohpati, Ariel Noah, and Mirriam Eka. Her talents have also been recognized internationally through contributions to the music scoring team of the UK's SKY TV series “Gangs of London”."}
                                 eventYear={'APCS 2020, 2022, 2023'}
-                                eventName={"Autumn In Korea, Magical Music Soundtrack, Christmas Wonderland"} />
+                                eventName={"Autumn In Korea, Magical Music Soundtrack, Christmas Wonderland"}
+                                country={CountryConst.IDN}
+                            />
                         </div>
                     </div>
 
@@ -58,8 +63,10 @@ const NotableConductors = () => {
                             title={"NADYA JANITRA"}
                             titleUser="Academic Advisor"
                             desc={"Nadya Janitra is a distinguished pianist who completed both her Bachelor’s (2011) and Master’s (2013) degrees at the Royal Conservatoire in Den Haag under Ellen Corver's guidance.  After graduating from the Netherlands, she performed many solo recitals in various cities and countries, such as Jakarta, Bali, Surabaya, Yogyakarta, Makassar, Medan, Macau and Den Haag."}
-                            eventYear={''}
-                            eventName={""} />
+                            eventYear={'JURIST 2023'}
+                            eventName={""}
+                            country={CountryConst.IDN}
+                        />
                         <div className="col" style={{ color: "white" }}>
                             <AnimatedComponent animationClass="animate__fadeInDown">
                                 <img loading="lazy" src={nadyaAdvisor} style={{ width: "100%", height: "100%" }} alt="" />

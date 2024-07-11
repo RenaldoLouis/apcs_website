@@ -110,7 +110,7 @@ const About = () => {
                                 Born and raised in Indonesia, Michaela Sutejo started her musical journey at the early age of 9 under the guidance of her piano tutor, Junia. Throughout her development as a musician, she participated in national and international musical competitions, festivals, and masterclasses.
                             </div>
                             <div className="boxed-text">
-                                In 2017, Michaela graduated with Cum Laude honors from Universitas Pelita Harapan, earning her Bachelor of Arts in Music Education under the tutelage of Firdy Salim, Ong Seng Choo, and Elaine Waworuntu
+                                In 2017, Michaela graduated with Cum Laude honors from Universitas Pelita Harapan, earning her Bachelor of Arts in Music Education under the tutelage of Firdy Salim, Ong Seng Choo, and Elaine Waworuntu.
                             </div>
                             <div className="boxed-text">
                                 Drawing on her experiences and passion, Michaela established A Piano Concerto Series Music (APCS) in 2022. She believes APCS could be a platform that brings musicians together and develops their talents. Today, APCS provides a distinctive opportunity for all musicians to learn and advance in  their musical journey.
@@ -133,7 +133,7 @@ const About = () => {
                 logo={saphireAchiever}
                 text={<>We curate our performers through auditions where every participant will be evaluated by notable juries, and contestants who achieve Sapphire Awards are entitled to perform with the APCS orchestra.</>}
                 buttonText={"View More"}
-                contentPosition={windowDimensions.width <= 768 ? ContentPosition.MIDDLE : ContentPosition.MIDDLEBOTTOM}
+                contentPosition={ContentPosition.MIDDLEBOTTOM}
                 buttonOnclick={() => handleMovePage(PathName.achievers)}
             />
 

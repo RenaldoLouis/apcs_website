@@ -1,8 +1,9 @@
 import React from "react";
 import AnimatedComponent from "../atom/AnimatedComponent";
+import { flagIcon } from "../../utils/Utils";
 
 const ConductorProfile = (props) => {
-    const { title, desc, eventYear, eventName, titleUser = null } = props
+    const { title, desc, eventYear, eventName, titleUser = null, country = null } = props
 
     return (
         <div className="col" style={{ color: "white" }}>
@@ -14,6 +15,12 @@ const ConductorProfile = (props) => {
                 {titleUser && (
                     <div className="text-align-justify" style={{ fontSize: 20 }}>
                         {titleUser}
+                    </div>
+                )}
+
+                {country && (
+                    <div className="d-flex" style={{ marginTop: 16 }}>
+                        <img src={flagIcon(country)} alt={"country"} />
                     </div>
                 )}
 

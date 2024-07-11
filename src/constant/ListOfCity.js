@@ -1,5 +1,5 @@
 export const ListOfCity = {
-    "JKT": "Jakarata",
+    "JKT": "Jakarta",
     "PNT": "Pontianak",
     "TNG": "Tangerang",
     "BDO": "Bandung",

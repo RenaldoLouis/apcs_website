@@ -84,7 +84,7 @@ const sapphireWinners = [
         image: saphireAchievers7,
         country: ListOfCity.SRB,
         YoutubeLink: "https://www.youtube.com/watch?v=bMBKgEL4x3w&ab_channel=APIANOCONCERTOSERIES",
-        event: [ListOfEventAchiever["2023CHRISTMAS"], ListOfEventAchiever["2022CLASSICSRBY"]]
+        event: [ListOfEventAchiever["2023CHRISTMAS"], ListOfEventAchiever["2023CLASSICSRBY"]]
     },
     {
         name: "Charice Elleanore K. B.",
@@ -98,7 +98,7 @@ const sapphireWinners = [
         image: saphireAchievers9,
         country: ListOfCity.JKT,
         YoutubeLink: "https://www.youtube.com/watch?v=1sqUiE7SP30&ab_channel=APIANOCONCERTOSERIES",
-        event: [ListOfEventAchiever["2023CHRISTMAS"], ListOfEventAchiever["2022CLASSICJKT"]]
+        event: [ListOfEventAchiever["2023CHRISTMAS"], ListOfEventAchiever["2023CLASSICJKT"]]
     },
     {
         name: "Sydney Mikaela Tan",
@@ -189,28 +189,28 @@ const sapphireWinners = [
         image: saphireAchievers22,
         country: ListOfCity.MD,
         YoutubeLink: "https://www.youtube.com/watch?v=XFvWVT0Wroc&ab_channel=APIANOCONCERTOSERIES",
-        event: [ListOfEventAchiever["2022CLASSICSRBY"]]
+        event: [ListOfEventAchiever["2023CLASSICSRBY"]]
     },
     {
         name: "Ann Shereen Yao &Adrianne Shanelle Yao",
         image: saphireAchievers23,
         country: ListOfCity.JKT,
         YoutubeLink: "https://www.youtube.com/watch?v=779gXnPTs-0&ab_channel=APIANOCONCERTOSERIES",
-        event: [ListOfEventAchiever["2022CLASSICJKT"]]
+        event: [ListOfEventAchiever["2023CLASSICJKT"]]
     },
     {
         name: "Joshua Kevin H. ",
         image: saphireAchievers24,
         country: ListOfCity.SRB,
         YoutubeLink: "https://www.youtube.com/watch?v=JDU_q_ZjfW0&ab_channel=APIANOCONCERTOSERIES",
-        event: [ListOfEventAchiever["2022CLASSICSRBY"]]
+        event: [ListOfEventAchiever["2023CLASSICSRBY"]]
     },
     {
         name: "Michael Phillipe A.",
         image: saphireAchievers25,
         country: ListOfCity.SRB,
         YoutubeLink: "https://www.youtube.com/watch?v=9Xgu6PLNNg0&ab_channel=APIANOCONCERTOSERIES",
-        event: [ListOfEventAchiever["2022CLASSICSRBY"]]
+        event: [ListOfEventAchiever["2023CLASSICSRBY"]]
     },
 ];
 

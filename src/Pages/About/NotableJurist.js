@@ -23,6 +23,7 @@ import chinaflag from "../../assets/images/chinaflag.jpg"
 import amrFlag from "../../assets/images/amrFlag.jpg"
 import HeaderAbout from "../../components/atom/HeaderAbout";
 import { useAuth } from "../../context/DataContext";
+import { flagIcon } from "../../utils/Utils";
 
 const NotableJurist = () => {
 
@@ -49,7 +50,7 @@ const NotableJurist = () => {
             image: jurist3,
             name: "MYRA K PRANAJAYA",
             title: "Jurist 2023",
-            quote: "Myra Karlina Pranajaya began her piano studies'at the agé of four. A few years later, she began performing in concerts at Symphony Musical Art Center, Lembaga Musik Murni, and Irama Music Studio in Medan, Indonesia. She also performed, for example, at the Indonesian Young Musician Performance Concert, Euro Music Festival and Academy (2019), International Piano Academy Freiburg (2017), MusicAlp International Music Academy in France (2021), and the 13th Summer Academy of Music in Uelzen, Germany (2022), where she performed with the Wratislavia Chamber Orchestra.",
+            quote: "Myra Karlina Pranajaya began her piano studies at the age of four. A few years later, she began performing in concerts at Symphony Musical Art Center, Lembaga Musik Murni, and Irama Music Studio in Medan, Indonesia. She also performed, for example, at the Indonesian Young Musician Performance Concert, Euro Music Festival and Academy (2019), International Piano Academy Freiburg (2017), MusicAlp International Music Academy in France (2021), and the 13th Summer Academy of Music in Uelzen, Germany (2022), where she performed with the Wratislavia Chamber Orchestra.",
             country: [CountryConst.IDN, CountryConst.DNMRK],
             link: "https://www.instagram.com/p/CpcHUoUPkeM/?igsh=MXV6ZXl0cG5jNXR4aw%3D%3D&img_index=10"
         },
@@ -89,7 +90,7 @@ const NotableJurist = () => {
             image: jurist10,
             name: "CHIKITA AMANDA",
             title: "Jurist 2023",
-            quote: "Chikita Amanda is a talented Indonesian composer, arranger, and conductor known for her orchestral scores reminiscent of Hollywood and Disney. She has collaborated with prominent musicians such as Topati, Ariel Noah, and Miriam Eka. Her talents have also been recognized internationally through contributions to the music scoring team of the UK's SKY TV series “Gangs of London.”",
+            quote: "Chikita Amanda is a talented Indonesian composer, arranger, and conductor known for her orchestral scores reminiscent of Hollywood and Disney. She has collaborated with prominent musicians such as Tohpati, Ariel Noah, and Mirriam Eka. Her talents have also been recognized internationally through contributions to the music scoring team of the UK's SKY TV series “Gangs of London.”",
             country: [CountryConst.IDN],
             link: "https://www.instagram.com/p/CvRD0tYhJI8/?igsh=eTZsd21ieXd3eGJ0&img_index=2"
         },
@@ -131,6 +132,9 @@ const NotableJurist = () => {
                             <div className="text-align-justify" style={{ fontSize: 20 }}>
                                 Head of Jurist
                             </div>
+                            <div className="d-flex" style={{ marginTop: 16 }}>
+                                <img src={flagIcon(CountryConst.IDN)} alt={"country"} />
+                            </div>
 
                             <div className="text-align-justify" style={{ fontSize: 20, marginTop: 30 }}>
                                 Firdy Salim is an alumnus of the Koninklijk Conservatorium at Den Haag and the Head of Piano at one of the Conservatories of Music in Indonesia, where he teaches piano performance and piano pedagogy. His extensive pedagogical endeavors include fostering growth in both students and fellow educators within the music education community.
@@ -138,6 +142,10 @@ const NotableJurist = () => {
 
                             <div className="text-align-justify mangolaineFont italicText goldenTextColor" style={{ fontSize: 24, marginTop: 20, width: "100%" }}>
                                 "Join us at the music festival to showcase your talent, connect with others, and make lasting memories."
+                            </div>
+
+                            <div className="text-align-justify mt-2">
+                                JURIST 2022, 2023, 2024
                             </div>
                         </AnimatedComponent>
                     </div>

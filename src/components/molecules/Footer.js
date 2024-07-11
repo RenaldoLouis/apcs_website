@@ -13,6 +13,7 @@ import { PathName } from "../../constant/PathName";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
+import { Link } from '@mui/material';
 
 const Footer = () => {
     const navigate = useNavigate();
@@ -84,10 +85,14 @@ const Footer = () => {
                                 <div className="mb-3" style={{ fontWeight: 900 }}>
                                     Contact
                                 </div>
-                                <div>
-                                    apcs@gmail.com
-                                </div>
-                                <div>
+                                <Link
+                                    href="mailto:hello@apcsmusic.com"
+                                    className="cursorPointer"
+                                    sx={{ textDecoration: 'none', color: 'inherit' }}
+                                >
+                                    hello@apcsmusic.com
+                                </Link>
+                                <div onClick={handleOpenWhatsapp} className="cursorPointer">
                                     (+62) 822-1300-2686
                                 </div>
                             </div>
@@ -141,9 +146,13 @@ const Footer = () => {
                             <div className="headerFooter">
                                 Contact
                             </div>
-                            <div>
+                            <Link
+                                href="mailto:hello@apcsmusic.com"
+                                className="cursorPointer"
+                                sx={{ textDecoration: 'none', color: 'inherit' }}
+                            >
                                 hello@apcsmusic.com
-                            </div>
+                            </Link>
 
                             <div className="headerFooter mt-5" >
                                 Info Registration
