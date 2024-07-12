@@ -31,7 +31,7 @@ import saphireAchievers26 from "../../assets/images/saphireAchiever/saphireAchie
 import saphireAchievers27 from "../../assets/images/saphireAchiever/saphireAchievers27.png";
 import saphireAchieverText from "../../assets/images/saphireAchieverText.svg"
 import PillButton from "../../components/atom/PillButton";
-import { dataDiamond } from "../../constant/datas/DiamondAchieverData";
+import { dataDiamond2 } from "../../constant/datas/DiamondAchieverData";
 import CoverImageHome from "../../components/molecules/CoverImageHome";
 import { ContentPosition } from "../../constant/ContentPosition";
 import AnimatedComponent from "../../components/atom/AnimatedComponent";
@@ -278,7 +278,7 @@ const Achievers = () => {
                     <div />
                 </>
             } /> */}
-            <SapphireWinnerSection dataSaphire={sapphireWinners} dataDiamond={dataDiamond} />
+            <SapphireWinnerSection dataSaphire={sapphireWinners} dataDiamond={dataDiamond2} />
         </div>
     )
 }

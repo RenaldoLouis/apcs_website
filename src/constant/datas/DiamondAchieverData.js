@@ -1,917 +1,925 @@
-
-export const dataDiamond = [
-    {
-        "name": "Renata Mia Guntoro",
-        "country": "Jakarta",
-        "YoutubeLink": "https://www.youtube.com/watch?v=1HIPpWh5-cs&ab_channel=APIANOCONCERTOSERIES",
-        "event": ["2023 Christmas Wonderland"]
-    },
-    {
-        "name": "Sekar Pituwas Katresnan",
-        "country": "Magelang",
-        "YoutubeLink": "https://www.youtube.com/watch?v=5gCfm1y91x4&ab_channel=APIANOCONCERTOSERIES",
-        "event": ["2023 Christmas Wonderland"]
-    },
-    {
-        "name": "Shannon Richelle Johannanto",
-        "country": "Semarang",
-        "YoutubeLink": "https://www.youtube.com/watch?v=KBymvNeAFIc&ab_channel=APIANOCONCERTOSERIES",
-        "event": ["2023 Christmas Wonderland"]
-    },
-    {
-        "name": "Sheera Lie Susanto",
-        "country": "Semarang",
-        "event": ["2023 Christmas Wonderland"]
-    },
-    {
-        "name": "Skyler Frensi Lie",
-        "country": "Jakarta",
-        "event": ["2023 Christmas Wonderland"]
-    },
-    {
-        "name": "Stela Lie Susanto",
-        "country": "Semarang",
-        "event": ["2023 Christmas Wonderland"]
-    },
-
-    {
-        "name": "Jocelyn Joeyvancha Gan",
-        "country": "Surabaya",
-        "YoutubeLink": "https://www.youtube.com/watch?v=E7fNnydSPHA&ab_channel=APIANOCONCERTOSERIES",
-        "event": ["2023 Classical Festival Surabaya"]
-    },
-    {
-        "name": "Mikayla Wirawan",
-        "country": "Sidoarjo",
-        "YoutubeLink": "https://www.youtube.com/watch?v=zNRcY64OEH4&ab_channel=APIANOCONCERTOSERIES",
-        "event": ["2023 Classical Festival Surabaya"]
-    },
-    {
-        "name": "Cathelyn Hanna Gunawan",
-        "country": "Surabaya",
-        "YoutubeLink": "https://www.youtube.com/watch?v=X0D3ptqYy24&ab_channel=APIANOCONCERTOSERIES",
-        "event": ["2023 Classical Festival Surabaya"]
-    },
-    {
-        "name": "Graziella Jasmine Lovell",
-        "country": "Surabaya",
-        "YoutubeLink": "https://www.youtube.com/watch?v=LVSSFb7dc3Y&ab_channel=APIANOCONCERTOSERIES",
-        "event": ["2023 Classical Festival Surabaya"]
-    },
-    {
-        "name": "Jacqueline Harianto & Evangelica Dinamita Rut Hutahaean",
-        "YoutubeLink": "https://www.youtube.com/watch?v=Z4_fBoPJAKM&ab_channel=APIANOCONCERTOSERIES",
-        "event": ["2023 Classical Festival Surabaya"]
-    },
-    {
-        "name": "Joshua Kevin Hudyana",
-        "country": "Surabaya",
-        "YoutubeLink": "https://www.youtube.com/watch?v=JDU_q_ZjfW0&ab_channel=APIANOCONCERTOSERIES",
-        "event": ["2023 Classical Festival Surabaya"]
-    },
-    {
-        "name": "Victoria Severine Liono",
-        "country": "Jakarta",
-        "event": ["2023 Classical Festival Jakarta"]
-    },
-    {
-        "name": "Skye Hartono",
-        "country": "Jakarta",
-        "event": ["2023 Classical Festival Jakarta"]
-    },
-    {
-        "name": "Lionel Vito Wijaya",
-        "country": "Palembang",
-        "event": ["2023 Classical Festival Jakarta"]
-    },
-    {
-        "name": "Maryam Almayrha Nugraha",
-        "country": "Jakarta",
-        "event": ["2023 Classical Festival Jakarta"]
-    },
-    {
-        "name": "Nur Alifah Najjah",
-        "country": "Bekasi",
-        "event": ["2023 Classical Festival Jakarta"]
-    },
-    {
-        "name": "Cheryn Pandora",
-        "country": "Medan",
-        "event": ["2023 Classical Festival Jakarta"]
-    },
-    {
-        "name": "Edenia Maureen",
-        "country": "Surabaya",
-        "event": ["2023 Classical Festival Jakarta"]
-    },
-    {
-        "name": "Fadlasyah Rifqy",
-        "country": "Jakarta",
-        "YoutubeLink": "https://www.youtube.com/watch?v=0Ye5ydaInZw&ab_channel=APIANOCONCERTOSERIES",
-        "event": ["2023 Classical Festival Jakarta"]
-    },
-    {
-        "name": "Nicole Joy Nathan",
-        "country": "Jakarta",
-        "event": ["2023 Classical Festival Jakarta"]
-    },
-    {
-        "name": "Claire Abigail Quinn",
-        "country": "Jakarta",
-        "YoutubeLink": "https://www.youtube.com/watch?v=nPGdTzNX_Mk&ab_channel=APIANOCONCERTOSERIES",
-        "event": ["2023 Classical Festival Jakarta"]
-    },
-    {
-        "name": "Claire Hartono",
-        "country": "Jakarta",
-        "YoutubeLink": "https://www.youtube.com/watch?v=mxSDoydDj6g&ab_channel=APIANOCONCERTOSERIES",
-        "event": ["2023 Classical Festival Jakarta"]
-    },
-    {
-        "name": "Yuniasri Maya Aisyah",
-        "country": "Semarang",
-        "YoutubeLink": "https://www.youtube.com/watch?v=4TE9K3E9EfI&t=147s&ab_channel=APIANOCONCERTOSERIES",
-        "event": ["2023 Classical Festival Jakarta"]
-    },
-    {
-        "name": "Ike Kusumawati",
-        "country": "Semarang",
-        "YoutubeLink": "https://www.youtube.com/watch?v=4TE9K3E9EfI&t=147s&ab_channel=APIANOCONCERTOSERIES",
-        "event": ["2023 Classical Festival Jakarta"]
-    },
-    {
-        "name": "Chyra Yemima Ekaputra",
-        "country": "Bekasi",
-        "event": ["2023 Classical Festival Jakarta"]
-    },
-    {
-        "name": "Zoe Kalonice Robin",
-        "country": "Palembang",
-        "YoutubeLink": "https://www.youtube.com/watch?v=IiagS3bLpKU&ab_channel=APIANOCONCERTOSERIES",
-        "event": ["2023 Classical Festival Jakarta"]
-    },
-    {
-        "name": "Clarissa Stefanny",
-        "country": "Pontianak",
-        "YoutubeLink": "https://www.youtube.com/watch?v=XR8yYVUsBzo&ab_channel=APIANOCONCERTOSERIES",
-        "event": ["2023 Classical Festival Jakarta", "Christmas Wonderland"]
-    },
-    {
-        "name": "Lawrence Cedric Senjaya",
-        "country": "Bandung",
-        "YoutubeLink": "https://www.youtube.com/watch?v=hwoE6v6JZXo&ab_channel=APIANOCONCERTOSERIES",
-        "event": ["2023 Classical Festival Jakarta"]
-    },
-    {
-        "name": "Timothy Sam Kosaih",
-        "country": "Jakarta",
-        "YoutubeLink": "https://www.youtube.com/watch?v=5Fce0KI_NA8&ab_channel=APIANOCONCERTOSERIES",
-        "event": ["2023 Classical Festival Jakarta"]
-    },
-    {
-        "name": "Kaleb Yuseli",
-        "country": "Salatiga",
-        "YoutubeLink": "https://www.youtube.com/watch?v=OrQ2tsXxe6o&ab_channel=APIANOCONCERTOSERIES",
-        "event": ["2023 Classical Festival Jakarta"]
-    },
-    {
-        "name": "Vallery Dominic Gunawan",
-        "country": "Jakarta",
-        "event": ["2023 Classical Festival Jakarta"]
-    },
-    {
-        "name": "Sutra Cahaya Wijaya",
-        "country": "Pekanbaru",
-        "YoutubeLink": "https://www.youtube.com/watch?v=PvrwxGl3bic&ab_channel=APIANOCONCERTOSERIES",
-        "event": ["2023 Classical Festival Jakarta"]
-    },
-    {
-        "name": "Athanasius Warren Jonatan",
-        "country": "Jakarta",
-        "YoutubeLink": "https://www.youtube.com/watch?v=-EwR6Gkue9s&ab_channel=APIANOCONCERTOSERIES",
-        "event": ["2023 Classical Festival Jakarta"]
-    },
-    {
-        "name": "Jane Adelene Sun",
-        "country": "Palembang",
-        "YoutubeLink": "https://www.youtube.com/watch?v=sIfkEaIcPYo&ab_channel=APIANOCONCERTOSERIES",
-        "event": ["2023 Classical Festival Jakarta"]
-    },
-    {
-        "name": "Ashley Michelle Poh",
-        "country": "Tangerang",
-        "YoutubeLink": "https://www.youtube.com/watch?v=6DkCJVJPjsQ&ab_channel=APIANOCONCERTOSERIES",
-        "event": ["2023 Classical Festival Jakarta"]
-    },
-    {
-        "name": "Calvin Yoel Pandiangan",
-        "country": "Batam",
-        "event": ["2023 Classical Festival Jakarta"]
-    },
-    {
-        "name": "Calya Anara Wijaya",
-        "country": "Jakarta",
-        "YoutubeLink": "https://www.youtube.com/watch?v=F1kpOEjWYQg&ab_channel=APIANOCONCERTOSERIES",
-        "event": ["2023 Classical Festival Jakarta"]
-    },
-    {
-        "name": "Janice Bella Kotandi",
-        "country": "Jakarta",
-        "event": ["2023 Classical Festival Jakarta"]
-    },
-    {
-        "name": "Lucius Keenan Raine",
-        "country": "Palembang",
-        "event": ["2023 Classical Festival Jakarta"]
-    },
-    {
-        "name": "Clara Brigitta Hartono",
-        "country": "Jakarta",
-        "event": ["2023 Classical Festival Jakarta"]
-    },
-    {
-        "name": "Jehoshua Amadeus Samuel amanta Nainggolan",
-        "country": "Yogyakarta",
-        "YoutubeLink": "https://www.youtube.com/watch?v=2Li-73xu7rI&ab_channel=APIANOCONCERTOSERIES",
-        "event": ["2023 Classical Festival Jakarta"]
-    },
-    {
-        "name": "Florisia Revanya Josephine",
-        "country": "Yogyakarta",
-        "YoutubeLink": "https://www.youtube.com/watch?v=2Li-73xu7rI&ab_channel=APIANOCONCERTOSERIES",
-        "event": ["2023 Classical Festival Jakarta"]
-    },
-    {
-        "name": "Marshaina Azalia Primantantri",
-        "country": "Bogor",
-        "event": ["2023 Classical Festival Jakarta"]
-    },
-    {
-        "name": "Abigail Caitlyn Electra",
-        "country": "Semarang",
-        "YoutubeLink": "https://www.youtube.com/watch?v=sijinYGOZnw&ab_channel=APIANOCONCERTOSERIES",
-        "event": ["2023 Christmas Wonderland"]
-    },
-    {
-        "name": "Adeleine Angelique Wiryanto",
-        "country": "Surabaya",
-        "YoutubeLink": "https://www.youtube.com/watch?v=1R0mf-yRRB8&ab_channel=APIANOCONCERTOSERIES",
-        "event": ["2023 Christmas Wonderland"]
-    },
-    {
-        "name": "Bryan Immanuel Gunawan",
-        "country": "Surabaya",
-        "YoutubeLink": "https://www.youtube.com/watch?v=3R4niYXPdSg&ab_channel=APIANOCONCERTOSERIES",
-        "event": ["2023 Christmas Wonderland"]
-    },
-    {
-        "name": "Britanny Charlene Liaunardy",
-        "country": "Surabaya",
-        "YoutubeLink": "https://www.youtube.com/watch?v=bHUYL-i0KIc&ab_channel=APIANOCONCERTOSERIES",
-        "event": ["2023 Christmas Wonderland"]
-    },
-    {
-        "name": "Gizelle Everly Wantana",
-        "country": "Jakarta",
-        "YoutubeLink": "https://www.youtube.com/watch?v=pSzly_St6yY&ab_channel=APIANOCONCERTOSERIES",
-        "event": ["2023 Christmas Wonderland"]
-    },
-    {
-        "name": "Joane Gabriella Ianputri",
-        "country": "Jakarta",
-        "YoutubeLink": "https://www.youtube.com/watch?v=54HLINLr4Xs&ab_channel=APIANOCONCERTOSERIES",
-        "event": ["2023 Christmas Wonderland"]
-    },
-    {
-        "name": "Josephine Mulyani",
-        "country": "Jakarta",
-        "YoutubeLink": "https://www.youtube.com/watch?v=54HLINLr4Xs&ab_channel=APIANOCONCERTOSERIES",
-        "event": ["2023 Christmas Wonderland"]
-    },
-    {
-        "name": "Madelynn Esmee Theodore",
-        "country": "Surabaya",
-        "YoutubeLink": "https://www.youtube.com/watch?v=7WAlZEqbdZ8&ab_channel=APIANOCONCERTOSERIES",
-        "event": ["2023 Christmas Wonderland"]
-    },
-    {
-        "name": "Philia Eltan Haryanto",
-        "country": "Jakarta",
-        "YoutubeLink": "https://www.youtube.com/watch?v=FF3aXBHffbw&ab_channel=APIANOCONCERTOSERIES",
-        "event": ["2023 Christmas Wonderland"]
-    },
-    {
-        "name": "Brigitta Gracelyn Thetrasakti",
-        "country": "Jakarta",
-        "YoutubeLink": "https://www.youtube.com/watch?v=FF3aXBHffbw&ab_channel=APIANOCONCERTOSERIES",
-        "event": ["2023 Christmas Wonderland"]
-    },
-    {
-        "name": "Reinhart Avery Hidayat",
-        "country": "Lampung",
-        "YoutubeLink": "https://www.youtube.com/watch?v=orBGO3n5TzM&ab_channel=APIANOCONCERTOSERIES",
-        "event": ["2023 Christmas Wonderland"]
-    },
-    {
-        "name": "Renata Mia Guntoro",
-        "country": "Jakarta",
-        "YoutubeLink": "https://www.youtube.com/watch?v=1HIPpWh5-cs&ab_channel=APIANOCONCERTOSERIES",
-        "event": ["2023 Christmas Wonderland"]
-    },
+import { ListOfCity } from "../ListOfCity"
+import { ListOfEventAchiever } from "../ListOfEventAchiever"
 
 
+export const dataDiamond2 = [
     {
-        "name": "Sydney Mikaela Tan",
-        "country": "Tangerang",
-        "YoutubeLink": "https://www.youtube.com/watch?v=gItdcXGQqSM&ab_channel=APIANOCONCERTOSERIES",
-        "event": ["2023 Christmas Wonderland", "2023 Classical Festival Surabaya", "2023 Classical Festival Jakarta"]
+        name: "Abigail Caitlyn Electra",
+        country: ListOfCity.SMG,
+        YoutubeLink: "https://www.youtube.com/watch?v=sijinYGOZnw&ab_channel=APIANOCONCERTOSERIES",
+        event: [ListOfEventAchiever["2023CHRISTMAS"]]
     },
     {
-        "name": "Ashton Micah Poh",
-        "country": "Tangerang",
-        "YoutubeLink": "https://www.youtube.com/watch?v=UH8J4olztEo&ab_channel=APIANOCONCERTOSERIES",
-        "event": ["2023 Classical Festival Jakarta", "2023 Christmas Wonderland"]
+        name: "Adeleine Angelique Wiryanto",
+        country: ListOfCity.SBY,
+        YoutubeLink: "https://www.youtube.com/watch?v=1R0mf-yRRB8&ab_channel=APIANOCONCERTOSERIES",
+        event: [ListOfEventAchiever["2023CHRISTMAS"]]
     },
     {
-        "name": "Darius Tairisya",
-        "country": "Tangerang",
-        "event": ["2023 Christmas Wonderland"]
+        name: "Ann Shereen Yao",
+        country: ListOfCity.JKT,
+        YoutubeLink: "https://www.youtube.com/watch?v=779gXnPTs-0&ab_channel=APIANOCONCERTOSERIES",
+        event: [ListOfEventAchiever["2023CHRISTMAS"]]
     },
     {
-        "name": "Chindy Anastasya",
-        "country": "Tangerang",
-        "event": ["2023 Christmas Wonderland"]
+        name: "Adrianne Shanelle Yao",
+        country: ListOfCity.JKT,
+        YoutubeLink: "https://www.youtube.com/watch?v=779gXnPTs-0&ab_channel=APIANOCONCERTOSERIES",
+        event: [ListOfEventAchiever["2023CHRISTMAS"]]
     },
     {
-        "name": "Katherine Natalie Mulyadi",
-        "country": "Bogor",
-        "event": ["2023 Christmas Wonderland", "2023 Classical Festival Jakarta"]
+        name: "Arissa Eillin Budiono",
+        country: ListOfCity.PLB,
+        YoutubeLink: "https://www.youtube.com/watch?v=-p6JIOod6_c&ab_channel=APIANOCONCERTOSERIES",
+        event: [ListOfEventAchiever["2023CHRISTMAS"]]
     },
     {
-        "name": "Fairlyn Dharmawan",
-        "country": "Tangerang",
-        "event": ["2023 Christmas Wonderland"]
+        name: "Ashton Micah Poh",
+        country: ListOfCity.TNG,
+        YoutubeLink: "https://www.youtube.com/watch?v=UH8J4olztEo&ab_channel=APIANOCONCERTOSERIES",
+        event: [ListOfEventAchiever["2023CHRISTMAS"], ListOfEventAchiever["2023CLASSICJKT"]]
     },
     {
-        "name": "Nadya Adeline Hermanto",
-        "country": "Tangerang",
-        "event": ["2023 Christmas Wonderland"]
+        name: "Britanny Charlene Liaunardy",
+        country: ListOfCity.SBY,
+        YoutubeLink: "https://www.youtube.com/watch?v=bHUYL-i0KIc&ab_channel=APIANOCONCERTOSERIES",
+        event: [ListOfEventAchiever["2023CHRISTMAS"]]
     },
     {
-        "name": "Mikhayla Sofilia Widjaja",
-        "country": "Tangerang",
-        "event": ["2023 Christmas Wonderland"]
+        name: "Bryan Immanuel Gunawan",
+        country: ListOfCity.SBY,
+        YoutubeLink: "https://www.youtube.com/watch?v=3R4niYXPdSg&ab_channel=APIANOCONCERTOSERIES",
+        event: [ListOfEventAchiever["2023CHRISTMAS"]]
     },
     {
-        "name": "Liselle Fendbee Soe",
-        "country": "Batam",
-        "event": ["2023 Christmas Wonderland"]
+        name: "Cathleen Scarlett Hayasi",
+        country: ListOfCity.JKT,
+        YoutubeLink: "https://www.youtube.com/watch?v=D1ct_m0XJtY&ab_channel=APIANOCONCERTOSERIES",
+        event: [ListOfEventAchiever["2023CHRISTMAS"]]
     },
     {
-        "name": "Pakpahan Aminan Shantlerine A.R",
-        "country": "Bekasi",
-        "event": ["2023 Christmas Wonderland"]
+        name: "Clarissa Stefanny",
+        country: ListOfCity.PNT,
+        YoutubeLink: "https://www.youtube.com/watch?v=XR8yYVUsBzo&ab_channel=APIANOCONCERTOSERIES",
+        event: [ListOfEventAchiever["2023CHRISTMAS"]]
     },
     {
-        "name": "Issac Mulya Putra",
-        "country": "Tangerang",
-        "event": ["2023 Christmas Wonderland"]
+        name: "Edward Nathaniel Handoko",
+        country: ListOfCity.SBY,
+        YoutubeLink: "https://www.youtube.com/watch?v=twdiVI7WYNA&ab_channel=APIANOCONCERTOSERIES",
+        event: [ListOfEventAchiever["2023CHRISTMAS"]]
     },
     {
-        "name": "Megan Magdalene Liem",
-        "country": "Semarang",
-        "YoutubeLink": "https://www.youtube.com/watch?v=ca8KN0xYBtg&ab_channel=APIANOCONCERTOSERIES",
-        "event": ["2022 Magical Music Soundtrack"]
+        name: "Gizelle Everly Wantana",
+        country: ListOfCity.JKT,
+        YoutubeLink: "https://www.youtube.com/watch?v=pSzly_St6yY&ab_channel=APIANOCONCERTOSERIES",
+        event: [ListOfEventAchiever["2023CHRISTMAS"]]
     },
     {
-        "name": "Sam Joseph Arthur",
-        "country": "Semarang",
-        "YoutubeLink": "https://www.youtube.com/watch?v=f5__60AfXpU&ab_channel=APIANOCONCERTOSERIES",
-        "event": ["2022 Magical Music Soundtrack"]
+        name: "Joane Gabriella lanputri",
+        country: ListOfCity.JKT,
+        YoutubeLink: "https://www.youtube.com/watch?v=54HLINLr4Xs&ab_channel=APIANOCONCERTOSERIES",
+        event: [ListOfEventAchiever["2023CHRISTMAS"]]
     },
     {
-        "name": "Celine Gabriella Amijaya",
-        "country": "Semarang",
-        "YoutubeLink": "https://www.youtube.com/watch?v=ABfhBsL9dpw&ab_channel=APIANOCONCERTOSERIES",
-        "event": ["2022 Magical Music Soundtrack"]
+        name: "Josephine Mulyani",
+        country: ListOfCity.JKT,
+        YoutubeLink: "https://www.youtube.com/watch?v=54HLINLr4Xs&ab_channel=APIANOCONCERTOSERIES",
+        event: [ListOfEventAchiever["2023CHRISTMAS"]]
     },
     {
-        "name": "Michelle Natalie Setiabudi",
-        "country": "Jakarta",
-        "YoutubeLink": "https://www.youtube.com/watch?v=JlNUsFCzNF4&ab_channel=APIANOCONCERTOSERIES",
-        "event": ["2022 Magical Music Soundtrack"]
+        name: "Kayla Calista Ayal",
+        country: ListOfCity.BGR,
+        YoutubeLink: "https://www.youtube.com/watch?v=oivwx12q0Do&ab_channel=APIANOCONCERTOSERIES",
+        event: [ListOfEventAchiever["2023CHRISTMAS"]]
     },
     {
-        "name": "Fiona Lynn Sie",
-        "country": "Semarang",
-        "YoutubeLink": "https://www.youtube.com/watch?v=jwQk6n4h144&ab_channel=APIANOCONCERTOSERIES",
-        "event": ["2023 Christmas Wonderland", "2022 Magical Music Soundtrack"]
+        name: "Keenan Kwok",
+        country: ListOfCity.JKT,
+        YoutubeLink: "https://www.youtube.com/watch?v=MRbkf3Jlm9I&ab_channel=APIANOCONCERTOSERIES",
+        event: [ListOfEventAchiever["2023CHRISTMAS"]]
     },
     {
-        "name": "Mary Kate Onggowijoyo",
-        "country": "Surabaya",
-        "YoutubeLink": "https://www.youtube.com/watch?v=J5UZM0lH0Cc&ab_channel=APIANOCONCERTOSERIES",
-        "event": ["2022 Magical Music Soundtrack", "2023 Classical Festival Surabaya", "2023 Christmas Wonderland"]
+        name: "Madelynn Esmee Theodore",
+        country: ListOfCity.SBY,
+        YoutubeLink: "https://www.youtube.com/watch?v=7WAlZEqbdZ8&ab_channel=APIANOCONCERTOSERIES",
+        event: [ListOfEventAchiever["2023CHRISTMAS"]]
     },
     {
-        "name": "Kaylee Adrienne Gunawan",
-        "country": "Surabaya",
-        "YoutubeLink": "https://www.youtube.com/watch?v=i2EGEu7VFVg&ab_channel=APIANOCONCERTOSERIES",
-        "event": ["2022 Magical Music Soundtrack"]
+        name: "Mary Kate Onggowijoyo",
+        country: ListOfCity.SBY,
+        YoutubeLink: "https://www.youtube.com/watch?v=J5UZM0lH0Cc&ab_channel=APIANOCONCERTOSERIES",
+        event: [ListOfEventAchiever["2023CHRISTMAS"]]
     },
     {
-        "name": "Arissa Eillin Budiono",
-        "country": "Palembang",
-        "YoutubeLink": "https://www.youtube.com/watch?v=-p6JIOod6_c&ab_channel=APIANOCONCERTOSERIES",
-        "event": ["2022 Magical Music Soundtrack", "2023 Christmas Wonderland"]
+        name: "Philia Eltan Haryanto",
+        country: ListOfCity.JKT,
+        YoutubeLink: "https://www.youtube.com/watch?v=FF3aXBHffbw&ab_channel=APIANOCONCERTOSERIES",
+        event: [ListOfEventAchiever["2023CHRISTMAS"]]
     },
     {
-        "name": "Lougan Steinson Wiranto",
-        "country": "Semarang",
-        "YoutubeLink": "https://www.youtube.com/watch?v=lApJUHVGVrw&ab_channel=APIANOCONCERTOSERIES",
-        "event": ["2022 Magical Music Soundtrack"]
+        name: "Brigitta Gracelyn Thetrasakti",
+        country: ListOfCity.JKT,
+        YoutubeLink: "https://www.youtube.com/watch?v=FF3aXBHffbw&ab_channel=APIANOCONCERTOSERIES",
+        event: [ListOfEventAchiever["2023CHRISTMAS"]]
     },
     {
-        "name": "Putri Birru Shafa",
-        "country": "Tangerang",
-        "YoutubeLink": "https://www.youtube.com/watch?v=7rKG-ngmX7g&ab_channel=APIANOCONCERTOSERIES",
-        "event": ["2022 Magical Music Soundtrack"]
+        name: "Reinhart Avery Hidayat",
+        country: ListOfCity.LPG,
+        YoutubeLink: "https://www.youtube.com/watch?v=orBGO3n5TzM&ab_channel=APIANOCONCERTOSERIES",
+        event: [ListOfEventAchiever["2023CHRISTMAS"]]
     },
     {
-        "name": "Reina Merielle Then",
-        "country": "Tangerang",
-        "YoutubeLink": "https://www.youtube.com/watch?v=6dwob3zxOIo&ab_channel=APIANOCONCERTOSERIES",
-        "event": ["2022 Magical Music Soundtrack"]
+        name: "Sekar Pituwas Katresnan",
+        country: ListOfCity.MGG,
+        YoutubeLink: "https://www.youtube.com/watch?v=5gCfm1y91x4&ab_channel=APIANOCONCERTOSERIES",
+        event: [ListOfEventAchiever["2023CHRISTMAS"]]
     },
     {
-        "name": "Gregorius Reinhardt",
-        "country": "Palembang",
-        "YoutubeLink": "https://www.youtube.com/watch?v=TntCfGmzFSU&ab_channel=APIANOCONCERTOSERIES",
-        "event": ["2022 Magical Music Soundtrack", "2023 Classical Festival Jakarta"]
+        name: "Shannon Richelle Johannanto",
+        country: ListOfCity.SMG,
+        YoutubeLink: "https://www.youtube.com/watch?v=KBymvNeAFIc&ab_channel=APIANOCONCERTOSERIES",
+        event: [ListOfEventAchiever["2023CHRISTMAS"]]
     },
     {
-        "name": "Joline Jati Utomo",
-        "country": "Semarang",
-        "YoutubeLink": "https://www.youtube.com/watch?v=A8Bp1880zf4&ab_channel=APIANOCONCERTOSERIES",
-        "event": ["2022 Magical Music Soundtrack"]
+        name: "Sheera Lie Susanto",
+        country: ListOfCity.SMG,
+        YoutubeLink: "-",
+        event: [ListOfEventAchiever["2023CHRISTMAS"]]
     },
     {
-        "name": "Victoria Inverness Susilo",
-        "country": "Surabaya",
-        "YoutubeLink": "https://www.youtube.com/watch?v=IZDGCKn9-y4&ab_channel=APIANOCONCERTOSERIES",
-        "event": ["2022 Magical Music Soundtrack"]
+        name: "Skyler Frensi Lie",
+        country: ListOfCity.JKT,
+        YoutubeLink: "-",
+        event: [ListOfEventAchiever["2023CHRISTMAS"]]
     },
     {
-        "name": "Sukent",
-        "country": "Medan",
-        "YoutubeLink": "https://www.youtube.com/watch?v=31LgHy1J3cI&ab_channel=APIANOCONCERTOSERIES",
-        "event": ["2022 Magical Music Soundtrack"]
+        name: "Stela Lie Susanto",
+        country: ListOfCity.SMG,
+        YoutubeLink: "-",
+        event: [ListOfEventAchiever["2023CHRISTMAS"]]
     },
     {
-        "name": "Gweneth Clarabel",
-        "country": "Surabaya",
-        "YoutubeLink": "https://www.youtube.com/watch?v=ukKL2rVILx4&ab_channel=APIANOCONCERTOSERIES",
-        "event": ["2022 Magical Music Soundtrack"]
+        name: "Renata Mia Guntoro",
+        country: ListOfCity.JKT,
+        YoutubeLink: "https://www.youtube.com/watch?v=1HIPpWh5-cs&ab_channel=APIANOCONCERTOSERIES",
+        event: [ListOfEventAchiever["2023CHRISTMAS"]]
     },
     {
-        "name": "Jaden William Tang",
-        "country": "Surabaya",
-        "YoutubeLink": "https://www.youtube.com/watch?v=U4ewR5bJwKA&ab_channel=APIANOCONCERTOSERIES",
-        "event": ["2022 Magical Music Soundtrack"]
+        name: "Vanessa Hardianto",
+        country: ListOfCity.TNG,
+        YoutubeLink: "https://www.youtube.com/watch?v=ha4YHiPchII&ab_channel=APIANOCONCERTOSERIES",
+        event: [ListOfEventAchiever["2023CHRISTMAS"]]
     },
     {
-        "name": "Inez Indriani",
-        "country": "Bandung",
-        "YoutubeLink": "https://www.youtube.com/watch?v=_13HZYyGYlQ&ab_channel=APIANOCONCERTOSERIES",
-        "event": ["2022 Magical Music Soundtrack"]
+        name: "Alf Elijah Beloved Sigarlaki",
+        country: ListOfCity.JKT,
+        YoutubeLink: "",
+        event: [ListOfEventAchiever["2023CLASSICJKT"]]
     },
     {
-        "name": "Raphael Zephaniah",
-        "country": "Jakarta",
-        "YoutubeLink": "https://www.youtube.com/watch?v=by5r6BfutJk&ab_channel=APIANOCONCERTOSERIES",
-        "event": ["2022 Magical Music Soundtrack", "2023 Classical Festival Jakarta"]
+        name: "Allegra Alcira Foo Ing Yue",
+        country: ListOfCity.TNG,
+        YoutubeLink: "",
+        event: [ListOfEventAchiever["2023CLASSICJKT"]]
     },
     {
-        "name": "Maria Laurencia",
-        "country": "Jakarta",
-        "YoutubeLink": "https://www.youtube.com/watch?v=by5r6BfutJk&ab_channel=APIANOCONCERTOSERIES",
-        "event": ["2022 Magical Music Soundtrack"]
+        name: "Ann Shereen Yao",
+        country: ListOfCity.JKT,
+        YoutubeLink: "",
+        event: [ListOfEventAchiever["2023CLASSICJKT"]]
     },
     {
-        "name": "Ludwina Natasya Azarine",
-        "country": "Jakarta",
-        "YoutubeLink": "https://www.youtube.com/watch?v=-K51m8NSZgA&ab_channel=APIANOCONCERTOSERIES",
-        "event": ["2022 Magical Music Soundtrack"]
+        name: "Ashley Michelle Poh",
+        country: ListOfCity.TNG,
+        YoutubeLink: "",
+        event: [ListOfEventAchiever["2023CLASSICJKT"]]
     },
     {
-        "name": "Natasha Julia Budiarjo",
-        "country": "Semarang",
-        "YoutubeLink": "https://www.youtube.com/watch?v=-K51m8NSZgA&ab_channel=APIANOCONCERTOSERIES",
-        "event": ["2022 Magical Music Soundtrack"]
+        name: "Ashton Micah Poh",
+        country: ListOfCity.TNG,
+        YoutubeLink: "https://www.youtube.com/watch?v=UH8J4olztEo&ab_channel=APIANOCONCERTOSERIES",
+        event: [ListOfEventAchiever["2023CLASSICJKT"]]
     },
     {
-        "name": "Gwyneth Madeline Liechelle Fanto",
-        "country": "Yogyakarta",
-        "YoutubeLink": "https://www.youtube.com/watch?v=Mdqj3pjkQwc&ab_channel=APIANOCONCERTOSERIESS",
-        "event": ["2022 Magical Music Soundtrack"]
+        name: "Athanasius Warren Jonatan",
+        country: ListOfCity.JKT,
+        YoutubeLink: "",
+        event: [ListOfEventAchiever["2023CLASSICJKT"]]
     },
     {
-        "name": "Melodi Tirza",
-        "country": "Yogyakarta",
-        "YoutubeLink": "https://www.youtube.com/watch?v=Mdqj3pjkQwc&ab_channel=APIANOCONCERTOSERIESSS",
-        "event": ["2022 Magical Music Soundtrack"]
+        name: "Calvin Yoel Pandiangan",
+        country: ListOfCity.BTM,
+        YoutubeLink: "",
+        event: [ListOfEventAchiever["2023CLASSICJKT"]]
     },
     {
-        "name": "Isabella Anjani",
-        "country": "Jakarta",
-        "YoutubeLink": "https://www.youtube.com/watch?v=jtJdj4SPqRY&ab_channel=APIANOCONCERTOSERIES",
-        "event": ["2022 Magical Music Soundtrack"]
+        name: "Calya Anara Wijaya",
+        country: ListOfCity.JKT,
+        YoutubeLink: "",
+        event: [ListOfEventAchiever["2023CLASSICJKT"]]
     },
     {
-        "name": "Aurellia Margareth William",
-        "country": "Tangerang",
-        "YoutubeLink": "https://www.youtube.com/watch?v=jtJdj4SPqRY&ab_channel=APIANOCONCERTOSERIES",
-        "event": ["2022 Magical Music Soundtrack"]
+        name: "Cathleen Scarlett Hayasi",
+        country: ListOfCity.JKT,
+        YoutubeLink: "",
+        event: [ListOfEventAchiever["2023CLASSICJKT"]]
     },
     {
-        "name": "Callista Kertalesmana",
-        "country": "Jakarta",
-        "event": ["2022 Magical Music Soundtrack"]
+        name: "Cheryn Pandora",
+        country: ListOfCity.SBY,
+        YoutubeLink: "",
+        event: [ListOfEventAchiever["2023CLASSICJKT"]]
     },
     {
-        "name": "Andrew Jevera Tan",
-        "country": "Tangerang",
-        "YoutubeLink": "https://www.youtube.com/watch?v=R_Cju-VofH4&ab_channel=APIANOCONCERTOSERIES",
-        "event": ["2022 Magical Music Soundtrack"]
+        name: "Chyra Yemima Ekaputra",
+        country: ListOfCity.BKS,
+        YoutubeLink: "",
+        event: [ListOfEventAchiever["2023CLASSICJKT"]]
     },
     {
-        "name": "Jeffren Leliga",
-        "country": "Surabaya",
-        "YoutubeLink": "https://www.youtube.com/watch?v=9PKinsw17Oc&ab_channel=APIANOCONCERTOSERIES",
-        "event": ["2022 Magical Music Soundtrack", "2023 Classical Festival Surabaya"]
+        name: "Claire Abigail Quinn",
+        country: ListOfCity.JKT,
+        YoutubeLink: "",
+        event: [ListOfEventAchiever["2023CLASSICJKT"]]
     },
     {
-        "name": "Nadia Putri Bharata",
-        "country": "Semarang",
-        "YoutubeLink": "https://www.youtube.com/watch?v=lsXM2WxNZvA&ab_channel=APIANOCONCERTOSERIES",
-        "event": ["2022 Magical Music Soundtrack"]
+        name: "Claire Hartono",
+        country: ListOfCity.JKT,
+        YoutubeLink: "",
+        event: [ListOfEventAchiever["2023CLASSICJKT"]]
     },
     {
-        "name": "Charice Elleanore Konggo Budiman",
-        "country": "Surabaya",
-        "YoutubeLink": "https://www.youtube.com/watch?v=NewtKsNhs_4&ab_channel=APIANOCONCERTOSERIES",
-        "event": ["2022 Magical Music Soundtrack"]
+        name: "Clara Brigitta Hartono",
+        country: ListOfCity.JKT,
+        YoutubeLink: "",
+        event: [ListOfEventAchiever["2023CLASSICJKT"]]
     },
     {
-        "name": "Eunike Alexandra Winoto",
-        "country": "Surabaya",
-        "YoutubeLink": "https://www.youtube.com/watch?v=8seYe3404cg&ab_channel=APIANOCONCERTOSERIES",
-        "event": ["2022 Magical Music Soundtrack"]
+        name: "Clarissa Stefanny",
+        country: ListOfCity.PNT,
+        YoutubeLink: "",
+        event: [ListOfEventAchiever["2023CLASSICJKT"]]
     },
     {
-        "name": "Sidney Loo",
-        "country": "Surabaya",
-        "YoutubeLink": "https://www.youtube.com/watch?v=FVlBEjVP4dw&ab_channel=APIANOCONCERTOSERIES",
-        "event": ["2022 Magical Music Soundtrack"]
+        name: "Clayton Oliver Hayasi",
+        country: ListOfCity.JKT,
+        YoutubeLink: "",
+        event: [ListOfEventAchiever["2023CLASSICJKT"]]
     },
     {
-        "name": "Adrianne Shanelle Yao",
-        "country": "Jakarta",
-        "YoutubeLink": "https://www.youtube.com/watch?v=779gXnPTs-0&ab_channel=APIANOCONCERTOSERIES",
-        "event": ["2022 Magical Music Soundtrack", "2023 Classical Festival Jakarta", "2023 Christmas Wonderland"]
+        name: "Edenia Maureen",
+        country: ListOfCity.SBY,
+        YoutubeLink: "",
+        event: [ListOfEventAchiever["2023CLASSICJKT"]]
     },
     {
-        "name": "Ann Shereen Yao",
-        "country": "Jakarta",
-        "YoutubeLink": "https://www.youtube.com/watch?v=779gXnPTs-0&ab_channel=APIANOCONCERTOSERIES",
-        "event": ["2022 Magical Music Soundtrack", "2023 Classical Festival Jakarta", "2023 Christmas Wonderland"]
+        name: "Fadlasyah Rifqy",
+        country: ListOfCity.JKT,
+        YoutubeLink: "",
+        event: [ListOfEventAchiever["2023CLASSICJKT"]]
     },
     {
-        "name": "Tabita Indri Nugroho",
-        "country": "Semarang",
-        "YoutubeLink": "https://www.youtube.com/watch?v=QIxGekVqrsc&ab_channel=APIANOCONCERTOSERIES",
-        "event": [
-            "2022 Magical Music Soundtrack"
-        ]
+        name: "Florisia Revanya Josephine",
+        country: ListOfCity.YOG,
+        YoutubeLink: "",
+        event: [ListOfEventAchiever["2023CLASSICJKT"]]
     },
     {
-        "name": "Pramita Dwinovianti J",
-        "country": "Semarang",
-        "YoutubeLink": "https://www.youtube.com/watch?v=QIxGekVqrsc&ab_channel=APIANOCONCERTOSERIES",
-        "event": [
-            "2022 Magical Music Soundtrack"
-        ]
+        name: "Gregorius Reinhardt",
+        country: ListOfCity.PLB,
+        YoutubeLink: "",
+        event: [ListOfEventAchiever["2023CLASSICJKT"]]
     },
     {
-        "name": "Clayton Oliver Hayasi",
-        "country": "Jakarta",
-        "YoutubeLink": "https://www.youtube.com/watch?v=Fke-4LVyGno&ab_channel=APIANOCONCERTOSERIES",
-        "event": [
-            "2022 Magical Music Soundtrack",
-            "2023 Classical Festival Jakarta"
-        ]
+        name: "Hazel Everly Wantana",
+        country: ListOfCity.JKT,
+        YoutubeLink: "",
+        event: [ListOfEventAchiever["2023CLASSICJKT"]]
     },
     {
-        "name": "Cathleen Scarlett Hayasi",
-        "country": "Jakarta",
-        "YoutubeLink": "https://www.youtube.com/watch?v=D1ct_m0XJtY&ab_channel=APIANOCONCERTOSERIES",
-        "event": [
-            "2022 Magical Music Soundtrack",
-            "2023 Classical Festival Jakarta",
-            "2023 Christmas Wonderland"
-        ]
+        name: "Ike Kusumawati",
+        country: ListOfCity.SMG,
+        YoutubeLink: "",
+        event: [ListOfEventAchiever["2023CLASSICJKT"]]
     },
     {
-        "name": "Azzarine Ishana Syailendra",
-        "country": "Surabaya",
-        "event": [
-            "2022 Magical Music Soundtrack"
-        ]
+        name: "Iris Araceli Ma",
+        country: ListOfCity.SBY,
+        YoutubeLink: "",
+        event: [ListOfEventAchiever["2023CLASSICJKT"]]
     },
     {
-        "name": "Rehuel Aurelius Ethan Sitompul",
-        "country": "Medan",
-        "YoutubeLink": "https://www.youtube.com/watch?v=AMQsmLyiQrk&ab_channel=APIANOCONCERTOSERIES",
-        "event": [
-            "2022 Magical Music Soundtrack"
-        ]
+        name: "Jane Adelene Sun",
+        country: ListOfCity.PLB,
+        YoutubeLink: "",
+        event: [ListOfEventAchiever["2023CLASSICJKT"]]
     },
     {
-        "name": "Peter Frey Widjaja",
-        "country": "Semarang",
-        "YoutubeLink": "https://www.youtube.com/watch?v=TZXlegYqovQ&ab_channel=APIANOCONCERTOSERIES",
-        "event": [
-            "2022 Magical Music Soundtrack"
-        ]
+        name: "Janice Bella Kotandi",
+        country: ListOfCity.JKT,
+        YoutubeLink: "",
+        event: [ListOfEventAchiever["2023CLASSICJKT"]]
     },
     {
-        "name": "Kani Kalavati",
-        "country": "Depok",
-        "YoutubeLink": "https://www.youtube.com/watch?v=UgJooW0GCzE&ab_channel=APIANOCONCERTOSERIES",
-        "event": [
-            "2022 Magical Music Soundtrack"
-        ]
+        name: "Jehoshua Amadeus Samuel Amanta Nainggolan",
+        country: ListOfCity.YOG,
+        YoutubeLink: "",
+        event: [ListOfEventAchiever["2023CLASSICJKT"]]
     },
     {
-        "name": "Iris Araceli Ma",
-        "country": "Surabaya",
-        "YoutubeLink": "https://www.youtube.com/watch?v=KLFuAi6iha0&ab_channel=APIANOCONCERTOSERIES",
-        "event": [
-            "2022 Magical Music Soundtrack",
-            "2023 Classical Festival Jakarta"
-        ]
+        name: "Kaleb Yuseli",
+        country: ListOfCity.SLT,
+        YoutubeLink: "",
+        event: [ListOfEventAchiever["2023CLASSICJKT"]]
     },
     {
-        "name": "Hazel Everly Wantana",
-        "country": "Jakarta",
-        "YoutubeLink": "https://www.youtube.com/watch?v=Hn6OZoc9ujU&ab_channel=APIANOCONCERTOSERIES",
-        "event": [
-            "2022 Magical Music Soundtrack",
-            "2023 Classical Festival Jakarta"
-        ]
+        name: "Katherine Natalie Mulyadi",
+        country: ListOfCity.BGR,
+        YoutubeLink: "",
+        event: [ListOfEventAchiever["2023CLASSICJKT"]]
     },
     {
-        "name": "Celine Lie",
-        "country": "Jakarta",
-        "YoutubeLink": "https://www.youtube.com/watch?v=glmCvkRxmWA&ab_channel=APIANOCONCERTOSERIES",
-        "event": [
-            "2022 Magical Music Soundtrack"
-        ]
+        name: "Lawrence Cedric Senjaya",
+        country: ListOfCity.BDG,
+        YoutubeLink: "",
+        event: [ListOfEventAchiever["2023CLASSICJKT"]]
     },
     {
-        "name": "Alf Elijah Beloved Sigarlaki",
-        "country": "Jakarta",
-        "YoutubeLink": "https://www.youtube.com/watch?v=9iMrg1T1p_w&ab_channel=APIANOCONCERTOSERIES",
-        "event": [
-            "2022 Magical Music Soundtrack",
-            "2023 Classical Festival Jakarta"
-        ]
+        name: "Lionel Vito Wijaya",
+        country: ListOfCity.PLB,
+        YoutubeLink: "",
+        event: [ListOfEventAchiever["2023CLASSICJKT"]]
     },
     {
-        "name": "Stephanie Gwen Liem",
-        "country": "Jakarta",
-        "YoutubeLink": "https://www.youtube.com/watch?v=uh6gOSspbrs&ab_channel=APIANOCONCERTOSERIES",
-        "event": [
-            "2022 Magical Music Soundtrack",
-            "2023 Classical Festival Jakarta"
-        ]
+        name: "Lucius Keenan Raine",
+        country: ListOfCity.PLB,
+        YoutubeLink: "",
+        event: [ListOfEventAchiever["2023CLASSICJKT"]]
     },
     {
-        "name": "Sharon Hanrin Christian Chandra",
-        "country": "Jakarta",
-        "YoutubeLink": "https://www.youtube.com/watch?v=RuNUFbKDmME&ab_channel=APIANOCONCERTOSERIES",
-        "event": [
-            "2022 Magical Music Soundtrack",
-            "2023 Classical Festival Jakarta"
-        ]
+        name: "Marshaina Azalia Primatantri",
+        country: ListOfCity.BGR,
+        YoutubeLink: "",
+        event: [ListOfEventAchiever["2023CLASSICJKT"]]
     },
     {
-        "name": "Kayla Calista Ayal",
-        "country": "Bogor",
-        "YoutubeLink": "https://www.youtube.com/watch?v=oivwx12q0Do&ab_channel=APIANOCONCERTOSERIES",
-        "event": [
-            "2022 Magical Music Soundtrack",
-            "2023 Christmas Wonderland"
-        ]
+        name: "Maryam Almayrha Nugraha",
+        country: ListOfCity.JKT,
+        YoutubeLink: "",
+        event: [ListOfEventAchiever["2023CLASSICJKT"]]
     },
     {
-        "name": "Jordan Eli Santoso",
-        "country": "Jakarta",
-        "YoutubeLink": "https://www.youtube.com/watch?v=x1A-bb3hh4I&ab_channel=APIANOCONCERTOSERIES",
-        "event": [
-            "2023 Classical Festival Surabaya"
-        ]
+        name: "Nicole Joy Nathan",
+        country: ListOfCity.JKT,
+        YoutubeLink: "",
+        event: [ListOfEventAchiever["2023CLASSICJKT"]]
     },
     {
-        "name": "Jennise Tiana Suwono",
-        "country": "Surabaya",
-        "YoutubeLink": "https://www.youtube.com/watch?v=LIT9VMex_i8&ab_channel=APIANOCONCERTOSERIES",
-        "event": [
-            "2023 Classical Festival Surabaya"
-        ]
+        name: "Nur Alifah Najjah",
+        country: ListOfCity.BKS,
+        YoutubeLink: "",
+        event: [ListOfEventAchiever["2023CLASSICJKT"]]
     },
     {
-        "name": "Michelle Aileen Harjarudra",
-        "country": "Surabaya",
-        "event": [
-            "2023 Classical Festival Surabaya"
-        ]
+        name: "Raphael Zephaniah",
+        country: ListOfCity.JKT,
+        YoutubeLink: "",
+        event: [ListOfEventAchiever["2023CLASSICJKT"]]
     },
     {
-        "name": "Allison Gwen Handojo",
-        "country": "Surabaya",
-        "YoutubeLink": "https://www.youtube.com/watch?v=tnI0gfy9xjA&ab_channel=APIANOCONCERTOSERIES",
-        "event": [
-            "2023 Classical Festival Surabaya"
-        ]
+        name: "Sharon Hanrin Christian Chandra",
+        country: ListOfCity.JKT,
+        YoutubeLink: "",
+        event: [ListOfEventAchiever["2023CLASSICJKT"]]
     },
     {
-        "name": "Warren Newton Ma",
-        "country": "Surabaya",
-        "YoutubeLink": "https://www.youtube.com/watch?v=VJ9BM1O4EwI&ab_channel=APIANOCONCERTOSERIES",
-        "event": [
-            "2023 Classical Festival Surabaya"
-        ]
+        name: "Skye Hartono",
+        country: ListOfCity.JKT,
+        YoutubeLink: "",
+        event: [ListOfEventAchiever["2023CLASSICJKT"]]
     },
     {
-        "name": "Minka Corine Lim",
-        "country": "Surabaya",
-        "YoutubeLink": "https://www.youtube.com/watch?v=mN_e9ls3zis&ab_channel=APIANOCONCERTOSERIES",
-        "event": [
-            "2023 Classical Festival Surabaya"
-        ]
+        name: "Stephanie Gwen Liem",
+        country: ListOfCity.JKT,
+        YoutubeLink: "",
+        event: [ListOfEventAchiever["2023CLASSICJKT"]]
     },
     {
-        "name": "Joan Annette",
-        "country": "Surabaya",
-        "YoutubeLink": "https://www.youtube.com/watch?v=vE8jRWMotBM&ab_channel=APIANOCONCERTOSERIES",
-        "event": [
-            "2023 Classical Festival Surabaya"
-        ]
+        name: "Sutra Cahaya Wijaya",
+        country: ListOfCity.PKB,
+        YoutubeLink: "",
+        event: [ListOfEventAchiever["2023CLASSICJKT"]]
     },
     {
-        "name": "Keenan Kwok",
-        "country": "Jakarta",
-        "YoutubeLink": "https://www.youtube.com/watch?v=MRbkf3Jlm9I&ab_channel=APIANOCONCERTOSERIES",
-        "event": [
-            "2023 Classical Festival Surabaya",
-            "2023 Christmas Wonderland"
-        ]
+        name: "Sydney Mikaela Tan",
+        country: ListOfCity.TNG,
+        YoutubeLink: "",
+        event: [ListOfEventAchiever["2023CLASSICJKT"]]
     },
     {
-        "name": "Kate Simmons",
-        "country": "Surabaya",
-        "YoutubeLink": "https://www.youtube.com/watch?v=s5CRH-7MWP0&ab_channel=APIANOCONCERTOSERIES",
-        "event": [
-            "2023 Classical Festival Surabaya"
-        ]
+        name: "Thirza Maida Alam",
+        country: ListOfCity.BGR,
+        YoutubeLink: "",
+        event: [ListOfEventAchiever["2023CLASSICJKT"]]
     },
     {
-        "name": "Allegra Alcira Foo Ing Yue",
-        "country": "Tangerang",
-        "YoutubeLink": "https://www.youtube.com/watch?v=h9jRMGO66mA&ab_channel=APIANOCONCERTOSERIES",
-        "event": [
-            "2023 Classical Festival Surabaya",
-            "2023 Classical Festival Jakarta"
-        ]
+        name: "Timothy Sam Kosasih",
+        country: ListOfCity.JKT,
+        YoutubeLink: "",
+        event: [ListOfEventAchiever["2023CLASSICJKT"]]
     },
     {
-        "name": "Reyna Gratia Ivanka",
-        "country": "Kudus",
-        "YoutubeLink": "https://www.youtube.com/watch?v=p1a5mKD6StE&ab_channel=APIANOCONCERTOSERIES",
-        "event": [
-            "2023 Classical Festival Surabaya"
-        ]
+        name: "Vallery Dominic Gunawan",
+        country: ListOfCity.JKT,
+        YoutubeLink: "",
+        event: [ListOfEventAchiever["2023CLASSICJKT"]]
     },
     {
-        "name": "Winston Lawrence Wattimena",
-        "YoutubeLink": "https://www.youtube.com/watch?v=QbVIU4lYSWQ&ab_channel=APIANOCONCERTOSERIES",
-        "event": [
-            "2023 Classical Festival Surabaya"
-        ]
+        name: "Victoria Severine Liono",
+        country: ListOfCity.JKT,
+        YoutubeLink: "",
+        event: [ListOfEventAchiever["2023CLASSICJKT"]]
     },
     {
-        "name": "Edward Nathaniel Handoko",
-        "country": "Surabaya",
-        "YoutubeLink": "https://www.youtube.com/watch?v=twdiVI7WYNA&ab_channel=APIANOCONCERTOSERIES",
-        "event": [
-            "2023 Classical Festival Surabaya",
-            "2023 Christmas Wonderland"
-        ]
+        name: "Woodseed Quintet (Gadang Wahyu Arafah Flute, Braindi Ari Setiawan Oboe, Dwi Adi Kurniawan French Horn, Azkal Azkiya Bassoon, Sa'id Dwi Santosa Clarinet)",
+        country: ListOfCity.YOG,
+        YoutubeLink: "",
+        event: [ListOfEventAchiever["2023CLASSICJKT"]]
     },
     {
-        "name": "Pauline Lim",
-        "country": "Palembang",
-        "event": [
-            "2023 Classical Festival Surabaya"
-        ]
+        name: "Yuniasri Maya Aisyah",
+        country: ListOfCity.SMG,
+        YoutubeLink: "",
+        event: [ListOfEventAchiever["2023CLASSICJKT"]]
     },
     {
-        "name": "Juan Hubert Huang",
-        "country": "Madiun",
-        "YoutubeLink": "https://www.youtube.com/watch?v=bDLSB0Osliw&ab_channel=APIANOCONCERTOSERIES",
-        "event": [
-            "2023 Classical Festival Surabaya"
-        ]
+        name: "Zoe Kalonice Robin",
+        country: ListOfCity.PLB,
+        YoutubeLink: "",
+        event: [ListOfEventAchiever["2023CLASSICJKT"]]
     },
     {
-        "name": "Vanessa Hardianto",
-        "country": "Tangerang",
-        "YoutubeLink": "https://www.youtube.com/watch?v=ha4YHiPchII&ab_channel=APIANOCONCERTOSERIES",
-        "event": [
-            "2023 Classical Festival Surabaya",
-            "2023 Christmas Wonderland"
-        ]
+        name: "Abigail Kimberly Indrajaya",
+        country: ListOfCity.PLB,
+        YoutubeLink: "-",
+        event: [ListOfEventAchiever["2023CLASSICSRBY"]]
     },
+
     {
-        "name": "Michael Phillipe Andree",
-        "country": "Surabaya",
-        "YoutubeLink": "https://www.youtube.com/watch?v=9Xgu6PLNNg0&ab_channel=APIANOCONCERTOSERIES",
-        "event": [
-            "2023 Classical Festival Surabaya"
-        ]
+        name: "Allegra Alcira Foo Ing Yue",
+        country: ListOfCity.TNG,
+        YoutubeLink: "https://www.youtube.com/watch?v=h9jRMGO66mA&ab_channel=APIANOCONCERTOSERIES",
+        event: [ListOfEventAchiever["2023CLASSICSRBY"]]
     },
     {
-        "name": "Sinclair Justin Gohandi",
-        "country": "Surabaya",
-        "YoutubeLink": "https://www.youtube.com/watch?v=qHdWA7y4Z38&ab_channel=APIANOCONCERTOSERIES",
-        "event": [
-            "2023 Classical Festival Surabaya"
-        ]
+        name: "Allison Gwen Handojo",
+        country: ListOfCity.SBY,
+        YoutubeLink: "https://www.youtube.com/watch?v=tnI0gfy9xjA&ab_channel=APIANOCONCERTOSERIES",
+        event: [ListOfEventAchiever["2023CLASSICSRBY"]]
     },
     {
-        "name": "Abigail Kimberly Indrajaya",
-        "country": "Palembang",
-        "event": [
-            "2023 Classical Festival Surabaya"
-        ]
+        name: "Cathelyn Hanna Gunawan",
+        country: ListOfCity.SBY,
+        YoutubeLink: "https://www.youtube.com/watch?v=X0D3ptqYy24&ab_channel=APIANOCONCERTOSERIES",
+        event: [ListOfEventAchiever["2023CLASSICSRBY"]]
     },
     {
-        "name": "Dionisius Gilbert Hartono",
-        "country": "Palembang",
-        "event": [
-            "2023 Classical Festival Surabaya"
-        ]
+        name: "Cheryl Pandora",
+        country: ListOfCity.MDN,
+        YoutubeLink: "https://www.youtube.com/watch?v=XFvWVT0Wroc&ab_channel=APIANOCONCERTOSERIES",
+        event: [ListOfEventAchiever["2023CLASSICSRBY"]]
     },
     {
-        "name": "Rheine Yessa Siregar",
-        "country": "Jakarta",
-        "YoutubeLink": "https://www.youtube.com/watch?v=hlYQbi2_rDY&ab_channel=APIANOCONCERTOSERIES",
-        "event": [
-            "2023 Classical Festival Surabaya"
-        ]
+        name: "Dionisius Gilbert Hartono",
+        country: ListOfCity.PLB,
+        YoutubeLink: "-",
+        event: [ListOfEventAchiever["2023CLASSICSRBY"]]
     },
     {
-        "name": "Sean Kenneth Hudyana",
-        "country": "Blora",
-        "YoutubeLink": "https://www.youtube.com/watch?v=hlYQbi2_rDY&ab_channel=APIANOCONCERTOSERIES",
-        "event": [
-            "2023 Classical Festival Surabaya"
-        ]
+        name: "Edward Nathaniel Handoko",
+        country: ListOfCity.SBY,
+        YoutubeLink: "https://www.youtube.com/watch?v=twdiVI7WYNA&ab_channel=APIANOCONCERTOSERIES",
+        event: [ListOfEventAchiever["2023CLASSICSRBY"]]
     },
     {
-        "name": "Isabel Arwen Kurniawan",
-        "country": "Pontianak",
-        "YoutubeLink": "https://www.youtube.com/watch?v=fuSYMwZtjtY&ab_channel=APIANOCONCERTOSERIES",
-        "event": [
-            "2023 Classical Festival Surabaya"
-        ]
+        name: "Isabel Arwen Kurniawan",
+        country: ListOfCity.PNT,
+        YoutubeLink: "https://www.youtube.com/watch?v=fuSYMwZtjtY&ab_channel=APIANOCONCERTOSERIES",
+        event: [ListOfEventAchiever["2023CLASSICSRBY"]]
     },
     {
-        "name": "Cheryl Pandora",
-        "country": "Medan",
-        "YoutubeLink": "https://www.youtube.com/watch?v=XFvWVT0Wroc&ab_channel=APIANOCONCERTOSERIES",
-        "event": [
-            "2023 Classical Festival Surabaya"
-        ]
+        name: "Jacqueline Harianto & Evangelica Dinamita Rut Hutahaean",
+        country: ListOfCity.TNG,
+        YoutubeLink: "https://www.youtube.com/watch?v=Z4_fBoPJAKM&ab_channel=APIANOCONCERTOSERIES",
+        event: [ListOfEventAchiever["2023CLASSICSRBY"]]
     },
     {
-        "name": "Shelley Jovanca",
-        "country": "Surabaya",
-        "event": [
-            "2023 Classical Festival Surabaya"
-        ]
+        name: "Jeffren Leliga",
+        country: ListOfCity.SBY,
+        YoutubeLink: "https://www.youtube.com/watch?v=bMBKgEL4x3w&ab_channel=APIANOCONCERTOSERIES",
+        event: [ListOfEventAchiever["2023CLASSICSRBY"]]
+    },
+    {
+        name: "Jennise Tiana Suwono",
+        country: ListOfCity.SBY,
+        YoutubeLink: "https://www.youtube.com/watch?v=LIT9VMex_i8&ab_channel=APIANOCONCERTOSERIES",
+        event: [ListOfEventAchiever["2023CLASSICSRBY"]]
+    },
+    {
+        name: "Joan Annette",
+        country: ListOfCity.SBY,
+        YoutubeLink: "https://www.youtube.com/watch?v=vE8jRWMotBM&ab_channel=APIANOCONCERTOSERIES",
+        event: [ListOfEventAchiever["2023CLASSICSRBY"]]
+    },
+    {
+        name: "Jocelyn Joeyvancha Gan",
+        country: ListOfCity.SBY,
+        YoutubeLink: "https://www.youtube.com/watch?v=E7fNnydSPHA&ab_channel=APIANOCONCERTOSERIES",
+        event: [ListOfEventAchiever["2023CLASSICSRBY"]]
+    },
+    {
+        name: "Jordan Eli Santoso",
+        country: ListOfCity.JKT,
+        YoutubeLink: "https://www.youtube.com/watch?v=x1A-bb3hh4I&ab_channel=APIANOCONCERTOSERIES",
+        event: [ListOfEventAchiever["2023CLASSICSRBY"]]
+    },
+    {
+        name: "Joshua Kevin Hudyana",
+        country: ListOfCity.SBY,
+        YoutubeLink: "https://www.youtube.com/watch?v=JDU_q_ZjfW0&ab_channel=APIANOCONCERTOSERIES",
+        event: [ListOfEventAchiever["2023CLASSICSRBY"]]
+    },
+    {
+        name: "Juan Hubert Huang",
+        country: ListOfCity.MDN,
+        YoutubeLink: "https://www.youtube.com/watch?v=bDLSB0Osliw&ab_channel=APIANOCONCERTOSERIES",
+        event: [ListOfEventAchiever["2023CLASSICSRBY"]]
+    },
+    {
+        name: "Kate Simmons",
+        country: ListOfCity.SBY,
+        YoutubeLink: "https://www.youtube.com/watch?v=s5CRH-7MWP0&ab_channel=APIANOCONCERTOSERIES",
+        event: [ListOfEventAchiever["2023CLASSICSRBY"]]
+    },
+    {
+        name: "Keenan Kwok",
+        country: ListOfCity.JKT,
+        YoutubeLink: "https://www.youtube.com/watch?v=MRbkf3Jlm9I&ab_channel=APIANOCONCERTOSERIES",
+        event: [ListOfEventAchiever["2023CLASSICSRBY"]]
+    },
+    {
+        name: "Mary Kate Onggowijoyo",
+        country: ListOfCity.SBY,
+        YoutubeLink: "https://www.youtube.com/watch?v=J5UZM0lH0Cc&ab_channel=APIANOCONCERTOSERIES",
+        event: [ListOfEventAchiever["2023CLASSICSRBY"]]
+    },
+    {
+        name: "Michael Phillipe Andree & Graziella Jasmine Lovell",
+        country: ListOfCity.SBY,
+        YoutubeLink: "-",
+        event: [ListOfEventAchiever["2023CLASSICSRBY"]]
+    },
+    {
+        name: "Michael Phillipe Andree",
+        country: ListOfCity.SBY,
+        YoutubeLink: "https://www.youtube.com/watch?v=9Xgu6PLNNg0&ab_channel=APIANOCONCERTOSERIES",
+        event: [ListOfEventAchiever["2023CLASSICSRBY"]]
+    },
+    {
+        name: "Michelle Aileen Harjarudra",
+        country: ListOfCity.SBY,
+        YoutubeLink: "-",
+        event: [ListOfEventAchiever["2023CLASSICSRBY"]]
+    },
+    {
+        name: "Mikayla Wirawan",
+        country: ListOfCity.SDJ,
+        YoutubeLink: "https://www.youtube.com/watch?v=zNRcY64OEH4&ab_channel=APIANOCONCERTOSERIES",
+        event: [ListOfEventAchiever["2023CLASSICSRBY"]]
+    },
+    {
+        name: "Minka Corine Lim",
+        country: ListOfCity.SBY,
+        YoutubeLink: "https://www.youtube.com/watch?v=mN_e9ls3zis&ab_channel=APIANOCONCERTOSERIES",
+        event: [ListOfEventAchiever["2023CLASSICSRBY"]]
+    },
+    {
+        name: "Pauline Lim",
+        country: ListOfCity.PLB,
+        YoutubeLink: "-",
+        event: [ListOfEventAchiever["2023CLASSICSRBY"]]
+    },
+    {
+        name: "Reyna Gratia Ivanka",
+        country: ListOfCity.KDS,
+        YoutubeLink: "https://www.youtube.com/watch?v=p1a5mKD6StE&ab_channel=APIANOCONCERTOSERIES",
+        event: [ListOfEventAchiever["2023CLASSICSRBY"]]
+    },
+    {
+        name: "Rheine Yessa Siregar",
+        country: ListOfCity.JKT,
+        YoutubeLink: "https://www.youtube.com/watch?v=hlYQbi2_rDY&ab_channel=APIANOCONCERTOSERIES",
+        event: [ListOfEventAchiever["2023CLASSICSRBY"]]
+    },
+    {
+        name: "Sean Kenneth Hudyana",
+        country: ListOfCity.BLR,
+        YoutubeLink: "https://www.youtube.com/watch?v=hlYQbi2_rDY&ab_channel=APIANOCONCERTOSERIES",
+        event: [ListOfEventAchiever["2023CLASSICSRBY"]]
+    },
+    {
+        name: "Shelley Jovanca",
+        country: ListOfCity.SBY,
+        YoutubeLink: "-",
+        event: [ListOfEventAchiever["2023CLASSICSRBY"]]
+    },
+    {
+        name: "Sinclair Justin Gohandi",
+        country: ListOfCity.SBY,
+        YoutubeLink: "https://www.youtube.com/watch?v=qHdWA7y4Z38&ab_channel=APIANOCONCERTOSERIES",
+        event: [ListOfEventAchiever["2023CLASSICSRBY"]]
+    },
+    {
+        name: "Sydney Mikaela Tan",
+        country: ListOfCity.TNG,
+        YoutubeLink: "https://www.youtube.com/watch?v=gItdcXGQqSM&ab_channel=APIANOCONCERTOSERIES",
+        event: [ListOfEventAchiever["2023CLASSICSRBY"]]
+    },
+    {
+        name: "Vanessa Hardianto",
+        country: ListOfCity.TNG,
+        YoutubeLink: "https://www.youtube.com/watch?v=ha4YHiPchII&ab_channel=APIANOCONCERTOSERIES",
+        event: [ListOfEventAchiever["2023CLASSICSRBY"]]
+    },
+    {
+        name: "Warren Newton Ma",
+        country: ListOfCity.SBY,
+        YoutubeLink: "https://www.youtube.com/watch?v=VJ9BM1O4EwI&ab_channel=APIANOCONCERTOSERIES",
+        event: [ListOfEventAchiever["2023CLASSICSRBY"]]
+    },
+    {
+        name: "Winston Lawrence Wattimena",
+        country: ListOfCity.SBY,
+        YoutubeLink: "https://www.youtube.com/watch?v=QbVIU4lYSWQ&ab_channel=APIANOCONCERTOSERIES",
+        event: [ListOfEventAchiever["2023CLASSICSRBY"]]
+    },
+    {
+        name: "Alf Elijah Beloved Sigarlaki Jakarta",
+        country: ListOfCity.JKT,
+        YoutubeLink: "https://www.youtube.com/watch?v=9iMrg1T1p_w&ab_channel=APIANOCONCERTOSERIES",
+        event: [ListOfEventAchiever["2022MAGICMUSIC"]]
+    },
+    {
+        name: "Andrew Jevera Tan",
+        country: ListOfCity.TNG,
+        YoutubeLink: "https://www.youtube.com/watch?v=R_Cju-VofH4&ab_channel=APIANOCONCERTOSERIES",
+        event: [ListOfEventAchiever["2022MAGICMUSIC"]]
+    },
+    {
+        name: "Arissa Eillin Budiono",
+        country: ListOfCity.PLB,
+        YoutubeLink: "https://www.youtube.com/watch?v=-p6JIOod6_c&ab_channel=APIANOCONCERTOSERIES",
+        event: [ListOfEventAchiever["2022MAGICMUSIC"]]
+    },
+    {
+        name: "Azzarine Ishana Syailendra",
+        country: ListOfCity.SBY,
+        YoutubeLink: "-",
+        event: [ListOfEventAchiever["2022MAGICMUSIC"]]
+    },
+    {
+        name: "Callista Kertalesmana",
+        country: ListOfCity.JKT,
+        YoutubeLink: "-",
+        event: [ListOfEventAchiever["2022MAGICMUSIC"]]
+    },
+    {
+        name: "Cathleen Scarlett Hayasi",
+        country: ListOfCity.JKT,
+        YoutubeLink: "https://www.youtube.com/watch?v=D1ct_m0XJtY&ab_channel=APIANOCONCERTOSERIES",
+        event: [ListOfEventAchiever["2022MAGICMUSIC"]]
+    },
+    {
+        name: "Celine Gabriella Amijaya",
+        country: ListOfCity.SMG,
+        YoutubeLink: "https://www.youtube.com/watch?v=ABfhBsL9dpw&ab_channel=APIANOCONCERTOSERIES",
+        event: [ListOfEventAchiever["2022MAGICMUSIC"]]
+    },
+    {
+        name: "Celine Lie",
+        country: ListOfCity.JKT,
+        YoutubeLink: "https://www.youtube.com/watch?v=glmCvkRxmWA&ab_channel=APIANOCONCERTOSERIES",
+        event: [ListOfEventAchiever["2022MAGICMUSIC"]]
+    },
+    {
+        name: "Charice Elleanorekonggo Budiman",
+        country: ListOfCity.SBY,
+        YoutubeLink: "https://www.youtube.com/watch?v=NewtKsNhs_4&ab_channel=APIANOCONCERTOSERIES",
+        event: [ListOfEventAchiever["2022MAGICMUSIC"]]
+    },
+    {
+        name: "Clayton Oliver Hayasi & Cathleen Scarlett Hayasi",
+        country: ListOfCity.JKT,
+        YoutubeLink: "https://www.youtube.com/watch?v=Fke-4LVyGno&ab_channel=APIANOCONCERTOSERIES",
+        event: [ListOfEventAchiever["2022MAGICMUSIC"]]
+    },
+    {
+        name: "Eunike Alexandra Winoto",
+        country: ListOfCity.SBY,
+        YoutubeLink: "https://www.youtube.com/watch?v=8seYe3404cg&ab_channel=APIANOCONCERTOSERIES",
+        event: [ListOfEventAchiever["2022MAGICMUSIC"]]
+    },
+    {
+        name: "Fiona Lynn Sie",
+        country: ListOfCity.SMG,
+        YoutubeLink: "https://www.youtube.com/watch?v=jwQk6n4h144&ab_channel=APIANOCONCERTOSERIES",
+        event: [ListOfEventAchiever["2022MAGICMUSIC"]]
+    },
+    {
+        name: "Gregorius Reindhardt",
+        country: ListOfCity.PLB,
+        YoutubeLink: "https://www.youtube.com/watch?v=TntCfGmzFSU&ab_channel=APIANOCONCERTOSERIES",
+        event: [ListOfEventAchiever["2022MAGICMUSIC"]]
+    },
+    {
+        name: "Gweneth Clarabel",
+        country: ListOfCity.SBY,
+        YoutubeLink: "https://www.youtube.com/watch?v=ukKL2rVILx4&ab_channel=APIANOCONCERTOSERIES",
+        event: [ListOfEventAchiever["2022MAGICMUSIC"]]
+    },
+    {
+        name: "Gwyneth Madeline Liechelle Fanto & Melodi Tirza",
+        country: ListOfCity.YOG,
+        YoutubeLink: "https://www.youtube.com/watch?v=Mdqj3pjkQwc&ab_channel=APIANOCONCERTOSERIESS",
+        event: [ListOfEventAchiever["2022MAGICMUSIC"]]
+    },
+    {
+        name: "Hazel Everly Wantana",
+        country: ListOfCity.JKT,
+        YoutubeLink: "https://www.youtube.com/watch?v=Hn6OZoc9ujU&ab_channel=APIANOCONCERTOSERIES",
+        event: [ListOfEventAchiever["2022MAGICMUSIC"]]
+    },
+    {
+        name: "Inez Indriani",
+        country: ListOfCity.BDG,
+        YoutubeLink: "https://www.youtube.com/watch?v=_13HZYyGYlQ&ab_channel=APIANOCONCERTOSERIES",
+        event: [ListOfEventAchiever["2022MAGICMUSIC"]]
+    },
+    {
+        name: "Iris Araceli Ma",
+        country: ListOfCity.DPK,
+        YoutubeLink: "https://www.youtube.com/watch?v=KLFuAi6iha0&ab_channel=APIANOCONCERTOSERIES",
+        event: [ListOfEventAchiever["2022MAGICMUSIC"]]
+    },
+    {
+        name: "Isabella Anjani & Aurellia Margareth William",
+        country: ListOfCity.TNG,
+        YoutubeLink: "https://www.youtube.com/watch?v=jtJdj4SPqRY&ab_channel=APIANOCONCERTOSERIES",
+        event: [ListOfEventAchiever["2022MAGICMUSIC"]]
+    },
+    {
+        name: "Jaden William Tang",
+        country: ListOfCity.PLB,
+        YoutubeLink: "https://www.youtube.com/watch?v=U4ewR5bJwKA&ab_channel=APIANOCONCERTOSERIES",
+        event: [ListOfEventAchiever["2022MAGICMUSIC"]]
+    },
+    {
+        name: "Jeffren Leliga",
+        country: ListOfCity.SBY,
+        YoutubeLink: "https://www.youtube.com/watch?v=9PKinsw17Oc&ab_channel=APIANOCONCERTOSERIES",
+        event: [ListOfEventAchiever["2022MAGICMUSIC"]]
+    },
+    {
+        name: "Joline Jati Utomo",
+        country: ListOfCity.SMG,
+        YoutubeLink: "https://www.youtube.com/watch?v=A8Bp1880zf4&ab_channel=APIANOCONCERTOSERIES",
+        event: [ListOfEventAchiever["2022MAGICMUSIC"]]
+    },
+    {
+        name: "Kani Kalavati",
+        country: ListOfCity.DPK,
+        YoutubeLink: "https://www.youtube.com/watch?v=UgJooW0GCzE&ab_channel=APIANOCONCERTOSERIES",
+        event: [ListOfEventAchiever["2022MAGICMUSIC"]]
+    },
+    {
+        name: "Kayla Calista Alay",
+        country: ListOfCity.BGR,
+        YoutubeLink: "https://www.youtube.com/watch?v=oivwx12q0Do&ab_channel=APIANOCONCERTOSERIES",
+        event: [ListOfEventAchiever["2022MAGICMUSIC"]]
+    },
+    {
+        name: "Kaylee Adrienne Gunawan",
+        country: ListOfCity.SBY,
+        YoutubeLink: "https://www.youtube.com/watch?v=i2EGEu7VFVg&ab_channel=APIANOCONCERTOSERIES",
+        event: [ListOfEventAchiever["2022MAGICMUSIC"]]
+    },
+    {
+        name: "Lougan Steinson Wiranto",
+        country: ListOfCity.SMG,
+        YoutubeLink: "https://www.youtube.com/watch?v=lApJUHVGVrw&ab_channel=APIANOCONCERTOSERIES",
+        event: [ListOfEventAchiever["2022MAGICMUSIC"]]
+    },
+    {
+        name: "Ludwina Natasya Azarine & Natasha Julia Budiarjo",
+        country: ListOfCity.SMG,
+        YoutubeLink: "https://www.youtube.com/watch?v=-K51m8NSZgA&ab_channel=APIANOCONCERTOSERIES",
+        event: [ListOfEventAchiever["2022MAGICMUSIC"]]
+    },
+    {
+        name: "Mary Kate Onggowijoyo",
+        country: ListOfCity.SBY,
+        YoutubeLink: "https://www.youtube.com/watch?v=J5UZM0lH0Cc&ab_channel=APIANOCONCERTOSERIES",
+        event: [ListOfEventAchiever["2022MAGICMUSIC"]]
+    },
+    {
+        name: "Megan Magdalene Liem",
+        country: ListOfCity.SMG,
+        YoutubeLink: "https://www.youtube.com/watch?v=ca8KN0xYBtg&ab_channel=APIANOCONCERTOSERIES",
+        event: [ListOfEventAchiever["2022MAGICMUSIC"]]
+    },
+    {
+        name: "Michelle Natalie Setiabudi",
+        country: ListOfCity.JKT,
+        YoutubeLink: "https://www.youtube.com/watch?v=JlNUsFCzNF4&ab_channel=APIANOCONCERTOSERIES",
+        event: [ListOfEventAchiever["2022MAGICMUSIC"]]
+    },
+    {
+        name: "Nadia Putri Bharata",
+        country: ListOfCity.SMG,
+        YoutubeLink: "https://www.youtube.com/watch?v=lsXM2WxNZvA&ab_channel=APIANOCONCERTOSERIES",
+        event: [ListOfEventAchiever["2022MAGICMUSIC"]]
+    },
+    {
+        name: "Peter Frey Widjaja",
+        country: ListOfCity.SMG,
+        YoutubeLink: "https://www.youtube.com/watch?v=TZXlegYqovQ&ab_channel=APIANOCONCERTOSERIES",
+        event: [ListOfEventAchiever["2022MAGICMUSIC"]]
+    },
+    {
+        name: "Putri Birru Shafa",
+        country: ListOfCity.TNG,
+        YoutubeLink: "https://www.youtube.com/watch?v=7rKG-ngmX7g&ab_channel=APIANOCONCERTOSERIES",
+        event: [ListOfEventAchiever["2022MAGICMUSIC"]]
+    },
+    {
+        name: "Raphael Zephaniah & Maria Laurencia",
+        country: ListOfCity.JKT,
+        YoutubeLink: "https://www.youtube.com/watch?v=by5r6BfutJk&ab_channel=APIANOCONCERTOSERIES",
+        event: [ListOfEventAchiever["2022MAGICMUSIC"]]
+    },
+    {
+        name: "Rehuel Aurelius Ethan Sitompul",
+        country: ListOfCity.MDN,
+        YoutubeLink: "https://www.youtube.com/watch?v=AMQsmLyiQrk&ab_channel=APIANOCONCERTOSERIES",
+        event: [ListOfEventAchiever["2022MAGICMUSIC"]]
+    },
+    {
+        name: "Reina Merielle Then",
+        country: ListOfCity.TNG,
+        YoutubeLink: "https://www.youtube.com/watch?v=6dwob3zxOIo&ab_channel=APIANOCONCERTOSERIES",
+        event: [ListOfEventAchiever["2022MAGICMUSIC"]]
+    },
+    {
+        name: "Sam Joseph Arthur",
+        country: ListOfCity.SMG,
+        YoutubeLink: "https://www.youtube.com/watch?v=f5__60AfXpU&ab_channel=APIANOCONCERTOSERIES",
+        event: [ListOfEventAchiever["2022MAGICMUSIC"]]
+    },
+    {
+        name: "Sharon Hanrin Christian Chandra",
+        country: ListOfCity.JKT,
+        YoutubeLink: "https://www.youtube.com/watch?v=RuNUFbKDmME&ab_channel=APIANOCONCERTOSERIES",
+        event: [ListOfEventAchiever["2022MAGICMUSIC"]]
+    },
+    {
+        name: "Sidney Loo",
+        country: ListOfCity.SBY,
+        YoutubeLink: "https://www.youtube.com/watch?v=FVlBEjVP4dw&ab_channel=APIANOCONCERTOSERIES",
+        event: [ListOfEventAchiever["2022MAGICMUSIC"]]
+    },
+    {
+        name: "Stephanie Gwen Liem",
+        country: ListOfCity.JKT,
+        YoutubeLink: "https://www.youtube.com/watch?v=uh6gOSspbrs&ab_channel=APIANOCONCERTOSERIES",
+        event: [ListOfEventAchiever["2022MAGICMUSIC"]]
+    },
+    {
+        name: "Sukent",
+        country: ListOfCity.MDN,
+        YoutubeLink: "https://www.youtube.com/watch?v=31LgHy1J3cI&ab_channel=APIANOCONCERTOSERIES",
+        event: [ListOfEventAchiever["2022MAGICMUSIC"]]
+    },
+    {
+        name: "Tabita Indri N & Pramita Dwinovianti J",
+        country: ListOfCity.SMG,
+        YoutubeLink: "https://www.youtube.com/watch?v=QIxGekVqrsc&ab_channel=APIANOCONCERTOSERIES",
+        event: [ListOfEventAchiever["2022MAGICMUSIC"]]
+    },
+    {
+        name: "Victoria Inverness Susilo",
+        country: ListOfCity.SRB,
+        YoutubeLink: "https://www.youtube.com/watch?v=IZDGCKn9-y4&ab_channel=APIANOCONCERTOSERIES",
+        event: [ListOfEventAchiever["2022MAGICMUSIC"]]
     },
 ]
-
-
