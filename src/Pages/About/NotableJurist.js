@@ -136,7 +136,7 @@ const NotableJurist = () => {
                                 <img src={flagIcon(CountryConst.IDN)} alt={"country"} />
                             </div>
 
-                            <div className="text-align-justify" style={{ fontSize: 20, marginTop: 30 }}>
+                            <div className="text-align-justify" style={{ marginTop: 30 }}>
                                 Firdy Salim is an alumnus of the Koninklijk Conservatorium at Den Haag and the Head of Piano at one of the Conservatories of Music in Indonesia, where he teaches piano performance and piano pedagogy. His extensive pedagogical endeavors include fostering growth in both students and fellow educators within the music education community.
                             </div>
 

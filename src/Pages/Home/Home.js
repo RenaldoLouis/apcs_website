@@ -181,7 +181,7 @@ const Home = (props) => {
                     <div className="row text-align-center ">
                         <div className="col gx-5 gy-3">
                             {completeListOfSponsor.map((eachSponsor, index) => (
-                                <img src={eachSponsor} alt={"eachSponsor"} style={{ width: index === 1 ? "18vmin" : index === 3 ? "13vmin" : "15vmin" }} />
+                                <img className="mb-2" src={eachSponsor} alt={"eachSponsor"} style={{ marginRight: 12, width: index === 1 ? "18vmin" : index === 3 ? "13vmin" : index === 6 ? "10vmin" : "12vmin" }} />
                             ))}
                         </div>
                     </div>
