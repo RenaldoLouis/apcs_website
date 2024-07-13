@@ -48,7 +48,7 @@ const MasonryLayout = (props) => {
     const breakpointColumnsObj = {
         default: 3,
         1100: 2,
-        700: 1
+        700: 2
     };
 
     let displayStyle = (index) => {
@@ -181,7 +181,7 @@ const MasonryLayout = (props) => {
                         >
                             <AnimatedComponent animationClass="animate__fadeIn" triggerOnce={false} >
                                 <img src={item} alt={`galery-${index}`} className="masonry-img" style={{ paddingBottom: marginBottomGalery(index) }} />
-                                <div style={{ color: "white" }}>{index + 1}</div>
+                                {/* <div style={{ color: "white" }}>{index + 1}</div> */}
                             </AnimatedComponent>
                         </div>
                     )

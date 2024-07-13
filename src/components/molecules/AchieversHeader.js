@@ -26,7 +26,7 @@ const AchieversHeader = (props) => {
                     <ResponsiveText className="goldenText mangolaineFont">
                         {title}
                     </ResponsiveText>
-                    <div style={{ color: "white", fontSize: 20 }}>
+                    <div style={{ color: "white", fontSize: 20, textAlign: isMobileAndSmaller ? "center" : "justify", marginTop: isMobileAndSmaller ? 15 : 0 }}>
                         {description}
                     </div>
                 </div>

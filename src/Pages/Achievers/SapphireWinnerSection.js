@@ -7,9 +7,12 @@ import AchieversHeader from "../../components/molecules/AchieversHeader";
 import diamondAchieversText from "../../assets/images/diamondAchieversText.svg"
 import AnimatedComponent from "../../components/atom/AnimatedComponent";
 import GoldSection from "./GoldSection";
+import { useAuth } from "../../context/DataContext";
 
 const SapphireWinnerSection = (props) => {
     const { dataSaphire, dataDiamond } = props
+    const { isMobileAndSmaller } = useAuth();
+
     return (
         <div style={{ paddingTop: 150, backgroundImage: `url(${textureBackgroundLong})`, backgroundSize: "contain" }}>
             <AchieversHeader
@@ -21,7 +24,7 @@ const SapphireWinnerSection = (props) => {
                     {dataSaphire.map((eachData, index) => {
                         // const colClass = index === 24 ? "col-12 col-md-4 offset-md-4" : "col-12 col-md-4";
                         return (
-                            <div className={"col-12 col-md-4"} style={{ padding: 50 }}>
+                            <div className={"col-6 col-md-4"} style={{ padding: isMobileAndSmaller ? 5 : 50 }}>
                                 <ProfileToYoutube data={eachData} />
                             </div>
                         )
@@ -37,7 +40,7 @@ const SapphireWinnerSection = (props) => {
                 <div className="container color-white" style={{ paddingBottom: 200 }}>
                     <div className="row ">
                         {dataDiamond.map((eachData) => (
-                            <div className="col-12 col-md-4" style={{ padding: 50 }}>
+                            <div className="col-6 col-md-4" style={{ padding: isMobileAndSmaller ? 5 : 50 }}>
                                 <ProfileToYoutube data={eachData} noImage={true} />
                             </div>
                         ))}

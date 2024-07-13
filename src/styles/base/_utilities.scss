@@ -11,6 +11,35 @@
     }
 }
 
+.fontSizeHeader {
+    font-size: 64px;
+}
+
+.fontSizeSubHeader {
+    font-size: 30px;
+}
+
+.fontSizeBody {
+    font-size: 16px;
+}
+
+@media (max-width : 900px) {
+
+    .fontSizeHeader {
+        font-size: 32px;
+    }
+
+    .fontSizeSubHeader {
+        font-size: 20px;
+    }
+
+    .fontSizeBody {
+        font-size: 14px;
+    }
+}
+
+
+
 .loadingContainer {
     height: 100vh;
     text-align-last: center;

@@ -20,6 +20,7 @@ import { ChristmasInWonderlandImages } from "../../constant/ChristmasWonderlandI
 import { MasterClassImages } from "../../constant/MasterClassImages";
 import { useAuth } from "../../context/DataContext";
 import { useSwipeable } from 'react-swipeable';
+import Typograhpy from "../../components/atom/Typograhpy";
 
 
 const GaleryPage = () => {
@@ -420,14 +421,16 @@ const GaleryPage = () => {
                         <div class="row">
                             <div class="col-xs-12 col-lg-5 mx-auto d-flex flex-column justify-content-center align-items-center">
                                 <div className="italicText textColor mt-4 mb-4">
-                                    featuring
+                                    <Typograhpy
+                                        text={"featuring"}
+                                    />
                                 </div>
                                 <div className="textColor text-align-center mb-5">
                                     {galeryContent?.featuring?.map((eachFeature, index) => (
                                         <React.Fragment key={index}>
                                             {index > 0 && " • "}
-                                            <span className="feature-name">{eachFeature.name} {eachFeature.founder && (<span className="italicText"> (Founder) </span>)}</span>{" "}
-                                            <span className="italicText">
+                                            <span className="feature-name fontSizeBody">{eachFeature.name} {eachFeature.founder && (<span className="italicText"> (Founder) </span>)}</span>{" "}
+                                            <span className="italicText fontSizeBody">
                                                 {eachFeature.title && (`as the ${eachFeature.title}`)} ({eachFeature.role}) {eachFeature?.achivement && (` and Winners of ${eachFeature?.achivement}`)}
                                             </span>
                                         </React.Fragment>

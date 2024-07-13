@@ -245,10 +245,10 @@ const Achievers = () => {
                     <>
                         <AnimatedComponent animationClass="animate__fadeIn">
                             <div style={{ marginLeft: "8vw", color: "white" }}>
-                                <div style={{ fontSize: "3vmin" }}>
+                                <div style={{ fontSize: "2vmin" }}>
                                     2023 HIGHLIGHTS
                                 </div>
-                                <div style={{ fontSize: "5vmin", lineHeight: "5vmin", marginBottom: "3vmin", fontStyle: "italic" }}>
+                                <div style={{ fontSize: "4vmin", lineHeight: "5vmin", marginBottom: "3vmin", fontStyle: "italic" }}>
                                     Christmas<br />
                                     Wonderland
                                 </div>
