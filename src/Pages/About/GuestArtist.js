@@ -20,8 +20,11 @@ import GuestArtistCard from "../../components/molecules/GuestArtisCard";
 import { CountryConst } from "../../constant/CountryConst";
 import HeaderAbout from "../../components/atom/HeaderAbout";
 import indFlag from "../../assets/images/indFlag.jpg"
+import { useAuth } from "../../context/DataContext";
 
 const GuestArtist = () => {
+
+    const { isSmallMobileAndSmaller } = useAuth();
 
     const guestArtistList = [
         {
@@ -129,7 +132,7 @@ const GuestArtist = () => {
                         <div className="container color-white">
                             <div className="row gx-5 gy-5">
                                 {guestArtistList.map((eachData) => (
-                                    <div className="col-12 col-md-4" style={{ padding: 50 }}>
+                                    <div className="col-6 col-md-4" style={{ padding: isSmallMobileAndSmaller ? 10 : 50 }}>
                                         <GuestArtistCard data={eachData} />
                                     </div>
                                 ))}

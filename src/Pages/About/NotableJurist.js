@@ -187,7 +187,7 @@ const NotableJurist = () => {
                         //     ? `col-12 col-md-4 ${array.length % 3 === 1 ? 'offset-md-4' : array.length % 3 === 2 ? 'offset-md-2' : ''}`
                         //     : "col-12 col-md-4";
                         // const colClass = index === 6 ? "col-12 col-md-4 offset-md-2" : "col-12 col-md-4";
-                        const colClass = "col-12 col-md-4";
+                        const colClass = "col-6 col-md-4";
 
                         return (
                             <div className={colClass} style={{ marginBottom: 60 }}>
@@ -196,7 +196,7 @@ const NotableJurist = () => {
                                         <img loading="lazy" src={eachData.image} alt={eachData.name} className="jurist-image" />
                                     </AnimatedComponent>
                                 </div>
-                                <div className="mangolaineFont text-align-center" style={{ fontSize: isSmallMobileAndSmaller ? "7vmin" : isMobileAndSmaller ? "5vmin" : "3.5vmin", marginBottom: 20 }}>
+                                <div className="mangolaineFont text-align-center" style={{ fontSize: isMobileAndSmaller ? "6vmin" : "3.5vmin", marginBottom: 20 }}>
                                     {eachData.name}
                                 </div>
                                 <div style={{ marginBottom: 20 }}>
@@ -204,7 +204,7 @@ const NotableJurist = () => {
                                 </div>
                                 <div className="d-flex" style={{ marginBottom: 40 }}>
                                     {eachData.country.map((eachCountry) => (
-                                        <img src={flagIcon(eachCountry)} alt={eachCountry} style={{ marginRight: 13 }} />
+                                        <img src={flagIcon(eachCountry)} alt={eachCountry} style={{ marginRight: 13, width: isMobileAndSmaller ? 35 : 50 }} />
                                     ))}
 
                                 </div>
