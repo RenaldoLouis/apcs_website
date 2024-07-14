@@ -13,6 +13,7 @@ import jury5noText from "../../assets/images/jurySlider/jury5noText.png"
 import { useTranslation } from 'react-i18next';
 import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
+import { useAuth } from '../../context/DataContext';
 
 const images = [
     jury1noText,
@@ -28,6 +29,8 @@ const JuryCarousel = ({ interval = 10000, homePage = true }) => {
     const theme = useTheme();
     const isTabletAndSmaller = useMediaQuery(theme.breakpoints.down('lg'));
     const [isPaused, setIsPaused] = useState(false);
+
+    const { isMobileAndSmaller } = useAuth();
 
     const dataJury = [
         {
@@ -67,19 +70,19 @@ const JuryCarousel = ({ interval = 10000, homePage = true }) => {
         },
     ]
 
-    useEffect(() => {
-        let intervalId;
-        if (!isPaused) {
-            intervalId = setInterval(() => {
-                setCurrentIndex((prevIndex) => (prevIndex === images.length - 1 ? 0 : prevIndex + 1));
-            }, interval);
-        }
+    // useEffect(() => {
+    //     let intervalId;
+    //     if (!isPaused) {
+    //         intervalId = setInterval(() => {
+    //             setCurrentIndex((prevIndex) => (prevIndex === images.length - 1 ? 0 : prevIndex + 1));
+    //         }, interval);
+    //     }
 
-        return () => clearInterval(intervalId);
-    }, [interval, isPaused]);
+    //     return () => clearInterval(intervalId);
+    // }, [interval, isPaused]);
 
     useEffect(() => {
-        setCurrentIndex(0)
+        setCurrentIndex(1)
     }, [])
 
     const goToPrevSlide = () => {
@@ -123,7 +126,7 @@ const JuryCarousel = ({ interval = 10000, homePage = true }) => {
                                         {eachData.secondQuote}
                                     </div>
                                 )}
-                                <div style={{ marginTop: 24, fontSize: '2vmin' }}>
+                                <div style={{ marginTop: isMobileAndSmaller ? 4 : 24, fontSize: '2vmin' }}>
                                     {eachData.name}
                                     <div>
                                         {eachData.title}

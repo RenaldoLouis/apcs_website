@@ -24,7 +24,7 @@ const SapphireWinnerSection = (props) => {
                     {dataSaphire.map((eachData, index) => {
                         // const colClass = index === 24 ? "col-12 col-md-4 offset-md-4" : "col-12 col-md-4";
                         return (
-                            <div className={"col-6 col-md-4"} style={{ padding: isMobileAndSmaller ? 5 : 50 }}>
+                            <div className={"col-6 col-md-4"} style={{ padding: isMobileAndSmaller ? 5 : 45 }}>
                                 <ProfileToYoutube data={eachData} />
                             </div>
                         )
@@ -42,7 +42,7 @@ const SapphireWinnerSection = (props) => {
                         {dataDiamond.map((eachData, index) => {
                             const colClass = index + 1 === dataDiamond.length ? "col-6 col-md-4 offset-md-1" : index === dataDiamond.length - 2 ? "col-6 col-md-4 offset-md-2" : "col-6 col-md-4";
                             return (
-                                <div className={colClass} style={{ padding: isMobileAndSmaller ? 5 : 50 }}>
+                                <div className={colClass} style={{ padding: isMobileAndSmaller ? 5 : 45 }}>
                                     <ProfileToYoutube data={eachData} noImage={true} />
                                 </div>
                             )
