@@ -21,6 +21,7 @@ import { CountryConst } from "../../constant/CountryConst";
 import HeaderAbout from "../../components/atom/HeaderAbout";
 import indFlag from "../../assets/images/indFlag.jpg"
 import { useAuth } from "../../context/DataContext";
+import AnimatedComponent from "../../components/atom/AnimatedComponent";
 
 const GuestArtist = () => {
 
@@ -137,24 +138,26 @@ const GuestArtist = () => {
                                     </div>
                                 ))}
                             </div>
-                            <div className="row gx-5 gy-5">
-                                <div className="col-12 col-md-2" style={{ padding: 50 }} />
-                                <div className="col-12 col-md-8">
-                                    <img src={artist16} alt="artist16" style={{ width: "100%" }} />
-                                    <div className="d-flex justify-content-center" style={{ fontSize: 40, marginTop: 30 }}>
-                                        CMC Choir
-                                        {/* <img src={indFlag} alt={"indFlag"} style={{}} /> */}
+                            <AnimatedComponent animationClass="animate__fadeIn">
+                                <div className="row gx-5 gy-5">
+                                    <div className="col-12 col-md-2" style={{ padding: 50 }} />
+                                    <div className="col-12 col-md-8">
+                                        <img src={artist16} alt="artist16" style={{ width: "100%" }} />
+                                        <div className="d-flex justify-content-center" style={{ fontSize: 40, marginTop: 30 }}>
+                                            CMC Choir
+                                            {/* <img src={indFlag} alt={"indFlag"} style={{}} /> */}
 
+                                        </div>
                                     </div>
-                                </div>
-                                <div className="col-12 col-md-12" style={{ marginTop: 0 }}>
-                                    <div className="d-flex justify-content-center" style={{ fontSize: 40 }}>
-                                        <img src={indFlag} alt={"indFlag"} style={{}} />
+                                    <div className="col-12 col-md-12" style={{ marginTop: 0 }}>
+                                        <div className="d-flex justify-content-center" style={{ fontSize: 40 }}>
+                                            <img src={indFlag} alt={"indFlag"} style={{}} />
 
+                                        </div>
                                     </div>
+                                    <div className="col-12 col-md-2" style={{ padding: 50 }} />
                                 </div>
-                                <div className="col-12 col-md-2" style={{ padding: 50 }} />
-                            </div>
+                            </AnimatedComponent>
                         </div>
 
                     </div>

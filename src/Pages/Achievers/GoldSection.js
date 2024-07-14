@@ -59,7 +59,7 @@ const GoldSection = () => {
 
             <div class="container">
                 <div class="row">
-                    <div class="col">
+                    <div class="col-12 col-md-3 gy-5 gy-md-1">
                         {/* <Button
                             style={{
                                 borderRadius: 5,
@@ -107,7 +107,7 @@ const GoldSection = () => {
                             </Select>
                         </FormControl>
                     </div>
-                    <div class="col">
+                    <div class="col-12 col-md-3 gy-5 gy-md-1">
                         {/* <Button
                             style={{
                                 borderRadius: 5,
@@ -156,7 +156,7 @@ const GoldSection = () => {
                             </Select>
                         </FormControl>
                     </div>
-                    <div class="col">
+                    <div class="col-12 col-md-3 gy-5 gy-md-1">
                         {/* <Button
                             style={{
                                 borderRadius: 5,
@@ -205,7 +205,7 @@ const GoldSection = () => {
                             </Select>
                         </FormControl>
                     </div>
-                    <div class="col">
+                    <div class="col-12 col-md-3 gy-5 gy-md-1">
                         <FormControl fullWidth>
                             <InputLabel
                                 className="mosafinFont"
