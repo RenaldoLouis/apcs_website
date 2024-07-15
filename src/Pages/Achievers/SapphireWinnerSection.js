@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import textureBackground from "../../assets/images/textureBackground.png"
 import textureBackgroundLong from "../../assets/images/textureBackgroundLong.png"
 import saphireAchieverText from "../../assets/images/saphireAchieverText.svg"
@@ -12,6 +12,22 @@ import { useAuth } from "../../context/DataContext";
 const SapphireWinnerSection = (props) => {
     const { dataSaphire, dataDiamond } = props
     const { isMobileAndSmaller } = useAuth();
+
+    const [diamondDataSorted, setDiamondDataSorted] = useState([])
+
+    useEffect(() => {
+        let clonedData = [...dataDiamond]
+        let tempData = clonedData.sort((a, b) => {
+            if (a.name < b.name) {
+                return -1;
+            }
+            if (a.name > b.name) {
+                return 1;
+            }
+            return 0;
+        });
+        setDiamondDataSorted(tempData)
+    }, [dataDiamond])
 
     return (
         <div style={{ paddingTop: 150, backgroundImage: `url(${textureBackgroundLong})`, backgroundSize: "contain" }}>
@@ -37,18 +53,21 @@ const SapphireWinnerSection = (props) => {
                     title="THOSE WHO HAD GREAT PERFORMANCE"
                     image={diamondAchieversText}
                     description="Contestants who achieved a spectacular score of 95+ points." />
-                <div className="container color-white" style={{ paddingBottom: 200 }}>
-                    <div className="row  gy-5 gy-md-1">
-                        {dataDiamond.map((eachData, index) => {
-                            const colClass = index + 1 === dataDiamond.length ? "col-6 col-md-4 offset-md-1" : index === dataDiamond.length - 2 ? "col-6 col-md-4 offset-md-2" : "col-6 col-md-4";
-                            return (
-                                <div className={colClass} style={{ padding: isMobileAndSmaller ? 5 : 45 }}>
-                                    <ProfileToYoutube data={eachData} noImage={true} />
-                                </div>
-                            )
-                        })}
+                {diamondDataSorted.length > 0 && (
+                    <div className="container color-white" style={{ paddingBottom: 200 }}>
+                        <div className="row  gy-5 gy-md-1">
+                            {diamondDataSorted.map((eachData, index) => {
+                                // const colClass = index + 1 === dataDiamond.length ? "col-6 col-md-4 offset-md-1" : index === dataDiamond.length - 2 ? "col-6 col-md-4 offset-md-2" : "col-6 col-md-4";
+                                const colClass = index + 1 === dataDiamond.length ? "col-6 offset-3 col-md-4 offset-md-4" : "col-6 col-md-4"
+                                return (
+                                    <div className={colClass} style={{ padding: isMobileAndSmaller ? 5 : 45 }}>
+                                        <ProfileToYoutube data={eachData} noImage={true} />
+                                    </div>
+                                )
+                            })}
+                        </div>
                     </div>
-                </div>
+                )}
             </div>
 
             <GoldSection />
