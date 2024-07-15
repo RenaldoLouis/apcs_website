@@ -58,7 +58,7 @@ const sapphireWinners = [
         image: saphireAchievers3,
         country: ListOfCity.JKT,
         YoutubeLink: "https://www.youtube.com/watch?v=D1ct_m0XJtY&ab_channel=APIANOCONCERTOSERIES",
-        event: [ListOfEventAchiever["2025UPCOMING"]]
+        event: [ListOfEventAchiever["2025UPCOMING"], ListOfEventAchiever["2023CLASSICJKT"]]
     },
     {
         name: "Edward Nathaniel Handoko",
@@ -82,7 +82,7 @@ const sapphireWinners = [
         event: [ListOfEventAchiever["2025UPCOMING"]]
     },
     {
-        name: "jeffren Leliga",
+        name: "Jeffren Leliga",
         image: saphireAchievers7,
         country: ListOfCity.SRB,
         YoutubeLink: "https://www.youtube.com/watch?v=bMBKgEL4x3w&ab_channel=APIANOCONCERTOSERIES",

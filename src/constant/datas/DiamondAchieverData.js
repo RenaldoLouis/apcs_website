@@ -37,7 +37,7 @@ export const dataDiamond = [
         name: "Arissa Eillin Budiono",
         country: ListOfCity.PLB,
         YoutubeLink: "https://www.youtube.com/watch?v=-p6JIOod6_c&ab_channel=APIANOCONCERTOSERIES",
-        event: [ListOfEventAchiever["2023CHRISTMAS"]]
+        event: [ListOfEventAchiever["2023CHRISTMAS"], ListOfEventAchiever["2022MAGICMUSIC"]]
     },
     {
         name: "Ashton Micah Poh",
@@ -73,13 +73,13 @@ export const dataDiamond = [
         name: "Clarissa Stefanny",
         country: ListOfCity.PNT,
         YoutubeLink: "https://www.youtube.com/watch?v=XR8yYVUsBzo&ab_channel=APIANOCONCERTOSERIES",
-        event: [ListOfEventAchiever["2023CHRISTMAS"]]
+        event: [ListOfEventAchiever["2023CHRISTMAS"], ListOfEventAchiever["2023CLASSICJKT"]]
     },
     {
         name: "Edward Nathaniel Handoko",
         country: ListOfCity.SRB,
         YoutubeLink: "https://www.youtube.com/watch?v=twdiVI7WYNA&ab_channel=APIANOCONCERTOSERIES",
-        event: [ListOfEventAchiever["2023CHRISTMAS"]]
+        event: [ListOfEventAchiever["2023CHRISTMAS"], ListOfEventAchiever["2023CLASSICSRBY"]]
     },
     {
         name: "Gizelle Everly Wantana",
@@ -242,12 +242,6 @@ export const dataDiamond = [
         name: "Clara Brigitta Hartono",
         country: ListOfCity.JKT,
         YoutubeLink: "",
-        event: [ListOfEventAchiever["2023CLASSICJKT"]]
-    },
-    {
-        name: "Clarissa Stefanny",
-        country: ListOfCity.PNT,
-        YoutubeLink: "https://www.youtube.com/watch?v=XR8yYVUsBzo&ab_channel=APIANOCONCERTOSERIES",
         event: [ListOfEventAchiever["2023CLASSICJKT"]]
     },
     {
@@ -485,12 +479,6 @@ export const dataDiamond = [
         "event": [ListOfEventAchiever["2023CLASSICSRBY"]]
     },
     {
-        "name": "Edward Nathaniel Handoko",
-        "country": ListOfCity.SRB,
-        "YoutubeLink": "https://www.youtube.com/watch?v=twdiVI7WYNA&ab_channel=APIANOCONCERTOSERIES",
-        "event": [ListOfEventAchiever["2023CLASSICSRBY"]]
-    },
-    {
         "name": "Isabel Arwen Kurniawan",
         "country": ListOfCity.PNT,
         "YoutubeLink": "https://www.youtube.com/watch?v=fuSYMwZtjtY&ab_channel=APIANOCONCERTOSERIES",
@@ -633,13 +621,6 @@ export const dataDiamond = [
         "country": ListOfCity.SRB,
         "YoutubeLink": "https://www.youtube.com/watch?v=QbVIU4lYSWQ&ab_channel=APIANOCONCERTOSERIES",
         "event": [ListOfEventAchiever["2023CLASSICSRBY"]]
-    },
-
-    {
-        "name": "Arissa Eillin Budiono",
-        "country": ListOfCity.PLB,
-        "YoutubeLink": "https://www.youtube.com/watch?v=-p6JIOod6_c&ab_channel=APIANOCONCERTOSERIES",
-        "event": [ListOfEventAchiever["2022MAGICMUSIC"]]
     },
     {
         "name": "Azzarine Ishana Syailendra",
