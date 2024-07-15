@@ -40,7 +40,7 @@ import { ListOfEventAchiever } from "../../constant/ListOfEventAchiever";
 
 const sapphireWinners = [
     {
-        name: "Ann Sheren Yao",
+        name: "Ann Shereen Yao",
         image: saphireAchievers1,
         country: ListOfCity.JKT,
         YoutubeLink: "https://www.youtube.com/watch?v=is5ie02NnyA&ab_channel=APIANOCONCERTOSERIES",

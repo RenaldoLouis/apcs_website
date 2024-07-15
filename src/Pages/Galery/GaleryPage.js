@@ -55,7 +55,7 @@ const GaleryPage = () => {
                     role: "Cellist"
                 },
                 {
-                    name: "Andreas Ariant",
+                    name: "Andreas Arianto",
                     role: "Accordionist"
                 },
                 {
@@ -209,7 +209,7 @@ const GaleryPage = () => {
                 // },
                 {
                     name: "Ify Alyssa",
-                    role: "Pianist"
+                    role: "Singer - Pianist"
                 },
                 {
                     name: "Stephanie Jingga",

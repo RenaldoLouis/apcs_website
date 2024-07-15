@@ -23,7 +23,7 @@ const images = [
     jury5noText,
 ]
 
-const JuryCarousel = ({ interval = 10000, homePage = true }) => {
+const JuryCarousel = ({ interval = 8000, homePage = true }) => {
     const [currentIndex, setCurrentIndex] = useState(0);
     const { t, i18n } = useTranslation();
     const theme = useTheme();
@@ -70,19 +70,19 @@ const JuryCarousel = ({ interval = 10000, homePage = true }) => {
         },
     ]
 
-    // useEffect(() => {
-    //     let intervalId;
-    //     if (!isPaused) {
-    //         intervalId = setInterval(() => {
-    //             setCurrentIndex((prevIndex) => (prevIndex === images.length - 1 ? 0 : prevIndex + 1));
-    //         }, interval);
-    //     }
+    useEffect(() => {
+        let intervalId;
+        if (!isPaused) {
+            intervalId = setInterval(() => {
+                setCurrentIndex((prevIndex) => (prevIndex === images.length - 1 ? 0 : prevIndex + 1));
+            }, interval);
+        }
 
-    //     return () => clearInterval(intervalId);
-    // }, [interval, isPaused]);
+        return () => clearInterval(intervalId);
+    }, [interval, isPaused]);
 
     useEffect(() => {
-        setCurrentIndex(1)
+        setCurrentIndex(0)
     }, [])
 
     const goToPrevSlide = () => {
