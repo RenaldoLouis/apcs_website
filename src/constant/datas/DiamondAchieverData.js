@@ -46,6 +46,12 @@ export const dataDiamond = [
         event: [ListOfEventAchiever["2023CHRISTMAS"], ListOfEventAchiever["2023CLASSICJKT"]]
     },
     {
+        name: "Brigitta Gracelyn Thetrasakti",
+        country: ListOfCity.JKT,
+        YoutubeLink: "https://www.youtube.com/watch?v=FF3aXBHffbw&ab_channel=APIANOCONCERTOSERIES",
+        event: [ListOfEventAchiever["2023CHRISTMAS"]]
+    },
+    {
         name: "Britanny Charlene Liaunardy",
         country: ListOfCity.SRB,
         YoutubeLink: "https://www.youtube.com/watch?v=bHUYL-i0KIc&ab_channel=APIANOCONCERTOSERIES",
@@ -119,12 +125,6 @@ export const dataDiamond = [
     },
     {
         name: "Philia Eltan Haryanto",
-        country: ListOfCity.JKT,
-        YoutubeLink: "https://www.youtube.com/watch?v=FF3aXBHffbw&ab_channel=APIANOCONCERTOSERIES",
-        event: [ListOfEventAchiever["2023CHRISTMAS"]]
-    },
-    {
-        name: "Brigitta Gracelyn Thetrasakti",
         country: ListOfCity.JKT,
         YoutubeLink: "https://www.youtube.com/watch?v=FF3aXBHffbw&ab_channel=APIANOCONCERTOSERIES",
         event: [ListOfEventAchiever["2023CHRISTMAS"]]

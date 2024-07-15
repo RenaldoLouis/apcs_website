@@ -408,7 +408,7 @@ const GaleryPage = () => {
                             </div>
                         </div>
                     )}
-                    <div style={{ marginTop: 100 }}>
+                    <div className="container" style={{ marginTop: 100 }}>
                         <HeaderTitle>
                             {galeryContent.title}
                         </HeaderTitle>
@@ -429,9 +429,11 @@ const GaleryPage = () => {
                                     {galeryContent?.featuring?.map((eachFeature, index) => (
                                         <React.Fragment key={index}>
                                             {index > 0 && " • "}
-                                            <span className="feature-name fontSizeBody">{eachFeature.name} {eachFeature.founder && (<span className="italicText"> (Founder) </span>)}</span>{" "}
-                                            <span className="italicText fontSizeBody">
-                                                {eachFeature.title && (`as the ${eachFeature.title}`)} ({eachFeature.role}) {eachFeature?.achivement && (` and Winners of ${eachFeature?.achivement}`)}
+                                            <span className="feature-name">
+                                                <span className="feature-name fontSizeBody">{eachFeature.name} {eachFeature.founder && (<span className="italicText"> (Founder) </span>)}</span>{" "}
+                                                <span className="italicText fontSizeBody">
+                                                    {eachFeature.title && (`as the ${eachFeature.title}`)} ({eachFeature.role}) {eachFeature?.achivement && (` and Winners of ${eachFeature?.achivement}`)}
+                                                </span>
                                             </span>
                                         </React.Fragment>
                                     ))}
