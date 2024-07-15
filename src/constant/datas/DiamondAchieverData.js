@@ -5,9 +5,15 @@ import { ListOfEventAchiever } from "../ListOfEventAchiever"
 export const dataDiamond = [
     {
         name: "Abigail Caitlyn Electra",
-        country: ListOfCity.SRB,
+        country: ListOfCity.SMR,
         YoutubeLink: "https://www.youtube.com/watch?v=sijinYGOZnw&ab_channel=APIANOCONCERTOSERIES",
         event: [ListOfEventAchiever["2023CHRISTMAS"]]
+    },
+    {
+        name: "Abigail Kimberly Indrajaya",
+        country: ListOfCity.PLB,
+        YoutubeLink: "https://www.youtube.com/watch?v=sijinYGOZnw&ab_channel=APIANOCONCERTOSERIES",
+        event: [ListOfEventAchiever["2023CLASSICSRBY"]]
     },
     {
         name: "Adeleine Angelique Wiryanto",
@@ -46,22 +52,16 @@ export const dataDiamond = [
         event: [ListOfEventAchiever["2023CLASSICJKT"]]
     },
     {
-        name: "Adrianne Shanelle Yao",
-        country: ListOfCity.JKT,
-        YoutubeLink: "https://www.youtube.com/watch?v=779gXnPTs-0&ab_channel=APIANOCONCERTOSERIES",
-        event: [ListOfEventAchiever["2023CHRISTMAS"], ListOfEventAchiever["2023CLASSICJKT"]]
-    },
-    {
         name: "Adrianne Shanelle Yao & Ann Shereen Yao",
         country: ListOfCity.JKT,
         YoutubeLink: "https://www.youtube.com/watch?v=779gXnPTs-0&ab_channel=APIANOCONCERTOSERIES",
-        event: [ListOfEventAchiever["2022MAGICMUSIC"]]
+        event: [ListOfEventAchiever["2022MAGICMUSIC"], ListOfEventAchiever["2023CHRISTMAS"], ListOfEventAchiever["2023CLASSICJKT"]]
     },
     {
         name: "Arissa Eillin Budiono",
         country: ListOfCity.PLB,
         YoutubeLink: "https://www.youtube.com/watch?v=-p6JIOod6_c&ab_channel=APIANOCONCERTOSERIES",
-        event: [ListOfEventAchiever["2023CHRISTMAS"], ListOfEventAchiever["2022MAGICMUSIC"], ListOfEventAchiever["2022MAGICMUSIC"]]
+        event: [ListOfEventAchiever["2023CHRISTMAS"], ListOfEventAchiever["2022MAGICMUSIC"]]
     },
     {
         name: "Ashton Micah Poh",
@@ -140,12 +140,6 @@ export const dataDiamond = [
         country: ListOfCity.SRB,
         YoutubeLink: "https://www.youtube.com/watch?v=J5UZM0lH0Cc&ab_channel=APIANOCONCERTOSERIES",
         event: [ListOfEventAchiever["2023CHRISTMAS"], ListOfEventAchiever["2023CLASSICSRBY"], ListOfEventAchiever["2022MAGICMUSIC"]]
-    },
-    {
-        name: "Philia Eltan Haryanto",
-        country: ListOfCity.JKT,
-        YoutubeLink: "https://www.youtube.com/watch?v=FF3aXBHffbw&ab_channel=APIANOCONCERTOSERIES",
-        event: [ListOfEventAchiever["2023CHRISTMAS"]]
     },
     {
         name: "Reinhart Avery Hidayat",
