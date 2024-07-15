@@ -22,6 +22,30 @@ export const dataDiamond = [
         event: [ListOfEventAchiever["2023CHRISTMAS"], ListOfEventAchiever["2023CLASSICJKT"]]
     },
     {
+        name: "Alf Elijah Beloved Sigarlaki",
+        country: ListOfCity.JKT,
+        YoutubeLink: "https://www.youtube.com/watch?v=9iMrg1T1p_w&ab_channel=APIANOCONCERTOSERIES",
+        event: [ListOfEventAchiever["2023CLASSICJKT"], ListOfEventAchiever["2022MAGICMUSIC"]]
+    },
+    {
+        name: "Allegra Alcira Foo Ing Yue",
+        country: ListOfCity.TNG,
+        YoutubeLink: "https://www.youtube.com/watch?v=h9jRMGO66mA&ab_channel=APIANOCONCERTOSERIES",
+        event: [ListOfEventAchiever["2023CLASSICJKT"], ListOfEventAchiever["2023CLASSICSRBY"]]
+    },
+    {
+        name: "Ashley Michelle Poh",
+        country: ListOfCity.TNG,
+        YoutubeLink: "https://www.youtube.com/watch?v=6DkCJVJPjsQ&ab_channel=APIANOCONCERTOSERIES",
+        event: [ListOfEventAchiever["2023CLASSICJKT"]]
+    },
+    {
+        name: "Athanasius Warren Jonatan",
+        country: ListOfCity.JKT,
+        YoutubeLink: "https://www.youtube.com/watch?v=-EwR6Gkue9s&ab_channel=APIANOCONCERTOSERIES",
+        event: [ListOfEventAchiever["2023CLASSICJKT"]]
+    },
+    {
         name: "Adrianne Shanelle Yao",
         country: ListOfCity.JKT,
         YoutubeLink: "https://www.youtube.com/watch?v=779gXnPTs-0&ab_channel=APIANOCONCERTOSERIES",
@@ -37,7 +61,7 @@ export const dataDiamond = [
         name: "Arissa Eillin Budiono",
         country: ListOfCity.PLB,
         YoutubeLink: "https://www.youtube.com/watch?v=-p6JIOod6_c&ab_channel=APIANOCONCERTOSERIES",
-        event: [ListOfEventAchiever["2023CHRISTMAS"], ListOfEventAchiever["2022MAGICMUSIC"]]
+        event: [ListOfEventAchiever["2023CHRISTMAS"], ListOfEventAchiever["2022MAGICMUSIC"], ListOfEventAchiever["2022MAGICMUSIC"]]
     },
     {
         name: "Ashton Micah Poh",
@@ -46,7 +70,7 @@ export const dataDiamond = [
         event: [ListOfEventAchiever["2023CHRISTMAS"], ListOfEventAchiever["2023CLASSICJKT"]]
     },
     {
-        name: "Brigitta Gracelyn Thetrasakti",
+        name: "Brigitta Gracelyn Thetrasakti & Philia Eltan Haryanto",
         country: ListOfCity.JKT,
         YoutubeLink: "https://www.youtube.com/watch?v=FF3aXBHffbw&ab_channel=APIANOCONCERTOSERIES",
         event: [ListOfEventAchiever["2023CHRISTMAS"]]
@@ -88,13 +112,7 @@ export const dataDiamond = [
         event: [ListOfEventAchiever["2023CHRISTMAS"]]
     },
     {
-        name: "Joane Gabriella lanputri",
-        country: ListOfCity.JKT,
-        YoutubeLink: "https://www.youtube.com/watch?v=54HLINLr4Xs&ab_channel=APIANOCONCERTOSERIES",
-        event: [ListOfEventAchiever["2023CHRISTMAS"]]
-    },
-    {
-        name: "Josephine Mulyani",
+        name: "Joane Gabriella Ianputri & Josephine Mulyani",
         country: ListOfCity.JKT,
         YoutubeLink: "https://www.youtube.com/watch?v=54HLINLr4Xs&ab_channel=APIANOCONCERTOSERIES",
         event: [ListOfEventAchiever["2023CHRISTMAS"]]
@@ -103,7 +121,7 @@ export const dataDiamond = [
         name: "Kayla Calista Ayal",
         country: ListOfCity.BGR,
         YoutubeLink: "https://www.youtube.com/watch?v=oivwx12q0Do&ab_channel=APIANOCONCERTOSERIES",
-        event: [ListOfEventAchiever["2023CHRISTMAS"]]
+        event: [ListOfEventAchiever["2023CHRISTMAS"], ListOfEventAchiever["2022MAGICMUSIC"]]
     },
     {
         name: "Keenan Kwok",
@@ -175,33 +193,10 @@ export const dataDiamond = [
         name: "Vanessa Hardianto",
         country: ListOfCity.TNG,
         YoutubeLink: "https://www.youtube.com/watch?v=ha4YHiPchII&ab_channel=APIANOCONCERTOSERIES",
-        event: [ListOfEventAchiever["2023CHRISTMAS"]]
+        event: [ListOfEventAchiever["2023CHRISTMAS"], ListOfEventAchiever["2023CLASSICSRBY"]]
     },
 
-    {
-        name: "Alf Elijah Beloved Sigarlaki",
-        country: ListOfCity.JKT,
-        YoutubeLink: "https://www.youtube.com/watch?v=9iMrg1T1p_w&ab_channel=APIANOCONCERTOSERIES",
-        event: [ListOfEventAchiever["2023CLASSICJKT"], ListOfEventAchiever["2022MAGICMUSIC"]]
-    },
-    {
-        name: "Allegra Alcira Foo Ing Yue",
-        country: ListOfCity.TNG,
-        YoutubeLink: "https://www.youtube.com/watch?v=h9jRMGO66mA&ab_channel=APIANOCONCERTOSERIES",
-        event: [ListOfEventAchiever["2023CLASSICJKT"], ListOfEventAchiever["2023CLASSICSRBY"]]
-    },
-    {
-        name: "Ashley Michelle Poh",
-        country: ListOfCity.TNG,
-        YoutubeLink: "https://www.youtube.com/watch?v=6DkCJVJPjsQ&ab_channel=APIANOCONCERTOSERIES",
-        event: [ListOfEventAchiever["2023CLASSICJKT"]]
-    },
-    {
-        name: "Athanasius Warren Jonatan",
-        country: ListOfCity.JKT,
-        YoutubeLink: "https://www.youtube.com/watch?v=-EwR6Gkue9s&ab_channel=APIANOCONCERTOSERIES",
-        event: [ListOfEventAchiever["2023CLASSICJKT"]]
-    },
+
     {
         name: "Calvin Yoel Pandiangan",
         country: ListOfCity.BTM,
@@ -215,7 +210,7 @@ export const dataDiamond = [
         event: [ListOfEventAchiever["2023CLASSICJKT"]]
     },
     {
-        name: "Cheryn Pandora",
+        name: "Cheryn Pandora & Edenia Maureen",
         country: ListOfCity.SRB,
         YoutubeLink: "",
         event: [ListOfEventAchiever["2023CLASSICJKT"]]
@@ -257,21 +252,9 @@ export const dataDiamond = [
         event: [ListOfEventAchiever["2022MAGICMUSIC"]]
     },
     {
-        name: "Edenia Maureen",
-        country: ListOfCity.SRB,
-        YoutubeLink: "",
-        event: [ListOfEventAchiever["2023CLASSICJKT"]]
-    },
-    {
         name: "Fadlasyah Rifqy",
         country: ListOfCity.JKT,
         YoutubeLink: "https://www.youtube.com/watch?v=0Ye5ydaInZw&ab_channel=APIANOCONCERTOSERIES",
-        event: [ListOfEventAchiever["2023CLASSICJKT"]]
-    },
-    {
-        name: "Florisia Revanya Josephine",
-        country: "Yogyakarta",
-        YoutubeLink: "https://www.youtube.com/watch?v=2Li-73xu7rI&ab_channel=APIANOCONCERTOSERIES",
         event: [ListOfEventAchiever["2023CLASSICJKT"]]
     },
     {
@@ -287,7 +270,7 @@ export const dataDiamond = [
         event: [ListOfEventAchiever["2023CLASSICJKT"], ListOfEventAchiever["2022MAGICMUSIC"]]
     },
     {
-        name: "Ike Kusumawati",
+        name: "Yuniasri Maya Aisyah & Ike Kusumawati",
         country: "Semarang",
         YoutubeLink: "https://www.youtube.com/watch?v=4TE9K3E9EfI&t=147s&ab_channel=APIANOCONCERTOSERIES",
         event: [ListOfEventAchiever["2023CLASSICJKT"]]
@@ -311,7 +294,7 @@ export const dataDiamond = [
         event: [ListOfEventAchiever["2023CLASSICJKT"]]
     },
     {
-        name: "Jehoshua Amadeus Samuel Amanta Nainggolan",
+        name: "Jehoshua Amadeus Samuel Amanta Nainggolan & Florisia Revanya Josephine",
         country: "Yogyakarta",
         YoutubeLink: "https://www.youtube.com/watch?v=2Li-73xu7rI&ab_channel=APIANOCONCERTOSERIES",
         event: [ListOfEventAchiever["2023CLASSICJKT"]]
@@ -347,7 +330,7 @@ export const dataDiamond = [
         event: [ListOfEventAchiever["2023CLASSICJKT"]]
     },
     {
-        name: "Marshaina Azalia Primatantri",
+        name: "Marshaina Azalia Primatantri & Thirza Maida Alam",
         country: ListOfCity.BGR,
         YoutubeLink: "",
         event: [ListOfEventAchiever["2023CLASSICJKT"]]
@@ -386,7 +369,13 @@ export const dataDiamond = [
         name: "Sharon Hanrin Christian Chandra",
         country: ListOfCity.JKT,
         YoutubeLink: "https://www.youtube.com/watch?v=RuNUFbKDmME&ab_channel=APIANOCONCERTOSERIES",
-        event: [ListOfEventAchiever["2023CLASSICJKT"], ListOfEventAchiever["2022MAGICMUSIC"]]
+        event: [ListOfEventAchiever["2022MAGICMUSIC"]]
+    },
+    {
+        name: "Sharon Hanrin Christian Chandra & Clara Brigitta Hartono",
+        country: ListOfCity.JKT,
+        YoutubeLink: "https://www.youtube.com/watch?v=RuNUFbKDmME&ab_channel=APIANOCONCERTOSERIES",
+        event: [ListOfEventAchiever["2023CLASSICJKT"]]
     },
     {
         name: "Skye Hartono",
@@ -398,7 +387,7 @@ export const dataDiamond = [
         name: "Stephanie Gwen Liem",
         country: ListOfCity.JKT,
         YoutubeLink: "https://www.youtube.com/watch?v=uh6gOSspbrs&ab_channel=APIANOCONCERTOSERIES",
-        event: [ListOfEventAchiever["2023CLASSICJKT"]]
+        event: [ListOfEventAchiever["2023CLASSICJKT"], ListOfEventAchiever["2022MAGICMUSIC"]]
     },
     {
         name: "Sutra Cahaya Wijaya",
@@ -411,12 +400,6 @@ export const dataDiamond = [
         country: ListOfCity.TNG,
         YoutubeLink: "https://www.youtube.com/watch?v=gItdcXGQqSM&ab_channel=APIANOCONCERTOSERIES",
         event: [ListOfEventAchiever["2023CLASSICJKT"], ListOfEventAchiever["2023CLASSICSRBY"]]
-    },
-    {
-        name: "Thirza Maida Alam",
-        country: ListOfCity.BGR,
-        YoutubeLink: "",
-        event: [ListOfEventAchiever["2023CLASSICJKT"]]
     },
     {
         name: "Timothy Sam Kosasih",
@@ -440,12 +423,6 @@ export const dataDiamond = [
         name: "Woodseed Quintet",
         country: "Yogyakarta",
         YoutubeLink: "",
-        event: [ListOfEventAchiever["2023CLASSICJKT"]]
-    },
-    {
-        name: "Yuniasri Maya Aisyah",
-        country: "Semarang",
-        YoutubeLink: "https://www.youtube.com/watch?v=4TE9K3E9EfI&t=147s&ab_channel=APIANOCONCERTOSERIES",
         event: [ListOfEventAchiever["2023CLASSICJKT"]]
     },
     {
@@ -528,7 +505,7 @@ export const dataDiamond = [
     },
     {
         "name": "Juan Hubert Huang",
-        "country": ListOfCity.SRB,
+        "country": ListOfCity.MDN,
         "YoutubeLink": "https://www.youtube.com/watch?v=bDLSB0Osliw&ab_channel=APIANOCONCERTOSERIES",
         "event": [ListOfEventAchiever["2023CLASSICSRBY"]]
     },
@@ -576,7 +553,7 @@ export const dataDiamond = [
     },
     {
         "name": "Reyna Gratia Ivanka",
-        "country": ListOfCity.SRB,
+        "country": ListOfCity.KDS,
         "YoutubeLink": "https://www.youtube.com/watch?v=p1a5mKD6StE&ab_channel=APIANOCONCERTOSERIES",
         "event": [ListOfEventAchiever["2023CLASSICSRBY"]]
     },
@@ -588,7 +565,7 @@ export const dataDiamond = [
     },
     {
         "name": "Sean Kenneth Hudyana",
-        "country": ListOfCity.SRB,
+        "country": ListOfCity.BLR,
         "YoutubeLink": "https://www.youtube.com/watch?v=hlYQbi2_rDY&ab_channel=APIANOCONCERTOSERIES",
         "event": [ListOfEventAchiever["2023CLASSICSRBY"]]
     },
@@ -602,12 +579,6 @@ export const dataDiamond = [
         "name": "Sinclair Justin Gohandi",
         "country": ListOfCity.SRB,
         "YoutubeLink": "https://www.youtube.com/watch?v=qHdWA7y4Z38&ab_channel=APIANOCONCERTOSERIES",
-        "event": [ListOfEventAchiever["2023CLASSICSRBY"]]
-    },
-    {
-        "name": "Vanessa Hardianto",
-        "country": ListOfCity.TNG,
-        "YoutubeLink": "https://www.youtube.com/watch?v=ha4YHiPchII&ab_channel=APIANOCONCERTOSERIES",
         "event": [ListOfEventAchiever["2023CLASSICSRBY"]]
     },
     {
@@ -636,7 +607,7 @@ export const dataDiamond = [
     },
     {
         "name": "Celine Gabriella Amijaya",
-        "country": ListOfCity.SRB,
+        "country": ListOfCity.SMR,
         "YoutubeLink": "https://www.youtube.com/watch?v=ABfhBsL9dpw&ab_channel=APIANOCONCERTOSERIES",
         "event": [ListOfEventAchiever["2022MAGICMUSIC"]]
     },
@@ -647,7 +618,7 @@ export const dataDiamond = [
         "event": [ListOfEventAchiever["2022MAGICMUSIC"]]
     },
     {
-        "name": "Charice Elleanorekonggo Budiman",
+        "name": "Charice Elleanore Konggo Budiman",
         "country": ListOfCity.SRB,
         "YoutubeLink": "https://www.youtube.com/watch?v=NewtKsNhs_4&ab_channel=APIANOCONCERTOSERIES",
         "event": [ListOfEventAchiever["2022MAGICMUSIC"]]
@@ -660,7 +631,7 @@ export const dataDiamond = [
     },
     {
         "name": "Fiona Lynn Sie",
-        "country": ListOfCity.SRB,
+        "country": ListOfCity.SMR,
         "YoutubeLink": "https://www.youtube.com/watch?v=jwQk6n4h144&ab_channel=APIANOCONCERTOSERIES",
         "event": [ListOfEventAchiever["2022MAGICMUSIC"]]
     },
@@ -696,20 +667,14 @@ export const dataDiamond = [
     },
     {
         "name": "Joline Jati Utomo",
-        "country": ListOfCity.SRB,
+        "country": ListOfCity.SMR,
         "YoutubeLink": "https://www.youtube.com/watch?v=A8Bp1880zf4&ab_channel=APIANOCONCERTOSERIES",
         "event": [ListOfEventAchiever["2022MAGICMUSIC"]]
     },
     {
         "name": "Kani Kalavati",
-        "country": ListOfCity.JKT,
+        "country": ListOfCity.DPK,
         "YoutubeLink": "https://www.youtube.com/watch?v=UgJooW0GCzE&ab_channel=APIANOCONCERTOSERIES",
-        "event": [ListOfEventAchiever["2022MAGICMUSIC"]]
-    },
-    {
-        "name": "Kayla Calista Alay",
-        "country": ListOfCity.BGR,
-        "YoutubeLink": "https://www.youtube.com/watch?v=oivwx12q0Do&ab_channel=APIANOCONCERTOSERIES",
         "event": [ListOfEventAchiever["2022MAGICMUSIC"]]
     },
     {
@@ -720,19 +685,19 @@ export const dataDiamond = [
     },
     {
         "name": "Lougan Steinson Wiranto",
-        "country": ListOfCity.SRB,
+        "country": ListOfCity.SMR,
         "YoutubeLink": "https://www.youtube.com/watch?v=lApJUHVGVrw&ab_channel=APIANOCONCERTOSERIES",
         "event": [ListOfEventAchiever["2022MAGICMUSIC"]]
     },
     {
         "name": "Ludwina Natasya Azarine & Natasha Julia Budiarjo",
-        "country": ListOfCity.SRB,
+        "country": ListOfCity.SMR,
         "YoutubeLink": "https://www.youtube.com/watch?v=-K51m8NSZgA&ab_channel=APIANOCONCERTOSERIES",
         "event": [ListOfEventAchiever["2022MAGICMUSIC"]]
     },
     {
         "name": "Megan Magdalene Liem",
-        "country": ListOfCity.SRB,
+        "country": ListOfCity.SMR,
         "YoutubeLink": "https://www.youtube.com/watch?v=ca8KN0xYBtg&ab_channel=APIANOCONCERTOSERIES",
         "event": [ListOfEventAchiever["2022MAGICMUSIC"]]
     },
@@ -744,13 +709,13 @@ export const dataDiamond = [
     },
     {
         "name": "Nadia Putri Bharata",
-        "country": ListOfCity.SRB,
+        "country": ListOfCity.SMR,
         "YoutubeLink": "https://www.youtube.com/watch?v=lsXM2WxNZvA&ab_channel=APIANOCONCERTOSERIES",
         "event": [ListOfEventAchiever["2022MAGICMUSIC"]]
     },
     {
         "name": "Peter Frey Widjaja",
-        "country": ListOfCity.SRB,
+        "country": ListOfCity.SMR,
         "YoutubeLink": "https://www.youtube.com/watch?v=TZXlegYqovQ&ab_channel=APIANOCONCERTOSERIES",
         "event": [ListOfEventAchiever["2022MAGICMUSIC"]]
     },
@@ -774,7 +739,7 @@ export const dataDiamond = [
     },
     {
         "name": "Sam Joseph Arthur",
-        "country": ListOfCity.SRB,
+        "country": ListOfCity.SMR,
         "YoutubeLink": "https://www.youtube.com/watch?v=f5__60AfXpU&ab_channel=APIANOCONCERTOSERIES",
         "event": [ListOfEventAchiever["2022MAGICMUSIC"]]
     },
@@ -782,12 +747,6 @@ export const dataDiamond = [
         "name": "Sidney Loo",
         "country": ListOfCity.SRB,
         "YoutubeLink": "https://www.youtube.com/watch?v=FVlBEjVP4dw&ab_channel=APIANOCONCERTOSERIES",
-        "event": [ListOfEventAchiever["2022MAGICMUSIC"]]
-    },
-    {
-        "name": "Stephanie Gwen Liem",
-        "country": ListOfCity.JKT,
-        "YoutubeLink": "https://www.youtube.com/watch?v=uh6gOSspbrs&ab_channel=APIANOCONCERTOSERIES",
         "event": [ListOfEventAchiever["2022MAGICMUSIC"]]
     },
     {

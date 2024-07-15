@@ -25,7 +25,9 @@ const ProfileToYoutube = (props) => {
                             {name}
                         </span>
                         {YoutubeLink && (
-                            <img className="cursorPointer" src={playButton} alt='playButton' onClick={handleOpenLink} />
+                            <div className="playButtonContainer">
+                                <img className="cursorPointer" src={playButton} alt='playButton' onClick={handleOpenLink} />
+                            </div>
                         )}
                     </div>
                     <div style={{ marginTop: 8 }}>

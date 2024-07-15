@@ -4,6 +4,7 @@ export const ListOfCity = {
     "TNG": "Tangerang",
     "BDO": "Bandung",
     "SRB": "Surabaya",
+    "SMR": "Semarang",
     "MD": "Medan",
     "BPN": "Balikpapan",
     "PLB": "Palembang",
@@ -11,4 +12,8 @@ export const ListOfCity = {
     "BTM": "Batam",
     "BKS": "Bekasi",
     "SLT": "Salatiga",
+    "MDN": "Madiun",
+    "KDS": "Kudus",
+    "BLR": "Blora",
+    "DPK": "Depok",
 }
