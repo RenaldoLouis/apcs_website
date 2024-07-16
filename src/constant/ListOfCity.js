@@ -16,4 +16,5 @@ export const ListOfCity = {
     "KDS": "Kudus",
     "BLR": "Blora",
     "DPK": "Depok",
+    "YKT": "Yogyakarta",
 }

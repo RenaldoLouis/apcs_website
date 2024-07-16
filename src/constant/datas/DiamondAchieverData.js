@@ -252,7 +252,7 @@ export const dataDiamond = [
         event: [ListOfEventAchiever["2023CLASSICJKT"]]
     },
     {
-        name: "Gregorius Reindhardt",
+        name: "Gregorius Reinhardt",
         country: ListOfCity.PLB,
         YoutubeLink: "https://www.youtube.com/watch?v=TntCfGmzFSU&ab_channel=APIANOCONCERTOSERIES",
         event: [ListOfEventAchiever["2023CLASSICJKT"], ListOfEventAchiever["2022MAGICMUSIC"]]
@@ -637,7 +637,7 @@ export const dataDiamond = [
     },
     {
         "name": "Gwyneth Madeline Liechelle Fanto & Melodi Tirza",
-        "country": ListOfCity.SRB,
+        "country": ListOfCity.YKT,
         "YoutubeLink": "https://www.youtube.com/watch?v=Mdqj3pjkQwc&ab_channel=APIANOCONCERTOSERIESS",
         "event": [ListOfEventAchiever["2022MAGICMUSIC"]]
     },
@@ -751,7 +751,7 @@ export const dataDiamond = [
     },
     {
         "name": "Tabita Indri N & Pramita Dwinovianti J",
-        "country": ListOfCity.SRB,
+        "country": ListOfCity.SMR,
         "YoutubeLink": "https://www.youtube.com/watch?v=QIxGekVqrsc&ab_channel=APIANOCONCERTOSERIES",
         "event": [ListOfEventAchiever["2022MAGICMUSIC"]]
     },
@@ -759,6 +759,12 @@ export const dataDiamond = [
         "name": "Victoria Inverness Susilo",
         "country": ListOfCity.SRB,
         "YoutubeLink": "https://www.youtube.com/watch?v=IZDGCKn9-y4&ab_channel=APIANOCONCERTOSERIES",
+        "event": [ListOfEventAchiever["2022MAGICMUSIC"]]
+    },
+    {
+        "name": "Andrew Jevera Tan",
+        "country": ListOfCity.TNG,
+        "YoutubeLink": "https://www.youtube.com/watch?v=R_Cju-VofH4&ab_channel=APIANOCONCERTOSERIES",
         "event": [ListOfEventAchiever["2022MAGICMUSIC"]]
     }
 ]
