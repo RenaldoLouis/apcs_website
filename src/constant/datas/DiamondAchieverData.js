@@ -31,7 +31,7 @@ export const dataDiamond = [
         name: "Alf Elijah Beloved Sigarlaki",
         country: ListOfCity.JKT,
         YoutubeLink: "https://www.youtube.com/watch?v=9iMrg1T1p_w&ab_channel=APIANOCONCERTOSERIES",
-        event: [ListOfEventAchiever["2023CLASSICJKT"], ListOfEventAchiever["2022MAGICMUSIC"]]
+        event: [ListOfEventAchiever["2022MAGICMUSIC"], ListOfEventAchiever["2023CLASSICJKT"]]
     },
     {
         name: "Allegra Alcira Foo Ing Yue",
@@ -52,7 +52,7 @@ export const dataDiamond = [
         event: [ListOfEventAchiever["2023CLASSICJKT"]]
     },
     {
-        name: "Adrianne Shanelle Yao & Ann Shereen Yao",
+        name: "Ann Shereen Yao & Adrianne Shanelle Yao",
         country: ListOfCity.JKT,
         YoutubeLink: "https://www.youtube.com/watch?v=779gXnPTs-0&ab_channel=APIANOCONCERTOSERIES",
         event: [ListOfEventAchiever["2022MAGICMUSIC"], ListOfEventAchiever["2023CHRISTMAS"], ListOfEventAchiever["2023CLASSICJKT"]]
@@ -61,7 +61,7 @@ export const dataDiamond = [
         name: "Arissa Eillin Budiono",
         country: ListOfCity.PLB,
         YoutubeLink: "https://www.youtube.com/watch?v=-p6JIOod6_c&ab_channel=APIANOCONCERTOSERIES",
-        event: [ListOfEventAchiever["2023CHRISTMAS"], ListOfEventAchiever["2022MAGICMUSIC"]]
+        event: [ListOfEventAchiever["2022MAGICMUSIC"], ListOfEventAchiever["2023CHRISTMAS"]]
     },
     {
         name: "Ashton Micah Poh",
@@ -70,7 +70,7 @@ export const dataDiamond = [
         event: [ListOfEventAchiever["2023CHRISTMAS"], ListOfEventAchiever["2023CLASSICJKT"]]
     },
     {
-        name: "Brigitta Gracelyn Thetrasakti & Philia Eltan Haryanto",
+        name: "Philia Eltan Haryanto & Brigitta Gracelyn Thetrasakti",
         country: ListOfCity.JKT,
         YoutubeLink: "https://www.youtube.com/watch?v=FF3aXBHffbw&ab_channel=APIANOCONCERTOSERIES",
         event: [ListOfEventAchiever["2023CHRISTMAS"]]
@@ -91,7 +91,7 @@ export const dataDiamond = [
         name: "Cathleen Scarlett Hayasi",
         country: ListOfCity.JKT,
         YoutubeLink: "https://www.youtube.com/watch?v=D1ct_m0XJtY&ab_channel=APIANOCONCERTOSERIES",
-        event: [ListOfEventAchiever["2023CHRISTMAS"], ListOfEventAchiever["2023CLASSICJKT"], ListOfEventAchiever["2022MAGICMUSIC"]]
+        event: [ListOfEventAchiever["2022MAGICMUSIC"], ListOfEventAchiever["2023CHRISTMAS"], ListOfEventAchiever["2023CLASSICJKT"]]
     },
     {
         name: "Clarissa Stefanny",
@@ -121,7 +121,7 @@ export const dataDiamond = [
         name: "Kayla Calista Ayal",
         country: ListOfCity.BGR,
         YoutubeLink: "https://www.youtube.com/watch?v=oivwx12q0Do&ab_channel=APIANOCONCERTOSERIES",
-        event: [ListOfEventAchiever["2023CHRISTMAS"], ListOfEventAchiever["2022MAGICMUSIC"]]
+        event: [ListOfEventAchiever["2022MAGICMUSIC"], ListOfEventAchiever["2023CHRISTMAS"]]
     },
     {
         name: "Keenan Kwok",
@@ -139,7 +139,7 @@ export const dataDiamond = [
         name: "Mary Kate Onggowijoyo",
         country: ListOfCity.SRB,
         YoutubeLink: "https://www.youtube.com/watch?v=J5UZM0lH0Cc&ab_channel=APIANOCONCERTOSERIES",
-        event: [ListOfEventAchiever["2023CHRISTMAS"], ListOfEventAchiever["2023CLASSICSRBY"], ListOfEventAchiever["2022MAGICMUSIC"]]
+        event: [ListOfEventAchiever["2022MAGICMUSIC"], ListOfEventAchiever["2023CHRISTMAS"], ListOfEventAchiever["2023CLASSICSRBY"]]
     },
     {
         name: "Reinhart Avery Hidayat",
@@ -255,13 +255,13 @@ export const dataDiamond = [
         name: "Gregorius Reinhardt",
         country: ListOfCity.PLB,
         YoutubeLink: "https://www.youtube.com/watch?v=TntCfGmzFSU&ab_channel=APIANOCONCERTOSERIES",
-        event: [ListOfEventAchiever["2023CLASSICJKT"], ListOfEventAchiever["2022MAGICMUSIC"]]
+        event: [ListOfEventAchiever["2022MAGICMUSIC"], ListOfEventAchiever["2023CLASSICJKT"]]
     },
     {
         name: "Hazel Everly Wantana",
         country: ListOfCity.JKT,
         YoutubeLink: "https://www.youtube.com/watch?v=Hn6OZoc9ujU&ab_channel=APIANOCONCERTOSERIES",
-        event: [ListOfEventAchiever["2023CLASSICJKT"], ListOfEventAchiever["2022MAGICMUSIC"]]
+        event: [ListOfEventAchiever["2022MAGICMUSIC"], ListOfEventAchiever["2023CLASSICJKT"]]
     },
     {
         name: "Yuniasri Maya Aisyah & Ike Kusumawati",
@@ -273,7 +273,7 @@ export const dataDiamond = [
         name: "Iris Araceli Ma",
         country: ListOfCity.SRB,
         YoutubeLink: "https://www.youtube.com/watch?v=KLFuAi6iha0&ab_channel=APIANOCONCERTOSERIES",
-        event: [ListOfEventAchiever["2023CLASSICJKT"], ListOfEventAchiever["2022MAGICMUSIC"]]
+        event: [ListOfEventAchiever["2022MAGICMUSIC"], ListOfEventAchiever["2023CLASSICJKT"]]
     },
     {
         name: "Jane Adelene Sun",
@@ -366,7 +366,7 @@ export const dataDiamond = [
         event: [ListOfEventAchiever["2022MAGICMUSIC"]]
     },
     {
-        name: "Sharon Hanrin Christian Chandra & Clara Brigitta Hartono",
+        name: "Clara Brigitta Hartono & Sharon Hanrin Christian Chandra",
         country: ListOfCity.JKT,
         YoutubeLink: "https://www.youtube.com/watch?v=RuNUFbKDmME&ab_channel=APIANOCONCERTOSERIES",
         event: [ListOfEventAchiever["2023CLASSICJKT"]]
@@ -381,7 +381,7 @@ export const dataDiamond = [
         name: "Stephanie Gwen Liem",
         country: ListOfCity.JKT,
         YoutubeLink: "https://www.youtube.com/watch?v=uh6gOSspbrs&ab_channel=APIANOCONCERTOSERIES",
-        event: [ListOfEventAchiever["2023CLASSICJKT"], ListOfEventAchiever["2022MAGICMUSIC"]]
+        event: [ListOfEventAchiever["2022MAGICMUSIC"], ListOfEventAchiever["2023CLASSICJKT"]]
     },
     {
         name: "Sutra Cahaya Wijaya",
@@ -465,7 +465,7 @@ export const dataDiamond = [
         "name": "Jeffren Leliga",
         "country": ListOfCity.SRB,
         "YoutubeLink": "https://www.youtube.com/watch?v=bMBKgEL4x3w&ab_channel=APIANOCONCERTOSERIES",
-        "event": [ListOfEventAchiever["2023CLASSICSRBY"], ListOfEventAchiever["2022MAGICMUSIC"]]
+        "event": [ListOfEventAchiever["2022MAGICMUSIC"], ListOfEventAchiever["2023CLASSICSRBY"]]
     },
     {
         "name": "Jennise Tiana Suwono",
