@@ -101,7 +101,7 @@ const Home = (props) => {
                     <img loading="lazy" src={musicForEveryone} alt="apcsLogo" style={{ width: "35%" }} />
                     <div className="weOfferContainer" style={{ color: 'white' }}>
                         <AnimatedComponent animationClass={AnimationClass.fadeIn}>
-                            <div className="textWithShadow">
+                            <div className="textWithShadow text-align-justify">
                                 A Piano Concerto Series (APCS) introduces the orchestra to new audiences in a fresh and modern way. We present a prestigious stage for musicians of all ages, levels, and nationalities to express their deep passion for music.
                             </div>
                             <div style={{ marginTop: "2vmin" }}>

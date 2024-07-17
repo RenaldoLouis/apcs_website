@@ -3,8 +3,11 @@ import AnimatedComponent from "../atom/AnimatedComponent";
 import { flagIcon } from "../../utils/Utils";
 
 const ConductorProfile = (props) => {
-    const { title, desc, eventYear, eventName, titleUser = null, country = null } = props
+    const { title, desc, eventYear, eventName, titleUser = null, country = null, withSeeMore = false, link } = props
 
+    const handleOpenLink = () => {
+        window.open(link, '_blank');
+    }
     return (
         <div className="col" style={{ color: "white" }}>
             <AnimatedComponent animationClass="animate__fadeInDown">
@@ -27,6 +30,12 @@ const ConductorProfile = (props) => {
                 <div className="text-align-justify" style={{ marginTop: 30 }}>
                     {desc}
                 </div>
+
+                {withSeeMore && (
+                    <div onClick={handleOpenLink} className="see-more-btn" style={{ display: 'flex', width: "fit-content" }}>
+                        ... see more
+                    </div>
+                )}
 
                 <div className="text-align-justify" style={{ marginTop: 30 }}>
                     {eventYear}<br />

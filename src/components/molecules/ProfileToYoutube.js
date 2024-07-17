@@ -3,6 +3,7 @@ import indFlag from "../../assets/images/indFlag.jpg"
 import playButton from "../../assets/icons/playButton.svg"
 import AnimatedComponent from "../atom/AnimatedComponent";
 import { useAuth } from "../../context/DataContext";
+import EllipsisText from "../atom/EllipsisText";
 
 const ProfileToYoutube = (props) => {
     const { data, noImage = false } = props
@@ -21,9 +22,16 @@ const ProfileToYoutube = (props) => {
                 )}
                 <div>
                     <div className="flex justify-spaceBetween" style={{ marginTop: 40, fontSize: 24, fontWeight: "bold" }}>
-                        <span className="fontSizeSubHeader">
-                            {name}
-                        </span>
+                        {name.length >= 100 ? (
+                            // <span className="fontSizeSubHeader">
+                            //     {name}
+                            // </span>
+                            <EllipsisText quote={name} seeMore={true} />
+                        ) : (
+                            <span className="fontSizeSubHeader">
+                                {name}
+                            </span>
+                        )}
                         {YoutubeLink && (
                             <div className="playButtonContainer">
                                 <img className="cursorPointer" src={playButton} alt='playButton' onClick={handleOpenLink} />

@@ -23,7 +23,7 @@ const images = [
     jury5noText,
 ]
 
-const JuryCarousel = ({ interval = 8000, homePage = true }) => {
+const JuryCarousel = ({ interval = 10000, homePage = true }) => {
     const [currentIndex, setCurrentIndex] = useState(0);
     const { t, i18n } = useTranslation();
     const theme = useTheme();

@@ -95,6 +95,8 @@ const NotableConductors = () => {
                                     eventYear={'JURIST 2023'}
                                     eventName={""}
                                     country={CountryConst.IDN}
+                                    withSeeMore={true}
+                                    link={"https://www.instagram.com/p/CvEvFaOSOPl/?igsh=NGY1OXdlNDMwZnBw&img_index=2"}
                                 />
                             </>
                         ) : (
@@ -106,6 +108,8 @@ const NotableConductors = () => {
                                     eventYear={'JURIST 2023'}
                                     eventName={""}
                                     country={CountryConst.IDN}
+                                    withSeeMore={true}
+                                    link={"https://www.instagram.com/p/CvEvFaOSOPl/?igsh=NGY1OXdlNDMwZnBw&img_index=2"}
                                 />
                                 <div className="col" style={{ color: "white" }}>
                                     <AnimatedComponent animationClass="animate__fadeInDown">

@@ -414,7 +414,7 @@ export const dataDiamond = [
         event: [ListOfEventAchiever["2023CLASSICJKT"]]
     },
     {
-        name: "Woodseed Quintet",
+        name: "Woodseed Quintet (Gadang Wahyu Arafah Flute, Braindi Ari Setiawan Oboe, Dwi Adi Kurniawan . French Horn, Azkal Azkiya Bassoon, Sa'id Dwi Santosa Clarinet)",
         country: "Yogyakarta",
         YoutubeLink: "",
         event: [ListOfEventAchiever["2023CLASSICJKT"]]

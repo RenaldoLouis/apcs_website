@@ -112,6 +112,10 @@ const NotableJurist = () => {
         },
     ]
 
+    const handleOpenFirdy = () => {
+        window.open("https://www.instagram.com/p/CvEvFaOSOPl/?igsh=NGY1OXdlNDMwZnBw&img_index=3", '_blank');
+    }
+
     return (
         <div style={{ background: "black", paddingTop: 70 }} >
             <div className="container" >
@@ -138,6 +142,10 @@ const NotableJurist = () => {
 
                             <div className="text-align-justify" style={{ marginTop: 30 }}>
                                 Firdy Salim is an alumnus of the Koninklijk Conservatorium at Den Haag and the Head of Piano at one of the Conservatories of Music in Indonesia, where he teaches piano performance and piano pedagogy. His extensive pedagogical endeavors include fostering growth in both students and fellow educators within the music education community.
+                            </div>
+
+                            <div onClick={handleOpenFirdy} className="see-more-btn" style={{ display: 'flex', width: "fit-content" }}>
+                                ... see more
                             </div>
 
                             <div className="text-align-justify mangolaineFont italicText goldenTextColor" style={{ fontSize: 24, marginTop: 20, width: "100%" }}>
