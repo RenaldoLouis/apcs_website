@@ -1,6 +1,7 @@
 import React from "react";
 import AnimatedComponent from "../atom/AnimatedComponent";
 import { flagIcon } from "../../utils/Utils";
+import { useTranslation } from "react-i18next";
 
 const ConductorProfile = (props) => {
     const { title, desc, eventYear, eventName, titleUser = null, country = null, withSeeMore = false, link } = props
@@ -8,6 +9,9 @@ const ConductorProfile = (props) => {
     const handleOpenLink = () => {
         window.open(link, '_blank');
     }
+
+    const { t } = useTranslation();
+
     return (
         <div className="col" style={{ color: "white" }}>
             <AnimatedComponent animationClass="animate__fadeInDown">
@@ -33,7 +37,7 @@ const ConductorProfile = (props) => {
 
                 {withSeeMore && (
                     <div onClick={handleOpenLink} className="see-more-btn" style={{ display: 'flex', width: "fit-content" }}>
-                        ... see more
+                        ... {t("seeMore")}
                     </div>
                 )}
 

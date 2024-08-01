@@ -103,7 +103,7 @@ const GuestArtist = () => {
         {
             name: "Myra Karlina Pranajaya",
             image: artist13,
-            country: [CountryConst.CHI, CountryConst.DNMRK],
+            country: [CountryConst.IDN, CountryConst.DNMRK],
             title: "Pianist",
         },
         {

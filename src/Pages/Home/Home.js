@@ -4,6 +4,7 @@ import goldenLine from "../../assets/images/goldenLine.png"
 import LetUsGuideTo from "./LetUsGuideTo";
 import pianoKeys from '../../assets/images/pianoKeys.svg';
 import musicForEveryone from "../../assets/images/musicForEveryone.svg"
+import musicForEveryoneID from "../../assets/images/musicForEveryoneID.svg"
 import experienceHomeCropped from "../../assets/images/experienceHomeCropped.jpg"
 import Carousel from "../../components/molecules/CarouselCustom";
 import apcLogoBold from "../../assets/images/apc_logo_bold.svg"
@@ -78,8 +79,8 @@ const Home = (props) => {
                             </div>
                             <div className="row justify-center">
                                 <div className="col-md-6">
-                                    <div style={{ color: "white" }}>
-                                        An annual music series that presents the beauty of piano concertos through a thematic project. Led by the conductor and orchestra, we produce the finest piano concerto featuring talented pianists performances.
+                                    <div className="fontSizeDesktopOnlyHeader" style={{ color: "white" }}>
+                                        {t("home1")}
                                     </div>
                                 </div>
                             </div>
@@ -98,14 +99,14 @@ const Home = (props) => {
             <div className="image-container-fadedTopBottom autoHeight">
                 <img loading="lazy" src={pianoKeys} alt={`pianoKeys`} style={{ width: "100%" }} />
                 <div className="musicForEveryone">
-                    <img loading="lazy" src={musicForEveryone} alt="apcsLogo" style={{ width: "35%" }} />
+                    <img loading="lazy" src={i18n.language === "en" ? musicForEveryone : musicForEveryoneID} alt="apcsLogo" style={{ width: "35%" }} />
                     <div className="weOfferContainer" style={{ color: 'white' }}>
                         <AnimatedComponent animationClass={AnimationClass.fadeIn}>
                             <div className="textWithShadow text-align-justify">
-                                A Piano Concerto Series (APCS) introduces the orchestra to new audiences in a fresh and modern way. We present a prestigious stage for musicians of all ages, levels, and nationalities to express their deep passion for music.
+                                {t("home3")}
                             </div>
                             <div style={{ marginTop: "2vmin" }}>
-                                <PillButton text={"see our story"} onClick={() => handleMovePage(PathName.about)} />
+                                <PillButton text={t("home4")} onClick={() => handleMovePage(PathName.about)} />
                             </div>
                         </AnimatedComponent>
                     </div>
@@ -122,45 +123,18 @@ const Home = (props) => {
                                 EXPERIENCE APCS
                             </div>
                             <div className="experienceContentText textWithShadow">
-                                Each series, we bring different experiences to give every musician unforgettable live
+                                {t("home5")}
                             </div>
                             <div className="experienceContentText textWithShadow">
-                                performances. <span className="">Grow and show your talent on our next musical journey.</span>
+                                {t('home5A')}
                             </div>
                             <div className="flex justify-center" style={{ marginTop: 24 }}>
-                                <PillButton text={"JOIN US"} onClick={() => handleMovePage(PathName.contactUs)} />
+                                <PillButton text={t("home6")} onClick={() => handleMovePage(PathName.contactUs)} />
                             </div>
                         </div>
                     </AnimatedComponent>
                 </div>
             </div>
-
-            {/* <div className="image-container-fadedTopBottom autoHeight">
-                <img loading="lazy" src={jury1noText} alt={`jury1noText`} style={{ width: "100%" }} />
-
-                <div className="musicForEveryone">
-                    <img loading="lazy"
-                        className="d-none d-xl-block"
-                        src={musicForEveryone}
-                        alt="apcsLogo"
-                        style={{ width: "35%", visibility: "hidden" }}
-                    />
-                    <div className="testimonyContainer" style={{ color: 'white', textAlign: "center" }}>
-                        <div className="mangolaineFont" style={{ color: "#FFD990", fontSize: 36 }}>
-                            {t("theseAreNotJustYoung")}
-                        </div>
-                        <div style={{ fontSize: 20, marginTop: 40 }}>
-                            {t("withSuchStrong")}
-                        </div>
-                        <div style={{ marginTop: 24 }}>
-                            - Firdy Salim -
-                            <div>
-                                jury & conductor
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div> */}
 
             <JuryCarousel />
 

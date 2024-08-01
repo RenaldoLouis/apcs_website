@@ -14,12 +14,14 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { Link } from '@mui/material';
+import { useTranslation } from "react-i18next";
 
 const Footer = () => {
     const navigate = useNavigate();
     const location = useLocation();
     const theme = useTheme();
     const isTabletAndSmaller = useMediaQuery(theme.breakpoints.down('md'));
+    const { t } = useTranslation();
 
     const [currentPage, setCurrentPage] = useState();
 
@@ -76,7 +78,7 @@ const Footer = () => {
                                             style={{ fontSize: 16 }}
                                             className={`mb-1 itemMenuSelected ${currentPage === path ? "selected textColorSelected" : ""}`}
                                             onClick={() => handleMovePage(path)}>
-                                            {navbarName.toUpperCase()}
+                                            {t(navbarName.toUpperCase())}
                                         </div>
                                     )
                                 })}
@@ -137,12 +139,12 @@ const Footer = () => {
                                         style={{ fontSize: 16 }}
                                         className={`mb-1 itemMenuSelected ${currentPage === path ? "selected textColorSelected" : ""}`}
                                         onClick={() => handleMovePage(path)}>
-                                        {navbarName.toUpperCase()}
+                                        {t(navbarName.toUpperCase())}
                                     </div>
                                 )
                             })}
                         </div>
-                        <div className="col-3 d-flex flex-column align-items-start">
+                        <div className="col-3 d-flex flex-column align-items-start gap-3">
                             <div className="headerFooter">
                                 Contact
                             </div>

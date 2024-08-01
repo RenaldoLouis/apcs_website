@@ -8,10 +8,12 @@ import diamondAchieversText from "../../assets/images/diamondAchieversText.svg"
 import AnimatedComponent from "../../components/atom/AnimatedComponent";
 import GoldSection from "./GoldSection";
 import { useAuth } from "../../context/DataContext";
+import { useTranslation } from "react-i18next";
 
 const SapphireWinnerSection = (props) => {
     const { dataSaphire, dataDiamond } = props
     const { isMobileAndSmaller } = useAuth();
+    const { t } = useTranslation();
 
     const [diamondDataSorted, setDiamondDataSorted] = useState([])
 
@@ -32,9 +34,9 @@ const SapphireWinnerSection = (props) => {
     return (
         <div style={{ paddingTop: 150, backgroundImage: `url(${textureBackgroundLong})`, backgroundSize: "contain" }}>
             <AchieversHeader
-                title="THOSE WHO HAD BRILLIANT PERFORMANCE"
+                title={t("Acv1")}
                 image={saphireAchieverText}
-                description="Contestants who achieved a score of 100 points deserve to play with the orchestra of the respective festival / events." />
+                description={t("Acv2")} />
             <div className="container color-white">
                 <div className="row gy-5 gy-md-1">
                     {dataSaphire.map((eachData, index) => {
@@ -50,9 +52,9 @@ const SapphireWinnerSection = (props) => {
 
             <div style={{ paddingTop: 150 }}>
                 <AchieversHeader
-                    title="THOSE WHO HAD GREAT PERFORMANCE"
+                    title={t("Acv3")}
                     image={diamondAchieversText}
-                    description="Contestants who achieved a spectacular score of 95+ points." />
+                    description={t("Acv4")} />
                 {diamondDataSorted.length > 0 && (
                     <div className="container color-white" style={{ paddingBottom: 200 }}>
                         <div className="row  gy-5 gy-md-1">

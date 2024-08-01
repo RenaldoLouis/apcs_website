@@ -34,36 +34,36 @@ const JuryCarousel = ({ interval = 10000, homePage = true }) => {
 
     const dataJury = [
         {
-            firstQuote: t("theseAreNotJustYoung"),
-            secondQuote: t("withSuchStrong"),
+            firstQuote: `“${t("home7")}”`,
+            secondQuote: t("home8"),
             name: "- Firdy Salim -",
             title: "APCS CLASSICAL FESTIVAL 2023 JURIES",
             image: jury1noText
         },
         {
-            firstQuote: t("christineQuote"),
-            secondQuote: t("christineExp"),
+            firstQuote: `“${t("home9")}”`,
+            secondQuote: t("home10"),
             name: "- Christine Utomo -",
             title: "APCS CLASSICAL FESTIVAL 2023 JURIES",
             image: jury2noText
         },
         {
-            firstQuote: t("iswargiaQuote"),
-            secondQuote: t("iswargiaExp"),
+            firstQuote: `“${t("home11")}”`,
+            secondQuote: t("home12"),
             name: "- Iswargia Sudarno -",
             title: "APCS CLASSICAL FESTIVAL 2023 JURIES",
             image: jury3noText
         },
         {
-            firstQuote: t("michelleQuote"),
-            secondQuote: t("michelleExp"),
+            firstQuote: `“${t("home13")}”`,
+            secondQuote: t("home14"),
             name: "- Michelle Kartika Bahari -",
             title: "APCS CLASSICAL FESTIVAL 2023 JURIES",
             image: jury4noText
         },
         {
-            firstQuote: t("myraQuote"),
-            secondQuote: t("myraExp"),
+            firstQuote: `“${t("home15")}”`,
+            secondQuote: t("home16"),
             name: "- Myra Karlina Pranajaya -",
             title: "APCS CLASSICAL FESTIVAL 2023 JURIES",
             image: jury5noText

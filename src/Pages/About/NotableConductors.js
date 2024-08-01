@@ -10,9 +10,11 @@ import AnimatedComponent from "../../components/atom/AnimatedComponent";
 import HeaderAbout from "../../components/atom/HeaderAbout";
 import { CountryConst } from "../../constant/CountryConst";
 import { useAuth } from "../../context/DataContext";
+import { useTranslation } from "react-i18next";
 
 const NotableConductors = () => {
     const { isMobileAndSmaller } = useAuth();
+    const { t } = useTranslation();
     return (
         <div style={{ position: "relative" }}>
             <div className="NotableConductorContainer" style={{ backgroundImage: `url(${notableConductorBackground})`, backgroundSize: "cover" }}>
@@ -33,7 +35,7 @@ const NotableConductors = () => {
 
                                 <ConductorProfile
                                     title={"WISHNU DEWANTA"}
-                                    desc={"Wishnu Dewanta is a dynamic force in musical theatre, known for his exceptional talent and dedication as a music director. With a passion for storytelling through music, he captivates audiences with innovative arrangements and impeccable musical direction."}
+                                    desc={t("about6")}
                                     eventYear={'APCS 2019 '}
                                     eventName={"The Initial Turning Point"}
                                     country={CountryConst.IDN}
@@ -44,7 +46,7 @@ const NotableConductors = () => {
 
                                 <ConductorProfile
                                     title={"WISHNU DEWANTA"}
-                                    desc={"Wishnu Dewanta is a dynamic force in musical theatre, known for his exceptional talent and dedication as a music director. With a passion for storytelling through music, he captivates audiences with innovative arrangements and impeccable musical direction."}
+                                    desc={t("about6")}
                                     eventYear={'APCS 2019 '}
                                     eventName={"The Initial Turning Point"}
                                     country={CountryConst.IDN}
@@ -66,7 +68,7 @@ const NotableConductors = () => {
                         <div className="col" style={{ color: "white" }}>
                             <ConductorProfile
                                 title={"CHIKITA AMANDA"}
-                                desc={"Chikita Amanda is a talented Indonesian composer, arranger, and conductor known for her orchestral scores reminiscent of Hollywood and Disney. She has collaborated with prominent musicians such as Tohpati, Ariel Noah, and Mirriam Eka. Her talents have also been recognized internationally through contributions to the music scoring team of the UK's SKY TV series “Gangs of London”."}
+                                desc={t("about7")}
                                 eventYear={'APCS 2020, 2022, 2023'}
                                 eventName={"Autumn In Korea, Magical Music Soundtrack, Christmas Wonderland"}
                                 country={CountryConst.IDN}
@@ -91,7 +93,7 @@ const NotableConductors = () => {
                                 <ConductorProfile
                                     title={"NADYA JANITRA"}
                                     titleUser="Academic Advisor"
-                                    desc={"Nadya Janitra is a distinguished pianist who completed both her Bachelor’s (2011) and Master’s (2013) degrees at the Royal Conservatoire in Den Haag under Ellen Corver's guidance.  After graduating from the Netherlands, she performed many solo recitals in various cities and countries, such as Jakarta, Bali, Surabaya, Yogyakarta, Makassar, Medan, Macau and Den Haag."}
+                                    desc={t("about8")}
                                     eventYear={'JURIST 2023'}
                                     eventName={""}
                                     country={CountryConst.IDN}
@@ -104,7 +106,7 @@ const NotableConductors = () => {
                                 <ConductorProfile
                                     title={"NADYA JANITRA"}
                                     titleUser="Academic Advisor"
-                                    desc={"Nadya Janitra is a distinguished pianist who completed both her Bachelor’s (2011) and Master’s (2013) degrees at the Royal Conservatoire in Den Haag under Ellen Corver's guidance.  After graduating from the Netherlands, she performed many solo recitals in various cities and countries, such as Jakarta, Bali, Surabaya, Yogyakarta, Makassar, Medan, Macau and Den Haag."}
+                                    desc={t("about8")}
                                     eventYear={'JURIST 2023'}
                                     eventName={""}
                                     country={CountryConst.IDN}

@@ -84,13 +84,13 @@ const Navbar = (props) => {
                             let path = PathName[eachPath]
                             let navbarName = PathName[eachPath].substring(1);
                             if (navbarName === "contactUs") {
-                                navbarName = "CONTACT US"
+                                navbarName = "CONTACT_US"
                             }
                             return (
                                 <div
                                     style={{ height: "fit-content", fontSize: 16 }}
                                     className={`itemMenuSelected ${currentPage === path ? "selected textColorSelected" : ""}`} onClick={() => handleMovePage(path)}>
-                                    {navbarName.toUpperCase()}
+                                    {t(navbarName.toUpperCase())}
                                 </div>
                             )
                         })}
@@ -119,11 +119,11 @@ const Navbar = (props) => {
                                 let path = PathName[eachPath]
                                 let navbarName = PathName[eachPath].substring(1);
                                 if (navbarName === "contactUs") {
-                                    navbarName = "CONTACT US"
+                                    navbarName = "CONTACT_US"
                                 }
                                 return (
                                     <div className={`plus-jakarta-sans-font itemMenuSelected ${currentPage === path ? "selected textColorSelected" : ""}`} onClick={() => handleMovePage(path)}>
-                                        {navbarName.toUpperCase()}
+                                        {t(navbarName.toUpperCase())}
                                     </div>
                                 )
                             })}

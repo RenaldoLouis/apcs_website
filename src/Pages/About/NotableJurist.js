@@ -24,17 +24,20 @@ import amrFlag from "../../assets/images/amrFlag.jpg"
 import HeaderAbout from "../../components/atom/HeaderAbout";
 import { useAuth } from "../../context/DataContext";
 import { flagIcon } from "../../utils/Utils";
+import { useTranslation } from "react-i18next";
 
 const NotableJurist = () => {
 
     const { isMobileAndSmaller, isSmallMobileAndSmaller } = useAuth();
+
+    const { t } = useTranslation();
 
     const juristList = [
         {
             image: jurist1,
             name: "CHRISTINE UTOMO",
             title: "Jurist 2023",
-            quote: "Praised by Chinese Weibo Weekly Broadcast as the pianist who enthralled her audience with her performance that they willingly immersed themselves into her realm of musical wonder, and that she has truly breathed new life into the classical masterpiece of Rachmaninoff's second piano concerto in C minor*, Dr. Christine Utomo has established her career as soloist and collaborative pianist, and is an active music educator, piano masterclass clinician, and an adjudicator.",
+            quote: t("about10"),
             country: [CountryConst.IDN, CountryConst.CHI],
             link: "https://www.instagram.com/p/CpcHUoUPkeM/?igsh=MXV6ZXl0cG5jNXR4aw%3D%3D&img_index=6"
         },
@@ -42,7 +45,7 @@ const NotableJurist = () => {
             image: jurist2,
             name: "ISWARGIA SUDARNO",
             title: "Jurist 2023",
-            quote: "Iswargia Renardi Sudarno was born in Bandung, Indonesia, and started his piano lesson there at the age of eleven, with Mrs. Wibanu, Partosiswojo, John Gobée and Oerip S. Santoso. After finishing his bachelor degree in architecture at the Bandung Institute of Technology, he continued his musical education at the Manhattan School of Music in New York, USA, and completed his study with a Master of Music degree, under the tutelage of renowned pianist and pedagog, the late Karl Ulrich Schnabel.",
+            quote: t("about11"),
             country: [CountryConst.IDN],
             link: "https://www.instagram.com/p/CpcHUoUPkeM/?igsh=MXV6ZXl0cG5jNXR4aw%3D%3D&img_index=8"
         },
@@ -50,7 +53,7 @@ const NotableJurist = () => {
             image: jurist3,
             name: "MYRA K PRANAJAYA",
             title: "Jurist 2023",
-            quote: "Myra Karlina Pranajaya began her piano studies at the age of four. A few years later, she began performing in concerts at Symphony Musical Art Center, Lembaga Musik Murni, and Irama Music Studio in Medan, Indonesia. She also performed, for example, at the Indonesian Young Musician Performance Concert, Euro Music Festival and Academy (2019), International Piano Academy Freiburg (2017), MusicAlp International Music Academy in France (2021), and the 13th Summer Academy of Music in Uelzen, Germany (2022), where she performed with the Wratislavia Chamber Orchestra.",
+            quote: t("about12"),
             country: [CountryConst.IDN, CountryConst.DNMRK],
             link: "https://www.instagram.com/p/CpcHUoUPkeM/?igsh=MXV6ZXl0cG5jNXR4aw%3D%3D&img_index=10"
         },
@@ -58,7 +61,7 @@ const NotableJurist = () => {
             image: jurist4,
             name: "AMELIA SANTOSO",
             title: "Jurist 2022",
-            quote: "Ms. Amelia Santoso is an Indonesian pianist, graduated her Bachelor's degree from Codarts Hogeschool voor de Kunsten (formerly Rotterdam Conservatorium) majoring in classical piano performance (2009), Master's Degree with Nuffic Huygens scholarship full tuition (2011) and her second Master degree at Institut Supérieur de Musique et de Pédagogie in Namur, Belgium (2013). During her musical journey in Europe as soloist and chamber musician, She has performed in Belgium, Malta, Switzerland, South Korea, Japan, Vietnam, and the Netherlands",
+            quote: t("about13"),
             country: [CountryConst.IDN],
             link: "https://www.instagram.com/p/Cb4RXpGL4Gf/?igsh=MTIweG85aG83ejFqcw%3D%3D"
         },
@@ -74,7 +77,7 @@ const NotableJurist = () => {
             image: jurist7,
             name: "MARTIN KESUMA",
             title: "Jurist 2023",
-            quote: "Dr. Martin Kesuma is an award-winning pianist praised for his heartfelt flexibility and harmonic sensitivity (Fanfare Magazine) and clearly articulated playing of the highest order (The Art Music Lounge). He has extensively performed as a solo pianist and chamber musician throughout Asia, Europe and North America. He has been recognized with major prizes in competitions including the San Jose International Piano Competition, Vancouver International Music Competition, PianoHouse International Piano Competition, Betty Dickinson Piano Competition, New York International Music Concours, Canadian International Music Competition, ASEAN International Concerto Competition, Petroff College Level Piano Com-petition, and Texas State International Piano Festival Concerto Competition.",
+            quote: t("about15"),
             country: [CountryConst.IDN, CountryConst.AMR],
             link: "https://www.instagram.com/p/C4pZ41uvxCp/?igsh=MW1pd2tuYWpsN29haw%3D%3D&img_index=5"
         },
@@ -82,7 +85,7 @@ const NotableJurist = () => {
             image: jurist6,
             name: "CARLA SUHARTO",
             title: "Jurist 2023",
-            quote: "As a solo pianist, chamber musician, and educator. Carla Suharto combines the best of technicality and showmanship. On the piano, she possesses the emotional range and passionate force required to communicate the universality of music for the modern audience.Indonesian by birth. Carla received a full scholarship to study under Iswargia Sudarno at Pelita Harapan University. After graduating summa cum laude in 2014, she continued her studies at Folkwang Universität der Künste in Germany. Under the guidance of Professor Thomas Günther and Yannick Rafalimanana.",
+            quote: t("about14"),
             country: [CountryConst.IDN],
             link: "https://www.instagram.com/p/C4pZ41uvxCp/?igsh=MW1pd2tuYWpsN29haw%3D%3D&img_index=3"
         },
@@ -90,7 +93,7 @@ const NotableJurist = () => {
             image: jurist10,
             name: "CHIKITA AMANDA",
             title: "Jurist 2023",
-            quote: "Chikita Amanda is a talented Indonesian composer, arranger, and conductor known for her orchestral scores reminiscent of Hollywood and Disney. She has collaborated with prominent musicians such as Tohpati, Ariel Noah, and Mirriam Eka. Her talents have also been recognized internationally through contributions to the music scoring team of the UK's SKY TV series “Gangs of London.”",
+            quote: t("about7"),
             country: [CountryConst.IDN],
             link: "https://www.instagram.com/p/CvRD0tYhJI8/?igsh=eTZsd21ieXd3eGJ0&img_index=2"
         },
@@ -98,7 +101,7 @@ const NotableJurist = () => {
             image: jurist8,
             name: "MICHELLE K BAHARI",
             title: "Jurist 2023",
-            quote: "Classical pianist and music educator, Michelle Bahari, received her undergraduate degree in Piano Performance at University Pelita Harapan Conservatory of Music. Furthermore, she completed her Master of Music and Performance Diploma at the Jacobs School of Music, Indiana University to deepen her study both in solo and collaborative performances. During her study at Jacobs School of Music, she was awarded the Artistic Excellence Award and Graduate Associate Instructor Fellowship, which gave her the opportunity to serve as a piano instructor in a secondary piano program for undergraduate level.",
+            quote: t("about16"),
             country: [CountryConst.IDN],
             link: "https://www.instagram.com/p/CpcHUoUPkeM/?igsh=MXV6ZXl0cG5jNXR4aw%3D%3D&img_index=5"
         },
@@ -106,7 +109,7 @@ const NotableJurist = () => {
             image: jurist9,
             name: "RM CONDRO KASMOYO",
             title: "Jurist 2023",
-            quote: "RM Condro Kasmoyo is an Indonesian violinist, graduated from Institut Kesenian Jakarta majoring in Musicology (2020). During his musical journey, he has been actively participated in Masterclass with Robert Brown (USA), Tjeerd Top (Netherlands), Bagus Wiswakarma (Indonesia), Grace Soedargo (Jakarta), Jean-Paul Minali-Bella (France) and Tatjana Kolchanova (Russia). Starting from 2010 until today, he has been chosen to be the Concertmaster & Assistant Conductor for Erwin Gutawa Orchestra",
+            quote: t("about17"),
             country: [CountryConst.IDN],
             link: "https://www.instagram.com/p/CvRD0tYhJI8/?igsh=eTZsd21ieXd3eGJ0&img_index=3"
         },
@@ -115,6 +118,7 @@ const NotableJurist = () => {
     const handleOpenFirdy = () => {
         window.open("https://www.instagram.com/p/CvEvFaOSOPl/?igsh=NGY1OXdlNDMwZnBw&img_index=3", '_blank');
     }
+
 
     return (
         <div style={{ background: "black", paddingTop: 70 }} >
@@ -134,18 +138,18 @@ const NotableJurist = () => {
                                 FIRDY SALIM
                             </div>
                             <div className="text-align-justify" style={{ fontSize: 20 }}>
-                                Head of Jurist
+                                Head of Jurist & Principal Advisor
                             </div>
                             <div className="d-flex" style={{ marginTop: 16 }}>
                                 <img src={flagIcon(CountryConst.IDN)} alt={"country"} />
                             </div>
 
                             <div className="text-align-justify" style={{ marginTop: 30 }}>
-                                Firdy Salim is an alumnus of the Koninklijk Conservatorium at Den Haag and the Head of Piano at one of the Conservatories of Music in Indonesia, where he teaches piano performance and piano pedagogy. His extensive pedagogical endeavors include fostering growth in both students and fellow educators within the music education community.
+                                {t("about9")}
                             </div>
 
                             <div onClick={handleOpenFirdy} className="see-more-btn" style={{ display: 'flex', width: "fit-content" }}>
-                                ... see more
+                                ... {t("seeMore")}
                             </div>
 
                             <div className="text-align-justify mangolaineFont italicText goldenTextColor" style={{ fontSize: 24, marginTop: 20, width: "100%" }}>
