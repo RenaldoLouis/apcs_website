@@ -5,7 +5,7 @@ import { ResponsiveText } from "../atom/ResponsiveText";
 import { useTranslation } from "react-i18next";
 
 const AchieversHeader = (props) => {
-    const { title, subTitle, description, image } = props
+    const { title, subTitle, description, description2, description3, image } = props
 
     const { isMobileAndSmaller } = useAuth()
 
@@ -27,7 +27,7 @@ const AchieversHeader = (props) => {
                         {title} <span className={i18n.language === "en" ? "" : "italicText"}> {subTitle}</span>
                     </ResponsiveText>
                     <div style={{ color: "white", fontSize: 18, textAlign: isMobileAndSmaller ? "center" : "justify", marginTop: isMobileAndSmaller ? 15 : 0 }}>
-                        {description}
+                        {description} <span className={i18n.language === "en" ? "" : "italicText"}> {description2}</span> {description3}
                     </div>
                 </div>
             </div>

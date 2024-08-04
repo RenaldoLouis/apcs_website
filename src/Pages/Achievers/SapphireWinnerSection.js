@@ -37,7 +37,9 @@ const SapphireWinnerSection = (props) => {
                 title={`${t("Acv1")}`}
                 subTitle={t("Acv1A")}
                 image={saphireAchieverText}
-                description={t("Acv2")} />
+                description={t("Acv2")}
+                description2={t("Acv2A")}
+                description3={t("Acv2B")} />
             <div className="container color-white">
                 <div className="row gy-5 gy-md-1">
                     {dataSaphire.map((eachData, index) => {
@@ -56,7 +58,9 @@ const SapphireWinnerSection = (props) => {
                     title={`${t("Acv3")}`}
                     subTitle={t("Acv3A")}
                     image={diamondAchieversText}
-                    description={t("Acv4")} />
+                    description={t("Acv4")}
+                    description2={t("Acv4A")}
+                    description3={t("Acv4B")} />
                 {diamondDataSorted.length > 0 && (
                     <div className="container color-white" style={{ paddingBottom: 200 }}>
                         <div className="row  gy-5 gy-md-1">
