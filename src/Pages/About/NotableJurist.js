@@ -152,12 +152,12 @@ const NotableJurist = () => {
                                 ... {t("seeMore")}
                             </div>
 
-                            <div className="text-align-justify mangolaineFont italicText goldenTextColor" style={{ fontSize: 24, marginTop: 20, width: "100%" }}>
+                            <div className="text-align-justify mangolaineFont italicText goldenTextColor" style={{ fontSize: 29, marginTop: 20, width: "100%" }}>
                                 "Join us at the music festival to showcase your talent, connect with others, and make lasting memories."
                             </div>
 
                             <div className="text-align-justify mt-2">
-                                JURIST 2022, 2023, 2024
+                                Jurist 2022, 2023, 2024
                             </div>
                         </AnimatedComponent>
                     </div>

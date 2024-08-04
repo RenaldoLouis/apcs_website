@@ -19,6 +19,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/DataContext';
 import { YearlyEvent } from '../../constant/YearlyEvent';
 import { useSwipeable } from 'react-swipeable';
+import { useTranslation } from 'react-i18next';
 
 const images = [
     banner2,
@@ -31,6 +32,7 @@ const images = [
 ]
 
 const Carousel = ({ interval = 5000, homePage = true }) => {
+    const { t } = useTranslation();
     const navigate = useNavigate();
     const { setSelectedEvent, selectedEvent } = useAuth()
 
@@ -109,7 +111,7 @@ const Carousel = ({ interval = 5000, homePage = true }) => {
                 <div className='titleCoverContainer-Banner'>
                     <div style={{ '--currentIndex': currentIndex }} className='titleCoverContainerText'>
                         <div>
-                            <PillButton onClick={() => handleMovePage(PathName.contactUs)} text={"More Info"} />
+                            <PillButton onClick={() => handleMovePage(PathName.contactUs)} text={t("moreInfo")} />
                         </div>
                     </div>
                     <div style={{ '--currentIndex': currentIndex }} className='titleCoverContainerText'>
@@ -119,27 +121,27 @@ const Carousel = ({ interval = 5000, homePage = true }) => {
                     </div>
                     <div style={{ '--currentIndex': currentIndex }} className='titleCoverContainerText'>
                         <div>
-                            <PillButton onClick={() => handleMovePage(PathName.gallery, YearlyEvent.CHRISTMASWONDERLAND)} text={"Watch Now"} />
+                            <PillButton onClick={() => handleMovePage(PathName.gallery, YearlyEvent.CHRISTMASWONDERLAND)} text={t("watchNow")} />
                         </div>
                     </div>
                     <div style={{ '--currentIndex': currentIndex }} className='titleCoverContainerText'>
                         <div>
-                            <PillButton onClick={() => handleMovePage(PathName.gallery, YearlyEvent.CLASSICALFESTIVALJKT)} text={"Watch Now"} />
+                            <PillButton onClick={() => handleMovePage(PathName.gallery, YearlyEvent.CLASSICALFESTIVALJKT)} text={t("watchNow")} />
                         </div>
                     </div>
                     <div style={{ '--currentIndex': currentIndex }} className='titleCoverContainerText'>
                         <div>
-                            <PillButton onClick={() => handleMovePage(PathName.gallery, YearlyEvent.CLASSICALFESTIVALJKT)} text={"Watch Now"} />
+                            <PillButton onClick={() => handleMovePage(PathName.gallery, YearlyEvent.CLASSICALFESTIVALJKT)} text={t("watchNow")} />
                         </div>
                     </div>
                     <div style={{ '--currentIndex': currentIndex }} className='titleCoverContainerText'>
                         <div>
-                            <PillButton onClick={() => handleMovePage(PathName.gallery, YearlyEvent.MAGICALMUSICSOUNDTRACT)} text={"Watch Now"} />
+                            <PillButton onClick={() => handleMovePage(PathName.gallery, YearlyEvent.MAGICALMUSICSOUNDTRACT)} text={t("watchNow")} />
                         </div>
                     </div>
                     <div style={{ '--currentIndex': currentIndex }} className='titleCoverContainerText'>
                         <div>
-                            <PillButton onClick={() => handleMovePage(PathName.gallery, YearlyEvent.MASTERCLASS)} text={"Watch Now"} />
+                            <PillButton onClick={() => handleMovePage(PathName.gallery, YearlyEvent.MASTERCLASS)} text={t("watchNow")} />
                         </div>
                     </div>
                 </div>

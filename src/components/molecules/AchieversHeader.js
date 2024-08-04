@@ -2,11 +2,14 @@ import React, { useContext } from "react";
 import lineAchievers from "../../assets/images/lineAchievers.png"
 import { useAuth } from "../../context/DataContext";
 import { ResponsiveText } from "../atom/ResponsiveText";
+import { useTranslation } from "react-i18next";
 
 const AchieversHeader = (props) => {
-    const { title, description, image } = props
+    const { title, subTitle, description, image } = props
 
     const { isMobileAndSmaller } = useAuth()
+
+    const { t, i18n } = useTranslation();
 
     return (
         <div className="container" style={{ marginBottom: 150 }}>
@@ -20,13 +23,10 @@ const AchieversHeader = (props) => {
                     <img loading="lazy" src={image} alt="apcsLogo" style={{ width: isMobileAndSmaller ? "100%" : "65%" }} />
                 </div>
                 <div className="col-md-6">
-                    {/* <div className="goldenText mangolaineFont" style={{ fontSize: 40 }}>
-                        {title}
-                    </div> */}
                     <ResponsiveText className="goldenText mangolaineFont">
-                        {title}
+                        {title} <span className={i18n.language === "en" ? "" : "italicText"}> {subTitle}</span>
                     </ResponsiveText>
-                    <div style={{ color: "white", fontSize: 20, textAlign: isMobileAndSmaller ? "center" : "justify", marginTop: isMobileAndSmaller ? 15 : 0 }}>
+                    <div style={{ color: "white", fontSize: 18, textAlign: isMobileAndSmaller ? "center" : "justify", marginTop: isMobileAndSmaller ? 15 : 0 }}>
                         {description}
                     </div>
                 </div>

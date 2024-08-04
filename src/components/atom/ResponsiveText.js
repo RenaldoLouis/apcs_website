@@ -9,7 +9,7 @@ export const ResponsiveText = styled('div')(({ theme }) => ({
         fontSize: '24px',
     },
     [theme.breakpoints.up('lg')]: {
-        fontSize: '32px',
+        fontSize: '27px',
     },
     [theme.breakpoints.up('xl')]: {
         fontSize: '40px',

@@ -85,7 +85,7 @@ const Footer = () => {
                             </div>
                             <div class="p-2 text-align-start">
                                 <div className="mb-3" style={{ fontWeight: 900 }}>
-                                    Contact
+                                    {t("contact")}
                                 </div>
                                 <Link
                                     href="mailto:hello@apcsmusic.com"
@@ -132,7 +132,7 @@ const Footer = () => {
                                 let path = PathName[eachPath]
                                 let navbarName = PathName[eachPath].substring(1);
                                 if (navbarName === "contactUs") {
-                                    navbarName = "CONTACT US"
+                                    navbarName = "CONTACT_US"
                                 }
                                 return (
                                     <div
@@ -146,7 +146,7 @@ const Footer = () => {
                         </div>
                         <div className="col-3 d-flex flex-column align-items-start gap-3">
                             <div className="headerFooter">
-                                Contact
+                                {t("contact")}
                             </div>
                             <Link
                                 href="mailto:hello@apcsmusic.com"
@@ -157,7 +157,7 @@ const Footer = () => {
                             </Link>
 
                             <div className="headerFooter mt-5" >
-                                Info Registration
+                                {t("regisInfo")}
                             </div>
                             <div onClick={handleOpenWhatsapp} className="cursorPointer">
                                 (+62) 822-1300-2686

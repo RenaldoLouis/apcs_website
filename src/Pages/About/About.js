@@ -132,7 +132,7 @@ const About = () => {
                 image={saphireAbout}
                 logo={saphireAchiever}
                 text={<>{t("about4")}</>}
-                buttonText={"View More"}
+                buttonText={t("viewMore")}
                 contentPosition={ContentPosition.MIDDLEBOTTOM}
                 buttonOnclick={() => handleMovePage(PathName.achievers)}
             />
@@ -147,7 +147,7 @@ const About = () => {
                         BE A PART OF OUR MUSICAL JOURNEY!
                     </div>
                 }
-                buttonText={"CONTACT US"}
+                buttonText={t("CONTACT_US")}
                 contentPosition={ContentPosition.MIDDLE}
                 buttonOnclick={() => handleMovePage(PathName.contactUs)}
             />

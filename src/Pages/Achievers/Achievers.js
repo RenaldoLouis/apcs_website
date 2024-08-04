@@ -37,6 +37,7 @@ import { ContentPosition } from "../../constant/ContentPosition";
 import AnimatedComponent from "../../components/atom/AnimatedComponent";
 import { ListOfCity } from "../../constant/ListOfCity";
 import { ListOfEventAchiever } from "../../constant/ListOfEventAchiever";
+import { useTranslation } from "react-i18next";
 
 const sapphireWinners = [
     {
@@ -235,7 +236,7 @@ const handleOpenYoutube = () => {
 }
 
 const Achievers = () => {
-
+    const { t } = useTranslation();
     return (
         <div>
             <CoverImageHome background={achieverBackground}
@@ -253,7 +254,7 @@ const Achievers = () => {
                                     Wonderland
                                 </div>
                                 <div>
-                                    <PillButton text={"Watch Performance"} onClick={handleOpenYoutube} />
+                                    <PillButton text={t("watchPerform")} onClick={handleOpenYoutube} />
                                 </div>
                             </div>
                             <div />
@@ -261,23 +262,6 @@ const Achievers = () => {
                     </>
                 }
             />
-            {/* <CoverImage background={achieverBackground} logo={saphireAchieverText} isMiddleLeft={false} content={
-                <>
-                    <div style={{ marginLeft: "8vw", color: "white" }}>
-                        <div style={{ fontSize: 24 }}>
-                            2023 HIGHLIGHTS
-                        </div>
-                        <div style={{ fontSize: 40, lineHeight: "40px", marginBottom: 36, fontStyle: "italic" }}>
-                            Christmas<br />
-                            Wonderland
-                        </div>
-                        <div>
-                            <PillButton text={"Watch Performance"} />
-                        </div>
-                    </div>
-                    <div />
-                </>
-            } /> */}
             <SapphireWinnerSection dataSaphire={sapphireWinners} dataDiamond={dataDiamond} />
         </div>
     )

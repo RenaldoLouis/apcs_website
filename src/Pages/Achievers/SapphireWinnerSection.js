@@ -34,7 +34,8 @@ const SapphireWinnerSection = (props) => {
     return (
         <div style={{ paddingTop: 150, backgroundImage: `url(${textureBackgroundLong})`, backgroundSize: "contain" }}>
             <AchieversHeader
-                title={t("Acv1")}
+                title={`${t("Acv1")}`}
+                subTitle={t("Acv1A")}
                 image={saphireAchieverText}
                 description={t("Acv2")} />
             <div className="container color-white">
@@ -52,7 +53,8 @@ const SapphireWinnerSection = (props) => {
 
             <div style={{ paddingTop: 150 }}>
                 <AchieversHeader
-                    title={t("Acv3")}
+                    title={`${t("Acv3")}`}
+                    subTitle={t("Acv3A")}
                     image={diamondAchieversText}
                     description={t("Acv4")} />
                 {diamondDataSorted.length > 0 && (

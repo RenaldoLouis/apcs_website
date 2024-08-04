@@ -94,7 +94,7 @@ const NotableConductors = () => {
                                     title={"NADYA JANITRA"}
                                     titleUser="Academic Advisor"
                                     desc={t("about8")}
-                                    eventYear={'JURIST 2023'}
+                                    eventYear={'Jurist 2023'}
                                     eventName={""}
                                     country={CountryConst.IDN}
                                     withSeeMore={true}
@@ -107,7 +107,7 @@ const NotableConductors = () => {
                                     title={"NADYA JANITRA"}
                                     titleUser="Academic Advisor"
                                     desc={t("about8")}
-                                    eventYear={'JURIST 2023'}
+                                    eventYear={'Jurist 2023'}
                                     eventName={""}
                                     country={CountryConst.IDN}
                                     withSeeMore={true}
