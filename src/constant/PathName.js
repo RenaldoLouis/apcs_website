@@ -4,5 +4,5 @@ export const PathName = {
     podcast: "/podcast",
     gallery: "/gallery",
     achievers: "/achievers",
-    contactUs: "/contactUs",
+    contactUs: "/contactUs"
 }

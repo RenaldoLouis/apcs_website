@@ -29,6 +29,7 @@ import { PathName } from "./constant/PathName";
 import ContactUs from "./Pages/ContactUs/ContactUs";
 import { createTheme, ThemeProvider, responsiveFontSizes } from '@mui/material/styles';
 import homeScreenImageGradient from "./assets/images/homeScreenImageGradient.jpg"
+import Payment from "./Pages/Payment/Payment";
 
 const audio = new Audio(persona5);
 
@@ -60,6 +61,7 @@ const Main = () => {
         <Route path={PathName.achievers} element={<MainLayout children={<Achievers />} />} />
         <Route path={PathName.podcast} element={<MainLayout children={<Podcast />} />} />
         <Route path={PathName.contactUs} element={<MainLayout children={<ContactUs />} />} />
+        <Route path={"/payment"} element={<MainLayout children={<Payment />} />} />
         <Route path="/login" element={<Login />} />
         <Route path="/adminDashboard" element={
           <ProtectedRoute>
