@@ -124,6 +124,14 @@
 //   object-fit: cover;
 // }
 
+
 .feature-name {
   white-space: nowrap;
+}
+
+@media only screen and (max-width: 480px) {
+  .feature-name {
+    white-space: normal;
+    word-break: auto-phrase;
+  }
 }
