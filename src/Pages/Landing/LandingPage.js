@@ -1,12 +1,13 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { collection, getDocs, limit, query, startAfter, orderBy } from "firebase/firestore";
-import { db } from '../../firebase';
+import { analytics, db } from '../../firebase';
 import { useAuth } from "../../context/DataContext";
 import PropTypes from 'prop-types';
 import CircularProgress from '@mui/material/CircularProgress';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
+import { logEvent } from "firebase/analytics";
 
 const CircularProgressWithLabel = (props) => {
     return (
@@ -68,6 +69,7 @@ const LandingPage = React.memo((props) => {
     }, [isLoading, isVideoLoaded, imageHomeLoaded])
 
     useEffect(() => {
+        logEvent(analytics, 'visit_landingPage');
         fetchPost()
     }, [])
 

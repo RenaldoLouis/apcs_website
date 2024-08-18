@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import PillButton from "../../components/atom/PillButton";
 import goldenLine from "../../assets/images/goldenLine.png"
 import LetUsGuideTo from "./LetUsGuideTo";
@@ -8,9 +8,6 @@ import musicForEveryoneID from "../../assets/images/musicForEveryoneID.svg"
 import experienceHomeCropped from "../../assets/images/experienceHomeCropped.jpg"
 import Carousel from "../../components/molecules/CarouselCustom";
 import apcLogoBold from "../../assets/images/apc_logo_bold.svg"
-import homeScreen from "../../assets/images/homeScreenImage.jpg"
-import homeScreenImageCropped from "../../assets/images/homeScreenImageCropped.png"
-import homeScreenImageGradient from "../../assets/images/homeScreenImageGradient.png"
 import CoverImageHome from "../../components/molecules/CoverImageHome";
 import AnimatedComponent from "../../components/atom/AnimatedComponent";
 import { AnimationClass } from "../../constant/AnimationClass";
@@ -28,6 +25,8 @@ import sponsor7 from "../../assets/images/sponsors/sponsor7.png";
 import sponsor8 from "../../assets/images/sponsors/sponsor8.png";
 import sponsor9 from "../../assets/images/sponsors/sponsor9.png";
 import { useAuth } from "../../context/DataContext";
+import { logEvent } from "firebase/analytics";
+import { analytics } from "../../firebase";
 
 const listOfSponsor = [
     sponsor1, sponsor6, sponsor8, sponsor4
@@ -44,9 +43,6 @@ const Home = (props) => {
     const { homeImagehero } = props
     const { t, i18n } = useTranslation();
     const navigate = useNavigate();
-    const handleDirectToWhatsApp = () => {
-        window.open("https://api.whatsapp.com/send/?phone=6282213002686", '_blank');
-    }
 
     const { isMobileAndSmaller } = useAuth();
 
@@ -54,6 +50,10 @@ const Home = (props) => {
         window.scrollTo(0, 0);
         navigate(path);
     }
+
+    useEffect(() => {
+        logEvent(analytics, 'visit_Home');
+    }, [])
 
     return (
         <div style={{ background: "black" }}>

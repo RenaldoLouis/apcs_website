@@ -62,10 +62,6 @@ const Carousel = ({ interval = 5000, homePage = true }) => {
         logEvent(analytics, 'register_now');
     }
 
-    const handleDirectToWhatsApp = () => {
-        window.open("https://api.whatsapp.com/send/?phone=6282213002686", '_blank');
-    }
-
     const handleMovePage = (path, event) => {
         setSelectedEvent(event)
         navigate(path);
