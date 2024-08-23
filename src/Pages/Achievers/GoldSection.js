@@ -11,8 +11,10 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
+import { useTranslation } from "react-i18next";
 
 const GoldSection = () => {
+    const { t } = useTranslation();
 
     const { isMobileAndSmaller } = useAuth()
     const [christmastGold, setChristmastGold] = useState('');
@@ -52,7 +54,7 @@ const GoldSection = () => {
             <div class="container">
                 <div class="row">
                     <div class="col text-align-center textColor" style={{ marginBottom: 50 }}>
-                        Discover more of our award-winning achievers below:
+                        {t("discoverMore")}:
                     </div>
                 </div>
             </div>

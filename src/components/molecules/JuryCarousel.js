@@ -5,7 +5,7 @@ import jury2noText from "../../assets/images/jurySlider/jury2noText.png"
 import jury3noText from "../../assets/images/jurySlider/jury3noText.png"
 import jury4noText from "../../assets/images/jurySlider/jury4noText.png"
 import jury5noText from "../../assets/images/jurySlider/jury5noText.png"
-import { useTranslation } from 'react-i18next';
+import { Trans, useTranslation } from 'react-i18next';
 import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useAuth } from '../../context/DataContext';
@@ -50,11 +50,12 @@ const JuryCarousel = ({ interval = 10000, homePage = true }) => {
             image: jury3noText
         },
         {
-            firstQuote: `“${t("home13")}”`,
+            firstQuote: "home13",
             secondQuote: t("home14"),
             name: "- Michelle Kartika Bahari -",
             title: "APCS CLASSICAL FESTIVAL 2023 JURIES",
-            image: jury4noText
+            image: jury4noText,
+            useTransComponent: true  // Add this flag
         },
         {
             firstQuote: `“${t("home15")}”`,
@@ -102,7 +103,13 @@ const JuryCarousel = ({ interval = 10000, homePage = true }) => {
                         <div style={{ '--currentIndex': currentIndex }} className='titleCoverContainerText'>
                             <div className="testimonyContainer" style={{ color: 'white', textAlign: "center" }}>
                                 <div className="mangolaineFont" style={{ color: "#FFD990", fontSize: isTabletAndSmaller ? "3vmin" : 36 }}>
-                                    {eachData.firstQuote}
+                                    {eachData.useTransComponent ? (
+                                        <Trans i18nKey={eachData.firstQuote}>
+                                            <i>Gala Concert</i> mendorong semua peserta untuk memberikan penampilan terbaik mereka.”
+                                        </Trans>
+                                    ) : (
+                                        `${t(eachData.firstQuote)}`
+                                    )}
                                 </div>
                                 {!isTabletAndSmaller && (
                                     <div style={{ fontSize: 20, marginTop: 40 }}>

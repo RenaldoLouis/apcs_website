@@ -13,7 +13,7 @@
     "home10": "APCS juga menyajikan beragam genre musik yang menarik minat generasi muda dengan pendekatan yang sangat  kreatif.",
     "home11": "Sejak awal terlibat, saya sangat mengapresiasi profesionalisme penyelenggaraan acara ini.",
     "home12": "Hal yang paling penting adalah keteraturan dan kejelasan dalam seluruh prosesnya, yang membuat tugas saya sebagai juri menjadi lebih efisien. Kelancaran rangkaian acara, mulai dari penjurian hingga puncak acara konser, sungguh mengagumkan. Konsistensi dalam menjaga standar tinggi seperti ini patut diapresiasi.",
-    "home13": "Konser gala mendorong semua peserta untuk memberikan penampilan terbaik mereka.",
+    "home13": "“<0>Gala Concert</0> mendorong semua peserta untuk memberikan penampilan terbaik mereka.”",
     "home14": "Acara ini merupakan tempat yang sangat baik bagi para musisi muda untuk mengeksplorasi dan menampilkan karya-karyanya secara optimal. Tidak hanya menjadi ajang unjuk kemampuan, tetapi juga menjadi sumber motivasi bagi para peserta untuk terus meningkatkan skill musiknya.",
     "home15": "Seluruh penyelenggaraan acara ini sangat profesional. Saya senang melihat begitu banyak peserta dalam acara ini dan sangat terkesan dengan kualitas talenta musik di Indonesia.",
     "home16": "Acara APCS ini telah membuktikan bahwa Indonesia memiliki talenta musik yang sangat kaya.Berpartisipasi dalam acara seperti APCS dapat memotivasi seluruh musisi untuk terus mengembangkan diri melalui pengalaman dan belajar dari musisi lainnya. Saya juga berharap acara ini dapat menjadi wadah bagi para musisi untuk saling bertukar ilmu.",
@@ -47,7 +47,7 @@
     "Acv2A": "Outstanding Performance",
     "Acv2B": "akan mendapatkan kesempatan untuk tampil bersama orkestra dalam festival atau acara APCS.",
     "Acv3": "PESERTA YANG MERAIH",
-    "Acv3A": "EXCEPTIONAL PERFORMANCE.",
+    "Acv3A": "EXCELLENT PERFORMANCE.",
     "Acv4": "Kontestan yang meraih",
     "Acv4A": "Excellent Performance",
     "Acv4B": "telah melampaui ekspektasi, menunjukkan bakat dan kemampuan mereka pada tingkat yang sangat tinggi.",
@@ -65,5 +65,11 @@
     "watchNow": "TONTON SEKARANG",
     "moreInfo": "SELENGKAPNYA",
     "viewMore": "SELENGKAPNYA",
-    "watchPerform": "TONTON SEKARANG"
+    "watchPerform": "TONTON SEKARANG",
+    "discoverMore": "Lihat daftar lengkap pemenang APCS di bawah ini",
+    "name": "Nama",
+    "email": "Email",
+    "country": "Negara",
+    "phoneNumber": "Nomor Telepon",
+    "commentContact": "Butuh informasi lebih lanjut?"
 }

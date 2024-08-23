@@ -16,6 +16,7 @@ import {
     WhatsAppOutlined
 } from '@ant-design/icons';
 import { Zoom, Fab, Paper, Popper } from '@mui/material';
+import { useTranslation } from "react-i18next";
 
 
 const fabStyle = {
@@ -41,6 +42,8 @@ const fab = {
 
 
 const ContactUs = () => {
+    const { t } = useTranslation();
+
     const [formData, setFormData] = useState({
         name: '',
         email: '',
@@ -131,29 +134,29 @@ const ContactUs = () => {
                                                             onChange={handleChange}
                                                             name="name"
                                                             id="standard-basic"
-                                                            label="Name" variant="standard" className="custom-textfield mb-4" />
+                                                            label={t("name")} variant="standard" className="custom-textfield mb-4" />
                                                         <TextField
                                                             required
                                                             onChange={handleChange}
                                                             name="email"
                                                             id="standard-basic"
-                                                            label="Email" variant="standard" className="custom-textfield mb-4" />
+                                                            label={t("email")} variant="standard" className="custom-textfield mb-4" />
                                                         <TextField
                                                             required
                                                             onChange={handleChange}
                                                             name="country"
                                                             id="standard-basic"
-                                                            label="Country" variant="standard" className="custom-textfield mb-4" />
+                                                            label={t("country")} variant="standard" className="custom-textfield mb-4" />
                                                         <TextField
                                                             required
                                                             onChange={handleChange}
                                                             name="phone_number"
                                                             id="standard-basic"
-                                                            label="Phone Number" variant="standard" className="custom-textfield mb-4" />
+                                                            label={t("phoneNumber")} variant="standard" className="custom-textfield mb-4" />
                                                         <TextField
                                                             id="filled-multiline-static"
                                                             name="comment"
-                                                            label="How can we help you?"
+                                                            label={t("commentContact")}
                                                             multiline
                                                             rows={4}
                                                             variant="standard"
