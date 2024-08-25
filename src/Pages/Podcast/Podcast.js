@@ -10,28 +10,9 @@ const Podcast = () => {
 
     return (
         <div>
-            {/* <CoverImage background={podcastBacgkorund} logo={musiciswhatapcs} isMiddleLeft={true} /> */}
             <CoverImageHome background={podcastBacgkorund} logo={stayTuned}
                 position={ContentPosition.MIDDLELEFT}
             />
-            {/* <BackgroundWithText
-                image={podcastBacgkorund}
-                logo={""}
-                text={
-                    <>
-                        <div className="mangolaineFont goldenTextColor" style={{ fontSize: 96 }}>
-                            STAY TUNED
-                        </div>
-                        <div className="goldenTextColor" style={{ fontSize: 36, letterSpacing: 16 }}>
-                            AUGUST 2024
-                        </div>
-                    </>
-                }
-                buttonText={""}
-                contentPosition={ContentPosition.MIDDLELEFT}
-                centerText={false}
-                noRelativeContainer={true}
-            /> */}
         </div>
     )
 }

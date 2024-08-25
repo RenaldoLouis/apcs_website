@@ -23,7 +23,7 @@ const AchieversHeader = (props) => {
                     <img loading="lazy" src={image} alt="apcsLogo" style={{ width: isMobileAndSmaller ? "100%" : "65%" }} />
                 </div>
                 <div className="col-md-6">
-                    <ResponsiveText className="goldenText mangolaineFont">
+                    <ResponsiveText className="goldenText mangolaineFont" style={{ textAlign: isMobileAndSmaller ? "center" : "justify" }}>
                         {title} <span className={i18n.language === "en" ? "" : "italicText"}> {subTitle}</span>
                     </ResponsiveText>
                     <div style={{ color: "white", fontSize: 18, textAlign: isMobileAndSmaller ? "center" : "justify", marginTop: isMobileAndSmaller ? 15 : 0 }}>

@@ -107,7 +107,7 @@ const Carousel = ({ interval = 5000, homePage = true }) => {
                 <div className='titleCoverContainer-Banner'>
                     <div style={{ '--currentIndex': currentIndex }} className='titleCoverContainerText'>
                         <div>
-                            <PillButton onClick={() => handleMovePage(PathName.contactUs)} text={t("moreInfo")} />
+                            <PillButton onClick={() => handleMovePage(PathName.contactUs, YearlyEvent.TURNINGPOINT)} text={t("moreInfo")} />
                         </div>
                     </div>
                     <div style={{ '--currentIndex': currentIndex }} className='titleCoverContainerText'>
@@ -127,7 +127,7 @@ const Carousel = ({ interval = 5000, homePage = true }) => {
                     </div>
                     <div style={{ '--currentIndex': currentIndex }} className='titleCoverContainerText'>
                         <div>
-                            <PillButton onClick={() => handleMovePage(PathName.gallery, YearlyEvent.CLASSICALFESTIVALJKT)} text={t("watchNow")} />
+                            <PillButton onClick={() => handleMovePage(PathName.gallery, YearlyEvent.CLASSICALFESTIVALSBY)} text={t("watchNow")} />
                         </div>
                     </div>
                     <div style={{ '--currentIndex': currentIndex }} className='titleCoverContainerText'>

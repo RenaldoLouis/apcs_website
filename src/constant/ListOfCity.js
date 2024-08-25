@@ -17,4 +17,5 @@ export const ListOfCity = {
     "BLR": "Blora",
     "DPK": "Depok",
     "YKT": "Yogyakarta",
+    "SID": "Sidoarjo",
 }

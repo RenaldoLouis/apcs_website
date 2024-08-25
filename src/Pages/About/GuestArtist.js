@@ -125,7 +125,7 @@ const GuestArtist = () => {
             <div className="container" >
                 <div style={{ paddingBottom: 100, paddingTop: 100 }}>
                     <HeaderTitle >
-                        <HeaderAbout title={"GUEST ARTIST"} />
+                        <HeaderAbout title={"GUEST ARTISTS"} />
                     </HeaderTitle>
                 </div>
                 <div style={{ color: "white" }}>

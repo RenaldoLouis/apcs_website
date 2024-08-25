@@ -228,12 +228,6 @@ export const dataDiamond = [
         event: [ListOfEventAchiever["2023CLASSICJKT"]]
     },
     {
-        name: "Clara Brigitta Hartono",
-        country: ListOfCity.JKT,
-        YoutubeLink: "",
-        event: [ListOfEventAchiever["2023CLASSICJKT"]]
-    },
-    {
         name: "Clayton Oliver Hayasi",
         country: ListOfCity.JKT,
         YoutubeLink: "https://www.youtube.com/watch?v=Fke-4LVyGno&ab_channel=APIANOCONCERTOSERIES",
@@ -393,7 +387,7 @@ export const dataDiamond = [
         name: "Sydney Mikaela Tan",
         country: ListOfCity.TNG,
         YoutubeLink: "https://www.youtube.com/watch?v=gItdcXGQqSM&ab_channel=APIANOCONCERTOSERIES",
-        event: [ListOfEventAchiever["2023CLASSICJKT"], ListOfEventAchiever["2023CLASSICSRBY"]]
+        event: [ListOfEventAchiever["2023CLASSICSRBY"], ListOfEventAchiever["2023CLASSICJKT"]]
     },
     {
         name: "Timothy Sam Kosasih",
@@ -529,7 +523,7 @@ export const dataDiamond = [
     },
     {
         "name": "Mikayla Wirawan",
-        "country": ListOfCity.SRB,
+        "country": ListOfCity.SID,
         "YoutubeLink": "https://www.youtube.com/watch?v=zNRcY64OEH4&ab_channel=APIANOCONCERTOSERIES",
         "event": [ListOfEventAchiever["2023CLASSICSRBY"]]
     },

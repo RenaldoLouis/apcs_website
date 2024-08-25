@@ -76,7 +76,7 @@ const NotableJurist = () => {
         {
             image: jurist7,
             name: "MARTIN KESUMA",
-            title: "Jurist 2023",
+            title: "Jurist 2024",
             quote: t("about15"),
             country: [CountryConst.IDN, CountryConst.AMR],
             link: "https://www.instagram.com/p/C4pZ41uvxCp/?igsh=MW1pd2tuYWpsN29haw%3D%3D&img_index=5"
@@ -84,7 +84,7 @@ const NotableJurist = () => {
         {
             image: jurist6,
             name: "CARLA SUHARTO",
-            title: "Jurist 2023",
+            title: "Jurist 2024",
             quote: t("about14"),
             country: [CountryConst.IDN],
             link: "https://www.instagram.com/p/C4pZ41uvxCp/?igsh=MW1pd2tuYWpsN29haw%3D%3D&img_index=3"
@@ -116,7 +116,7 @@ const NotableJurist = () => {
     ]
 
     const handleOpenFirdy = () => {
-        window.open("https://www.instagram.com/p/CvEvFaOSOPl/?igsh=NGY1OXdlNDMwZnBw&img_index=3", '_blank');
+        window.open("https://www.instagram.com/p/C4pZ41uvxCp/?igsh=MW1pd2tuYWpsN29haw==", '_blank');
     }
 
 
@@ -138,7 +138,7 @@ const NotableJurist = () => {
                                 FIRDY SALIM
                             </div>
                             <div className="text-align-justify" style={{ fontSize: 20 }}>
-                                Head of Jurist & Principal Advisor
+                                Head Adjudicator & Principal Advisor
                             </div>
                             <div className="d-flex" style={{ marginTop: 16 }}>
                                 <img src={flagIcon(CountryConst.IDN)} alt={"country"} />

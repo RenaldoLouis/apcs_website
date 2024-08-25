@@ -30,7 +30,7 @@ const GaleryPage = () => {
     const { isMobileAndSmaller } = useAuth();
 
     // const [selectedEvent, setSelectedEvent] = useState(YearlyEvent.TURNINGPOINT);
-    const [isLoading, setIsLoading] = useState(false)
+    const [isLoading, setIsLoading] = useState(true)
     const [galeryContent, setGaleryContent] = useState({})
     const [videoList, setVideoList] = useState([])
     const [ListGaleryContent, setListGaleryContent] = useState([
@@ -294,10 +294,17 @@ const GaleryPage = () => {
     }, [videoList])
 
     useEffect(() => {
+        const element = document.getElementById(selectedEvent);
+
+        if (element) {
+            element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+
         let tempData = ListGaleryContent.filter((data) => data.name === selectedEvent)
         setGaleryContent(tempData[0])
         setIsLoading(false)
-    }, [selectedEvent])
+    }, [ListGaleryContent, selectedEvent])
 
 
     const handleClickEvent = (eventName) => {
@@ -368,19 +375,19 @@ const GaleryPage = () => {
                         <div
                             className="scrollable-content">
                             {ListEvent.map((eachEvent) => (
-                                <div className="col-auto" key={eachEvent.title} style={{ color: "white" }}>
+                                <div id={eachEvent?.title} className="col-auto" key={eachEvent?.title} style={{ color: "white" }}>
                                     <div
-                                        onClick={() => handleClickEvent(eachEvent.title)}
-                                        className={`itemMenuSelected special-case ${selectedEvent === eachEvent.title ? 'selected textColorSelected' : ''}`}
+                                        onClick={() => handleClickEvent(eachEvent?.title)}
+                                        className={`itemMenuSelected special-case ${selectedEvent === eachEvent?.title ? 'selected textColorSelected' : ''}`}
                                     >
                                         <div className="mangolaineFont" style={{ fontSize: 16 }}>
-                                            {eachEvent.year}
+                                            {eachEvent?.year}
                                         </div>
                                         <div
-                                            className={`nowrap ${selectedEvent === eachEvent.title ? "mosafinFont" : "mangolaineFont"}`}
+                                            className={`nowrap ${selectedEvent === eachEvent?.title ? "mosafinFont" : "mangolaineFont"}`}
                                             style={{ fontSize: 18 }}
                                         >
-                                            {eachEvent.title}
+                                            {eachEvent?.title}
                                         </div>
                                     </div>
                                 </div>
@@ -403,36 +410,36 @@ const GaleryPage = () => {
                         <div class="container" style={{ marginTop: 64 }}>
                             <div class="row">
                                 <div class="col">
-                                    <CoverVideo video={galeryContent.video} />
+                                    <CoverVideo video={galeryContent?.video} />
                                 </div>
                             </div>
                         </div>
                     )}
                     <div className="container" style={{ marginTop: 100 }}>
                         <HeaderTitle>
-                            {galeryContent.title}
+                            {galeryContent?.title}
                         </HeaderTitle>
                     </div>
                     <HeaderTitle fontSize={FontSizeTitle.small}>
-                        <span className="">{galeryContent.subTitle}</span>
+                        <span className="">{galeryContent?.subTitle}</span>
                     </HeaderTitle>
 
                     <div class="container">
                         <div class="row">
-                            <div class={galeryContent.name === YearlyEvent.CLASSICALFESTIVALSBY ? "col-lg-9 mx-auto d-flex flex-column justify-content-center align-items-center" : "col-lg-6 mx-auto d-flex flex-column justify-content-center align-items-center"}>
+                            <div class={galeryContent?.name === YearlyEvent.CLASSICALFESTIVALSBY ? "col-lg-9 mx-auto d-flex flex-column justify-content-center align-items-center" : "col-lg-6 mx-auto d-flex flex-column justify-content-center align-items-center"}>
                                 <div className="italicText textColor mt-4 mb-4">
                                     <Typograhpy
                                         text={"featuring"}
                                     />
                                 </div>
                                 <div className="textColor text-align-center mb-5">
-                                    {galeryContent?.featuring?.map((eachFeature, index) => (
+                                    {galeryContent?.featuring?.map((eachFeature?, index) => (
                                         <React.Fragment key={index}>
                                             {index > 0 && " • "}
                                             <span className="feature-name">
-                                                <span className="feature-name fontSizeBody">{eachFeature.name} {eachFeature.founder && (<span className="italicText"> (Founder) </span>)}</span>{" "}
+                                                <span className="feature-name fontSizeBody">{eachFeature?.name} {eachFeature?.founder && (<span className="italicText"> (Founder) </span>)}</span>{" "}
                                                 <span className="italicText fontSizeBody">
-                                                    {eachFeature.title && (`as the ${eachFeature.title}`)} ({eachFeature.role}) {eachFeature?.achivement && (` and Winners of ${eachFeature?.achivement}`)}
+                                                    {eachFeature?.title && (`as the ${eachFeature?.title}`)} ({eachFeature?.role}) {eachFeature?.achivement && (` and Winners of ${eachFeature?.achivement}`)}
                                                 </span>
                                             </span>
                                         </React.Fragment>
@@ -440,7 +447,7 @@ const GaleryPage = () => {
                                 </div>
                             </div>
                         </div>
-                        <Galery name={galeryContent.name} images={galeryContent.images} isDynamicType={true} />
+                        <Galery name={galeryContent?.name} images={galeryContent?.images} isDynamicType={true} />
                     </div>
                 </>
             )}

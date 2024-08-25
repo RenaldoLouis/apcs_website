@@ -71,7 +71,7 @@ const sapphireWinners = [
     {
         name: "Jaden William Tang",
         image: saphireAchievers5,
-        country: ListOfCity.SRB,
+        country: ListOfCity.PLB,
         YoutubeLink: "https://www.youtube.com/watch?v=P43e51OVkWQ&ab_channel=APIANOCONCERTOSERIES",
         event: [ListOfEventAchiever["2023CHRISTMAS"]]
     },
@@ -87,7 +87,7 @@ const sapphireWinners = [
         image: saphireAchievers7,
         country: ListOfCity.SRB,
         YoutubeLink: "https://www.youtube.com/watch?v=bMBKgEL4x3w&ab_channel=APIANOCONCERTOSERIES",
-        event: [ListOfEventAchiever["2023CHRISTMAS"], ListOfEventAchiever["2023CLASSICSRBY"]]
+        event: [ListOfEventAchiever["2023CHRISTMAS"], ListOfEventAchiever["2025UPCOMING"]]
     },
     {
         name: "Charice Elleanore Konggo Budiman",
@@ -101,7 +101,7 @@ const sapphireWinners = [
         image: saphireAchievers9,
         country: ListOfCity.JKT,
         YoutubeLink: "https://www.youtube.com/watch?v=1sqUiE7SP30&ab_channel=APIANOCONCERTOSERIES",
-        event: [ListOfEventAchiever["2023CHRISTMAS"], ListOfEventAchiever["2023CLASSICJKT"]]
+        event: [ListOfEventAchiever["2023CHRISTMAS"], ListOfEventAchiever["2025UPCOMING"]]
     },
     {
         name: "Sydney Mikaela Tan",

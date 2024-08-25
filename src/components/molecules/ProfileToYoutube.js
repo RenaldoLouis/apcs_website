@@ -21,7 +21,7 @@ const ProfileToYoutube = (props) => {
                     <img loading="lazy" src={image} alt='saphire2' style={{ width: "100%" }} />
                 )}
                 <div>
-                    <div className="flex justify-spaceBetween" style={{ marginTop: 40, fontSize: 24, fontWeight: "bold" }}>
+                    <div className="flex justify-spaceBetween fontSizeSubHeader" style={{ marginTop: 40, fontWeight: "bold" }}>
                         {name.length >= 100 ? (
                             // <span className="fontSizeSubHeader">
                             //     {name}

@@ -9,6 +9,7 @@ import AnimatedComponent from "../../components/atom/AnimatedComponent";
 import GoldSection from "./GoldSection";
 import { useAuth } from "../../context/DataContext";
 import { useTranslation } from "react-i18next";
+import { ListOfEventAchiever } from "../../constant/ListOfEventAchiever";
 
 const SapphireWinnerSection = (props) => {
     const { dataSaphire, dataDiamond } = props
@@ -16,6 +17,7 @@ const SapphireWinnerSection = (props) => {
     const { t } = useTranslation();
 
     const [diamondDataSorted, setDiamondDataSorted] = useState([])
+    const eventOrder = Object.values(ListOfEventAchiever);
 
     useEffect(() => {
         let clonedData = [...dataDiamond]
@@ -27,6 +29,13 @@ const SapphireWinnerSection = (props) => {
                 return 1;
             }
             return 0;
+        });
+
+        //to sort the event list
+        tempData.forEach(person => {
+            person.event.sort((a, b) => {
+                return eventOrder.indexOf(a) - eventOrder.indexOf(b);
+            });
         });
         setDiamondDataSorted(tempData)
     }, [dataDiamond])
@@ -65,10 +74,9 @@ const SapphireWinnerSection = (props) => {
                     <div className="container color-white" style={{ paddingBottom: 200 }}>
                         <div className="row  gy-5 gy-md-1">
                             {diamondDataSorted.map((eachData, index) => {
-                                // const colClass = index + 1 === dataDiamond.length ? "col-6 col-md-4 offset-md-1" : index === dataDiamond.length - 2 ? "col-6 col-md-4 offset-md-2" : "col-6 col-md-4";
                                 const colClass = index + 1 === dataDiamond.length ? "col-6 offset-3 col-md-4 offset-md-4" : "col-6 col-md-4"
                                 return (
-                                    <div className={colClass} style={{ padding: isMobileAndSmaller ? 5 : 35 }}>
+                                    <div className={"col-6 col-md-4"} style={{ padding: isMobileAndSmaller ? 5 : 35 }}>
                                         <ProfileToYoutube data={eachData} noImage={true} />
                                     </div>
                                 )
