@@ -148,10 +148,11 @@ const Home = (props) => {
                     </div>
                 </div>
             </div>
+
             <Carousel />
 
             {isMobileAndSmaller ? (
-                <div className="container" style={{ background: "black" }}>
+                <div className="container" style={{ background: "black", marginTop: 32 }}>
                     <div className="row text-align-center ">
                         <div className="col gx-5 gy-3">
                             {completeListOfSponsor.map((eachSponsor, index) => (
@@ -162,7 +163,7 @@ const Home = (props) => {
                 </div>
             ) : (
                 <>
-                    <div className="container" style={{ background: "black" }}>
+                    <div className="container" style={{ background: "black", marginTop: 32 }}>
                         <div className="row text-align-center">
                             <div className="col">
                                 {listOfSponsor.map((eachSponsor, index) => (
@@ -180,20 +181,6 @@ const Home = (props) => {
                     </div>
                 </>
             )}
-
-            {/* <Content
-                audio={audio}
-            /> */}
-            {/* <Galery /> 
-            <GalerySlider /> 
-            <Pagination />
-                     <Accordion /> 
-
-            <div className="container" style={{ background: "grey", width: 300, margin: 25, cursor: "pointer" }} onClick={handleDirectToWhatsApp}>
-                         Contact Admin Here
-                     </div> 
-
-            <AvatarIcon />  */}
         </div >
     )
 }

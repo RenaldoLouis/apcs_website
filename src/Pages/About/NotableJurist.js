@@ -116,7 +116,7 @@ const NotableJurist = () => {
     ]
 
     const handleOpenFirdy = () => {
-        window.open("https://www.instagram.com/p/C4pZ41uvxCp/?igsh=MW1pd2tuYWpsN29haw==", '_blank');
+        window.open("https://www.instagram.com/p/C4pZ41uvxCp/?igsh=MW1pd2tuYWpsN29haw%3D%3D&img_index=2", '_blank');
     }
 
 

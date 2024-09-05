@@ -87,7 +87,7 @@ const sapphireWinners = [
         image: saphireAchievers7,
         country: ListOfCity.SRB,
         YoutubeLink: "https://www.youtube.com/watch?v=bMBKgEL4x3w&ab_channel=APIANOCONCERTOSERIES",
-        event: [ListOfEventAchiever["2023CHRISTMAS"], ListOfEventAchiever["2025UPCOMING"]]
+        event: [ListOfEventAchiever["2025UPCOMING"], ListOfEventAchiever["2023CHRISTMAS"]]
     },
     {
         name: "Charice Elleanore Konggo Budiman",
@@ -101,7 +101,7 @@ const sapphireWinners = [
         image: saphireAchievers9,
         country: ListOfCity.JKT,
         YoutubeLink: "https://www.youtube.com/watch?v=1sqUiE7SP30&ab_channel=APIANOCONCERTOSERIES",
-        event: [ListOfEventAchiever["2023CHRISTMAS"], ListOfEventAchiever["2025UPCOMING"]]
+        event: [ListOfEventAchiever["2025UPCOMING"], ListOfEventAchiever["2023CHRISTMAS"]]
     },
     {
         name: "Sydney Mikaela Tan",

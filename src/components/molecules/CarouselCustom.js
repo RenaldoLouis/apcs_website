@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import arrowRightCover from "../../assets/icons/arrowRightCover.png"
 import arrowLeftCover from "../../assets/icons/arrowLeftCover.png"
 import PillButton from '../atom/PillButton';
-import coverImage1 from "../../assets/images/coverImage1.png"
 import banner1 from "../../assets/images/homeBanner/banner1.jpg"
 import banner2 from "../../assets/images/homeBanner/banner2.jpg"
 import banner3 from "../../assets/images/homeBanner/banner3.jpg"
@@ -12,8 +11,6 @@ import banner6 from "../../assets/images/homeBanner/banner6.jpg"
 import banner7 from "../../assets/images/homeBanner/banner7.jpg"
 import { logEvent } from "firebase/analytics";
 import { analytics } from '../../firebase';
-import Button from '@mui/material/Button';
-import zIndex from '@mui/material/styles/zIndex';
 import { PathName } from '../../constant/PathName';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/DataContext';
