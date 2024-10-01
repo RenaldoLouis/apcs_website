@@ -17,7 +17,7 @@ const Typograhpy = ({ text, size }) => {
     }
 
     return (
-        <div className={`${fontSize()}`} style={{ color: "white" }}>
+        <div className={`${fontSize()}`} style={{ color: "white", textWrap: "nowrap" }}>
             {text}
         </div>
     )

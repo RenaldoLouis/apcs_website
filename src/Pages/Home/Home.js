@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import PillButton from "../../components/atom/PillButton";
 import goldenLine from "../../assets/images/goldenLine.png"
 import LetUsGuideTo from "./LetUsGuideTo";
-import pianoKeys from '../../assets/images/pianoKeys.svg';
+import pianoKeys from '../../assets/images/pianoKeys.jpg';
 import musicForEveryone from "../../assets/images/musicForEveryone.svg"
 import musicForEveryoneID from "../../assets/images/musicForEveryoneID.svg"
 import experienceHomeCropped from "../../assets/images/experienceHomeCropped.jpg"

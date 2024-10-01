@@ -1,5 +1,5 @@
 import React from "react";
-import background2 from '../../assets/images/Background2.svg';
+import background2Small from '../../assets/images/Background2-small.jpg';
 import taleMusicalJourney from "../../assets/images/TaleMusicalJourney.svg"
 import letUsGuideYou from "../../assets/images/LetUsGuideYou.svg"
 import { useInView } from "react-intersection-observer";
@@ -20,7 +20,7 @@ const LetUsGuideTo = () => {
 
     return (
         <div className="image-container-fadedTopBottom autoHeight">
-            <img loading="lazy" src={background2} alt={`background2`} style={{ width: "100%", marginBottom: "-3px" }} />
+            <img loading="lazy" src={background2Small} alt={`background2Small`} style={{ width: "100%", marginBottom: "-3px" }} />
 
             <div className={`letUsGuideYou`}>
                 <img

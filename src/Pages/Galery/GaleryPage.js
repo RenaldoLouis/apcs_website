@@ -433,7 +433,7 @@ const GaleryPage = () => {
                                     />
                                 </div>
                                 <div className="textColor text-align-center mb-5">
-                                    {galeryContent?.featuring?.map((eachFeature?, index) => (
+                                    {galeryContent?.featuring?.map((eachFeature, index) => (
                                         <React.Fragment key={index}>
                                             {index > 0 && " • "}
                                             <span className="feature-name">
