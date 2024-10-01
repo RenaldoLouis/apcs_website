@@ -28,7 +28,7 @@ import i18next from "i18next";
 import { PathName } from "./constant/PathName";
 import ContactUs from "./Pages/ContactUs/ContactUs";
 import { createTheme, ThemeProvider, responsiveFontSizes } from '@mui/material/styles';
-import homeScreenImageGradient from "./assets/images/homeScreenImageGradient.png"
+import homeScreenImageGradient from "./assets/images/homeScreenImageGradient.jpg"
 
 const audio = new Audio(persona5);
 
