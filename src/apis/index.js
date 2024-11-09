@@ -68,5 +68,8 @@ export default {
   },
   payment: {
     createPayment: (data) => postRequest(`/api/v1/apcs/createPayment`, data)
+  },
+  email: {
+    sendEmail: () => postRequest(`/api/v1/apcs/sendEmail`)
   }
 };
