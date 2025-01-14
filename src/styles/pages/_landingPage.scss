@@ -9,7 +9,7 @@
 }
 
 /* Define the keyframes for the fade-in effect */
-@keyframes fadeIn {
+@keyframes fadeInLanding {
     0% {
         opacity: 0.5;
     }
@@ -40,28 +40,28 @@
 }
 
 .fade-in-image {
-    animation: fadeIn 0.2s ease-in-out;
+    animation: fadeInLanding 0.2s ease-in-out;
     animation-delay: 0.2s;
     opacity: 0.5;
     animation-fill-mode: forwards;
 }
 
 .fade-in-image2 {
-    animation: fadeIn 0.2s ease-in-out;
+    animation: fadeInLanding 0.2s ease-in-out;
     animation-delay: 0.4s;
     opacity: 0.5;
     animation-fill-mode: forwards;
 }
 
 .fade-in-image3 {
-    animation: fadeIn 0.2s ease-in-out;
+    animation: fadeInLanding 0.2s ease-in-out;
     animation-delay: 0.6s;
     opacity: 0.5;
     animation-fill-mode: forwards;
 }
 
 .fade-in-image4 {
-    animation: fadeIn 0.2s ease-in-out;
+    animation: fadeInLanding 0.2s ease-in-out;
     animation-delay: 0.8s;
     opacity: 0.5;
     animation-fill-mode: forwards;
