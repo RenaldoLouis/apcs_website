@@ -1,20 +1,13 @@
+import { logEvent } from "firebase/analytics";
 import React, { useEffect } from "react";
-import PillButton from "../../components/atom/PillButton";
-import goldenLine from "../../assets/images/goldenLine.png"
-import LetUsGuideTo from "./LetUsGuideTo";
-import pianoKeys from '../../assets/images/pianoKeys.jpg';
-import musicForEveryone from "../../assets/images/musicForEveryone.svg"
-import musicForEveryoneID from "../../assets/images/musicForEveryoneID.svg"
-import experienceHomeCropped from "../../assets/images/experienceHomeCropped.jpg"
-import Carousel from "../../components/molecules/CarouselCustom";
-import apcLogoBold from "../../assets/images/apc_logo_bold.svg"
-import CoverImageHome from "../../components/molecules/CoverImageHome";
-import AnimatedComponent from "../../components/atom/AnimatedComponent";
-import { AnimationClass } from "../../constant/AnimationClass";
 import { useTranslation } from "react-i18next";
-import JuryCarousel from "../../components/molecules/JuryCarousel";
 import { useNavigate } from "react-router-dom";
-import { PathName } from "../../constant/PathName";
+import apcLogoBold from "../../assets/images/apc_logo_bold.svg";
+import experienceHomeCropped from "../../assets/images/experienceHomeCropped.jpg";
+import goldenLine from "../../assets/images/goldenLine.png";
+import musicForEveryone from "../../assets/images/musicForEveryone.svg";
+import musicForEveryoneID from "../../assets/images/musicForEveryoneID.svg";
+import pianoKeys from '../../assets/images/pianoKeys.jpg';
 import sponsor1 from "../../assets/images/sponsors/sponsor1.png";
 import sponsor2 from "../../assets/images/sponsors/sponsor2.png";
 import sponsor3 from "../../assets/images/sponsors/sponsor3.png";
@@ -24,9 +17,16 @@ import sponsor6 from "../../assets/images/sponsors/sponsor6.png";
 import sponsor7 from "../../assets/images/sponsors/sponsor7.png";
 import sponsor8 from "../../assets/images/sponsors/sponsor8.png";
 import sponsor9 from "../../assets/images/sponsors/sponsor9.png";
+import AnimatedComponent from "../../components/atom/AnimatedComponent";
+import PillButton from "../../components/atom/PillButton";
+import Carousel from "../../components/molecules/CarouselCustom";
+import CoverImageHome from "../../components/molecules/CoverImageHome";
+import JuryCarousel from "../../components/molecules/JuryCarousel";
+import { AnimationClass } from "../../constant/AnimationClass";
+import { PathName } from "../../constant/PathName";
 import { useAuth } from "../../context/DataContext";
-import { logEvent } from "firebase/analytics";
 import { analytics } from "../../firebase";
+import LetUsGuideTo from "./LetUsGuideTo";
 
 const listOfSponsor = [
     sponsor1, sponsor6, sponsor8, sponsor4
@@ -137,9 +137,6 @@ const Home = (props) => {
             </div>
 
             <JuryCarousel />
-
-
-
 
             <div class="container-fluid" style={{ background: "black" }}>
                 <div class="row">
