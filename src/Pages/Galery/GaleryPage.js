@@ -1,7 +1,8 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { ListEvent, YearlyEvent } from "../../constant/YearlyEvent";
 import Galery from "./Galery";
 import homeScreen from "../../assets/images/homeScreenImage.jpg"
+import arrowMoreGalery from "../../assets/images/arrowMoreGalery.PNG"
 import HeaderTitle from "../../components/atom/HeaderTitle";
 import { FontSizeTitle } from "../../constant/FontSizeTitle";
 import { Spin } from 'antd';
@@ -16,14 +17,20 @@ import { MagicalMusicSoundtractImages } from "../../constant/MagicalMusicSoundtr
 import { ClassicalFestivalSurabayaImages } from "../../constant/ClassicalFestivalSurabayaImages";
 import { ClassicalFestivalJakartaImages } from "../../constant/ClassicalFestivalJakarta";
 import { ChristmasInWonderlandImages } from "../../constant/ChristmasWonderlandImages";
+import { MasterClassImages } from "../../constant/MasterClassImages";
 import { useAuth } from "../../context/DataContext";
+import { useSwipeable } from 'react-swipeable';
+import Typograhpy from "../../components/atom/Typograhpy";
+
 
 const GaleryPage = () => {
     const { t, i18n } = useTranslation();
     const { setSelectedEvent, selectedEvent } = useAuth()
+    const scrollContainerRef = useRef(null);
+    const { isMobileAndSmaller } = useAuth();
 
     // const [selectedEvent, setSelectedEvent] = useState(YearlyEvent.TURNINGPOINT);
-    const [isLoading, setIsLoading] = useState(false)
+    const [isLoading, setIsLoading] = useState(true)
     const [galeryContent, setGaleryContent] = useState({})
     const [videoList, setVideoList] = useState([])
     const [ListGaleryContent, setListGaleryContent] = useState([
@@ -41,14 +48,14 @@ const GaleryPage = () => {
                 },
                 {
                     name: "Wishnu Dewanta",
-                    role: "conductor"
+                    role: "Conductor"
                 },
                 {
                     name: "Vahur Luhtsalu",
                     role: "Cellist"
                 },
                 {
-                    name: "Andreas Ariant",
+                    name: "Andreas Arianto",
                     role: "Accordionist"
                 },
                 {
@@ -61,7 +68,7 @@ const GaleryPage = () => {
         {
             name: YearlyEvent.AUTUMINKOREA,
             video: null,
-            title: "천고마비 - THE PANDEMIC ERA",
+            title: "천고마비 - FIND THE RHYTHM IN QUARANTINE",
             subTitle: "UNDER THE BATON OF CHIKITA AMANDA",
             featuring: [
                 {
@@ -79,7 +86,7 @@ const GaleryPage = () => {
                     role: "Guitarist"
                 },
                 {
-                    name: "Michelle Hendra / michimomo",
+                    name: "Michelle Hendra / Michimomo",
                     role: "Singer"
                 },
                 {
@@ -92,14 +99,14 @@ const GaleryPage = () => {
         {
             name: YearlyEvent.MAGICALMUSICSOUNDTRACT,
             video: null,
-            title: "The First National Orchestra Series for all generations",
+            title: "THE FIRST NATIONAL ORCHESTRA SERIES FOR ALL GENERATIONS",
             subTitle: "UNDER THE BATON OF CHIKITA AMANDA",
             featuring: [
                 {
                     name: "Michaela Sutejo",
-                    title: "guest artist",
+                    // title: "guest artist",
                     role: "Pianist",
-                    founder: true
+                    // founder: true
                 },
                 {
                     name: "Filda Salim",
@@ -120,8 +127,8 @@ const GaleryPage = () => {
         {
             name: YearlyEvent.CLASSICALFESTIVALSBY,
             video: null,
-            title: "THE FIRST NATIONAL CLASSICAL SERIES FOR ALL GENERATIONS, SHANGRI-LA",
-            subTitle: "UNDER THE BATON OF CHIKITA AMANDA",
+            title: "THE FIRST NATIONAL CLASSICAL SERIES FOR ALL GENERATIONS",
+            subTitle: "SHANGRI-LA Surabaya",
             featuring: [
                 // {
                 //     name: "Michaela Sutejo",
@@ -148,7 +155,7 @@ const GaleryPage = () => {
                 {
                     name: "Michelle Kartika Bahari",
                     role: "Pianist",
-                    title: "guest artist",
+                    // title: "guest artist",
                     achivement: " APCS Classical Festival 2023"
                 },
             ],
@@ -157,8 +164,8 @@ const GaleryPage = () => {
         {
             name: YearlyEvent.CLASSICALFESTIVALJKT,
             video: null,
-            title: "THE SECOND NATIONAL CLASSICAL SERIES FOR ALL GENERATIONS, SOEHANNA HALL",
-            subTitle: "",
+            title: "THE SECOND NATIONAL CLASSICAL SERIES FOR ALL GENERATIONS",
+            subTitle: "SOEHANNA HALL Jakarta",
             featuring: [
                 // {
                 //     name: "Michaela Sutejo",
@@ -177,7 +184,7 @@ const GaleryPage = () => {
                 {
                     name: "Iswargia Sudarno",
                     role: "Pianist",
-                    title: "guest artist",
+                    // title: "guest artist",
                     achivement: " APCS Classical Festival 2023"
 
                 },
@@ -187,26 +194,26 @@ const GaleryPage = () => {
         {
             name: YearlyEvent.CHRISTMASWONDERLAND,
             video: null,
-            title: "APCS CHRISTMAS WONDERLAND",
+            title: "THE SECOND NATIONAL ORCHESTRA SERIES FOR ALL GENERATIONS",
             subTitle: "UNDER THE BATON OF CHIKITA AMANDA",
             featuring: [
                 {
                     name: "Michaela Sutejo",
-                    title: "guest artist",
+                    // title: "guest artist",
                     role: "Pianist",
-                    founder: true
+                    // founder: true
                 },
-                {
-                    name: "Stephanie Jingga",
-                    role: "Pianist"
-                },
+                // {
+                //     name: "Stephanie Jingga",
+                //     role: "Pianist"
+                // },
                 {
                     name: "Ify Alyssa",
-                    role: "Pianist"
+                    role: "Singer - Pianist"
                 },
                 {
                     name: "Stephanie Jingga",
-                    role: "Singer-Pianist"
+                    role: "Pianist"
                 },
                 {
                     name: "Chikita Amanda",
@@ -215,6 +222,31 @@ const GaleryPage = () => {
                 },
             ],
             images: ChristmasInWonderlandImages
+        },
+        {
+            name: YearlyEvent.MASTERCLASS,
+            video: null,
+            title: "MASTERCLASS",
+            subTitle: "Surabaya & Jakarta",
+            featuring: [
+                {
+                    name: "Firdy Salim",
+                    role: "Guest Coach"
+                },
+                {
+                    name: "Myra Karlina Pranajaya",
+                    role: "Guest Coach"
+                },
+                {
+                    name: "Christine Utomo",
+                    role: "Guest Coach"
+                },
+                {
+                    name: "Iswargia Sudarno",
+                    role: "Guest Coach"
+                },
+            ],
+            images: MasterClassImages
         },
     ])
 
@@ -262,16 +294,60 @@ const GaleryPage = () => {
     }, [videoList])
 
     useEffect(() => {
+        const element = document.getElementById(selectedEvent);
+
+        if (element) {
+            element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+
         let tempData = ListGaleryContent.filter((data) => data.name === selectedEvent)
         setGaleryContent(tempData[0])
         setIsLoading(false)
-    }, [selectedEvent])
+    }, [ListGaleryContent, selectedEvent])
 
 
     const handleClickEvent = (eventName) => {
         setIsLoading(true)
         setSelectedEvent(eventName)
     }
+
+    const smoothScroll = (element, targetPosition, duration) => {
+        const startPosition = element.scrollLeft;
+        const distance = targetPosition - startPosition;
+        let startTime = null;
+
+        function animation(currentTime) {
+            if (startTime === null) startTime = currentTime;
+            const timeElapsed = currentTime - startTime;
+            const run = ease(timeElapsed, startPosition, distance, duration);
+            element.scrollLeft = run;
+            if (timeElapsed < duration) requestAnimationFrame(animation);
+        }
+
+        function ease(t, b, c, d) {
+            t /= d / 2;
+            if (t < 1) return c / 2 * t * t + b;
+            t--;
+            return -c / 2 * (t * (t - 2) - 1) + b;
+        }
+
+        requestAnimationFrame(animation);
+    }
+
+    const handleScrollEvents = (scrollAmount) => {
+        if (scrollContainerRef.current) {
+            const targetPosition = scrollContainerRef.current.scrollLeft + scrollAmount;
+            smoothScroll(scrollContainerRef.current, targetPosition, 300);
+        }
+    };
+
+    const handlers = useSwipeable({
+        onSwipedLeft: () => handleScrollEvents(100),
+        onSwipedRight: () => handleScrollEvents(-100),
+        preventDefaultTouchmoveEvent: true,
+        trackMouse: true
+    });
 
     return (
         <div className="primaryBackgroundBlack" style={{ padding: "128px 0px 48px 0px" }}>
@@ -285,22 +361,43 @@ const GaleryPage = () => {
                 </div>
             </div>
             <div className="container">
-                <div class="row" style={{ color: "white" }}>
-                    {ListEvent.map((eachEvent) => {
-                        return (
-                            <div className="col-sm" >
-                                <div onClick={() => handleClickEvent(eachEvent.title)}
-                                    className={`itemMenuSelected special-case ${selectedEvent === eachEvent.title ? 'selected textColorSelected' : ''}`}>
-                                    <div className="mangolaineFont" style={{ fontSize: 16 }}>
-                                        {eachEvent.year}
-                                    </div>
-                                    <div className={`nowrap ${selectedEvent === eachEvent.title ? "mosafinFont" : "mangolaineFont"}`} style={{ fontSize: 18 }}>
-                                        {eachEvent.title}
+                <div className={`row ${isMobileAndSmaller ? "" : "justify-content-center"}`}>
+                    <div className="col-1 align-self-center cursorPointer" onClick={() => handleScrollEvents(-100)} style={{ width: "5%", marginRight: 20 }}>
+                        <img src={arrowMoreGalery} alt="arrowMoreGalery" style={{ width: 32, rotate: "180deg" }} />
+                    </div>
+
+                    <div
+                        {...handlers}
+                        className="scrollable-container col-md-10 col-9 "
+                        style={{ padding: 0 }}
+                        ref={scrollContainerRef}
+                    >
+                        <div
+                            className="scrollable-content">
+                            {ListEvent.map((eachEvent) => (
+                                <div id={eachEvent?.title} className="col-auto" key={eachEvent?.title} style={{ color: "white" }}>
+                                    <div
+                                        onClick={() => handleClickEvent(eachEvent?.title)}
+                                        className={`itemMenuSelected special-case ${selectedEvent === eachEvent?.title ? 'selected textColorSelected' : ''}`}
+                                    >
+                                        <div className="mangolaineFont" style={{ fontSize: 16 }}>
+                                            {eachEvent?.year}
+                                        </div>
+                                        <div
+                                            className={`nowrap ${selectedEvent === eachEvent?.title ? "mosafinFont" : "mangolaineFont"}`}
+                                            style={{ fontSize: 18 }}
+                                        >
+                                            {eachEvent?.title}
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        )
-                    })}
+                            ))}
+                        </div>
+                    </div>
+
+                    <div className="col-2 col-md-1 align-self-center cursorPointer" onClick={() => handleScrollEvents(100)} style={{ width: "5%" }}>
+                        <img src={arrowMoreGalery} alt="arrowMoreGalery" style={{ width: 32 }} />
+                    </div>
                 </div>
             </div>
             {isLoading ? (
@@ -309,40 +406,48 @@ const GaleryPage = () => {
                 </div>
             ) : (
                 <>
-                    <div class="container" style={{ marginTop: 64, marginBottom: 100 }}>
-                        <div class="row">
-                            <div class="col">
-                                <CoverVideo video={galeryContent.video} />
+                    {galeryContent?.video && (
+                        <div class="container" style={{ marginTop: 64 }}>
+                            <div class="row">
+                                <div class="col">
+                                    <CoverVideo video={galeryContent?.video} />
+                                </div>
                             </div>
                         </div>
+                    )}
+                    <div className="container" style={{ marginTop: 100 }}>
+                        <HeaderTitle>
+                            {galeryContent?.title}
+                        </HeaderTitle>
                     </div>
-                    <HeaderTitle>
-                        {galeryContent.title}
-                    </HeaderTitle>
                     <HeaderTitle fontSize={FontSizeTitle.small}>
-                        {galeryContent.subTitle}
+                        <span className="">{galeryContent?.subTitle}</span>
                     </HeaderTitle>
 
                     <div class="container">
                         <div class="row">
-                            <div class="col-xs-12 col-lg-5 mx-auto d-flex flex-column justify-content-center align-items-center">
-                                <div className="textColor mt-5 mb-5">
-                                    featuring
+                            <div class={galeryContent?.name === YearlyEvent.CLASSICALFESTIVALSBY ? "col-lg-9 mx-auto d-flex flex-column justify-content-center align-items-center" : "col-lg-6 mx-auto d-flex flex-column justify-content-center align-items-center"}>
+                                <div className="italicText textColor mt-4 mb-4">
+                                    <Typograhpy
+                                        text={"featuring"}
+                                    />
                                 </div>
                                 <div className="textColor text-align-center mb-5">
                                     {galeryContent?.featuring?.map((eachFeature, index) => (
                                         <React.Fragment key={index}>
                                             {index > 0 && " • "}
-                                            <span className="feature-name">{eachFeature.name} {eachFeature.founder && (<span className="goldenTextColor"> (founder) </span>)}</span>{" "}
-                                            <span className="italicText">
-                                                {eachFeature.title && (`as the ${eachFeature.title}`)} ({eachFeature.role}) {eachFeature?.achivement && (` and winners of ${eachFeature?.achivement}`)}
+                                            <span className="feature-name">
+                                                <span className="feature-name fontSizeBody">{eachFeature?.name} {eachFeature?.founder && (<span className="italicText"> (Founder) </span>)}</span>{" "}
+                                                <span className="italicText fontSizeBody">
+                                                    {eachFeature?.title && (`as the ${eachFeature?.title}`)} ({eachFeature?.role}) {eachFeature?.achivement && (` and Winners of ${eachFeature?.achivement}`)}
+                                                </span>
                                             </span>
                                         </React.Fragment>
                                     ))}
                                 </div>
                             </div>
                         </div>
-                        <Galery images={galeryContent.images} isDynamicType={true} />
+                        <Galery name={galeryContent?.name} images={galeryContent?.images} isDynamicType={true} />
                     </div>
                 </>
             )}

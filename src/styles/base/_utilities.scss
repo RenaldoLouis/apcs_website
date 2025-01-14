@@ -11,6 +11,39 @@
     }
 }
 
+.fontSizeHeader {
+    font-size: 64px;
+}
+
+.fontSizeSubHeader {
+    font-size: 30px;
+}
+
+.fontSizeBody {
+    font-size: 16px;
+}
+
+@media (max-width : 900px) {
+
+    .fontSizeHeader {
+        font-size: 32px;
+    }
+
+    .fontSizeSubHeader {
+        font-size: 20px;
+    }
+
+    .fontSizeBody {
+        font-size: 14px;
+    }
+}
+
+@media (min-width : 900px) {
+    .fontSizeDesktopOnlyHeader {
+        font-size: 20px;
+    }
+}
+
 .loadingContainer {
     height: 100vh;
     text-align-last: center;
@@ -215,7 +248,7 @@
 }
 
 .mosafinFont {
-    font-family: "mosafin";
+    font-family: "mosafin" !important;
 }
 
 .lineHeightNormal {
@@ -306,6 +339,12 @@
     padding-right: 0.5rem;
 }
 
+.textWithShadow {
+    // text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+    // text-shadow: 4px 4px 6px rgba(0, 0, 0, 1);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+}
+
 /* xs */
 @media (min-width: 475px) {
     .container {
@@ -347,8 +386,6 @@
         max-width: 1536px;
     }
 }
-
-
 
 // Desktop container utility class:
 // .container {

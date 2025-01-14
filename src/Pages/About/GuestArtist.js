@@ -15,101 +15,108 @@ import artist12 from "../../assets/images/guestArtist/artist12.png"
 import artist13 from "../../assets/images/guestArtist/artist13.png"
 import artist14 from "../../assets/images/guestArtist/artist14.png"
 import artist15 from "../../assets/images/guestArtist/artist15.png"
+import artist16 from "../../assets/images/guestArtist/artist16.png"
 import GuestArtistCard from "../../components/molecules/GuestArtisCard";
 import { CountryConst } from "../../constant/CountryConst";
+import HeaderAbout from "../../components/atom/HeaderAbout";
+import indFlag from "../../assets/images/indFlag.jpg"
+import { useAuth } from "../../context/DataContext";
+import AnimatedComponent from "../../components/atom/AnimatedComponent";
 
 const GuestArtist = () => {
 
+    const { isSmallMobileAndSmaller } = useAuth();
+
     const guestArtistList = [
         {
-            name: "Iswargia Sudarno",
-            image: artist1,
-            country: [CountryConst.IDN],
-            title: "SG | Indonesia | Juries",
+            name: "Vahur Luhtsalu",
+            image: artist5,
+            country: [CountryConst.RSA],
+            title: "Cellist",
         },
         {
             name: "Ify Alyssa",
             image: artist2,
             country: [CountryConst.IDN],
-            title: "SG | Indonesia | Singer",
+            title: "Singer - Pianist",
         },
         {
             name: "Andreas Arianto",
             image: artist3,
             country: [CountryConst.IDN],
-            title: "SG | Indonesia | Accordion",
-        },
-        {
-            name: "Filda Salim",
-            image: artist4,
-            country: [CountryConst.IDN],
-            title: "SG | Indonesia | Pianist",
-        },
-        {
-            name: "Vahur Luhtsalu",
-            image: artist5,
-            country: [CountryConst.RSA],
-            title: "SG | Indonesia | Cello",
-        },
-        {
-            name: "Nathania Jualim",
-            image: artist6,
-            country: [CountryConst.IDN],
-            title: "SG | Indonesia | Guitarist",
-        },
-        {
-            name: "Firdy Salim",
-            image: artist7,
-            country: [CountryConst.IDN],
-            title: "SG | Indonesia | Juries",
+            title: "Accordionist",
         },
         {
             name: "Michaela Sutejo",
             image: artist8,
             country: [CountryConst.IDN],
-            title: "SG | Indonesia | Pianist",
+            title: "Pianist",
         },
         {
-            name: "Christine Utomo",
-            image: artist9,
-            country: [CountryConst.IDN, CountryConst.CHI],
-            title: "SG | CHI | juries",
+            name: "Filda Salim",
+            image: artist4,
+            country: [CountryConst.IDN],
+            title: "Pianist",
         },
         {
             name: "Stephanie Jingga",
             image: artist10,
             country: [CountryConst.IDN],
-            title: "SG | Indonesia | Pianist",
+            title: "Pianist",
+        },
+        {
+            name: "Firdy Salim",
+            image: artist7,
+            country: [CountryConst.IDN],
+            title: "Juries",
         },
         {
             name: "Amelia Tionanda",
             image: artist11,
             country: [CountryConst.IDN],
-            title: "SG | Indonesia | Violin",
+            title: "Violinist",
         },
         {
-            name: "Michelle Hendra",
-            image: artist12,
-            country: [CountryConst.IDN],
-            title: "SG | Indonesia | Singer",
-        },
-        {
-            name: "Myra Karlina Pranajaya",
-            image: artist13,
-            country: [CountryConst.CHI, CountryConst.DNMRK],
-            title: "SG | FIN | Juries",
-        },
-        {
-            name: "Park Keun Woo",
-            image: artist14,
-            country: [CountryConst.KR],
-            title: "KR | Singer",
+            name: "Christine Utomo",
+            image: artist9,
+            country: [CountryConst.IDN, CountryConst.CHI],
+            title: "Pianist",
         },
         {
             name: "Michelle Kartika Bahari",
             image: artist15,
             country: [CountryConst.IDN],
-            title: "SG | Indonesia | Juries",
+            title: "Pianist",
+        },
+        {
+            name: "Park Keun Woo",
+            image: artist14,
+            country: [CountryConst.KR],
+            title: "Singer",
+        },
+        {
+            name: "Michelle Hendra",
+            image: artist12,
+            country: [CountryConst.IDN],
+            title: "Singer",
+        },
+        {
+            name: "Myra Karlina Pranajaya",
+            image: artist13,
+            country: [CountryConst.IDN, CountryConst.DNMRK],
+            title: "Pianist",
+        },
+        {
+            name: "Iswargia Sudarno",
+            image: artist1,
+            country: [CountryConst.IDN],
+            title: "Pianist",
+        },
+        {
+            name: "Nathania Jualim",
+            image: artist6,
+            country: [CountryConst.IDN],
+            title: "Guitarist",
         },
     ]
 
@@ -118,19 +125,39 @@ const GuestArtist = () => {
             <div className="container" >
                 <div style={{ paddingBottom: 100, paddingTop: 100 }}>
                     <HeaderTitle >
-                        Guest Artist
+                        <HeaderAbout title={"GUEST ARTISTS"} />
                     </HeaderTitle>
                 </div>
                 <div style={{ color: "white" }}>
-                    <div className="text-align-justify align-items-start row" style={{ paddingBottom: 36 }}>
+                    <div className="text-align-justify align-items-start row" style={{ paddingBottom: 36, margin: 0 }}>
                         <div className="container color-white">
                             <div className="row gx-5 gy-5">
                                 {guestArtistList.map((eachData) => (
-                                    <div className="col-12 col-md-4" style={{ padding: 50 }}>
+                                    <div className="col-6 col-md-4" style={{ padding: isSmallMobileAndSmaller ? 10 : 50 }}>
                                         <GuestArtistCard data={eachData} />
                                     </div>
                                 ))}
                             </div>
+                            <AnimatedComponent animationClass="animate__fadeIn">
+                                <div className="row gx-5 gy-5">
+                                    <div className="col-12 col-md-2" style={{ padding: 50 }} />
+                                    <div className="col-12 col-md-8">
+                                        <img src={artist16} alt="artist16" style={{ width: "100%" }} />
+                                        <div className="d-flex justify-content-center" style={{ fontSize: 40, marginTop: 30 }}>
+                                            CMC Choir
+                                            {/* <img src={indFlag} alt={"indFlag"} style={{}} /> */}
+
+                                        </div>
+                                    </div>
+                                    <div className="col-12 col-md-12" style={{ marginTop: 0 }}>
+                                        <div className="d-flex justify-content-center" style={{ fontSize: 40 }}>
+                                            <img src={indFlag} alt={"indFlag"} style={{}} />
+
+                                        </div>
+                                    </div>
+                                    <div className="col-12 col-md-2" style={{ padding: 50 }} />
+                                </div>
+                            </AnimatedComponent>
                         </div>
 
                     </div>

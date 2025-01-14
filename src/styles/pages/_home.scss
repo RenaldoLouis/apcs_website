@@ -111,9 +111,68 @@
   padding: 80px 16px 16px 16px;
 }
 
+.scrollable-container {
+  position: relative;
+  width: 100%;
+  overflow-x: auto;
+  scrollbar-width: none;
+  /* Firefox */
+  -ms-overflow-style: none;
+  /* Internet Explorer 10+ */
+}
+
+.scrollable-container::-webkit-scrollbar {
+  display: none;
+  /* Chrome, Safari, newer versions of Edge */
+}
+
+.scrollable-content {
+  display: flex;
+  flex-wrap: nowrap;
+  white-space: nowrap;
+  // padding: 0 20px;
+  /* Add some padding to prevent content from being under the fade */
+}
+
+// /* Left fade */
+// .scrollable-container::before {
+//   content: '';
+//   position: absolute;
+//   top: 0;
+//   left: 0;
+//   height: 100%;
+//   width: 30px;
+//   background: linear-gradient(to right, white, transparent);
+//   z-index: 1;
+//   pointer-events: none;
+// }
+
+// /* Right fade */
+// .scrollable-container::after {
+//   content: '';
+//   position: absolute;
+//   top: 0;
+//   right: 0;
+//   height: 100%;
+//   width: 30px;
+//   background: linear-gradient(to left, white, transparent);
+//   z-index: 1;
+//   pointer-events: none;
+// }
+
+.col-auto {
+  flex: 0 0 auto;
+  padding: 0 10px;
+}
+
 /* Default height */
 .itemMenuSelected {
+  position: relative;
+  display: inline-block;
+  margin-right: 10px;
+  padding-bottom: 5px;
   --line-height: 3px;
+
 }
 
 /* Specific case with different height */
@@ -131,17 +190,17 @@
 .itemMenuSelected::after {
   content: '';
   position: absolute;
-  bottom: -5px;
+  bottom: 0;
   left: 0;
   width: 0;
-  height: var(--line-height);
-  background-color: $primary-golden-text-color !important;
-  transition: width 600ms ease;
+  height: 2px;
+  /* Adjust the height of the underline as needed */
+  background-color: transparent;
+  transition: width 0.3s ease, background-color 0.3s ease;
 }
 
 .itemMenuSelected.selected::after {
   width: 100%;
-  left: 0;
   background-color: $primary-golden-text-color !important;
 }
 
@@ -149,8 +208,8 @@
 @media (min-width : 700px) {
   .itemMenuSelected:hover::after {
     width: 100%;
-    left: 0;
-    color: $primary-golden-text-color !important;
+    background-color: $primary-golden-text-color !important;
+    transition: width 0.3s ease, background-color 0.3s ease;
   }
 
   .itemMenuSelected:hover {

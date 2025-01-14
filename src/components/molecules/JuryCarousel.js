@@ -1,77 +1,100 @@
 import React, { useState, useEffect } from 'react';
-import arrowRightCover from "../../assets/icons/arrowRightCover.png"
-import arrowLeftCover from "../../assets/icons/arrowLeftCover.png"
-import PillButton from '../atom/PillButton';
-import coverImage1 from "../../assets/images/coverImage1.png"
-import { logEvent } from "firebase/analytics";
-import { analytics } from '../../firebase';
 
 import jury1noText from "../../assets/images/jurySlider/jury1noText.png"
 import jury2noText from "../../assets/images/jurySlider/jury2noText.png"
 import jury3noText from "../../assets/images/jurySlider/jury3noText.png"
-import { useTranslation } from 'react-i18next';
+import jury4noText from "../../assets/images/jurySlider/jury4noText.png"
+import jury5noText from "../../assets/images/jurySlider/jury5noText.png"
+import { Trans, useTranslation } from 'react-i18next';
 import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
+import { useAuth } from '../../context/DataContext';
 
 const images = [
     jury1noText,
     jury2noText,
     jury3noText,
+    jury4noText,
+    jury5noText,
 ]
 
-const JuryCarousel = ({ interval = 5000, homePage = true }) => {
+const JuryCarousel = ({ interval = 10000, homePage = true }) => {
     const [currentIndex, setCurrentIndex] = useState(0);
     const { t, i18n } = useTranslation();
     const theme = useTheme();
     const isTabletAndSmaller = useMediaQuery(theme.breakpoints.down('lg'));
+    const [isPaused, setIsPaused] = useState(false);
+
+    const { isMobileAndSmaller } = useAuth();
 
     const dataJury = [
         {
-            firstQuote: t("theseAreNotJustYoung"),
-            secondQuote: t("withSuchStrong"),
+            firstQuote: `“${t("home7")}”`,
+            secondQuote: t("home8"),
             name: "- Firdy Salim -",
-            title: "jury & conductor",
+            title: "APCS CLASSICAL FESTIVAL 2023 JURIES",
             image: jury1noText
         },
         {
-            firstQuote: t("theseAreNotJustYoung"),
-            secondQuote: t("withSuchStrong"),
-            name: "- Firdy Salim -",
-            title: "jury & conductor",
+            firstQuote: `“${t("home9")}”`,
+            secondQuote: t("home10"),
+            name: "- Christine Utomo -",
+            title: "APCS CLASSICAL FESTIVAL 2023 JURIES",
             image: jury2noText
         },
         {
-            firstQuote: t("theseAreNotJustYoung"),
-            secondQuote: t("withSuchStrong"),
-            name: "- Firdy Salim -",
-            title: "jury & conductor",
+            firstQuote: `“${t("home11")}”`,
+            secondQuote: t("home12"),
+            name: "- Iswargia Sudarno -",
+            title: "APCS CLASSICAL FESTIVAL 2023 JURIES",
             image: jury3noText
+        },
+        {
+            firstQuote: "home13",
+            secondQuote: t("home14"),
+            name: "- Michelle Kartika Bahari -",
+            title: "APCS CLASSICAL FESTIVAL 2023 JURIES",
+            image: jury4noText,
+            useTransComponent: true  // Add this flag
+        },
+        {
+            firstQuote: `“${t("home15")}”`,
+            secondQuote: t("home16"),
+            name: "- Myra Karlina Pranajaya -",
+            title: "APCS CLASSICAL FESTIVAL 2023 JURIES",
+            image: jury5noText
         },
     ]
 
-    // useEffect(() => {
-    //     const intervalId = setInterval(() => {
-    //         setCurrentIndex((prevIndex) => (prevIndex === images.length - 1 ? 0 : prevIndex + 1));
-    //     }, interval);
+    useEffect(() => {
+        let intervalId;
+        if (!isPaused) {
+            intervalId = setInterval(() => {
+                setCurrentIndex((prevIndex) => (prevIndex === images.length - 1 ? 0 : prevIndex + 1));
+            }, interval);
+        }
 
-    //     return () => clearInterval(intervalId);
-    // }, [interval]);
+        return () => clearInterval(intervalId);
+    }, [interval, isPaused]);
 
-    const goToPrevSlide = () => {
-        setCurrentIndex((prevIndex) => (prevIndex === 0 ? images.length - 1 : prevIndex - 1));
+    useEffect(() => {
+        setCurrentIndex(0)
+    }, [])
+
+    const handleMouseEnter = () => {
+        setIsPaused(true);
     };
 
-    const goToNextSlide = () => {
-        setCurrentIndex((prevIndex) => (prevIndex === images.length - 1 ? 0 : prevIndex + 1));
+    const handleMouseLeave = () => {
+        setIsPaused(false);
     };
-
-    const handleClickRegisterNow = () => {
-        logEvent(analytics, 'register_now');
-    }
 
     return (
         <>
-            <div className='carouselContainer'>
+            <div className='carouselContainer'
+                onMouseDown={handleMouseEnter}
+                onMouseUp={handleMouseLeave}
+            >
                 {dataJury.map((eachData, index) => (
                     <img loading="lazy" style={{ '--currentIndex': currentIndex }} className="carousel-image" id={`slide-${index}`} src={eachData.image} alt={`photos-${index}`} />
                 ))}
@@ -80,14 +103,20 @@ const JuryCarousel = ({ interval = 5000, homePage = true }) => {
                         <div style={{ '--currentIndex': currentIndex }} className='titleCoverContainerText'>
                             <div className="testimonyContainer" style={{ color: 'white', textAlign: "center" }}>
                                 <div className="mangolaineFont" style={{ color: "#FFD990", fontSize: isTabletAndSmaller ? "3vmin" : 36 }}>
-                                    {eachData.firstQuote}
+                                    {eachData.useTransComponent ? (
+                                        <Trans i18nKey={eachData.firstQuote}>
+                                            <i>Gala Concert</i> mendorong semua peserta untuk memberikan penampilan terbaik mereka.”
+                                        </Trans>
+                                    ) : (
+                                        `${t(eachData.firstQuote)}`
+                                    )}
                                 </div>
                                 {!isTabletAndSmaller && (
                                     <div style={{ fontSize: 20, marginTop: 40 }}>
                                         {eachData.secondQuote}
                                     </div>
                                 )}
-                                <div style={{ marginTop: 24, fontSize: '2vmin' }}>
+                                <div style={{ marginTop: isMobileAndSmaller ? 4 : 24, fontSize: '2vmin' }}>
                                     {eachData.name}
                                     <div>
                                         {eachData.title}

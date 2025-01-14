@@ -7,11 +7,14 @@ import {
     CloseOutlined,
     YoutubeOutlined,
     InstagramOutlined,
-    TikTokOutlined
+    TikTokOutlined,
+    WhatsAppOutlined
 } from '@ant-design/icons';
 import { useTranslation } from "react-i18next";
 import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
+import indFlag from "../../assets/images/indFlag.jpg"
+import ukFlag from "../../assets/images/ukFlag.png"
 
 const Navbar = (props) => {
     const { isNavbarMobileOpen, setIsNavbarMobileOpen } = props
@@ -31,6 +34,7 @@ const Navbar = (props) => {
     const [currentLanguage, setCurrentLanguage] = useState(i18n.language);
 
     const handleMovePage = (path) => {
+        setIsNavbarMobileOpen(false)
         navigate(path);
     }
 
@@ -46,14 +50,27 @@ const Navbar = (props) => {
         setIsNavbarMobileOpen(false)
     }
 
+    const handleOpenYoutube = () => {
+        window.open("https://www.youtube.com/@apcsmusic", '_blank');
+    }
+
+    const handleOpenInstagram = () => {
+        window.open("https://www.instagram.com/apcs.music/?img_index=6", '_blank');
+    }
+
+    const handleOpenWhatsapp = () => {
+        window.open("https://api.whatsapp.com/send/?phone=6282213002686", '_blank');
+    }
+
     return (
         <nav>
             <div className="container-fluid mt-3" style={{ position: "absolute", color: "white", zIndex: 999 }}>
                 <div className="row d-flex justify-content-between">
                     <div className="col-2 d-flex d-none d-lg-flex justify-content-end">
-                        <YoutubeOutlined style={{ fontSize: 32 }} />
-                        <InstagramOutlined style={{ marginLeft: 18, marginRight: 18, fontSize: 32 }} />
-                        <TikTokOutlined style={{ fontSize: 32 }} />
+                        <WhatsAppOutlined style={{ fontSize: 30, marginRight: 18 }} onClick={handleOpenWhatsapp} />
+                        <YoutubeOutlined className="cursorPointer" style={{ fontSize: 32 }} onClick={handleOpenYoutube} />
+                        <InstagramOutlined className="cursorPointer" style={{ marginLeft: 18, marginRight: 18, fontSize: 32 }} onClick={handleOpenInstagram} />
+                        {/* <TikTokOutlined style={{ fontSize: 32 }} /> */}
                     </div>
                     <div className="col-2">
                         <span className="logoContainerNavbar">
@@ -66,11 +83,14 @@ const Navbar = (props) => {
                         {Object.keys(PathName).map((eachPath) => {
                             let path = PathName[eachPath]
                             let navbarName = PathName[eachPath].substring(1);
+                            if (navbarName === "contactUs") {
+                                navbarName = "CONTACT_US"
+                            }
                             return (
                                 <div
                                     style={{ height: "fit-content", fontSize: 16 }}
                                     className={`itemMenuSelected ${currentPage === path ? "selected textColorSelected" : ""}`} onClick={() => handleMovePage(path)}>
-                                    {navbarName.toUpperCase()}
+                                    {t(navbarName.toUpperCase())}
                                 </div>
                             )
                         })}
@@ -79,11 +99,13 @@ const Navbar = (props) => {
                         <div className="logoContainerMobile" style={{ zIndex: 999 }}>
                             <MenuOutlined onClick={handleOpenMenuMobile} />
                         </div>
+                        <img className="d-none d-lg-block cursorPointer" src={indFlag} alt="indFlag" style={{ width: 24, marginRight: 8 }} onClick={() => changeLanguageHandler("id")} />
                         <span onClick={() => changeLanguageHandler("id")}
                             className={`d-none d-lg-block cursorPointer ${currentLanguage === "id" ? "textColorSelected" : ""}`}>ID</span>
                         <span className="d-none d-lg-block separator"></span>
                         <span onClick={() => changeLanguageHandler("en")}
                             className={`d-none d-lg-block cursorPointer ${currentLanguage === "en" ? "textColorSelected" : ""}`}>EN</span>
+                        <img className="d-none d-lg-block cursorPointer" src={ukFlag} alt="ukFlag" style={{ width: 24, marginLeft: 8 }} onClick={() => changeLanguageHandler("en")} />
                     </div>
                 </div>
             </div>
@@ -96,9 +118,12 @@ const Navbar = (props) => {
                             {Object.keys(PathName).map((eachPath) => {
                                 let path = PathName[eachPath]
                                 let navbarName = PathName[eachPath].substring(1);
+                                if (navbarName === "contactUs") {
+                                    navbarName = "CONTACT_US"
+                                }
                                 return (
                                     <div className={`plus-jakarta-sans-font itemMenuSelected ${currentPage === path ? "selected textColorSelected" : ""}`} onClick={() => handleMovePage(path)}>
-                                        {navbarName.toUpperCase()}
+                                        {t(navbarName.toUpperCase())}
                                     </div>
                                 )
                             })}

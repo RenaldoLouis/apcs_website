@@ -1,17 +1,18 @@
-import React, { useState } from 'react';
 import {
     DesktopOutlined,
     FileOutlined,
     PieChartOutlined,
     TeamOutlined,
-    UserOutlined,
+    UsergroupAddOutlined,
+    UserOutlined
 } from '@ant-design/icons';
 import { Layout, Menu, theme } from 'antd';
+import React, { useState } from 'react';
 import { useAuth } from '../../context/DataContext';
 // import { getAuth, signOut } from "firebase/auth";
-import { useNavigate } from 'react-router-dom';
-import UserContent from './UserContent';
 import AdminContent from './AdminContent';
+import SeatingContent from './SeatingContent';
+import UserContent from './UserContent';
 
 const { Header, Footer, Sider } = Layout;
 function getItem(label, key, icon, onClick, children) {
@@ -42,6 +43,7 @@ const AdminDashboard = () => {
     const items = [
         getItem('User Data', '1', <PieChartOutlined />),
         getItem('ADmin Data', '2', <DesktopOutlined />),
+        getItem('Seating', '3', <UsergroupAddOutlined />),
         getItem('User', 'sub1', <UserOutlined />, () => { }, [
             getItem('Tom', '3'),
             getItem('Bill', '4'),
@@ -58,6 +60,8 @@ const AdminDashboard = () => {
                 return <UserContent />;
             case '2':
                 return <AdminContent />;
+            case '3':
+                return <SeatingContent />;
             default:
                 return <UserContent />;
         }

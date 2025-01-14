@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 
-const EllipsisText = ({ quote }) => {
+const EllipsisText = ({ quote, link, seeMore = false }) => {
     const [isTruncated, setIsTruncated] = useState(false);
     const [isExpanded, setIsExpanded] = useState(false);
     const quoteRef = useRef(null);
@@ -17,6 +17,10 @@ const EllipsisText = ({ quote }) => {
         return () => window.removeEventListener('resize', checkTruncation);
     }, [quote]);
 
+    const handleOpenInstagram = () => {
+        window.open(link, '_blank');
+    }
+
     return (
         <div className="quote-container">
             <p
@@ -26,7 +30,8 @@ const EllipsisText = ({ quote }) => {
                 {quote}
             </p>
             {isTruncated && !isExpanded && (
-                <button className="see-more-btn" onClick={() => setIsExpanded(true)}>
+                // <button className="see-more-btn" onClick={() => setIsExpanded(true)}>
+                <button className="see-more-btn" onClick={() => seeMore ? setIsExpanded(true) : handleOpenInstagram()}>
                     ... See More
                 </button>
             )}

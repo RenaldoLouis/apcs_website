@@ -6,11 +6,13 @@ import koreaflag from "../../assets/images/koreaflag.jpg"
 import chinaflag from "../../assets/images/chinaflag.jpg"
 import { CountryConst } from "../../constant/CountryConst";
 import AnimatedComponent from "../atom/AnimatedComponent";
+import { useAuth } from "../../context/DataContext";
 
 const GuestArtistCard = (props) => {
     const { data } = props
 
     const { name, image, country, title } = data;
+    const { isMobileAndSmaller } = useAuth();
 
     const flagIcon = (countryLocal) => {
         switch (countryLocal) {
@@ -44,7 +46,7 @@ const GuestArtistCard = (props) => {
                 </div>
                 <div style={{ marginTop: 8 }}>
                     {country.map((eachCountry) => (
-                        <img src={flagIcon(eachCountry)} alt={eachCountry} style={{ marginRight: 13 }} />
+                        <img src={flagIcon(eachCountry)} alt={eachCountry} style={{ marginRight: 13, width: isMobileAndSmaller ? 35 : 50 }} />
                     ))}
                     {title}
                 </div>

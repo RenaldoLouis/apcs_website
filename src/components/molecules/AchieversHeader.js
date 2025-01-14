@@ -1,13 +1,15 @@
-import React from "react";
+import React, { useContext } from "react";
 import lineAchievers from "../../assets/images/lineAchievers.png"
-import { useTheme } from '@mui/material/styles';
-import useMediaQuery from '@mui/material/useMediaQuery';
+import { useAuth } from "../../context/DataContext";
+import { ResponsiveText } from "../atom/ResponsiveText";
+import { useTranslation } from "react-i18next";
 
 const AchieversHeader = (props) => {
-    const { title, description, image } = props
+    const { title, subTitle, description, description2, description3, image } = props
 
-    const theme = useTheme();
-    const isTabletAndSmaller = useMediaQuery(theme.breakpoints.down('md'));
+    const { isMobileAndSmaller } = useAuth()
+
+    const { t, i18n } = useTranslation();
 
     return (
         <div className="container" style={{ marginBottom: 150 }}>
@@ -17,15 +19,15 @@ const AchieversHeader = (props) => {
                 </div>
             </div>
             <div className="row justify-center place-items-center gx-5" style={{ margin: "47px 0px 47px 0px" }}>
-                <div className={`col-md-6 ${isTabletAndSmaller ? "text-align-last-center" : "text-align-last-end"}`}>
-                    <img loading="lazy" src={image} alt="apcsLogo" style={{ width: 400 }} />
+                <div className={`col-md-6 ${isMobileAndSmaller ? "text-align-last-center" : "text-align-last-end"}`}>
+                    <img loading="lazy" src={image} alt="apcsLogo" style={{ width: isMobileAndSmaller ? "100%" : "65%" }} />
                 </div>
                 <div className="col-md-6">
-                    <div className="goldenText">
-                        {title}
-                    </div>
-                    <div style={{ color: "white" }}>
-                        {description}
+                    <ResponsiveText className="goldenText mangolaineFont" style={{ textAlign: isMobileAndSmaller ? "center" : "justify" }}>
+                        {title} <span className={i18n.language === "en" ? "" : "italicText"}> {subTitle}</span>
+                    </ResponsiveText>
+                    <div style={{ color: "white", fontSize: 18, textAlign: isMobileAndSmaller ? "center" : "justify", marginTop: isMobileAndSmaller ? 15 : 0 }}>
+                        {description} <span className={i18n.language === "en" ? "" : "italicText"}> {description2}</span> {description3}
                     </div>
                 </div>
             </div>

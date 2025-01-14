@@ -3,7 +3,7 @@ import PillButton from "../atom/PillButton";
 import { ContentPosition } from "../../constant/ContentPosition";
 
 const BackgroundWithText = (props) => {
-    const { image, logo, text, buttonText, contentPosition, centerText = true, noRelativeContainer } = props
+    const { image, logo, text, buttonText, contentPosition, centerText = true, noRelativeContainer, buttonOnclick = () => { } } = props
 
     const returnTextPosition = () => {
         switch (contentPosition) {
@@ -25,17 +25,17 @@ const BackgroundWithText = (props) => {
             <img loading="lazy" src={image} alt={`saphireAbout`} style={{ width: "100%" }} />
             <div className={returnTextPosition()} style={{ color: "white" }}>
                 <div>
-                    <img loading="lazy" src={logo} alt={logo} style={{ width: "38vmin" }} />
+                    <img loading="lazy" src={logo} alt={logo} style={{ width: "38vmin", marginBottom: 25 }} />
                 </div>
-                <div className="container">
+                <div className="container mb-2">
                     <div className={`row ${centerText ? "justify-content-md-center" : "justify-content-md-start"} text-align-center`}>
-                        <div className="col col-lg-9" style={{ fontSize: "2vmin" }}>
+                        <div className="col col-lg-10" style={{ fontSize: "2vmin" }}>
                             {text}
                         </div>
                     </div>
                 </div>
-                <div style={{ display: buttonText === "" ? "none" : "" }}>
-                    <PillButton text={buttonText} />
+                <div style={{ display: buttonText === "" ? "none" : "", marginTop: 5 }}>
+                    <PillButton text={buttonText} onClick={buttonOnclick} />
                 </div>
             </div>
         </div>

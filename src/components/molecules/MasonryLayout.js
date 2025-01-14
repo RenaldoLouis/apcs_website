@@ -6,9 +6,10 @@ import Masonry from 'react-masonry-css';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { Spin } from "antd";
 import AnimatedComponent from "../atom/AnimatedComponent";
+import { YearlyEvent } from "../../constant/YearlyEvent";
 
 const MasonryLayout = (props) => {
-    const { images } = props
+    const { images, name } = props
     const [items, setItems] = useState([]);
     const [hasMore, setHasMore] = useState(true);
     const [isGetLatestImage, setIsGetLatestImage] = useState(false);
@@ -47,8 +48,110 @@ const MasonryLayout = (props) => {
     const breakpointColumnsObj = {
         default: 3,
         1100: 2,
-        700: 1
+        700: 2
     };
+
+    let displayStyle = (index) => {
+        switch (name) {
+            case YearlyEvent.TURNINGPOINT:
+                return index === 33 ? "none" : ""
+            case YearlyEvent.MAGICALMUSICSOUNDTRACT:
+                // return index === 33 ? "none" : ""
+                break
+            case YearlyEvent.AUTUMINKOREA:
+                return index === 33 ? "none" : ""
+            case YearlyEvent.CLASSICALFESTIVALSBY:
+                return index === 30 ? "none" : ""
+            case YearlyEvent.CHRISTMASWONDERLAND:
+                return index === 33 ? "none" : ""
+            case YearlyEvent.CLASSICALFESTIVALJKT:
+                return index === 33 ? "none" : ""
+            case YearlyEvent.MASTERCLASS:
+                return index === 21 ? "none" : ""
+            default:
+            // code block
+        }
+    }
+
+    let marginBottomGalery = (index) => {
+        switch (name) {
+            case YearlyEvent.AUTUMINKOREA:
+                if (index === 27) {
+                    return 20
+                }
+                else if (index === 24) {
+                    return 20
+                }
+                else if (index === 21) {
+                    return 20
+                }
+                break;
+            case YearlyEvent.CLASSICALFESTIVALSBY:
+                if (index === 27) {
+                    return 40
+                }
+                else if (index === 24) {
+                    return 35
+                }
+                else if (index === 21) {
+                    return 40
+                }
+                break;
+            case YearlyEvent.CHRISTMASWONDERLAND:
+                if (index === 27) {
+                    return 40
+                }
+                else if (index === 24) {
+                    return 40
+                }
+                else if (index === 21) {
+                    return 50
+                }
+                else if (index === 18) {
+                    return 50
+                }
+                break;
+            case YearlyEvent.MASTERCLASS:
+                if (index === 3) {
+                    return 20
+                }
+                if (index === 6) {
+                    return 30
+                }
+                else if (index === 4) {
+                    return 20
+                }
+                else if (index === 7) {
+                    return 20
+                }
+                break;
+            case YearlyEvent.MAGICALMUSICSOUNDTRACT:
+                if (index === 27) {
+                    return 40
+                }
+                else if (index === 24) {
+                    return 40
+                }
+                else if (index === 21) {
+                    return 40
+                }
+                else if (index === 18) {
+                    return 40
+                }
+                else if (index === 31) {
+                    return 35
+                }
+                else if (index === 28) {
+                    return 35
+                }
+                else if (index === 19) {
+                    return 35
+                }
+                break;
+            default:
+            // code block
+        }
+    }
 
     return (
         <div style={{ justifyContent: "center" }}>
@@ -67,18 +170,22 @@ const MasonryLayout = (props) => {
                 className="my-masonry-grid"
                 columnClassName="my-masonry-grid_column"
             >
-                {images?.map((item, index) => (
-                    <div
-                        key={index}
-                        className={`masonry-item ${hoveredIndex === index ? 'hovered' : ''}`}
-                    // onMouseEnter={() => setHoveredIndex(index)}
-                    // onMouseLeave={() => setHoveredIndex(null)}
-                    >
-                        <AnimatedComponent animationClass="animate__fadeIn" triggerOnce={false} >
-                            <img src={item} alt={`galery-${index}`} className="masonry-img" />
-                        </AnimatedComponent>
-                    </div>
-                ))}
+                {images?.map((item, index) => {
+                    return (
+                        <div
+                            key={index}
+                            className={`masonry-item ${hoveredIndex === index ? 'hovered' : ''}`}
+                            style={{ display: displayStyle(index) }}
+                        // onMouseEnter={() => setHoveredIndex(index)}
+                        // onMouseLeave={() => setHoveredIndex(null)}
+                        >
+                            <AnimatedComponent animationClass="animate__fadeIn" triggerOnce={false} >
+                                <img src={item} alt={`galery-${index}`} className="masonry-img" style={{ paddingBottom: marginBottomGalery(index) }} />
+                                {/* <div style={{ color: "white" }}>{index + 1}</div> */}
+                            </AnimatedComponent>
+                        </div>
+                    )
+                })}
             </Masonry>
             {/* </InfiniteScroll> */}
 
