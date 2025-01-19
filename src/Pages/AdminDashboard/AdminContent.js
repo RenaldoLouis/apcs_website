@@ -1,27 +1,18 @@
-import { Button, Layout, theme } from 'antd';
+import { Layout, Table, theme } from 'antd';
 import React, { useState } from 'react';
-import Barcode from 'react-barcode';
-import apis from '../../apis';
+import { RegistrantsColumns } from '../../constant/RegistrantsColumn';
+import usePaginatedRegistrants from '../../hooks/useFetchRegistrantsData';
 
 const { Content } = Layout;
 const AdminContent = () => {
     const { token: { colorBgContainer, borderRadiusLG }, } = theme.useToken();
     const [isLoading, setIsLoading] = useState(false)
 
-    const handleClickSendEmail = () => {
-        try {
-            setIsLoading(true)
-            apis.email.sendEmail().then((res) => {
-                if (res.status === 200) {
-                    setIsLoading(false)
-                } else {
-                    setIsLoading(false)
-                }
-            })
-        } catch (e) {
+    const { registrantDatas, loading, error, page, setPage, totalPages } = usePaginatedRegistrants(10);
 
-        }
-    }
+    const handlePageChange = (pagination, filters, sorter, extra) => {
+        setPage(pagination);
+    };
 
     return (
         <Content
@@ -37,10 +28,9 @@ const AdminContent = () => {
                     borderRadius: borderRadiusLG,
                 }}
             >
-                AdminContent
+                <Table columns={RegistrantsColumns} dataSource={registrantDatas} onChange={handlePageChange} />
             </div>
-            <Button isLoading={isLoading} onClick={handleClickSendEmail} type="primary">Primary Button</Button>
-            <Barcode value="seat1" displayValue={false} />
+
         </Content>
     )
 }

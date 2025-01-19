@@ -1,6 +1,9 @@
+import { Button } from 'antd';
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import SeatPicker from "react-seat-picker";
+import apis from '../../apis';
+import Barcode from 'react-barcode';
 
 const SeatingContent = () => {
     const [selected, setSelected] = useState([]);
@@ -132,8 +135,29 @@ const SeatingContent = () => {
         setSelected((list) => list.filter((item) => item !== number));
         removeCb(row, number);
     };
+
+    const handleClickSendEmail = () => {
+        try {
+            // setIsLoading(true)
+            apis.email.sendEmail().then((res) => {
+                if (res.status === 200) {
+                    // setIsLoading(false)
+                } else {
+                    // setIsLoading(false)
+                }
+            })
+        } catch (e) {
+            console.error(e)
+        }
+    }
+
     return (
         <div className="seats">
+
+            <Button
+                // isLoading={isLoading} 
+                onClick={handleClickSendEmail} type="primary">Primary Button</Button>
+            <Barcode value="seat1" displayValue={false} />
             <div className="screens">
                 <h3 className="screen">SCREEN</h3>
             </div>
