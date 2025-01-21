@@ -19,13 +19,13 @@ const LandingPage = React.memo((props) => {
     return (
         <article className="landingContiner" >
             {isShowWelcome ? (
-                <img src={taleMusicalJourney} className="fade-in-image-welcome" />
+                <img alt="welcomeImageDesc" src={taleMusicalJourney} className="welcomeImage fade-in-image-welcome" />
             ) : (
                 <div className="fadeout-out-node">
-                    <img src={node1} className="fade-in-image" />
-                    <img src={node2} className="fade-in-image2" />
-                    <img src={node3} className="fade-in-image3" />
-                    <img src={node4} className="fade-in-image4" />
+                    <img alt="node1" src={node1} className="nodeWelcome fade-in-image" />
+                    <img alt="node2" src={node2} className="nodeWelcome fade-in-image2" />
+                    <img alt="node3" src={node3} className="nodeWelcome fade-in-image3" />
+                    <img alt="node4" src={node4} className="nodeWelcome fade-in-image4" />
                 </div>
             )}
         </article >

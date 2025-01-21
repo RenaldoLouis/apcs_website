@@ -142,3 +142,15 @@
         transform: translateY(-50px);
     }
 }
+
+@media (max-width : 375px) {
+    .nodeWelcome {
+        width: 20vw;
+    }
+}
+
+@media (max-width : 425px) {
+    .welcomeImage {
+        width: 100vw;
+    }
+}
