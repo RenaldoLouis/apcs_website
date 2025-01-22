@@ -17,7 +17,7 @@ const ListOfGaleryRow = (props) => {
     return (
         <div className="gallery-container">
             {chunkedImages?.map((row, rowIndex) => (
-                <div key={rowIndex} className="gallery-row">
+                <div key={`${row}-${rowIndex}`} className="gallery-row">
                     {row.map((item, colIndex) => (
                         <div key={colIndex} className="gallery-item">
                             <AnimatedComponent animationClass="animate__fadeIn" triggerOnce={false}>

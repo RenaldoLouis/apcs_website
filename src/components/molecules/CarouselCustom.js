@@ -91,7 +91,7 @@ const Carousel = ({ interval = 5000, homePage = true }) => {
 
             >
                 {images.map((eachImage, index) => (
-                    <img loading="lazy" style={{ '--currentIndex': currentIndex }} className="carousel-image" id={`slide-${index}`} src={eachImage} alt={`photos-${index}`} />
+                    <img key={`carousel-${index}`} loading="lazy" style={{ '--currentIndex': currentIndex }} className="carousel-image" id={`slide-${index}`} src={eachImage} alt={`photos-${index}`} />
                 ))}
                 <div className="carousel-navigation">
                     <button className="carousel-prev" onClick={goToPrevSlide}>

@@ -88,6 +88,7 @@ const Navbar = (props) => {
                             }
                             return (
                                 <div
+                                    key={`${eachPath}`}
                                     style={{ height: "fit-content", fontSize: 16 }}
                                     className={`itemMenuSelected ${currentPage === path ? "selected textColorSelected" : ""}`} onClick={() => handleMovePage(path)}>
                                     {t(navbarName.toUpperCase())}
@@ -122,7 +123,9 @@ const Navbar = (props) => {
                                     navbarName = "CONTACT_US"
                                 }
                                 return (
-                                    <div className={`plus-jakarta-sans-font itemMenuSelected ${currentPage === path ? "selected textColorSelected" : ""}`} onClick={() => handleMovePage(path)}>
+                                    <div
+                                        key={`navbarContainerMobile-${eachPath}`}
+                                        className={`plus-jakarta-sans-font itemMenuSelected ${currentPage === path ? "selected textColorSelected" : ""}`} onClick={() => handleMovePage(path)}>
                                         {t(navbarName.toUpperCase())}
                                     </div>
                                 )

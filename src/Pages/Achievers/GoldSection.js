@@ -51,17 +51,17 @@ const GoldSection = () => {
                 </div>
             </div>
 
-            <div class="container">
-                <div class="row">
-                    <div class="col text-align-center textColor" style={{ marginBottom: 50 }}>
+            <div className="container">
+                <div className="row">
+                    <div className="col text-align-center textColor" style={{ marginBottom: 50 }}>
                         {t("discoverMore")}:
                     </div>
                 </div>
             </div>
 
-            <div class="container">
-                <div class="row">
-                    <div class="col-12 col-md-3 gy-5 gy-md-1">
+            <div className="container">
+                <div className="row">
+                    <div className="col-12 col-md-3 gy-5 gy-md-1">
                         {/* <Button
                             style={{
                                 borderRadius: 5,
@@ -109,7 +109,7 @@ const GoldSection = () => {
                             </Select>
                         </FormControl>
                     </div>
-                    <div class="col-12 col-md-3 gy-5 gy-md-1">
+                    <div className="col-12 col-md-3 gy-5 gy-md-1">
                         {/* <Button
                             style={{
                                 borderRadius: 5,
@@ -158,7 +158,7 @@ const GoldSection = () => {
                             </Select>
                         </FormControl>
                     </div>
-                    <div class="col-12 col-md-3 gy-5 gy-md-1">
+                    <div className="col-12 col-md-3 gy-5 gy-md-1">
                         {/* <Button
                             style={{
                                 borderRadius: 5,
@@ -207,7 +207,7 @@ const GoldSection = () => {
                             </Select>
                         </FormControl>
                     </div>
-                    <div class="col-12 col-md-3 gy-5 gy-md-1">
+                    <div className="col-12 col-md-3 gy-5 gy-md-1">
                         <FormControl fullWidth>
                             <InputLabel
                                 className="mosafinFont"

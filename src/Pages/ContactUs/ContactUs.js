@@ -110,12 +110,12 @@ const ContactUs = () => {
     }, []);
 
     return (
-        <div class="container-fluid mx-0 my-0 px-0 py-0" style={{ background: "black" }}>
-            <div class="row gx-0 gy-0">
-                <div class="col-sm-12 col-md-7">
+        <div className="container-fluid mx-0 my-0 px-0 py-0" style={{ background: "black" }}>
+            <div className="row gx-0 gy-0">
+                <div className="col-sm-12 col-md-7">
                     <img src={contactUsPageBackground} style={{ width: '100%' }} />
                 </div>
-                <div class="col-sm-12 col-md-5">
+                <div className="col-sm-12 col-md-5">
                     <div className="d-flex flex-column justify-content-center" style={{ height: "100%" }}>
                         <div className="container" style={{ color: "white" }}>
                             <div className="row">

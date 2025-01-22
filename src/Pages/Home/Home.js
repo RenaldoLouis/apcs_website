@@ -138,9 +138,9 @@ const Home = (props) => {
 
             <JuryCarousel />
 
-            <div class="container-fluid" style={{ background: "black" }}>
-                <div class="row">
-                    <div class="col  mangolaineFont goldenTextColor text-align-center" style={{ fontSize: '9vmin' }}>
+            <div className="container-fluid" style={{ background: "black" }}>
+                <div className="row">
+                    <div className="col  mangolaineFont goldenTextColor text-align-center" style={{ fontSize: '9vmin' }}>
                         OUR LATEST EVENTS
                     </div>
                 </div>
@@ -153,7 +153,7 @@ const Home = (props) => {
                     <div className="row text-align-center ">
                         <div className="col gx-5 gy-3">
                             {completeListOfSponsor.map((eachSponsor, index) => (
-                                <img className="mb-2" src={eachSponsor} alt={"eachSponsor"} style={{ marginRight: 12, width: index === 1 ? "18vmin" : index === 3 ? "13vmin" : index === 6 ? "10vmin" : "12vmin" }} />
+                                <img key={`completeListOfSponsor1-${index}`} className="mb-2" src={eachSponsor} alt={"eachSponsor"} style={{ marginRight: 12, width: index === 1 ? "18vmin" : index === 3 ? "13vmin" : index === 6 ? "10vmin" : "12vmin" }} />
                             ))}
                         </div>
                     </div>
@@ -164,14 +164,14 @@ const Home = (props) => {
                         <div className="row text-align-center">
                             <div className="col">
                                 {listOfSponsor.map((eachSponsor, index) => (
-                                    <img src={eachSponsor} alt={"eachSponsor"} className=" me-5" style={{ width: index === 1 ? "18vmin" : index === 3 ? "13vmin" : "15vmin" }} />
+                                    <img key={`eachSponsor1-${index}`} src={eachSponsor} alt={"eachSponsor"} className=" me-5" style={{ width: index === 1 ? "18vmin" : index === 3 ? "13vmin" : "15vmin" }} />
                                 ))}
                             </div>
                         </div>
                         <div className="row text-align-center">
                             <div className="col">
                                 {listOfSponsor2.map((eachSponsor, index) => (
-                                    <img src={eachSponsor} alt={"eachSponsor"} className=" me-5" style={{ width: index === 2 ? "8vmin" : "15vmin" }} />
+                                    <img key={`eachSponsor2-${index}`} src={eachSponsor} alt={"eachSponsor"} className=" me-5" style={{ width: index === 2 ? "8vmin" : "15vmin" }} />
                                 ))}
                             </div>
                         </div>

@@ -45,11 +45,11 @@ const AdminDashboard = () => {
         getItem('ADmin Data', '2', <DesktopOutlined />),
         getItem('Seating', '3', <UsergroupAddOutlined />),
         getItem('User', 'sub1', <UserOutlined />, () => { }, [
-            getItem('Tom', '3'),
-            getItem('Bill', '4'),
-            getItem('Alex', '5'),
+            getItem('Tom', '4'),
+            getItem('Bill', '5'),
+            getItem('Alex', '6'),
         ]),
-        getItem('Team', 'sub2', <TeamOutlined />, () => { }, [getItem('Team 1', '6'), getItem('Team 2', '8')]),
+        getItem('Team', 'sub2', <TeamOutlined />, () => { }, [getItem('Team 1', '7'), getItem('Team 2', '8')]),
         getItem('Sign out', '9', <FileOutlined />, handleSignOut),
     ];
 

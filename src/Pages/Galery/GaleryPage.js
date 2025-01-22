@@ -407,9 +407,9 @@ const GaleryPage = () => {
             ) : (
                 <>
                     {galeryContent?.video && (
-                        <div class="container" style={{ marginTop: 64 }}>
-                            <div class="row">
-                                <div class="col">
+                        <div className="container" style={{ marginTop: 64 }}>
+                            <div className="row">
+                                <div className="col">
                                     <CoverVideo video={galeryContent?.video} />
                                 </div>
                             </div>
@@ -424,9 +424,9 @@ const GaleryPage = () => {
                         <span className="">{galeryContent?.subTitle}</span>
                     </HeaderTitle>
 
-                    <div class="container">
-                        <div class="row">
-                            <div class={galeryContent?.name === YearlyEvent.CLASSICALFESTIVALSBY ? "col-lg-9 mx-auto d-flex flex-column justify-content-center align-items-center" : "col-lg-6 mx-auto d-flex flex-column justify-content-center align-items-center"}>
+                    <div className="container">
+                        <div className="row">
+                            <div className={galeryContent?.name === YearlyEvent.CLASSICALFESTIVALSBY ? "col-lg-9 mx-auto d-flex flex-column justify-content-center align-items-center" : "col-lg-6 mx-auto d-flex flex-column justify-content-center align-items-center"}>
                                 <div className="italicText textColor mt-4 mb-4">
                                     <Typograhpy
                                         text={"featuring"}

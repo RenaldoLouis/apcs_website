@@ -58,12 +58,12 @@ const Footer = () => {
         <footer className="footer">
             <div className="container-fluid">
                 {isTabletAndSmaller ? (
-                    <div class="d-flex flex-column">
-                        <div class="p-2">
+                    <div className="d-flex flex-column">
+                        <div className="p-2">
                             <img loading="lazy" src={apcLogo} alt="apcsLogo" style={{ height: "6rem" }} />
                         </div>
                         <div className="d-flex flex-column align-items-start">
-                            <div class="p-2 text-align-start" style={{ display: "grid", gap: 5 }}>
+                            <div className="p-2 text-align-start" style={{ display: "grid", gap: 5 }}>
                                 <div className="mb-3" style={{ fontWeight: 900 }}>
                                     APCS
                                 </div>
@@ -75,6 +75,7 @@ const Footer = () => {
                                     }
                                     return (
                                         <div
+                                            key={`footer-${eachPath}`}
                                             style={{ fontSize: 16 }}
                                             className={`mb-1 itemMenuSelected ${currentPage === path ? "selected textColorSelected" : ""}`}
                                             onClick={() => handleMovePage(path)}>
@@ -83,7 +84,7 @@ const Footer = () => {
                                     )
                                 })}
                             </div>
-                            <div class="p-2 text-align-start">
+                            <div className="p-2 text-align-start">
                                 <div className="mb-3" style={{ fontWeight: 900 }}>
                                     {t("contact")}
                                 </div>
@@ -98,7 +99,7 @@ const Footer = () => {
                                     (+62) 822-1300-2686
                                 </div>
                             </div>
-                            <div class="p-2 text-align-start mb-5">
+                            <div className="p-2 text-align-start mb-5">
                                 <div className="mb-3" style={{ fontWeight: 900 }}>
                                     Location
                                 </div>
@@ -109,12 +110,12 @@ const Footer = () => {
                                     Jakarta, Indonesia
                                 </div>
                             </div>
-                            <div class="p-2 align-self-center">
+                            <div className="p-2 align-self-center">
                                 <YoutubeOutlined style={{ fontSize: 32 }} />
                                 <InstagramOutlined style={{ marginLeft: 36, marginRight: 36, fontSize: 32 }} />
                                 <TikTokOutlined style={{ fontSize: 32 }} />
                             </div>
-                            <div class="p-2 align-self-center">
+                            <div className="p-2 align-self-center">
                                 (c)2024 APCS. All Rights Reserved
                             </div>
                         </div>
@@ -136,6 +137,7 @@ const Footer = () => {
                                 }
                                 return (
                                     <div
+                                        key={`footer2-${eachPath}`}
                                         style={{ fontSize: 16 }}
                                         className={`mb-1 itemMenuSelected ${currentPage === path ? "selected textColorSelected" : ""}`}
                                         onClick={() => handleMovePage(path)}>

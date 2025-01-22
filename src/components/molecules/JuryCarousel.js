@@ -96,11 +96,11 @@ const JuryCarousel = ({ interval = 10000, homePage = true }) => {
                 onMouseUp={handleMouseLeave}
             >
                 {dataJury.map((eachData, index) => (
-                    <img loading="lazy" style={{ '--currentIndex': currentIndex }} className="carousel-image" id={`slide-${index}`} src={eachData.image} alt={`photos-${index}`} />
+                    <img key={`datajury1-${index}`} loading="lazy" style={{ '--currentIndex': currentIndex }} className="carousel-image" id={`slide-${index}`} src={eachData.image} alt={`photos-${index}`} />
                 ))}
                 <div className='titleCoverContainer'>
                     {dataJury.map((eachData, index) => (
-                        <div style={{ '--currentIndex': currentIndex }} className='titleCoverContainerText'>
+                        <div key={`datajury2-${index}`} style={{ '--currentIndex': currentIndex }} className='titleCoverContainerText'>
                             <div className="testimonyContainer" style={{ color: 'white', textAlign: "center" }}>
                                 <div className="mangolaineFont" style={{ color: "#FFD990", fontSize: isTabletAndSmaller ? "3vmin" : 36 }}>
                                     {eachData.useTransComponent ? (
