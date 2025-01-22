@@ -12,48 +12,78 @@ const { Content } = Layout;
 
 const styles = StyleSheet.create({
     page: {
-        flexDirection: 'column',
-        backgroundColor: '#FFFFFF',
+        backgroundColor: '#F9F9F9',
+        padding: 50,
+        border: '5px solid #4CAF50',
+        borderRadius: 10,
+    },
+    borderContainer: {
+        border: '3px solid #000',
         padding: 20,
+        borderRadius: 10,
     },
     title: {
-        fontSize: 24,
+        fontSize: 32,
         textAlign: 'center',
         marginBottom: 20,
         color: '#4CAF50',
         fontWeight: 'bold',
+        textTransform: 'uppercase',
     },
-    section: {
-        margin: 10,
-        padding: 10,
-        flexGrow: 1,
+    subtitle: {
+        fontSize: 18,
         textAlign: 'center',
+        marginBottom: 30,
+        color: '#333',
+    },
+    bodyText: {
+        fontSize: 18,
+        textAlign: 'center',
+        marginBottom: 10,
+        color: '#555',
     },
     recipientName: {
         fontSize: 28,
         fontWeight: 'bold',
-        marginBottom: 10,
+        textAlign: 'center',
+        marginTop: 10,
+        marginBottom: 20,
+        textDecoration: 'underline',
     },
     courseTitle: {
         fontSize: 20,
-        marginTop: 20,
-        marginBottom: 10,
+        marginTop: 10,
+        marginBottom: 20,
+        textAlign: 'center',
         fontWeight: 'bold',
+        color: '#555',
     },
     completionDate: {
         fontSize: 16,
-        marginTop: 20,
+        marginTop: 30,
+        textAlign: 'center',
+        color: '#333',
     },
-    signature: {
+    signatureContainer: {
         marginTop: 50,
+        textAlign: 'center',
+    },
+    signatureLabel: {
         fontSize: 16,
         fontStyle: 'italic',
+        marginBottom: 10,
     },
     signatureLine: {
+        borderBottom: '2px solid black',
+        width: 200,
+        margin: '0 auto',
         marginTop: 10,
-        borderBottom: '1px solid black',
-        width: '50%',
-        alignSelf: 'center',
+    },
+    footerText: {
+        fontSize: 12,
+        textAlign: 'center',
+        marginTop: 30,
+        color: '#888',
     }
 });
 
@@ -84,11 +114,23 @@ const AdminContent = () => {
                 <BlobProvider document={
                     <Document>
                         <Page size="A4" style={styles.page}>
-                            <View style={styles.section}>
-                                <Text>{data.name}</Text>
-                            </View>
-                            <View style={styles.section}>
-                                <Text>Section #2</Text>
+                            <View style={styles.borderContainer}>
+                                <Text style={styles.title}>Certificate of Completion</Text>
+                                <Text style={styles.subtitle}>This is to certify that</Text>
+
+                                <Text style={styles.recipientName}>{data.name}</Text>
+
+                                <Text style={styles.bodyText}>has successfully completed the course</Text>
+                                <Text style={styles.courseTitle}>{data.courseTitle}</Text>
+
+                                <Text style={styles.completionDate}>Date of Completion: {data.date}</Text>
+
+                                <View style={styles.signatureContainer}>
+                                    <Text style={styles.signatureLabel}>Authorized Signature</Text>
+                                    <View style={styles.signatureLine}></View>
+                                </View>
+
+                                <Text style={styles.footerText}>This certificate is presented with great honor and recognition.</Text>
                             </View>
                         </Page>
                     </Document>
