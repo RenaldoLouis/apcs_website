@@ -14,7 +14,7 @@ const LandingPage = React.memo((props) => {
     useEffect(() => {
         setTimeout(() => { setIsShowWelcome(true) }, 2000)
         setTimeout(() => { navigate("/home"); }, 3000)
-    }, [])
+    }, [navigate])
 
     return (
         <article className="landingContiner" >
