@@ -19,8 +19,8 @@ import { useSwipeable } from 'react-swipeable';
 import { useTranslation } from 'react-i18next';
 
 const images = [
-    banner2,
     banner5,
+    banner2,
     banner1,
     banner6,
     banner7,
@@ -45,7 +45,7 @@ const Carousel = ({ interval = 5000, homePage = true }) => {
         }
 
         return () => clearInterval(intervalId);
-    }, [interval, isPaused, images.length]);
+    }, [interval, isPaused]);
 
     const goToPrevSlide = () => {
         setCurrentIndex((prevIndex) => (prevIndex === 0 ? images.length - 1 : prevIndex - 1));
