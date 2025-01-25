@@ -17,6 +17,7 @@ const SapphireWinnerSection = (props) => {
     const { t } = useTranslation();
 
     const [diamondDataSorted, setDiamondDataSorted] = useState([])
+    const [sapphireDataSorted, setSapphireDataSorted] = useState([])
     const eventOrder = Object.values(ListOfEventAchiever);
 
     useEffect(() => {
@@ -40,6 +41,27 @@ const SapphireWinnerSection = (props) => {
         setDiamondDataSorted(tempData)
     }, [dataDiamond])
 
+    useEffect(() => {
+        let clonedData = [...dataSaphire]
+        let tempData = clonedData.sort((a, b) => {
+            if (a.name < b.name) {
+                return -1;
+            }
+            if (a.name > b.name) {
+                return 1;
+            }
+            return 0;
+        });
+
+        //to sort the event list
+        tempData.forEach(person => {
+            person.event.sort((a, b) => {
+                return eventOrder.indexOf(a) - eventOrder.indexOf(b);
+            });
+        });
+        setSapphireDataSorted(tempData)
+    }, [dataSaphire])
+
     return (
         <div style={{ paddingTop: 150, backgroundImage: `url(${textureBackgroundLong})`, backgroundSize: "contain" }}>
             <AchieversHeader
@@ -49,18 +71,20 @@ const SapphireWinnerSection = (props) => {
                 description={t("Acv2")}
                 description2={t("Acv2A")}
                 description3={t("Acv2B")} />
-            <div className="container color-white">
-                <div className="row gy-5 gy-md-1">
-                    {dataSaphire.map((eachData, index) => {
-                        // const colClass = index === 24 ? "col-12 col-md-5 offset-md-4" : "col-12 col-md-4";
-                        return (
-                            <div className={"col-6 col-md-4"} style={{ padding: isMobileAndSmaller ? 5 : 35 }}>
-                                <ProfileToYoutube data={eachData} />
-                            </div>
-                        )
-                    })}
+            {sapphireDataSorted.length > 0 && (
+                <div className="container color-white">
+                    <div className="row gy-5 gy-md-1">
+                        {sapphireDataSorted.map((eachData, index) => {
+                            // const colClass = index === 24 ? "col-12 col-md-5 offset-md-4" : "col-12 col-md-4";
+                            return (
+                                <div className={"col-6 col-md-4"} style={{ padding: isMobileAndSmaller ? 5 : 35 }}>
+                                    <ProfileToYoutube data={eachData} />
+                                </div>
+                            )
+                        })}
+                    </div>
                 </div>
-            </div>
+            )}
 
             <div style={{ paddingTop: 150 }}>
                 <AchieversHeader
