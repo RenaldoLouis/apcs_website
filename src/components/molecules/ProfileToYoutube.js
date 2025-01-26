@@ -18,7 +18,7 @@ const ProfileToYoutube = (props) => {
         <>
             <AnimatedComponent animationClass="animate__fadeIn">
                 {!noImage && (
-                    <img loading="lazy" src={image} alt='saphire2' style={{ width: "100%" }} />
+                    <img loading="lazy" src={image} alt='saphire2' style={{ width: "100%", height: "280px", objectFit: "cover" }} />
                 )}
                 <div>
                     <div className="flex justify-spaceBetween fontSizeSubHeader" style={{ marginTop: 40, fontWeight: "bold" }}>

@@ -7,7 +7,7 @@ export const dataDiamond = [
         name: "Abigail Caitlyn Electra",
         country: ListOfCity.SMR,
         YoutubeLink: "https://www.youtube.com/watch?v=sijinYGOZnw&ab_channel=APIANOCONCERTOSERIES",
-        event: [ListOfEventAchiever["2023CHRISTMAS"]]
+        event: [ListOfEventAchiever["2024APCSCLASSIC"], ListOfEventAchiever["2023CHRISTMAS"]]
     },
     {
         name: "Abigail Kimberly Indrajaya",
@@ -49,7 +49,7 @@ export const dataDiamond = [
         name: "Athanasius Warren Jonatan",
         country: ListOfCity.JKT,
         YoutubeLink: "https://www.youtube.com/watch?v=-EwR6Gkue9s&ab_channel=APIANOCONCERTOSERIES",
-        event: [ListOfEventAchiever["2023CLASSICJKT"]]
+        event: [ListOfEventAchiever["2024APCSCLASSIC"], ListOfEventAchiever["2023CLASSICJKT"]]
     },
     {
         name: "Ann Shereen Yao & Adrianne Shanelle Yao",
@@ -61,7 +61,7 @@ export const dataDiamond = [
         name: "Arissa Eillin Budiono",
         country: ListOfCity.PLB,
         YoutubeLink: "https://www.youtube.com/watch?v=-p6JIOod6_c&ab_channel=APIANOCONCERTOSERIES",
-        event: [ListOfEventAchiever["2022MAGICMUSIC"], ListOfEventAchiever["2023CHRISTMAS"]]
+        event: [ListOfEventAchiever["2024APCSCLASSIC"], ListOfEventAchiever["2023CHRISTMAS"], ListOfEventAchiever["2022MAGICMUSIC"]]
     },
     {
         name: "Ashton Micah Poh",
@@ -91,7 +91,7 @@ export const dataDiamond = [
         name: "Cathleen Scarlett Hayasi",
         country: ListOfCity.JKT,
         YoutubeLink: "https://www.youtube.com/watch?v=D1ct_m0XJtY&ab_channel=APIANOCONCERTOSERIES",
-        event: [ListOfEventAchiever["2022MAGICMUSIC"], ListOfEventAchiever["2023CHRISTMAS"], ListOfEventAchiever["2023CLASSICJKT"]]
+        event: [ListOfEventAchiever["2024APCSCLASSIC"], ListOfEventAchiever["2022MAGICMUSIC"], ListOfEventAchiever["2023CHRISTMAS"], ListOfEventAchiever["2023CLASSICJKT"]]
     },
     {
         name: "Clarissa Stefanny",
@@ -109,7 +109,7 @@ export const dataDiamond = [
         name: "Gizelle Everly Wantana",
         country: ListOfCity.JKT,
         YoutubeLink: "https://www.youtube.com/watch?v=pSzly_St6yY&ab_channel=APIANOCONCERTOSERIES",
-        event: [ListOfEventAchiever["2023CHRISTMAS"]]
+        event: [ListOfEventAchiever["2024APCSCLASSIC"], ListOfEventAchiever["2023CHRISTMAS"]]
     },
     {
         name: "Joane Gabriella Ianputri & Josephine Mulyani",
@@ -133,7 +133,7 @@ export const dataDiamond = [
         name: "Madelynn Esmee Theodore",
         country: ListOfCity.SRB,
         YoutubeLink: "https://www.youtube.com/watch?v=7WAlZEqbdZ8&ab_channel=APIANOCONCERTOSERIES",
-        event: [ListOfEventAchiever["2023CHRISTMAS"]]
+        event: [ListOfEventAchiever["2024APCSCLASSIC"], ListOfEventAchiever["2023CHRISTMAS"]]
     },
     {
         name: "Mary Kate Onggowijoyo",
@@ -157,7 +157,7 @@ export const dataDiamond = [
         name: "Shannon Richelle Johannanto",
         country: "Semarang",
         YoutubeLink: "https://www.youtube.com/watch?v=KBymvNeAFIc&ab_channel=APIANOCONCERTOSERIES",
-        event: [ListOfEventAchiever["2023CHRISTMAS"]]
+        event: [ListOfEventAchiever["2024APCSCLASSIC"], ListOfEventAchiever["2023CHRISTMAS"]]
     },
     {
         name: "Sheera Lie Susanto",
@@ -169,7 +169,7 @@ export const dataDiamond = [
         name: "Skyler Frensi Lie",
         country: ListOfCity.JKT,
         YoutubeLink: "-",
-        event: [ListOfEventAchiever["2023CHRISTMAS"]]
+        event: [ListOfEventAchiever["2024APCSCLASSIC"], ListOfEventAchiever["2023CHRISTMAS"]]
     },
     {
         name: "Stela Lie Susanto",
@@ -201,13 +201,13 @@ export const dataDiamond = [
         name: "Calya Anara Wijaya",
         country: ListOfCity.JKT,
         YoutubeLink: "https://www.youtube.com/watch?v=F1kpOEjWYQg&ab_channel=APIANOCONCERTOSERIES",
-        event: [ListOfEventAchiever["2023CLASSICJKT"]]
+        event: [ListOfEventAchiever["2024APCSCLASSIC"], ListOfEventAchiever["2023CLASSICJKT"]]
     },
     {
         name: "Cheryn Pandora & Edenia Maureen",
         country: ListOfCity.SRB,
         YoutubeLink: "",
-        event: [ListOfEventAchiever["2023CLASSICJKT"]]
+        event: [ListOfEventAchiever["2024APCSCLASSIC"], ListOfEventAchiever["2023CLASSICJKT"]]
     },
     {
         name: "Chyra Yemima Ekaputra",
@@ -225,13 +225,13 @@ export const dataDiamond = [
         name: "Claire Hartono",
         country: ListOfCity.JKT,
         YoutubeLink: "https://www.youtube.com/watch?v=mxSDoydDj6g&ab_channel=APIANOCONCERTOSERIES",
-        event: [ListOfEventAchiever["2023CLASSICJKT"]]
+        event: [ListOfEventAchiever["2024APCSCLASSIC"], ListOfEventAchiever["2023CLASSICJKT"]]
     },
     {
         name: "Clayton Oliver Hayasi",
         country: ListOfCity.JKT,
         YoutubeLink: "https://www.youtube.com/watch?v=Fke-4LVyGno&ab_channel=APIANOCONCERTOSERIES",
-        event: [ListOfEventAchiever["2023CLASSICJKT"]]
+        event: [ListOfEventAchiever["2024APCSCLASSIC"], ListOfEventAchiever["2023CLASSICJKT"]]
     },
     {
         name: "Clayton Oliver Hayasi & Cathleen Scarlett Hayasi",
@@ -297,7 +297,7 @@ export const dataDiamond = [
         name: "Katherine Natalie Mulyadi",
         country: ListOfCity.BGR,
         YoutubeLink: "https://youtu.be/apgUhkXAIVs",
-        event: [ListOfEventAchiever["2023CLASSICJKT"]]
+        event: [ListOfEventAchiever["2024APCSCLASSIC"], ListOfEventAchiever["2023CLASSICJKT"]]
     },
     {
         name: "Lawrence Cedric Senjaya",
@@ -327,7 +327,7 @@ export const dataDiamond = [
         name: "Maryam Almayrha Nugraha",
         country: ListOfCity.JKT,
         YoutubeLink: "",
-        event: [ListOfEventAchiever["2023CLASSICJKT"]]
+        event: [ListOfEventAchiever["2024APCSCLASSIC"], ListOfEventAchiever["2023CLASSICJKT"]]
     },
     {
         name: "Nicole Joy Nathan",
@@ -369,7 +369,7 @@ export const dataDiamond = [
         name: "Skye Hartono",
         country: ListOfCity.JKT,
         YoutubeLink: "",
-        event: [ListOfEventAchiever["2023CLASSICJKT"]]
+        event: [ListOfEventAchiever["2024APCSCLASSIC"], ListOfEventAchiever["2023CLASSICJKT"]]
     },
     {
         name: "Stephanie Gwen Liem",
@@ -483,7 +483,7 @@ export const dataDiamond = [
         "name": "Jordan Eli Santoso",
         "country": ListOfCity.JKT,
         "YoutubeLink": "https://www.youtube.com/watch?v=x1A-bb3hh4I&ab_channel=APIANOCONCERTOSERIES",
-        "event": [ListOfEventAchiever["2023CLASSICSRBY"]]
+        "event": [ListOfEventAchiever["2024APCSCLASSIC"], ListOfEventAchiever["2023CLASSICSRBY"]]
     },
     {
         "name": "Joshua Kevin Hudyana",
@@ -513,7 +513,7 @@ export const dataDiamond = [
         "name": "Michael Phillipe Andree",
         "country": ListOfCity.SRB,
         "YoutubeLink": "https://www.youtube.com/watch?v=9Xgu6PLNNg0&ab_channel=APIANOCONCERTOSERIES",
-        "event": [ListOfEventAchiever["2023CLASSICSRBY"]]
+        "event": [ListOfEventAchiever["2024APCSCLASSIC"], ListOfEventAchiever["2023CLASSICSRBY"]]
     },
     {
         "name": "Michelle Aileen Harjarudra",
@@ -537,7 +537,7 @@ export const dataDiamond = [
         "name": "Pauline Lim",
         "country": ListOfCity.PLB,
         "YoutubeLink": "-",
-        "event": [ListOfEventAchiever["2023CLASSICSRBY"]]
+        "event": [ListOfEventAchiever["2024APCSCLASSIC"], ListOfEventAchiever["2023CLASSICSRBY"]]
     },
     {
         "name": "Reyna Gratia Ivanka",
@@ -597,7 +597,7 @@ export const dataDiamond = [
         "name": "Celine Gabriella Amijaya",
         "country": ListOfCity.SMR,
         "YoutubeLink": "https://www.youtube.com/watch?v=ABfhBsL9dpw&ab_channel=APIANOCONCERTOSERIES",
-        "event": [ListOfEventAchiever["2022MAGICMUSIC"]]
+        "event": [ListOfEventAchiever["2024APCSCLASSIC"], ListOfEventAchiever["2022MAGICMUSIC"]]
     },
     {
         "name": "Celine Lie",
@@ -609,7 +609,7 @@ export const dataDiamond = [
         "name": "Charice Elleanore Konggo Budiman",
         "country": ListOfCity.SRB,
         "YoutubeLink": "https://www.youtube.com/watch?v=NewtKsNhs_4&ab_channel=APIANOCONCERTOSERIES",
-        "event": [ListOfEventAchiever["2022MAGICMUSIC"]]
+        "event": [ListOfEventAchiever["2024APCSCLASSIC"], ListOfEventAchiever["2022MAGICMUSIC"]]
     },
     {
         "name": "Eunike Alexandra Winoto",
@@ -633,7 +633,7 @@ export const dataDiamond = [
         "name": "Gwyneth Madeline Liechelle Fanto & Melodi Tirza",
         "country": ListOfCity.YKT,
         "YoutubeLink": "https://www.youtube.com/watch?v=Mdqj3pjkQwc&ab_channel=APIANOCONCERTOSERIESS",
-        "event": [ListOfEventAchiever["2022MAGICMUSIC"]]
+        "event": [ListOfEventAchiever["2024APCSCLASSIC"], ListOfEventAchiever["2022MAGICMUSIC"]]
     },
     {
         "name": "Inez Indriani",
@@ -729,7 +729,7 @@ export const dataDiamond = [
         "name": "Sam Joseph Arthur",
         "country": ListOfCity.SMR,
         "YoutubeLink": "https://www.youtube.com/watch?v=f5__60AfXpU&ab_channel=APIANOCONCERTOSERIES",
-        "event": [ListOfEventAchiever["2022MAGICMUSIC"]]
+        "event": [ListOfEventAchiever["2024APCSCLASSIC"], ListOfEventAchiever["2022MAGICMUSIC"]]
     },
     {
         "name": "Sidney Loo",
@@ -760,6 +760,776 @@ export const dataDiamond = [
         "country": ListOfCity.TNG,
         "YoutubeLink": "https://www.youtube.com/watch?v=R_Cju-VofH4&ab_channel=APIANOCONCERTOSERIES",
         "event": [ListOfEventAchiever["2022MAGICMUSIC"]]
-    }
+    },
+    {
+        "name": "Miguela Naraya Ng",
+        "image": "dummyimage",
+        "country": ListOfCity.JKT,
+        "YoutubeLink": "",
+        "event": [ListOfEventAchiever["2024APCSCLASSIC"]],
+    },
+    {
+        "name": "Charlotte Theodora Chia",
+        "image": "dummyimage",
+        "country": ListOfCity.JKT,
+        "YoutubeLink": "",
+        "event": [ListOfEventAchiever["2024APCSCLASSIC"]],
+    },
+    {
+        "name": "Sharlyn Chandra",
+        "image": "dummyimage",
+        "country": ListOfCity.SRB,
+        "YoutubeLink": "",
+        "event": [ListOfEventAchiever["2024APCSCLASSIC"]],
+    },
+    {
+        "name": "William Anthony Mulyadi",
+        "image": "dummyimage",
+        "country": "Bogor",
+        "YoutubeLink": "",
+        "event": [ListOfEventAchiever["2024APCSCLASSIC"]],
+    },
+    {
+        "name": "Chloe Sinjaya",
+        "image": "dummyimage",
+        "country": "Medan",
+        "YoutubeLink": "",
+        "event": [ListOfEventAchiever["2024APCSCLASSIC"]],
+    },
+    {
+        "name": "Louis Mclawrence Hendra",
+        "image": "dummyimage",
+        "country": ListOfCity.JKT,
+        "YoutubeLink": "",
+        "event": [ListOfEventAchiever["2024APCSCLASSIC"]],
+    },
+    {
+        "name": "Ong Yu Xuan Alyssa",
+        "image": "dummyimage",
+        "country": "Singapore",
+        "YoutubeLink": "",
+        "event": [ListOfEventAchiever["2024APCSCLASSIC"]],
+    },
+    {
+        "name": "Austin Aldrich Tirta",
+        "image": "dummyimage",
+        "country": ListOfCity.JKT,
+        "YoutubeLink": "",
+        "event": [ListOfEventAchiever["2024APCSCLASSIC"]],
+    },
+    {
+        "name": "Candyce Eudora Oung ",
+        "image": "dummyimage",
+        "country": "Medan",
+        "YoutubeLink": "",
+        "event": [ListOfEventAchiever["2024APCSCLASSIC"]],
+    },
+    {
+        "name": "Wilson Anthony Mulyadi",
+        "image": "dummyimage",
+        "country": "Bogor",
+        "YoutubeLink": "",
+        "event": [ListOfEventAchiever["2024APCSCLASSIC"]],
+    },
+    {
+        "name": "Darlene Manuella Gani",
+        "image": "dummyimage",
+        "country": ListOfCity.SRB,
+        "YoutubeLink": "",
+        "event": [ListOfEventAchiever["2024APCSCLASSIC"]],
+    },
+    {
+        "name": "Russell Nathan Indrali",
+        "image": "dummyimage",
+        "country": ListOfCity.JKT,
+        "YoutubeLink": "",
+        "event": [ListOfEventAchiever["2024APCSCLASSIC"]],
+    },
+    {
+        "name": "Freya Venezia Bong ",
+        "image": "dummyimage",
+        "country": ListOfCity.SRB,
+        "YoutubeLink": "",
+        "event": [ListOfEventAchiever["2024APCSCLASSIC"]],
+    },
+    {
+        "name": "Dominic Joel Wijaya",
+        "image": "dummyimage",
+        "country": ListOfCity.JKT,
+        "YoutubeLink": "",
+        "event": [ListOfEventAchiever["2024APCSCLASSIC"]],
+    },
+    {
+        "name": "Leticya Caithlynn Phanjaya",
+        "image": "dummyimage",
+        "country": "Solo",
+        "YoutubeLink": "",
+        "event": [ListOfEventAchiever["2024APCSCLASSIC"]],
+    },
+    {
+        "name": "Candice Chloe King",
+        "image": "dummyimage",
+        "country": "Medan",
+        "YoutubeLink": "",
+        "event": [ListOfEventAchiever["2024APCSCLASSIC"]],
+    },
+    {
+        "name": "Carissa Faith Anggana",
+        "image": "dummyimage",
+        "country": ListOfCity.JKT,
+        "YoutubeLink": "",
+        "event": [ListOfEventAchiever["2024APCSCLASSIC"]],
+    },
+    {
+        "name": "KARIN MICHIKO PANGESTOE",
+        "image": "dummyimage",
+        "country": "Tangerang",
+        "YoutubeLink": "",
+        "event": [ListOfEventAchiever["2024APCSCLASSIC"]],
+    },
+    {
+        "name": "Michael Sudianto",
+        "image": "dummyimage",
+        "country": "Medan",
+        "YoutubeLink": "",
+        "event": [ListOfEventAchiever["2024APCSCLASSIC"]],
+    },
+    {
+        "name": "Elliot Tjendra",
+        "image": "dummyimage",
+        "country": "Medan",
+        "YoutubeLink": "",
+        "event": [ListOfEventAchiever["2024APCSCLASSIC"]],
+    },
+    {
+        "name": "Abigail Angelica Santoso",
+        "image": "dummyimage",
+        "country": "Solo",
+        "YoutubeLink": "",
+        "event": [ListOfEventAchiever["2024APCSCLASSIC"]],
+    },
+    {
+        "name": "Rachel Nathania Suyanto",
+        "image": "dummyimage",
+        "country": ListOfCity.JKT,
+        "YoutubeLink": "",
+        "event": [ListOfEventAchiever["2024APCSCLASSIC"]],
+    },
+    {
+        "name": "Gabriella Kezia Rosalind",
+        "image": "dummyimage",
+        "country": "Tangerang",
+        "YoutubeLink": "",
+        "event": [ListOfEventAchiever["2024APCSCLASSIC"]],
+    },
+    {
+        "name": "Phoebe Fleur Widjaja",
+        "image": "dummyimage",
+        "country": "Semarang",
+        "YoutubeLink": "",
+        "event": [ListOfEventAchiever["2024APCSCLASSIC"]],
+    },
+    {
+        "name": "Darlene Liman",
+        "image": "dummyimage",
+        "country": ListOfCity.SRB,
+        "YoutubeLink": "",
+        "event": [ListOfEventAchiever["2024APCSCLASSIC"]],
+    },
+    {
+        "name": "Jasmine Isabel Pesik",
+        "image": "dummyimage",
+        "country": "Tangerang",
+        "YoutubeLink": "",
+        "event": [ListOfEventAchiever["2024APCSCLASSIC"]],
+    },
+    {
+        "name": "Kamala Kilau Pelangi",
+        "image": "dummyimage",
+        "country": "Semarang",
+        "YoutubeLink": "",
+        "event": [ListOfEventAchiever["2024APCSCLASSIC"]],
+    },
+    {
+        "name": "Lennart Joshua Sugih",
+        "image": "dummyimage",
+        "country": "Surakarta",
+        "YoutubeLink": "",
+        "event": [ListOfEventAchiever["2024APCSCLASSIC"]],
+    },
+    {
+        "name": "Clarisse Faith Hariyadi",
+        "image": "dummyimage",
+        "country": ListOfCity.JKT,
+        "YoutubeLink": "",
+        "event": [ListOfEventAchiever["2024APCSCLASSIC"]],
+    },
+    {
+        "name": "Leticia Mikhaela Amijaya",
+        "image": "dummyimage",
+        "country": "Semarang",
+        "YoutubeLink": "",
+        "event": [ListOfEventAchiever["2024APCSCLASSIC"]],
+    },
+    {
+        "name": "Audi Winter Lee & Cherry Carissa Ho",
+        "image": "dummyimage",
+        "country": ListOfCity.JKT,
+        "YoutubeLink": "",
+        "event": [ListOfEventAchiever["2024APCSCLASSIC"]],
+    },
+    {
+        "name": "Louise Michelle Emerald Joseph",
+        "image": "dummyimage",
+        "country": "Semarang",
+        "YoutubeLink": "",
+        "event": [ListOfEventAchiever["2024APCSCLASSIC"]],
+    },
+    {
+        "name": "Annabelle Samuela Ng",
+        "image": "dummyimage",
+        "country": "Tangerang",
+        "YoutubeLink": "",
+        "event": [ListOfEventAchiever["2024APCSCLASSIC"]],
+    },
+    {
+        "name": "Jovie Peng",
+        "image": "dummyimage",
+        "country": "Pontianak",
+        "YoutubeLink": "",
+        "event": [ListOfEventAchiever["2024APCSCLASSIC"]],
+    },
+    {
+        "name": "Braelynn Love Suryaatmadja",
+        "image": "dummyimage",
+        "country": "Semarang",
+        "YoutubeLink": "",
+        "event": [ListOfEventAchiever["2024APCSCLASSIC"]],
+    },
+    {
+        "name": "Cherry Carissa Ho",
+        "image": "dummyimage",
+        "country": ListOfCity.JKT,
+        "YoutubeLink": "",
+        "event": [ListOfEventAchiever["2024APCSCLASSIC"]],
+    },
+    {
+        "name": "Audi Winter Lee",
+        "image": "dummyimage",
+        "country": ListOfCity.JKT,
+        "YoutubeLink": "",
+        "event": [ListOfEventAchiever["2024APCSCLASSIC"]],
+    },
+    {
+        "name": "Khellse Valerine",
+        "image": "dummyimage",
+        "country": "Medan",
+        "YoutubeLink": "",
+        "event": [ListOfEventAchiever["2024APCSCLASSIC"]],
+    },
+    {
+        "name": "Vanessa Christy Kurniawan",
+        "image": "dummyimage",
+        "country": "Semarang",
+        "YoutubeLink": "",
+        "event": [ListOfEventAchiever["2024APCSCLASSIC"]],
+    },
+    {
+        "name": "Joline Abigail Iskandar",
+        "image": "dummyimage",
+        "country": ListOfCity.SRB,
+        "YoutubeLink": "",
+        "event": [ListOfEventAchiever["2024APCSCLASSIC"]],
+    },
+    {
+        "name": "Keiko Sheravine Cen",
+        "image": "dummyimage",
+        "country": "Medan",
+        "YoutubeLink": "",
+        "event": [ListOfEventAchiever["2024APCSCLASSIC"]],
+    },
+    {
+        "name": "Shane Keegan Cen",
+        "image": "dummyimage",
+        "country": "Medan",
+        "YoutubeLink": "",
+        "event": [ListOfEventAchiever["2024APCSCLASSIC"]],
+    },
+    {
+        "name": "Naomi Thelma",
+        "image": "dummyimage",
+        "country": "Medan",
+        "YoutubeLink": "",
+        "event": [ListOfEventAchiever["2024APCSCLASSIC"]],
+    },
+    {
+        "name": "Naomi Kaitlyn",
+        "image": "dummyimage",
+        "country": "Medan",
+        "YoutubeLink": "",
+        "event": [ListOfEventAchiever["2024APCSCLASSIC"]],
+    },
+    {
+        "name": "Floriana Hoei",
+        "image": "dummyimage",
+        "country": "Tangerang",
+        "YoutubeLink": "",
+        "event": [ListOfEventAchiever["2024APCSCLASSIC"]],
+    },
+    {
+        "name": "Milka Kalyana Setiawan",
+        "image": "dummyimage",
+        "country": "Tangerang",
+        "YoutubeLink": "",
+        "event": [ListOfEventAchiever["2024APCSCLASSIC"]],
+    },
+    {
+        "name": "Kimberly Della Sophie Hutapea ",
+        "image": "dummyimage",
+        "country": "Tangerang",
+        "YoutubeLink": "",
+        "event": [ListOfEventAchiever["2024APCSCLASSIC"]],
+    },
+    {
+        "name": "Rachel Untoro",
+        "image": "dummyimage",
+        "country": ListOfCity.JKT,
+        "YoutubeLink": "",
+        "event": [ListOfEventAchiever["2024APCSCLASSIC"]],
+    },
+    {
+        "name": "Lionel Nathan Wijaya ",
+        "image": "dummyimage",
+        "country": "Tangerang",
+        "YoutubeLink": "",
+        "event": [ListOfEventAchiever["2024APCSCLASSIC"]],
+    },
+    {
+        "name": "Jocelyn Angelica Wicaksono",
+        "image": "dummyimage",
+        "country": "Semarang",
+        "YoutubeLink": "",
+        "event": [ListOfEventAchiever["2024APCSCLASSIC"]],
+    },
+    {
+        "name": "Keiko William",
+        "image": "dummyimage",
+        "country": "Tangerang",
+        "YoutubeLink": "",
+        "event": [ListOfEventAchiever["2024APCSCLASSIC"]],
+    },
+    {
+        "name": "Charlene Ariana Sukri",
+        "image": "dummyimage",
+        "country": ListOfCity.JKT,
+        "YoutubeLink": "",
+        "event": [ListOfEventAchiever["2024APCSCLASSIC"]],
+    },
+    {
+        "name": "Prapta Dimatteo Pratama",
+        "image": "dummyimage",
+        "country": ListOfCity.JKT,
+        "YoutubeLink": "",
+        "event": [ListOfEventAchiever["2024APCSCLASSIC"]],
+    },
+    {
+        "name": "Leonard Sterling Tanoko",
+        "image": "dummyimage",
+        "country": "Malang",
+        "YoutubeLink": "",
+        "event": [ListOfEventAchiever["2024APCSCLASSIC"]],
+    },
+    {
+        "name": "Kenzo Lionel Hendry",
+        "image": "dummyimage",
+        "country": "Palembang",
+        "YoutubeLink": "",
+        "event": [ListOfEventAchiever["2024APCSCLASSIC"]],
+    },
+    {
+        "name": "Valerie Edyana Wibianto",
+        "image": "dummyimage",
+        "country": "Medan",
+        "YoutubeLink": "",
+        "event": [ListOfEventAchiever["2024APCSCLASSIC"]],
+    },
+    {
+        "name": "Jonathan Sugiharto Iskandar",
+        "image": "dummyimage",
+        "country": ListOfCity.JKT,
+        "YoutubeLink": "",
+        "event": [ListOfEventAchiever["2024APCSCLASSIC"]],
+    },
+    {
+        "name": "Ritchie Jaimeson Kowara",
+        "image": "dummyimage",
+        "country": "Palembang",
+        "YoutubeLink": "",
+        "event": [ListOfEventAchiever["2024APCSCLASSIC"]],
+    },
+    {
+        "name": "Audrey Winna Yohan",
+        "image": "dummyimage",
+        "country": "Medan",
+        "YoutubeLink": "",
+        "event": [ListOfEventAchiever["2024APCSCLASSIC"]],
+    },
+    {
+        "name": "Jorge Amadeo Benavides",
+        "image": "dummyimage",
+        "country": "Surakarta",
+        "YoutubeLink": "",
+        "event": [ListOfEventAchiever["2024APCSCLASSIC"]],
+    },
+    {
+        "name": "Jelica Angelline Zecy Yang",
+        "image": "dummyimage",
+        "country": "Jambi",
+        "YoutubeLink": "",
+        "event": [ListOfEventAchiever["2024APCSCLASSIC"]],
+    },
+    {
+        "name": "Cleo Alexis Sudarman",
+        "image": "dummyimage",
+        "country": "Medan",
+        "YoutubeLink": "",
+        "event": [ListOfEventAchiever["2024APCSCLASSIC"]],
+    },
+    {
+        "name": "Maximus Huang Tirtawigoena ",
+        "image": "dummyimage",
+        "country": ListOfCity.JKT,
+        "YoutubeLink": "",
+        "event": [ListOfEventAchiever["2024APCSCLASSIC"]],
+    },
+    {
+        "name": "Catherine Emilianna Chahyadi",
+        "image": "dummyimage",
+        "country": "Medan",
+        "YoutubeLink": "",
+        "event": [ListOfEventAchiever["2024APCSCLASSIC"]],
+    },
+    {
+        "name": "Alberta Debora Alva Kambuno ",
+        "image": "dummyimage",
+        "country": ListOfCity.JKT,
+        "YoutubeLink": "",
+        "event": [ListOfEventAchiever["2024APCSCLASSIC"]],
+    },
+    {
+        "name": "Carole Valerie Gunawan",
+        "image": "dummyimage",
+        "country": ListOfCity.SRB,
+        "YoutubeLink": "",
+        "event": [ListOfEventAchiever["2024APCSCLASSIC"]],
+    },
+    {
+        "name": "Claire Audrey Sudarman",
+        "image": "dummyimage",
+        "country": "Medan",
+        "YoutubeLink": "",
+        "event": [ListOfEventAchiever["2024APCSCLASSIC"]],
+    },
+    {
+        "name": "Serene Patricia",
+        "image": "dummyimage",
+        "country": ListOfCity.SRB,
+        "YoutubeLink": "",
+        "event": [ListOfEventAchiever["2024APCSCLASSIC"]],
+    },
+    {
+        "name": "Marta Liauw",
+        "image": "dummyimage",
+        "country": ListOfCity.JKT,
+        "YoutubeLink": "",
+        "event": [ListOfEventAchiever["2024APCSCLASSIC"]],
+    },
+    {
+        "name": "Domi Satria",
+        "image": "dummyimage",
+        "country": "Yogyakarta",
+        "YoutubeLink": "",
+        "event": [ListOfEventAchiever["2024APCSCLASSIC"]],
+    },
+    {
+        "name": "Clarissa Abigail Pradana",
+        "image": "dummyimage",
+        "country": "Bali",
+        "YoutubeLink": "",
+        "event": [ListOfEventAchiever["2024APCSCLASSIC"]],
+    },
+    {
+        "name": "Meghan Alisa Wu",
+        "image": "dummyimage",
+        "country": "Bali",
+        "YoutubeLink": "",
+        "event": [ListOfEventAchiever["2024APCSCLASSIC"]],
+    },
+    {
+        "name": "Kanaya Namirah Cetta",
+        "image": "dummyimage",
+        "country": "Palembang",
+        "YoutubeLink": "",
+        "event": [ListOfEventAchiever["2024APCSCLASSIC"]],
+    },
+    {
+        "name": "Chelsea Joanna Setiawan",
+        "image": "dummyimage",
+        "country": "Yogyakarta",
+        "YoutubeLink": "",
+        "event": [ListOfEventAchiever["2024APCSCLASSIC"]],
+    },
+    {
+        "name": "Parrish Lim",
+        "image": "dummyimage",
+        "country": "Palembang",
+        "YoutubeLink": "",
+        "event": [ListOfEventAchiever["2024APCSCLASSIC"]],
+    },
+    {
+        "name": "GWYNETH ALICIA PRADANA",
+        "image": "dummyimage",
+        "country": "Bali",
+        "YoutubeLink": "",
+        "event": [ListOfEventAchiever["2024APCSCLASSIC"]],
+    },
+    {
+        "name": "Afonso Rufino Abilio de Araujo",
+        "image": "dummyimage",
+        "country": "Jkt",
+        "YoutubeLink": "",
+        "event": [ListOfEventAchiever["2024APCSCLASSIC"]],
+    },
+    {
+        "name": "Jocelyn Gabrielle Alexander",
+        "image": "dummyimage",
+        "country": "Palembang",
+        "YoutubeLink": "",
+        "event": [ListOfEventAchiever["2024APCSCLASSIC"]],
+    },
+    {
+        "name": "Gwyneth Madeline Liechelle Fanto",
+        "image": "dummyimage",
+        "country": "Yogyakarta",
+        "YoutubeLink": "",
+        "event": [ListOfEventAchiever["2024APCSCLASSIC"]],
+    },
+    {
+        "name": "Josephine Gabrielle Alexander",
+        "image": "dummyimage",
+        "country": "Palembang",
+        "YoutubeLink": "",
+        "event": [ListOfEventAchiever["2024APCSCLASSIC"]],
+    },
+    {
+        "name": "Gwen Sabriela Nugroho",
+        "image": "dummyimage",
+        "country": "Yogyakarta",
+        "YoutubeLink": "",
+        "event": [ListOfEventAchiever["2024APCSCLASSIC"]],
+    },
+    {
+        "name": "Matthew Joshua Elnathan",
+        "image": "dummyimage",
+        "country": "Yogyakarta",
+        "YoutubeLink": "",
+        "event": [ListOfEventAchiever["2024APCSCLASSIC"]],
+    },
+    {
+        "name": "Nataren Velice ",
+        "image": "dummyimage",
+        "country": "Palembang",
+        "YoutubeLink": "",
+        "event": [ListOfEventAchiever["2024APCSCLASSIC"]],
+    },
+    {
+        "name": "Mikaela Devanova Amara Belva",
+        "image": "dummyimage",
+        "country": "Yogyakarta",
+        "YoutubeLink": "",
+        "event": [ListOfEventAchiever["2024APCSCLASSIC"]],
+    },
+    {
+        "name": "Lorraine Anastasia Salim",
+        "image": "dummyimage",
+        "country": ListOfCity.JKT,
+        "YoutubeLink": "",
+        "event": [ListOfEventAchiever["2024APCSCLASSIC"]],
+    },
+    {
+        "name": "Giuliana Victoria Santosa",
+        "image": "dummyimage",
+        "country": "Yogyakarta",
+        "YoutubeLink": "",
+        "event": [ListOfEventAchiever["2024APCSCLASSIC"]],
+    },
+    {
+        "name": "Aurelia Lovely Bessie",
+        "image": "dummyimage",
+        "country": "Medan",
+        "YoutubeLink": "",
+        "event": [ListOfEventAchiever["2024APCSCLASSIC"]],
+    },
+    {
+        "name": "Maria Olivia Christabel Elnathan",
+        "image": "dummyimage",
+        "country": "Yogyakarta",
+        "YoutubeLink": "",
+        "event": [ListOfEventAchiever["2024APCSCLASSIC"]],
+    },
+    {
+        "name": "Kabhinawa Luh Cintamani Adyutakara",
+        "image": "dummyimage",
+        "country": "Yogyakarta",
+        "YoutubeLink": "",
+        "event": [ListOfEventAchiever["2024APCSCLASSIC"]],
+    },
+    {
+        "name": "Cathlyn Pherone Chandra",
+        "image": "dummyimage",
+        "country": "Palembang",
+        "YoutubeLink": "",
+        "event": [ListOfEventAchiever["2024APCSCLASSIC"]],
+    },
+    {
+        "name": "Matthew Kenzo Alexander",
+        "image": "dummyimage",
+        "country": "Bali",
+        "YoutubeLink": "",
+        "event": [ListOfEventAchiever["2024APCSCLASSIC"]],
+    },
+    {
+        "name": "Kimberly Rachel Gu",
+        "image": "dummyimage",
+        "country": "Tangerang",
+        "YoutubeLink": "",
+        "event": [ListOfEventAchiever["2024APCSCLASSIC"]],
+    },
+    {
+        "name": "Cleo Alexis Sudarman & Keiko Sheravine Cen",
+        "image": "dummyimage",
+        "country": "Medan",
+        "YoutubeLink": "",
+        "event": [ListOfEventAchiever["2024APCSCLASSIC"]],
+    },
+    {
+        "name": "Giselle Naeva Gozali & Michelle Naeva Gozali",
+        "image": "dummyimage",
+        "country": "Medan",
+        "YoutubeLink": "",
+        "event": [ListOfEventAchiever["2024APCSCLASSIC"]],
+    },
+    {
+        "name": "Elijah Javier Soetanto",
+        "image": "dummyimage",
+        "country": "Palembang",
+        "YoutubeLink": "",
+        "event": [ListOfEventAchiever["2024APCSCLASSIC"]],
+    },
+    {
+        "name": "Callia Kardiono",
+        "image": "dummyimage",
+        "country": ListOfCity.JKT,
+        "YoutubeLink": "",
+        "event": [ListOfEventAchiever["2024APCSCLASSIC"]],
+    },
+    {
+        "name": "Emma Joy Soetanto ",
+        "image": "dummyimage",
+        "country": "Palembang",
+        "YoutubeLink": "",
+        "event": [ListOfEventAchiever["2024APCSCLASSIC"]],
+    },
+    {
+        "name": "Faith Huang",
+        "image": "dummyimage",
+        "country": ListOfCity.SRB,
+        "YoutubeLink": "",
+        "event": [ListOfEventAchiever["2024APCSCLASSIC"]],
+    },
+    {
+        "name": "Debee Chan",
+        "image": "dummyimage",
+        "country": "Medan",
+        "YoutubeLink": "",
+        "event": [ListOfEventAchiever["2024APCSCLASSIC"]],
+    },
+    {
+        "name": "Callista Vanesa",
+        "image": "dummyimage",
+        "country": "Lampung",
+        "YoutubeLink": "",
+        "event": [ListOfEventAchiever["2024APCSCLASSIC"]],
+    },
+    {
+        "name": "Hillary Howie Lymnois",
+        "image": "dummyimage",
+        "country": "Medan",
+        "YoutubeLink": "",
+        "event": [ListOfEventAchiever["2024APCSCLASSIC"]],
+    },
+    {
+        "name": "Freya Calista Suhandi",
+        "image": "dummyimage",
+        "country": "Lampung",
+        "YoutubeLink": "",
+        "event": [ListOfEventAchiever["2024APCSCLASSIC"]],
+    },
+    {
+        "name": "Cornelius Carlton Chandra",
+        "image": "dummyimage",
+        "country": "Medan",
+        "YoutubeLink": "",
+        "event": [ListOfEventAchiever["2024APCSCLASSIC"]],
+    },
+    {
+        "name": "Naomi Thelma & Edward Chandra ",
+        "image": "dummyimage",
+        "country": "Medan",
+        "YoutubeLink": "",
+        "event": [ListOfEventAchiever["2024APCSCLASSIC"]],
+    },
+    {
+        "name": "Christabel Estelle Oei ",
+        "image": "dummyimage",
+        "country": "Palembang",
+        "YoutubeLink": "",
+        "event": [ListOfEventAchiever["2024APCSCLASSIC"]],
+    },
+    {
+        "name": "Michelle Sutanto",
+        "image": "dummyimage",
+        "country": "Pekanbaru",
+        "YoutubeLink": "",
+        "event": [ListOfEventAchiever["2024APCSCLASSIC"]],
+    },
+    {
+        "name": "Jorel Aviello",
+        "image": "dummyimage",
+        "country": ListOfCity.JKT,
+        "YoutubeLink": "",
+        "event": [ListOfEventAchiever["2024APCSCLASSIC"]],
+    },
+    {
+        "name": "Trisha Juwono Leung",
+        "image": "dummyimage",
+        "country": "Pekanbaru",
+        "YoutubeLink": "",
+        "event": [ListOfEventAchiever["2024APCSCLASSIC"]],
+    },
+    {
+        "name": "Hillary Howie Lymnois & Debee Chan",
+        "image": "dummyimage",
+        "country": "Medan",
+        "YoutubeLink": "",
+        "event": [ListOfEventAchiever["2024APCSCLASSIC"]],
+    },
+    {
+        "name": "Claire Audrey Sudarman & Cornelius Carlton Chandra",
+        "image": "dummyimage",
+        "country": "Medan",
+        "YoutubeLink": "",
+        "event": [ListOfEventAchiever["2024APCSCLASSIC"]],
+    },
 ]
 

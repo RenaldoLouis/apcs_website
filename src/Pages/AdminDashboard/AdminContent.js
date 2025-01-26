@@ -90,9 +90,8 @@ const styles = StyleSheet.create({
 
 const AdminContent = () => {
     const { token: { colorBgContainer, borderRadiusLG }, } = theme.useToken();
-    const [isLoading, setIsLoading] = useState(false)
 
-    const { registrantDatas, loading, error, page, setPage, totalPages } = usePaginatedRegistrants(10);
+    const { registrantDatas, setPage } = usePaginatedRegistrants(10);
 
     const handlePageChange = (pagination, filters, sorter, extra) => {
         setPage(pagination);
@@ -171,9 +170,10 @@ const AdminContent = () => {
             reader.onload = (e) => {
                 const data = e.target.result;
                 const workbook = xlsx.read(data, { type: "array" });
-                const sheetName = workbook.SheetNames[0];
+                const sheetName = workbook.SheetNames[1];
                 const worksheet = workbook.Sheets[sheetName];
                 const json = xlsx.utils.sheet_to_json(worksheet);
+                // console.log(json)
             };
             reader.readAsArrayBuffer(e.target.files[0]);
         }

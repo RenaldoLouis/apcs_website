@@ -20,6 +20,20 @@ const SapphireWinnerSection = (props) => {
     const [sapphireDataSorted, setSapphireDataSorted] = useState([])
     const eventOrder = Object.values(ListOfEventAchiever);
 
+    // const checkDuplicateNames = (arr) => {
+    //     const nameSet = new Set();
+    //     for (let obj of arr) {
+    //         const names = obj.name.split('&').map(name => name.trim());
+    //         for (let name of names) {
+    //             if (nameSet.has(name)) {
+    //                 console.log(`Duplicate found: ${name}`);
+    //             }
+    //             nameSet.add(name);
+    //         }
+    //     }
+    //     console.log("No duplicates found");
+    // }
+
     useEffect(() => {
         let clonedData = [...dataDiamond]
         let tempData = clonedData.sort((a, b) => {
@@ -39,6 +53,8 @@ const SapphireWinnerSection = (props) => {
             });
         });
         setDiamondDataSorted(tempData)
+
+        // checkDuplicateNames(tempData)
     }, [dataDiamond])
 
     useEffect(() => {
