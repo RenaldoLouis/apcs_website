@@ -109,7 +109,7 @@ const Carousel = ({ interval = 5000, homePage = true }) => {
                     </div>
                     <div style={{ '--currentIndex': currentIndex }} className='titleCoverContainerText'>
                         <div>
-                            {/* <Button variant="outlined" sx={{ zIndex: 10 }} disabled>Coming Soon</Button> */}
+                            <PillButton onClick={() => handleMovePage(PathName.gallery, YearlyEvent.CLASSICALFESTIVALJKT2024)} text={t("watchNow")} />
                         </div>
                     </div>
                     <div style={{ '--currentIndex': currentIndex }} className='titleCoverContainerText'>

@@ -29,7 +29,6 @@ const GaleryPage = () => {
     const scrollContainerRef = useRef(null);
     const { isMobileAndSmaller } = useAuth();
 
-    // const [selectedEvent, setSelectedEvent] = useState(YearlyEvent.TURNINGPOINT);
     const [isLoading, setIsLoading] = useState(true)
     const [galeryContent, setGaleryContent] = useState({})
     const [videoList, setVideoList] = useState([])
@@ -248,6 +247,31 @@ const GaleryPage = () => {
             ],
             images: MasterClassImages
         },
+        {
+            name: YearlyEvent.CLASSICALFESTIVALJKT2024,
+            video: null,
+            title: "MASTERCLASS",
+            subTitle: "Surabaya & Jakarta",
+            featuring: [
+                {
+                    name: "Firdy Salim",
+                    role: "Guest Coach"
+                },
+                {
+                    name: "Myra Karlina Pranajaya",
+                    role: "Guest Coach"
+                },
+                {
+                    name: "Christine Utomo",
+                    role: "Guest Coach"
+                },
+                {
+                    name: "Iswargia Sudarno",
+                    role: "Guest Coach"
+                },
+            ],
+            images: MasterClassImages
+        },
     ])
 
     useEffect(() => {
@@ -294,6 +318,7 @@ const GaleryPage = () => {
     }, [videoList])
 
     useEffect(() => {
+        setIsLoading(true)
         const element = document.getElementById(selectedEvent);
 
         if (element) {
@@ -308,7 +333,6 @@ const GaleryPage = () => {
 
 
     const handleClickEvent = (eventName) => {
-        setIsLoading(true)
         setSelectedEvent(eventName)
     }
 
