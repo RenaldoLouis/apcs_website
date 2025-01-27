@@ -3,6 +3,7 @@ import lineAchievers from "../../assets/images/lineAchievers.png"
 import { useAuth } from "../../context/DataContext";
 import { ResponsiveText } from "../atom/ResponsiveText";
 import { useTranslation } from "react-i18next";
+import { Box } from '@mui/material';
 
 const AchieversHeader = (props) => {
     const { title, subTitle, description, description2, description3, image } = props
@@ -12,7 +13,7 @@ const AchieversHeader = (props) => {
     const { t, i18n } = useTranslation();
 
     return (
-        <div className="container" style={{ marginBottom: 150 }}>
+        <Box className="container" sx={{ mb: { xs: 3, sm: 6, md: 10, lg: 15 } }}>
             <div className="row justify-center">
                 <div className="col-md-auto ">
                     <img loading="lazy" src={lineAchievers} alt={`lineAchievers`} style={{ width: "100%" }} />
@@ -36,7 +37,7 @@ const AchieversHeader = (props) => {
                     <img loading="lazy" src={lineAchievers} alt={`lineAchievers`} style={{ width: "100%" }} />
                 </div>
             </div>
-        </div>
+        </Box>
     )
 }
 

@@ -29,7 +29,6 @@ export const DataContextProvider = ({ children }) => {
             if (user) {
                 const token = await user.getIdToken();
                 setUser({ ...user, token });
-                // navigate("/adminDashboard");
             } else {
                 setUser(null);
             }
