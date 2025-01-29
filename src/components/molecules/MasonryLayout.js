@@ -55,8 +55,8 @@ const MasonryLayout = (props) => {
         switch (name) {
             case YearlyEvent.TURNINGPOINT:
                 return index === 33 ? "none" : ""
-            case YearlyEvent.MAGICALMUSICSOUNDTRACT:
-                // return index === 33 ? "none" : ""
+            case YearlyEvent.CLASSICALFESTIVALJKT2024:
+                return index === 18 ? "none" : ""
                 break
             case YearlyEvent.AUTUMINKOREA:
                 return index === 33 ? "none" : ""
@@ -123,6 +123,26 @@ const MasonryLayout = (props) => {
                 }
                 else if (index === 7) {
                     return 20
+                }
+                break;
+            case YearlyEvent.CLASSICALFESTIVALJKT2024:
+                if (index === 17) {
+                    return 30
+                }
+                if (index === 8) {
+                    return 30
+                }
+                else if (index === 14) {
+                    return 30
+                }
+                else if (index === 17) {
+                    return 30
+                }
+                else if (index === 15) {
+                    return 30
+                }
+                else if (index === 9) {
+                    return 30
                 }
                 break;
             case YearlyEvent.MAGICALMUSICSOUNDTRACT:

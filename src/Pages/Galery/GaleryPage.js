@@ -21,7 +21,7 @@ import { MasterClassImages } from "../../constant/MasterClassImages";
 import { useAuth } from "../../context/DataContext";
 import { useSwipeable } from 'react-swipeable';
 import Typograhpy from "../../components/atom/Typograhpy";
-import { FestivalJkt2025 } from "../../constant/FestivalJkt2025";
+import { FestivalJkt2024 } from "../../constant/FestivalJkt2024";
 
 
 const GaleryPage = () => {
@@ -271,7 +271,7 @@ const GaleryPage = () => {
                 //     role: "Guest Coach"
                 // },
             ],
-            images: FestivalJkt2025
+            images: FestivalJkt2024
         },
     ])
 
