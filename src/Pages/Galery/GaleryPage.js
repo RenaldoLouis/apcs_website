@@ -21,6 +21,7 @@ import { MasterClassImages } from "../../constant/MasterClassImages";
 import { useAuth } from "../../context/DataContext";
 import { useSwipeable } from 'react-swipeable';
 import Typograhpy from "../../components/atom/Typograhpy";
+import { FestivalJkt2025 } from "../../constant/FestivalJkt2025";
 
 
 const GaleryPage = () => {
@@ -250,27 +251,27 @@ const GaleryPage = () => {
         {
             name: YearlyEvent.CLASSICALFESTIVALJKT2024,
             video: null,
-            title: "MASTERCLASS",
-            subTitle: "Surabaya & Jakarta",
+            title: "THE THIRD NATIONAL CLASSICAL SERIES FOR ALL GENERATIONS ",
+            subTitle: "SALIHARA HALL, Jakarta",
             featuring: [
                 {
                     name: "Firdy Salim",
-                    role: "Guest Coach"
+                    role: "Pianist"
                 },
                 {
-                    name: "Myra Karlina Pranajaya",
-                    role: "Guest Coach"
+                    name: "Piano Duo Winner of APCS Cassical Festival Jakarta 2023 & Winners of APCS Classical Festival Jakarta 2024",
+                    // role: "Guest Coach"
                 },
-                {
-                    name: "Christine Utomo",
-                    role: "Guest Coach"
-                },
-                {
-                    name: "Iswargia Sudarno",
-                    role: "Guest Coach"
-                },
+                // {
+                //     name: "Christine Utomo",
+                //     role: "Guest Coach"
+                // },
+                // {
+                //     name: "Iswargia Sudarno",
+                //     role: "Guest Coach"
+                // },
             ],
-            images: MasterClassImages
+            images: FestivalJkt2025
         },
     ])
 
@@ -463,7 +464,7 @@ const GaleryPage = () => {
                                             <span className="feature-name">
                                                 <span className="feature-name fontSizeBody">{eachFeature?.name} {eachFeature?.founder && (<span className="italicText"> (Founder) </span>)}</span>{" "}
                                                 <span className="italicText fontSizeBody">
-                                                    {eachFeature?.title && (`as the ${eachFeature?.title}`)} ({eachFeature?.role}) {eachFeature?.achivement && (` and Winners of ${eachFeature?.achivement}`)}
+                                                    {eachFeature?.title && (`as the ${eachFeature?.title}`)} {eachFeature?.role ? `(${eachFeature?.role})` : ""} {eachFeature?.achivement && (` and Winners of ${eachFeature?.achivement}`)}
                                                 </span>
                                             </span>
                                         </React.Fragment>
