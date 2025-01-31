@@ -52,13 +52,6 @@ export default {
   auth: {
     login: (payload) => postRequest('/admin/login', payload),
   },
-  banners: {
-    getAllBanners: () => getRequest('/secure/admin/banners'),
-    getBannerWithExternalID: (bannerID) => getRequest(`/secure/admin/banners/${bannerID}`),
-    createBanner: (payload) => postRequest('/secure/admin/banners', payload),
-    updateBanner: (bannerId, payload) => putRequest(`/secure/admin/banners/${bannerId}`, payload),
-    deleteBanner: (bannerId) => deleteRequest(`/secure/admin/banners/${bannerId}`),
-  },
   medicalStaff: {
     // getMedicalStaff: (status) => getRequest(`/secure/admin/staff?status=${status}`),
     getMedicalStaff: (status, role) => getRequest(`/secure/admin/staff`, { status, role }),
@@ -70,6 +63,6 @@ export default {
     createPayment: (data) => postRequest(`/api/v1/apcs/createPayment`, data)
   },
   email: {
-    sendEmail: () => postRequest(`/api/v1/apcs/sendEmail`)
+    sendEmail: (data) => postRequest(`/api/v1/apcs/sendEmail`, data)
   }
 };

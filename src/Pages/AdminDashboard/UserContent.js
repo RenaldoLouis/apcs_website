@@ -2,6 +2,7 @@ import React from 'react';
 import { Layout, theme } from 'antd';
 import { Table } from 'antd';
 import usePaginatedUsers from '../../hooks/useFetchUsersData';
+import apis from '../../apis';
 
 const { Content } = Layout;
 
@@ -86,6 +87,25 @@ const UserContent = () => {
         setPage(pagination);
     };
 
+    const handleClickSendEmail = () => {
+        console.log("userDatas", userDatas)
+        const listEmail = userDatas.map((eachData) => ({
+            email: eachData.email
+        }))
+        try {
+            // setIsLoading(true)
+            apis.email.sendEmail(listEmail).then((res) => {
+                if (res.status === 200) {
+                    // setIsLoading(false)
+                } else {
+                    // setIsLoading(false)
+                }
+            })
+        } catch (e) {
+            console.error(e)
+        }
+    }
+
     return (
         <Content
             style={{
@@ -102,6 +122,8 @@ const UserContent = () => {
             >
                 <Table columns={columns} dataSource={userDatas} onChange={handlePageChange} />
             </div>
+            <button onClick={handleClickSendEmail}>sendEmail</button>
+
         </Content>
     )
 }
