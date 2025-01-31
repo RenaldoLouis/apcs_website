@@ -10,26 +10,26 @@ const PaginationGalery = () => {
 
     let latestData = null
 
-    const fetchPost = useCallback(async () => {
-        if (!isGetLatestImage && latestData !== undefined) {
-            const q = query(collection(db, "galeries"), orderBy("order"), startAfter(latestData || 0), limit(3));
+    // const fetchPost = useCallback(async () => {
+    //     if (!isGetLatestImage && latestData !== undefined) {
+    //         const q = query(collection(db, "galeries"), orderBy("order"), startAfter(latestData || 0), limit(3));
 
-            await getDocs(q)
-                .then((querySnapshot) => {
-                    if (querySnapshot) {
-                        const newData = querySnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
-                        if (newData.length === 0) {
-                            setIsGetLatestImage(true)
-                        }
-                        setDatas((prevState) => [...prevState, ...newData]);
-                        latestData = querySnapshot.docs[querySnapshot.docs.length - 1]
-                    }
-                })
-                .catch((error) => {
-                    console.error("Error getting documents: ", error);
-                });
-        }
-    }, [])
+    //         await getDocs(q)
+    //             .then((querySnapshot) => {
+    //                 if (querySnapshot) {
+    //                     const newData = querySnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
+    //                     if (newData.length === 0) {
+    //                         setIsGetLatestImage(true)
+    //                     }
+    //                     setDatas((prevState) => [...prevState, ...newData]);
+    //                     latestData = querySnapshot.docs[querySnapshot.docs.length - 1]
+    //                 }
+    //             })
+    //             .catch((error) => {
+    //                 console.error("Error getting documents: ", error);
+    //             });
+    //     }
+    // }, [])
 
     useEffect(() => {
         fetchPost();
