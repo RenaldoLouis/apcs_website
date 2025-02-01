@@ -6,6 +6,7 @@ import { TextSizeType } from "../../../constant/TextSizeType";
 import { Space, TimePicker, Form, Button } from 'antd';
 import dayjs from "dayjs";
 import customParseFormat from "dayjs/plugin/customParseFormat";
+import { EditOutlined } from '@ant-design/icons';
 
 dayjs.extend(customParseFormat);
 
@@ -22,7 +23,11 @@ const RundownEventSteps = ({ eachEvent, day, totalSteps, setTotalSteps }) => {
         let timeSlots = [];
 
         while (startTime.isBefore(endTime) || startTime.isSame(endTime)) {
-            timeSlots.push(startTime.format("HH:mm")); // Format as string
+            let tempObject = {
+                time: startTime.format("HH:mm"),
+                name: "NONE123"
+            }
+            timeSlots.push(tempObject); // Format as string
             startTime = startTime.add(30, "minutes"); // Increment by 30 minutes
         }
 
@@ -44,8 +49,9 @@ const RundownEventSteps = ({ eachEvent, day, totalSteps, setTotalSteps }) => {
         if (eachEvent.timeRange) {
             eachEvent.timeRange.forEach((eachData) => {
                 let tempObject = {
-                    title: "none",
-                    description: eachData,
+                    title: eachData.name,
+                    description: eachData.time,
+                    subTitle: <Button type="primary" shape="circle" size="small" icon={<EditOutlined />} />
                 }
                 tempArray.push(tempObject)
             })

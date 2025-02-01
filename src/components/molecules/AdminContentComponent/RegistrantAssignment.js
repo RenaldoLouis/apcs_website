@@ -17,6 +17,10 @@ const RegistrantAssignment = () => {
 
     }
 
+    const handleClickSaveToDb = () => {
+        console.log("totalSteps", totalSteps)
+    }
+
     const handleChangeEventDays = (value) => {
         setTotalDaysEvent(value)
     };
@@ -37,6 +41,7 @@ const RegistrantAssignment = () => {
             <div className="flex-column w-15">
                 <Button className="mb-12" type="primary" onClick={handleClickAssignRegistrant}>Assign Registrant</Button>
                 <InputNumber
+                    className="mb-12"
                     suffix="Days"
                     min={1} max={3}
                     defaultValue={totalDaysEvent}
@@ -45,6 +50,7 @@ const RegistrantAssignment = () => {
                         width: '100%',
                     }}
                 />
+                <Button type="primary" onClick={handleClickSaveToDb}>Save To DB</Button>
             </div>
 
             <div className="flex justify-center">
