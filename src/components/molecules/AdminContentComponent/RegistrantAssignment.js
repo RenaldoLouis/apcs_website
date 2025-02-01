@@ -24,7 +24,10 @@ const RegistrantAssignment = () => {
     useEffect(() => {
         let tempArray = []
         for (let i = 1; i <= totalDaysEvent; i++) {
-            tempArray.push(i)
+            tempArray.push(
+                {
+                    "day": i
+                })
         }
         setTotalSteps(tempArray)
     }, [totalDaysEvent])
@@ -54,7 +57,7 @@ const RegistrantAssignment = () => {
             </div>
             <div className="flex justify-evenly">
                 {totalSteps.map((eachEvent) => (
-                    <RundownEventSteps day={eachEvent} />
+                    <RundownEventSteps eachEvent={eachEvent} day={eachEvent.day} totalSteps={totalSteps} setTotalSteps={setTotalSteps} />
                 ))}
             </div>
         </div>
