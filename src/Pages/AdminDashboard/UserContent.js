@@ -1,14 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Layout, theme } from 'antd';
 import { Table } from 'antd';
 import usePaginatedUsers from '../../hooks/useFetchUsersData';
 import apis from '../../apis';
+import { Button, Flex } from 'antd';
+import { toast } from 'react-toastify';
 
 const { Content } = Layout;
 
 const UserContent = () => {
 
-    const { userDatas, loading, error, page, setPage, totalPages } = usePaginatedUsers(10);
+    const [isLoading, setIsLoading] = useState(false)
+
+    const { userDatas, error, page, setPage, totalPages } = usePaginatedUsers(10, setIsLoading);
 
     const columns = [
         {
@@ -88,18 +92,16 @@ const UserContent = () => {
     };
 
     const handleClickSendEmail = () => {
-        console.log("userDatas", userDatas)
         const listEmail = userDatas.map((eachData) => ({
             email: eachData.email
         }))
         try {
-            // setIsLoading(true)
+            setIsLoading(true)
             apis.email.sendEmail(listEmail).then((res) => {
                 if (res.status === 200) {
-                    // setIsLoading(false)
-                } else {
-                    // setIsLoading(false)
+                    toast.success("Succesfully sent email")
                 }
+                setIsLoading(false)
             })
         } catch (e) {
             console.error(e)
@@ -122,8 +124,9 @@ const UserContent = () => {
             >
                 <Table columns={columns} dataSource={userDatas} onChange={handlePageChange} />
             </div>
-            <button onClick={handleClickSendEmail}>sendEmail</button>
-
+            <Button type="primary" onClick={handleClickSendEmail} loading={isLoading}>
+                Send Email
+            </Button>
         </Content>
     )
 }

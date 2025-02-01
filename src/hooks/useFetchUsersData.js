@@ -4,17 +4,16 @@ import { db } from '../firebase';
 import { useAuth } from '../context/DataContext';
 import { isEmpty } from 'lodash';
 
-const usePaginatedUsers = (pageSize = 10) => {
+const usePaginatedUsers = (pageSize = 10, setIsLoading) => {
     const { user } = useAuth()
 
     const [userDatas, setUserDatas] = useState([]);
-    const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
     const [page, setPage] = useState(1);
     const [totalDocs, setTotalDocs] = useState(0);
 
     const fetchUserData = useCallback(async (pageNumber) => {
-        setLoading(true);
+        setIsLoading(true);
         setError(null);
 
         try {
@@ -56,7 +55,7 @@ const usePaginatedUsers = (pageSize = 10) => {
             console.error("Error getting documents: ", err);
             setError(err);
         } finally {
-            setLoading(false);
+            setIsLoading(false);
         }
     }, [pageSize]);
 
@@ -68,7 +67,7 @@ const usePaginatedUsers = (pageSize = 10) => {
 
     const totalPages = Math.ceil(totalDocs / pageSize);
 
-    return { userDatas, loading, error, page, setPage, totalPages };
+    return { userDatas, error, page, setPage, totalPages };
 };
 
 export default usePaginatedUsers;
