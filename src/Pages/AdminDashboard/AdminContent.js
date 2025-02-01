@@ -8,6 +8,7 @@ import { saveAs } from "file-saver";
 import JSZip from "jszip";
 import ReactDOM from "react-dom";
 import * as xlsx from 'xlsx';
+import RegistrantAssignment from '../../components/molecules/AdminContentComponent/RegistrantAssignment';
 
 const { Content } = Layout;
 
@@ -206,7 +207,16 @@ const AdminContent = () => {
                     onChange={readUploadFile}
                 />
             </form>
-
+            <div
+                style={{
+                    padding: 24,
+                    minHeight: 360,
+                    background: colorBgContainer,
+                    borderRadius: borderRadiusLG,
+                }}
+            >
+                <RegistrantAssignment />
+            </div>
         </Content>
     )
 }

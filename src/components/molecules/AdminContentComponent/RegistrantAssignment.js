@@ -1,0 +1,64 @@
+import React, { useEffect, useState } from "react";
+import { Steps } from 'antd';
+import { LoadingOutlined } from '@ant-design/icons';
+import { RegistrantStatus } from "../../../constant/RegistrantStatus";
+import Typograhpy from "../../atom/Typograhpy";
+import { TextSizeType } from "../../../constant/TextSizeType";
+import RundownEventSteps from "./RundownEventSteps";
+import { Space, TimePicker, Form, Button } from 'antd';
+import { InputNumber } from 'antd';
+
+const RegistrantAssignment = () => {
+
+    const [totalDaysEvent, setTotalDaysEvent] = useState(3);
+    const [totalSteps, setTotalSteps] = useState([]);
+
+    const handleClickAssignRegistrant = () => {
+
+    }
+
+    const handleChangeEventDays = (value) => {
+        setTotalDaysEvent(value)
+    };
+
+    useEffect(() => {
+        let tempArray = []
+        for (let i = 1; i <= totalDaysEvent; i++) {
+            tempArray.push(i)
+        }
+        setTotalSteps(tempArray)
+    }, [totalDaysEvent])
+
+    return (
+        <div >
+            <div className="flex-column w-15">
+                <Button className="mb-12" type="primary" onClick={handleClickAssignRegistrant}>Assign Registrant</Button>
+                <InputNumber
+                    suffix="Days"
+                    min={1} max={3}
+                    defaultValue={totalDaysEvent}
+                    onChange={handleChangeEventDays}
+                    style={{
+                        width: '100%',
+                    }}
+                />
+            </div>
+
+            <div className="flex justify-center">
+                <Typograhpy
+                    className="mb-12"
+                    text={"Day of Events Rundown"}
+                    size={TextSizeType.medium}
+                    style={{ color: "black" }}
+                />
+            </div>
+            <div className="flex justify-evenly">
+                {totalSteps.map((eachEvent) => (
+                    <RundownEventSteps day={eachEvent} />
+                ))}
+            </div>
+        </div>
+    )
+}
+
+export default RegistrantAssignment;

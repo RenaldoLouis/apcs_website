@@ -1,7 +1,7 @@
 import React from "react";
 import { TextSizeType } from "../../constant/TextSizeType";
 
-const Typograhpy = ({ text, size }) => {
+const Typograhpy = ({ className, text, size, style = null }) => {
 
     let fontSize = () => {
         switch (size) {
@@ -17,7 +17,7 @@ const Typograhpy = ({ text, size }) => {
     }
 
     return (
-        <div className={`${fontSize()}`} style={{ color: "white", textWrap: "nowrap" }}>
+        <div className={`${className} ${fontSize()}`} style={style ? style : { color: "white", textWrap: "nowrap" }}>
             {text}
         </div>
     )

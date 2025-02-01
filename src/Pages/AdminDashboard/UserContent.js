@@ -10,7 +10,7 @@ const { Content } = Layout;
 
 const UserContent = () => {
 
-    const [isLoading, setIsLoading] = useState(false)
+    const [isLoading, setIsLoading] = useState(true)
 
     const { userDatas, error, page, setPage, totalPages } = usePaginatedUsers(10, setIsLoading);
 
