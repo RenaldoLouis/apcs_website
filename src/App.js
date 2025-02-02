@@ -29,6 +29,7 @@ import { PathName } from "./constant/PathName";
 import ContactUs from "./Pages/ContactUs/ContactUs";
 import { createTheme, ThemeProvider, responsiveFontSizes } from '@mui/material/styles';
 import homeScreenImageGradient from "./assets/images/homeScreenImageGradient.jpg"
+import homeScreenImageGradientMobile from "./assets/images/homeScreenImageGradientMobile.jpg"
 import Payment from "./Pages/Payment/Payment";
 
 const audio = new Audio(persona5);
@@ -44,18 +45,19 @@ function ImagePreloader({ src, onLoad }) {
 }
 
 const Main = () => {
-  const { setImageHomeLoaded, imageHomeLoaded } = useAuth();
+  const { setImageHomeLoaded, isMobileAndSmaller } = useAuth();
   const handleImageLoad = () => {
     setImageHomeLoaded(true);
   };
+
   return (
     <AnimatePresence mode='wait'>
-      <ImagePreloader src={homeScreenImageGradient} onLoad={handleImageLoad} />
+      <ImagePreloader src={isMobileAndSmaller ? homeScreenImageGradientMobile : homeScreenImageGradient} onLoad={handleImageLoad} />
 
       <Routes>
         <Route path="/" element={<LandingPage audio={audio} />} />
         {/* <Route path="/home" element={<Transition children={<MainLayout children={<Home audio={audio} />} />} />} /> */}
-        <Route path={PathName.home} element={<MainLayout children={<Home homeImagehero={homeScreenImageGradient} />} />} />
+        <Route path={PathName.home} element={<MainLayout children={<Home homeImagehero={isMobileAndSmaller ? homeScreenImageGradientMobile : homeScreenImageGradient} />} />} />
         <Route path={PathName.about} element={<MainLayout children={<About />} />} />
         <Route path={PathName.gallery} element={<MainLayout children={<GaleryPage />} />} />
         <Route path={PathName.achievers} element={<MainLayout children={<Achievers />} />} />

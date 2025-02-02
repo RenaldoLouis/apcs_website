@@ -52,7 +52,7 @@ const CoverImageHome = (props) => {
             <div className={returnTextPosition()}>
                 <AnimatedComponent animationClass="animate__fadeIn">
                     {logo && (
-                        <img className={bigLogo ? "homeScreenLogoBig" : "homeScreenLogo"} loading="lazy" src={logo} alt="apcsLogo" />
+                        <img className={"homeScreenLogo"} loading="lazy" src={logo} alt="apcsLogo" />
                     )}
                 </AnimatedComponent>
             </div>

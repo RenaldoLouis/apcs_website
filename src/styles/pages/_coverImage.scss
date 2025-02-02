@@ -29,23 +29,18 @@
   // transform: translate(-243px, -101px);
 }
 
-.homeScreenLogoBig {
-  // width: 40vmin;
-  // position: absolute;
-  // transform: translate(-243px, -101px);
-}
-
-// @media (max-width : 375px) {
-//   .homeScreenLogo {
-//     width: 300px;
-//   }
-// }
-
 .experinceText {
   font-size: 96px;
   letter-spacing: 25px;
 }
 
+@media (max-width : 600px) {
+  .homeScreenLogo {
+    width: 30vmax;
+    // position: absolute;
+    // transform: translate(-243px, -101px);
+  }
+}
 
 @media (max-width : 1200px) {
   .experinceText {
@@ -55,12 +50,6 @@
 
   .experienceContentText {
     font-size: 2vmin;
-  }
-
-  .homeScreenLogoBig {
-    width: 40vmin;
-    // position: absolute;
-    // transform: translate(-243px, -101px);
   }
 }
 
