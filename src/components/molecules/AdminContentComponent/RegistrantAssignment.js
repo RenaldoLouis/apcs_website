@@ -7,6 +7,9 @@ import { TextSizeType } from "../../../constant/TextSizeType";
 import RundownEventSteps from "./RundownEventSteps";
 import { Space, TimePicker, Form, Button } from 'antd';
 import { InputNumber } from 'antd';
+import { DndProvider } from 'react-dnd'
+import { HTML5Backend } from 'react-dnd-html5-backend'
+import DragDrop from "./DragDrop";
 
 const RegistrantAssignment = () => {
 
@@ -66,6 +69,10 @@ const RegistrantAssignment = () => {
                     <RundownEventSteps eachEvent={eachEvent} day={eachEvent.day} totalSteps={totalSteps} setTotalSteps={setTotalSteps} />
                 ))}
             </div>
+
+            <DndProvider backend={HTML5Backend}>
+                <DragDrop />
+            </DndProvider>
         </div>
     )
 }
