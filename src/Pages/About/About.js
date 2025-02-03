@@ -82,7 +82,7 @@ const About = () => {
 
 
                     <div className="mangolaineFont text-align-center" style={{ color: "#FFCA68", marginTop: 100, fontSize: 64 }}>
-                        HERE’S HOW<br />
+                        Here’s How<br />
                         {t("ourStoriesBegin")}
                     </div>
                 </div>

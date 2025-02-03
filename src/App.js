@@ -56,7 +56,7 @@ const Main = () => {
 
       <Routes>
         <Route path="/" element={<LandingPage audio={audio} />} />
-        {/* <Route path="/home" element={<Transition children={<MainLayout children={<Home audio={audio} />} />} />} /> */}
+        {/* <Route path="/home" element={<Transition children={<MainLayout children={<Home homeImagehero={isMobileAndSmaller ? homeScreenImageGradientMobile : homeScreenImageGradient} />} />} />} /> */}
         <Route path={PathName.home} element={<MainLayout children={<Home homeImagehero={isMobileAndSmaller ? homeScreenImageGradientMobile : homeScreenImageGradient} />} />} />
         <Route path={PathName.about} element={<MainLayout children={<About />} />} />
         <Route path={PathName.gallery} element={<MainLayout children={<GaleryPage />} />} />
