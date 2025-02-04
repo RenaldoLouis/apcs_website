@@ -125,26 +125,26 @@ const MasonryLayout = (props) => {
                     return 20
                 }
                 break;
-            case YearlyEvent.CLASSICALFESTIVALJKT2024:
-                if (index === 17) {
-                    return 30
-                }
-                if (index === 8) {
-                    return 30
-                }
-                else if (index === 14) {
-                    return 30
-                }
-                else if (index === 17) {
-                    return 30
-                }
-                else if (index === 15) {
-                    return 30
-                }
-                else if (index === 9) {
-                    return 30
-                }
-                break;
+            // case YearlyEvent.CLASSICALFESTIVALJKT2024:
+            //     if (index === 17) {
+            //         return 30
+            //     }
+            //     if (index === 8) {
+            //         return 30
+            //     }
+            //     else if (index === 14) {
+            //         return 30
+            //     }
+            //     else if (index === 17) {
+            //         return 30
+            //     }
+            //     else if (index === 15) {
+            //         return 30
+            //     }
+            //     else if (index === 9) {
+            //         return 30
+            //     }
+            //     break;
             case YearlyEvent.MAGICALMUSICSOUNDTRACT:
                 if (index === 27) {
                     return 40
