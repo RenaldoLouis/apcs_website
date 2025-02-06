@@ -9,6 +9,7 @@
     "@babel/register": "^7.21.0",
     "@emotion/react": "^11.11.4",
     "@emotion/styled": "^11.11.5",
+    "@firebase/storage": "^0.13.5",
     "@mediapipe/tasks-vision": "^0.10.14",
     "@mui/material": "^5.15.21",
     "@popperjs/core": "^2.11.6",

@@ -22,6 +22,7 @@ import { useAuth } from "../../context/DataContext";
 import { useSwipeable } from 'react-swipeable';
 import Typograhpy from "../../components/atom/Typograhpy";
 import { FestivalJkt2024 } from "../../constant/FestivalJkt2024";
+import { getStorage, ref, getDownloadURL } from "firebase/storage";
 
 
 const GaleryPage = () => {
