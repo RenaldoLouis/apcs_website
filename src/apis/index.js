@@ -1,7 +1,8 @@
 import http from '../services/http';
 
 const handleErrors = (err /* path  payload */) => {
-  const errorMessageKey = err.response?.data?.error.Message;
+  // const errorMessageKey = err.response?.data?.error.Message;
+  const errorMessageKey = err.response;
   return { error: errorMessageKey };
 };
 
@@ -64,5 +65,8 @@ export default {
   },
   email: {
     sendEmail: (data) => postRequest(`/api/v1/apcs/sendEmail`, data)
+  },
+  galery: {
+    getGalery: (eventName) => getRequest(`/api/v1/apcs/getGaleries?eventName=${eventName}`)
   }
 };

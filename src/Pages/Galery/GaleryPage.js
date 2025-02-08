@@ -23,6 +23,7 @@ import { useSwipeable } from 'react-swipeable';
 import Typograhpy from "../../components/atom/Typograhpy";
 import { FestivalJkt2024 } from "../../constant/FestivalJkt2024";
 import { getStorage, ref, getDownloadURL } from "firebase/storage";
+import apis from "../../apis";
 
 
 const GaleryPage = () => {
@@ -32,6 +33,7 @@ const GaleryPage = () => {
     const { isMobileAndSmaller } = useAuth();
 
     const [isLoading, setIsLoading] = useState(true)
+    const [isLoadingPictures, setIsLoadingPictures] = useState(true)
     const [galeryContent, setGaleryContent] = useState({})
     const [videoList, setVideoList] = useState([])
     const [ListGaleryContent, setListGaleryContent] = useState([
@@ -280,6 +282,17 @@ const GaleryPage = () => {
         fetchPost()
     }, [])
 
+    useEffect(() => {
+        console.log("selectedEvent", selectedEvent)
+        const normalizedName = selectedEvent.replace(/\s+/g, '').toLowerCase()
+        apis.galery.getGalery(normalizedName).then((res) => {
+            if (res.status === 200) {
+                console.log("res", res)
+            }
+            setIsLoading(false)
+        })
+    }, [selectedEvent])
+
     const fetchPost = useCallback(async () => {
         setIsLoading(true)
         const q = query(collection(db, "videos"), orderBy("order"));
@@ -473,7 +486,14 @@ const GaleryPage = () => {
                                 </div>
                             </div>
                         </div>
-                        <Galery name={galeryContent?.name} images={galeryContent?.images} isDynamicType={true} />
+                        {isLoadingPictures ? (
+                            <div className="loadingContainer">
+                                <Spin tip="Loading" size="large" />
+                            </div>
+                        ) : (
+                            <Galery name={galeryContent?.name} images={galeryContent?.images} isDynamicType={true} />
+                        )}
+
                     </div>
                 </>
             )}
