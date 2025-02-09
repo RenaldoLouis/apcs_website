@@ -6,8 +6,7 @@ import {
     CloseOutlined,
     YoutubeOutlined,
     InstagramOutlined,
-    WhatsAppOutlined,
-    TikTokOutlined
+    WhatsAppOutlined
 } from '@ant-design/icons';
 import { PathName } from "../../constant/PathName";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -111,9 +110,9 @@ const Footer = () => {
                                 </div>
                             </div>
                             <div className="p-2 align-self-center">
+                                <WhatsAppOutlined style={{ fontSize: 32, marginRight: 36 }} onClick={handleOpenWhatsapp} />
                                 <YoutubeOutlined style={{ fontSize: 32 }} />
                                 <InstagramOutlined style={{ marginLeft: 36, marginRight: 36, fontSize: 32 }} />
-                                <TikTokOutlined style={{ fontSize: 32 }} />
                             </div>
                             <div className="p-2 align-self-center">
                                 (c)2024 APCS. All Rights Reserved
@@ -194,7 +193,6 @@ const Footer = () => {
                                 <WhatsAppOutlined style={{ fontSize: 30, marginRight: 36 }} onClick={handleOpenWhatsapp} />
                                 <YoutubeOutlined className="cursorPointer" style={{ fontSize: 32 }} onClick={handleOpenYoutube} />
                                 <InstagramOutlined className="cursorPointer" style={{ marginLeft: 36, fontSize: 32 }} onClick={handleOpenInstagram} />
-                                {/* <TikTokOutlined style={{ fontSize: 32 }} /> */}
                             </div>
                             <div className="text-align-end">
                                 &copy; 2024 APCS. All Rights Reserved

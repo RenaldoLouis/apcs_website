@@ -7,7 +7,6 @@ import {
     CloseOutlined,
     YoutubeOutlined,
     InstagramOutlined,
-    TikTokOutlined,
     WhatsAppOutlined
 } from '@ant-design/icons';
 import { useTranslation } from "react-i18next";
@@ -70,7 +69,6 @@ const Navbar = (props) => {
                         <WhatsAppOutlined style={{ fontSize: 30, marginRight: 18 }} onClick={handleOpenWhatsapp} />
                         <YoutubeOutlined className="cursorPointer" style={{ fontSize: 32 }} onClick={handleOpenYoutube} />
                         <InstagramOutlined className="cursorPointer" style={{ marginLeft: 18, marginRight: 18, fontSize: 32 }} onClick={handleOpenInstagram} />
-                        {/* <TikTokOutlined style={{ fontSize: 32 }} /> */}
                     </div>
                     <div className="col-2">
                         <span className="logoContainerNavbar">
