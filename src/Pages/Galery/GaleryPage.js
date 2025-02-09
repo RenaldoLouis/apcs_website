@@ -283,15 +283,19 @@ const GaleryPage = () => {
     }, [])
 
     useEffect(() => {
-        console.log("selectedEvent", selectedEvent)
+        fetchGalery()
+    }, [selectedEvent])
+
+    const fetchGalery = () => {
+        setIsLoadingPictures(true)
         const normalizedName = selectedEvent.replace(/\s+/g, '').toLowerCase()
         apis.galery.getGalery(normalizedName).then((res) => {
             if (res.status === 200) {
                 console.log("res", res)
             }
-            setIsLoading(false)
+            setIsLoadingPictures(false)
         })
-    }, [selectedEvent])
+    }
 
     const fetchPost = useCallback(async () => {
         setIsLoading(true)
