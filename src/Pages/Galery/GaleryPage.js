@@ -291,7 +291,7 @@ const GaleryPage = () => {
         const normalizedName = selectedEvent.replace(/\s+/g, '').toLowerCase()
         apis.galery.getGalery(normalizedName).then((res) => {
             if (res.status === 200) {
-                console.log("res", res)
+                // console.log("res", res)
             }
             setIsLoadingPictures(false)
         })
@@ -299,18 +299,12 @@ const GaleryPage = () => {
 
     const fetchVideos = useCallback(async () => {
         setIsLoading(true)
-        const q = query(collection(db, "videos"), orderBy("order"));
-
-        await getDocs(q)
-            .then((querySnapshot) => {
-                if (querySnapshot) {
-                    const newData = querySnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
-                    setVideoList(newData)
-                }
-            })
-            .catch((error) => {
-                console.error("Error getting documents: ", error);
-            });
+        apis.galery.getVideos().then((res) => {
+            if (res.status === 200) {
+                setVideoList(res.data)
+            }
+            setIsLoading(false)
+        })
     }, [])
 
     useEffect(() => {

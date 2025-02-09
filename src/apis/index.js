@@ -67,6 +67,7 @@ export default {
     sendEmail: (data) => postRequest(`/api/v1/apcs/sendEmail`, data)
   },
   galery: {
-    getGalery: (eventName) => getRequest(`/api/v1/apcs/getGaleries?eventName=${eventName}`)
+    getGalery: (eventName) => getRequest(`/api/v1/apcs/getGaleries?eventName=${eventName}`),
+    getVideos: () => getRequest(`/api/v1/apcs/getVideos`)
   }
 };
