@@ -279,7 +279,7 @@ const GaleryPage = () => {
     ])
 
     useEffect(() => {
-        fetchPost()
+        fetchVideos()
     }, [])
 
     useEffect(() => {
@@ -297,7 +297,7 @@ const GaleryPage = () => {
         })
     }
 
-    const fetchPost = useCallback(async () => {
+    const fetchVideos = useCallback(async () => {
         setIsLoading(true)
         const q = query(collection(db, "videos"), orderBy("order"));
 
@@ -343,7 +343,6 @@ const GaleryPage = () => {
         if (element) {
             element.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
-
 
         let tempData = ListGaleryContent.filter((data) => data.name === selectedEvent)
         setGaleryContent(tempData[0])

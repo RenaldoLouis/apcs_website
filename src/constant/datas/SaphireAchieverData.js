@@ -26,7 +26,7 @@ import saphireAchievers21 from "../../assets/images/saphireAchiever/saphireAchie
 import saphireAchievers22 from "../../assets/images/saphireAchiever/saphireAchievers22.png";
 import saphireAchievers23 from "../../assets/images/saphireAchiever/saphireAchievers23.png";
 import saphireAchievers24 from "../../assets/images/saphireAchiever/saphireAchievers24.png";
-import saphireAchievers25 from "../../assets/images/saphireAchiever/saphireAchievers25.png";
+import saphireAchievers25 from "../../assets/images/saphireAchiever/saphireAchievers25.jpg";
 import saphireAchievers26 from "../../assets/images/saphireAchiever/saphireAchievers26.png";
 import saphireAchievers27 from "../../assets/images/saphireAchiever/saphireAchievers27.png";
 import saphireAchievers28 from "../../assets/images/saphireAchiever/saphireAchievers28.jpg";
