@@ -17,17 +17,10 @@ const GoldSection = () => {
     const { t } = useTranslation();
 
     const { isMobileAndSmaller } = useAuth()
-    const [christmastGold, setChristmastGold] = useState('');
 
     const handleChange = (event) => {
-        setChristmastGold(event.target.value);
         window.open(event.target.value, '_blank');
     };
-
-    const handleClickWinner = (link) => {
-        window.open(link, '_blank');
-    }
-
     return (
         <div style={{ paddingBottom: 50 }}>
             <div className="container" style={{ marginBottom: 50 }}>
@@ -85,7 +78,7 @@ const GoldSection = () => {
                                 className="mosafinFont"
                                 labelId="demo-simple-select-label"
                                 id="demo-simple-select"
-                                value={christmastGold}
+                                // value={christmastGold}
                                 label="Christmas Wonderland"
                                 onChange={handleChange}
                                 sx={{
@@ -133,7 +126,7 @@ const GoldSection = () => {
                                 className="mosafinFont"
                                 labelId="demo-simple-select-label"
                                 id="demo-simple-select"
-                                value={christmastGold}
+                                // value={christmastGold}
                                 label="Classical Festival Jakarta"
                                 onChange={handleChange}
                                 sx={{
@@ -182,7 +175,7 @@ const GoldSection = () => {
                                 className="mosafinFont"
                                 labelId="demo-simple-select-label"
                                 id="demo-simple-select"
-                                value={christmastGold}
+                                // value={christmastGold}
                                 label="Classical Festival Surabaya"
                                 onChange={handleChange}
                                 sx={{
@@ -225,7 +218,7 @@ const GoldSection = () => {
                                 className="mosafinFont"
                                 labelId="demo-simple-select-label"
                                 id="demo-simple-select"
-                                value={christmastGold}
+                                // value={christmastGold}
                                 label="Magical Music Soundtrack"
                                 onChange={handleChange}
                                 sx={{
