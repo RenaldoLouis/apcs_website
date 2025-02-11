@@ -34,6 +34,7 @@ import saphireAchievers29 from "../../assets/images/saphireAchiever/saphireAchie
 import saphireAchievers30 from "../../assets/images/saphireAchiever/saphireAchievers30.jpg";
 import saphireAchievers31 from "../../assets/images/saphireAchiever/saphireAchievers31.jpg";
 import saphireAchievers32 from "../../assets/images/saphireAchiever/saphireAchievers32.jpg";
+import saphireAchievers33 from "../../assets/images/saphireAchiever/saphireAchievers33.jpeg";
 
 
 export const SapphireWinners = [
@@ -42,7 +43,7 @@ export const SapphireWinners = [
         image: saphireAchievers1,
         country: ListOfCity.JKT,
         YoutubeLink: "https://www.youtube.com/watch?v=is5ie02NnyA&ab_channel=APIANOCONCERTOSERIES",
-        event: [ListOfEventAchiever["2025UPCOMING"], ListOfEventAchiever["2023CLASSICJKT"]]
+        event: [ListOfEventAchiever["2023CLASSICJKT"]]
     },
     {
         name: "Clarissa Stefanny",
@@ -84,7 +85,7 @@ export const SapphireWinners = [
         image: saphireAchievers7,
         country: ListOfCity.SRB,
         YoutubeLink: "https://www.youtube.com/watch?v=bMBKgEL4x3w&ab_channel=APIANOCONCERTOSERIES",
-        event: [ListOfEventAchiever["2025UPCOMING"], ListOfEventAchiever["2023CHRISTMAS"]]
+        event: [ListOfEventAchiever["2023CLASSICSRBY"], ListOfEventAchiever["2023CHRISTMAS"]]
     },
     {
         name: "Charice Elleanore Konggo Budiman",
@@ -98,7 +99,7 @@ export const SapphireWinners = [
         image: saphireAchievers9,
         country: ListOfCity.JKT,
         YoutubeLink: "https://www.youtube.com/watch?v=1sqUiE7SP30&ab_channel=APIANOCONCERTOSERIES",
-        event: [ListOfEventAchiever["2025UPCOMING"], ListOfEventAchiever["2023CHRISTMAS"]]
+        event: [ListOfEventAchiever["2022MAGICMUSIC"], ListOfEventAchiever["2023CHRISTMAS"], ListOfEventAchiever["2023CLASSICJKT"]]
     },
     {
         name: "Sydney Mikaela Tan",
@@ -260,5 +261,12 @@ export const SapphireWinners = [
         "country": "Jakarta",
         "YoutubeLink": "",
         "event": [ListOfEventAchiever["2024APCSCLASSIC"]],
+    },
+    {
+        "name": "Lilian Natalie Susanto",
+        "image": saphireAchievers33,
+        "country": "Tangerang",
+        "YoutubeLink": "",
+        "event": [ListOfEventAchiever["2022MAGICMUSIC"]],
     }
 ];
