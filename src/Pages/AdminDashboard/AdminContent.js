@@ -9,6 +9,8 @@ import JSZip from "jszip";
 import ReactDOM from "react-dom";
 import * as xlsx from 'xlsx';
 import RegistrantAssignment from '../../components/molecules/AdminContentComponent/RegistrantAssignment';
+import { db } from '../../firebase';
+import { collection, writeBatch, doc } from "firebase/firestore";
 
 const { Content } = Layout;
 
@@ -180,6 +182,39 @@ const AdminContent = () => {
         }
     }
 
+    const handleUploadRegistrant = (e) => {
+        e.preventDefault();
+        if (e.target.files.length > 0) {
+            const reader = new FileReader();
+            reader.onload = async (e) => {
+                const data = e.target.result;
+                const workbook = xlsx.read(data, { type: "array" });
+                console.log("workbook", workbook)
+                const sheetName = workbook.SheetNames[0];
+                const worksheet = workbook.Sheets[sheetName];
+                const json = xlsx.utils.sheet_to_json(worksheet);
+                console.log(json)
+
+                // to save to Users DB
+                const batch = writeBatch(db);
+                const usersCollection = collection(db, "Registrants");
+
+                json.forEach((data) => {
+                    const newDocRef = doc(usersCollection); // Auto-generate a new document ID
+                    batch.set(newDocRef, data);
+                });
+
+                try {
+                    await batch.commit(); // Save all documents in a single batch
+                    console.log("Batch write successful!");
+                } catch (error) {
+                    console.error("Error writing batch:", error);
+                }
+            };
+            reader.readAsArrayBuffer(e.target.files[0]);
+        }
+    }
+
 
     return (
         <Content
@@ -205,6 +240,15 @@ const AdminContent = () => {
                     name="upload"
                     id="upload"
                     onChange={readUploadFile}
+                />
+            </form>
+            <form>
+                <label htmlFor="Save Registrand to DB">Uplad Registrant</label>
+                <input
+                    type="file"
+                    name="upload"
+                    id="upload"
+                    onChange={handleUploadRegistrant}
                 />
             </form>
             <div

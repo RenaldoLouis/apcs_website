@@ -39,6 +39,10 @@ const RegistrantAssignment = () => {
         setTotalSteps(tempArray)
     }, [totalDaysEvent])
 
+    const handleExportToExcel = () => {
+
+    }
+
     return (
         <div >
             <div className="flex-column w-15">
@@ -53,7 +57,8 @@ const RegistrantAssignment = () => {
                         width: '100%',
                     }}
                 />
-                <Button type="primary" onClick={handleClickSaveToDb}>Save To DB</Button>
+                <Button className="mb-12" type="primary" onClick={handleClickSaveToDb}>Save To DB</Button>
+                <Button type="primary" onClick={handleExportToExcel}>Export to excel</Button>
             </div>
 
             <div className="flex justify-center">
@@ -64,11 +69,11 @@ const RegistrantAssignment = () => {
                     style={{ color: "black" }}
                 />
             </div>
-            <div className="flex justify-evenly">
+            {/* <div className="flex justify-evenly">
                 {totalSteps.map((eachEvent) => (
                     <RundownEventSteps eachEvent={eachEvent} day={eachEvent.day} totalSteps={totalSteps} setTotalSteps={setTotalSteps} />
                 ))}
-            </div>
+            </div> */}
 
             <DndProvider backend={HTML5Backend}>
                 <DragDrop />
