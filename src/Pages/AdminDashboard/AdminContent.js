@@ -1,4 +1,4 @@
-import { Layout, Table, theme } from 'antd';
+import { Layout, Table, theme, Pagination } from 'antd';
 import React, { useState } from 'react';
 import { RegistrantsColumns } from '../../constant/RegistrantsColumn';
 import usePaginatedRegistrants from '../../hooks/useFetchRegistrantsData';
@@ -92,9 +92,11 @@ const styles = StyleSheet.create({
 });
 
 const AdminContent = () => {
+    const pageSize = 10
+
     const { token: { colorBgContainer, borderRadiusLG }, } = theme.useToken();
 
-    const { registrantDatas, setPage } = usePaginatedRegistrants(10);
+    const { registrantDatas, page, setPage, totalDocs } = usePaginatedRegistrants(pageSize);
 
     const handlePageChange = (pagination, filters, sorter, extra) => {
         setPage(pagination);
@@ -215,7 +217,6 @@ const AdminContent = () => {
         }
     }
 
-
     return (
         <Content
             style={{
@@ -230,7 +231,16 @@ const AdminContent = () => {
                     borderRadius: borderRadiusLG,
                 }}
             >
-                <Table columns={RegistrantsColumns} dataSource={registrantDatas} onChange={handlePageChange} />
+                <Table columns={RegistrantsColumns} dataSource={registrantDatas} onChange={handlePageChange} pagination={false} />
+                <Pagination
+                    className='mt-16'
+                    current={page}
+                    pageSize={pageSize}
+                    total={totalDocs} // Total number of items
+                    onChange={handlePageChange}
+                    showSizeChanger={false}
+                // onShowSizeChange={onShowSizeChange}
+                />
             </div>
             <button onClick={generatePdf}>Generate PDFs</button>
             <form>

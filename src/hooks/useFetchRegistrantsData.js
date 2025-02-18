@@ -21,14 +21,14 @@ const usePaginatedRegistrants = (pageSize = 10) => {
             const offset = (pageNumber - 1) * pageSize;
             let q = query(
                 collection(db, "Registrants"),
-                orderBy("teacher"),
+                orderBy("achievement"),
                 limit(pageSize)
             );
 
             if (offset > 0) {
                 const initialQuery = query(
                     collection(db, "Registrants"),
-                    orderBy("teacher"),
+                    orderBy("achievement"),
                     limit(offset)
                 );
                 const initialSnapshot = await getDocs(initialQuery);
@@ -36,7 +36,7 @@ const usePaginatedRegistrants = (pageSize = 10) => {
 
                 q = query(
                     collection(db, "Registrants"),
-                    orderBy("teacher"),
+                    orderBy("achievement"),
                     startAt(lastVisible),
                     limit(pageSize)
                 );
@@ -49,7 +49,7 @@ const usePaginatedRegistrants = (pageSize = 10) => {
 
             // Calculate total documents for pagination
             if (pageNumber === 1) {
-                const totalQuery = await getDocs(collection(db, "users"));
+                const totalQuery = await getDocs(collection(db, "Registrants"));
                 setTotalDocs(totalQuery.size);
             }
         } catch (err) {
@@ -68,7 +68,7 @@ const usePaginatedRegistrants = (pageSize = 10) => {
 
     const totalPages = Math.ceil(totalDocs / pageSize);
 
-    return { registrantDatas, loading, error, page, setPage, totalPages };
+    return { registrantDatas, loading, error, page, setPage, totalPages, totalDocs };
 };
 
 export default usePaginatedRegistrants;
