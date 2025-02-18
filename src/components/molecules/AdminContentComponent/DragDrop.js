@@ -3,7 +3,7 @@ import update from 'immutability-helper'
 import { DndCard } from "./DndCard";
 
 const style = {
-    width: 400,
+    // width: 400,
 }
 
 const DragDrop = () => {

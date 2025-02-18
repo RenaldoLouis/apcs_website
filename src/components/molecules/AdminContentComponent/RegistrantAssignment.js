@@ -1,23 +1,23 @@
 import React, { useEffect, useState } from "react";
-import { Steps } from 'antd';
 import { LoadingOutlined } from '@ant-design/icons';
 import { RegistrantStatus } from "../../../constant/RegistrantStatus";
 import Typograhpy from "../../atom/Typograhpy";
 import { TextSizeType } from "../../../constant/TextSizeType";
 import RundownEventSteps from "./RundownEventSteps";
-import { Space, TimePicker, Form, Button } from 'antd';
-import { InputNumber } from 'antd';
+import { Space, TimePicker, Form, Button, Spin, InputNumber } from 'antd';
 import { DndProvider } from 'react-dnd'
 import { HTML5Backend } from 'react-dnd-html5-backend'
 import DragDrop from "./DragDrop";
 
-const RegistrantAssignment = () => {
-
-    const [totalDaysEvent, setTotalDaysEvent] = useState(3);
+const RegistrantAssignment = ({ allData }) => {
+    const [totalDaysEvent, setTotalDaysEvent] = useState(2);
     const [totalSteps, setTotalSteps] = useState([]);
+    const [spinning, setSpinning] = React.useState(false);
 
     const handleClickAssignRegistrant = () => {
-
+        const first50 = allData.slice(0, 50); // Get elements from index 0 up to (but not including) 50
+        console.log("first50", first50)
+        setSpinning(true)
     }
 
     const handleClickSaveToDb = () => {
@@ -45,12 +45,14 @@ const RegistrantAssignment = () => {
 
     return (
         <div >
+            <Spin tip="Assigning..." spinning={spinning} fullscreen />
+
             <div className="flex-column w-15">
                 <Button className="mb-12" type="primary" onClick={handleClickAssignRegistrant}>Assign Registrant</Button>
                 <InputNumber
                     className="mb-12"
                     suffix="Days"
-                    min={1} max={3}
+                    min={1} max={2}
                     defaultValue={totalDaysEvent}
                     onChange={handleChangeEventDays}
                     style={{
@@ -75,9 +77,22 @@ const RegistrantAssignment = () => {
                 ))}
             </div> */}
 
-            <DndProvider backend={HTML5Backend}>
-                <DragDrop />
-            </DndProvider>
+            <div className="d-flex justify-evenly">
+                {totalSteps.map((eachEvent, index) => (
+                    <DndProvider backend={HTML5Backend}>
+                        <div className="dayContainer">
+                            <div className="mb-16 d-flex justify-center">
+                                {`Day ${index + 1}`}
+                            </div>
+                            <div className="d-flex">
+
+                                <DragDrop />
+                                <DragDrop />
+                            </div>
+                        </div>
+                    </DndProvider>
+                ))}
+            </div>
         </div>
     )
 }

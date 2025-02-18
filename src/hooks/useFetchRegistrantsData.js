@@ -12,6 +12,7 @@ const usePaginatedRegistrants = (pageSize = 10) => {
     const [error, setError] = useState(null);
     const [page, setPage] = useState(1);
     const [totalDocs, setTotalDocs] = useState(0);
+    const [allData, setAllData] = useState(0);
 
     const fetchUserData = useCallback(async (pageNumber) => {
         setLoading(true);
@@ -51,6 +52,9 @@ const usePaginatedRegistrants = (pageSize = 10) => {
             if (pageNumber === 1) {
                 const totalQuery = await getDocs(collection(db, "Registrants"));
                 setTotalDocs(totalQuery.size);
+
+                const newData = totalQuery.docs.map(doc => ({ ...doc.data(), id: doc.id }));
+                setAllData(newData);
             }
         } catch (err) {
             console.error("Error getting documents: ", err);
@@ -68,7 +72,7 @@ const usePaginatedRegistrants = (pageSize = 10) => {
 
     const totalPages = Math.ceil(totalDocs / pageSize);
 
-    return { registrantDatas, loading, error, page, setPage, totalPages, totalDocs };
+    return { registrantDatas, loading, error, page, setPage, totalPages, totalDocs, allData };
 };
 
 export default usePaginatedRegistrants;

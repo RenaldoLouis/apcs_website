@@ -1,5 +1,8 @@
 import { useRef } from 'react'
 import { useDrag, useDrop } from 'react-dnd'
+import { Card } from 'antd';
+
+
 const style = {
     border: '1px dashed gray',
     padding: '0.5rem 1rem',
@@ -67,8 +70,17 @@ export const DndCard = ({ id, text, index, moveCard }) => {
     const opacity = isDragging ? 0 : 1
     drag(drop(ref))
     return (
-        <div ref={ref} style={{ ...style, opacity }} data-handler-id={handlerId}>
+        // <div ref={ref} className='cardContainer' style={{ opacity }} data-handler-id={handlerId}>
+        //     {text}
+        // </div>
+        <Card
+            className='mb-8 cardContainer mr-8'
+            ref={ref}
+            data-handler-id={handlerId}
+            title={text}
+            // extra={<a href="#">More</a>}
+            style={{ width: 300, opacity }}>
             {text}
-        </div>
+        </Card>
     )
 }
