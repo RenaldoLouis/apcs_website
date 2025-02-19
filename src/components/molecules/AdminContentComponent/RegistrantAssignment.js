@@ -8,11 +8,17 @@ import { Space, TimePicker, Form, Button, Spin, InputNumber } from 'antd';
 import { DndProvider } from 'react-dnd'
 import { HTML5Backend } from 'react-dnd-html5-backend'
 import DragDrop from "./DragDrop";
+import * as FileSaver from "file-saver";
+import ExcelJS from "exceljs";
 
 const RegistrantAssignment = ({ allData, isLoading }) => {
     const [totalDaysEvent, setTotalDaysEvent] = useState(2);
     const [totalSteps, setTotalSteps] = useState([]);
     const [spinning, setSpinning] = React.useState(false);
+
+    useEffect(() => {
+        setSpinning(isLoading)
+    }, [isLoading])
 
     const splitIntoFour = (arr, totalGroup) => {
         const chunks = [];
@@ -80,7 +86,6 @@ const RegistrantAssignment = ({ allData, isLoading }) => {
     }
 
     const handleClickSaveToDb = () => {
-        console.log("totalSteps", totalSteps)
     }
 
     const handleChangeEventDays = (value) => {
@@ -98,13 +103,40 @@ const RegistrantAssignment = ({ allData, isLoading }) => {
         setTotalSteps(tempArray)
     }, [totalDaysEvent])
 
-    const handleExportToExcel = () => {
+    const exportDataToExcel = (data, filename = "data", sheetname = "Sheet1") => {
+        const workbook = new ExcelJS.Workbook();
+        const worksheet = workbook.addWorksheet(sheetname);
 
+        console.log("data", data)
+        // Add header row (optional, but recommended)
+        const headerRow = Object.keys(data[0].data[0][0]); // Get keys from the first data item
+        worksheet.addRow(headerRow);
+
+        // Add data rows for each day
+        data.forEach(dayData => {
+            dayData.data.forEach(items => { // Iterate through the array of arrays
+                items.forEach(item => { // Iterate through the items in each inner array
+                    const values = Object.values(item);
+                    worksheet.addRow(values);
+                });
+            });
+        });
+
+        workbook.xlsx.writeBuffer().then(buffer => {
+            const blob = new Blob([buffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+            FileSaver.saveAs(blob, filename + '.xlsx');
+        });
+    };
+
+    const handleExportToExcel = () => {
+        console.log("totalSteps", totalSteps)
+        const myData = totalSteps;
+        exportDataToExcel(myData); // Or exportDataToExcel(myData, "my_excel_file", "Participants");
     }
 
     return (
         <div >
-            <Spin tip="Assigning..." spinning={spinning} fullscreen />
+            <Spin tip="Loading..." spinning={spinning} fullscreen />
 
             <div className="flex-column w-15">
                 <Button loading={isLoading} className="mb-12" type="primary" onClick={handleClickAssignRegistrant}>Assign Registrant</Button>
@@ -118,7 +150,7 @@ const RegistrantAssignment = ({ allData, isLoading }) => {
                         width: '100%',
                     }}
                 />
-                <Button loading={isLoading} className="mb-12" type="primary" onClick={handleClickSaveToDb}>Save To DB</Button>
+                {/* <Button loading={isLoading} className="mb-12" type="primary" onClick={handleClickSaveToDb}>Save To DB</Button> */}
                 <Button loading={isLoading} type="primary" onClick={handleExportToExcel}>Export to excel</Button>
             </div>
 
