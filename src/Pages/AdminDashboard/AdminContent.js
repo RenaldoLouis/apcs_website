@@ -96,7 +96,7 @@ const AdminContent = () => {
 
     const { token: { colorBgContainer, borderRadiusLG }, } = theme.useToken();
 
-    const { registrantDatas, page, setPage, totalDocs, allData } = usePaginatedRegistrants(pageSize);
+    const { registrantDatas, page, setPage, totalDocs, allData, loading } = usePaginatedRegistrants(pageSize);
 
     const handlePageChange = (pagination, filters, sorter, extra) => {
         setPage(pagination);
@@ -269,7 +269,7 @@ const AdminContent = () => {
                     borderRadius: borderRadiusLG,
                 }}
             >
-                <RegistrantAssignment allData={allData} />
+                <RegistrantAssignment allData={allData} isLoading={loading} />
             </div>
         </Content>
     )

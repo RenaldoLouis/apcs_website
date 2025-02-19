@@ -10,7 +10,7 @@ const style = {
     backgroundColor: 'white',
     cursor: 'move',
 }
-export const DndCard = ({ id, text, index, moveCard }) => {
+export const DndCard = ({ id, text, index, moveCard, achievement, teacher }) => {
     const ref = useRef(null)
     const [{ handlerId }, drop] = useDrop({
         accept: 'card',
@@ -77,10 +77,10 @@ export const DndCard = ({ id, text, index, moveCard }) => {
             className='mb-8 cardContainer mr-8'
             ref={ref}
             data-handler-id={handlerId}
-            title={text}
+            title={achievement}
             // extra={<a href="#">More</a>}
             style={{ width: 300, opacity }}>
-            {text}
+            {text} - {teacher}
         </Card>
     )
 }

@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import update from 'immutability-helper'
 import { DndCard } from "./DndCard";
 
@@ -6,7 +6,7 @@ const style = {
     // width: 400,
 }
 
-const DragDrop = () => {
+const DragDrop = ({ eachEvent, session }) => {
     const [cards, setCards] = useState([
         {
             id: 1,
@@ -37,6 +37,20 @@ const DragDrop = () => {
             text: 'PROFIT',
         },
     ])
+
+    useEffect(() => {
+        if (eachEvent.data) {
+            let tempObj = {}
+            if (session === 1) {
+                tempObj = eachEvent.data[0]
+                setCards(tempObj)
+            } else {
+                tempObj = eachEvent.data[1]
+                setCards(tempObj)
+            }
+        }
+    }, [eachEvent, eachEvent.data])
+
     const moveCard = useCallback((dragIndex, hoverIndex) => {
         setCards((prevCards) =>
             update(prevCards, {
@@ -53,8 +67,10 @@ const DragDrop = () => {
                 key={card.id}
                 index={index}
                 id={card.id}
-                text={card.text}
+                text={card.name}
+                achievement={card.achievement}
                 moveCard={moveCard}
+                teacher={card.teacher}
             />
         )
     }, [])
