@@ -107,19 +107,20 @@ const RegistrantAssignment = ({ allData, isLoading }) => {
         const workbook = new ExcelJS.Workbook();
 
         data.forEach(dayData => {
-            const worksheet = workbook.addWorksheet(`Day ${dayData.day}`);
+            dayData.data.forEach((sessionData, sessionIndex) => { // Iterate through sessions
+                const worksheet = workbook.addWorksheet(`Day ${dayData.day} - Session ${sessionIndex + 1}`);
 
-            // Get the headers from the first item of the day (assuming all items have the same structure)
-            const headers = Object.keys(dayData.data[0][0]);
+                if (sessionData.length > 0) { // Check if sessionData is not empty
+                    const headers = Object.keys(sessionData[0]);
+                    worksheet.addRow(headers);
 
-            // Add the headers to the worksheet
-            worksheet.addRow(headers);
-
-            dayData.data.forEach(items => {
-                items.forEach(item => {
-                    const values = headers.map(header => item[header]); // Maintain order using headers
-                    worksheet.addRow(values);
-                });
+                    sessionData.forEach(item => {
+                        const values = headers.map(header => item[header]);
+                        worksheet.addRow(values);
+                    });
+                } else {
+                    worksheet.addRow(["No data for this session."]); // Add a message for empty sessions
+                }
             });
         });
 
