@@ -15,6 +15,7 @@ const RegistrantAssignment = ({ allData, isLoading }) => {
     const [totalDaysEvent, setTotalDaysEvent] = useState(2);
     const [totalSteps, setTotalSteps] = useState([]);
     const [spinning, setSpinning] = React.useState(false);
+    const [isAbleToExport, setIsAbleToExport] = useState(false);
 
     useEffect(() => {
         setSpinning(isLoading)
@@ -31,6 +32,7 @@ const RegistrantAssignment = ({ allData, isLoading }) => {
     };
 
     const handleClickAssignRegistrant = () => {
+        setIsAbleToExport(true)
         setSpinning(true)
         const first50 = allData.slice(0, 50); // Get elements from index 0 up to (but not including) 50
 
@@ -85,14 +87,12 @@ const RegistrantAssignment = ({ allData, isLoading }) => {
         setSpinning(false)
     }
 
-    const handleClickSaveToDb = () => {
-    }
-
     const handleChangeEventDays = (value) => {
         setTotalDaysEvent(value)
     };
 
     useEffect(() => {
+        setIsAbleToExport(false)
         let tempArray = []
         for (let i = 1; i <= totalDaysEvent; i++) {
             tempArray.push(
@@ -103,20 +103,21 @@ const RegistrantAssignment = ({ allData, isLoading }) => {
         setTotalSteps(tempArray)
     }, [totalDaysEvent])
 
-    const exportDataToExcel = (data, filename = "data", sheetname = "Sheet1") => {
+    const exportDataToExcel = (data, filename = "data.xlsx") => {
         const workbook = new ExcelJS.Workbook();
-        const worksheet = workbook.addWorksheet(sheetname);
 
-        console.log("data", data)
-        // Add header row (optional, but recommended)
-        const headerRow = Object.keys(data[0].data[0][0]); // Get keys from the first data item
-        worksheet.addRow(headerRow);
-
-        // Add data rows for each day
         data.forEach(dayData => {
-            dayData.data.forEach(items => { // Iterate through the array of arrays
-                items.forEach(item => { // Iterate through the items in each inner array
-                    const values = Object.values(item);
+            const worksheet = workbook.addWorksheet(`Day ${dayData.day}`);
+
+            // Get the headers from the first item of the day (assuming all items have the same structure)
+            const headers = Object.keys(dayData.data[0][0]);
+
+            // Add the headers to the worksheet
+            worksheet.addRow(headers);
+
+            dayData.data.forEach(items => {
+                items.forEach(item => {
+                    const values = headers.map(header => item[header]); // Maintain order using headers
                     worksheet.addRow(values);
                 });
             });
@@ -124,16 +125,15 @@ const RegistrantAssignment = ({ allData, isLoading }) => {
 
         workbook.xlsx.writeBuffer().then(buffer => {
             const blob = new Blob([buffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
-            FileSaver.saveAs(blob, filename + '.xlsx');
+            FileSaver.saveAs(blob, filename);
         });
     };
 
     const handleExportToExcel = () => {
-        console.log("totalSteps", totalSteps)
-        const myData = totalSteps;
-        exportDataToExcel(myData); // Or exportDataToExcel(myData, "my_excel_file", "Participants");
+        exportDataToExcel(totalSteps);
     }
 
+    console.log("totalSteps", totalSteps)
     return (
         <div >
             <Spin tip="Loading..." spinning={spinning} fullscreen />
@@ -151,14 +151,14 @@ const RegistrantAssignment = ({ allData, isLoading }) => {
                     }}
                 />
                 {/* <Button loading={isLoading} className="mb-12" type="primary" onClick={handleClickSaveToDb}>Save To DB</Button> */}
-                <Button loading={isLoading} type="primary" onClick={handleExportToExcel}>Export to excel</Button>
+                <Button loading={isLoading} type="primary" onClick={handleExportToExcel} disabled={!isAbleToExport}>Export to excel</Button>
             </div>
 
             <div className="flex justify-center">
                 <Typograhpy
                     className="mb-12"
                     text={"Day of Events Rundown"}
-                    size={TextSizeType.medium}
+                    size={TextSizeType.big}
                     style={{ color: "black" }}
                 />
             </div>
@@ -172,9 +172,9 @@ const RegistrantAssignment = ({ allData, isLoading }) => {
                 {totalSteps.map((eachEvent, index) => (
                     <DndProvider backend={HTML5Backend}>
                         <div className="dayContainer">
-                            <div className="mb-16 d-flex justify-center">
+                            <h2 className="mb-16 d-flex justify-center">
                                 {`Day ${index + 1}`}
-                            </div>
+                            </h2>
                             <div className="d-flex">
 
                                 <DragDrop eachEvent={eachEvent} session={1} />

@@ -2,14 +2,6 @@ import { useRef } from 'react'
 import { useDrag, useDrop } from 'react-dnd'
 import { Card } from 'antd';
 
-
-const style = {
-    border: '1px dashed gray',
-    padding: '0.5rem 1rem',
-    marginBottom: '.5rem',
-    backgroundColor: 'white',
-    cursor: 'move',
-}
 export const DndCard = ({ id, text, index, moveCard, achievement, teacher }) => {
     const ref = useRef(null)
     const [{ handlerId }, drop] = useDrop({
@@ -80,7 +72,7 @@ export const DndCard = ({ id, text, index, moveCard, achievement, teacher }) => 
             title={achievement}
             // extra={<a href="#">More</a>}
             style={{ width: 300, opacity }}>
-            {text} - {teacher}
+            {text} ({teacher})
         </Card>
     )
 }

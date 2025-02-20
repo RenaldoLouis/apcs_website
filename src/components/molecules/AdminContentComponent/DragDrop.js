@@ -76,9 +76,12 @@ const DragDrop = ({ eachEvent, session }) => {
     }, [])
 
     return (
-        <>
+        <div className="flex-column">
+            <h3 className="align-self-center">
+                stage {session}
+            </h3>
             <div style={style}>{cards.map((card, i) => renderCard(card, i))}</div>
-        </>
+        </div>
     )
 }
 
