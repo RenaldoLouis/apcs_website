@@ -34,11 +34,10 @@ const RegistrantAssignment = ({ allData, isLoading }) => {
     const handleClickAssignRegistrant = () => {
         setIsAbleToExport(true)
         setSpinning(true)
-        const first50 = allData.slice(0, 50); // Get elements from index 0 up to (but not including) 50
 
-        first50.sort((a, b) => {
+        allData.sort((a, b) => {
             // 1. Sort by achievement (Gold > Silver)
-            const achievementOrder = { GOLD: 0, SILVER: 1, DIAMOND: 2 }; // Define the order
+            const achievementOrder = { DIAMOND: 0, SILVER: 1, GOLD: 2 }; // Define the order
             const achievementA = achievementOrder[a.achievement];
             const achievementB = achievementOrder[b.achievement];
 
@@ -59,7 +58,7 @@ const RegistrantAssignment = ({ allData, isLoading }) => {
             return 0; // Teacher names are the same
         });
 
-        const groupedArray = splitIntoFour(first50, totalSteps.length * 2);
+        const groupedArray = splitIntoFour(allData, totalSteps.length * 2);
 
         const AssignedSession = [...totalSteps]
 

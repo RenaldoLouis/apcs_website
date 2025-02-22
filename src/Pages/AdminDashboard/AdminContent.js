@@ -195,7 +195,7 @@ const AdminContent = () => {
                 const sheetName = workbook.SheetNames[0];
                 const worksheet = workbook.Sheets[sheetName];
                 const json = xlsx.utils.sheet_to_json(worksheet);
-                console.log(json)
+                console.log("json", json)
 
                 // to save to Users DB
                 const batch = writeBatch(db);
