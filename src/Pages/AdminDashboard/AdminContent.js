@@ -168,22 +168,6 @@ const AdminContent = () => {
         saveAs(zipBlob, "registrant.zip");
     }
 
-    const readUploadFile = (e) => {
-        e.preventDefault();
-        if (e.target.files.length > 0) {
-            const reader = new FileReader();
-            reader.onload = (e) => {
-                const data = e.target.result;
-                const workbook = xlsx.read(data, { type: "array" });
-                const sheetName = workbook.SheetNames[1];
-                const worksheet = workbook.Sheets[sheetName];
-                const json = xlsx.utils.sheet_to_json(worksheet);
-                // console.log(json)
-            };
-            reader.readAsArrayBuffer(e.target.files[0]);
-        }
-    }
-
     const handleUploadRegistrant = (e) => {
         e.preventDefault();
         if (e.target.files.length > 0) {
@@ -243,15 +227,6 @@ const AdminContent = () => {
                 />
             </div>
             <button onClick={generatePdf}>Generate PDFs</button>
-            <form>
-                <label htmlFor="upload">Upload File</label>
-                <input
-                    type="file"
-                    name="upload"
-                    id="upload"
-                    onChange={readUploadFile}
-                />
-            </form>
             <form>
                 <label htmlFor="Save Registrand to DB">Uplad Registrant</label>
                 <input

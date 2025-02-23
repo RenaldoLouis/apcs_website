@@ -4,12 +4,35 @@ import { RegistrantStatus } from "../../../constant/RegistrantStatus";
 import Typograhpy from "../../atom/Typograhpy";
 import { TextSizeType } from "../../../constant/TextSizeType";
 import RundownEventSteps from "./RundownEventSteps";
-import { Space, TimePicker, Form, Button, Spin, InputNumber } from 'antd';
+import { Space, TimePicker, Form, Button, Spin, InputNumber, Collapse } from 'antd';
 import { DndProvider } from 'react-dnd'
 import { HTML5Backend } from 'react-dnd-html5-backend'
 import DragDrop from "./DragDrop";
 import * as FileSaver from "file-saver";
 import ExcelJS from "exceljs";
+
+const text = `
+  A dog is a type of domesticated animal.
+  Known for its loyalty and faithfulness,
+  it can be found as a welcome guest in many households across the world.
+`;
+const items = [
+    {
+        key: '1',
+        label: 'This is panel header 1',
+        children: <p>{text}</p>,
+    },
+    {
+        key: '2',
+        label: 'This is panel header 2',
+        children: <p>{text}</p>,
+    },
+    {
+        key: '3',
+        label: 'This is panel header 3',
+        children: <p>{text}</p>,
+    },
+];
 
 const RegistrantAssignment = ({ allData, isLoading }) => {
     const [totalDaysEvent, setTotalDaysEvent] = useState(2);
@@ -150,7 +173,6 @@ const RegistrantAssignment = ({ allData, isLoading }) => {
                         width: '100%',
                     }}
                 />
-                {/* <Button loading={isLoading} className="mb-12" type="primary" onClick={handleClickSaveToDb}>Save To DB</Button> */}
                 <Button loading={isLoading} type="primary" onClick={handleExportToExcel} disabled={!isAbleToExport}>Export to excel</Button>
             </div>
 
@@ -162,11 +184,8 @@ const RegistrantAssignment = ({ allData, isLoading }) => {
                     style={{ color: "black" }}
                 />
             </div>
-            {/* <div className="flex justify-evenly">
-                {totalSteps.map((eachEvent) => (
-                    <RundownEventSteps eachEvent={eachEvent} day={eachEvent.day} totalSteps={totalSteps} setTotalSteps={setTotalSteps} />
-                ))}
-            </div> */}
+
+            return <Collapse items={items} defaultActiveKey={['1']} />
 
             <div className="d-flex justify-evenly">
                 {totalSteps.map((eachEvent, index) => (
