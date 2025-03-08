@@ -1,16 +1,13 @@
-import React, { useEffect, useState } from "react";
-import { LoadingOutlined } from '@ant-design/icons';
-import { RegistrantStatus } from "../../../constant/RegistrantStatus";
-import Typograhpy from "../../atom/Typograhpy";
-import { TextSizeType } from "../../../constant/TextSizeType";
-import RundownEventSteps from "./RundownEventSteps";
-import { Space, TimePicker, Form, Button, Spin, InputNumber, Collapse } from 'antd';
-import { DndProvider } from 'react-dnd'
-import { HTML5Backend } from 'react-dnd-html5-backend'
-import DragDrop from "./DragDrop";
-import * as FileSaver from "file-saver";
+import { Button, InputNumber, Spin } from 'antd';
 import ExcelJS from "exceljs";
+import * as FileSaver from "file-saver";
+import React, { useEffect, useState } from "react";
+import { DndProvider } from 'react-dnd';
+import { HTML5Backend } from 'react-dnd-html5-backend';
+import { TextSizeType } from "../../../constant/TextSizeType";
 import { shuffleArray, splitEvenlyBetweenTwo } from "../../../utils/Utils";
+import Typograhpy from "../../atom/Typograhpy";
+import DragDrop from "./DragDrop";
 
 const RegistrantAssignment = ({ allData, isLoading }) => {
     const [totalDaysEvent, setTotalDaysEvent] = useState(2);
@@ -151,19 +148,19 @@ const RegistrantAssignment = ({ allData, isLoading }) => {
         const workbook = new ExcelJS.Workbook();
 
         data.forEach(dayData => {
-            dayData.data.forEach((sessionData, sessionIndex) => { // Iterate through sessions
-                const worksheet = workbook.addWorksheet(`Day ${dayData.day} - Session ${sessionIndex + 1}`);
+            dayData.data.forEach((StageData, sessionIndex) => { // Iterate through stage
+                const worksheet = workbook.addWorksheet(`Day ${dayData.day} - Stage ${sessionIndex + 1}`);
 
-                if (sessionData.length > 0) { // Check if sessionData is not empty
-                    const headers = Object.keys(sessionData[0]);
+                if (StageData.length > 0) { // Check if StageData is not empty
+                    const headers = Object.keys(StageData[0]);
                     worksheet.addRow(headers);
 
-                    sessionData.forEach(item => {
+                    StageData.forEach(item => {
                         const values = headers.map(header => item[header]);
                         worksheet.addRow(values);
                     });
                 } else {
-                    worksheet.addRow(["No data for this session."]); // Add a message for empty sessions
+                    worksheet.addRow(["No data for this Stage."]); // Add a message for empty Stage
                 }
             });
         });
@@ -218,7 +215,7 @@ const RegistrantAssignment = ({ allData, isLoading }) => {
                 />
             </div>
 
-            <Collapse items={sessions} defaultActiveKey={['1']} />
+            {/* <Collapse items={sessions} defaultActiveKey={['1']} /> */}
 
             <div className="d-flex justify-evenly">
                 {totalSteps.map((eachEvent, index) => (
