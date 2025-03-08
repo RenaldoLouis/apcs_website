@@ -55,12 +55,12 @@ const RegistrantAssignment = ({ allData, isLoading }) => {
     };
 
     const handleClickAssignRegistrant = () => {
-        setIsAbleToExport(true)
-        setSpinning(true)
+        setIsAbleToExport(true);
+        setSpinning(true);
 
+        // 1. Sort by achievement (DIAMOND > GOLD > SILVER)
+        const achievementOrder = { DIAMOND: 0, GOLD: 1, SILVER: 2 };
         allData.sort((a, b) => {
-            // 1. Sort by achievement (Gold > Silver)
-            const achievementOrder = { DIAMOND: 0, SILVER: 1, GOLD: 2 }; // Define the order
             const achievementA = achievementOrder[a.achievement];
             const achievementB = achievementOrder[b.achievement];
 
@@ -68,7 +68,7 @@ const RegistrantAssignment = ({ allData, isLoading }) => {
                 return achievementA - achievementB;  // Sort by achievement
             }
 
-            // 2. If achievements are the same, sort by teacher name
+            // If achievements are the same, sort by teacher name
             const teacherA = a.teacher.toLowerCase(); // Case-insensitive sorting
             const teacherB = b.teacher.toLowerCase();
 
@@ -81,33 +81,56 @@ const RegistrantAssignment = ({ allData, isLoading }) => {
             return 0; // Teacher names are the same
         });
 
-        const groupedArray = splitIntoFour(allData, totalSteps.length * 2);
+        // 2. Separate DIAMOND, GOLD, and SILVER participants
+        const diamondData = allData.filter((item) => item.achievement === 'DIAMOND');
+        const goldData = allData.filter((item) => item.achievement === 'GOLD');
+        const silverData = allData.filter((item) => item.achievement === 'SILVER');
 
-        const AssignedSession = [...totalSteps]
+        // 3. Shuffle the GOLD and SILVER participants together to mix them
+        // const goldAndSilverData = [...goldData, ...silverData];
+        const goldAndSilverData = shuffleArray([...goldData, ...silverData]);
 
-        const mod = groupedArray.length % 4
+        // 4. Split DIAMOND and the combined GOLD/SILVER participants evenly between both days
+        const diamondGroups = splitEvenlyBetweenTwo(diamondData);
+        const goldAndSilverGroups = splitEvenlyBetweenTwo(goldAndSilverData);
 
-        let tempArray = []
-        let tempArray2 = []
-        if (mod !== 2) {
-            // 2 days
-            tempArray.push(groupedArray[0])
-            tempArray.push(groupedArray[1])
-            tempArray2.push(groupedArray[2])
-            tempArray2.push(groupedArray[3])
-            AssignedSession[0].data = tempArray
-            AssignedSession[1].data = tempArray2
-        } else {
-            // 1 days
-            tempArray.push(groupedArray[0])
-            tempArray.push(groupedArray[1])
-            AssignedSession[0].data = tempArray
-        }
+        // 5. Structure the result as per your requirement, splitting evenly across days
+        const AssignedSession = [
+            {
+                day: 1,
+                data: [
+                    diamondGroups[0], // DIAMOND participants for day 1
+                    goldAndSilverGroups[0], // GOLD and SILVER participants for day 1 (evenly mixed)
+                ]
+            },
+            {
+                day: 2,
+                data: [
+                    diamondGroups[1], // DIAMOND participants for day 2
+                    goldAndSilverGroups[1], // GOLD and SILVER participants for day 2 (evenly mixed)
+                ]
+            }
+        ];
 
-        setTotalSteps(AssignedSession)
+        // 6. Set the results
+        setTotalSteps(AssignedSession);
+        setSpinning(false);
+    };
 
-        setSpinning(false)
-    }
+    // Utility function to split an array evenly between two groups
+    const splitEvenlyBetweenTwo = (array) => {
+        const midpoint = Math.ceil(array.length / 2);
+        const firstHalf = array.slice(0, midpoint);
+        const secondHalf = array.slice(midpoint);
+        return [firstHalf, secondHalf];
+    };
+
+    // Utility function to shuffle an array
+    const shuffleArray = (array) => {
+        return array.sort(() => Math.random() - 0.5);
+    };
+
+
 
     const handleChangeEventDays = (value) => {
         setTotalDaysEvent(value)
@@ -185,7 +208,7 @@ const RegistrantAssignment = ({ allData, isLoading }) => {
                 />
             </div>
 
-            return <Collapse items={items} defaultActiveKey={['1']} />
+            <Collapse items={items} defaultActiveKey={['1']} />
 
             <div className="d-flex justify-evenly">
                 {totalSteps.map((eachEvent, index) => (

@@ -69,10 +69,16 @@ export const DndCard = ({ id, text, index, moveCard, achievement, teacher }) => 
             className='mb-8 cardContainer mr-8'
             ref={ref}
             data-handler-id={handlerId}
-            title={achievement}
+            title={
+                <div>
+                    {achievement}
+                </div>
+            }
             // extra={<a href="#">More</a>}
-            style={{ width: 300, opacity }}>
-            {text} ({teacher})
-        </Card>
+            style={{ width: 300, opacity, height: 185 }}>
+            {text}
+            <br />
+            <b>{teacher}</b>
+        </Card >
     )
 }
