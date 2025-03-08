@@ -1,9 +1,9 @@
+import chinaflag from "../assets/images/chinaflag.jpg";
+import denmarkflag from "../assets/images/denmarkflag.jpg"; // fidland
+import indFlag from "../assets/images/indFlag.jpg";
+import koreaflag from "../assets/images/koreaflag.jpg";
+import russiaflag from "../assets/images/russiaflag.jpg"; //estonia
 import { CountryConst } from "../constant/CountryConst";
-import indFlag from "../assets/images/indFlag.jpg"
-import russiaflag from "../assets/images/russiaflag.jpg" //estonia
-import denmarkflag from "../assets/images/denmarkflag.jpg" // fidland
-import koreaflag from "../assets/images/koreaflag.jpg"
-import chinaflag from "../assets/images/chinaflag.jpg"
 
 export const flagIcon = (countryLocal) => {
     switch (countryLocal) {
@@ -65,3 +65,10 @@ export const convertExcelTimeToDuration = (excelTime) => {
 
     return formattedDuration;
 };
+
+export const formatDuration = (totalSeconds) => {
+    const hours = Math.floor(totalSeconds / 3600).toString().padStart(2, "0");
+    const minutes = Math.floor((totalSeconds % 3600) / 60).toString().padStart(2, "0");
+    const seconds = Math.floor(totalSeconds % 60).toString().padStart(2, "0");
+    return `${hours}:${minutes}:${seconds}`;
+}

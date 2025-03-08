@@ -1,6 +1,3 @@
-import moment from 'moment';
-import { AchieversType } from './AchieversType';
-
 export const RegistrantsColumns = [
     {
         title: 'Name',

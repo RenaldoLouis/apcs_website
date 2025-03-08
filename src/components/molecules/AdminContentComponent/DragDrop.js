@@ -1,7 +1,7 @@
-import React, { useCallback, useEffect, useState } from "react";
-import update from 'immutability-helper'
-import { DndCard } from "./DndCard";
 import { Collapse } from 'antd';
+import update from 'immutability-helper';
+import React, { useCallback, useEffect, useState } from "react";
+import { DndCard } from "./DndCard";
 
 const text = `
   A dog is a type of domesticated animal.
@@ -19,6 +19,34 @@ const DragDrop = ({ eachEvent, stage }) => {
         },
         {
             id: 3
+        },
+    ])
+
+    const [sessionItems, setSessionItems] = useState([
+        {
+            key: '1',
+            label: 'This is session 1',
+            children: <p>dummy</p>,
+        },
+        {
+            key: '2',
+            label: 'This is session 2',
+            children: <p>dummy</p>,
+        },
+        {
+            key: '3',
+            label: 'This is session 3',
+            children: <p>dummy</p>,
+        },
+        {
+            key: '4',
+            label: 'This is session 4',
+            children: <p>dummy</p>,
+        },
+        {
+            key: '5',
+            label: 'This is session 5',
+            children: <p>dummy</p>,
         },
     ])
 
@@ -80,14 +108,28 @@ const DragDrop = ({ eachEvent, stage }) => {
         }
     }, [eachEvent, eachEvent.data])
 
-    // console.log("cards", cards)
+    useEffect(() => {
+        if (cards?.sessionGroup) {
+            let tempItems = []
+
+            cards.sessionGroup.forEach((eachSession, index) => {
+                let tempObj = {
+                    key: index + 1,
+                    label: `session ${index + 1} (${eachSession.totalDuration})`,
+                    children: <div>{eachSession.records.map((card, i) => renderCard(card, i))}</div>,
+                }
+                tempItems.push(tempObj)
+            })
+            setSessionItems(tempItems)
+        }
+    }, [cards])
 
     return (
         <div className="flex-column">
             <h3 className="align-self-center">
                 stage {stage}
             </h3>
-            <Collapse style={{ minWidth: 350 }} accordion items={items} />
+            <Collapse style={{ minWidth: 350 }} items={sessionItems} />
         </div>
     )
 }

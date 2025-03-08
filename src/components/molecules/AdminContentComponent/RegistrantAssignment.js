@@ -1,11 +1,12 @@
 import { Button, InputNumber, Spin } from 'antd';
 import ExcelJS from "exceljs";
 import * as FileSaver from "file-saver";
+import moment from 'moment';
 import React, { useEffect, useState } from "react";
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { TextSizeType } from "../../../constant/TextSizeType";
-import { shuffleArray, splitEvenlyBetweenTwo } from "../../../utils/Utils";
+import { formatDuration, shuffleArray, splitEvenlyBetweenTwo } from "../../../utils/Utils";
 import Typograhpy from "../../atom/Typograhpy";
 import DragDrop from "./DragDrop";
 
@@ -87,7 +88,7 @@ const RegistrantAssignment = ({ allData, isLoading }) => {
         })
 
         // 5. Structure the result as per your requirement, splitting evenly across days
-        const AssignedSession = [
+        let AssignedDay = [
             {
                 day: 1,
                 data: [
@@ -104,8 +105,69 @@ const RegistrantAssignment = ({ allData, isLoading }) => {
             }
         ];
 
-        // 6. Set the results
-        setTotalSteps(AssignedSession);
+        // 6. Create Session for each Stage, Event->Day->Stage->Session
+        //with max of each session of 1:30
+        const timeFormat = "HH:mm:ss"
+        const maxSessionDuration = moment.duration("01:30:00").asSeconds(); // 1 hour 30 minutes in seconds
+
+        let sessions = [];
+        let currentSession = [];
+        let currentTotal = 0;
+
+        AssignedDay = AssignedDay.map((eachDay) => {
+            // Process each day's data array using map
+            eachDay.data = eachDay.data.map((eachStage) => {
+                let sessions = [];
+                let currentSession = [];
+                let currentTotal = 0;
+
+                // Loop over each record in the stage (here we can use forEach, or map if you want to transform)
+                eachStage.forEach((eachData) => {
+                    // Convert record duration to seconds
+                    const recordDuration = moment.duration(eachData.duration).asSeconds();
+
+                    // Check if adding this record exceeds the session max duration (1:30:00)
+                    if (currentTotal + recordDuration > maxSessionDuration) {
+                        sessions.push({
+                            records: currentSession,
+                            totalDuration: formatDuration(currentTotal)  // Helper to convert seconds to "HH:mm:ss"
+                        });
+                        // Reset for the new session
+                        currentSession = [];
+                        currentTotal = 0;
+                    }
+
+                    // Add the record and update the current total duration
+                    currentSession.push(eachData);
+                    currentTotal += recordDuration;
+                });
+
+                // Add any remaining records as the final session
+                if (currentSession.length) {
+                    sessions.push({
+                        records: currentSession,
+                        totalDuration: formatDuration(currentTotal)
+                    });
+                }
+
+                // Attach the sessionGroup to eachStage so changes are reflected immediately
+                eachStage.sessionGroup = sessions;
+                return eachStage;
+            });
+
+            return eachDay;
+        });
+
+
+        if (currentSession.length > 0) {
+            sessions.push({
+                records: currentSession,
+                totalDuration: formatDuration(currentTotal)
+            });
+        }
+
+        // 7. Set the results
+        setTotalSteps(AssignedDay);
         setSpinning(false);
     };
 
@@ -175,8 +237,6 @@ const RegistrantAssignment = ({ allData, isLoading }) => {
         exportDataToExcel(totalSteps);
     }
 
-    console.log("totalSteps", totalSteps)
-
     return (
         <div >
             <Spin tip="Loading..." spinning={spinning} fullscreen />
@@ -193,7 +253,7 @@ const RegistrantAssignment = ({ allData, isLoading }) => {
                         width: '100%',
                     }}
                 />
-                <InputNumber
+                {/* <InputNumber
                     className="mb-12"
                     suffix="Sessions"
                     min={4} max={5}
@@ -202,7 +262,7 @@ const RegistrantAssignment = ({ allData, isLoading }) => {
                     style={{
                         width: '100%',
                     }}
-                />
+                /> */}
                 <Button loading={isLoading} type="primary" onClick={handleExportToExcel} disabled={!isAbleToExport}>Export to excel</Button>
             </div>
 
