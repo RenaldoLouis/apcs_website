@@ -10,32 +10,12 @@ import { HTML5Backend } from 'react-dnd-html5-backend'
 import DragDrop from "./DragDrop";
 import * as FileSaver from "file-saver";
 import ExcelJS from "exceljs";
-
-const text = `
-  A dog is a type of domesticated animal.
-  Known for its loyalty and faithfulness,
-  it can be found as a welcome guest in many households across the world.
-`;
-const items = [
-    {
-        key: '1',
-        label: 'This is panel header 1',
-        children: <p>{text}</p>,
-    },
-    {
-        key: '2',
-        label: 'This is panel header 2',
-        children: <p>{text}</p>,
-    },
-    {
-        key: '3',
-        label: 'This is panel header 3',
-        children: <p>{text}</p>,
-    },
-];
+import { shuffleArray, splitEvenlyBetweenTwo } from "../../../utils/Utils";
 
 const RegistrantAssignment = ({ allData, isLoading }) => {
     const [totalDaysEvent, setTotalDaysEvent] = useState(2);
+    const [totalSessionEvent, setTotalSessionEvent] = useState(5);
+    const [sessions, setSessions] = useState([]);
     const [totalSteps, setTotalSteps] = useState([]);
     const [spinning, setSpinning] = React.useState(false);
     const [isAbleToExport, setIsAbleToExport] = useState(false);
@@ -43,16 +23,6 @@ const RegistrantAssignment = ({ allData, isLoading }) => {
     useEffect(() => {
         setSpinning(isLoading)
     }, [isLoading])
-
-    const splitIntoFour = (arr, totalGroup) => {
-        const chunks = [];
-        const chunkSize = Math.ceil(arr.length / totalGroup); // Calculate chunk size (round up)
-
-        for (let i = 0; i < arr.length; i += chunkSize) {
-            chunks.push(arr.slice(i, i + chunkSize));
-        }
-        return chunks;
-    };
 
     const handleClickAssignRegistrant = () => {
         setIsAbleToExport(true);
@@ -94,20 +64,45 @@ const RegistrantAssignment = ({ allData, isLoading }) => {
         const diamondGroups = splitEvenlyBetweenTwo(diamondData);
         const goldAndSilverGroups = splitEvenlyBetweenTwo(goldAndSilverData);
 
+        const sortedGoldAndSilverGroups = goldAndSilverGroups.map((eachData) => {
+            eachData.sort((a, b) => {
+                const achievementA = achievementOrder[a.achievement];
+                const achievementB = achievementOrder[b.achievement];
+
+                if (achievementA !== achievementB) {
+                    return achievementA - achievementB;  // Sort by achievement
+                }
+
+                // If achievements are the same, sort by teacher name
+                const teacherA = a.teacher.toLowerCase(); // Case-insensitive sorting
+                const teacherB = b.teacher.toLowerCase();
+
+                if (teacherA < teacherB) {
+                    return -1;
+                }
+                if (teacherA > teacherB) {
+                    return 1;
+                }
+                return 0; // Teacher names are the same
+            });
+
+            return eachData;
+        })
+
         // 5. Structure the result as per your requirement, splitting evenly across days
         const AssignedSession = [
             {
                 day: 1,
                 data: [
                     diamondGroups[0], // DIAMOND participants for day 1
-                    goldAndSilverGroups[0], // GOLD and SILVER participants for day 1 (evenly mixed)
+                    sortedGoldAndSilverGroups[0], // GOLD and SILVER participants for day 1 (evenly mixed)
                 ]
             },
             {
                 day: 2,
                 data: [
                     diamondGroups[1], // DIAMOND participants for day 2
-                    goldAndSilverGroups[1], // GOLD and SILVER participants for day 2 (evenly mixed)
+                    sortedGoldAndSilverGroups[1], // GOLD and SILVER participants for day 2 (evenly mixed)
                 ]
             }
         ];
@@ -117,23 +112,12 @@ const RegistrantAssignment = ({ allData, isLoading }) => {
         setSpinning(false);
     };
 
-    // Utility function to split an array evenly between two groups
-    const splitEvenlyBetweenTwo = (array) => {
-        const midpoint = Math.ceil(array.length / 2);
-        const firstHalf = array.slice(0, midpoint);
-        const secondHalf = array.slice(midpoint);
-        return [firstHalf, secondHalf];
-    };
-
-    // Utility function to shuffle an array
-    const shuffleArray = (array) => {
-        return array.sort(() => Math.random() - 0.5);
-    };
-
-
-
     const handleChangeEventDays = (value) => {
         setTotalDaysEvent(value)
+    };
+
+    const handleChangeTotalSession = (value) => {
+        setTotalSessionEvent(value)
     };
 
     useEffect(() => {
@@ -147,6 +131,21 @@ const RegistrantAssignment = ({ allData, isLoading }) => {
         }
         setTotalSteps(tempArray)
     }, [totalDaysEvent])
+
+    useEffect(() => {
+        setIsAbleToExport(false)
+        let tempArray = []
+        for (let i = 1; i <= totalSessionEvent; i++) {
+            tempArray.push(
+                {
+                    key: i,
+                    label: `This is session ${i}`,
+                    children: <p>Dummy</p>,
+                },
+            )
+        }
+        setSessions(tempArray)
+    }, [totalSessionEvent])
 
     const exportDataToExcel = (data, filename = "data.xlsx") => {
         const workbook = new ExcelJS.Workbook();
@@ -179,7 +178,6 @@ const RegistrantAssignment = ({ allData, isLoading }) => {
         exportDataToExcel(totalSteps);
     }
 
-    console.log("totalSteps", totalSteps)
     return (
         <div >
             <Spin tip="Loading..." spinning={spinning} fullscreen />
@@ -196,6 +194,16 @@ const RegistrantAssignment = ({ allData, isLoading }) => {
                         width: '100%',
                     }}
                 />
+                <InputNumber
+                    className="mb-12"
+                    suffix="Sessions"
+                    min={4} max={5}
+                    defaultValue={totalSessionEvent}
+                    onChange={handleChangeTotalSession}
+                    style={{
+                        width: '100%',
+                    }}
+                />
                 <Button loading={isLoading} type="primary" onClick={handleExportToExcel} disabled={!isAbleToExport}>Export to excel</Button>
             </div>
 
@@ -208,7 +216,7 @@ const RegistrantAssignment = ({ allData, isLoading }) => {
                 />
             </div>
 
-            <Collapse items={items} defaultActiveKey={['1']} />
+            <Collapse items={sessions} defaultActiveKey={['1']} />
 
             <div className="d-flex justify-evenly">
                 {totalSteps.map((eachEvent, index) => (

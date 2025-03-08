@@ -27,3 +27,41 @@ export const flagIcon = (countryLocal) => {
 
     }
 }
+
+export const splitIntoFour = (arr, totalGroup) => {
+    const chunks = [];
+    const chunkSize = Math.ceil(arr.length / totalGroup); // Calculate chunk size (round up)
+
+    for (let i = 0; i < arr.length; i += chunkSize) {
+        chunks.push(arr.slice(i, i + chunkSize));
+    }
+    return chunks;
+};
+
+export const splitEvenlyBetweenTwo = (array) => {
+    const midpoint = Math.ceil(array.length / 2);
+    const firstHalf = array.slice(0, midpoint);
+    const secondHalf = array.slice(midpoint);
+    return [firstHalf, secondHalf];
+};
+
+// Utility function to shuffle an array
+export const shuffleArray = (array) => {
+    return array.sort(() => Math.random() - 0.5);
+};
+
+export const convertExcelTimeToDuration = (excelTime) => {
+    const totalSeconds = Math.floor(excelTime * 24 * 60 * 60); // Convert fraction of a day to total seconds
+    const hours = Math.floor(totalSeconds / 3600);
+    const minutes = Math.floor((totalSeconds % 3600) / 60);
+    const seconds = totalSeconds % 60;
+
+    // Format the time as HH:MM:SS
+    const formattedDuration = [
+        String(hours).padStart(2, '0'),
+        String(minutes).padStart(2, '0'),
+        String(seconds).padStart(2, '0')
+    ].join(':');
+
+    return formattedDuration;
+};

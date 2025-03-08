@@ -176,26 +176,35 @@ const AdminContent = () => {
                 const data = e.target.result;
                 const workbook = xlsx.read(data, { type: "array" });
                 console.log("workbook", workbook)
-                const sheetName = workbook.SheetNames[0];
+                const sheetName = workbook.SheetNames[1];
                 const worksheet = workbook.Sheets[sheetName];
-                const json = xlsx.utils.sheet_to_json(worksheet);
+                const json = xlsx.utils.sheet_to_json(worksheet, { raw: true });
                 console.log("json", json)
 
+                // const parsedData = json.map((row) => {
+                //     if (row.duration && typeof row.duration === "number") {
+                //         row.duration = convertExcelTimeToDuration(row.duration);
+                //     }
+                //     return row;
+                // });
+
+                // console.log("parsedData", parsedData);
+
                 // to save to Users DB
-                const batch = writeBatch(db);
-                const usersCollection = collection(db, "Registrants");
+                // const batch = writeBatch(db);
+                // const usersCollection = collection(db, "Registrants");
 
-                json.forEach((data) => {
-                    const newDocRef = doc(usersCollection); // Auto-generate a new document ID
-                    batch.set(newDocRef, data);
-                });
+                // parsedData.forEach((data) => {
+                //     const newDocRef = doc(usersCollection); // Auto-generate a new document ID
+                //     batch.set(newDocRef, data);
+                // });
 
-                try {
-                    await batch.commit(); // Save all documents in a single batch
-                    console.log("Batch write successful!");
-                } catch (error) {
-                    console.error("Error writing batch:", error);
-                }
+                // try {
+                //     await batch.commit(); // Save all documents in a single batch
+                //     console.log("Batch write successful!");
+                // } catch (error) {
+                //     console.error("Error writing batch:", error);
+                // }
             };
             reader.readAsArrayBuffer(e.target.files[0]);
         }
@@ -228,7 +237,7 @@ const AdminContent = () => {
             </div>
             <button onClick={generatePdf}>Generate PDFs</button>
             <form>
-                <label htmlFor="Save Registrand to DB">Uplad Registrant</label>
+                <label htmlFor="Save Registrand to DB">Upload Registrant</label>
                 <input
                     type="file"
                     name="upload"

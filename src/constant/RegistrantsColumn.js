@@ -22,4 +22,8 @@ export const RegistrantsColumns = [
         title: 'Teacher',
         dataIndex: 'teacher',
     },
+    {
+        title: 'Duration',
+        dataIndex: 'duration',
+    },
 ];
