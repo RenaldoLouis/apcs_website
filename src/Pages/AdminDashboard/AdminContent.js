@@ -236,14 +236,15 @@ const AdminContent = () => {
                 // onShowSizeChange={onShowSizeChange}
                 />
             </div>
-            <button onClick={generatePdf}>Generate PDFs</button>
-            <form>
-                <label htmlFor="Save Registrand to DB">Upload Registrant</label>
+            {/* <button onClick={generatePdf}>Generate PDFs</button> */}
+            <form style={{ background: "white" }}>
+                <label htmlFor="Save Registrand to DB" >Upload Registrant To Database </label>
                 <input
                     type="file"
                     name="upload"
                     id="upload"
                     onChange={handleUploadRegistrant}
+                    style={{ marginLeft: 4 }}
                 />
             </form>
             <div

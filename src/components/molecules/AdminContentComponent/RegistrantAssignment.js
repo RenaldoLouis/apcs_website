@@ -178,6 +178,8 @@ const RegistrantAssignment = ({ allData, isLoading }) => {
         exportDataToExcel(totalSteps);
     }
 
+    console.log("totalSteps", totalSteps)
+
     return (
         <div >
             <Spin tip="Loading..." spinning={spinning} fullscreen />
@@ -227,8 +229,8 @@ const RegistrantAssignment = ({ allData, isLoading }) => {
                             </h2>
                             <div className="d-flex">
 
-                                <DragDrop eachEvent={eachEvent} session={1} />
-                                <DragDrop eachEvent={eachEvent} session={2} />
+                                <DragDrop eachEvent={eachEvent} stage={1} />
+                                <DragDrop eachEvent={eachEvent} stage={2} />
                             </div>
                         </div>
                     </DndProvider>
