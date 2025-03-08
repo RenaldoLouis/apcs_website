@@ -45,13 +45,9 @@ const DragDrop = ({ eachEvent, session }) => {
     const renderCard = useCallback((card, index) => {
         return (
             <DndCard
-                key={card.id}
+                {...card}
                 index={index}
-                id={card.id}
-                text={card.name}
-                achievement={card.achievement}
                 moveCard={moveCard}
-                teacher={card.teacher}
             />
         )
     }, [])

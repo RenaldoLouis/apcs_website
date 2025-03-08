@@ -2,7 +2,7 @@ import { useRef } from 'react'
 import { useDrag, useDrop } from 'react-dnd'
 import { Card } from 'antd';
 
-export const DndCard = ({ id, text, index, moveCard, achievement, teacher }) => {
+export const DndCard = ({ id, name, index, moveCard, achievement, teacher, duration }) => {
     const ref = useRef(null)
     const [{ handlerId }, drop] = useDrop({
         accept: 'card',
@@ -62,9 +62,6 @@ export const DndCard = ({ id, text, index, moveCard, achievement, teacher }) => 
     const opacity = isDragging ? 0 : 1
     drag(drop(ref))
     return (
-        // <div ref={ref} className='cardContainer' style={{ opacity }} data-handler-id={handlerId}>
-        //     {text}
-        // </div>
         <Card
             className='mb-8 cardContainer mr-8'
             ref={ref}
@@ -75,10 +72,12 @@ export const DndCard = ({ id, text, index, moveCard, achievement, teacher }) => 
                 </div>
             }
             // extra={<a href="#">More</a>}
-            style={{ width: 300, opacity, height: 185 }}>
-            {text}
+            style={{ width: 300, opacity, height: 250 }}>
+            {name}
             <br />
             <b>{teacher}</b>
+            <br />
+            <b>{duration}</b>
         </Card >
     )
 }
