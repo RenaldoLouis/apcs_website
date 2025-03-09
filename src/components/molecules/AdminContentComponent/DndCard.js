@@ -1,8 +1,8 @@
-import { useRef } from 'react'
-import { useDrag, useDrop } from 'react-dnd'
 import { Card } from 'antd';
+import { useRef } from 'react';
+import { useDrag, useDrop } from 'react-dnd';
 
-export const DndCard = ({ id, name, index, moveCard, achievement, teacher, duration }) => {
+export const DndCard = ({ id, name, index, moveCard, achievement, teacher, duration, sessionIndex }) => {
     const ref = useRef(null)
     const [{ handlerId }, drop] = useDrop({
         accept: 'card',
@@ -42,24 +42,25 @@ export const DndCard = ({ id, name, index, moveCard, achievement, teacher, durat
                 return
             }
             // Time to actually perform the action
-            moveCard(dragIndex, hoverIndex)
+            moveCard(dragIndex, hoverIndex, sessionIndex)
             // Note: we're mutating the monitor item here!
             // Generally it's better to avoid mutations,
             // but it's good here for the sake of performance
             // to avoid expensive index searches.
             item.index = hoverIndex
+            item.sessionIndex = sessionIndex
         },
     })
     const [{ isDragging }, drag] = useDrag({
         type: 'card',
         item: () => {
-            return { id, index }
+            return { id, index, sessionIndex }
         },
         collect: (monitor) => ({
             isDragging: monitor.isDragging(),
         }),
     })
-    const opacity = isDragging ? 0 : 1
+    const opacity = isDragging ? 0.5 : 1
     drag(drop(ref))
     return (
         <Card

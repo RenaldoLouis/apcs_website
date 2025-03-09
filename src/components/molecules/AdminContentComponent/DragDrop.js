@@ -50,55 +50,35 @@ const DragDrop = ({ eachEvent, stage }) => {
         },
     ])
 
-    const moveCard = useCallback((dragIndex, hoverIndex) => {
-        setCards((prevCards) =>
-            update(prevCards, {
+    const moveCard = useCallback((dragIndex, hoverIndex, sessionIndex) => {
+        setCards((prevCards) => {
+            const group = prevCards.sessionGroup[sessionIndex];
+            const data = group.records;
+            const updatedRecords = update(data, {
                 $splice: [
                     [dragIndex, 1],
-                    [hoverIndex, 0, prevCards[dragIndex]],
+                    [hoverIndex, 0, data[dragIndex]],
                 ],
-            }),
-        )
+            });
+            return {
+                ...prevCards,
+                sessionGroup: prevCards.sessionGroup.map((grp, idx) =>
+                    idx === sessionIndex ? { ...grp, records: updatedRecords } : grp
+                ),
+            };
+        });
     }, [])
 
-    const renderCard = useCallback((card, index) => {
+    const renderCard = useCallback((card, index, sessionIndex) => {
         return (
             <DndCard
                 {...card}
                 index={index}
+                sessionIndex={sessionIndex}
                 moveCard={moveCard}
             />
         )
     }, [])
-
-
-    const items = [
-        {
-            key: '1',
-            label: 'This is session 1',
-            children: <div>{cards.map((card, i) => renderCard(card, i))}</div>,
-        },
-        {
-            key: '2',
-            label: 'This is session 2',
-            children: <p>{text}</p>,
-        },
-        {
-            key: '3',
-            label: 'This is session 3',
-            children: <p>{text}</p>,
-        },
-        {
-            key: '4',
-            label: 'This is session 4',
-            children: <p>{text}</p>,
-        },
-        {
-            key: '5',
-            label: 'This is session 5',
-            children: <p>{text}</p>,
-        },
-    ];
 
     useEffect(() => {
         if (eachEvent.data) {
@@ -112,11 +92,11 @@ const DragDrop = ({ eachEvent, stage }) => {
         if (cards?.sessionGroup) {
             let tempItems = []
 
-            cards.sessionGroup.forEach((eachSession, index) => {
+            cards.sessionGroup.forEach((eachSession, sessionIndex) => {
                 let tempObj = {
-                    key: index + 1,
-                    label: `session ${index + 1} (${eachSession.totalDuration})`,
-                    children: <div>{eachSession.records.map((card, i) => renderCard(card, i))}</div>,
+                    key: sessionIndex + 1,
+                    label: `session ${sessionIndex + 1} (${eachSession.totalDuration})`,
+                    children: <div>{eachSession.records.map((card, i) => renderCard(card, i, sessionIndex))}</div>,
                 }
                 tempItems.push(tempObj)
             })
