@@ -25,27 +25,27 @@ const DragDrop = ({ eachEvent, stage }) => {
     const [sessionItems, setSessionItems] = useState([
         {
             key: '1',
-            label: 'This is session 1',
+            label: 'Session 1',
             children: <p>dummy</p>,
         },
         {
             key: '2',
-            label: 'This is session 2',
+            label: 'Session 2',
             children: <p>dummy</p>,
         },
         {
             key: '3',
-            label: 'This is session 3',
+            label: 'Session 3',
             children: <p>dummy</p>,
         },
         {
             key: '4',
-            label: 'This is session 4',
+            label: 'Session 4',
             children: <p>dummy</p>,
         },
         {
             key: '5',
-            label: 'This is session 5',
+            label: 'Session 5',
             children: <p>dummy</p>,
         },
     ])
@@ -95,7 +95,7 @@ const DragDrop = ({ eachEvent, stage }) => {
             cards.sessionGroup.forEach((eachSession, sessionIndex) => {
                 let tempObj = {
                     key: sessionIndex + 1,
-                    label: `session ${sessionIndex + 1} (${eachSession.totalDuration})`,
+                    label: `Session ${sessionIndex + 1} (${eachSession.totalDuration})`,
                     children: <div>{eachSession.records.map((card, i) => renderCard(card, i, sessionIndex))}</div>,
                 }
                 tempItems.push(tempObj)
@@ -109,7 +109,7 @@ const DragDrop = ({ eachEvent, stage }) => {
             <h3 className="align-self-center">
                 stage {stage}
             </h3>
-            <Collapse style={{ minWidth: 350 }} items={sessionItems} />
+            <Collapse style={{ minWidth: 350 }} accordion items={sessionItems} />
         </div>
     )
 }

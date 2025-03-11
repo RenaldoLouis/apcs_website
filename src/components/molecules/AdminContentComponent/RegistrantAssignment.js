@@ -198,7 +198,7 @@ const RegistrantAssignment = ({ allData, isLoading }) => {
             tempArray.push(
                 {
                     key: i,
-                    label: `This is session ${i}`,
+                    label: `Session ${i}`,
                     children: <p>Dummy</p>,
                 },
             )
@@ -210,20 +210,24 @@ const RegistrantAssignment = ({ allData, isLoading }) => {
         const workbook = new ExcelJS.Workbook();
 
         data.forEach(dayData => {
-            dayData.data.forEach((StageData, sessionIndex) => { // Iterate through stage
-                const worksheet = workbook.addWorksheet(`Day ${dayData.day} - Stage ${sessionIndex + 1}`);
+            dayData.data.forEach((StageData, stageIndex) => {
+                StageData.sessionGroup.forEach((eachSession, sessionIndex) => {
+                    const worksheet = workbook.addWorksheet(`Day ${dayData.day} - Stage ${stageIndex + 1} - Session ${sessionIndex + 1}`);
 
-                if (StageData.length > 0) { // Check if StageData is not empty
-                    const headers = Object.keys(StageData[0]);
-                    worksheet.addRow(headers);
+                    const eachRecord = eachSession.records;
 
-                    StageData.forEach(item => {
-                        const values = headers.map(header => item[header]);
-                        worksheet.addRow(values);
-                    });
-                } else {
-                    worksheet.addRow(["No data for this Stage."]); // Add a message for empty Stage
-                }
+                    if (eachRecord.length > 0) {
+                        const headers = Object.keys(eachRecord[0]);
+                        worksheet.addRow(headers);
+
+                        eachRecord.forEach(item => {
+                            const values = headers.map(header => item[header]);
+                            worksheet.addRow(values);
+                        });
+                    } else {
+                        worksheet.addRow(["No data for this Rundown."]);
+                    }
+                })
             });
         });
 
@@ -252,17 +256,8 @@ const RegistrantAssignment = ({ allData, isLoading }) => {
                     style={{
                         width: '100%',
                     }}
+                    disabled={true}
                 />
-                {/* <InputNumber
-                    className="mb-12"
-                    suffix="Sessions"
-                    min={4} max={5}
-                    defaultValue={totalSessionEvent}
-                    onChange={handleChangeTotalSession}
-                    style={{
-                        width: '100%',
-                    }}
-                /> */}
                 <Button loading={isLoading} type="primary" onClick={handleExportToExcel} disabled={!isAbleToExport}>Export to excel</Button>
             </div>
 
@@ -274,8 +269,6 @@ const RegistrantAssignment = ({ allData, isLoading }) => {
                     style={{ color: "black" }}
                 />
             </div>
-
-            {/* <Collapse items={sessions} defaultActiveKey={['1']} /> */}
 
             <div className="d-flex justify-evenly">
                 {totalSteps.map((eachEvent, index) => (
