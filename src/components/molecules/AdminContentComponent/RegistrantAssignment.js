@@ -279,8 +279,8 @@ const RegistrantAssignment = ({ allData, isLoading }) => {
                             </h2>
                             <div className="d-flex">
 
-                                <DragDrop eachEvent={eachEvent} stage={1} day={index} />
-                                <DragDrop eachEvent={eachEvent} stage={2} day={index} />
+                                <DragDrop eachEvent={eachEvent} stage={1} dayIndex={index} totalSteps={totalSteps} setTotalSteps={setTotalSteps} />
+                                <DragDrop eachEvent={eachEvent} stage={2} dayIndex={index} totalSteps={totalSteps} setTotalSteps={setTotalSteps} />
                             </div>
                         </div>
                     </DndProvider>

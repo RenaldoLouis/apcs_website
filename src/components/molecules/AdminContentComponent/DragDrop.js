@@ -9,7 +9,7 @@ const text = `
   it can be found as a welcome guest in many households across the world.
 `;
 
-const DragDrop = ({ eachEvent, stage, day }) => {
+const DragDrop = ({ eachEvent, stage, dayIndex, totalSteps, setTotalSteps }) => {
     const collapseRef = useRef(null);
 
     const [cards, setCards] = useState([
@@ -122,7 +122,7 @@ const DragDrop = ({ eachEvent, stage, day }) => {
             <div
                 ref={collapseRef}
                 onClick={handleScroll}
-                id={`day-${day}stage-${stage}`}
+                id={`day-${dayIndex}stage-${stage}`}
                 style={{ minWidth: 350 }}
             >
                 <Collapse accordion items={sessionItems} />
