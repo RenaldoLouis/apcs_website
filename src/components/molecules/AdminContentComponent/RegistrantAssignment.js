@@ -171,6 +171,99 @@ const RegistrantAssignment = ({ allData, isLoading }) => {
         setSpinning(false);
     };
 
+    // const handleClickAssignRegistrant = () => {
+    //     setIsAbleToExport(true);
+    //     setSpinning(true);
+
+    //     // 1. Sort by achievement (DIAMOND > GOLD > SILVER)
+    //     const achievementOrder = { DIAMOND: 0, GOLD: 1, SILVER: 2 };
+    //     allData.sort((a, b) => {
+    //         const achievementA = achievementOrder[a.achievement];
+    //         const achievementB = achievementOrder[b.achievement];
+
+    //         if (achievementA !== achievementB) {
+    //             return achievementA - achievementB;  // Sort by achievement
+    //         }
+
+    //         // If achievements are the same, sort by teacher name
+    //         return a.teacher.toLowerCase().localeCompare(b.teacher.toLowerCase());
+    //     });
+
+    //     // 2. Separate DIAMOND, GOLD, and SILVER participants
+    //     const diamondData = allData.filter((item) => item.achievement === 'DIAMOND');
+    //     const goldData = allData.filter((item) => item.achievement === 'GOLD');
+    //     const silverData = allData.filter((item) => item.achievement === 'SILVER');
+
+    //     // 3. Shuffle the GOLD and SILVER participants together to mix them
+    //     const goldAndSilverData = shuffleArray([...goldData, ...silverData]);
+
+    //     // 4. Split DIAMOND and the combined GOLD/SILVER participants evenly between both days
+    //     const diamondGroups = splitEvenlyBetweenTwo(diamondData);
+    //     const goldAndSilverGroups = splitEvenlyBetweenTwo(goldAndSilverData);
+
+    //     const sortedGoldAndSilverGroups = goldAndSilverGroups.map((eachData) => {
+    //         return eachData.sort((a, b) => {
+    //             const achievementA = achievementOrder[a.achievement];
+    //             const achievementB = achievementOrder[b.achievement];
+
+    //             if (achievementA !== achievementB) {
+    //                 return achievementA - achievementB;  // Sort by achievement
+    //             }
+
+    //             return a.teacher.toLowerCase().localeCompare(b.teacher.toLowerCase());
+    //         });
+    //     });
+
+    //     // 5. Create Sessions
+    //     const maxSessionDuration = moment.duration("01:30:00").asSeconds(); // 1 hour 30 minutes in seconds
+
+    //     let AssignedDay = [
+    //         { day: 1, data: [diamondGroups[0], sortedGoldAndSilverGroups[0]] },
+    //         { day: 2, data: [diamondGroups[1], sortedGoldAndSilverGroups[1]] }
+    //     ];
+
+    //     // Process each day and replace `data` with only `sessionGroup`
+    //     AssignedDay = AssignedDay.map((eachDay) => {
+    //         return {
+    //             day: eachDay.day,
+    //             sessionGroup: eachDay.data.map((eachStage) => {
+    //                 let sessions = [];
+    //                 let currentSession = [];
+    //                 let currentTotal = 0;
+
+    //                 eachStage.forEach((eachData) => {
+    //                     const recordDuration = moment.duration(eachData.duration).asSeconds();
+
+    //                     if (currentTotal + recordDuration > maxSessionDuration) {
+    //                         sessions.push({
+    //                             records: currentSession,
+    //                             totalDuration: formatDuration(currentTotal)
+    //                         });
+    //                         currentSession = [];
+    //                         currentTotal = 0;
+    //                     }
+
+    //                     currentSession.push(eachData);
+    //                     currentTotal += recordDuration;
+    //                 });
+
+    //                 if (currentSession.length) {
+    //                     sessions.push({
+    //                         records: currentSession,
+    //                         totalDuration: formatDuration(currentTotal)
+    //                     });
+    //                 }
+
+    //                 return sessions;
+    //             })
+    //         };
+    //     });
+
+    //     // 6. Set the results
+    //     setTotalSteps(AssignedDay);
+    //     setSpinning(false);
+    // };
+
     const handleChangeEventDays = (value) => {
         setTotalDaysEvent(value)
     };
