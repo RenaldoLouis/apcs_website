@@ -1,6 +1,6 @@
 import { Collapse } from 'antd';
 import update from 'immutability-helper';
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { DndCard } from "./DndCard";
 
 const text = `
@@ -9,7 +9,9 @@ const text = `
   it can be found as a welcome guest in many households across the world.
 `;
 
-const DragDrop = ({ eachEvent, stage }) => {
+const DragDrop = ({ eachEvent, stage, day }) => {
+    const collapseRef = useRef(null);
+
     const [cards, setCards] = useState([
         {
             id: 1
@@ -104,12 +106,27 @@ const DragDrop = ({ eachEvent, stage }) => {
         }
     }, [cards])
 
+    const handleScroll = () => {
+        setTimeout(() => {
+            if (collapseRef.current) {
+                collapseRef.current.scrollIntoView({ behavior: 'smooth' });
+            }
+        }, 500); // 1 second delay
+    };
+
     return (
         <div className="flex-column">
             <h3 className="align-self-center">
                 stage {stage}
             </h3>
-            <Collapse style={{ minWidth: 350 }} accordion items={sessionItems} />
+            <div
+                ref={collapseRef}
+                onClick={handleScroll}
+                id={`day-${day}stage-${stage}`}
+                style={{ minWidth: 350 }}
+            >
+                <Collapse accordion items={sessionItems} />
+            </div>
         </div>
     )
 }
