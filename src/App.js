@@ -31,6 +31,7 @@ import { createTheme, ThemeProvider, responsiveFontSizes } from '@mui/material/s
 import homeScreenImageGradient from "./assets/images/homeScreenImageGradient.jpg"
 import homeScreenImageGradientMobile from "./assets/images/homeScreenImageGradientMobile.jpg"
 import Payment from "./Pages/Payment/Payment";
+import Register from "./Pages/Register/Register";
 
 const audio = new Audio(persona5);
 
@@ -63,6 +64,7 @@ const Main = () => {
         <Route path={PathName.achievers} element={<MainLayout children={<Achievers />} />} />
         <Route path={PathName.podcast} element={<MainLayout children={<Podcast />} />} />
         <Route path={PathName.contactUs} element={<MainLayout children={<ContactUs />} />} />
+        <Route path={PathName.register} element={<MainLayout children={<Register />} />} />
         <Route path={"/payment"} element={<MainLayout children={<Payment />} />} />
         <Route path="/login" element={<Login />} />
         <Route path="/adminDashboard" element={
