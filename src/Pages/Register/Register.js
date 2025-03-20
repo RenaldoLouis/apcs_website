@@ -1,32 +1,37 @@
 import {
-    CloudUploadOutlined
+    CloudUploadOutlined,
+    QuestionCircleOutlined
 } from '@ant-design/icons';
 import {
+    Box,
     Button,
     Checkbox,
     FormControl,
     FormControlLabel,
     FormLabel,
+    IconButton,
     InputLabel,
     MenuItem,
     Radio,
     RadioGroup,
     Select,
     TextField,
-    Typography
+    Tooltip,
+    Typography,
 } from "@mui/material";
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import dayjs from 'dayjs';
-import React from "react";
+import React, { useMemo } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
+import { InstrumentCategory } from '../../constant/InstrumentCategory';
 
 const Register = () => {
     const { t } = useTranslation();
 
-    const { register, control, formState: { errors }, handleSubmit } = useForm({
+    const { watch, register, control, formState: { errors }, handleSubmit } = useForm({
         defaultValues: {
             firstName: "",
             select: {},
@@ -35,6 +40,15 @@ const Register = () => {
     const onSubmit = (data) => {
         console.log("Form Data:", data);
     };
+
+    const selectedInstrument = watch("instrumentCategory");
+
+    console.log("selectedInstrument", selectedInstrument)
+
+    const isDoubleContestant = useMemo(() => {
+        return selectedInstrument === InstrumentCategory.Piano_Solo
+    }, [selectedInstrument])
+
     return (
         <div className="primaryBackgroundBlack" style={{ padding: "128px 0px 48px 0px" }}>
             <div className="container" style={{ marginBottom: 30 }}>
@@ -187,8 +201,22 @@ const Register = () => {
                                 control={control}
                                 rules={{ required: "Teacher's Name is required" }}
                                 render={({ field, fieldState: { error } }) => (
-                                    <TextField {...field} label="Teacher's Name" variant="standard" className="custom-textfield mb-4"
-                                        error={!!error} helperText={error ? error.message : ""} />
+                                    <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+                                        <TextField
+                                            {...field}
+                                            label="Teacher's Name"
+                                            variant="standard"
+                                            className="custom-textfield mb-4"
+                                            error={!!error}
+                                            helperText={error ? error.message : ""}
+                                        />
+
+                                        <Tooltip title="Enter your teacher's name. If you are self-taught, type '-'">
+                                            <IconButton sx={{ color: "#EBBC64", fontSize: 16, mt: 1 }}>
+                                                <QuestionCircleOutlined />
+                                            </IconButton>
+                                        </Tooltip>
+                                    </div>
                                 )}
                             />
 
@@ -256,14 +284,23 @@ const Register = () => {
                                             <MenuItem value="" disabled>
                                                 <span style={{ color: "#EBBC64" }}>Select an Instrument</span>
                                             </MenuItem>
-                                            <MenuItem sx={{ color: "#EBBC64" }} value="Piano Solo">
+                                            <MenuItem sx={{ color: "#EBBC64" }} value={InstrumentCategory.Piano_Solo}>
                                                 Piano Solo (One piano, two hands)
                                             </MenuItem>
-                                            <MenuItem sx={{ color: "#EBBC64" }} value="Piano Fourhands">
+                                            <MenuItem sx={{ color: "#EBBC64" }} value={InstrumentCategory.Piano_Fourhands_one}>
                                                 Piano Fourhands (One piano, four hands)
                                             </MenuItem>
-                                            <MenuItem sx={{ color: "#EBBC64" }} value="Chamber Music">
-                                                Chamber Music (Various combinations)
+                                            <MenuItem sx={{ color: "#EBBC64" }} value={InstrumentCategory.Piano_Fourhands_two}>
+                                                Piano Fourhands (Two piano, four hands)
+                                            </MenuItem>
+                                            <MenuItem sx={{ color: "#EBBC64" }} value={InstrumentCategory.Chamber_Music_one}>
+                                                Chamber Music (One piano, six-eight hands)
+                                            </MenuItem>
+                                            <MenuItem sx={{ color: "#EBBC64" }} value={InstrumentCategory.Chamber_Music_two}>
+                                                Chamber Music (Two piano, six-eight hands)
+                                            </MenuItem>
+                                            <MenuItem sx={{ color: "#EBBC64" }} value={InstrumentCategory.Chamber_Music_any}>
+                                                Chamber Music (Any insturment(s) with piano(s))
                                             </MenuItem>
                                         </Select>
                                     )}
@@ -277,84 +314,159 @@ const Register = () => {
 
 
                             {/* Description */}
-                            <Controller
+                            {/* <Controller
                                 name="description"
                                 control={control}
                                 render={({ field }) => (
                                     <TextField sx={{ mt: 2 }} {...field} label="Description (Optional)" variant="standard" className="custom-textfield mb-4" />
                                 )}
-                            />
+                            /> */}
 
                             {/* Date of Birth */}
-                            <LocalizationProvider dateAdapter={AdapterDayjs}>
-                                <Controller
-                                    name="dob"
-                                    control={control}
-                                    rules={{ required: "Date of Birth is required" }}
-                                    render={({ field, fieldState: { error } }) => (
-                                        <DatePicker
-                                            {...field}
-                                            label="Date of Birth"
-                                            value={field.value ? dayjs(field.value) : null}
-                                            onChange={(newValue) => field.onChange(newValue)}
-                                            sx={{
-                                                mt: 4,
-                                                mb: 4,
-                                                "& .MuiInputBase-root": {
-                                                    color: "#EBBC64", // Gold text color
-                                                },
-                                                "& .MuiOutlinedInput-notchedOutline": {
-                                                    borderColor: "#EBBC64 !important", // Gold border (default)
-                                                },
-                                                "&:hover .MuiOutlinedInput-notchedOutline": {
-                                                    borderColor: "#EBBC64 !important", // Gold border on hover
-                                                },
-                                                "& .MuiInputLabel-root": {
-                                                    color: "#EBBC64", // Gold label color
-                                                },
-                                                "& .MuiInputLabel-root.Mui-focused": {
-                                                    color: "#EBBC64 !important", // Force gold label on focus
-                                                },
-                                                "& .MuiIconButton-root": {
-                                                    color: "#EBBC64", // Gold calendar icon
-                                                },
-                                                "& .MuiPickersDay-root": {
-                                                    color: "#EBBC64", // Gold date numbers
-                                                },
-                                                "& .MuiPickersDay-root.Mui-selected": {
-                                                    backgroundColor: "#EBBC64", // Gold background on selected date
-                                                    color: "black", // Black text on selected date
-                                                },
-                                                "& .MuiOutlinedInput-root": {
-                                                    "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
-                                                        borderColor: "#EBBC64 !important", // Force gold outline when focused
+                            <Box className='d-flex' sx={{ width: "100%", gap: 4 }}>
+                                <LocalizationProvider dateAdapter={AdapterDayjs}>
+                                    <Controller
+                                        name="dob"
+                                        control={control}
+                                        rules={{ required: "Date of Birth is required" }}
+                                        render={({ field, fieldState: { error } }) => (
+                                            <DatePicker
+                                                {...field}
+                                                label="Date of Birth"
+                                                value={field.value ? dayjs(field.value) : null}
+                                                onChange={(newValue) => field.onChange(newValue)}
+                                                sx={{
+                                                    mt: 4,
+                                                    mb: 4,
+                                                    "& .MuiInputBase-root": {
+                                                        color: "#EBBC64", // Gold text color
                                                     },
-                                                },
-                                                "& .MuiInputBase-input": {
-                                                    caretColor: "#EBBC64", // Gold cursor
-                                                },
-                                                "& .Mui-focused": {
-                                                    color: "#EBBC64 !important", // Forces gold text when focused
-                                                },
-                                                "& .MuiOutlinedInput-root.Mui-focused": {
-                                                    borderColor: "#EBBC64 !important", // Forces gold border when focused
-                                                },
-                                                "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline": {
-                                                    borderColor: "#EBBC64 !important", // Forces gold border line when focused
-                                                },
-                                            }}
-                                            slotProps={{
-                                                textField: {
-                                                    variant: "outlined", // Change this to "standard" if you prefer no outline
-                                                    error: !!error,
-                                                    helperText: error ? error.message : "",
-                                                    InputLabelProps: { shrink: true },
-                                                },
-                                            }}
+                                                    "& .MuiOutlinedInput-notchedOutline": {
+                                                        borderColor: "#EBBC64 !important", // Gold border (default)
+                                                    },
+                                                    "&:hover .MuiOutlinedInput-notchedOutline": {
+                                                        borderColor: "#EBBC64 !important", // Gold border on hover
+                                                    },
+                                                    "& .MuiInputLabel-root": {
+                                                        color: "#EBBC64", // Gold label color
+                                                    },
+                                                    "& .MuiInputLabel-root.Mui-focused": {
+                                                        color: "#EBBC64 !important", // Force gold label on focus
+                                                    },
+                                                    "& .MuiIconButton-root": {
+                                                        color: "#EBBC64", // Gold calendar icon
+                                                    },
+                                                    "& .MuiPickersDay-root": {
+                                                        color: "#EBBC64", // Gold date numbers
+                                                    },
+                                                    "& .MuiPickersDay-root.Mui-selected": {
+                                                        backgroundColor: "#EBBC64", // Gold background on selected date
+                                                        color: "black", // Black text on selected date
+                                                    },
+                                                    "& .MuiOutlinedInput-root": {
+                                                        "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
+                                                            borderColor: "#EBBC64 !important", // Force gold outline when focused
+                                                        },
+                                                    },
+                                                    "& .MuiInputBase-input": {
+                                                        caretColor: "#EBBC64", // Gold cursor
+                                                    },
+                                                    "& .Mui-focused": {
+                                                        color: "#EBBC64 !important", // Forces gold text when focused
+                                                    },
+                                                    "& .MuiOutlinedInput-root.Mui-focused": {
+                                                        borderColor: "#EBBC64 !important", // Forces gold border when focused
+                                                    },
+                                                    "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline": {
+                                                        borderColor: "#EBBC64 !important", // Forces gold border line when focused
+                                                    },
+                                                }}
+                                                slotProps={{
+                                                    textField: {
+                                                        variant: "outlined", // Change this to "standard" if you prefer no outline
+                                                        error: !!error,
+                                                        helperText: error ? error.message : "",
+                                                        InputLabelProps: { shrink: true },
+                                                    },
+                                                }}
+                                            />
+                                        )}
+                                    />
+                                </LocalizationProvider>
+
+                                {isDoubleContestant && (
+
+                                    <LocalizationProvider dateAdapter={AdapterDayjs}>
+                                        <Controller
+                                            name="dob2"
+                                            control={control}
+                                            rules={{ required: "Date of Birth is required" }}
+                                            render={({ field, fieldState: { error } }) => (
+                                                <DatePicker
+                                                    {...field}
+                                                    label="Date of Birth"
+                                                    value={field.value ? dayjs(field.value) : null}
+                                                    onChange={(newValue) => field.onChange(newValue)}
+                                                    sx={{
+                                                        mt: 4,
+                                                        mb: 4,
+                                                        "& .MuiInputBase-root": {
+                                                            color: "#EBBC64", // Gold text color
+                                                        },
+                                                        "& .MuiOutlinedInput-notchedOutline": {
+                                                            borderColor: "#EBBC64 !important", // Gold border (default)
+                                                        },
+                                                        "&:hover .MuiOutlinedInput-notchedOutline": {
+                                                            borderColor: "#EBBC64 !important", // Gold border on hover
+                                                        },
+                                                        "& .MuiInputLabel-root": {
+                                                            color: "#EBBC64", // Gold label color
+                                                        },
+                                                        "& .MuiInputLabel-root.Mui-focused": {
+                                                            color: "#EBBC64 !important", // Force gold label on focus
+                                                        },
+                                                        "& .MuiIconButton-root": {
+                                                            color: "#EBBC64", // Gold calendar icon
+                                                        },
+                                                        "& .MuiPickersDay-root": {
+                                                            color: "#EBBC64", // Gold date numbers
+                                                        },
+                                                        "& .MuiPickersDay-root.Mui-selected": {
+                                                            backgroundColor: "#EBBC64", // Gold background on selected date
+                                                            color: "black", // Black text on selected date
+                                                        },
+                                                        "& .MuiOutlinedInput-root": {
+                                                            "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
+                                                                borderColor: "#EBBC64 !important", // Force gold outline when focused
+                                                            },
+                                                        },
+                                                        "& .MuiInputBase-input": {
+                                                            caretColor: "#EBBC64", // Gold cursor
+                                                        },
+                                                        "& .Mui-focused": {
+                                                            color: "#EBBC64 !important", // Forces gold text when focused
+                                                        },
+                                                        "& .MuiOutlinedInput-root.Mui-focused": {
+                                                            borderColor: "#EBBC64 !important", // Forces gold border when focused
+                                                        },
+                                                        "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline": {
+                                                            borderColor: "#EBBC64 !important", // Forces gold border line when focused
+                                                        },
+                                                    }}
+                                                    slotProps={{
+                                                        textField: {
+                                                            variant: "outlined", // Change this to "standard" if you prefer no outline
+                                                            error: !!error,
+                                                            helperText: error ? error.message : "",
+                                                            InputLabelProps: { shrink: true },
+                                                        },
+                                                    }}
+                                                />
+                                            )}
                                         />
-                                    )}
-                                />
-                            </LocalizationProvider>
+                                    </LocalizationProvider>
+                                )}
+                            </Box>
 
                             {/* Exam Certificate Upload */}
                             <label htmlFor="examCertificate">
@@ -458,6 +570,14 @@ const Register = () => {
                             />
 
                             {/* Agreement Checkbox */}
+                            <Box className="goldenText" sx={{ mt: 2 }}>
+                                I acknowledge and agree that in order to join the APCs CLASSICAL FESTIVAL 2024 event,
+                                I will be in compliance with the terms and conditions,
+                                rules and regulations as well as the privacy policy of APCs MUSIC.
+                                I will be disqualified if I did not meet any requirement
+                                and did not obey the rules & regulations, terms & conditions
+                                and privacy policy that were given by APCs MUSIC.
+                            </Box>
                             <FormControlLabel
                                 sx={{
                                     color: "#EBBC64", // Gold text color
@@ -487,16 +607,15 @@ const Register = () => {
                                 }
                                 label="I agree to the terms and conditions."
                             />
-
                             {errors.agreement && <p style={{ color: "red" }}>{errors.agreement.message}</p>}
 
                             {/* Submit Button */}
-                            <Button type="submit" variant="contained" color="primary">Submit</Button>
+                            <Button type="submit" variant="contained" color="primary" style={{ background: "#EBBC64", color: "black" }}>Submit</Button>
                         </form>
                     </div>
                 </div>
             </div>
-        </div>
+        </div >
     )
 }
 
