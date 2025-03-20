@@ -31,6 +31,17 @@ import { InstrumentCategory } from '../../constant/InstrumentCategory';
 const Register = () => {
     const { t } = useTranslation();
 
+    const ageCategories = {
+        Poco: "Poco (4-5 years old)",
+        Petite: "Petite (6-7 years old)",
+        Primary: "Primary (8-11 years old)",
+        Young: "Young (12-15 years old)",
+        Junior: "Junior (16-19 years old)",
+        Youth: "Youth (20-23 years old)",
+        OpenAge: "Open Age (24 years old and up)",
+        FreeChoice: "Free Choice (Combination Age - No Limitation)"
+    }
+
     const { watch, register, control, formState: { errors }, handleSubmit } = useForm({
         defaultValues: {
             firstName: "",
@@ -126,7 +137,9 @@ const Register = () => {
                                         "&.Mui-focused": { color: "#EBBC64 !important" }, // Forces gold on focus
                                         "&:hover": { color: "#EBBC64 !important" }, // Forces gold on hover
                                     }}
-                                >Select Age Category</FormLabel>
+                                >
+                                    Select Age Category
+                                </FormLabel>
 
                                 <Controller
                                     name="ageCategory"
@@ -134,10 +147,10 @@ const Register = () => {
                                     rules={{ required: "Please select an age category" }}
                                     render={({ field }) => (
                                         <RadioGroup {...field} row>
-                                            {["under18", "18-25", "26-35", "36-50", "51+"].map((value) => (
+                                            {Object.entries(ageCategories).map(([key, label]) => (
                                                 <FormControlLabel
-                                                    key={value}
-                                                    value={value}
+                                                    key={key}
+                                                    value={key}
                                                     control={
                                                         <Radio
                                                             sx={{
@@ -156,7 +169,7 @@ const Register = () => {
                                                             }}
                                                         />
                                                     }
-                                                    label={value.replace("-", " ")}
+                                                    label={label}
                                                     sx={{ color: "#EBBC64" }}
                                                 />
                                             ))}
@@ -164,7 +177,7 @@ const Register = () => {
                                     )}
                                 />
                                 {errors.ageCategory && <p style={{ color: "red" }}>{errors.ageCategory.message}</p>}
-                            </FormControl>
+                            </FormControl>;
 
 
                             {/* Phone Number */}
