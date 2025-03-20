@@ -11,6 +11,10 @@ import {
     Select,
     TextField,
 } from "@mui/material";
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import dayjs from 'dayjs';
 import React from "react";
 import { Controller, useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
@@ -192,7 +196,14 @@ const Register = () => {
                                 sx={{ width: "100%" }}
                             >
                                 {/* Gold Label */}
-                                <InputLabel sx={{ color: "#EBBC64" }}>Instrument Category</InputLabel>
+                                <InputLabel
+                                    sx={{
+                                        color: "#EBBC64", // Gold label text
+                                        "&.Mui-focused": { color: "#EBBC64 !important" }, // Keep label gold when focused
+                                    }}
+                                >
+                                    Instrument Category
+                                </InputLabel>
 
                                 <Controller
                                     name="instrumentCategory"
@@ -204,28 +215,36 @@ const Register = () => {
                                             displayEmpty
                                             sx={{
                                                 color: "#EBBC64", // Gold text color
-                                                backgroundColor: "black", // Black dropdown background
                                                 borderBottom: "1px solid #EBBC64", // Gold bottom border
+
                                                 "& .MuiSelect-icon": { color: "#EBBC64" }, // Gold dropdown arrow
+
                                                 "&:hover": { borderBottom: "2px solid #EBBC64" }, // Gold hover effect
 
-                                                // 👇 Removes blue outline and adds gold focus effect
+                                                // 👇 Completely removes blue focus and applies gold focus effect
                                                 "&.Mui-focused": {
-                                                    color: "#EBBC64", // Keep text gold when focused
-                                                    borderBottom: "2px solid #EBBC64", // Gold bottom border when focused
+                                                    color: "#EBBC64 !important", // Keep text gold when focused
+                                                    borderBottom: "2px solid #EBBC64 !important", // Gold bottom border when focused
                                                 },
 
-                                                "& .MuiOutlinedInput-notchedOutline": {
-                                                    borderColor: "#EBBC64", // Gold border for outlined variant
+                                                "&:before": {
+                                                    borderBottom: "1px solid #EBBC64 !important", // Gold default underline
                                                 },
 
-                                                "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
-                                                    borderColor: "#EBBC64", // Gold border when focused
+                                                "&:after": {
+                                                    borderBottom: "2px solid #EBBC64 !important", // Gold focus underline
+                                                },
+
+                                                "&.Mui-focused:after": {
+                                                    borderBottom: "2px solid #EBBC64 !important", // Gold underline focus effect
+                                                },
+
+                                                "& .MuiInputBase-root:after": {
+                                                    borderBottom: "2px solid #EBBC64 !important", // Ensures gold focus underline
                                                 },
 
                                                 "&:focus": {
-                                                    outline: "none", // Removes blue outline
-                                                    borderBottom: "2px solid #EBBC64", // Gold glow effect
+                                                    outline: "none !important", // Completely removes blue outline
                                                 },
                                             }}
                                         >
@@ -252,6 +271,7 @@ const Register = () => {
                                 )}
                             </FormControl>
 
+
                             {/* Description */}
                             <Controller
                                 name="description"
@@ -262,15 +282,74 @@ const Register = () => {
                             />
 
                             {/* Date of Birth */}
-                            <Controller
-                                name="dob"
-                                control={control}
-                                rules={{ required: "Date of Birth is required" }}
-                                render={({ field, fieldState: { error } }) => (
-                                    <TextField {...field} type="date" label="Date of Birth" InputLabelProps={{ shrink: true }} variant="standard"
-                                        className="custom-textfield mb-4" error={!!error} helperText={error ? error.message : ""} />
-                                )}
-                            />
+                            <LocalizationProvider dateAdapter={AdapterDayjs}>
+                                <Controller
+                                    name="dob"
+                                    control={control}
+                                    rules={{ required: "Date of Birth is required" }}
+                                    render={({ field, fieldState: { error } }) => (
+                                        <DatePicker
+                                            {...field}
+                                            label="Date of Birth"
+                                            value={field.value ? dayjs(field.value) : null}
+                                            onChange={(newValue) => field.onChange(newValue)}
+                                            sx={{
+                                                mb: 4,
+                                                "& .MuiInputBase-root": {
+                                                    color: "#EBBC64", // Gold text color
+                                                },
+                                                "& .MuiOutlinedInput-notchedOutline": {
+                                                    borderColor: "#EBBC64 !important", // Gold border (default)
+                                                },
+                                                "&:hover .MuiOutlinedInput-notchedOutline": {
+                                                    borderColor: "#EBBC64 !important", // Gold border on hover
+                                                },
+                                                "& .MuiInputLabel-root": {
+                                                    color: "#EBBC64", // Gold label color
+                                                },
+                                                "& .MuiInputLabel-root.Mui-focused": {
+                                                    color: "#EBBC64 !important", // Force gold label on focus
+                                                },
+                                                "& .MuiIconButton-root": {
+                                                    color: "#EBBC64", // Gold calendar icon
+                                                },
+                                                "& .MuiPickersDay-root": {
+                                                    color: "#EBBC64", // Gold date numbers
+                                                },
+                                                "& .MuiPickersDay-root.Mui-selected": {
+                                                    backgroundColor: "#EBBC64", // Gold background on selected date
+                                                    color: "black", // Black text on selected date
+                                                },
+                                                "& .MuiOutlinedInput-root": {
+                                                    "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
+                                                        borderColor: "#EBBC64 !important", // Force gold outline when focused
+                                                    },
+                                                },
+                                                "& .MuiInputBase-input": {
+                                                    caretColor: "#EBBC64", // Gold cursor
+                                                },
+                                                "& .Mui-focused": {
+                                                    color: "#EBBC64 !important", // Forces gold text when focused
+                                                },
+                                                "& .MuiOutlinedInput-root.Mui-focused": {
+                                                    borderColor: "#EBBC64 !important", // Forces gold border when focused
+                                                },
+                                                "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline": {
+                                                    borderColor: "#EBBC64 !important", // Forces gold border line when focused
+                                                },
+                                            }}
+                                            slotProps={{
+                                                textField: {
+                                                    variant: "outlined", // Change this to "standard" if you prefer no outline
+                                                    error: !!error,
+                                                    helperText: error ? error.message : "",
+                                                    InputLabelProps: { shrink: true },
+                                                },
+                                            }}
+                                        />
+                                    )}
+                                />
+                            </LocalizationProvider>
 
                             {/* File Upload Fields */}
                             <input type="file" {...register("examCertificate", { required: "Upload required" })} />
@@ -288,13 +367,44 @@ const Register = () => {
                                 control={control}
                                 rules={{ required: "YouTube link is required" }}
                                 render={({ field, fieldState: { error } }) => (
-                                    <TextField {...field} label="YouTube Video Link" variant="standard" className="custom-textfield mb-4"
+                                    <TextField {...field}
+                                        sx={{ mt: 2 }}
+                                        label="YouTube Video Link" variant="standard" className="custom-textfield mb-4"
                                         error={!!error} helperText={error ? error.message : ""} />
                                 )}
                             />
 
                             {/* Agreement Checkbox */}
-                            <FormControlLabel control={<Controller name="agreement" control={control} rules={{ required: "Required" }} render={({ field }) => <Checkbox {...field} />} />} label="I agree to the terms and conditions." />
+                            <FormControlLabel
+                                sx={{
+                                    color: "#EBBC64", // Gold text color
+                                    "&.Mui-focused": { color: "#EBBC64 !important" }, // Forces gold on focus
+                                    "&:hover": { color: "#EBBC64 !important" }, // Forces gold on hover
+                                }}
+                                control={
+                                    <Controller
+                                        name="agreement"
+                                        control={control}
+                                        rules={{ required: "Required" }}
+                                        render={({ field }) => (
+                                            <Checkbox
+                                                {...field}
+                                                sx={{
+                                                    color: "#EBBC64", // Unchecked color
+                                                    "&.Mui-checked": {
+                                                        color: "#EBBC64", // Checked color
+                                                    },
+                                                    "&.Mui-focusVisible": {
+                                                        outline: "2px solid #EBBC64", // Gold focus outline
+                                                    },
+                                                }}
+                                            />
+                                        )}
+                                    />
+                                }
+                                label="I agree to the terms and conditions."
+                            />
+
                             {errors.agreement && <p style={{ color: "red" }}>{errors.agreement.message}</p>}
 
                             {/* Submit Button */}

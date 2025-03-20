@@ -12,6 +12,7 @@
     "@firebase/storage": "^0.13.5",
     "@mediapipe/tasks-vision": "^0.10.14",
     "@mui/material": "^5.15.21",
+    "@mui/x-date-pickers": "^7.28.0",
     "@popperjs/core": "^2.11.6",
     "@react-pdf/renderer": "^4.1.6",
     "@react-three/drei": "^9.105.5",
