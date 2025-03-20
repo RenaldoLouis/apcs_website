@@ -1,4 +1,7 @@
 import {
+    CloudUploadOutlined
+} from '@ant-design/icons';
+import {
     Button,
     Checkbox,
     FormControl,
@@ -10,6 +13,7 @@ import {
     RadioGroup,
     Select,
     TextField,
+    Typography
 } from "@mui/material";
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
@@ -277,7 +281,7 @@ const Register = () => {
                                 name="description"
                                 control={control}
                                 render={({ field }) => (
-                                    <TextField {...field} label="Description (Optional)" variant="standard" className="custom-textfield mb-4" />
+                                    <TextField sx={{ mt: 2 }} {...field} label="Description (Optional)" variant="standard" className="custom-textfield mb-4" />
                                 )}
                             />
 
@@ -294,6 +298,7 @@ const Register = () => {
                                             value={field.value ? dayjs(field.value) : null}
                                             onChange={(newValue) => field.onChange(newValue)}
                                             sx={{
+                                                mt: 4,
                                                 mb: 4,
                                                 "& .MuiInputBase-root": {
                                                     color: "#EBBC64", // Gold text color
@@ -351,15 +356,93 @@ const Register = () => {
                                 />
                             </LocalizationProvider>
 
-                            {/* File Upload Fields */}
-                            <input type="file" {...register("examCertificate", { required: "Upload required" })} />
-                            {errors.examCertificate && <p style={{ color: "red" }}>{errors.examCertificate.message}</p>}
+                            {/* Exam Certificate Upload */}
+                            <label htmlFor="examCertificate">
+                                <input
+                                    id="examCertificate"
+                                    type="file"
+                                    {...register("examCertificate", { required: "Upload required" })}
+                                    style={{ display: "none" }} // Hide default file input
+                                />
+                                <Button
+                                    variant="contained"
+                                    component="span"
+                                    sx={{
+                                        backgroundColor: "#EBBC64",
+                                        color: "black",
+                                        borderRadius: "20px",
+                                        padding: "10px 20px",
+                                        textTransform: "none",
+                                        fontWeight: "bold",
+                                        display: "flex",
+                                        alignItems: "center",
+                                        gap: "8px",
+                                        "&:hover": { backgroundColor: "#d9a84d" }, // Slightly darker gold on hover
+                                    }}
+                                >
+                                    <CloudUploadOutlined /> Upload Exam Certificate
+                                </Button>
+                            </label>
+                            {errors.examCertificate && <Typography color="red">{errors.examCertificate.message}</Typography>}
 
-                            <input type="file" {...register("birthCertificate", { required: "Upload required" })} />
-                            {errors.birthCertificate && <p style={{ color: "red" }}>{errors.birthCertificate.message}</p>}
+                            {/* Birth Certificate Upload */}
+                            <label htmlFor="birthCertificate" style={{ marginTop: "15px", display: "block" }}>
+                                <input
+                                    id="birthCertificate"
+                                    type="file"
+                                    {...register("birthCertificate", { required: "Upload required" })}
+                                    style={{ display: "none" }}
+                                />
+                                <Button
+                                    variant="contained"
+                                    component="span"
+                                    sx={{
+                                        backgroundColor: "#EBBC64",
+                                        color: "black",
+                                        borderRadius: "20px",
+                                        padding: "10px 20px",
+                                        textTransform: "none",
+                                        fontWeight: "bold",
+                                        display: "flex",
+                                        alignItems: "center",
+                                        gap: "8px",
+                                        "&:hover": { backgroundColor: "#d9a84d" },
+                                    }}
+                                >
+                                    <CloudUploadOutlined /> Upload Birth Certificate
+                                </Button>
+                            </label>
+                            {errors.birthCertificate && <Typography color="red">{errors.birthCertificate.message}</Typography>}
 
-                            <input type="file" {...register("pdfRepertoire", { required: "Upload required" })} />
-                            {errors.pdfRepertoire && <p style={{ color: "red" }}>{errors.pdfRepertoire.message}</p>}
+                            {/* PDF Repertoire Upload */}
+                            <label htmlFor="pdfRepertoire" style={{ marginTop: "15px", display: "block" }}>
+                                <input
+                                    id="pdfRepertoire"
+                                    type="file"
+                                    {...register("pdfRepertoire", { required: "Upload required" })}
+                                    style={{ display: "none" }}
+                                />
+                                <Button
+                                    variant="contained"
+                                    component="span"
+                                    sx={{
+                                        backgroundColor: "#EBBC64",
+                                        color: "black",
+                                        borderRadius: "20px",
+                                        padding: "10px 20px",
+                                        textTransform: "none",
+                                        fontWeight: "bold",
+                                        display: "flex",
+                                        alignItems: "center",
+                                        gap: "8px",
+                                        "&:hover": { backgroundColor: "#d9a84d" },
+                                    }}
+                                >
+                                    <CloudUploadOutlined /> Upload PDF Repertoire
+                                </Button>
+                            </label>
+                            {errors.pdfRepertoire && <Typography color="red">{errors.pdfRepertoire.message}</Typography>}
+
 
                             {/* YouTube Link */}
                             <Controller
