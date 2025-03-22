@@ -1,5 +1,8 @@
+import Box from '@mui/material/Box';
+import Modal from '@mui/material/Modal';
+import Typography from '@mui/material/Typography';
 import { logEvent } from "firebase/analytics";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import apcLogoBold from "../../assets/images/apc_logo_bold.svg";
@@ -39,6 +42,21 @@ const completeListOfSponsor = [
     sponsor1, sponsor6, sponsor8, sponsor4, sponsor5, sponsor2, sponsor7, sponsor9, sponsor3
 ]
 
+const modalStyle = {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 460,
+    bgcolor: '#1E1E1E', // dark elegant background
+    color: '#fff', // ensure text pops
+    border: `2px solid #EBBC64`,
+    boxShadow: '0 12px 40px rgba(0, 0, 0, 0.6)',
+    borderRadius: '16px',
+    p: 4,
+    outline: 'none',
+};
+
 const Home = (props) => {
     const { homeImagehero } = props
     const { t, i18n } = useTranslation();
@@ -53,6 +71,14 @@ const Home = (props) => {
 
     useEffect(() => {
         logEvent(analytics, 'visit_Home');
+    }, [])
+
+    const [open, setOpen] = useState(false);
+    const handleOpen = () => setOpen(true);
+    const handleClose = () => setOpen(false);
+
+    useEffect(() => {
+        handleOpen()
     }, [])
 
     return (
@@ -178,6 +204,32 @@ const Home = (props) => {
                     </div>
                 </>
             )}
+
+            <Modal
+                open={open}
+                onClose={handleClose}
+                aria-labelledby="modal-modal-title"
+                aria-describedby="modal-modal-description"
+            >
+                <Box sx={modalStyle}>
+                    <Typography
+                        id="modal-modal-title"
+                        variant="h5"
+                        component="h2"
+                        sx={{ color: '#EBBC64', fontWeight: 600, mb: 1 }}
+                    >
+                        Welcome to the Orchestra
+                    </Typography>
+                    <div style={{ height: '4px', backgroundColor: '#EBBC64', width: '50px', margin: '12px 0' }} />
+
+                    <Typography
+                        id="modal-modal-description"
+                        sx={{ color: '#ddd', lineHeight: 1.6 }}
+                    >
+                        Enjoy a curated journey of musical storytelling. Let the symphony begin.
+                    </Typography>
+                </Box>
+            </Modal>
         </div >
     )
 }

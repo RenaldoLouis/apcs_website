@@ -64,7 +64,7 @@ const Main = () => {
         <Route path={PathName.achievers} element={<MainLayout children={<Achievers />} />} />
         <Route path={PathName.podcast} element={<MainLayout children={<Podcast />} />} />
         <Route path={PathName.contactUs} element={<MainLayout children={<ContactUs />} />} />
-        <Route path={PathName.register} element={<MainLayout children={<Register />} />} />
+        <Route path={PathName.register} element={<MainLayout children={<Register />} hidden={true} />} />
         <Route path={"/payment"} element={<MainLayout children={<Payment />} />} />
         <Route path="/login" element={<Login />} />
         <Route path="/adminDashboard" element={

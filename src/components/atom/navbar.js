@@ -1,19 +1,19 @@
-import React, { useEffect, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
-import { PathName } from "../../constant/PathName";
-import apcLogo from "../../assets/images/apc_logo.svg"
 import {
-    MenuOutlined,
     CloseOutlined,
-    YoutubeOutlined,
     InstagramOutlined,
-    WhatsAppOutlined
+    MenuOutlined,
+    WhatsAppOutlined,
+    YoutubeOutlined
 } from '@ant-design/icons';
-import { useTranslation } from "react-i18next";
 import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
-import indFlag from "../../assets/images/indFlag.jpg"
-import ukFlag from "../../assets/images/ukFlag.png"
+import React, { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
+import { useLocation, useNavigate } from "react-router-dom";
+import apcLogo from "../../assets/images/apc_logo.svg";
+import indFlag from "../../assets/images/indFlag.jpg";
+import ukFlag from "../../assets/images/ukFlag.png";
+import { PathName } from "../../constant/PathName";
 
 const Navbar = (props) => {
     const { isNavbarMobileOpen, setIsNavbarMobileOpen } = props
@@ -84,14 +84,18 @@ const Navbar = (props) => {
                             if (navbarName === "contactUs") {
                                 navbarName = "CONTACT_US"
                             }
-                            return (
-                                <div
-                                    key={`${eachPath}`}
-                                    style={{ height: "fit-content", fontSize: 16 }}
-                                    className={`itemMenuSelected ${currentPage === path ? "selected textColorSelected" : ""}`} onClick={() => handleMovePage(path)}>
-                                    {t(navbarName.toUpperCase())}
-                                </div>
-                            )
+                            if (navbarName === "register") {
+                                return null
+                            } else {
+                                return (
+                                    <div
+                                        key={`${eachPath}`}
+                                        style={{ height: "fit-content", fontSize: 16 }}
+                                        className={`itemMenuSelected ${currentPage === path ? "selected textColorSelected" : ""}`} onClick={() => handleMovePage(path)}>
+                                        {t(navbarName.toUpperCase())}
+                                    </div>
+                                )
+                            }
                         })}
                     </div>
                     <div className="col-2 d-flex align-items-center justify-content-center">

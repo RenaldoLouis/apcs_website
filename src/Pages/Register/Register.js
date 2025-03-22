@@ -54,10 +54,60 @@ const Register = () => {
 
     const selectedInstrument = watch("instrumentCategory");
 
-    console.log("selectedInstrument", selectedInstrument)
-
     const isDoubleContestant = useMemo(() => {
         return selectedInstrument === InstrumentCategory.Piano_Solo
+    }, [selectedInstrument])
+
+    const tooltipMessageYoutubeFormat = useMemo(() => {
+        let text = null;
+        switch (selectedInstrument) {
+            case InstrumentCategory.Piano_Solo:
+                text = <p>
+                    Example:
+                    APCSCF2024 - PIANO SOLO - POCO - WALLACE JOHANNA TANTONO - Sonata in F Major
+                    (If you have a longer name, (Wallace Johanna Tantono), please simplify into Wallace J.T).
+                </p>
+                break;
+            case InstrumentCategory.Piano_Fourhands_one:
+                text = <p>
+                    Example:
+                    APCSCF2024 - PIANO FOURHANDS - FREE CHOICE - KIRANA SEAN & SKY YOHANNA - MOZART PIANO SONATA K.381
+                    (If you have a longer name, please simplify it.).
+                </p>
+                break;
+            case InstrumentCategory.Piano_Fourhands_two:
+                text = <p>
+                    Example:
+                    APCSCF2024 - PIANO FOURHANDS - FREE CHOICE - KIRANA SEAN & SKY YOHANNA - Scaramouche Op.165b - Darius Milhaud for 2 Pianos 4 Hands
+                    (If you have a longer name, please simplify it.).
+                </p>
+                break;
+            case InstrumentCategory.Chamber_Music_one:
+                text = <p>
+                    Example:
+                    APCSCF2024 - CHAMBER MUSIC - FREE CHOICE - RINA JULIANNA, MATTHEW TAN, RYAN WIJAYA, LINA TIONANDA) - Lavignac "Galop- Marche"
+                    (If you have a longer name, please simplify it.).
+                </p>
+                break;
+            case InstrumentCategory.Chamber_Music_two:
+                text = <p>
+                    Example:
+                    APCSCF2024 - CHAMBER MUSIC - FREE CHOICE - TIMOTHY TIO, KIMBERLY WIJAYA, MAY JULIO, JONATHAN ROBERT - Champagne Toccata - William Gillock for 2 Piano 8 Hands
+                    (If you have a longer name, please simplify it.).
+                </p>
+                break;
+            case InstrumentCategory.Chamber_Music_any:
+                text = <p>
+                    Example:
+                    APCSCF2024 - CHAMBER MUSIC - FREE CHOICE - TIMOTHY's Chamber - Dvořák: Piano Quintet No. 2, Op. 81
+                    (If you have a longer name, please simplify it.).
+                </p>
+                break;
+            default:
+        }
+
+        return text
+
     }, [selectedInstrument])
 
     return (
@@ -570,17 +620,30 @@ const Register = () => {
 
 
                             {/* YouTube Link */}
-                            <Controller
-                                name="youtubeLink"
-                                control={control}
-                                rules={{ required: "YouTube link is required" }}
-                                render={({ field, fieldState: { error } }) => (
-                                    <TextField {...field}
-                                        sx={{ mt: 2 }}
-                                        label="YouTube Video Link" variant="standard" className="custom-textfield mb-4"
-                                        error={!!error} helperText={error ? error.message : ""} />
-                                )}
-                            />
+                            <div className='d-flex'>
+                                <Controller
+                                    name="youtubeLink"
+                                    control={control}
+                                    rules={{ required: "YouTube link is required" }}
+                                    render={({ field, fieldState: { error } }) => (
+                                        <TextField {...field}
+                                            sx={{ mt: 2 }}
+                                            label="YouTube Video Link" variant="standard" className="custom-textfield mb-4"
+                                            error={!!error} helperText={error ? error.message : ""} />
+                                    )}
+                                />
+
+                                <Tooltip title={<div>
+                                    <p>
+                                        Make sure to fill the title on YouTube with the format: APCSCF2024 - (INSTRUMENT CATEGORIES) - (AGE CATEGORIES) - (FULL NAME) - (PIECE)
+                                    </p>
+                                    {tooltipMessageYoutubeFormat}
+                                </div>}>
+                                    <IconButton sx={{ color: "#EBBC64", fontSize: 16, mt: 1 }}>
+                                        <QuestionCircleOutlined />
+                                    </IconButton>
+                                </Tooltip>
+                            </div>
 
                             {/* Agreement Checkbox */}
                             <Box className="goldenText" sx={{ mt: 2 }}>

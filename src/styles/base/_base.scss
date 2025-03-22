@@ -23,6 +23,17 @@ body {
   overflow-x: hidden;
 }
 
+#root {
+  background: black;
+}
+
+// *:focus-visible {
+//   outline: none;
+//   box-shadow: 0 0 0 3px rgba(235, 188, 100, 0.5);
+//   /* warm focus ring */
+//   border-radius: 4px;
+// }
+
 // code {
 //   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
 //     monospace;

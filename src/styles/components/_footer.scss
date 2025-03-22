@@ -35,3 +35,32 @@
    font-weight: bold;
    margin-bottom: 8px;
 }
+
+@keyframes slideUpFadeIn {
+   0% {
+      opacity: 0;
+      transform: translateY(100%);
+   }
+
+   100% {
+      opacity: 1;
+      transform: translateY(0);
+   }
+}
+
+.sticky-footer {
+   position: sticky;
+   bottom: 0;
+   background: #333;
+   color: white;
+   text-align: center;
+   padding: 1rem 2rem;
+   border-top-left-radius: 20px;
+   border-top-right-radius: 20px;
+   margin-top: auto;
+   /* Ensures it's at the bottom */
+   z-index: 10;
+   box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+   transition: all 0.3s ease;
+   animation: slideUpFadeIn 0.6s ease-out forwards;
+}
