@@ -3,13 +3,11 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import homeScreenImageGradient from "../../assets/images/homeScreenImageGradient.jpg";
 import homeScreenImageGradientMobile from "../../assets/images/homeScreenImageGradientMobile.jpg";
-import loadingAnimation2 from "../../assets/lottie/test.json";
+import loadingAnimation from "../../assets/lottie/loading.json";
 
 const LandingPage = React.memo((props) => {
     const navigate = useNavigate();
     const [isReadyToNavigate, setIsReadyToNavigate] = useState(false);
-
-    const [isShowWelcome, setIsShowWelcome] = useState(false);
 
     useEffect(() => {
         const imagesToPreload = [homeScreenImageGradient, homeScreenImageGradientMobile];
@@ -39,18 +37,7 @@ const LandingPage = React.memo((props) => {
 
     return (
         <article className="landingContiner" >
-            {/* {isShowWelcome ? (
-                <img alt="welcomeImageDesc" src={taleMusicalJourney} className="welcomeImage fade-in-image-welcome" />
-            ) : (
-                <Lottie animationData={loadingAnimation} loop={true} />
-            )} */}
-            <Lottie animationData={loadingAnimation2} loop={true} />
-            {/* <Lottie animationData={{ animation: loadingAnimation }} loop={true} /> */}
-            {/* {animationData ? (
-                <Lottie animationData={animationData} loop={true} />
-            ) : (
-                <p>Loading animation...</p>
-            )} */}
+            <Lottie style={{ width: "50%" }} animationData={loadingAnimation} loop={true} />
 
         </article >
     )
