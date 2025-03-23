@@ -124,13 +124,17 @@ const Navbar = (props) => {
                                 if (navbarName === "contactUs") {
                                     navbarName = "CONTACT_US"
                                 }
-                                return (
-                                    <div
-                                        key={`navbarContainerMobile-${eachPath}`}
-                                        className={`plus-jakarta-sans-font itemMenuSelected ${currentPage === path ? "selected textColorSelected" : ""}`} onClick={() => handleMovePage(path)}>
-                                        {t(navbarName.toUpperCase())}
-                                    </div>
-                                )
+                                if (navbarName === "register") {
+                                    return null
+                                } else {
+                                    return (
+                                        <div
+                                            key={`navbarContainerMobile-${eachPath}`}
+                                            className={`plus-jakarta-sans-font itemMenuSelected ${currentPage === path ? "selected textColorSelected" : ""}`} onClick={() => handleMovePage(path)}>
+                                            {t(navbarName.toUpperCase())}
+                                        </div>
+                                    )
+                                }
                             })}
                         </div>
                         <span className="logoContainerMobile">

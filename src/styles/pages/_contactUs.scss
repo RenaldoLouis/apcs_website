@@ -1,31 +1,42 @@
+.custom-textfield,
+.custom-textfield-full {
+    .MuiInputLabel-root {
+        color: $primary-cream-text-color;
+
+        &.Mui-focused {
+            color: $primary-cream-text-color !important;
+        }
+    }
+
+    .MuiInput-root {
+        &::before {
+            border-bottom-color: #e5cc92;
+        }
+
+        &:hover:not(.Mui-disabled)::before {
+            border-bottom-color: #e5cc92;
+        }
+
+        &::after {
+            border-bottom-color: $primary-cream-text-color;
+        }
+    }
+
+    .MuiInputBase-root {
+        &:hover:not(.Mui-disabled)::before {
+            border-bottom-color: #e5cc92;
+        }
+    }
+
+    .MuiInputBase-input {
+        color: $primary-cream-text-color;
+    }
+}
+
 .custom-textfield {
     width: 75%;
 }
 
-.custom-textfield .MuiInputLabel-root {
-    color: $primary-cream-text-color;
-}
-
-.custom-textfield .MuiInputLabel-root.Mui-focused {
-    color: $primary-cream-text-color !important;
-}
-
-.custom-textfield .MuiInput-root::before {
-    border-bottom-color: #e5cc92;
-}
-
-.custom-textfield .MuiInput-root:hover:not(.Mui-disabled)::before {
-    border-bottom-color: #e5cc92;
-}
-
-.custom-textfield .MuiInput-root::after {
-    border-bottom-color: $primary-cream-text-color;
-}
-
-.custom-textfield .MuiInputBase-input {
-    color: $primary-cream-text-color;
-}
-
-.custom-textfield .MuiInputBase-root:hover:not(.Mui-disabled)::before {
-    border-bottom-color: #e5cc92;
+.custom-textfield-full {
+    width: 100%;
 }

@@ -1,19 +1,16 @@
-import React, { useEffect, useState } from "react";
-import ArrowUp from "../../assets/icons/ArrowUp.png"
-import apcLogo from "../../assets/images/apc_logo.svg"
 import {
-    MenuOutlined,
-    CloseOutlined,
-    YoutubeOutlined,
     InstagramOutlined,
-    WhatsAppOutlined
+    WhatsAppOutlined,
+    YoutubeOutlined
 } from '@ant-design/icons';
-import { PathName } from "../../constant/PathName";
-import { useLocation, useNavigate } from "react-router-dom";
+import { Link } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
-import { Link } from '@mui/material';
+import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { useLocation, useNavigate } from "react-router-dom";
+import apcLogo from "../../assets/images/apc_logo.svg";
+import { PathName } from "../../constant/PathName";
 
 const Footer = () => {
     const navigate = useNavigate();
@@ -72,15 +69,19 @@ const Footer = () => {
                                     if (navbarName === "contactUs") {
                                         navbarName = "CONTACT US"
                                     }
-                                    return (
-                                        <div
-                                            key={`footer-${eachPath}`}
-                                            style={{ fontSize: 16 }}
-                                            className={`mb-1 itemMenuSelected ${currentPage === path ? "selected textColorSelected" : ""}`}
-                                            onClick={() => handleMovePage(path)}>
-                                            {t(navbarName.toUpperCase())}
-                                        </div>
-                                    )
+                                    if (navbarName === "register") {
+                                        return null
+                                    } else {
+                                        return (
+                                            <div
+                                                key={`footer-${eachPath}`}
+                                                style={{ fontSize: 16 }}
+                                                className={`mb-1 itemMenuSelected ${currentPage === path ? "selected textColorSelected" : ""}`}
+                                                onClick={() => handleMovePage(path)}>
+                                                {t(navbarName.toUpperCase())}
+                                            </div>
+                                        )
+                                    }
                                 })}
                             </div>
                             <div className="p-2 text-align-start">
@@ -134,15 +135,19 @@ const Footer = () => {
                                 if (navbarName === "contactUs") {
                                     navbarName = "CONTACT_US"
                                 }
-                                return (
-                                    <div
-                                        key={`footer2-${eachPath}`}
-                                        style={{ fontSize: 16 }}
-                                        className={`mb-1 itemMenuSelected ${currentPage === path ? "selected textColorSelected" : ""}`}
-                                        onClick={() => handleMovePage(path)}>
-                                        {t(navbarName.toUpperCase())}
-                                    </div>
-                                )
+                                if (navbarName === "register") {
+                                    return null
+                                } else {
+                                    return (
+                                        <div
+                                            key={`footer2-${eachPath}`}
+                                            style={{ fontSize: 16 }}
+                                            className={`mb-1 itemMenuSelected ${currentPage === path ? "selected textColorSelected" : ""}`}
+                                            onClick={() => handleMovePage(path)}>
+                                            {t(navbarName.toUpperCase())}
+                                        </div>
+                                    )
+                                }
                             })}
                         </div>
                         <div className="col-3 d-flex flex-column align-items-start gap-3">

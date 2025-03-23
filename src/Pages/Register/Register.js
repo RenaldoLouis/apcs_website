@@ -48,11 +48,23 @@ const Register = () => {
     }
 
     const [isLoading, setIsLoading] = useState(false);
+    const [isSaveSuccess, setIsSaveSuccess] = useState(false);
 
-    const { watch, register, control, formState: { errors }, handleSubmit } = useForm({
+    const { watch, register, control, formState: { errors }, handleSubmit, reset, clearErrors } = useForm({
         defaultValues: {
+            address: "",
+            ageCategory: null,
+            city: "",
+            country: "",
+            createdAt: "",
+            dob: null,
+            dob2: null,
+            instrumentCategory: null,
+            email: "",
             name: "",
-            teacherName: ""
+            phoneNumber: "",
+            teacherName: "",
+            youtubeLink: "",
         },
     })
 
@@ -113,12 +125,14 @@ const Register = () => {
             const formattedDate2 = data?.dob2?.format("YYYY-MM-DD") ?? null;
 
             // save data to Firebase
-            const docRef = await addDoc(collection(db, "Registrants2025"), {
+            await addDoc(collection(db, "Registrants2025"), {
                 address: data.address,
                 ageCategory: data.ageCategory,
                 email: data.email,
                 instrumentCategory: data.instrumentCategory,
                 name: data.name,
+                city: data.city,
+                country: data.country,
                 dob: formattedDate,
                 dob2: formattedDate2,
                 phoneNumber: data.phoneNumber,
@@ -130,13 +144,23 @@ const Register = () => {
             setIsLoading(false)
 
             toast.success("Succesfully Register")
-
+            setIsSaveSuccess(true)
         } catch (e) {
             setIsLoading(false)
             toast.error("Register failed, please try again. If the error persist please contact us")
             console.error(e)
         }
     };
+
+    const handleClickReset = () => {
+        reset()
+        setIsSaveSuccess(false)
+        clearErrors()
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+    }
 
     const selectedInstrument = watch("instrumentCategory");
 
@@ -221,30 +245,34 @@ const Register = () => {
                             <p>APCS MUSIC</p>
                         </div>
                         <form className="d-flex flex-column" onSubmit={handleSubmit(onSubmit, onError)}>
-                            <Controller
-                                name="email"
-                                control={control}
-                                rules={{
-                                    required: "Email is required", // Custom error message
-                                    pattern: {
-                                        value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
-                                        message: "Please enter a valid email address",
-                                    },
-                                }}
-                                render={({ field, fieldState: { error } }) => (
-                                    <TextField
-                                        {...field}
-                                        type="email" // Ensure email input type is set
-                                        placeholder="JohnDoe@gmail.com"
-                                        id="standard-basic"
-                                        label={t("email")}
-                                        variant="standard"
-                                        className="custom-textfield mb-4"
-                                        error={!!error} // Highlight the field on error
-                                        helperText={error ? error.message : ""}
+                            <Box className="row">
+                                <Box className="col-12">
+                                    <Controller
+                                        name="email"
+                                        control={control}
+                                        rules={{
+                                            required: "Email is required", // Custom error message
+                                            pattern: {
+                                                value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
+                                                message: "Please enter a valid email address",
+                                            },
+                                        }}
+                                        render={({ field, fieldState: { error } }) => (
+                                            <TextField
+                                                {...field}
+                                                type="email" // Ensure email input type is set
+                                                placeholder="JohnDoe@gmail.com"
+                                                id="standard-basic"
+                                                label={t("email")}
+                                                variant="standard"
+                                                className="custom-textfield-full mb-4"
+                                                error={!!error} // Highlight the field on error
+                                                helperText={error ? error.message : ""}
+                                            />
+                                        )}
                                     />
-                                )}
-                            />
+                                </Box>
+                            </Box>
                             <Controller
                                 name="name"
                                 control={control}
@@ -258,7 +286,7 @@ const Register = () => {
                                         id="standard-basic"
                                         label={t("name")}
                                         variant="standard"
-                                        className="custom-textfield mb-4"
+                                        className="custom-textfield-full mb-4"
                                         error={!!error} // Highlight the field on error
                                         helperText={error ? error.message : ""}
                                     />
@@ -329,18 +357,42 @@ const Register = () => {
                                     },
                                 }}
                                 render={({ field, fieldState: { error } }) => (
-                                    <TextField {...field} label="Phone Number" variant="standard" className="custom-textfield mb-4"
+                                    <TextField {...field} label="Phone Number" variant="standard" className="custom-textfield-full mb-4"
                                         error={!!error} helperText={error ? error.message : ""} />
                                 )}
                             />
 
                             {/* Address */}
+                            <Box className="row">
+                                <Box className="col-6">
+                                    <Controller
+                                        name="city"
+                                        control={control}
+                                        rules={{ required: "City is required" }}
+                                        render={({ field, fieldState: { error } }) => (
+                                            <TextField {...field} label="City" variant="standard" className="custom-textfield-full mb-4"
+                                                error={!!error} helperText={error ? error.message : ""} />
+                                        )}
+                                    />
+                                </Box>
+                                <Box className="col-6">
+                                    <Controller
+                                        name="country"
+                                        control={control}
+                                        rules={{ required: "Country is required" }}
+                                        render={({ field, fieldState: { error } }) => (
+                                            <TextField {...field} label="Country" variant="standard" className="custom-textfield-full mb-4"
+                                                error={!!error} helperText={error ? error.message : ""} />
+                                        )}
+                                    />
+                                </Box>
+                            </Box>
                             <Controller
                                 name="address"
                                 control={control}
                                 rules={{ required: "Address is required" }}
                                 render={({ field, fieldState: { error } }) => (
-                                    <TextField {...field} label="Address" variant="standard" className="custom-textfield mb-4"
+                                    <TextField {...field} label="Address" variant="standard" className="custom-textfield-full mb-4"
                                         error={!!error} helperText={error ? error.message : ""} />
                                 )}
                             />
@@ -356,7 +408,7 @@ const Register = () => {
                                             {...field}
                                             label="Teacher's Name"
                                             variant="standard"
-                                            className="custom-textfield mb-4"
+                                            className="custom-textfield-full mb-4"
                                             error={!!error}
                                             helperText={error ? error.message : ""}
                                         />
@@ -479,7 +531,7 @@ const Register = () => {
                                 name="description"
                                 control={control}
                                 render={({ field }) => (
-                                    <TextField sx={{ mt: 2 }} {...field} label="Description (Optional)" variant="standard" className="custom-textfield mb-4" />
+                                    <TextField sx={{ mt: 2 }} {...field} label="Description (Optional)" variant="standard" className="custom-textfield-full mb-4" />
                                 )}
                             /> */}
 
@@ -666,7 +718,7 @@ const Register = () => {
                                     render={({ field, fieldState: { error } }) => (
                                         <TextField {...field}
                                             sx={{ mt: 2 }}
-                                            label="YouTube Video Link" variant="standard" className="custom-textfield mb-4"
+                                            label="YouTube Video Link" variant="standard" className="custom-textfield-full mb-4"
                                             error={!!error} helperText={error ? error.message : ""} />
                                     )}
                                 />
@@ -724,38 +776,59 @@ const Register = () => {
                             {errors.agreement && <p style={{ color: "red" }}>{errors.agreement.message}</p>}
 
                             {/* Submit Button */}
-                            <Button
-                                disabled={isLoading}
-                                type="submit" variant="contained" color="primary"
-                                sx={{
-                                    backgroundColor: "#e5cc92",
-                                    color: "black",
-                                    // Override disabled styles to keep the same background and text color
-                                    "&.Mui-disabled": {
+                            {isSaveSuccess ? (
+                                <Button
+                                    disabled={isLoading}
+                                    onClick={handleClickReset}
+                                    variant="contained" color="primary"
+                                    sx={{
                                         backgroundColor: "#e5cc92",
                                         color: "black",
-                                        opacity: 0.5, // you can adjust the opacity to indicate disabled state
-                                    },
-                                    "&:hover": { backgroundColor: "#d9a84d" },
+                                        // Override disabled styles to keep the same background and text color
+                                        "&.Mui-disabled": {
+                                            backgroundColor: "#e5cc92",
+                                            color: "black",
+                                            opacity: 0.5, // you can adjust the opacity to indicate disabled state
+                                        },
+                                        "&:hover": { backgroundColor: "#d9a84d" },
 
-                                }}
-                            >
-                                Submit
-                                {isLoading && (
-                                    <CircularProgress
-                                        size={24}
-                                        sx={{
-                                            color: "blue",
-                                            position: 'absolute',
-                                            top: '50%',
-                                            left: '50%',
-                                            marginTop: '-12px',
-                                            marginLeft: '-12px',
-                                        }}
-                                    />
-                                )}
+                                    }}
+                                >
+                                    Submit Another Registrant
+                                </Button>
+                            ) : (
+                                <Button
+                                    disabled={isLoading}
+                                    type="submit" variant="contained" color="primary"
+                                    sx={{
+                                        backgroundColor: "#e5cc92",
+                                        color: "black",
+                                        // Override disabled styles to keep the same background and text color
+                                        "&.Mui-disabled": {
+                                            backgroundColor: "#e5cc92",
+                                            color: "black",
+                                            opacity: 0.5, // you can adjust the opacity to indicate disabled state
+                                        },
+                                        "&:hover": { backgroundColor: "#d9a84d" },
 
-                            </Button>
+                                    }}
+                                >
+                                    Submit
+                                    {isLoading && (
+                                        <CircularProgress
+                                            size={24}
+                                            sx={{
+                                                color: "blue",
+                                                position: 'absolute',
+                                                top: '50%',
+                                                left: '50%',
+                                                marginTop: '-12px',
+                                                marginLeft: '-12px',
+                                            }}
+                                        />
+                                    )}
+                                </Button>
+                            )}
                         </form>
                     </div>
                 </div>
