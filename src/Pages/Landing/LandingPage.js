@@ -37,7 +37,7 @@ const LandingPage = React.memo((props) => {
 
     return (
         <article className="landingContiner" >
-            <Lottie style={{ width: "50%" }} animationData={loadingAnimation} loop={true} />
+            <Lottie style={{ width: "15%" }} animationData={loadingAnimation} loop={true} />
 
         </article >
     )

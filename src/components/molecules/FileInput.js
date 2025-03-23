@@ -6,26 +6,49 @@ import { Button, IconButton, InputLabel, Tooltip, Typography } from "@mui/materi
 import React, { useMemo } from "react";
 import { useController } from "react-hook-form";
 
-const FileInput = ({ name, control, label, rules, tooltipLabel }) => {
+const FileInput = ({ name, control, label, rules = {}, tooltipLabel }) => {
+    // Custom validation function to check for spaces in the file name.
+    const customValidate = (value) => {
+        if (value && value.length > 0) {
+            const fileName = value[0].name;
+            // Check if file name contains any whitespace characters.
+            if (/\s/.test(fileName)) {
+                return "File name should not contain spaces or &. Use underscores (_) instead (e.g. JohnDoe_AlexanderGrahamaBell).";
+            }
+        }
+        return true;
+    };
+
+    // Merge parent's rules with custom validation.
+    const mergedRules = {
+        ...rules,
+        required: rules.required || "Upload required",
+        validate: (value) => {
+            console.log("validation")
+            if (rules.validate) {
+                const result = rules.validate(value);
+                if (result !== true) return result;
+            }
+            return customValidate(value);
+        },
+    };
+
     const {
         field: { ref, onChange, ...inputProps },
         fieldState: { error },
-        formState: { touchedFields },
     } = useController({
         name,
         control,
-        rules,
+        rules: mergedRules,
     });
 
-    // Watch the field value through the controller
     const file = inputProps.value;
-
     const fileName = useMemo(() => {
         if (file?.length > 0) {
-            return file[0].name
+            return file[0].name;
         }
-        return null
-    }, [file])
+        return null;
+    }, [file]);
 
     return (
         <div className='col-md-6 col-sm-12'>
@@ -40,20 +63,22 @@ const FileInput = ({ name, control, label, rules, tooltipLabel }) => {
             <label htmlFor={name} style={{ display: "block", marginTop: "15px", width: "fit-content" }}>
                 <InputLabel
                     sx={{
-                        color: "#EBBC64", // Gold label text
+                        color: "#EBBC64",
                         mb: 2,
-                        "&.Mui-focused": { color: "#EBBC64 !important" }, // Keep label gold when focused
+                        "&.Mui-focused": { color: "#EBBC64 !important" },
                     }}
                 >
                     <div className='d-flex align-items-center'>
                         {label}
                         <div>
-                            <Tooltip title={<div>
-                                <p>
-                                    {tooltipLabel}
-                                </p>
-                            </div>}>
-                                <IconButton sx={{ color: "#EBBC64", fontSize: 16, }}>
+                            <Tooltip
+                                title={
+                                    <div>
+                                        <p>{tooltipLabel}</p>
+                                    </div>
+                                }
+                            >
+                                <IconButton sx={{ color: "#EBBC64", fontSize: 16 }}>
                                     <QuestionCircleOutlined />
                                 </IconButton>
                             </Tooltip>
@@ -65,28 +90,13 @@ const FileInput = ({ name, control, label, rules, tooltipLabel }) => {
                         variant="outlined"
                         component="span"
                         sx={{
-                            // backgroundColor: file ? "#4caf50" : "#EBBC64",
-                            // color: "black",
-                            // borderRadius: "20px",
                             padding: "10px 20px",
-                            // textTransform: "none",
-                            // fontWeight: "bold",
-                            // display: "flex",
-                            // alignItems: "center",
                             gap: "8px",
-                            // "&:hover": { backgroundColor: file ? "#43a047" : "#d9a84d" },
                         }}
                     >
-                        <>
-                            <CloudUploadOutlined /> Input File
-                        </>
+                        <CloudUploadOutlined /> Input File
                     </Button>
-                    <InputLabel
-                        sx={{
-                            color: "#EBBC64",
-                            ml: 2,
-                        }}
-                    >
+                    <InputLabel sx={{ color: "#EBBC64", ml: 2 }}>
                         {fileName}
                     </InputLabel>
                 </div>

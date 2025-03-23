@@ -56,6 +56,23 @@ const Register = () => {
         },
     })
 
+    const onError = (errors) => {
+        // Get the first error key
+        const firstErrorKey = Object.keys(errors)[0];
+        if (firstErrorKey) {
+            // Use document.querySelector to find the element with the corresponding name attribute
+            const errorElement = document.querySelector(`[name="${firstErrorKey}"]`);
+            const errorElementID = document.querySelector("#birthCertificate");
+
+            let element = null
+            element = errorElement || errorElementID
+            if (element) {
+                element.scrollIntoView({ behavior: "smooth", block: "center" });
+                element.focus();
+            }
+        }
+    };
+
     const onSubmit = async (data) => {
         try {
             setIsLoading(true)
@@ -203,7 +220,7 @@ const Register = () => {
                             <br />
                             <p>APCS MUSIC</p>
                         </div>
-                        <form className="d-flex flex-column" onSubmit={handleSubmit(onSubmit)}>
+                        <form className="d-flex flex-column" onSubmit={handleSubmit(onSubmit, onError)}>
                             <Controller
                                 name="email"
                                 control={control}
