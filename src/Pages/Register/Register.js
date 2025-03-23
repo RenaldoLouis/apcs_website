@@ -201,7 +201,7 @@ const Register = () => {
             <div className="container" style={{ marginBottom: 30 }}>
                 <div className="row">
                     <div className="col-sm">
-                        <div className="goldenText">
+                        <div className="creamText" style={{ color: '#e5cc92' }}>
                             <p>Dear Participants,</p>
                             <p>Please fill in the data below according to the Terms & Conditions.</p>
                             <div>
@@ -269,9 +269,9 @@ const Register = () => {
                                 <FormLabel
                                     component="legend"
                                     sx={{
-                                        color: "#EBBC64", // Gold text color
-                                        "&.Mui-focused": { color: "#EBBC64 !important" }, // Forces gold on focus
-                                        "&:hover": { color: "#EBBC64 !important" }, // Forces gold on hover
+                                        color: "#e5cc92", // Gold text color
+                                        "&.Mui-focused": { color: "#e5cc92 !important" }, // Forces gold on focus
+                                        "&:hover": { color: "#e5cc92 !important" }, // Forces gold on hover
                                     }}
                                 >
                                     Select Age Category
@@ -291,23 +291,23 @@ const Register = () => {
                                                     control={
                                                         <Radio
                                                             sx={{
-                                                                color: "#EBBC64", // Unselected color
+                                                                color: "#e5cc92", // Unselected color
                                                                 "&.Mui-checked": {
-                                                                    color: "#EBBC64", // Selected color
+                                                                    color: "#e5cc92", // Selected color
                                                                 },
 
                                                                 // 👇 Removes blue focus and replaces with gold glow
                                                                 "&.Mui-focusVisible": {
-                                                                    outline: "2px solid #EBBC64", // Gold outline when focused
+                                                                    outline: "2px solid #e5cc92", // Gold outline when focused
                                                                 },
                                                                 "&.Mui-checked.Mui-focusVisible": {
-                                                                    outline: "2px solid #EBBC64", // Gold glow for checked state
+                                                                    outline: "2px solid #e5cc92", // Gold glow for checked state
                                                                 },
                                                             }}
                                                         />
                                                     }
                                                     label={label}
-                                                    sx={{ color: "#EBBC64" }}
+                                                    sx={{ color: "#e5cc92" }}
                                                 />
                                             ))}
                                         </RadioGroup>
@@ -362,7 +362,7 @@ const Register = () => {
                                         />
 
                                         <Tooltip title="Enter your teacher's name. If you are self-taught, type '-'">
-                                            <IconButton sx={{ color: "#EBBC64", fontSize: 16, mt: 1 }}>
+                                            <IconButton sx={{ color: "#e5cc92", fontSize: 16, mt: 1 }}>
                                                 <QuestionCircleOutlined />
                                             </IconButton>
                                         </Tooltip>
@@ -380,8 +380,8 @@ const Register = () => {
                                 {/* Gold Label */}
                                 <InputLabel
                                     sx={{
-                                        color: "#EBBC64", // Gold label text
-                                        "&.Mui-focused": { color: "#EBBC64 !important" }, // Keep label gold when focused
+                                        color: "#e5cc92", // Gold label text
+                                        "&.Mui-focused": { color: "#e5cc92 !important" }, // Keep label gold when focused
                                     }}
                                 >
                                     Instrument Category
@@ -407,33 +407,33 @@ const Register = () => {
                                                 // },
                                             }}
                                             sx={{
-                                                color: "#EBBC64", // Gold text color
-                                                borderBottom: "1px solid #EBBC64", // Gold bottom border
+                                                color: "#e5cc92", // Gold text color
+                                                borderBottom: "1px solid #e5cc92", // Gold bottom border
 
-                                                "& .MuiSelect-icon": { color: "#EBBC64" }, // Gold dropdown arrow
+                                                "& .MuiSelect-icon": { color: "#e5cc92" }, // Gold dropdown arrow
 
-                                                "&:hover": { borderBottom: "2px solid #EBBC64" }, // Gold hover effect
+                                                "&:hover": { borderBottom: "2px solid #e5cc92" }, // Gold hover effect
 
                                                 // 👇 Completely removes blue focus and applies gold focus effect
                                                 "&.Mui-focused": {
-                                                    color: "#EBBC64 !important", // Keep text gold when focused
-                                                    borderBottom: "2px solid #EBBC64 !important", // Gold bottom border when focused
+                                                    color: "#e5cc92 !important", // Keep text gold when focused
+                                                    borderBottom: "2px solid #e5cc92 !important", // Gold bottom border when focused
                                                 },
 
                                                 "&:before": {
-                                                    borderBottom: "1px solid #EBBC64 !important", // Gold default underline
+                                                    borderBottom: "1px solid #e5cc92 !important", // Gold default underline
                                                 },
 
                                                 "&:after": {
-                                                    borderBottom: "2px solid #EBBC64 !important", // Gold focus underline
+                                                    borderBottom: "2px solid #e5cc92 !important", // Gold focus underline
                                                 },
 
                                                 "&.Mui-focused:after": {
-                                                    borderBottom: "2px solid #EBBC64 !important", // Gold underline focus effect
+                                                    borderBottom: "2px solid #e5cc92 !important", // Gold underline focus effect
                                                 },
 
                                                 "& .MuiInputBase-root:after": {
-                                                    borderBottom: "2px solid #EBBC64 !important", // Ensures gold focus underline
+                                                    borderBottom: "2px solid #e5cc92 !important", // Ensures gold focus underline
                                                 },
 
                                                 "&:focus": {
@@ -443,24 +443,24 @@ const Register = () => {
                                         >
                                             {/* Gold Menu Items */}
                                             <MenuItem value="" disabled>
-                                                <span style={{ color: "#EBBC64" }}>Select an Instrument</span>
+                                                <span style={{ color: "#e5cc92" }}>Select an Instrument</span>
                                             </MenuItem>
-                                            <MenuItem sx={{ color: "#EBBC64" }} value={InstrumentCategory.Piano_Solo}>
+                                            <MenuItem sx={{ color: "#e5cc92" }} value={InstrumentCategory.Piano_Solo}>
                                                 Piano Solo (One piano, two hands)
                                             </MenuItem>
-                                            <MenuItem sx={{ color: "#EBBC64" }} value={InstrumentCategory.Piano_Fourhands_one}>
+                                            <MenuItem sx={{ color: "#e5cc92" }} value={InstrumentCategory.Piano_Fourhands_one}>
                                                 Piano Fourhands (One piano, four hands)
                                             </MenuItem>
-                                            <MenuItem sx={{ color: "#EBBC64" }} value={InstrumentCategory.Piano_Fourhands_two}>
+                                            <MenuItem sx={{ color: "#e5cc92" }} value={InstrumentCategory.Piano_Fourhands_two}>
                                                 Piano Fourhands (Two piano, four hands)
                                             </MenuItem>
-                                            <MenuItem sx={{ color: "#EBBC64" }} value={InstrumentCategory.Chamber_Music_one}>
+                                            <MenuItem sx={{ color: "#e5cc92" }} value={InstrumentCategory.Chamber_Music_one}>
                                                 Chamber Music (One piano, six-eight hands)
                                             </MenuItem>
-                                            <MenuItem sx={{ color: "#EBBC64" }} value={InstrumentCategory.Chamber_Music_two}>
+                                            <MenuItem sx={{ color: "#e5cc92" }} value={InstrumentCategory.Chamber_Music_two}>
                                                 Chamber Music (Two piano, six-eight hands)
                                             </MenuItem>
-                                            <MenuItem sx={{ color: "#EBBC64" }} value={InstrumentCategory.Chamber_Music_any}>
+                                            <MenuItem sx={{ color: "#e5cc92" }} value={InstrumentCategory.Chamber_Music_any}>
                                                 Chamber Music (Any insturment(s) with piano(s))
                                             </MenuItem>
                                         </Select>
@@ -500,46 +500,46 @@ const Register = () => {
                                                     mt: 4,
                                                     mb: 4,
                                                     "& .MuiInputBase-root": {
-                                                        color: "#EBBC64", // Gold text color
+                                                        color: "#e5cc92", // Gold text color
                                                     },
                                                     "& .MuiOutlinedInput-notchedOutline": {
-                                                        borderColor: "#EBBC64 !important", // Gold border (default)
+                                                        borderColor: "#e5cc92 !important", // Gold border (default)
                                                     },
                                                     "&:hover .MuiOutlinedInput-notchedOutline": {
-                                                        borderColor: "#EBBC64 !important", // Gold border on hover
+                                                        borderColor: "#e5cc92 !important", // Gold border on hover
                                                     },
                                                     "& .MuiInputLabel-root": {
-                                                        color: "#EBBC64", // Gold label color
+                                                        color: "#e5cc92", // Gold label color
                                                     },
                                                     "& .MuiInputLabel-root.Mui-focused": {
-                                                        color: "#EBBC64 !important", // Force gold label on focus
+                                                        color: "#e5cc92 !important", // Force gold label on focus
                                                     },
                                                     "& .MuiIconButton-root": {
-                                                        color: "#EBBC64", // Gold calendar icon
+                                                        color: "#e5cc92", // Gold calendar icon
                                                     },
                                                     "& .MuiPickersDay-root": {
-                                                        color: "#EBBC64", // Gold date numbers
+                                                        color: "#e5cc92", // Gold date numbers
                                                     },
                                                     "& .MuiPickersDay-root.Mui-selected": {
-                                                        backgroundColor: "#EBBC64", // Gold background on selected date
+                                                        backgroundColor: "#e5cc92", // Gold background on selected date
                                                         color: "black", // Black text on selected date
                                                     },
                                                     "& .MuiOutlinedInput-root": {
                                                         "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
-                                                            borderColor: "#EBBC64 !important", // Force gold outline when focused
+                                                            borderColor: "#e5cc92 !important", // Force gold outline when focused
                                                         },
                                                     },
                                                     "& .MuiInputBase-input": {
-                                                        caretColor: "#EBBC64", // Gold cursor
+                                                        caretColor: "#e5cc92", // Gold cursor
                                                     },
                                                     "& .Mui-focused": {
-                                                        color: "#EBBC64 !important", // Forces gold text when focused
+                                                        color: "#e5cc92 !important", // Forces gold text when focused
                                                     },
                                                     "& .MuiOutlinedInput-root.Mui-focused": {
-                                                        borderColor: "#EBBC64 !important", // Forces gold border when focused
+                                                        borderColor: "#e5cc92 !important", // Forces gold border when focused
                                                     },
                                                     "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline": {
-                                                        borderColor: "#EBBC64 !important", // Forces gold border line when focused
+                                                        borderColor: "#e5cc92 !important", // Forces gold border line when focused
                                                     },
                                                 }}
                                                 slotProps={{
@@ -572,46 +572,46 @@ const Register = () => {
                                                         mt: 4,
                                                         mb: 4,
                                                         "& .MuiInputBase-root": {
-                                                            color: "#EBBC64", // Gold text color
+                                                            color: "#e5cc92", // Gold text color
                                                         },
                                                         "& .MuiOutlinedInput-notchedOutline": {
-                                                            borderColor: "#EBBC64 !important", // Gold border (default)
+                                                            borderColor: "#e5cc92 !important", // Gold border (default)
                                                         },
                                                         "&:hover .MuiOutlinedInput-notchedOutline": {
-                                                            borderColor: "#EBBC64 !important", // Gold border on hover
+                                                            borderColor: "#e5cc92 !important", // Gold border on hover
                                                         },
                                                         "& .MuiInputLabel-root": {
-                                                            color: "#EBBC64", // Gold label color
+                                                            color: "#e5cc92", // Gold label color
                                                         },
                                                         "& .MuiInputLabel-root.Mui-focused": {
-                                                            color: "#EBBC64 !important", // Force gold label on focus
+                                                            color: "#e5cc92 !important", // Force gold label on focus
                                                         },
                                                         "& .MuiIconButton-root": {
-                                                            color: "#EBBC64", // Gold calendar icon
+                                                            color: "#e5cc92", // Gold calendar icon
                                                         },
                                                         "& .MuiPickersDay-root": {
-                                                            color: "#EBBC64", // Gold date numbers
+                                                            color: "#e5cc92", // Gold date numbers
                                                         },
                                                         "& .MuiPickersDay-root.Mui-selected": {
-                                                            backgroundColor: "#EBBC64", // Gold background on selected date
+                                                            backgroundColor: "#e5cc92", // Gold background on selected date
                                                             color: "black", // Black text on selected date
                                                         },
                                                         "& .MuiOutlinedInput-root": {
                                                             "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
-                                                                borderColor: "#EBBC64 !important", // Force gold outline when focused
+                                                                borderColor: "#e5cc92 !important", // Force gold outline when focused
                                                             },
                                                         },
                                                         "& .MuiInputBase-input": {
-                                                            caretColor: "#EBBC64", // Gold cursor
+                                                            caretColor: "#e5cc92", // Gold cursor
                                                         },
                                                         "& .Mui-focused": {
-                                                            color: "#EBBC64 !important", // Forces gold text when focused
+                                                            color: "#e5cc92 !important", // Forces gold text when focused
                                                         },
                                                         "& .MuiOutlinedInput-root.Mui-focused": {
-                                                            borderColor: "#EBBC64 !important", // Forces gold border when focused
+                                                            borderColor: "#e5cc92 !important", // Forces gold border when focused
                                                         },
                                                         "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline": {
-                                                            borderColor: "#EBBC64 !important", // Forces gold border line when focused
+                                                            borderColor: "#e5cc92 !important", // Forces gold border line when focused
                                                         },
                                                     }}
                                                     slotProps={{
@@ -677,14 +677,14 @@ const Register = () => {
                                     </p>
                                     {tooltipMessageYoutubeFormat}
                                 </div>}>
-                                    <IconButton sx={{ color: "#EBBC64", fontSize: 16, mt: 1 }}>
+                                    <IconButton sx={{ color: "#e5cc92", fontSize: 16, mt: 1 }}>
                                         <QuestionCircleOutlined />
                                     </IconButton>
                                 </Tooltip>
                             </div>
 
                             {/* Agreement Checkbox */}
-                            <Box className="goldenText" sx={{ mt: 2 }}>
+                            <Box className="creamText" sx={{ mt: 2 }}>
                                 I acknowledge and agree that in order to join the APCs CLASSICAL FESTIVAL 2024 event,
                                 I will be in compliance with the terms and conditions,
                                 rules and regulations as well as the privacy policy of APCs MUSIC.
@@ -694,9 +694,9 @@ const Register = () => {
                             </Box>
                             <FormControlLabel
                                 sx={{
-                                    color: "#EBBC64", // Gold text color
-                                    "&.Mui-focused": { color: "#EBBC64 !important" }, // Forces gold on focus
-                                    "&:hover": { color: "#EBBC64 !important" }, // Forces gold on hover
+                                    color: "#e5cc92", // Gold text color
+                                    "&.Mui-focused": { color: "#e5cc92 !important" }, // Forces gold on focus
+                                    "&:hover": { color: "#e5cc92 !important" }, // Forces gold on hover
                                 }}
                                 control={
                                     <Controller
@@ -707,12 +707,12 @@ const Register = () => {
                                             <Checkbox
                                                 {...field}
                                                 sx={{
-                                                    color: "#EBBC64", // Unchecked color
+                                                    color: "#e5cc92", // Unchecked color
                                                     "&.Mui-checked": {
-                                                        color: "#EBBC64", // Checked color
+                                                        color: "#e5cc92", // Checked color
                                                     },
                                                     "&.Mui-focusVisible": {
-                                                        outline: "2px solid #EBBC64", // Gold focus outline
+                                                        outline: "2px solid #e5cc92", // Gold focus outline
                                                     },
                                                 }}
                                             />
@@ -728,11 +728,11 @@ const Register = () => {
                                 disabled={isLoading}
                                 type="submit" variant="contained" color="primary"
                                 sx={{
-                                    backgroundColor: "#EBBC64",
+                                    backgroundColor: "#e5cc92",
                                     color: "black",
                                     // Override disabled styles to keep the same background and text color
                                     "&.Mui-disabled": {
-                                        backgroundColor: "#EBBC64",
+                                        backgroundColor: "#e5cc92",
                                         color: "black",
                                         opacity: 0.5, // you can adjust the opacity to indicate disabled state
                                     },

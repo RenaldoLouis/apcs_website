@@ -4,7 +4,6 @@ import * as FileSaver from "file-saver";
 import { saveAs } from "file-saver";
 import JSZip from "jszip";
 import React from 'react';
-import RegistrantAssignment from '../../components/molecules/AdminContentComponent/RegistrantAssignment';
 import { RegistrantsColumns } from '../../constant/RegistrantsColumn';
 import usePaginatedRegistrants from '../../hooks/useFetchRegistrantsData';
 
@@ -100,8 +99,6 @@ const RegistrantDashboard = () => {
                 }}
             >
                 <Button type="primary" onClick={handleExportToExcel}>Export to excel</Button>
-
-                <RegistrantAssignment allData={allData} isLoading={loading} />
             </div>
         </Content>
     )

@@ -3,34 +3,29 @@
 }
 
 .custom-textfield .MuiInputLabel-root {
-    color: $primary-golden-text-color;
+    color: $primary-cream-text-color;
 }
 
 .custom-textfield .MuiInputLabel-root.Mui-focused {
-    color: $primary-golden-text-color !important;
+    color: $primary-cream-text-color !important;
 }
 
 .custom-textfield .MuiInput-root::before {
-    border-bottom-color: orange;
+    border-bottom-color: #e5cc92;
 }
 
 .custom-textfield .MuiInput-root:hover:not(.Mui-disabled)::before {
-    border-bottom-color: orange;
+    border-bottom-color: #e5cc92;
 }
 
 .custom-textfield .MuiInput-root::after {
-    border-bottom-color: $primary-golden-text-color;
+    border-bottom-color: $primary-cream-text-color;
 }
 
 .custom-textfield .MuiInputBase-input {
-    color: $primary-golden-text-color;
+    color: $primary-cream-text-color;
 }
 
 .custom-textfield .MuiInputBase-root:hover:not(.Mui-disabled)::before {
-    border-bottom-color: orange;
+    border-bottom-color: #e5cc92;
 }
-
-// .custom-textfield .MuiInputBase-root-MuiFilledInput-root.Mui-focused {
-//     color: $primary-golden-text-color;
-//     border-bottom-color: green;
-// }

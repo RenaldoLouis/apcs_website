@@ -63,9 +63,9 @@ const FileInput = ({ name, control, label, rules = {}, tooltipLabel }) => {
             <label htmlFor={name} style={{ display: "block", marginTop: "15px", width: "fit-content" }}>
                 <InputLabel
                     sx={{
-                        color: "#EBBC64",
+                        color: "#e5cc92",
                         mb: 2,
-                        "&.Mui-focused": { color: "#EBBC64 !important" },
+                        "&.Mui-focused": { color: "#e5cc92 !important" },
                     }}
                 >
                     <div className='d-flex align-items-center'>
@@ -78,7 +78,7 @@ const FileInput = ({ name, control, label, rules = {}, tooltipLabel }) => {
                                     </div>
                                 }
                             >
-                                <IconButton sx={{ color: "#EBBC64", fontSize: 16 }}>
+                                <IconButton sx={{ color: "#e5cc92", fontSize: 16 }}>
                                     <QuestionCircleOutlined />
                                 </IconButton>
                             </Tooltip>
@@ -96,7 +96,7 @@ const FileInput = ({ name, control, label, rules = {}, tooltipLabel }) => {
                     >
                         <CloudUploadOutlined /> Input File
                     </Button>
-                    <InputLabel sx={{ color: "#EBBC64", ml: 2 }}>
+                    <InputLabel sx={{ color: "#e5cc92", ml: 2 }}>
                         {fileName}
                     </InputLabel>
                 </div>

@@ -1,22 +1,19 @@
-import React, { useEffect, useRef, useState } from "react";
-import podcastBacgkorund from "../../assets/images/podcastBacgkorund.png"
-import contactUsPageBackground from "../../assets/images/contactUsPageBackground.png"
-import textPromptWa from "../../assets/images/textPromptWa.png"
-import lineContactUs from "../../assets/images/lineContactUs.png"
-import musiciswhatapcs from "../../assets/images/musiciswhatapcs.svg"
-import { ContentPosition } from "../../constant/ContentPosition";
-import TextField from '@mui/material/TextField';
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import { db } from '../../firebase';
-import { collection, addDoc } from "firebase/firestore";
-import { toast } from 'react-toastify';
-import AnimatedComponent from "../../components/atom/AnimatedComponent";
 import {
     WhatsAppOutlined
 } from '@ant-design/icons';
-import { Zoom, Fab, Paper, Popper } from '@mui/material';
+import { Fab, Popper, Zoom } from '@mui/material';
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import TextField from '@mui/material/TextField';
+import { addDoc, collection } from "firebase/firestore";
+import React, { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { toast } from 'react-toastify';
+import contactUsPageBackground from "../../assets/images/contactUsPageBackground.png";
+import lineContactUs from "../../assets/images/lineContactUs.png";
+import textPromptWa from "../../assets/images/textPromptWa.png";
+import AnimatedComponent from "../../components/atom/AnimatedComponent";
+import { db } from '../../firebase';
 
 
 const fabStyle = {
@@ -166,8 +163,8 @@ const ContactUs = () => {
                                                             sx={{
                                                                 margin: 0,
                                                                 padding: 0,
-                                                                '& .MuiInput-underline:before': { borderBottomColor: 'orange' },
-                                                                '& .MuiInput-underline:after': { borderBottomColor: 'orange' },
+                                                                '& .MuiInput-underline:before': { borderBottomColor: '#e5cc92' },
+                                                                '& .MuiInput-underline:after': { borderBottomColor: '#e5cc92' },
                                                             }}
                                                         />
                                                         <Button type="submit" variant="outlined" sx={{ mt: 2, padding: " 8px 50px 8px 50px" }}>
