@@ -225,24 +225,18 @@ const Register = () => {
             <div className="container" style={{ marginBottom: 30 }}>
                 <div className="row">
                     <div className="col-sm">
+                        <div className="mangolaineFont goldenTextColor d-flex align-items-center justify-center" style={{ fontSize: "6vmin" }}>
+                            REGISTER
+                        </div>
                         <div className="creamText" style={{ color: '#e5cc92' }}>
-                            <p>Dear Participants,</p>
-                            <p>Please fill in the data below according to the Terms & Conditions.</p>
-                            <div>
-                                <strong>Notes:</strong>
-                                <ul>
-                                    <li>Age counting as of 2 September 2024.</li>
-                                    <li>
-                                        APCS MUSIC RESERVES THE RIGHT TO CHANGE THE PARTICIPANTS' AGE
-                                        CATEGORIES IF PARTICIPANTS ARE OF INSUFFICIENT AGE.
-                                    </li>
-                                </ul>
-                            </div>
-                            <p>Thank you.</p>
-
-                            Regards,
-                            <br />
-                            <p>APCS MUSIC</p>
+                            <strong>Notes:</strong>
+                            <ul>
+                                <li>Age counting as of 2 September 2024.</li>
+                                <li>
+                                    APCS MUSIC RESERVES THE RIGHT TO CHANGE THE PARTICIPANTS' AGE
+                                    CATEGORIES IF PARTICIPANTS ARE OF INSUFFICIENT AGE.
+                                </li>
+                            </ul>
                         </div>
                         <form className="d-flex flex-column" onSubmit={handleSubmit(onSubmit, onError)}>
                             <Box className="row">

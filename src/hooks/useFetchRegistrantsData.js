@@ -4,7 +4,7 @@ import { useCallback, useEffect, useState } from 'react';
 import { useAuth } from '../context/DataContext';
 import { db } from '../firebase';
 
-const usePaginatedRegistrants = (pageSize = 10) => {
+const usePaginatedRegistrants = (pageSize = 10, collectionName = "Registrants", orderData = "achievement") => {
     const { user } = useAuth()
 
     const [registrantDatas, setRegistrantDatas] = useState([]);
@@ -14,7 +14,7 @@ const usePaginatedRegistrants = (pageSize = 10) => {
     const [totalDocs, setTotalDocs] = useState(0);
     const [allData, setAllData] = useState(0);
 
-    const fetchUserData = useCallback(async (pageNumber, collectionName = "Registrants") => {
+    const fetchUserData = useCallback(async (pageNumber) => {
         setLoading(true);
         setError(null);
 
@@ -22,14 +22,14 @@ const usePaginatedRegistrants = (pageSize = 10) => {
             const offset = (pageNumber - 1) * pageSize;
             let q = query(
                 collection(db, collectionName),
-                orderBy("achievement"),
+                orderBy(orderData),
                 limit(pageSize)
             );
 
             if (offset > 0) {
                 const initialQuery = query(
                     collection(db, collectionName),
-                    orderBy("achievement"),
+                    orderBy(orderData),
                     limit(offset)
                 );
                 const initialSnapshot = await getDocs(initialQuery);
@@ -37,7 +37,7 @@ const usePaginatedRegistrants = (pageSize = 10) => {
 
                 q = query(
                     collection(db, collectionName),
-                    orderBy("achievement"),
+                    orderBy(orderData),
                     startAt(lastVisible),
                     limit(pageSize)
                 );

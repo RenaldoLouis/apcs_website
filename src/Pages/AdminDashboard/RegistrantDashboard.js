@@ -4,7 +4,7 @@ import * as FileSaver from "file-saver";
 import { saveAs } from "file-saver";
 import JSZip from "jszip";
 import React from 'react';
-import { RegistrantsColumns } from '../../constant/RegistrantsColumn';
+import { Registrants2025Columns } from '../../constant/RegistrantsColumn';
 import usePaginatedRegistrants from '../../hooks/useFetchRegistrantsData';
 
 const { Content } = Layout;
@@ -14,7 +14,7 @@ const RegistrantDashboard = () => {
 
     const { token: { colorBgContainer, borderRadiusLG }, } = theme.useToken();
 
-    const { registrantDatas, page, setPage, totalDocs, allData, loading } = usePaginatedRegistrants(pageSize, "Registrant2025");
+    const { registrantDatas, page, setPage, totalDocs, allData, loading } = usePaginatedRegistrants(pageSize, "Registrants2025", "ageCategory");
 
     const handlePageChange = (pagination, filters, sorter, extra) => {
         setPage(pagination);
@@ -34,36 +34,47 @@ const RegistrantDashboard = () => {
         saveAs(zipBlob, "registrant.zip");
     }
 
-    const handleExportToExcel = (data) => {
+    const handleExportToExcel = () => {
+        const data = registrantDatas
+        // Create a new workbook
         const workbook = new ExcelJS.Workbook();
+        // Create a worksheet with a title
+        const worksheet = workbook.addWorksheet("Registrants 2025");
 
-        data.forEach(dayData => {
-            dayData.data.forEach((StageData, stageIndex) => {
-                StageData.sessionGroup.forEach((eachSession, sessionIndex) => {
-                    const worksheet = workbook.addWorksheet(`Day ${dayData.day} - Stage ${stageIndex + 1} - Session ${sessionIndex + 1}`);
+        if (data.length > 0) {
+            // Create headers from the keys of the first record
+            const headers = Object.keys(data[0]);
+            worksheet.addRow(headers);
 
-                    const eachRecord = eachSession.records;
-
-                    if (eachRecord.length > 0) {
-                        const headers = Object.keys(eachRecord[0]);
-                        worksheet.addRow(headers);
-
-                        eachRecord.forEach(item => {
-                            const values = headers.map(header => item[header]);
-                            worksheet.addRow(values);
-                        });
-                    } else {
-                        worksheet.addRow(["No data for this Rundown."]);
+            // Add each registrant record as a row in the worksheet
+            data.forEach((item) => {
+                const rowValues = headers.map((header) => {
+                    let value = item[header];
+                    // If the field is createdAt, convert from Firestore timestamp object to a readable date
+                    if (header === "createdAt" && value) {
+                        // Convert seconds to a JavaScript Date (ignoring nanoseconds)
+                        value = new Date(value.seconds * 1000).toLocaleString();
                     }
-                })
+                    // Optionally, convert null to an empty string
+                    if (value === null) {
+                        value = "";
+                    }
+                    return value;
+                });
+                worksheet.addRow(rowValues);
             });
-        });
+        } else {
+            worksheet.addRow(["No data available"]);
+        }
 
-        workbook.xlsx.writeBuffer().then(buffer => {
-            const blob = new Blob([buffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
-            FileSaver.saveAs(blob, "registrant.xlsx");
+        // Generate Excel file and trigger download
+        workbook.xlsx.writeBuffer().then((buffer) => {
+            const blob = new Blob([buffer], {
+                type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+            });
+            FileSaver.saveAs(blob, "registrant2025.xlsx");
         });
-    }
+    };
 
     return (
         <Content
@@ -79,7 +90,7 @@ const RegistrantDashboard = () => {
                     borderRadius: borderRadiusLG,
                 }}
             >
-                <Table columns={RegistrantsColumns} dataSource={registrantDatas} onChange={handlePageChange} pagination={false} />
+                <Table columns={Registrants2025Columns} dataSource={registrantDatas} onChange={handlePageChange} pagination={false} />
                 <Pagination
                     className='mt-16'
                     current={page}
