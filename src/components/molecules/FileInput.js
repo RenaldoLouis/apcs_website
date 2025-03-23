@@ -1,11 +1,12 @@
 import {
-    CloudUploadOutlined
+    CloudUploadOutlined,
+    QuestionCircleOutlined
 } from '@ant-design/icons';
-import { Button, InputLabel, Typography } from "@mui/material";
+import { Button, IconButton, InputLabel, Tooltip, Typography } from "@mui/material";
 import React, { useMemo } from "react";
 import { useController } from "react-hook-form";
 
-const FileInput = ({ name, control, label, rules, labelUploaded }) => {
+const FileInput = ({ name, control, label, rules, tooltipLabel }) => {
     const {
         field: { ref, onChange, ...inputProps },
         fieldState: { error },
@@ -44,7 +45,20 @@ const FileInput = ({ name, control, label, rules, labelUploaded }) => {
                         "&.Mui-focused": { color: "#EBBC64 !important" }, // Keep label gold when focused
                     }}
                 >
-                    {label}
+                    <div className='d-flex align-items-center'>
+                        {label}
+                        <div>
+                            <Tooltip title={<div>
+                                <p>
+                                    {tooltipLabel}
+                                </p>
+                            </div>}>
+                                <IconButton sx={{ color: "#EBBC64", fontSize: 16, }}>
+                                    <QuestionCircleOutlined />
+                                </IconButton>
+                            </Tooltip>
+                        </div>
+                    </div>
                 </InputLabel>
                 <div className='d-flex align-items-center'>
                     <Button

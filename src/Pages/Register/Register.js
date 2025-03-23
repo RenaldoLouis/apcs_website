@@ -116,6 +116,7 @@ const Register = () => {
 
         } catch (e) {
             setIsLoading(false)
+            toast.error("Register failed, please try again. If the error persist please contact us")
             console.error(e)
         }
     };
@@ -377,6 +378,17 @@ const Register = () => {
                                         <Select
                                             {...field}
                                             displayEmpty
+                                            MenuProps={{
+                                                PaperProps: {
+                                                    sx: {
+                                                        background: "#26261c !important",
+                                                    },
+                                                },
+                                                // Optionally,style the popover container if needed:
+                                                // sx: {
+                                                //   background: "#26261c !important",
+                                                // },
+                                            }}
                                             sx={{
                                                 color: "#EBBC64", // Gold text color
                                                 borderBottom: "1px solid #EBBC64", // Gold bottom border
@@ -605,8 +617,8 @@ const Register = () => {
                                 name="examCertificate"
                                 control={control}
                                 label="Exam Certificate"
-                                labelUploaded="Exam Certificate Uploaded"
                                 rules={{ required: "Upload required" }}
+                                tooltipLabel="Please attach your latest exam certificate / essay of maximum 80 words in pdf if you are not joining any exams."
                             />
 
                             {/* Birth Certificate Upload */}
@@ -614,8 +626,8 @@ const Register = () => {
                                 name="birthCertificate"
                                 control={control}
                                 label="Birth Certificate"
-                                labelUploaded="Birth Certificate Uploaded"
                                 rules={{ required: "Upload required" }}
+                                tooltipLabel="Please attach your copy of Birth Certificate/Passport/KTP (identity card) in pdf"
                             />
 
                             {/* PDF Repertoire Upload */}
@@ -624,8 +636,8 @@ const Register = () => {
                                 name="pdfRepertoire"
                                 control={control}
                                 label="Repertoire"
-                                labelUploaded="Repertoire Uploaded"
                                 rules={{ required: "Upload required" }}
+                                tooltipLabel="Please attach your PDF repertoire here"
                             />
 
                             {/* YouTube Link */}

@@ -14,21 +14,21 @@ const usePaginatedRegistrants = (pageSize = 10) => {
     const [totalDocs, setTotalDocs] = useState(0);
     const [allData, setAllData] = useState(0);
 
-    const fetchUserData = useCallback(async (pageNumber) => {
+    const fetchUserData = useCallback(async (pageNumber, collectionName = "Registrants") => {
         setLoading(true);
         setError(null);
 
         try {
             const offset = (pageNumber - 1) * pageSize;
             let q = query(
-                collection(db, "Registrants"),
+                collection(db, collectionName),
                 orderBy("achievement"),
                 limit(pageSize)
             );
 
             if (offset > 0) {
                 const initialQuery = query(
-                    collection(db, "Registrants"),
+                    collection(db, collectionName),
                     orderBy("achievement"),
                     limit(offset)
                 );
@@ -36,7 +36,7 @@ const usePaginatedRegistrants = (pageSize = 10) => {
                 const lastVisible = initialSnapshot.docs[initialSnapshot.docs.length - 1];
 
                 q = query(
-                    collection(db, "Registrants"),
+                    collection(db, collectionName),
                     orderBy("achievement"),
                     startAt(lastVisible),
                     limit(pageSize)
@@ -50,7 +50,7 @@ const usePaginatedRegistrants = (pageSize = 10) => {
 
             // Calculate total documents for pagination
             if (pageNumber === 1) {
-                const totalQuery = await getDocs(collection(db, "Registrants"));
+                const totalQuery = await getDocs(collection(db, collectionName));
                 setTotalDocs(totalQuery.size);
 
                 const newData = totalQuery.docs.map(doc => ({ ...doc.data(), id: doc.id }));
