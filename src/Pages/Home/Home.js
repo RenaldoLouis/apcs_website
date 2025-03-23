@@ -30,6 +30,7 @@ import { PathName } from "../../constant/PathName";
 import { useAuth } from "../../context/DataContext";
 import { analytics } from "../../firebase";
 import LetUsGuideTo from "./LetUsGuideTo";
+import ModalEvent from './ModalEvent';
 
 const listOfSponsor = [
     sponsor1, sponsor6, sponsor8, sponsor4
@@ -41,21 +42,6 @@ const listOfSponsor2 = [
 const completeListOfSponsor = [
     sponsor1, sponsor6, sponsor8, sponsor4, sponsor5, sponsor2, sponsor7, sponsor9, sponsor3
 ]
-
-const modalStyle = {
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    width: 460,
-    bgcolor: '#1E1E1E', // dark elegant background
-    color: '#fff', // ensure text pops
-    border: `2px solid #EBBC64`,
-    boxShadow: '0 12px 40px rgba(0, 0, 0, 0.6)',
-    borderRadius: '16px',
-    p: 4,
-    outline: 'none',
-};
 
 const Home = (props) => {
     const { homeImagehero } = props
@@ -205,31 +191,10 @@ const Home = (props) => {
                 </>
             )}
 
-            <Modal
+            <ModalEvent
                 open={open}
-                onClose={handleClose}
-                aria-labelledby="modal-modal-title"
-                aria-describedby="modal-modal-description"
-            >
-                <Box sx={modalStyle}>
-                    <Typography
-                        id="modal-modal-title"
-                        variant="h5"
-                        component="h2"
-                        sx={{ color: '#EBBC64', fontWeight: 600, mb: 1 }}
-                    >
-                        Welcome to the Orchestra
-                    </Typography>
-                    <div style={{ height: '4px', backgroundColor: '#EBBC64', width: '50px', margin: '12px 0' }} />
-
-                    <Typography
-                        id="modal-modal-description"
-                        sx={{ color: '#ddd', lineHeight: 1.6 }}
-                    >
-                        Enjoy a curated journey of musical storytelling. Let the symphony begin.
-                    </Typography>
-                </Box>
-            </Modal>
+                handleClose={handleClose}
+            />
         </div >
     )
 }

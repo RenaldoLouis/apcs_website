@@ -1,8 +1,8 @@
 import React from "react";
-import indFlag from "../../assets/images/indFlag.jpg"
-import playButton from "../../assets/icons/playButton.svg"
-import AnimatedComponent from "../atom/AnimatedComponent";
+import playButton from "../../assets/icons/playButton.svg";
+import indFlag from "../../assets/images/indFlag.jpg";
 import { useAuth } from "../../context/DataContext";
+import AnimatedComponent from "../atom/AnimatedComponent";
 import EllipsisText from "../atom/EllipsisText";
 
 const ProfileToYoutube = (props) => {

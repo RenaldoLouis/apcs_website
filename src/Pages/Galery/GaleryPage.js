@@ -1,29 +1,25 @@
+import { Spin } from 'antd';
 import React, { useCallback, useEffect, useRef, useState } from "react";
+import { useTranslation } from "react-i18next";
+import arrowMoreGalery from "../../assets/images/arrowMoreGalery.PNG";
+import HeaderTitle from "../../components/atom/HeaderTitle";
+import CoverVideo from "../../components/molecules/CoverVideo";
+import { FontSizeTitle } from "../../constant/FontSizeTitle";
 import { ListEvent, YearlyEvent } from "../../constant/YearlyEvent";
 import Galery from "./Galery";
-import homeScreen from "../../assets/images/homeScreenImage.jpg"
-import arrowMoreGalery from "../../assets/images/arrowMoreGalery.PNG"
-import HeaderTitle from "../../components/atom/HeaderTitle";
-import { FontSizeTitle } from "../../constant/FontSizeTitle";
-import { Spin } from 'antd';
-import { useTranslation } from "react-i18next";
-import CoverVideo from "../../components/molecules/CoverVideo";
-import { collection, getDocs, limit, query, startAfter, orderBy } from "firebase/firestore";
-import { db } from '../../firebase';
 
-import { TurningPointImages } from "../../constant/TurningPointImages";
-import { AutumnInKoreaImages } from "../../constant/AutumnInKoreaImages";
-import { MagicalMusicSoundtractImages } from "../../constant/MagicalMusicSoundtract";
-import { ClassicalFestivalSurabayaImages } from "../../constant/ClassicalFestivalSurabayaImages";
-import { ClassicalFestivalJakartaImages } from "../../constant/ClassicalFestivalJakarta";
-import { ChristmasInWonderlandImages } from "../../constant/ChristmasWonderlandImages";
-import { MasterClassImages } from "../../constant/MasterClassImages";
-import { useAuth } from "../../context/DataContext";
 import { useSwipeable } from 'react-swipeable';
-import Typograhpy from "../../components/atom/Typograhpy";
-import { FestivalJkt2024 } from "../../constant/FestivalJkt2024";
-import { getStorage, ref, getDownloadURL } from "firebase/storage";
 import apis from "../../apis";
+import Typograhpy from "../../components/atom/Typograhpy";
+import { AutumnInKoreaImages } from "../../constant/AutumnInKoreaImages";
+import { ChristmasInWonderlandImages } from "../../constant/ChristmasWonderlandImages";
+import { ClassicalFestivalJakartaImages } from "../../constant/ClassicalFestivalJakarta";
+import { ClassicalFestivalSurabayaImages } from "../../constant/ClassicalFestivalSurabayaImages";
+import { FestivalJkt2024 } from "../../constant/FestivalJkt2024";
+import { MagicalMusicSoundtractImages } from "../../constant/MagicalMusicSoundtract";
+import { MasterClassImages } from "../../constant/MasterClassImages";
+import { TurningPointImages } from "../../constant/TurningPointImages";
+import { useAuth } from "../../context/DataContext";
 
 
 const GaleryPage = () => {
@@ -470,7 +466,7 @@ const GaleryPage = () => {
                                 </div>
                                 <div className="textColor text-align-center mb-5">
                                     {galeryContent?.featuring?.map((eachFeature, index) => (
-                                        <React.Fragment key={index}>
+                                        <React.Fragment key={`${eachFeature}-${index}`}>
                                             {index > 0 && " • "}
                                             <span className="feature-name">
                                                 <span className="feature-name fontSizeBody">{eachFeature?.name} {eachFeature?.founder && (<span className="italicText"> (Founder) </span>)}</span>{" "}

@@ -69,5 +69,8 @@ export default {
   galery: {
     getGalery: (eventName) => getRequest(`/api/v1/apcs/getGaleries?eventName=${eventName}`),
     getVideos: () => getRequest(`/api/v1/apcs/getVideos`)
+  },
+  aws: {
+    postSignedUrl: (directoryname, fileName) => postRequest(`/api/v1/apcs/signed-url-images?directoryname=${directoryname}&fileName=${fileName}`)
   }
 };

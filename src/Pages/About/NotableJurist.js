@@ -1,30 +1,28 @@
 import React from "react";
-import HeaderTitle from "../../components/atom/HeaderTitle";
-import jurist0 from "../../assets/images/jurists/jurist0.png"
-import jurist1 from "../../assets/images/jurists/jurist1.png"
-import jurist2 from "../../assets/images/jurists/jurist2.png"
-import jurist3 from "../../assets/images/jurists/jurist3.png"
-import jurist4 from "../../assets/images/jurists/jurist4.png"
-import jurist5 from "../../assets/images/jurists/jurist5.png"
-import jurist6 from "../../assets/images/jurists/jurist6.png"
-import jurist7 from "../../assets/images/jurists/jurist7.png"
-import jurist8 from "../../assets/images/jurists/jurist8.png"
-import jurist9 from "../../assets/images/jurists/jurist9.png"
-import jurist10 from "../../assets/images/jurists/jurist10.png"
-import ConductorProfile from "../../components/molecules/ConductorProfile";
+import { useTranslation } from "react-i18next";
+import amrFlag from "../../assets/images/amrFlag.jpg";
+import chinaflag from "../../assets/images/chinaflag.jpg";
+import denmarkflag from "../../assets/images/denmarkflag.jpg"; // fidland
+import indFlag from "../../assets/images/indFlag.jpg";
+import jurist0 from "../../assets/images/jurists/jurist0.png";
+import jurist1 from "../../assets/images/jurists/jurist1.png";
+import jurist10 from "../../assets/images/jurists/jurist10.png";
+import jurist2 from "../../assets/images/jurists/jurist2.png";
+import jurist3 from "../../assets/images/jurists/jurist3.png";
+import jurist4 from "../../assets/images/jurists/jurist4.png";
+import jurist6 from "../../assets/images/jurists/jurist6.png";
+import jurist7 from "../../assets/images/jurists/jurist7.png";
+import jurist8 from "../../assets/images/jurists/jurist8.png";
+import jurist9 from "../../assets/images/jurists/jurist9.png";
+import koreaflag from "../../assets/images/koreaflag.jpg";
+import russiaflag from "../../assets/images/russiaflag.jpg"; //estonia
 import AnimatedComponent from "../../components/atom/AnimatedComponent";
 import EllipsisText from "../../components/atom/EllipsisText";
-import { CountryConst } from "../../constant/CountryConst";
-import indFlag from "../../assets/images/indFlag.jpg"
-import russiaflag from "../../assets/images/russiaflag.jpg" //estonia
-import denmarkflag from "../../assets/images/denmarkflag.jpg" // fidland
-import koreaflag from "../../assets/images/koreaflag.jpg"
-import chinaflag from "../../assets/images/chinaflag.jpg"
-import amrFlag from "../../assets/images/amrFlag.jpg"
 import HeaderAbout from "../../components/atom/HeaderAbout";
+import HeaderTitle from "../../components/atom/HeaderTitle";
+import { CountryConst } from "../../constant/CountryConst";
 import { useAuth } from "../../context/DataContext";
 import { flagIcon } from "../../utils/Utils";
-import { useTranslation } from "react-i18next";
 
 const NotableJurist = () => {
 
@@ -215,8 +213,8 @@ const NotableJurist = () => {
                                     {eachData.title}
                                 </div>
                                 <div className="d-flex" style={{ marginBottom: 40 }}>
-                                    {eachData.country.map((eachCountry) => (
-                                        <img src={flagIcon(eachCountry)} alt={eachCountry} style={{ marginRight: 13, width: isMobileAndSmaller ? 35 : 50 }} />
+                                    {eachData.country.map((eachCountry, index) => (
+                                        <img key={`country-${index}`} src={flagIcon(eachCountry)} alt={eachCountry} style={{ marginRight: 13, width: isMobileAndSmaller ? 35 : 50 }} />
                                     ))}
 
                                 </div>

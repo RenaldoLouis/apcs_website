@@ -1,15 +1,13 @@
 import React, { useEffect, useState } from "react";
-import textureBackground from "../../assets/images/textureBackground.png"
-import textureBackgroundLong from "../../assets/images/textureBackgroundLong.png"
-import saphireAchieverText from "../../assets/images/saphireAchieverText.svg"
-import ProfileToYoutube from "../../components/molecules/ProfileToYoutube";
-import AchieversHeader from "../../components/molecules/AchieversHeader";
-import diamondAchieversText from "../../assets/images/diamondAchieversText.svg"
-import AnimatedComponent from "../../components/atom/AnimatedComponent";
-import GoldSection from "./GoldSection";
-import { useAuth } from "../../context/DataContext";
 import { useTranslation } from "react-i18next";
+import diamondAchieversText from "../../assets/images/diamondAchieversText.svg";
+import saphireAchieverText from "../../assets/images/saphireAchieverText.svg";
+import textureBackgroundLong from "../../assets/images/textureBackgroundLong.png";
+import AchieversHeader from "../../components/molecules/AchieversHeader";
+import ProfileToYoutube from "../../components/molecules/ProfileToYoutube";
 import { ListOfEventAchiever } from "../../constant/ListOfEventAchiever";
+import { useAuth } from "../../context/DataContext";
+import GoldSection from "./GoldSection";
 
 const SapphireWinnerSection = (props) => {
     const { dataSaphire, dataDiamond } = props
@@ -93,7 +91,7 @@ const SapphireWinnerSection = (props) => {
                         {sapphireDataSorted.map((eachData, index) => {
                             // const colClass = index === 24 ? "col-12 col-md-5 offset-md-4" : "col-12 col-md-4";
                             return (
-                                <div className={"col-6 col-md-4"} style={{ padding: isMobileAndSmaller ? 5 : 35 }}>
+                                <div key={`diamond1-${index}`} className={"col-6 col-md-4"} style={{ padding: isMobileAndSmaller ? 5 : 35 }}>
                                     <ProfileToYoutube data={eachData} />
                                 </div>
                             )
@@ -116,7 +114,7 @@ const SapphireWinnerSection = (props) => {
                             {diamondDataSorted.map((eachData, index) => {
                                 const colClass = index + 1 === dataDiamond.length ? "col-6 offset-3 col-md-4 offset-md-4" : "col-6 col-md-4"
                                 return (
-                                    <div className={"col-6 col-md-4"} style={{ padding: isMobileAndSmaller ? 5 : 35 }}>
+                                    <div key={`diamond-${index}`} className={"col-6 col-md-4"} style={{ padding: isMobileAndSmaller ? 5 : 35 }}>
                                         <ProfileToYoutube data={eachData} noImage={true} />
                                     </div>
                                 )

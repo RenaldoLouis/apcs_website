@@ -1,11 +1,11 @@
 import {
-    CloudUploadOutlined,
     QuestionCircleOutlined
 } from '@ant-design/icons';
 import {
     Box,
     Button,
     Checkbox,
+    CircularProgress,
     FormControl,
     FormControlLabel,
     FormLabel,
@@ -16,17 +16,22 @@ import {
     RadioGroup,
     Select,
     TextField,
-    Tooltip,
-    Typography,
+    Tooltip
 } from "@mui/material";
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import axios from 'axios';
 import dayjs from 'dayjs';
-import React, { useMemo } from "react";
+import { addDoc, collection, serverTimestamp } from "firebase/firestore";
+import React, { useMemo, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
+import { toast } from 'react-toastify';
+import apis from '../../apis';
+import FileInput from '../../components/molecules/FileInput';
 import { InstrumentCategory } from '../../constant/InstrumentCategory';
+import { db } from '../../firebase';
 
 const Register = () => {
     const { t } = useTranslation();
@@ -42,20 +47,83 @@ const Register = () => {
         FreeChoice: "Free Choice (Combination Age - No Limitation)"
     }
 
+    const [isLoading, setIsLoading] = useState(false);
+
     const { watch, register, control, formState: { errors }, handleSubmit } = useForm({
         defaultValues: {
-            firstName: "",
-            select: {},
+            name: "",
+            teacherName: ""
         },
     })
-    const onSubmit = (data) => {
-        console.log("Form Data:", data);
+
+    const onSubmit = async (data) => {
+        try {
+            setIsLoading(true)
+            //save birth cert first
+            const birthCert = data.birthCertificate[0]
+            const directoryName = birthCert.name.replace(/\s/g, "").replace(/\.[^/.]+$/, "");
+            const res = await apis.aws.postSignedUrl(directoryName, "birthCert")
+            const signedUrl = res.data.link
+            await axios.put(signedUrl, birthCert, {
+                headers: {
+                    'Content-Type': birthCert.type, // Ensure this matches the file type
+                },
+            });
+
+            //save exam cert
+            const pdfRepertoire = data.pdfRepertoire[0]
+            const directoryName2 = pdfRepertoire.name.replace(/\s/g, "").replace(/\.[^/.]+$/, "");
+            const res2 = await apis.aws.postSignedUrl(directoryName2, "pdfRepertoire")
+            const signedUrl2 = res2.data.link
+            await axios.put(signedUrl2, birthCert, {
+                headers: {
+                    'Content-Type': birthCert.type, // Ensure this matches the file type
+                },
+            });
+
+            //save pdf report
+            const examCertificate = data.examCertificate[0]
+            const directoryName3 = examCertificate.name.replace(/\s/g, "").replace(/\.[^/.]+$/, "");
+            const res3 = await apis.aws.postSignedUrl(directoryName3, "examCertificate")
+            const signedUrl3 = res3.data.link
+            await axios.put(signedUrl3, birthCert, {
+                headers: {
+                    'Content-Type': birthCert.type, // Ensure this matches the file type
+                },
+            });
+
+            const formattedDate = data?.dob?.format("YYYY-MM-DD") ?? null;
+            const formattedDate2 = data?.dob2?.format("YYYY-MM-DD") ?? null;
+
+            // save data to Firebase
+            const docRef = await addDoc(collection(db, "Registrants2025"), {
+                address: data.address,
+                ageCategory: data.ageCategory,
+                email: data.email,
+                instrumentCategory: data.instrumentCategory,
+                name: data.name,
+                dob: formattedDate,
+                dob2: formattedDate2,
+                phoneNumber: data.phoneNumber,
+                teacherName: data.teacherName,
+                youtubeLink: data.youtubeLink,
+                createdAt: serverTimestamp(),
+            });
+
+            setIsLoading(false)
+
+            toast.success("Succesfully Register")
+
+        } catch (e) {
+            setIsLoading(false)
+            console.error(e)
+        }
     };
 
     const selectedInstrument = watch("instrumentCategory");
 
     const isDoubleContestant = useMemo(() => {
-        return selectedInstrument === InstrumentCategory.Piano_Solo
+        return selectedInstrument !== InstrumentCategory.Piano_Solo
     }, [selectedInstrument])
 
     const tooltipMessageYoutubeFormat = useMemo(() => {
@@ -118,7 +186,7 @@ const Register = () => {
                         <div className="goldenText">
                             <p>Dear Participants,</p>
                             <p>Please fill in the data below according to the Terms & Conditions.</p>
-                            <p>
+                            <div>
                                 <strong>Notes:</strong>
                                 <ul>
                                     <li>Age counting as of 2 September 2024.</li>
@@ -127,7 +195,7 @@ const Register = () => {
                                         CATEGORIES IF PARTICIPANTS ARE OF INSUFFICIENT AGE.
                                     </li>
                                 </ul>
-                            </p>
+                            </div>
                             <p>Thank you.</p>
 
                             Regards,
@@ -199,6 +267,7 @@ const Register = () => {
                                         <RadioGroup {...field} row>
                                             {Object.entries(ageCategories).map(([key, label]) => (
                                                 <FormControlLabel
+                                                    id={`${key}-${label}`}
                                                     key={key}
                                                     value={key}
                                                     control={
@@ -532,92 +601,32 @@ const Register = () => {
                             </Box>
 
                             {/* Exam Certificate Upload */}
-                            <label htmlFor="examCertificate">
-                                <input
-                                    id="examCertificate"
-                                    type="file"
-                                    {...register("examCertificate", { required: "Upload required" })}
-                                    style={{ display: "none" }} // Hide default file input
-                                />
-                                <Button
-                                    variant="contained"
-                                    component="span"
-                                    sx={{
-                                        backgroundColor: "#EBBC64",
-                                        color: "black",
-                                        borderRadius: "20px",
-                                        padding: "10px 20px",
-                                        textTransform: "none",
-                                        fontWeight: "bold",
-                                        display: "flex",
-                                        alignItems: "center",
-                                        gap: "8px",
-                                        "&:hover": { backgroundColor: "#d9a84d" }, // Slightly darker gold on hover
-                                    }}
-                                >
-                                    <CloudUploadOutlined /> Upload Exam Certificate
-                                </Button>
-                            </label>
-                            {errors.examCertificate && <Typography color="red">{errors.examCertificate.message}</Typography>}
+                            <FileInput
+                                name="examCertificate"
+                                control={control}
+                                label="Exam Certificate"
+                                labelUploaded="Exam Certificate Uploaded"
+                                rules={{ required: "Upload required" }}
+                            />
 
                             {/* Birth Certificate Upload */}
-                            <label htmlFor="birthCertificate" style={{ marginTop: "15px", display: "block" }}>
-                                <input
-                                    id="birthCertificate"
-                                    type="file"
-                                    {...register("birthCertificate", { required: "Upload required" })}
-                                    style={{ display: "none" }}
-                                />
-                                <Button
-                                    variant="contained"
-                                    component="span"
-                                    sx={{
-                                        backgroundColor: "#EBBC64",
-                                        color: "black",
-                                        borderRadius: "20px",
-                                        padding: "10px 20px",
-                                        textTransform: "none",
-                                        fontWeight: "bold",
-                                        display: "flex",
-                                        alignItems: "center",
-                                        gap: "8px",
-                                        "&:hover": { backgroundColor: "#d9a84d" },
-                                    }}
-                                >
-                                    <CloudUploadOutlined /> Upload Birth Certificate
-                                </Button>
-                            </label>
-                            {errors.birthCertificate && <Typography color="red">{errors.birthCertificate.message}</Typography>}
+                            <FileInput
+                                name="birthCertificate"
+                                control={control}
+                                label="Birth Certificate"
+                                labelUploaded="Birth Certificate Uploaded"
+                                rules={{ required: "Upload required" }}
+                            />
 
                             {/* PDF Repertoire Upload */}
-                            <label htmlFor="pdfRepertoire" style={{ marginTop: "15px", display: "block" }}>
-                                <input
-                                    id="pdfRepertoire"
-                                    type="file"
-                                    {...register("pdfRepertoire", { required: "Upload required" })}
-                                    style={{ display: "none" }}
-                                />
-                                <Button
-                                    variant="contained"
-                                    component="span"
-                                    sx={{
-                                        backgroundColor: "#EBBC64",
-                                        color: "black",
-                                        borderRadius: "20px",
-                                        padding: "10px 20px",
-                                        textTransform: "none",
-                                        fontWeight: "bold",
-                                        display: "flex",
-                                        alignItems: "center",
-                                        gap: "8px",
-                                        "&:hover": { backgroundColor: "#d9a84d" },
-                                    }}
-                                >
-                                    <CloudUploadOutlined /> Upload PDF Repertoire
-                                </Button>
-                            </label>
-                            {errors.pdfRepertoire && <Typography color="red">{errors.pdfRepertoire.message}</Typography>}
 
+                            <FileInput
+                                name="pdfRepertoire"
+                                control={control}
+                                label="Repertoire"
+                                labelUploaded="Repertoire Uploaded"
+                                rules={{ required: "Upload required" }}
+                            />
 
                             {/* YouTube Link */}
                             <div className='d-flex'>
@@ -686,7 +695,38 @@ const Register = () => {
                             {errors.agreement && <p style={{ color: "red" }}>{errors.agreement.message}</p>}
 
                             {/* Submit Button */}
-                            <Button type="submit" variant="contained" color="primary" style={{ background: "#EBBC64", color: "black" }}>Submit</Button>
+                            <Button
+                                disabled={isLoading}
+                                type="submit" variant="contained" color="primary"
+                                sx={{
+                                    backgroundColor: "#EBBC64",
+                                    color: "black",
+                                    // Override disabled styles to keep the same background and text color
+                                    "&.Mui-disabled": {
+                                        backgroundColor: "#EBBC64",
+                                        color: "black",
+                                        opacity: 0.5, // you can adjust the opacity to indicate disabled state
+                                    },
+                                    "&:hover": { backgroundColor: "#d9a84d" },
+
+                                }}
+                            >
+                                Submit
+                                {isLoading && (
+                                    <CircularProgress
+                                        size={24}
+                                        sx={{
+                                            color: "blue",
+                                            position: 'absolute',
+                                            top: '50%',
+                                            left: '50%',
+                                            marginTop: '-12px',
+                                            marginLeft: '-12px',
+                                        }}
+                                    />
+                                )}
+
+                            </Button>
                         </form>
                     </div>
                 </div>

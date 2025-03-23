@@ -1,12 +1,12 @@
 import React from "react";
-import indFlag from "../../assets/images/indFlag.jpg"
-import russiaflag from "../../assets/images/russiaflag.jpg" //estonia
-import denmarkflag from "../../assets/images/denmarkflag.jpg" // fidland
-import koreaflag from "../../assets/images/koreaflag.jpg"
-import chinaflag from "../../assets/images/chinaflag.jpg"
+import chinaflag from "../../assets/images/chinaflag.jpg";
+import denmarkflag from "../../assets/images/denmarkflag.jpg"; // fidland
+import indFlag from "../../assets/images/indFlag.jpg";
+import koreaflag from "../../assets/images/koreaflag.jpg";
+import russiaflag from "../../assets/images/russiaflag.jpg"; //estonia
 import { CountryConst } from "../../constant/CountryConst";
-import AnimatedComponent from "../atom/AnimatedComponent";
 import { useAuth } from "../../context/DataContext";
+import AnimatedComponent from "../atom/AnimatedComponent";
 
 const GuestArtistCard = (props) => {
     const { data } = props
@@ -45,8 +45,8 @@ const GuestArtistCard = (props) => {
                     {name}
                 </div>
                 <div style={{ marginTop: 8 }}>
-                    {country.map((eachCountry) => (
-                        <img src={flagIcon(eachCountry)} alt={eachCountry} style={{ marginRight: 13, width: isMobileAndSmaller ? 35 : 50 }} />
+                    {country.map((eachCountry, index) => (
+                        <img key={`${eachCountry}-${index}`} src={flagIcon(eachCountry)} alt={eachCountry} style={{ marginRight: 13, width: isMobileAndSmaller ? 35 : 50 }} />
                     ))}
                     {title}
                 </div>

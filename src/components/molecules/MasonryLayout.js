@@ -193,7 +193,7 @@ const MasonryLayout = (props) => {
                 {images?.map((item, index) => {
                     return (
                         <div
-                            key={index}
+                            key={`masonryy-${index}`}
                             className={`masonry-item ${hoveredIndex === index ? 'hovered' : ''}`}
                             style={{ display: displayStyle(index) }}
                         // onMouseEnter={() => setHoveredIndex(index)}
