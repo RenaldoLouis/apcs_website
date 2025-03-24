@@ -6,8 +6,6 @@ import { ContentPosition } from "../../constant/ContentPosition";
 import { useTranslation } from "react-i18next";
 import { AnimationClass } from "../../constant/AnimationClass";
 
-// import homeScreen from "../../assets/images/homeScreenImage.svg"
-
 const CoverImageHomeMobile = (props) => {
     const { logo, background, position } = props
     const location = useLocation();
@@ -55,9 +53,29 @@ const CoverImageHomeMobile = (props) => {
                 </AnimatedComponent>
             </div>
 
-            {/* <div style={{ position: 'absolute' }}>
-               
-            </div> */}
+            <div style={{
+                position: 'absolute', top: '75%',
+                left: '50%',
+                transform: 'translate(-50%, -50%)',
+                width: "350px"
+            }}>
+                <AnimatedComponent animationClass={AnimationClass.fadeIn}>
+                    <div className="row justify-center" style={{ justifySelf: "center" }}>
+                        <div className="col-md-6">
+                            <div className="goldenText mangolaineFont" style={{ fontSize: 40, textAlign: 'center', width: 237, letterSpacing: 5 }}>
+                                A PIANO CONCERTO SERIES
+                            </div>
+                        </div>
+                    </div>
+                    <div className="row justify-center">
+                        <div className="col-md-6">
+                            <div className="fontSizeDesktopOnlyHeader text-align-center" style={{ color: "white" }}>
+                                {t("home1")}
+                            </div>
+                        </div>
+                    </div>
+                </AnimatedComponent>
+            </div>
 
         </div>
     )

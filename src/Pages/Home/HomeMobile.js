@@ -7,10 +7,12 @@ import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import apcLogoBold from "../../assets/images/apc_logo_bold.svg";
 import experienceHomeCropped from "../../assets/images/experienceHomeCropped.jpg";
+import experienceHomeMobile from "../../assets/images/experienceHomeMobile.jpg";
 import goldenLine from "../../assets/images/goldenLine.png";
 import musicForEveryone from "../../assets/images/musicForEveryone.svg";
 import musicForEveryoneID from "../../assets/images/musicForEveryoneID.svg";
 import pianoKeys from '../../assets/images/pianoKeys.jpg';
+import webelieveBackground from '../../assets/images/webelieveBackground.jpg';
 import sponsor1 from "../../assets/images/sponsors/sponsor1.png";
 import sponsor2 from "../../assets/images/sponsors/sponsor2.png";
 import sponsor3 from "../../assets/images/sponsors/sponsor3.png";
@@ -32,6 +34,7 @@ import { analytics } from "../../firebase";
 import LetUsGuideTo from "./LetUsGuideTo";
 import ModalEvent from './ModalEvent';
 import CoverImageHomeMobile from '../../components/molecules/CoverImageHomeMobile';
+import LetUsGuideToMobile from './LetUsGuideToMobile';
 
 const listOfSponsor = [
     sponsor1, sponsor6, sponsor8, sponsor4
@@ -74,42 +77,15 @@ const HomeMobile = (props) => {
                 logo={apcLogoBold}
             />
 
-            <div className="backgroundBlack homeContentContainer">
-                <div className="container">
-                    <div style={{ margin: "15px 0px" }}>
-                        <AnimatedComponent animationClass={AnimationClass.fadeIn}>
-                            <div className="row justify-center">
-                                <div className="col-md-6">
-                                    <div className="goldenText mangolaineFont" style={{ fontSize: 40 }}>
-                                        A PIANO CONCERTO SERIES
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="row justify-center">
-                                <div className="col-md-6">
-                                    <div className="fontSizeDesktopOnlyHeader" style={{ color: "white" }}>
-                                        {t("home1")}
-                                    </div>
-                                </div>
-                            </div>
-                        </AnimatedComponent>
-                    </div>
-                </div>
-            </div>
-
-            <LetUsGuideTo />
+            <LetUsGuideToMobile />
 
             <div className="image-container-fadedTopBottom autoHeight">
-                <img loading="lazy" src={pianoKeys} alt={`pianoKeys`} style={{ width: "100%" }} />
+                <img loading="lazy" src={webelieveBackground} alt={`webelieveBackground`} style={{ width: "100%" }} />
                 <div className="musicForEveryone">
-                    <img loading="lazy" src={i18n.language === "en" ? musicForEveryone : musicForEveryoneID} alt="apcsLogo" style={{ width: "35%" }} />
-                    <div className="weOfferContainer" style={{ color: 'white' }}>
+                    <div className="weOfferContainer" style={{ color: 'white', justifyItems: "center" }}>
                         <AnimatedComponent animationClass={AnimationClass.fadeIn}>
-                            <div className="textWithShadow text-align-justify">
-                                {t("home3")}
-                            </div>
-                            <div style={{ marginTop: "2vmin" }}>
-                                <PillButton text={t("home4")} onClick={() => handleMovePage(PathName.about)} />
+                            <div className="creamText mangolaineFont textWithShadow" style={{ width: 200, fontSize: 17, letterSpacing: 3 }}>
+                                {t("home3M")}
                             </div>
                         </AnimatedComponent>
                     </div>
@@ -117,26 +93,73 @@ const HomeMobile = (props) => {
             </div>
 
             <div className="image-container-fadedTopBottom autoHeight">
-                <img loading="lazy" src={experienceHomeCropped} alt={`experienceHomeCropped`} style={{ width: "100%" }} />
+                <img loading="lazy" src={experienceHomeMobile} alt={`experienceHomeMobile`} style={{ width: "100%" }} />
 
-                <div className="experienceDesc">
+                <div style={{
+                    color: "#FFF2DB",
+                    position: 'absolute',
+                    top: '50%',
+                    left: '50%',
+                    transform: 'translate(-50%, -50%)',
+                    width: "350px",
+                    zIndex: 1000
+                }}>
                     <AnimatedComponent animationClass={AnimationClass.fadeIn}>
-                        <div style={{ color: 'white' }}>
-                            <div className="mangolaineFont experinceText" style={{ color: "#FFF2DB" }}>
-                                EXPERIENCE APCS
-                            </div>
-                            <div className="experienceContentText textWithShadow">
-                                {t("home5")}
-                            </div>
-                            <div className="experienceContentText textWithShadow">
-                                {t('home5A')}
-                            </div>
-                            <div className="flex justify-center" style={{ marginTop: 24 }}>
-                                <PillButton text={t("home6")} onClick={() => handleMovePage(PathName.contactUs)} />
-                            </div>
+                        <div className="mangolaineFont experinceText text-align-center" style={{ letterSpacing: 8 }} >
+                            EXPERIENCE<br />APCS
                         </div>
                     </AnimatedComponent>
                 </div>
+
+                <div style={{
+                    color: "#FFF2DB",
+                    position: 'absolute',
+                    top: '77%',
+                    left: '50%',
+                    transform: 'translate(-50%, -50%)',
+                    width: "350px",
+                    zIndex: 1000
+                }}>
+                    <AnimatedComponent animationClass={AnimationClass.fadeIn}>
+                        <div className="experienceContentText textWithShadow" style={{ textAlign: "center" }}>
+                            {t("home5")}
+                        </div>
+                    </AnimatedComponent>
+                </div>
+
+                <div style={{
+                    color: "#FFF2DB",
+                    position: 'absolute',
+                    top: '83%',
+                    left: '50%',
+                    transform: 'translate(-50%, -50%)',
+                    width: "350px",
+                    justifySelf: 'center',
+                    zIndex: 1000
+                }}>
+                    <AnimatedComponent animationClass={AnimationClass.fadeIn}>
+                        <div className="experienceContentText textWithShadow">
+                            {t('home5A')}
+                        </div>
+                    </AnimatedComponent>
+                </div>
+
+                <div style={{
+                    color: "#FFF2DB",
+                    position: 'absolute',
+                    top: '89%',
+                    left: '50%',
+                    transform: 'translate(-50%, -50%)',
+                    width: "350px",
+                    zIndex: 1000
+                }}>
+                    <AnimatedComponent animationClass={AnimationClass.fadeIn}>
+                        <div className="flex justify-center">
+                            <PillButton text={t("home6")} onClick={() => handleMovePage(PathName.contactUs)} />
+                        </div>
+                    </AnimatedComponent>
+                </div>
+
             </div>
 
             <JuryCarousel />

@@ -49,7 +49,7 @@ const Home = (props) => {
     const { t, i18n } = useTranslation();
     const navigate = useNavigate();
 
-    const { isMobileAndSmaller } = useAuth();
+    const { isMobileAndSmaller, isSmallMobileAndSmaller } = useAuth();
 
     const handleMovePage = (path) => {
         window.scrollTo(0, 0);
@@ -70,7 +70,7 @@ const Home = (props) => {
 
     return (
 
-        isMobileAndSmaller ? (
+        isSmallMobileAndSmaller ? (
             <HomeMobile homeImagehero={homeImagehero} />
         ) : (
             <div style={{ background: "black" }}>
