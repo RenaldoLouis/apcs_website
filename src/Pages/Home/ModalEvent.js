@@ -6,7 +6,6 @@ const modalStyle = {
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
-    width: 460,
     bgcolor: '#1E1E1E', // dark elegant background
     color: '#fff', // ensure text pops
     border: `2px solid #EBBC64`,

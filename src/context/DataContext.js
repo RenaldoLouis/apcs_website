@@ -71,8 +71,22 @@ export const DataContextProvider = ({ children }) => {
         }
     };
 
+    const DataContextValue = {
+        user,
+        signInWithGoogle,
+        signOut,
+        loading,
+        setImageHomeLoaded,
+        imageHomeLoaded,
+        setSelectedEvent,
+        selectedEvent,
+        isMobileAndSmaller,
+        isMobileAndBigger,
+        isSmallMobileAndSmaller
+    }
+
     return (
-        <DataContext.Provider value={{ user, signInWithGoogle, signOut, loading, setImageHomeLoaded, imageHomeLoaded, setSelectedEvent, selectedEvent, isMobileAndSmaller, isMobileAndBigger, isSmallMobileAndSmaller }}>
+        <DataContext.Provider value={DataContextValue}>
             {!loading && children}
         </DataContext.Provider>
     );
