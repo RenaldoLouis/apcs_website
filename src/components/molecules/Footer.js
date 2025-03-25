@@ -3,7 +3,7 @@ import {
     WhatsAppOutlined,
     YoutubeOutlined
 } from '@ant-design/icons';
-import { Link } from '@mui/material';
+import { Box, Link } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import React, { useEffect, useState } from "react";
@@ -55,14 +55,11 @@ const Footer = () => {
             <div className="container-fluid">
                 {isTabletAndSmaller ? (
                     <div className="d-flex flex-column">
-                        <div className="p-2">
+                        {/* <div className="p-2">
                             <img loading="lazy" src={apcLogo} alt="apcsLogo" style={{ height: "6rem" }} />
-                        </div>
-                        <div className="d-flex flex-column align-items-start">
+                        </div> */}
+                        {/* <div className="d-flex justify-content-around align-items-start">
                             <div className="p-2 text-align-start" style={{ display: "grid", gap: 5 }}>
-                                <div className="mb-3" style={{ fontWeight: 900 }}>
-                                    APCS
-                                </div>
                                 {Object.keys(PathName).map((eachPath) => {
                                     let path = PathName[eachPath]
                                     let navbarName = PathName[eachPath].substring(1);
@@ -84,36 +81,103 @@ const Footer = () => {
                                     }
                                 })}
                             </div>
-                            <div className="p-2 text-align-start">
-                                <div className="mb-3" style={{ fontWeight: 900 }}>
-                                    {t("contact")}
+                            <div>
+                                <div className="p-2 text-align-start">
+                                    <div className="mb-3" style={{ fontWeight: 900 }}>
+                                        {t("contact")}
+                                    </div>
+                                    <Link
+                                        href="mailto:hello@apcsmusic.com"
+                                        className="cursorPointer"
+                                        sx={{ textDecoration: 'none', color: 'inherit' }}
+                                    >
+                                        hello@apcsmusic.com
+                                    </Link>
+                                    <div onClick={handleOpenWhatsapp} className="cursorPointer">
+                                        (+62) 822-1300-2686
+                                    </div>
                                 </div>
-                                <Link
-                                    href="mailto:hello@apcsmusic.com"
-                                    className="cursorPointer"
-                                    sx={{ textDecoration: 'none', color: 'inherit' }}
-                                >
-                                    hello@apcsmusic.com
-                                </Link>
-                                <div onClick={handleOpenWhatsapp} className="cursorPointer">
-                                    (+62) 822-1300-2686
+                                <div className="p-2 text-align-start mb-5">
+                                    <div className="mb-3" style={{ fontWeight: 900 }}>
+                                        Location
+                                    </div>
+                                    <div>
+                                        APCS Studio
+                                    </div>
+                                    <div>
+                                        Jakarta, Indonesia
+                                    </div>
                                 </div>
                             </div>
-                            <div className="p-2 text-align-start mb-5">
-                                <div className="mb-3" style={{ fontWeight: 900 }}>
-                                    Location
+                        </div> */}
+                        <Box className="row">
+                            <Box className="col-6">
+                                <div className="p-2" style={{ display: "grid", gap: 5, justifySelf: "center" }}>
+                                    {Object.keys(PathName).map((eachPath) => {
+                                        let path = PathName[eachPath]
+                                        let navbarName = PathName[eachPath].substring(1);
+                                        if (navbarName === "contactUs") {
+                                            navbarName = "CONTACT US"
+                                        }
+                                        if (navbarName === "register") {
+                                            return null
+                                        } else {
+                                            return (
+                                                <div
+                                                    key={`footer-${eachPath}`}
+                                                    style={{ fontSize: 16 }}
+                                                    className={`mb-1 itemMenuSelected ${currentPage === path ? "selected textColorSelected" : ""}`}
+                                                    onClick={() => handleMovePage(path)}>
+                                                    {t(navbarName.toUpperCase())}
+                                                </div>
+                                            )
+                                        }
+                                    })}
                                 </div>
+                            </Box>
+                            <Box className="col-6">
                                 <div>
-                                    APCS Studio
+                                    <div className="p-2 text-align-start">
+                                        <div className="mb-3" style={{ fontWeight: 900 }}>
+                                            {t("contact")}
+                                        </div>
+                                        <Link
+                                            href="mailto:hello@apcsmusic.com"
+                                            className="cursorPointer"
+                                            sx={{ textDecoration: 'none', color: 'inherit' }}
+                                        >
+                                            hello@apcsmusic.com
+                                        </Link>
+                                        <div onClick={handleOpenWhatsapp} className="cursorPointer">
+                                            (+62) 822-1300-2686
+                                        </div>
+                                    </div>
+                                    <div className="p-2 text-align-start mb-5">
+                                        <div className="mb-3" style={{ fontWeight: 900 }}>
+                                            Location
+                                        </div>
+                                        <div>
+                                            APCS Studio
+                                        </div>
+                                        <div>
+                                            Jakarta, Indonesia
+                                        </div>
+
+                                        <div className="align-self-center d-flex justify-content-between"
+                                            style={{ width: "100px", background: "rgba(33,32,32,255)", borderRadius: 25, padding: "2px 7px 2px 7px", marginTop: 13 }}
+                                        >
+                                            <WhatsAppOutlined style={{ fontSize: 18 }} onClick={handleOpenWhatsapp} />
+                                            <YoutubeOutlined style={{ fontSize: 18 }} />
+                                            <InstagramOutlined style={{ fontSize: 18 }} />
+                                        </div>
+                                    </div>
                                 </div>
-                                <div>
-                                    Jakarta, Indonesia
-                                </div>
-                            </div>
+                            </Box>
+                        </Box>
+                        <div className="d-flex flex-column align-items-start">
                             <div className="p-2 align-self-center d-flex justify-content-between" style={{ width: "200px" }}>
-                                <WhatsAppOutlined style={{ fontSize: 32 }} onClick={handleOpenWhatsapp} />
-                                <YoutubeOutlined style={{ fontSize: 32 }} />
-                                <InstagramOutlined style={{ fontSize: 32 }} />
+                                <img loading="lazy" src={apcLogo} alt="apcsLogo" style={{ height: "6rem" }} />
+
                             </div>
                             <div className="p-2 align-self-center">
                                 &copy;2024 APCS. All Rights Reserved
