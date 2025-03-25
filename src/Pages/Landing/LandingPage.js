@@ -1,6 +1,7 @@
 import Lottie from "lottie-react";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import backgroundWelcome2 from "../../assets/images/backgroundWelcome2.png";
 import homeScreenImageGradient from "../../assets/images/homeScreenImageGradient.jpg";
 import homeScreenImageGradientMobile from "../../assets/images/homeScreenImageGradientMobile.jpg";
 import loadingAnimation from "../../assets/lottie/loading.json";
@@ -10,7 +11,7 @@ const LandingPage = React.memo((props) => {
     const [isReadyToNavigate, setIsReadyToNavigate] = useState(false);
 
     useEffect(() => {
-        const imagesToPreload = [homeScreenImageGradient, homeScreenImageGradientMobile];
+        const imagesToPreload = [homeScreenImageGradient, homeScreenImageGradientMobile, backgroundWelcome2];
 
         Promise.all(
             imagesToPreload.map((src) => {
@@ -37,7 +38,7 @@ const LandingPage = React.memo((props) => {
 
     return (
         <article className="landingContiner" >
-            <Lottie style={{ width: "15%" }} animationData={loadingAnimation} loop={true} />
+            <Lottie style={{ width: "15%", paddingLeft: "3px" }} animationData={loadingAnimation} loop={true} />
 
         </article >
     )

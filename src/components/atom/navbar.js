@@ -1,7 +1,5 @@
 import {
-    CloseOutlined,
     InstagramOutlined,
-    MenuOutlined,
     WhatsAppOutlined,
     YoutubeOutlined
 } from '@ant-design/icons';
@@ -11,9 +9,13 @@ import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useLocation, useNavigate } from "react-router-dom";
 import apcLogo from "../../assets/images/apc_logo.svg";
+import APCS_SVG from "../../assets/images/APCS_SVG.svg";
 import indFlag from "../../assets/images/indFlag.jpg";
+import navbarMobileBackground from "../../assets/images/navbarMobileBackground.jpg";
 import ukFlag from "../../assets/images/ukFlag.png";
 import { PathName } from "../../constant/PathName";
+import { PillButtonType } from '../../constant/PillButtonType';
+import PillButton from './PillButton';
 
 const Navbar = (props) => {
     const { isNavbarMobileOpen, setIsNavbarMobileOpen } = props
@@ -22,6 +24,7 @@ const Navbar = (props) => {
     const location = useLocation();
     const theme = useTheme();
     const isTabletAndSmaller = useMediaQuery(theme.breakpoints.down('md'));
+    const isLaptopAndSmaller = useMediaQuery(theme.breakpoints.down('lg'));
 
     //Creating a method to change the language onChnage from select box
     const changeLanguageHandler = (lang) => {
@@ -98,9 +101,10 @@ const Navbar = (props) => {
                             }
                         })}
                     </div>
-                    <div className="col-2 d-flex align-items-center justify-content-center">
+                    <div className="col-2 d-flex align-items-center justify-content-center" style={{ marginRight: isLaptopAndSmaller ? "19px" : "0px" }}>
                         <div className="logoContainerMobile" style={{ zIndex: 999 }}>
-                            <MenuOutlined onClick={handleOpenMenuMobile} />
+                            {/* <MenuOutlined onClick={handleOpenMenuMobile} /> */}
+                            <PillButton type={PillButtonType.SECONDARY} text={"Menu"} onClick={handleOpenMenuMobile} />
                         </div>
                         <img className="d-none d-lg-block cursorPointer" src={indFlag} alt="indFlag" style={{ width: 24, marginRight: 8 }} onClick={() => changeLanguageHandler("id")} />
                         <span onClick={() => changeLanguageHandler("id")}
@@ -113,10 +117,15 @@ const Navbar = (props) => {
                 </div>
             </div>
 
-            <div className="navbarContainerMobile">
-                <div className={`menuNavbarContainer  ${isNavbarMobileOpen ? "open" : ""}`}>
-                    <CloseOutlined className=" logoContainerMobile" onClick={handleCloseMenuMobile} style={{ display: "flex", alignSelf: "self-end" }} />
-                    <div className="d-flex flex-column" style={{ width: '100%', height: "100%", justifyContent: "space-between" }}>
+
+            {/* #region navbar mobile */}
+            <div className="navbarContainerMobile" >
+                <div className={`menuNavbarContainer  ${isNavbarMobileOpen ? "open" : ""}`} style={{ backgroundImage: `url(${navbarMobileBackground})` }}>
+                    <div className='d-flex justify-spaceBetween w-100'>
+                        <img loading="lazy" src={APCS_SVG} alt="apcsLogo" style={{ width: 116 }} />
+                        <PillButton type={PillButtonType.SECONDARY} text={"Close"} onClick={handleCloseMenuMobile} />
+                    </div>
+                    <div className="d-flex flex-column" style={{ width: '100%', height: "100%", justifyContent: "space-between", marginTop: "60px" }}>
                         <div style={{ display: 'flex', flexDirection: "column", gap: "1rem" }}>
                             {Object.keys(PathName).map((eachPath) => {
                                 let path = PathName[eachPath]
@@ -138,11 +147,14 @@ const Navbar = (props) => {
                             })}
                         </div>
                         <span className="logoContainerMobile">
-                            <img className="align-self-center" loading="lazy" src={apcLogo} alt="apcsLogo" style={{ marginBottom: 64 }} />
+                            <div className="p-2 align-self-center">
+                                &copy;2024 APCS. All Rights Reserved
+                            </div>
                         </span>
                     </div>
                 </div>
             </div>
+            {/* #endregion navbar mobile */}
         </nav>
     );
 }

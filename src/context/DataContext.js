@@ -1,12 +1,12 @@
-import { signInWithPopup } from 'firebase/auth';
-import React, { createContext, useContext, useState, useEffect } from 'react';
-import { auth, provider } from '../firebase';
-import { useNavigate } from 'react-router-dom';
-import { toast } from 'react-toastify';
-import FirebaseApi from '../middleware/firebaseApi';
-import { YearlyEvent } from '../constant/YearlyEvent';
 import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
+import { signInWithPopup } from 'firebase/auth';
+import React, { createContext, useContext, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import { YearlyEvent } from '../constant/YearlyEvent';
+import { auth, provider } from '../firebase';
+import FirebaseApi from '../middleware/firebaseApi';
 
 const DataContext = createContext();
 
@@ -18,6 +18,7 @@ export const DataContextProvider = ({ children }) => {
     const isSmallMobileAndSmaller = useMediaQuery(theme.breakpoints.down('sm')); // 600
     const isMobileAndSmaller = useMediaQuery(theme.breakpoints.down('md'));// 900
     const isMobileAndBigger = useMediaQuery(theme.breakpoints.up('md'));
+    const isLaptopAndSmaller = useMediaQuery(theme.breakpoints.down('lg'));
 
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
@@ -82,7 +83,8 @@ export const DataContextProvider = ({ children }) => {
         selectedEvent,
         isMobileAndSmaller,
         isMobileAndBigger,
-        isSmallMobileAndSmaller
+        isSmallMobileAndSmaller,
+        isLaptopAndSmaller
     }
 
     return (

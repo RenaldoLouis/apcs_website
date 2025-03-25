@@ -1,22 +1,22 @@
-import React, { useState, useEffect } from 'react';
-import arrowRightCover from "../../assets/icons/arrowRightCover.png"
-import arrowLeftCover from "../../assets/icons/arrowLeftCover.png"
-import PillButton from '../atom/PillButton';
-import banner1 from "../../assets/images/homeBanner/banner1.jpg"
-import banner2 from "../../assets/images/homeBanner/banner2.jpg"
-import banner3 from "../../assets/images/homeBanner/banner3.jpg"
-import banner4 from "../../assets/images/homeBanner/banner4.jpg"
-import banner5 from "../../assets/images/homeBanner/banner5.jpg"
-import banner6 from "../../assets/images/homeBanner/banner6.jpg"
-import banner7 from "../../assets/images/homeBanner/banner7.jpg"
+import { LeftOutlined, RightOutlined } from '@ant-design/icons';
+import { IconButton } from "@mui/material";
 import { logEvent } from "firebase/analytics";
-import { analytics } from '../../firebase';
-import { PathName } from '../../constant/PathName';
-import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../../context/DataContext';
-import { YearlyEvent } from '../../constant/YearlyEvent';
-import { useSwipeable } from 'react-swipeable';
+import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
+import { useSwipeable } from 'react-swipeable';
+import banner1 from "../../assets/images/homeBanner/banner1.jpg";
+import banner2 from "../../assets/images/homeBanner/banner2.jpg";
+import banner3 from "../../assets/images/homeBanner/banner3.jpg";
+import banner4 from "../../assets/images/homeBanner/banner4.jpg";
+import banner5 from "../../assets/images/homeBanner/banner5.jpg";
+import banner6 from "../../assets/images/homeBanner/banner6.jpg";
+import banner7 from "../../assets/images/homeBanner/banner7.jpg";
+import { PathName } from '../../constant/PathName';
+import { YearlyEvent } from '../../constant/YearlyEvent';
+import { useAuth } from '../../context/DataContext';
+import { analytics } from '../../firebase';
+import PillButton from '../atom/PillButton';
 
 const images = [
     banner5,
@@ -94,45 +94,81 @@ const Carousel = ({ interval = 5000, homePage = true }) => {
                     <img key={`carousel-${index}`} loading="lazy" style={{ '--currentIndex': currentIndex }} className="carousel-image" id={`slide-${index}`} src={eachImage} alt={`photos-${index}`} />
                 ))}
                 <div className="carousel-navigation">
-                    <button className="carousel-prev" onClick={goToPrevSlide}>
+                    {/* <button className="carousel-prev" onClick={goToPrevSlide}>
                         <img loading="lazy" src={arrowLeftCover} style={{ width: "6vmin" }} alt="arrowLeft" />
                     </button>
                     <button className="carousel-next" onClick={goToNextSlide}>
                         <img loading="lazy" src={arrowRightCover} style={{ width: "6vmin" }} alt="arrowRight" />
-                    </button>
+                    </button> */}
+                    <IconButton
+                        aria-label="back"
+                        size="small"
+                        sx={{
+                            backgroundColor: "rgba(141, 135, 132, 1)",
+                            marginLeft: "20px",
+                            color: "black",
+                            '&:hover': {
+                                backgroundColor: "rgba(160, 155, 152, 1)", // slightly lighter on hover
+                            },
+                            '&:active': {
+                                backgroundColor: "rgba(120, 115, 112, 1)", // slightly darker on click
+                            },
+                        }}
+                    >
+
+                        <LeftOutlined />
+                    </IconButton>
+
+                    <IconButton
+                        aria-label="forward"
+                        size="small"
+                        sx={{
+                            backgroundColor: "rgba(141, 135, 132, 1)",
+                            marginRight: "20px",
+                            color: "black",
+                            '&:hover': {
+                                backgroundColor: "rgba(160, 155, 152, 1)",
+                            },
+                            '&:active': {
+                                backgroundColor: "rgba(120, 115, 112, 1)",
+                            },
+                        }}
+                    >
+                        <RightOutlined />
+                    </IconButton>
                 </div>
                 <div className='titleCoverContainer-Banner'>
-                    <div style={{ '--currentIndex': currentIndex }} className='titleCoverContainerText'>
+                    <div style={{ '--currentIndex': currentIndex, marginTop: 36 }} className='titleCoverContainerText'>
                         <div>
                             <PillButton onClick={() => handleMovePage(PathName.contactUs, YearlyEvent.TURNINGPOINT)} text={t("moreInfo")} />
                         </div>
                     </div>
-                    <div style={{ '--currentIndex': currentIndex }} className='titleCoverContainerText'>
+                    <div style={{ '--currentIndex': currentIndex, marginTop: 36 }} className='titleCoverContainerText'>
                         <div>
                             <PillButton onClick={() => handleMovePage(PathName.gallery, YearlyEvent.CLASSICALFESTIVALJKT2024)} text={t("watchNow")} />
                         </div>
                     </div>
-                    <div style={{ '--currentIndex': currentIndex }} className='titleCoverContainerText'>
+                    <div style={{ '--currentIndex': currentIndex, marginTop: 36 }} className='titleCoverContainerText'>
                         <div>
                             <PillButton onClick={() => handleMovePage(PathName.gallery, YearlyEvent.CHRISTMASWONDERLAND)} text={t("watchNow")} />
                         </div>
                     </div>
-                    <div style={{ '--currentIndex': currentIndex }} className='titleCoverContainerText'>
+                    <div style={{ '--currentIndex': currentIndex, marginTop: 36 }} className='titleCoverContainerText'>
                         <div>
                             <PillButton onClick={() => handleMovePage(PathName.gallery, YearlyEvent.CLASSICALFESTIVALJKT)} text={t("watchNow")} />
                         </div>
                     </div>
-                    <div style={{ '--currentIndex': currentIndex }} className='titleCoverContainerText'>
+                    <div style={{ '--currentIndex': currentIndex, marginTop: 36 }} className='titleCoverContainerText'>
                         <div>
                             <PillButton onClick={() => handleMovePage(PathName.gallery, YearlyEvent.CLASSICALFESTIVALSBY)} text={t("watchNow")} />
                         </div>
                     </div>
-                    <div style={{ '--currentIndex': currentIndex }} className='titleCoverContainerText'>
+                    <div style={{ '--currentIndex': currentIndex, marginTop: 36 }} className='titleCoverContainerText'>
                         <div>
                             <PillButton onClick={() => handleMovePage(PathName.gallery, YearlyEvent.MAGICALMUSICSOUNDTRACT)} text={t("watchNow")} />
                         </div>
                     </div>
-                    <div style={{ '--currentIndex': currentIndex }} className='titleCoverContainerText'>
+                    <div style={{ '--currentIndex': currentIndex, marginTop: 36 }} className='titleCoverContainerText'>
                         <div>
                             <PillButton onClick={() => handleMovePage(PathName.gallery, YearlyEvent.MASTERCLASS)} text={t("watchNow")} />
                         </div>

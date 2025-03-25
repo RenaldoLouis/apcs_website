@@ -110,13 +110,13 @@ const Footer = () => {
                                     Jakarta, Indonesia
                                 </div>
                             </div>
-                            <div className="p-2 align-self-center">
-                                <WhatsAppOutlined style={{ fontSize: 32, marginRight: 36 }} onClick={handleOpenWhatsapp} />
+                            <div className="p-2 align-self-center d-flex justify-content-between" style={{ width: "200px" }}>
+                                <WhatsAppOutlined style={{ fontSize: 32 }} onClick={handleOpenWhatsapp} />
                                 <YoutubeOutlined style={{ fontSize: 32 }} />
-                                <InstagramOutlined style={{ marginLeft: 36, marginRight: 36, fontSize: 32 }} />
+                                <InstagramOutlined style={{ fontSize: 32 }} />
                             </div>
                             <div className="p-2 align-self-center">
-                                (c)2024 APCS. All Rights Reserved
+                                &copy;2024 APCS. All Rights Reserved
                             </div>
                         </div>
                     </div>
