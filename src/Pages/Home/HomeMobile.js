@@ -1,18 +1,9 @@
-import Box from '@mui/material/Box';
-import Modal from '@mui/material/Modal';
-import Typography from '@mui/material/Typography';
 import { logEvent } from "firebase/analytics";
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import apcLogoBold from "../../assets/images/apc_logo_bold.svg";
-import experienceHomeCropped from "../../assets/images/experienceHomeCropped.jpg";
 import experienceHomeMobile from "../../assets/images/experienceHomeMobile.jpg";
-import goldenLine from "../../assets/images/goldenLine.png";
-import musicForEveryone from "../../assets/images/musicForEveryone.svg";
-import musicForEveryoneID from "../../assets/images/musicForEveryoneID.svg";
-import pianoKeys from '../../assets/images/pianoKeys.jpg';
-import webelieveBackground from '../../assets/images/webelieveBackground.jpg';
 import sponsor1 from "../../assets/images/sponsors/sponsor1.png";
 import sponsor2 from "../../assets/images/sponsors/sponsor2.png";
 import sponsor3 from "../../assets/images/sponsors/sponsor3.png";
@@ -22,19 +13,18 @@ import sponsor6 from "../../assets/images/sponsors/sponsor6.png";
 import sponsor7 from "../../assets/images/sponsors/sponsor7.png";
 import sponsor8 from "../../assets/images/sponsors/sponsor8.png";
 import sponsor9 from "../../assets/images/sponsors/sponsor9.png";
+import webelieveBackground from '../../assets/images/webelieveBackground.jpg';
 import AnimatedComponent from "../../components/atom/AnimatedComponent";
 import PillButton from "../../components/atom/PillButton";
 import Carousel from "../../components/molecules/CarouselCustom";
-import CoverImageHome from "../../components/molecules/CoverImageHome";
+import CoverImageHomeMobile from '../../components/molecules/CoverImageHomeMobile';
 import JuryCarousel from "../../components/molecules/JuryCarousel";
 import { AnimationClass } from "../../constant/AnimationClass";
 import { PathName } from "../../constant/PathName";
 import { useAuth } from "../../context/DataContext";
 import { analytics } from "../../firebase";
-import LetUsGuideTo from "./LetUsGuideTo";
-import ModalEvent from './ModalEvent';
-import CoverImageHomeMobile from '../../components/molecules/CoverImageHomeMobile';
 import LetUsGuideToMobile from './LetUsGuideToMobile';
+import ModalEvent from './ModalEvent';
 
 const listOfSponsor = [
     sponsor1, sponsor6, sponsor8, sponsor4
@@ -79,13 +69,26 @@ const HomeMobile = (props) => {
 
             <LetUsGuideToMobile />
 
-            <div className="image-container-fadedTopBottom autoHeight">
+            <div className="image-container-fadedTopBottom autoHeight" style={{ position: "relative" }}>
                 <img loading="lazy" src={webelieveBackground} alt={`webelieveBackground`} style={{ width: "100%" }} />
-                <div className="musicForEveryone">
-                    <div className="weOfferContainer" style={{ color: 'white', justifyItems: "center" }}>
+                <div className="musicForEveryone" style={{ zIndex: 1000 }}>
+                    <div className="weOfferContainer" style={{ color: 'white', justifyItems: "center", textAlign: "center" }}>
                         <AnimatedComponent animationClass={AnimationClass.fadeIn}>
-                            <div className="creamText mangolaineFont textWithShadow" style={{ width: 200, fontSize: 17, letterSpacing: 3 }}>
+                            <div className="font-size-b-mob creamText mangolaineFont textWithShadow" style={{ width: 350, letterSpacing: 3 }}>
                                 {t("home3M")}
+                            </div>
+                        </AnimatedComponent>
+                        <AnimatedComponent animationClass={AnimationClass.fadeIn}>
+                            <div className="flex justify-center"
+                                style={{
+                                    color: "#FFF2DB",
+                                    position: 'absolute',
+                                    transform: 'translate(-50%, 50%)',
+                                    width: "350px",
+                                    zIndex: 1000
+                                }}
+                            >
+                                <PillButton text={t("home4")} onClick={() => handleMovePage(PathName.about)} />
                             </div>
                         </AnimatedComponent>
                     </div>
@@ -98,47 +101,51 @@ const HomeMobile = (props) => {
                 <div style={{
                     color: "#FFF2DB",
                     position: 'absolute',
-                    top: '50%',
+                    top: '47%',
                     left: '50%',
                     transform: 'translate(-50%, -50%)',
                     width: "350px",
                     zIndex: 1000
                 }}>
                     <AnimatedComponent animationClass={AnimationClass.fadeIn}>
-                        <div className="mangolaineFont experinceText text-align-center" style={{ letterSpacing: 8 }} >
+                        <div className="font-size-b-mob mangolaineFont text-align-center textWithShadow" style={{ letterSpacing: 8 }} >
                             EXPERIENCE<br />APCS
                         </div>
                     </AnimatedComponent>
                 </div>
 
-                <div style={{
-                    color: "#FFF2DB",
-                    position: 'absolute',
-                    top: '77%',
-                    left: '50%',
-                    transform: 'translate(-50%, -50%)',
-                    width: "350px",
-                    zIndex: 1000
-                }}>
+                <div
+                    className='font-size-m-mob'
+                    style={{
+                        color: "#FFF2DB",
+                        position: 'absolute',
+                        top: '77%',
+                        left: '50%',
+                        transform: 'translate(-50%, -50%)',
+                        width: "350px",
+                        zIndex: 1000
+                    }}>
                     <AnimatedComponent animationClass={AnimationClass.fadeIn}>
-                        <div className="experienceContentText textWithShadow" style={{ textAlign: "center" }}>
+                        <div className="textWithShadow" style={{ textAlign: "center" }}>
                             {t("home5")}
                         </div>
                     </AnimatedComponent>
                 </div>
 
-                <div style={{
-                    color: "#FFF2DB",
-                    position: 'absolute',
-                    top: '83%',
-                    left: '50%',
-                    transform: 'translate(-50%, -50%)',
-                    width: "350px",
-                    justifySelf: 'center',
-                    zIndex: 1000
-                }}>
+                <div
+                    className='font-size-m-mob'
+                    style={{
+                        color: "#FFF2DB",
+                        position: 'absolute',
+                        top: '84%',
+                        left: '50%',
+                        transform: 'translate(-50%, -50%)',
+                        width: "350px",
+                        justifySelf: 'center',
+                        zIndex: 1000
+                    }}>
                     <AnimatedComponent animationClass={AnimationClass.fadeIn}>
-                        <div className="experienceContentText textWithShadow">
+                        <div className="textWithShadow" style={{ justifySelf: "center" }}>
                             {t('home5A')}
                         </div>
                     </AnimatedComponent>
@@ -147,7 +154,7 @@ const HomeMobile = (props) => {
                 <div style={{
                     color: "#FFF2DB",
                     position: 'absolute',
-                    top: '89%',
+                    top: '92%',
                     left: '50%',
                     transform: 'translate(-50%, -50%)',
                     width: "350px",

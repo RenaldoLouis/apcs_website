@@ -1,10 +1,9 @@
-import React, { useEffect, useState } from "react";
-import { useInView } from "react-intersection-observer";
-import AnimatedComponent from "../atom/AnimatedComponent";
-import { useLocation } from "react-router-dom";
-import { ContentPosition } from "../../constant/ContentPosition";
+import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
+import { useLocation } from "react-router-dom";
 import { AnimationClass } from "../../constant/AnimationClass";
+import { ContentPosition } from "../../constant/ContentPosition";
+import AnimatedComponent from "../atom/AnimatedComponent";
 
 const CoverImageHomeMobile = (props) => {
     const { logo, background, position } = props
@@ -62,12 +61,12 @@ const CoverImageHomeMobile = (props) => {
                 <AnimatedComponent animationClass={AnimationClass.fadeIn}>
                     <div className="row justify-center" style={{ justifySelf: "center" }}>
                         <div className="col-md-6">
-                            <div className="goldenText mangolaineFont" style={{ fontSize: 40, textAlign: 'center', width: 237, letterSpacing: 5 }}>
+                            <div className="goldenText mangolaineFont" style={{ fontSize: 40, textAlign: 'center', width: 237, letterSpacing: 5, lineHeight: "38px" }}>
                                 A PIANO CONCERTO SERIES
                             </div>
                         </div>
                     </div>
-                    <div className="row justify-center">
+                    <div className="row justify-center" style={{ marginTop: 18 }}>
                         <div className="col-md-6">
                             <div className="fontSizeDesktopOnlyHeader text-align-center" style={{ color: "white" }}>
                                 {t("home1")}
