@@ -197,11 +197,11 @@ const Home = (props) => {
                         </>
                     )
                 }
-
-                <ModalEvent
+                {/* TO DO update View */}
+                {/* <ModalEvent
                     open={open}
                     handleClose={handleClose}
-                />
+                /> */}
             </div >
         )
 

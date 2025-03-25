@@ -15,9 +15,10 @@ const MainLayout = (props) => {
             </section>
             <Footer />
 
-            <footer className="sticky-footer">
+            {/* TO DO update View */}
+            {/* <footer className="sticky-footer">
                 <p>Event news</p>
-            </footer>
+            </footer> */}
 
             {isNavbarMobileOpen && (
                 <div className="backdrop" />

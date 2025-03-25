@@ -24,7 +24,6 @@ import { PathName } from "../../constant/PathName";
 import { useAuth } from "../../context/DataContext";
 import { analytics } from "../../firebase";
 import LetUsGuideToMobile from './LetUsGuideToMobile';
-import ModalEvent from './ModalEvent';
 
 const listOfSponsor = [
     sponsor1, sponsor6, sponsor8, sponsor4
@@ -211,11 +210,11 @@ const HomeMobile = (props) => {
                     </div>
                 </>
             )}
-
-            <ModalEvent
+            {/* TO DO update View */}
+            {/* <ModalEvent
                 open={open}
                 handleClose={handleClose}
-            />
+            /> */}
         </div >
     )
 }
