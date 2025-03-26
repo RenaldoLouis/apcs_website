@@ -103,6 +103,7 @@ const Carousel = ({ interval = 5000, homePage = true }) => {
                     <IconButton
                         aria-label="back"
                         size="small"
+                        onClick={goToPrevSlide}
                         sx={{
                             backgroundColor: "rgba(141, 135, 132, 1)",
                             marginLeft: "20px",
@@ -133,6 +134,7 @@ const Carousel = ({ interval = 5000, homePage = true }) => {
                                 backgroundColor: "rgba(120, 115, 112, 1)",
                             },
                         }}
+                        onClick={goToNextSlide}
                     >
                         <RightOutlined />
                     </IconButton>

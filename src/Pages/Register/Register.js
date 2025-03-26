@@ -10,22 +10,20 @@ import {
     FormControlLabel,
     FormLabel,
     IconButton,
-    InputLabel,
-    MenuItem,
     Radio,
     RadioGroup,
-    Select,
     TextField,
     Tooltip
 } from "@mui/material";
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { InputNumber } from 'antd';
 import axios from 'axios';
 import dayjs from 'dayjs';
 import { addDoc, collection, serverTimestamp } from "firebase/firestore";
-import React, { useMemo, useState } from "react";
-import { Controller, useForm } from "react-hook-form";
+import React, { useEffect, useMemo, useState } from "react";
+import { Controller, useFieldArray, useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { toast } from 'react-toastify';
 import apis from '../../apis';
@@ -47,8 +45,23 @@ const Register = () => {
         FreeChoice: "Free Choice (Combination Age - No Limitation)"
     }
 
+    const instrumentList = {
+        Piano: "Piano",
+        Strings: "Strings",
+        Woodwinds: "Woodwinds",
+        Brass: "Brass",
+        Percussions: "Percussions",
+        VocalChoir: "VocalChoir",
+    }
+
+    const userType = {
+        Teacher: "I'm a Teacher registering my students",
+        Personal: "I'm Registernig myself (If you are participants / parents register for your child)",
+    }
+
     const [isLoading, setIsLoading] = useState(false);
     const [isSaveSuccess, setIsSaveSuccess] = useState(false);
+    const [totalPerformer, setTotalPerformer] = useState(1);
 
     const { watch, register, control, formState: { errors }, handleSubmit, reset, clearErrors } = useForm({
         defaultValues: {
@@ -67,6 +80,10 @@ const Register = () => {
             youtubeLink: "",
         },
     })
+    const { fields, append, remove } = useFieldArray({
+        control,
+        name: "performers"
+    });
 
     const onError = (errors) => {
         // Get the first error key
@@ -104,9 +121,9 @@ const Register = () => {
             const directoryName2 = pdfRepertoire.name.replace(/\s/g, "").replace(/\.[^/.]+$/, "");
             const res2 = await apis.aws.postSignedUrl(directoryName2, "pdfRepertoire")
             const signedUrl2 = res2.data.link
-            await axios.put(signedUrl2, birthCert, {
+            await axios.put(signedUrl2, pdfRepertoire, {
                 headers: {
-                    'Content-Type': birthCert.type, // Ensure this matches the file type
+                    'Content-Type': pdfRepertoire.type, // Ensure this matches the file type
                 },
             });
 
@@ -115,9 +132,9 @@ const Register = () => {
             const directoryName3 = examCertificate.name.replace(/\s/g, "").replace(/\.[^/.]+$/, "");
             const res3 = await apis.aws.postSignedUrl(directoryName3, "examCertificate")
             const signedUrl3 = res3.data.link
-            await axios.put(signedUrl3, birthCert, {
+            await axios.put(signedUrl3, examCertificate, {
                 headers: {
-                    'Content-Type': birthCert.type, // Ensure this matches the file type
+                    'Content-Type': examCertificate.type, // Ensure this matches the file type
                 },
             });
 
@@ -164,9 +181,37 @@ const Register = () => {
 
     const selectedInstrument = watch("instrumentCategory");
 
-    const isDoubleContestant = useMemo(() => {
-        return selectedInstrument !== InstrumentCategory.Piano_Solo
-    }, [selectedInstrument])
+    // Sync the fields with `totalPerformer`
+    useEffect(() => {
+        const currentLength = fields.length;
+        if (totalPerformer > currentLength) {
+            // Add fields
+            for (let i = currentLength; i < totalPerformer; i++) {
+                append({ name: "", dob: null });
+            }
+        } else if (totalPerformer < currentLength) {
+            // Remove fields
+            for (let i = currentLength; i > totalPerformer; i--) {
+                remove(i - 1);
+            }
+        }
+    }, [totalPerformer]);
+
+    const isEnsemble = useMemo(() => {
+        return totalPerformer > 1
+    }, [totalPerformer])
+
+    const performerExpText = useMemo(() => {
+        if (!isEnsemble) {
+            return "you are performing solo"
+        } else {
+            return "you are performing as an ensemble"
+        }
+    }, [isEnsemble])
+
+    const handleChangePerformer = (value) => {
+        setTotalPerformer(value)
+    }
 
     const tooltipMessageYoutubeFormat = useMemo(() => {
         let text = null;
@@ -240,6 +285,60 @@ const Register = () => {
                         </div>
                         <form className="d-flex flex-column" onSubmit={handleSubmit(onSubmit, onError)}>
                             <Box className="row">
+                                <Box className="col-7">
+                                    <FormControl component="fieldset" error={!!errors.userType}>
+                                        <FormLabel
+                                            component="legend"
+                                            sx={{
+                                                color: "#e5cc92", // Gold text color
+                                                "&.Mui-focused": { color: "#e5cc92 !important" }, // Forces gold on focus
+                                                "&:hover": { color: "#e5cc92 !important" }, // Forces gold on hover
+                                            }}
+                                        >
+                                            Who are you?
+                                        </FormLabel>
+
+                                        <Controller
+                                            name="userType"
+                                            control={control}
+                                            rules={{ required: "Please Choose" }}
+                                            render={({ field }) => (
+                                                <RadioGroup {...field} row>
+                                                    {Object.entries(userType).map(([key, label]) => (
+                                                        <FormControlLabel
+                                                            id={`${key}-${label}`}
+                                                            key={key}
+                                                            value={key}
+                                                            control={
+                                                                <Radio
+                                                                    sx={{
+                                                                        color: "#e5cc92", // Unselected color
+                                                                        "&.Mui-checked": {
+                                                                            color: "#e5cc92", // Selected color
+                                                                        },
+
+                                                                        // 👇 Removes blue focus and replaces with gold glow
+                                                                        "&.Mui-focusVisible": {
+                                                                            outline: "2px solid #e5cc92", // Gold outline when focused
+                                                                        },
+                                                                        "&.Mui-checked.Mui-focusVisible": {
+                                                                            outline: "2px solid #e5cc92", // Gold glow for checked state
+                                                                        },
+                                                                    }}
+                                                                />
+                                                            }
+                                                            label={label}
+                                                            sx={{ color: "#e5cc92" }}
+                                                        />
+                                                    ))}
+                                                </RadioGroup>
+                                            )}
+                                        />
+                                        {errors.userType && <p style={{ color: "red" }}>{errors.userType.message}</p>}
+                                    </FormControl>
+                                </Box>
+                            </Box>
+                            <Box className="row">
                                 <Box className="col-12">
                                     <Controller
                                         name="email"
@@ -267,7 +366,7 @@ const Register = () => {
                                     />
                                 </Box>
                             </Box>
-                            <Controller
+                            {/* <Controller
                                 name="name"
                                 control={control}
                                 rules={{
@@ -285,7 +384,7 @@ const Register = () => {
                                         helperText={error ? error.message : ""}
                                     />
                                 )}
-                            />
+                            /> */}
                             {/* Age Category (Radio Buttons) */}
                             <FormControl component="fieldset" error={!!errors.ageCategory}>
                                 <FormLabel
@@ -336,7 +435,7 @@ const Register = () => {
                                     )}
                                 />
                                 {errors.ageCategory && <p style={{ color: "red" }}>{errors.ageCategory.message}</p>}
-                            </FormControl>;
+                            </FormControl>
 
 
                             {/* Phone Number */}
@@ -416,107 +515,56 @@ const Register = () => {
                                 )}
                             />
 
-                            {/* Instrument Category (Dropdown) */}
-                            <FormControl
-                                variant="standard"
-                                className="custom-dropdown"
-                                error={!!errors.instrumentCategory}
-                                sx={{ width: "100%" }}
-                            >
-                                {/* Gold Label */}
-                                <InputLabel
+                            {/* Instrument Category (Radio Button) */}
+                            <FormControl component="fieldset" error={!!errors.instrumentCategory}>
+                                <FormLabel
+                                    component="legend"
                                     sx={{
-                                        color: "#e5cc92", // Gold label text
-                                        "&.Mui-focused": { color: "#e5cc92 !important" }, // Keep label gold when focused
+                                        color: "#e5cc92", // Gold text color
+                                        "&.Mui-focused": { color: "#e5cc92 !important" }, // Forces gold on focus
+                                        "&:hover": { color: "#e5cc92 !important" }, // Forces gold on hover
                                     }}
                                 >
-                                    Instrument Category
-                                </InputLabel>
+                                    Select Instrument Category
+                                </FormLabel>
 
                                 <Controller
                                     name="instrumentCategory"
                                     control={control}
                                     rules={{ required: "Please select an instrument category" }}
                                     render={({ field }) => (
-                                        <Select
-                                            {...field}
-                                            displayEmpty
-                                            MenuProps={{
-                                                PaperProps: {
-                                                    sx: {
-                                                        background: "#26261c !important",
-                                                    },
-                                                },
-                                                // Optionally,style the popover container if needed:
-                                                // sx: {
-                                                //   background: "#26261c !important",
-                                                // },
-                                            }}
-                                            sx={{
-                                                color: "#e5cc92", // Gold text color
-                                                borderBottom: "1px solid #e5cc92", // Gold bottom border
+                                        <RadioGroup {...field} row>
+                                            {Object.entries(instrumentList).map(([key, label]) => (
+                                                <FormControlLabel
+                                                    id={`${key}-${label}`}
+                                                    key={key}
+                                                    value={key}
+                                                    control={
+                                                        <Radio
+                                                            sx={{
+                                                                color: "#e5cc92", // Unselected color
+                                                                "&.Mui-checked": {
+                                                                    color: "#e5cc92", // Selected color
+                                                                },
 
-                                                "& .MuiSelect-icon": { color: "#e5cc92" }, // Gold dropdown arrow
-
-                                                "&:hover": { borderBottom: "2px solid #e5cc92" }, // Gold hover effect
-
-                                                // 👇 Completely removes blue focus and applies gold focus effect
-                                                "&.Mui-focused": {
-                                                    color: "#e5cc92 !important", // Keep text gold when focused
-                                                    borderBottom: "2px solid #e5cc92 !important", // Gold bottom border when focused
-                                                },
-
-                                                "&:before": {
-                                                    borderBottom: "1px solid #e5cc92 !important", // Gold default underline
-                                                },
-
-                                                "&:after": {
-                                                    borderBottom: "2px solid #e5cc92 !important", // Gold focus underline
-                                                },
-
-                                                "&.Mui-focused:after": {
-                                                    borderBottom: "2px solid #e5cc92 !important", // Gold underline focus effect
-                                                },
-
-                                                "& .MuiInputBase-root:after": {
-                                                    borderBottom: "2px solid #e5cc92 !important", // Ensures gold focus underline
-                                                },
-
-                                                "&:focus": {
-                                                    outline: "none !important", // Completely removes blue outline
-                                                },
-                                            }}
-                                        >
-                                            {/* Gold Menu Items */}
-                                            <MenuItem value="" disabled>
-                                                <span style={{ color: "#e5cc92" }}>Select an Instrument</span>
-                                            </MenuItem>
-                                            <MenuItem sx={{ color: "#e5cc92" }} value={InstrumentCategory.Piano_Solo}>
-                                                Piano Solo (One piano, two hands)
-                                            </MenuItem>
-                                            <MenuItem sx={{ color: "#e5cc92" }} value={InstrumentCategory.Piano_Fourhands_one}>
-                                                Piano Fourhands (One piano, four hands)
-                                            </MenuItem>
-                                            <MenuItem sx={{ color: "#e5cc92" }} value={InstrumentCategory.Piano_Fourhands_two}>
-                                                Piano Fourhands (Two piano, four hands)
-                                            </MenuItem>
-                                            <MenuItem sx={{ color: "#e5cc92" }} value={InstrumentCategory.Chamber_Music_one}>
-                                                Chamber Music (One piano, six-eight hands)
-                                            </MenuItem>
-                                            <MenuItem sx={{ color: "#e5cc92" }} value={InstrumentCategory.Chamber_Music_two}>
-                                                Chamber Music (Two piano, six-eight hands)
-                                            </MenuItem>
-                                            <MenuItem sx={{ color: "#e5cc92" }} value={InstrumentCategory.Chamber_Music_any}>
-                                                Chamber Music (Any insturment(s) with piano(s))
-                                            </MenuItem>
-                                        </Select>
+                                                                // 👇 Removes blue focus and replaces with gold glow
+                                                                "&.Mui-focusVisible": {
+                                                                    outline: "2px solid #e5cc92", // Gold outline when focused
+                                                                },
+                                                                "&.Mui-checked.Mui-focusVisible": {
+                                                                    outline: "2px solid #e5cc92", // Gold glow for checked state
+                                                                },
+                                                            }}
+                                                        />
+                                                    }
+                                                    label={label}
+                                                    sx={{ color: "#e5cc92" }}
+                                                />
+                                            ))}
+                                        </RadioGroup>
                                     )}
                                 />
-
-                                {/* Error Message in Red */}
-                                {errors.instrumentCategory && (
-                                    <p style={{ color: "red" }}>{errors.instrumentCategory.message}</p>
-                                )}
+                                {errors.instrumentCategory && <p style={{ color: "red" }}>{errors.instrumentCategory.message}</p>}
                             </FormControl>
 
 
@@ -529,151 +577,145 @@ const Register = () => {
                                 )}
                             /> */}
 
-                            {/* Date of Birth */}
-                            <Box className='d-flex' sx={{ width: "100%", gap: 4 }}>
-                                <LocalizationProvider dateAdapter={AdapterDayjs}>
-                                    <Controller
-                                        name="dob"
-                                        control={control}
-                                        rules={{ required: "Date of Birth is required" }}
-                                        render={({ field, fieldState: { error } }) => (
-                                            <DatePicker
-                                                {...field}
-                                                label="Date of Birth"
-                                                value={field.value ? dayjs(field.value) : null}
-                                                onChange={(newValue) => field.onChange(newValue)}
-                                                sx={{
-                                                    mt: 4,
-                                                    mb: 4,
-                                                    "& .MuiInputBase-root": {
-                                                        color: "#e5cc92", // Gold text color
-                                                    },
-                                                    "& .MuiOutlinedInput-notchedOutline": {
-                                                        borderColor: "#e5cc92 !important", // Gold border (default)
-                                                    },
-                                                    "&:hover .MuiOutlinedInput-notchedOutline": {
-                                                        borderColor: "#e5cc92 !important", // Gold border on hover
-                                                    },
-                                                    "& .MuiInputLabel-root": {
-                                                        color: "#e5cc92", // Gold label color
-                                                    },
-                                                    "& .MuiInputLabel-root.Mui-focused": {
-                                                        color: "#e5cc92 !important", // Force gold label on focus
-                                                    },
-                                                    "& .MuiIconButton-root": {
-                                                        color: "#e5cc92", // Gold calendar icon
-                                                    },
-                                                    "& .MuiPickersDay-root": {
-                                                        color: "#e5cc92", // Gold date numbers
-                                                    },
-                                                    "& .MuiPickersDay-root.Mui-selected": {
-                                                        backgroundColor: "#e5cc92", // Gold background on selected date
-                                                        color: "black", // Black text on selected date
-                                                    },
-                                                    "& .MuiOutlinedInput-root": {
-                                                        "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
-                                                            borderColor: "#e5cc92 !important", // Force gold outline when focused
-                                                        },
-                                                    },
-                                                    "& .MuiInputBase-input": {
-                                                        caretColor: "#e5cc92", // Gold cursor
-                                                    },
-                                                    "& .Mui-focused": {
-                                                        color: "#e5cc92 !important", // Forces gold text when focused
-                                                    },
-                                                    "& .MuiOutlinedInput-root.Mui-focused": {
-                                                        borderColor: "#e5cc92 !important", // Forces gold border when focused
-                                                    },
-                                                    "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline": {
-                                                        borderColor: "#e5cc92 !important", // Forces gold border line when focused
-                                                    },
-                                                }}
-                                                slotProps={{
-                                                    textField: {
-                                                        variant: "outlined", // Change this to "standard" if you prefer no outline
-                                                        error: !!error,
-                                                        helperText: error ? error.message : "",
-                                                        InputLabelProps: { shrink: true },
-                                                    },
-                                                }}
-                                            />
-                                        )}
-                                    />
-                                </LocalizationProvider>
-
-                                {isDoubleContestant && (
-
-                                    <LocalizationProvider dateAdapter={AdapterDayjs}>
+                            <Box className="row mt-2">
+                                <Box className="col-2">
+                                    <FormControl component="fieldset" error={!!errors.totalPerformer}>
+                                        <FormLabel
+                                            component="legend"
+                                            sx={{
+                                                color: "#e5cc92", // Gold text color
+                                                "&.Mui-focused": { color: "#e5cc92 !important" }, // Forces gold on focus
+                                                "&:hover": { color: "#e5cc92 !important" }, // Forces gold on hover
+                                            }}
+                                        >
+                                            Input total performer
+                                        </FormLabel>
                                         <Controller
-                                            name="dob2"
+                                            name="totalPerformer"
                                             control={control}
-                                            rules={{ required: "Date of Birth is required" }}
+                                            rules={{
+                                                required: "Total Performer Is required", // Custom error message
+                                            }}
                                             render={({ field, fieldState: { error } }) => (
-                                                <DatePicker
-                                                    {...field}
-                                                    label="Date of Birth"
-                                                    value={field.value ? dayjs(field.value) : null}
-                                                    onChange={(newValue) => field.onChange(newValue)}
-                                                    sx={{
-                                                        mt: 4,
-                                                        mb: 4,
-                                                        "& .MuiInputBase-root": {
-                                                            color: "#e5cc92", // Gold text color
-                                                        },
-                                                        "& .MuiOutlinedInput-notchedOutline": {
-                                                            borderColor: "#e5cc92 !important", // Gold border (default)
-                                                        },
-                                                        "&:hover .MuiOutlinedInput-notchedOutline": {
-                                                            borderColor: "#e5cc92 !important", // Gold border on hover
-                                                        },
-                                                        "& .MuiInputLabel-root": {
-                                                            color: "#e5cc92", // Gold label color
-                                                        },
-                                                        "& .MuiInputLabel-root.Mui-focused": {
-                                                            color: "#e5cc92 !important", // Force gold label on focus
-                                                        },
-                                                        "& .MuiIconButton-root": {
-                                                            color: "#e5cc92", // Gold calendar icon
-                                                        },
-                                                        "& .MuiPickersDay-root": {
-                                                            color: "#e5cc92", // Gold date numbers
-                                                        },
-                                                        "& .MuiPickersDay-root.Mui-selected": {
-                                                            backgroundColor: "#e5cc92", // Gold background on selected date
-                                                            color: "black", // Black text on selected date
-                                                        },
-                                                        "& .MuiOutlinedInput-root": {
-                                                            "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
-                                                                borderColor: "#e5cc92 !important", // Force gold outline when focused
-                                                            },
-                                                        },
-                                                        "& .MuiInputBase-input": {
-                                                            caretColor: "#e5cc92", // Gold cursor
-                                                        },
-                                                        "& .Mui-focused": {
-                                                            color: "#e5cc92 !important", // Forces gold text when focused
-                                                        },
-                                                        "& .MuiOutlinedInput-root.Mui-focused": {
-                                                            borderColor: "#e5cc92 !important", // Forces gold border when focused
-                                                        },
-                                                        "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline": {
-                                                            borderColor: "#e5cc92 !important", // Forces gold border line when focused
-                                                        },
+                                                <InputNumber
+                                                    suffix="Person"
+                                                    min={1} max={15}
+                                                    onError={!!error}
+                                                    defaultValue={field.value} // or use `value={field.value}` explicitly
+                                                    onChange={(value) => {
+                                                        field.onChange(value);       // Update form state
+                                                        handleChangePerformer(value); // Your custom logic
                                                     }}
-                                                    slotProps={{
-                                                        textField: {
-                                                            variant: "outlined", // Change this to "standard" if you prefer no outline
-                                                            error: !!error,
-                                                            helperText: error ? error.message : "",
-                                                            InputLabelProps: { shrink: true },
-                                                        },
+                                                    style={{
+                                                        width: '100%',
                                                     }}
                                                 />
                                             )}
                                         />
-                                    </LocalizationProvider>
-                                )}
+                                        <small class="note">*{performerExpText}.</small>
+                                        {errors.totalPerformer && <p style={{ color: "red" }}>{errors.totalPerformer.message}</p>}
+                                    </FormControl>
+                                </Box>
                             </Box>
+                            {/* #region Student's Info */}
+                            {fields.map((item, index) => (
+                                <Box className="row mt-2" key={item.id}>
+                                    <Box className="col-6">
+                                        <Controller
+                                            name={`performers.${index}.name`}
+                                            control={control}
+                                            rules={{
+                                                required: "Name is required", // Custom error message
+                                            }}
+                                            render={({ field, fieldState: { error } }) => (
+                                                <TextField
+                                                    {...field}
+                                                    placeholder="John Doe"
+                                                    id="standard-basic"
+                                                    label={t("name")}
+                                                    variant="standard"
+                                                    className="custom-textfield-full mb-4"
+                                                    error={!!error} // Highlight the field on error
+                                                    helperText={error ? error.message : ""}
+                                                />
+                                            )}
+                                        />
+                                    </Box>
+                                    <Box className="col-6">
+                                        <Box className='d-flex' sx={{ width: "100%", gap: 4 }}>
+                                            <LocalizationProvider dateAdapter={AdapterDayjs}>
+                                                <Controller
+                                                    name={`performers.${index}.dob`}
+                                                    control={control}
+                                                    rules={{ required: "Date of Birth is required" }}
+                                                    render={({ field, fieldState: { error } }) => (
+                                                        <DatePicker
+                                                            {...field}
+                                                            label="Date of Birth"
+                                                            value={field.value ? dayjs(field.value) : null}
+                                                            onChange={(newValue) => field.onChange(newValue)}
+                                                            sx={{
+                                                                mt: 4,
+                                                                mb: 4,
+                                                                "& .MuiInputBase-root": {
+                                                                    color: "#e5cc92", // Gold text color
+                                                                },
+                                                                "& .MuiOutlinedInput-notchedOutline": {
+                                                                    borderColor: "#e5cc92 !important", // Gold border (default)
+                                                                },
+                                                                "&:hover .MuiOutlinedInput-notchedOutline": {
+                                                                    borderColor: "#e5cc92 !important", // Gold border on hover
+                                                                },
+                                                                "& .MuiInputLabel-root": {
+                                                                    color: "#e5cc92", // Gold label color
+                                                                },
+                                                                "& .MuiInputLabel-root.Mui-focused": {
+                                                                    color: "#e5cc92 !important", // Force gold label on focus
+                                                                },
+                                                                "& .MuiIconButton-root": {
+                                                                    color: "#e5cc92", // Gold calendar icon
+                                                                },
+                                                                "& .MuiPickersDay-root": {
+                                                                    color: "#e5cc92", // Gold date numbers
+                                                                },
+                                                                "& .MuiPickersDay-root.Mui-selected": {
+                                                                    backgroundColor: "#e5cc92", // Gold background on selected date
+                                                                    color: "black", // Black text on selected date
+                                                                },
+                                                                "& .MuiOutlinedInput-root": {
+                                                                    "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
+                                                                        borderColor: "#e5cc92 !important", // Force gold outline when focused
+                                                                    },
+                                                                },
+                                                                "& .MuiInputBase-input": {
+                                                                    caretColor: "#e5cc92", // Gold cursor
+                                                                },
+                                                                "& .Mui-focused": {
+                                                                    color: "#e5cc92 !important", // Forces gold text when focused
+                                                                },
+                                                                "& .MuiOutlinedInput-root.Mui-focused": {
+                                                                    borderColor: "#e5cc92 !important", // Forces gold border when focused
+                                                                },
+                                                                "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline": {
+                                                                    borderColor: "#e5cc92 !important", // Forces gold border line when focused
+                                                                },
+                                                            }}
+                                                            slotProps={{
+                                                                textField: {
+                                                                    variant: "outlined", // Change this to "standard" if you prefer no outline
+                                                                    error: !!error,
+                                                                    helperText: error ? error.message : "",
+                                                                    InputLabelProps: { shrink: true },
+                                                                },
+                                                            }}
+                                                        />
+                                                    )}
+                                                />
+                                            </LocalizationProvider>
+                                        </Box>
+                                    </Box>
+                                </Box>
+                            ))}
 
                             {/* Exam Certificate Upload */}
                             <FileInput
