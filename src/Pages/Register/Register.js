@@ -56,7 +56,7 @@ const Register = () => {
 
     const userType = {
         Teacher: "I'm a Teacher registering my students",
-        Personal: "I'm Registernig myself (If you are participants / parents register for your child)",
+        Personal: "I'm Registering myself (If you are participants / parents register for your child)",
     }
 
     const [isLoading, setIsLoading] = useState(false);
@@ -138,8 +138,11 @@ const Register = () => {
                 },
             });
 
-            const formattedDate = data?.dob?.format("YYYY-MM-DD") ?? null;
-            const formattedDate2 = data?.dob2?.format("YYYY-MM-DD") ?? null;
+            const formattedDatePerformers = data?.performers.map((performer) => {
+                const formattedDate = performer?.dob?.format("YYYY-MM-DD") ?? null;
+
+                return { ...performer, dob: formattedDate }
+            })
 
             // save data to Firebase
             await addDoc(collection(db, "Registrants2025"), {
@@ -147,11 +150,10 @@ const Register = () => {
                 ageCategory: data.ageCategory,
                 email: data.email,
                 instrumentCategory: data.instrumentCategory,
-                name: data.name,
                 city: data.city,
+                userType: data.userType,
                 country: data.country,
-                dob: formattedDate,
-                dob2: formattedDate2,
+                performers: formattedDatePerformers,
                 phoneNumber: data.phoneNumber,
                 teacherName: data.teacherName,
                 youtubeLink: data.youtubeLink,
@@ -723,7 +725,7 @@ const Register = () => {
                                 control={control}
                                 label="Exam Certificate"
                                 rules={{ required: "Upload required" }}
-                                tooltipLabel="Please attach your latest exam certificate / essay of maximum 80 words in pdf if you are not joining any exams."
+                                tooltipLabel="Please attach your latest exam certificate / essay of maximum 80 words in pdf if you are not joining any exams. Please Upload All students in 1 pdf"
                             />
 
                             {/* Birth Certificate Upload */}
@@ -732,7 +734,7 @@ const Register = () => {
                                 control={control}
                                 label="Birth Certificate"
                                 rules={{ required: "Upload required" }}
-                                tooltipLabel="Please attach your copy of Birth Certificate/Passport/KTP (identity card) in pdf"
+                                tooltipLabel="Please attach your copy of Birth Certificate/Passport/KTP (identity card) in pdf. Please Upload All students in 1 pdf"
                             />
 
                             {/* PDF Repertoire Upload */}
@@ -742,7 +744,7 @@ const Register = () => {
                                 control={control}
                                 label="Repertoire"
                                 rules={{ required: "Upload required" }}
-                                tooltipLabel="Please attach your PDF repertoire here"
+                                tooltipLabel="Please attach your PDF repertoire here. Please Upload All students in 1 pdf"
                             />
 
                             {/* YouTube Link */}
