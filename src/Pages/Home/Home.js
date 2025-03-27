@@ -1,6 +1,3 @@
-import Box from '@mui/material/Box';
-import Modal from '@mui/material/Modal';
-import Typography from '@mui/material/Typography';
 import { logEvent } from "firebase/analytics";
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -11,6 +8,8 @@ import goldenLine from "../../assets/images/goldenLine.png";
 import musicForEveryone from "../../assets/images/musicForEveryone.svg";
 import musicForEveryoneID from "../../assets/images/musicForEveryoneID.svg";
 import pianoKeys from '../../assets/images/pianoKeys.jpg';
+import sponsor10 from "../../assets/images/sponsors/elevee.png";
+import sponsor11 from "../../assets/images/sponsors/saturdays.png";
 import sponsor1 from "../../assets/images/sponsors/sponsor1.png";
 import sponsor2 from "../../assets/images/sponsors/sponsor2.png";
 import sponsor3 from "../../assets/images/sponsors/sponsor3.png";
@@ -20,6 +19,8 @@ import sponsor6 from "../../assets/images/sponsors/sponsor6.png";
 import sponsor7 from "../../assets/images/sponsors/sponsor7.png";
 import sponsor8 from "../../assets/images/sponsors/sponsor8.png";
 import sponsor9 from "../../assets/images/sponsors/sponsor9.png";
+import sponsor13 from "../../assets/images/sponsors/yamaha.png";
+import sponsor12 from "../../assets/images/sponsors/zojirushi.png";
 import AnimatedComponent from "../../components/atom/AnimatedComponent";
 import PillButton from "../../components/atom/PillButton";
 import Carousel from "../../components/molecules/CarouselCustom";
@@ -29,19 +30,18 @@ import { AnimationClass } from "../../constant/AnimationClass";
 import { PathName } from "../../constant/PathName";
 import { useAuth } from "../../context/DataContext";
 import { analytics } from "../../firebase";
-import LetUsGuideTo from "./LetUsGuideTo";
-import ModalEvent from './ModalEvent';
 import HomeMobile from './HomeMobile';
+import LetUsGuideTo from "./LetUsGuideTo";
 
 const listOfSponsor = [
-    sponsor1, sponsor6, sponsor8, sponsor4
+    sponsor1, sponsor10, sponsor6, sponsor11,
 ]
 const listOfSponsor2 = [
-    sponsor5, sponsor2, sponsor7, sponsor9, sponsor3
+    sponsor13, sponsor12, sponsor8, sponsor4, sponsor5, sponsor7
 ]
 
 const completeListOfSponsor = [
-    sponsor1, sponsor6, sponsor8, sponsor4, sponsor5, sponsor2, sponsor7, sponsor9, sponsor3
+    sponsor1, sponsor10, sponsor11, sponsor12, sponsor13, sponsor6, sponsor8, sponsor4, sponsor5, sponsor2, sponsor7, sponsor9, sponsor3
 ]
 
 const Home = (props) => {

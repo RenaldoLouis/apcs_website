@@ -4,6 +4,9 @@ import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import apcLogoBold from "../../assets/images/apc_logo_bold.svg";
 import experienceHomeMobile from "../../assets/images/experienceHomeMobile.jpg";
+import sponsor13 from "../../assets/images/sponsors/arumii.png";
+import sponsor10 from "../../assets/images/sponsors/elevee.png";
+import sponsor11 from "../../assets/images/sponsors/saturdays.png";
 import sponsor1 from "../../assets/images/sponsors/sponsor1.png";
 import sponsor2 from "../../assets/images/sponsors/sponsor2.png";
 import sponsor3 from "../../assets/images/sponsors/sponsor3.png";
@@ -13,6 +16,7 @@ import sponsor6 from "../../assets/images/sponsors/sponsor6.png";
 import sponsor7 from "../../assets/images/sponsors/sponsor7.png";
 import sponsor8 from "../../assets/images/sponsors/sponsor8.png";
 import sponsor9 from "../../assets/images/sponsors/sponsor9.png";
+import sponsor12 from "../../assets/images/sponsors/zojirushi.png";
 import webelieveBackground from '../../assets/images/webelieveBackground.jpg';
 import AnimatedComponent from "../../components/atom/AnimatedComponent";
 import PillButton from "../../components/atom/PillButton";
@@ -26,14 +30,14 @@ import { analytics } from "../../firebase";
 import LetUsGuideToMobile from './LetUsGuideToMobile';
 
 const listOfSponsor = [
-    sponsor1, sponsor6, sponsor8, sponsor4
+    sponsor1, sponsor10, sponsor6, sponsor11,
 ]
 const listOfSponsor2 = [
-    sponsor5, sponsor2, sponsor7, sponsor9, sponsor3
+    sponsor13, sponsor12, sponsor8, sponsor4, sponsor5, sponsor7
 ]
 
 const completeListOfSponsor = [
-    sponsor1, sponsor6, sponsor8, sponsor4, sponsor5, sponsor2, sponsor7, sponsor9, sponsor3
+    sponsor1, sponsor10, sponsor6, sponsor11, sponsor13, sponsor12, sponsor8, sponsor4, sponsor5, sponsor7
 ]
 
 const HomeMobile = (props) => {
