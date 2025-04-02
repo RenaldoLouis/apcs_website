@@ -1,79 +1,114 @@
-.my-masonry-grid {
-    display: flex;
-    // margin-left: 140px;
-    /* gutter size offset */
-    width: auto;
+// old masonry
+// .my-masonry-grid {
+//     display: flex;
+//     // margin-left: 140px;
+//     /* gutter size offset */
+//     width: auto;
+// }
+
+// .my-masonry-grid_column {
+//     // margin-left: -25px;
+//     /* gutter size */
+//     background-clip: padding-box;
+// }
+
+// @media (max-width : 700px) {
+//     .my-masonry-grid {
+//         display: flex;
+//         // margin-left: 55px;
+//         /* gutter size offset */
+//         width: auto;
+//     }
+// }
+
+// @media (max-width : 375px) {
+//     .my-masonry-grid {
+//         display: flex;
+//         margin-left: 20px;
+//         /* gutter size offset */
+//         width: auto;
+//     }
+// }
+
+// @media (max-width : 320px) {
+//     .my-masonry-grid {
+//         display: flex;
+//         margin-left: 10px;
+//         /* gutter size offset */
+//         width: auto;
+//     }
+// }
+
+// @keyframes fadeIn {
+//     from {
+//         opacity: 0;
+//         transform: scale(0.9);
+//     }
+
+//     to {
+//         opacity: 1;
+//         transform: scale(1);
+//     }
+// }
+
+// .masonry-item {
+//     margin-bottom: 8px;
+//     animation: fadeIn 0.5s ease-in-out;
+//     animation-fill-mode: both;
+//     text-align: center;
+//     transition: transform 350ms ease, opacity 350ms linear;
+// }
+
+// .masonry-item img {
+//     transition: transform 350ms ease, opacity 350ms linear;
+// }
+
+// .masonry-item img:hover {
+//     transform: scale(1);
+//     /* Scale up the hovered image */
+//     opacity: 1;
+//     /* Full opacity for the hovered image */
+// }
+
+// /* Apply styles to sibling images when one image is hovered */
+// .masonry-item img:hover~.masonry-item img,
+// .masonry-item img:not(:hover) {
+//     transform: scale(0.9);
+//     /* Scale down non-hovered images */
+//     opacity: 0.7;
+//     /* Reduce opacity for non-hovered images */
+// }
+
+// masonry reacbit
+
+.masonry {
+    position: relative;
+    width: 100%;
+    height: 100%;
 }
 
-.my-masonry-grid_column {
-    // margin-left: -25px;
-    /* gutter size */
-    background-clip: padding-box;
+.masonry>div {
+    position: absolute;
+    will-change: transform, width, height, opacity;
+    padding: 10px;
 }
 
-@media (max-width : 700px) {
-    .my-masonry-grid {
-        display: flex;
-        // margin-left: 55px;
-        /* gutter size offset */
-        width: auto;
-    }
+.masonry>div>div {
+    position: relative;
+    background-size: cover;
+    background-position: center center;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    text-transform: uppercase;
+    font-size: 10px;
+    line-height: 10px;
+    border-radius: 10px;
+    box-shadow: 0px 10px 50px -10px rgba(0, 0, 0, 0.2);
+    transition: 0.3s ease;
 }
 
-@media (max-width : 375px) {
-    .my-masonry-grid {
-        display: flex;
-        margin-left: 20px;
-        /* gutter size offset */
-        width: auto;
-    }
-}
-
-@media (max-width : 320px) {
-    .my-masonry-grid {
-        display: flex;
-        margin-left: 10px;
-        /* gutter size offset */
-        width: auto;
-    }
-}
-
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: scale(0.9);
-    }
-
-    to {
-        opacity: 1;
-        transform: scale(1);
-    }
-}
-
-.masonry-item {
-    margin-bottom: 8px;
-    animation: fadeIn 0.5s ease-in-out;
-    animation-fill-mode: both;
-    text-align: center;
-    transition: transform 350ms ease, opacity 350ms linear;
-}
-
-.masonry-item img {
-    transition: transform 350ms ease, opacity 350ms linear;
-}
-
-.masonry-item img:hover {
-    transform: scale(1);
-    /* Scale up the hovered image */
-    opacity: 1;
-    /* Full opacity for the hovered image */
-}
-
-/* Apply styles to sibling images when one image is hovered */
-.masonry-item img:hover~.masonry-item img,
-.masonry-item img:not(:hover) {
-    transform: scale(0.9);
-    /* Scale down non-hovered images */
-    opacity: 0.7;
-    /* Reduce opacity for non-hovered images */
+.masonry>div>div:hover {
+    transform: scale(1.1);
+    transition: 0.3s ease;
 }

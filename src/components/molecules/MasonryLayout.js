@@ -2,7 +2,9 @@ import React, { useCallback, useEffect, useState } from "react";
 import { collection, getDocs, limit, query, startAfter, orderBy } from "firebase/firestore";
 import { db } from '../../firebase';
 
-import Masonry from 'react-masonry-css';
+import Masonry from './Masonry'
+// import Masonry as Masonry from 'react-masonry-css';
+
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { Spin } from "antd";
 import AnimatedComponent from "../atom/AnimatedComponent";
@@ -14,6 +16,7 @@ const MasonryLayout = (props) => {
     const [hasMore, setHasMore] = useState(true);
     const [isGetLatestImage, setIsGetLatestImage] = useState(false);
     const [hoveredIndex, setHoveredIndex] = useState(null);
+    const [imagesData, setImagesData] = useState([])
 
     let latestData = null
 
@@ -45,170 +48,30 @@ const MasonryLayout = (props) => {
     //     fetchPost();
     // }, [fetchPost])
 
-    const breakpointColumnsObj = {
-        default: 3,
-        1100: 2,
-        700: 2
-    };
+    useEffect(() => {
+        if (images) {
+            let tempData = []
+            images.forEach((image, index) => {
+                let isLongImage = false
+                if (index % 2 === 1) {
+                    isLongImage = true
+                } else {
 
-    let displayStyle = (index) => {
-        switch (name) {
-            case YearlyEvent.TURNINGPOINT:
-                return index === 33 ? "none" : ""
-            case YearlyEvent.CLASSICALFESTIVALJKT2024:
-                return index === 18 ? "none" : ""
-                break
-            case YearlyEvent.AUTUMINKOREA:
-                return index === 33 ? "none" : ""
-            case YearlyEvent.CLASSICALFESTIVALSBY:
-                return index === 30 ? "none" : ""
-            case YearlyEvent.CHRISTMASWONDERLAND:
-                return index === 33 ? "none" : ""
-            case YearlyEvent.CLASSICALFESTIVALJKT:
-                return index === 33 ? "none" : ""
-            case YearlyEvent.MASTERCLASS:
-                return index === 21 ? "none" : ""
-            default:
-            // code block
-        }
-    }
+                }
 
-    let marginBottomGalery = (index) => {
-        switch (name) {
-            case YearlyEvent.AUTUMINKOREA:
-                if (index === 27) {
-                    return 20
+                let tempObj = {
+                    id: index + 1, image: image,
+                    height: isLongImage ? 600 : 1200
                 }
-                else if (index === 24) {
-                    return 20
-                }
-                else if (index === 21) {
-                    return 20
-                }
-                break;
-            case YearlyEvent.CLASSICALFESTIVALSBY:
-                if (index === 27) {
-                    return 40
-                }
-                else if (index === 24) {
-                    return 35
-                }
-                else if (index === 21) {
-                    return 40
-                }
-                break;
-            case YearlyEvent.CHRISTMASWONDERLAND:
-                if (index === 27) {
-                    return 40
-                }
-                else if (index === 24) {
-                    return 40
-                }
-                else if (index === 21) {
-                    return 50
-                }
-                else if (index === 18) {
-                    return 50
-                }
-                break;
-            case YearlyEvent.MASTERCLASS:
-                if (index === 3) {
-                    return 20
-                }
-                if (index === 6) {
-                    return 30
-                }
-                else if (index === 4) {
-                    return 20
-                }
-                else if (index === 7) {
-                    return 20
-                }
-                break;
-            // case YearlyEvent.CLASSICALFESTIVALJKT2024:
-            //     if (index === 17) {
-            //         return 30
-            //     }
-            //     if (index === 8) {
-            //         return 30
-            //     }
-            //     else if (index === 14) {
-            //         return 30
-            //     }
-            //     else if (index === 17) {
-            //         return 30
-            //     }
-            //     else if (index === 15) {
-            //         return 30
-            //     }
-            //     else if (index === 9) {
-            //         return 30
-            //     }
-            //     break;
-            case YearlyEvent.MAGICALMUSICSOUNDTRACT:
-                if (index === 27) {
-                    return 40
-                }
-                else if (index === 24) {
-                    return 40
-                }
-                else if (index === 21) {
-                    return 40
-                }
-                else if (index === 18) {
-                    return 40
-                }
-                else if (index === 31) {
-                    return 35
-                }
-                else if (index === 28) {
-                    return 35
-                }
-                else if (index === 19) {
-                    return 35
-                }
-                break;
-            default:
-            // code block
+                tempData.push(tempObj)
+            });
+            setImagesData(tempData)
         }
-    }
+    }, [images])
 
     return (
         <div style={{ justifyContent: "center" }}>
-            {/* <InfiniteScroll
-                dataLength={items.length}
-                next={fetchPost}
-                hasMore={hasMore}
-                loader={<Spin tip="Loading" />}
-                endMessage={""}
-                style={{
-                    overflow: 'hidden',
-                }}
-            > */}
-            <Masonry
-                breakpointCols={breakpointColumnsObj}
-                className="my-masonry-grid"
-                columnClassName="my-masonry-grid_column"
-            >
-                {images?.map((item, index) => {
-                    return (
-                        <div
-                            key={`masonryy-${index}`}
-                            className={`masonry-item ${hoveredIndex === index ? 'hovered' : ''}`}
-                            style={{ display: displayStyle(index) }}
-                        // onMouseEnter={() => setHoveredIndex(index)}
-                        // onMouseLeave={() => setHoveredIndex(null)}
-                        >
-                            <AnimatedComponent animationClass="animate__fadeIn" triggerOnce={false} >
-                                <img src={item} alt={`galery-${index}`} className="masonry-img" style={{ paddingBottom: marginBottomGalery(index) }} />
-                                {/* <div style={{ color: "white" }}>{index + 1}</div> */}
-                            </AnimatedComponent>
-                        </div>
-                    )
-                })}
-            </Masonry>
-            {/* </InfiniteScroll> */}
-
+            <Masonry data={imagesData} />
         </div>
     );
 };
