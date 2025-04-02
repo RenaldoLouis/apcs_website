@@ -53,15 +53,19 @@ const MasonryLayout = (props) => {
             let tempData = []
             images.forEach((image, index) => {
                 let isLongImage = false
-                if (index % 2 === 1) {
-                    isLongImage = true
-                } else {
+                // if (index % 2 === 1 && (index - 1 % 9 !== 0 || index + 1 % 9 !== 0)) {
+                //     isLongImage = true
+                // } else if (index % 9 === 0) {
+                //     isLongImage = true
+                // }
 
+                if (index % 2 === 0) {
+                    isLongImage = true
                 }
 
                 let tempObj = {
                     id: index + 1, image: image,
-                    height: isLongImage ? 600 : 1200
+                    height: isLongImage ? 1200 : 600
                 }
                 tempData.push(tempObj)
             });

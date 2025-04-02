@@ -53,6 +53,39 @@ function Masonry({ data }) {
         return [heights, gridItems];
     }, [columns, data, width]);
 
+    // const [heights, gridItems] = useMemo(() => {
+    //     let heights = new Array(columns).fill(0);
+    //     let gridItems = data.map((child) => {
+    //         const column = heights.indexOf(Math.min(...heights));
+    //         const x = (width / columns) * column;
+
+    //         // Add a small random offset to stagger rows
+    //         const yOffset = Math.random() * 20; // Adjust offset range as needed
+    //         const y = (heights[column] += child.height / 2 + yOffset) - child.height / 2;
+
+    //         return { ...child, x, y, width: width / columns, height: child.height / 2 };
+    //     });
+    //     return [heights, gridItems];
+    // }, [columns, data, width]);
+
+    // const [heights, gridItems] = useMemo(() => {
+    //     let heights = new Array(columns).fill(0);
+    //     let gridItems = data.map((child) => {
+    //         const column = heights.indexOf(Math.min(...heights));
+    //         const x = (width / columns) * column;
+
+    //         // Apply offset only if it's a middle column
+    //         const isMiddleColumn = column > 0 && column < columns - 1;
+    //         const yOffset = isMiddleColumn ? Math.random() * 20 - 10 : 0; // Shift middle columns slightly
+
+    //         const y = (heights[column] += child.height / 2 + yOffset) - child.height / 2;
+
+    //         return { ...child, x, y, width: width / columns, height: child.height / 2 };
+    //     });
+    //     return [heights, gridItems];
+    // }, [columns, data, width]);
+
+
     const transitions = useTransition(gridItems, {
         keys: (item) => item.id, // Use a unique key based on the id
         from: ({ x, y, width, height }) => ({ x, y, width, height, opacity: 0 }),
@@ -78,9 +111,9 @@ function Masonry({ data }) {
                             backgroundPosition: 'center',
                         }}
                     />
-                    {/* <div style={{ color: "white" }}>
+                    <div style={{ color: "white" }}>
                         asdas{item.id}
-                    </div> */}
+                    </div>
                 </a.div>
             ))}
         </div>
