@@ -15,11 +15,13 @@ const MasonryLayout = (props) => {
                     const img = new Image();
                     img.src = image;
                     img.onload = () => {
+                        let aspectRatio = img.height / img.width; // Calculate aspect ratio
 
                         let tempObj = {
                             id: index + 1,
                             image: image,
-                            height: img.height
+                            height: img.height,
+                            aspectRatio: aspectRatio, // Store aspect ratio
                         };
                         resolve(tempObj);
                     };

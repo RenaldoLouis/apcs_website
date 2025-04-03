@@ -3,6 +3,7 @@ import { useTransition, a } from '@react-spring/web';
 
 function Masonry({ data }) {
     const [columns, setColumns] = useState(2);
+    const GAP = 20; // Adjust spacing between columns and rows
 
     useEffect(() => {
         const updateColumns = () => {
@@ -43,16 +44,23 @@ function Masonry({ data }) {
     }, [ref]);
 
     // for some reason old code /2 the height
+    // Compute item positions based on aspect ratios
     const [heights, gridItems] = useMemo(() => {
         let heights = new Array(columns).fill(0);
-        let gridItems = data.map((child) => {
+        let columnWidth = (width - (columns - 1) * GAP) / columns; // Include gap in width calculation
+
+        let gridItems = data.map((item) => {
             const column = heights.indexOf(Math.min(...heights));
-            const columnSpacing = 15; // Adjust this value for more spacing between columns
-            const spacing = 15; // Adjust this value for more spacing between rows
-            const x = (width / columns) * column + columnSpacing * column; // Add spacing between columns
-            const y = (heights[column] += child.height + spacing) - child.height;
-            return { ...child, x, y, width: width / columns, height: child.height };
+            const itemWidth = columnWidth;
+            const itemHeight = (item.aspectRatio * itemWidth) - 15;
+            const x = column * (itemWidth + GAP);
+            const y = heights[column];
+
+            heights[column] += itemHeight + GAP; // Include row gap in height calculation
+
+            return { ...item, x, y, width: itemWidth, height: itemHeight };
         });
+
         return [heights, gridItems];
     }, [columns, data, width]);
 
