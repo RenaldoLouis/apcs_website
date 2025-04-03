@@ -4,19 +4,11 @@ import { useTransition, a } from '@react-spring/web';
 function Masonry({ data }) {
     const [columns, setColumns] = useState(2);
     const GAP = 20; // Adjust spacing between columns and rows
+    const [selectedImage, setSelectedImage] = useState(null); // Track clicked image
 
     useEffect(() => {
         const updateColumns = () => {
-            // if (window.matchMedia('(min-width: 1500px)').matches) {
-            //     setColumns(5);
-            // } else if (window.matchMedia('(min-width: 1000px)').matches) {
-            //     setColumns(4);
-            // } else if (window.matchMedia('(min-width: 600px)').matches) {
-            //     setColumns(3);
-            // } else {
-            //     setColumns(1); // Breakpoint for mobile devices
-            // }
-            if (window.matchMedia('(min-width: 600px)').matches) {
+            if (window.matchMedia('(min-width: 1200px)').matches) {
                 setColumns(3);
             } else {
                 setColumns(2); // Breakpoint for mobile devices
@@ -75,13 +67,27 @@ function Masonry({ data }) {
         trail: 25,
     });
 
-    // Render the grid
+    //  Close modal when clicking outside or pressing ESC
+    useEffect(() => {
+        const handleKeyDown = (e) => {
+            if (e.key === "Escape") {
+                setSelectedImage(null);
+            }
+        };
+        window.addEventListener("keydown", handleKeyDown);
+        return () => window.removeEventListener("keydown", handleKeyDown);
+    }, []);
+
     return (
         <div ref={ref} className='masonry'
             style={{ height: Math.max(...heights) }}
         >
             {transitions((style, item) => (
-                <a.div key={item.id} style={{ ...style }}>
+                <a.div
+                    key={item.id}
+                    style={{ ...style }}
+                    onClick={() => setSelectedImage(item.image)} // Open modal on click
+                >
                     <div
                         style={{
                             backgroundColor: '#ffffff', // Set background if needed
@@ -99,6 +105,37 @@ function Masonry({ data }) {
                     </div> */}
                 </a.div>
             ))}
+            {selectedImage && (
+                <div
+                    className="modal-overlay"
+                    onClick={() => setSelectedImage(null)}
+                    style={{
+                        position: "fixed",
+                        top: 0,
+                        left: 0,
+                        width: "100vw",
+                        height: "100vh",
+                        backgroundColor: "rgba(0, 0, 0, 0.8)",
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                        zIndex: 1000,
+                        cursor: "pointer",
+                    }}
+                >
+                    <img
+                        src={selectedImage}
+                        alt="Fullscreen"
+                        style={{
+                            maxWidth: "100%",
+                            maxHeight: "100%",
+                            borderRadius: "10px",
+                            boxShadow: "0 10px 30px rgba(255, 255, 255, 0.2)",
+                        }}
+                        onClick={(e) => e.stopPropagation()} // Prevent closing when clicking image
+                    />
+                </div>
+            )}
         </div>
     );
 }
