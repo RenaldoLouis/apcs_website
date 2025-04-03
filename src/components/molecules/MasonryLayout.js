@@ -50,27 +50,26 @@ const MasonryLayout = (props) => {
 
     useEffect(() => {
         if (images) {
-            let tempData = []
-            images.forEach((image, index) => {
-                let isLongImage = false
-                // if (index % 2 === 1 && (index - 1 % 9 !== 0 || index + 1 % 9 !== 0)) {
-                //     isLongImage = true
-                // } else if (index % 9 === 0) {
-                //     isLongImage = true
-                // }
+            let promises = images.map((image, index) => {
+                return new Promise((resolve) => {
+                    const img = new Image();
+                    img.src = image;
+                    img.onload = () => {
+                        const aspectRatio = img.width / img.height;
 
-                if (index % 2 === 0) {
-                    isLongImage = true
-                }
-
-                let tempObj = {
-                    id: index + 1, image: image,
-                    height: isLongImage ? 1200 : 600
-                    // height: "auto"
-                }
-                tempData.push(tempObj)
+                        let tempObj = {
+                            id: index + 1,
+                            image: image,
+                            height: img.height
+                        };
+                        resolve(tempObj);
+                    };
+                });
             });
-            setImagesData(tempData)
+
+            Promise.all(promises).then((tempData) => {
+                setImagesData(tempData);
+            });
         }
     }, [images])
 
