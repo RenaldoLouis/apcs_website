@@ -47,8 +47,10 @@ function Masonry({ data }) {
         let heights = new Array(columns).fill(0);
         let gridItems = data.map((child) => {
             const column = heights.indexOf(Math.min(...heights));
-            const x = (width / columns) * column;
-            const y = (heights[column] += child.height) - child.height;
+            const columnSpacing = 15; // Adjust this value for more spacing between columns
+            const spacing = 15; // Adjust this value for more spacing between rows
+            const x = (width / columns) * column + columnSpacing * column; // Add spacing between columns
+            const y = (heights[column] += child.height + spacing) - child.height;
             return { ...child, x, y, width: width / columns, height: child.height };
         });
         return [heights, gridItems];

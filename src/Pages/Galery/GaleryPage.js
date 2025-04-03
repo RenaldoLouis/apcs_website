@@ -275,6 +275,8 @@ const GaleryPage = () => {
         },
     ])
 
+
+    // #region API CALL
     useEffect(() => {
         fetchVideos()
     }, [])
@@ -303,6 +305,7 @@ const GaleryPage = () => {
             setIsLoading(false)
         })
     }, [])
+    // #endregion API CALL
 
     useEffect(() => {
         if (videoList?.length > 0 || photosList?.length > 0) {
@@ -492,7 +495,7 @@ const GaleryPage = () => {
                                 <Spin tip="Loading" size="large" />
                             </div>
                         ) : (
-                            <Galery name={galeryContent?.name} images={galeryContent?.images} isDynamicType={true} />
+                            <Galery name={galeryContent?.name} images={galeryContent?.images} />
                         )}
 
                     </div>
