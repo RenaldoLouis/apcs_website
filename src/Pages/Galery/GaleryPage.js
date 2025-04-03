@@ -11,14 +11,6 @@ import Galery from "./Galery";
 import { useSwipeable } from 'react-swipeable';
 import apis from "../../apis";
 import Typograhpy from "../../components/atom/Typograhpy";
-import { AutumnInKoreaImages } from "../../constant/AutumnInKoreaImages";
-import { ChristmasInWonderlandImages } from "../../constant/ChristmasWonderlandImages";
-import { ClassicalFestivalJakartaImages } from "../../constant/ClassicalFestivalJakarta";
-import { ClassicalFestivalSurabayaImages } from "../../constant/ClassicalFestivalSurabayaImages";
-import { FestivalJkt2024 } from "../../constant/FestivalJkt2024";
-import { MagicalMusicSoundtractImages } from "../../constant/MagicalMusicSoundtract";
-import { MasterClassImages } from "../../constant/MasterClassImages";
-import { TurningPointImages } from "../../constant/TurningPointImages";
 import { useAuth } from "../../context/DataContext";
 
 
@@ -63,7 +55,7 @@ const GaleryPage = () => {
                     role: "Violinist"
                 },
             ],
-            images: TurningPointImages
+            images: []
         },
         {
             name: YearlyEvent.AUTUMINKOREA,
@@ -94,7 +86,7 @@ const GaleryPage = () => {
                     role: "Singer"
                 },
             ],
-            images: AutumnInKoreaImages
+            images: []
         },
         {
             name: YearlyEvent.MAGICALMUSICSOUNDTRACT,
@@ -122,7 +114,7 @@ const GaleryPage = () => {
                     achivement: "APCS 2021 & 2022"
                 },
             ],
-            images: MagicalMusicSoundtractImages
+            images: []
         },
         {
             name: YearlyEvent.CLASSICALFESTIVALSBY,
@@ -159,7 +151,7 @@ const GaleryPage = () => {
                     achivement: " APCS Classical Festival 2023"
                 },
             ],
-            images: ClassicalFestivalSurabayaImages
+            images: []
         },
         {
             name: YearlyEvent.CLASSICALFESTIVALJKT,
@@ -189,7 +181,7 @@ const GaleryPage = () => {
 
                 },
             ],
-            images: ClassicalFestivalJakartaImages
+            images: []
         },
         {
             name: YearlyEvent.CHRISTMASWONDERLAND,
@@ -221,7 +213,7 @@ const GaleryPage = () => {
                     achivement: "APCS 2022 & 2023"
                 },
             ],
-            images: ChristmasInWonderlandImages
+            images: []
         },
         {
             name: YearlyEvent.MASTERCLASS,
@@ -246,7 +238,7 @@ const GaleryPage = () => {
                     role: "Guest Coach"
                 },
             ],
-            images: MasterClassImages
+            images: []
         },
         {
             name: YearlyEvent.CLASSICALFESTIVALJKT2024,
@@ -271,7 +263,7 @@ const GaleryPage = () => {
                 //     role: "Guest Coach"
                 // },
             ],
-            images: FestivalJkt2024
+            images: []
         },
     ])
 
@@ -292,7 +284,6 @@ const GaleryPage = () => {
             if (res.status === 200) {
                 setPhotosList(res.data)
             }
-            setIsLoadingPictures(false)
         })
     }
 
@@ -319,9 +310,12 @@ const GaleryPage = () => {
             // Update the events array with the video links
             const updatedEvents = ListGaleryContent.map(event => {
                 const normalizedName = event.name.replace(/\s+/g, '').toLowerCase();
+                const normalizedEvent = selectedEvent.replace(/\s+/g, '').toLowerCase();
                 const timestamp = Date.now(); // Current timestamp
-                if (videoLookup[normalizedName]) {
-                    event.video = videoLookup[normalizedName];
+                if (normalizedName === normalizedEvent) {
+                    if (videoLookup[normalizedName]) {
+                        event.video = videoLookup[normalizedName];
+                    }
                     const sortedPhotoList = photosList?.sort((a, b) => {
                         const numA = parseInt(a.match(/(\d+)\.(jpg|png)$/)[1]);
                         const numB = parseInt(b.match(/(\d+)\.(jpg|png)$/)[1]);
@@ -329,6 +323,7 @@ const GaleryPage = () => {
                     }).map(photo => `${photo}?v=${timestamp}`)
                     event.images = sortedPhotoList
                 }
+
                 return event;
             });
             setListGaleryContent(updatedEvents)
@@ -490,14 +485,11 @@ const GaleryPage = () => {
                                 </div>
                             </div>
                         </div>
-                        {isLoadingPictures ? (
+                        {isLoadingPictures && (
                             <div className="loadingContainer">
                                 <Spin tip="Loading" size="large" />
-                            </div>
-                        ) : (
-                            <Galery name={galeryContent?.name} images={galeryContent?.images} />
-                        )}
-
+                            </div>)}
+                        <Galery name={galeryContent?.name} images={galeryContent?.images} setIsLoadingPictures={setIsLoadingPictures} isLoadingPictures={isLoadingPictures} />
                     </div>
                 </>
             )}

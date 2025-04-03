@@ -79,7 +79,6 @@ function Masonry({ data }) {
     return (
         <div ref={ref} className='masonry'
             style={{ height: Math.max(...heights) }}
-        // style={{ height: "auto" }}
         >
             {transitions((style, item) => (
                 <a.div key={item.id} style={{ ...style }}>

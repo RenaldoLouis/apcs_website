@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from "react";
 import Masonry from './Masonry'
-// import Masonry as Masonry from 'react-masonry-css';
-
 
 const MasonryLayout = (props) => {
-    const { images } = props
+    const { images, setIsLoadingPictures, isLoadingPictures } = props
     const [imagesData, setImagesData] = useState([])
 
 
@@ -24,6 +22,10 @@ const MasonryLayout = (props) => {
                             aspectRatio: aspectRatio, // Store aspect ratio
                         };
                         resolve(tempObj);
+
+                        if (index === images.length - 1) {
+                            setIsLoadingPictures(false);
+                        }
                     };
                 });
             });
@@ -35,9 +37,11 @@ const MasonryLayout = (props) => {
     }, [images])
 
     return (
-        <div style={{ justifyContent: "center" }}>
-            <Masonry data={imagesData} />
-        </div>
+        !isLoadingPictures && (
+            <div style={{ justifyContent: "center" }}>
+                <Masonry data={imagesData} />
+            </div>
+        )
     );
 };
 
