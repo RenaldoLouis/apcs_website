@@ -51,12 +51,13 @@
 .sticky-footer {
    position: sticky;
    bottom: 0;
-   background: #333;
-   color: white;
+   background-color: #4B0F24;
+   color: #FFD700;
+   // border-top: 2px solid #D4AF37;
    text-align: center;
    padding: 1rem 2rem;
-   border-top-left-radius: 20px;
-   border-top-right-radius: 20px;
+   // border-top-left-radius: 20px;
+   // border-top-right-radius: 20px;
    margin-top: auto;
    /* Ensures it's at the bottom */
    z-index: 10;

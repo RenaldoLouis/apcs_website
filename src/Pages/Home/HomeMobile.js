@@ -8,14 +8,11 @@ import sponsor13 from "../../assets/images/sponsors/arumii.png";
 import sponsor10 from "../../assets/images/sponsors/elevee.png";
 import sponsor11 from "../../assets/images/sponsors/saturdays.png";
 import sponsor1 from "../../assets/images/sponsors/sponsor1.png";
-import sponsor2 from "../../assets/images/sponsors/sponsor2.png";
-import sponsor3 from "../../assets/images/sponsors/sponsor3.png";
 import sponsor4 from "../../assets/images/sponsors/sponsor4.png";
 import sponsor5 from "../../assets/images/sponsors/sponsor5.png";
 import sponsor6 from "../../assets/images/sponsors/sponsor6.png";
 import sponsor7 from "../../assets/images/sponsors/sponsor7.png";
 import sponsor8 from "../../assets/images/sponsors/sponsor8.png";
-import sponsor9 from "../../assets/images/sponsors/sponsor9.png";
 import sponsor12 from "../../assets/images/sponsors/zojirushi.png";
 import webelieveBackground from '../../assets/images/webelieveBackground.jpg';
 import AnimatedComponent from "../../components/atom/AnimatedComponent";
@@ -28,6 +25,7 @@ import { PathName } from "../../constant/PathName";
 import { useAuth } from "../../context/DataContext";
 import { analytics } from "../../firebase";
 import LetUsGuideToMobile from './LetUsGuideToMobile';
+import ModalEvent from "./ModalEvent";
 
 const listOfSponsor = [
     sponsor1, sponsor10, sponsor6, sponsor11,
