@@ -66,6 +66,7 @@ const MasonryLayout = (props) => {
                 let tempObj = {
                     id: index + 1, image: image,
                     height: isLongImage ? 1200 : 600
+                    // height: "auto"
                 }
                 tempData.push(tempObj)
             });

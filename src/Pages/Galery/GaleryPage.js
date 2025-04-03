@@ -32,6 +32,7 @@ const GaleryPage = () => {
     const [isLoadingPictures, setIsLoadingPictures] = useState(true)
     const [galeryContent, setGaleryContent] = useState({})
     const [videoList, setVideoList] = useState([])
+    const [photosList, setPhotosList] = useState([])
     const [ListGaleryContent, setListGaleryContent] = useState([
         {
             name: YearlyEvent.TURNINGPOINT,
@@ -287,7 +288,7 @@ const GaleryPage = () => {
         const normalizedName = selectedEvent.replace(/\s+/g, '').toLowerCase()
         apis.galery.getGalery(normalizedName).then((res) => {
             if (res.status === 200) {
-                // console.log("res", res)
+                setPhotosList(res.data)
             }
             setIsLoadingPictures(false)
         })
@@ -304,9 +305,9 @@ const GaleryPage = () => {
     }, [])
 
     useEffect(() => {
-        if (videoList.length > 0) {
+        if (videoList?.length > 0 || photosList?.length > 0) {
             // Create a lookup table from the videoLinks array
-            const videoLookup = videoList.reduce((acc, item) => {
+            const videoLookup = videoList?.reduce((acc, item) => {
                 const normalizedName = item.name.replace(/\s+/g, '').toLowerCase();
                 acc[normalizedName] = item.video;
                 return acc;
@@ -315,8 +316,15 @@ const GaleryPage = () => {
             // Update the events array with the video links
             const updatedEvents = ListGaleryContent.map(event => {
                 const normalizedName = event.name.replace(/\s+/g, '').toLowerCase();
+                const timestamp = Date.now(); // Current timestamp
                 if (videoLookup[normalizedName]) {
                     event.video = videoLookup[normalizedName];
+                    const sortedPhotoList = photosList?.sort((a, b) => {
+                        const numA = parseInt(a.match(/(\d+)\.(jpg|png)$/)[1]);
+                        const numB = parseInt(b.match(/(\d+)\.(jpg|png)$/)[1]);
+                        return numA - numB;
+                    }).map(photo => `${photo}?v=${timestamp}`)
+                    event.images = sortedPhotoList
                 }
                 return event;
             });
@@ -324,7 +332,7 @@ const GaleryPage = () => {
             setIsLoading(false)
         }
         setIsLoading(false)
-    }, [videoList])
+    }, [videoList, photosList])
 
     useEffect(() => {
         setIsLoading(true)

@@ -98,22 +98,27 @@ function Masonry({ data }) {
 
     // Render the grid
     return (
-        <div ref={ref} className='masonry' style={{ height: Math.max(...heights) }}>
+        <div ref={ref} className='masonry'
+            style={{ height: Math.max(...heights) }}
+        // style={{ height: "auto" }}
+        >
             {transitions((style, item) => (
-                <a.div key={item.id} style={style}>
+                <a.div key={item.id} style={{ ...style }}>
                     <div
                         style={{
                             backgroundColor: '#ffffff', // Set background if needed
                             width: '100%',
                             height: '100%',
-                            backgroundImage: `url(${item.image})`,
+                            // backgroundImage: `url(${item.image})`,
                             backgroundSize: 'cover',
                             backgroundPosition: 'center',
                         }}
-                    />
-                    <div style={{ color: "white" }}>
-                        asdas{item.id}
+                    >
+                        <img style={{ width: "100%", height: "auto" }} src={item.image} alt="Background" />
                     </div>
+                    {/* <div style={{ color: "white" }}>
+                        asdas{item.id}
+                    </div> */}
                 </a.div>
             ))}
         </div>
