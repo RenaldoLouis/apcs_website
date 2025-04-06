@@ -3,6 +3,9 @@ import { useNavigate } from "react-router-dom";
 import { PathName } from "../../constant/PathName";
 import Navbar from "../atom/navbar";
 import Footer from "./Footer";
+import { Box } from "@mui/material";
+import PillButton from "../atom/PillButton";
+import { PillButtonType } from "../../constant/PillButtonType";
 
 const MainLayout = (props) => {
     const { children, hidden = false } = props
@@ -25,7 +28,7 @@ const MainLayout = (props) => {
             <Footer />
 
             {/* TO DO update View */}
-            {/* <footer className="sticky-footer">
+            <footer className="sticky-footer">
                 <Box className="row">
                     <Box className="col-12 d-flex justify-content-around align-items-center">
                         <p style={{ visibility: "hidden" }} />
@@ -35,7 +38,7 @@ const MainLayout = (props) => {
                         </Box>
                     </Box>
                 </Box>
-            </footer> */}
+            </footer>
 
             {isNavbarMobileOpen && (
                 <div className="backdrop" />
