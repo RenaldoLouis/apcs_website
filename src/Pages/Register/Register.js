@@ -68,11 +68,12 @@ const Register = () => {
             address: "",
             ageCategory: null,
             city: "",
+            userType: "Teacher",
             country: "",
             createdAt: "",
             dob: null,
             dob2: null,
-            instrumentCategory: null,
+            competitionCategory: instrumentList.Piano,
             email: "",
             name: "",
             phoneNumber: "",
@@ -149,7 +150,7 @@ const Register = () => {
                 address: data.address,
                 ageCategory: data.ageCategory,
                 email: data.email,
-                instrumentCategory: data.instrumentCategory,
+                competitionCategory: data.competitionCategory,
                 city: data.city,
                 userType: data.userType,
                 country: data.country,
@@ -181,7 +182,8 @@ const Register = () => {
         });
     }
 
-    const selectedInstrument = watch("instrumentCategory");
+    const selectedCompetition = watch("competitionCategory");
+    const userTypeValue = watch("userType");
 
     // Sync the fields with `totalPerformer`
     useEffect(() => {
@@ -217,7 +219,7 @@ const Register = () => {
 
     const tooltipMessageYoutubeFormat = useMemo(() => {
         let text = null;
-        switch (selectedInstrument) {
+        switch (selectedCompetition) {
             case InstrumentCategory.Piano_Solo:
                 text = <p>
                     Example:
@@ -265,7 +267,7 @@ const Register = () => {
 
         return text
 
-    }, [selectedInstrument])
+    }, [selectedCompetition])
 
     return (
         <div className="primaryBackgroundBlack" style={{ padding: "128px 0px 48px 0px" }}>
@@ -276,12 +278,18 @@ const Register = () => {
                             REGISTER
                         </div>
                         <div className="creamText" style={{ color: '#e5cc92' }}>
-                            <strong>Notes:</strong>
+                            <div>
+                                <strong>
+                                    Please complete the form below in accordance with the Terms & Conditions.
+                                </strong>
+                            </div>
+                            <strong>
+                                Important Notes:
+                            </strong>
                             <ul>
-                                <li>Age counting as of 2 September 2024.</li>
+                                <li>Participant age will be calculated based on their age as of <strong>31 December 2025</strong>.</li>
                                 <li>
-                                    APCS MUSIC RESERVES THE RIGHT TO CHANGE THE PARTICIPANTS' AGE
-                                    CATEGORIES IF PARTICIPANTS ARE OF INSUFFICIENT AGE.
+                                    <strong> APCS Music </strong>reserves the right to reassign participants to the appropriate age category if the submitted information does not meet the eligibility requirements.
                                 </li>
                             </ul>
                         </div>
@@ -340,6 +348,33 @@ const Register = () => {
                                     </FormControl>
                                 </Box>
                             </Box>
+
+                            {/* Teacher's Name */}
+                            <Controller
+                                name="teacherName"
+                                control={control}
+                                rules={{ required: userTypeValue !== "Teacher" ? "Parent's Name is required" : "Teacher's Name is required" }}
+                                render={({ field, fieldState: { error } }) => (
+                                    <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+                                        <TextField
+                                            {...field}
+                                            label={userTypeValue !== "Teacher" ? "Parent's Name" : "Teacher's Name"}
+                                            variant="standard"
+                                            className="custom-textfield-full mb-4"
+                                            error={!!error}
+                                            helperText={error ? error.message : ""}
+                                        />
+
+                                        <Tooltip title="Enter your teacher's name. If you are self-taught, type '-'">
+                                            <IconButton sx={{ color: "#e5cc92", fontSize: 16, mt: 1 }}>
+                                                <QuestionCircleOutlined />
+                                            </IconButton>
+                                        </Tooltip>
+                                    </div>
+                                )}
+                            />
+
+                            {/* Email */}
                             <Box className="row">
                                 <Box className="col-12">
                                     <Controller
@@ -368,25 +403,59 @@ const Register = () => {
                                     />
                                 </Box>
                             </Box>
-                            {/* <Controller
-                                name="name"
-                                control={control}
-                                rules={{
-                                    required: "Name is required", // Custom error message
-                                }}
-                                render={({ field, fieldState: { error } }) => (
-                                    <TextField
-                                        {...field}
-                                        placeholder="John Doe"
-                                        id="standard-basic"
-                                        label={t("name")}
-                                        variant="standard"
-                                        className="custom-textfield-full mb-4"
-                                        error={!!error} // Highlight the field on error
-                                        helperText={error ? error.message : ""}
-                                    />
-                                )}
-                            /> */}
+
+                            {/* Instrument Category (Radio Button) */}
+                            <FormControl component="fieldset" error={!!errors.competitionCategory}>
+                                <FormLabel
+                                    component="legend"
+                                    sx={{
+                                        color: "#e5cc92", // Gold text color
+                                        "&.Mui-focused": { color: "#e5cc92 !important" }, // Forces gold on focus
+                                        "&:hover": { color: "#e5cc92 !important" }, // Forces gold on hover
+                                    }}
+                                >
+                                    Select Instrument Category
+                                </FormLabel>
+
+                                <Controller
+                                    name="competitionCategory"
+                                    control={control}
+                                    rules={{ required: "Please select an instrument category" }}
+                                    render={({ field }) => (
+                                        <RadioGroup {...field} row>
+                                            {Object.entries(instrumentList).map(([key, label]) => (
+                                                <FormControlLabel
+                                                    id={`${key}-${label}`}
+                                                    key={key}
+                                                    value={key}
+                                                    control={
+                                                        <Radio
+                                                            sx={{
+                                                                color: "#e5cc92", // Unselected color
+                                                                "&.Mui-checked": {
+                                                                    color: "#e5cc92", // Selected color
+                                                                },
+
+                                                                // 👇 Removes blue focus and replaces with gold glow
+                                                                "&.Mui-focusVisible": {
+                                                                    outline: "2px solid #e5cc92", // Gold outline when focused
+                                                                },
+                                                                "&.Mui-checked.Mui-focusVisible": {
+                                                                    outline: "2px solid #e5cc92", // Gold glow for checked state
+                                                                },
+                                                            }}
+                                                        />
+                                                    }
+                                                    label={label}
+                                                    sx={{ color: "#e5cc92" }}
+                                                />
+                                            ))}
+                                        </RadioGroup>
+                                    )}
+                                />
+                                {errors.competitionCategory && <p style={{ color: "red" }}>{errors.competitionCategory.message}</p>}
+                            </FormControl>
+
                             {/* Age Category (Radio Buttons) */}
                             <FormControl component="fieldset" error={!!errors.ageCategory}>
                                 <FormLabel
@@ -491,84 +560,6 @@ const Register = () => {
                                         error={!!error} helperText={error ? error.message : ""} />
                                 )}
                             />
-
-                            {/* Teacher's Name */}
-                            <Controller
-                                name="teacherName"
-                                control={control}
-                                rules={{ required: "Teacher's Name is required" }}
-                                render={({ field, fieldState: { error } }) => (
-                                    <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-                                        <TextField
-                                            {...field}
-                                            label="Teacher's Name"
-                                            variant="standard"
-                                            className="custom-textfield-full mb-4"
-                                            error={!!error}
-                                            helperText={error ? error.message : ""}
-                                        />
-
-                                        <Tooltip title="Enter your teacher's name. If you are self-taught, type '-'">
-                                            <IconButton sx={{ color: "#e5cc92", fontSize: 16, mt: 1 }}>
-                                                <QuestionCircleOutlined />
-                                            </IconButton>
-                                        </Tooltip>
-                                    </div>
-                                )}
-                            />
-
-                            {/* Instrument Category (Radio Button) */}
-                            <FormControl component="fieldset" error={!!errors.instrumentCategory}>
-                                <FormLabel
-                                    component="legend"
-                                    sx={{
-                                        color: "#e5cc92", // Gold text color
-                                        "&.Mui-focused": { color: "#e5cc92 !important" }, // Forces gold on focus
-                                        "&:hover": { color: "#e5cc92 !important" }, // Forces gold on hover
-                                    }}
-                                >
-                                    Select Instrument Category
-                                </FormLabel>
-
-                                <Controller
-                                    name="instrumentCategory"
-                                    control={control}
-                                    rules={{ required: "Please select an instrument category" }}
-                                    render={({ field }) => (
-                                        <RadioGroup {...field} row>
-                                            {Object.entries(instrumentList).map(([key, label]) => (
-                                                <FormControlLabel
-                                                    id={`${key}-${label}`}
-                                                    key={key}
-                                                    value={key}
-                                                    control={
-                                                        <Radio
-                                                            sx={{
-                                                                color: "#e5cc92", // Unselected color
-                                                                "&.Mui-checked": {
-                                                                    color: "#e5cc92", // Selected color
-                                                                },
-
-                                                                // 👇 Removes blue focus and replaces with gold glow
-                                                                "&.Mui-focusVisible": {
-                                                                    outline: "2px solid #e5cc92", // Gold outline when focused
-                                                                },
-                                                                "&.Mui-checked.Mui-focusVisible": {
-                                                                    outline: "2px solid #e5cc92", // Gold glow for checked state
-                                                                },
-                                                            }}
-                                                        />
-                                                    }
-                                                    label={label}
-                                                    sx={{ color: "#e5cc92" }}
-                                                />
-                                            ))}
-                                        </RadioGroup>
-                                    )}
-                                />
-                                {errors.instrumentCategory && <p style={{ color: "red" }}>{errors.instrumentCategory.message}</p>}
-                            </FormControl>
-
 
                             {/* Description */}
                             {/* <Controller
