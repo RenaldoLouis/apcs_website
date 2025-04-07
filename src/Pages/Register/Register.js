@@ -603,8 +603,8 @@ const Register = () => {
                                                                 value={field.value ? dayjs(field.value) : null}
                                                                 onChange={(newValue) => field.onChange(newValue)}
                                                                 sx={{
-                                                                    mt: 4,
-                                                                    mb: 4,
+                                                                    // mt: 2,
+                                                                    // mb: 2,
                                                                     "& .MuiInputBase-root": {
                                                                         color: "#e5cc92", // Gold text color
                                                                     },
