@@ -28,7 +28,7 @@ import { useTranslation } from "react-i18next";
 import { toast } from 'react-toastify';
 import apis from '../../apis';
 import FileInput from '../../components/molecules/FileInput';
-import { InstrumentCategory } from '../../constant/InstrumentCategory';
+import { CompetitionCategory } from '../../constant/CompetitionCategory';
 import { db } from '../../firebase';
 
 const Register = () => {
@@ -45,7 +45,7 @@ const Register = () => {
         FreeChoice: "Free Choice (Combination Age - No Limitation)"
     }
 
-    const instrumentList = {
+    const competitionList = {
         Piano: "Piano",
         Strings: "Strings",
         Woodwinds: "Woodwinds",
@@ -70,16 +70,13 @@ const Register = () => {
             city: "",
             userType: "Teacher",
             country: "",
-            createdAt: "",
-            dob: null,
-            dob2: null,
-            competitionCategory: instrumentList.Piano,
+            competitionCategory: competitionList.Piano,
             email: "",
             name: "",
             phoneNumber: "",
-            teacherName: "",
             youtubeLink: "",
         },
+        mode: "onBlur", // or "onBlur"
     })
     const { fields, append, remove } = useFieldArray({
         control,
@@ -156,7 +153,7 @@ const Register = () => {
                 country: data.country,
                 performers: formattedDatePerformers,
                 phoneNumber: data.phoneNumber,
-                teacherName: data.teacherName,
+                name: data.name,
                 youtubeLink: data.youtubeLink,
                 createdAt: serverTimestamp(),
             });
@@ -220,42 +217,42 @@ const Register = () => {
     const tooltipMessageYoutubeFormat = useMemo(() => {
         let text = null;
         switch (selectedCompetition) {
-            case InstrumentCategory.Piano_Solo:
+            case CompetitionCategory.Piano_Solo:
                 text = <p>
                     Example:
                     APCSCF2024 - PIANO SOLO - POCO - WALLACE JOHANNA TANTONO - Sonata in F Major
                     (If you have a longer name, (Wallace Johanna Tantono), please simplify into Wallace J.T).
                 </p>
                 break;
-            case InstrumentCategory.Piano_Fourhands_one:
+            case CompetitionCategory.Piano_Fourhands_one:
                 text = <p>
                     Example:
                     APCSCF2024 - PIANO FOURHANDS - FREE CHOICE - KIRANA SEAN & SKY YOHANNA - MOZART PIANO SONATA K.381
                     (If you have a longer name, please simplify it.).
                 </p>
                 break;
-            case InstrumentCategory.Piano_Fourhands_two:
+            case CompetitionCategory.Piano_Fourhands_two:
                 text = <p>
                     Example:
                     APCSCF2024 - PIANO FOURHANDS - FREE CHOICE - KIRANA SEAN & SKY YOHANNA - Scaramouche Op.165b - Darius Milhaud for 2 Pianos 4 Hands
                     (If you have a longer name, please simplify it.).
                 </p>
                 break;
-            case InstrumentCategory.Chamber_Music_one:
+            case CompetitionCategory.Chamber_Music_one:
                 text = <p>
                     Example:
                     APCSCF2024 - CHAMBER MUSIC - FREE CHOICE - RINA JULIANNA, MATTHEW TAN, RYAN WIJAYA, LINA TIONANDA) - Lavignac "Galop- Marche"
                     (If you have a longer name, please simplify it.).
                 </p>
                 break;
-            case InstrumentCategory.Chamber_Music_two:
+            case CompetitionCategory.Chamber_Music_two:
                 text = <p>
                     Example:
                     APCSCF2024 - CHAMBER MUSIC - FREE CHOICE - TIMOTHY TIO, KIMBERLY WIJAYA, MAY JULIO, JONATHAN ROBERT - Champagne Toccata - William Gillock for 2 Piano 8 Hands
                     (If you have a longer name, please simplify it.).
                 </p>
                 break;
-            case InstrumentCategory.Chamber_Music_any:
+            case CompetitionCategory.Chamber_Music_any:
                 text = <p>
                     Example:
                     APCSCF2024 - CHAMBER MUSIC - FREE CHOICE - TIMOTHY's Chamber - Dvořák: Piano Quintet No. 2, Op. 81
@@ -349,11 +346,11 @@ const Register = () => {
                                 </Box>
                             </Box>
 
-                            {/* Teacher's Name */}
+                            {/* Teacher's/Parent's Name */}
                             <Controller
-                                name="teacherName"
+                                name="name"
                                 control={control}
-                                rules={{ required: userTypeValue !== "Teacher" ? "Parent's Name is required" : "Teacher's Name is required" }}
+                                rules={{ required: "Name is required" }}
                                 render={({ field, fieldState: { error } }) => (
                                     <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
                                         <TextField
@@ -365,7 +362,7 @@ const Register = () => {
                                             helperText={error ? error.message : ""}
                                         />
 
-                                        <Tooltip title="Enter your teacher's name. If you are self-taught, type '-'">
+                                        <Tooltip title="If you are registering yourself input '-' here and input your name in performer below">
                                             <IconButton sx={{ color: "#e5cc92", fontSize: 16, mt: 1 }}>
                                                 <QuestionCircleOutlined />
                                             </IconButton>
@@ -404,7 +401,7 @@ const Register = () => {
                                 </Box>
                             </Box>
 
-                            {/* Instrument Category (Radio Button) */}
+                            {/* Competition Category (Radio Button) */}
                             <FormControl component="fieldset" error={!!errors.competitionCategory}>
                                 <FormLabel
                                     component="legend"
@@ -414,16 +411,16 @@ const Register = () => {
                                         "&:hover": { color: "#e5cc92 !important" }, // Forces gold on hover
                                     }}
                                 >
-                                    Select Instrument Category
+                                    Select Competition Category
                                 </FormLabel>
 
                                 <Controller
                                     name="competitionCategory"
                                     control={control}
-                                    rules={{ required: "Please select an instrument category" }}
+                                    rules={{ required: "Please select an competition category" }}
                                     render={({ field }) => (
                                         <RadioGroup {...field} row>
-                                            {Object.entries(instrumentList).map(([key, label]) => (
+                                            {Object.entries(competitionList).map(([key, label]) => (
                                                 <FormControlLabel
                                                     id={`${key}-${label}`}
                                                     key={key}

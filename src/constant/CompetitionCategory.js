@@ -1,4 +1,4 @@
-export const InstrumentCategory = {
+export const CompetitionCategory = {
     Piano_Solo: "Piano_Solo",
     Piano_Fourhands_one: "Piano_Fourhands_one",
     Piano_Fourhands_two: "Piano_Fourhands_two",
