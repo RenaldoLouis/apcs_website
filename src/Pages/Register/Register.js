@@ -13,7 +13,8 @@ import {
     Radio,
     RadioGroup,
     TextField,
-    Tooltip
+    Tooltip,
+    Typography
 } from "@mui/material";
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
@@ -49,6 +50,7 @@ const Register = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [isSaveSuccess, setIsSaveSuccess] = useState(false);
     const [totalPerformer, setTotalPerformer] = useState(1);
+    const [progressLoading, setProgressLoading] = useState(10);
 
     const { watch, register, control, formState: { errors }, handleSubmit, reset, clearErrors } = useForm({
         defaultValues: {
@@ -87,8 +89,6 @@ const Register = () => {
         }
     };
 
-
-    // TO DO ADD ANIMATION PROGRESS
     const onSubmit = async (data) => {
         try {
             setIsLoading(true)
@@ -103,6 +103,8 @@ const Register = () => {
                 },
             });
 
+            setProgressLoading(30)
+
             //save exam cert
             const pdfRepertoire = data.pdfRepertoire[0]
             const directoryName2 = pdfRepertoire.name.replace(/\s/g, "").replace(/\.[^/.]+$/, "");
@@ -114,6 +116,7 @@ const Register = () => {
                 },
             });
 
+            setProgressLoading(50)
             //save pdf report
             const examCertificate = data.examCertificate[0]
             const directoryName3 = examCertificate.name.replace(/\s/g, "").replace(/\.[^/.]+$/, "");
@@ -130,6 +133,8 @@ const Register = () => {
 
                 return { ...performer, dob: formattedDate }
             })
+
+            setProgressLoading(70)
 
             // save data to Firebase
             await addDoc(collection(db, "Registrants2025"), {
@@ -150,6 +155,8 @@ const Register = () => {
 
             toast.success("Succesfully Register")
             setIsSaveSuccess(true)
+
+            setProgressLoading(100)
         } catch (e) {
             setIsLoading(false)
             toast.error("Register failed, please try again. If the error persist please contact us")
@@ -165,6 +172,7 @@ const Register = () => {
             top: 0,
             behavior: "smooth"
         });
+        setProgressLoading(10)
     }
 
     const selectedCompetition = watch("competitionCategory");
@@ -986,11 +994,13 @@ const Register = () => {
                                     type="submit" variant="contained" color="primary"
                                     sx={{
                                         backgroundColor: "#e5cc92",
+                                        padding: "8px",
                                         color: "black",
                                         // Override disabled styles to keep the same background and text color
                                         "&.Mui-disabled": {
                                             backgroundColor: "#e5cc92",
                                             color: "black",
+                                            position: 'relative',
                                             opacity: 0.5, // you can adjust the opacity to indicate disabled state
                                         },
                                         "&:hover": { backgroundColor: "#d9a84d" },
@@ -998,7 +1008,7 @@ const Register = () => {
                                     }}
                                 >
                                     Submit
-                                    {isLoading && (
+                                    {/* {isLoading && (
                                         <CircularProgress
                                             size={24}
                                             sx={{
@@ -1010,6 +1020,40 @@ const Register = () => {
                                                 marginLeft: '-12px',
                                             }}
                                         />
+                                    )} */}
+                                    {isLoading && (
+                                        <Box
+                                            sx={{
+                                                color: "blue",
+                                                position: 'absolute',
+                                                top: '30%',
+                                                left: '50%',
+                                                marginTop: '-12px',
+                                                marginLeft: '-12px',
+                                            }}
+                                        >
+                                            <CircularProgress variant="determinate" value={progressLoading} />
+                                            <Box
+                                                sx={{
+                                                    top: '50%',
+                                                    left: '50%',
+                                                    marginTop: '-12px',
+                                                    marginLeft: '-14px',
+                                                    position: 'absolute',
+                                                    display: 'flex',
+                                                    alignItems: 'center',
+                                                    justifyContent: 'center',
+                                                }}
+                                            >
+                                                <Typography
+                                                    variant="caption"
+                                                    component="div"
+                                                    sx={{ color: 'text.secondary' }}
+                                                >
+                                                    {`${Math.round(progressLoading)}%`}
+                                                </Typography>
+                                            </Box>
+                                        </Box>
                                     )}
                                 </Button>
                             )}
