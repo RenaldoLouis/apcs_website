@@ -72,6 +72,7 @@ const Register = () => {
         name: "performers"
     });
 
+    // fix error on personal information
     const onError = (errors) => {
         // Get the first error key
         const firstErrorKey = Object.keys(errors)[0];
