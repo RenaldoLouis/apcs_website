@@ -18,7 +18,7 @@ import {
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { InputNumber } from 'antd';
+import { Cascader, InputNumber } from 'antd';
 import axios from 'axios';
 import dayjs from 'dayjs';
 import { addDoc, collection, serverTimestamp } from "firebase/firestore";
@@ -28,6 +28,7 @@ import { useTranslation } from "react-i18next";
 import { toast } from 'react-toastify';
 import apis from '../../apis';
 import FileInput from '../../components/molecules/FileInput';
+import { countryCodes } from '../../constant/CountryCodePhone';
 import { ageCategories, competitionList, PianoInstrumentList } from '../../constant/RegisterPageConst';
 import { db } from '../../firebase';
 
@@ -39,22 +40,28 @@ const Register = () => {
         Personal: "I'm Registering myself (If you are participants / parents register for your child)",
     }
 
+    const gender = {
+        Male: "Male",
+        Female: "Female",
+        Other: "Other"
+    }
+
     const [isLoading, setIsLoading] = useState(false);
     const [isSaveSuccess, setIsSaveSuccess] = useState(false);
     const [totalPerformer, setTotalPerformer] = useState(1);
 
     const { watch, register, control, formState: { errors }, handleSubmit, reset, clearErrors } = useForm({
         defaultValues: {
-            address: "",
+            // address: "",
             ageCategory: null,
-            city: "",
+            // city: "",
             userType: "Teacher",
-            country: "",
+            // country: "",
             competitionCategory: competitionList.Piano,
-            email: "",
             name: "",
-            phoneNumber: "",
+            // phoneNumber: "",
             youtubeLink: "",
+            performers: []
         },
         mode: "onBlur", // or "onBlur"
     })
@@ -126,15 +133,14 @@ const Register = () => {
 
             // save data to Firebase
             await addDoc(collection(db, "Registrants2025"), {
-                address: data.address,
+                // address: data.address,
                 ageCategory: data.ageCategory,
-                email: data.email,
                 competitionCategory: data.competitionCategory,
-                city: data.city,
+                // city: data.city,
                 userType: data.userType,
-                country: data.country,
+                // country: data.country,
                 performers: formattedDatePerformers,
-                phoneNumber: data.phoneNumber,
+                // phoneNumber: data.phoneNumber,
                 name: data.name,
                 youtubeLink: data.youtubeLink,
                 createdAt: serverTimestamp(),
@@ -170,7 +176,7 @@ const Register = () => {
         if (totalPerformer > currentLength) {
             // Add fields
             for (let i = currentLength; i < totalPerformer; i++) {
-                append({ name: "", dob: null });
+                append({ dob: null });
             }
         } else if (totalPerformer < currentLength) {
             // Remove fields
@@ -237,6 +243,7 @@ const Register = () => {
                                 <Box className="col-7">
                                     <FormControl component="fieldset" error={!!errors.userType}>
                                         <FormLabel
+                                            className='fontSizeFormTitle'
                                             component="legend"
                                             sx={{
                                                 color: "#e5cc92", // Gold text color
@@ -313,39 +320,10 @@ const Register = () => {
                                 )}
                             />
 
-                            {/* Email */}
-                            <Box className="row">
-                                <Box className="col-12">
-                                    <Controller
-                                        name="email"
-                                        control={control}
-                                        rules={{
-                                            required: "Email is required", // Custom error message
-                                            pattern: {
-                                                value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
-                                                message: "Please enter a valid email address",
-                                            },
-                                        }}
-                                        render={({ field, fieldState: { error } }) => (
-                                            <TextField
-                                                {...field}
-                                                type="email" // Ensure email input type is set
-                                                placeholder="JohnDoe@gmail.com"
-                                                id="standard-basic"
-                                                label={t("email")}
-                                                variant="standard"
-                                                className="custom-textfield-full mb-4"
-                                                error={!!error} // Highlight the field on error
-                                                helperText={error ? error.message : ""}
-                                            />
-                                        )}
-                                    />
-                                </Box>
-                            </Box>
-
                             {/* Competition Category (Radio Button) */}
                             <FormControl className='mt-4' component="fieldset" error={!!errors.competitionCategory}>
                                 <FormLabel
+                                    className='fontSizeFormTitle'
                                     component="legend"
                                     sx={{
                                         color: "#e5cc92", // Gold text color
@@ -399,6 +377,7 @@ const Register = () => {
                             {Object.keys(instrumentCategoryList).length > 0 && (
                                 <FormControl className='mt-4' component="fieldset" error={!!errors.instrumentCategory}>
                                     <FormLabel
+                                        className='fontSizeFormTitle'
                                         component="legend"
                                         sx={{
                                             color: "#e5cc92", // Gold text color
@@ -452,6 +431,7 @@ const Register = () => {
                             {/* Age Category (Radio Buttons) */}
                             <FormControl className='mt-4' component="fieldset" error={!!errors.ageCategory}>
                                 <FormLabel
+                                    className='fontSizeFormTitle'
                                     component="legend"
                                     sx={{
                                         color: "#e5cc92", // Gold text color
@@ -501,72 +481,11 @@ const Register = () => {
                                 {errors.ageCategory && <p style={{ color: "red" }}>{errors.ageCategory.message}</p>}
                             </FormControl>
 
-
-                            {/* Phone Number */}
-                            <Controller
-                                name="phoneNumber"
-                                control={control}
-                                rules={{
-                                    required: "Phone Number is required",
-                                    pattern: {
-                                        value: /^[0-9]{10,15}$/,
-                                        message: "Please enter a valid phone number",
-                                    },
-                                }}
-                                render={({ field, fieldState: { error } }) => (
-                                    <TextField {...field} label="Phone Number" variant="standard" className="custom-textfield-full mb-4"
-                                        error={!!error} helperText={error ? error.message : ""} />
-                                )}
-                            />
-
-                            {/* Address */}
-                            <Box className="row">
-                                <Box className="col-6">
-                                    <Controller
-                                        name="city"
-                                        control={control}
-                                        rules={{ required: "City is required" }}
-                                        render={({ field, fieldState: { error } }) => (
-                                            <TextField {...field} label="City" variant="standard" className="custom-textfield-full mb-4"
-                                                error={!!error} helperText={error ? error.message : ""} />
-                                        )}
-                                    />
-                                </Box>
-                                <Box className="col-6">
-                                    <Controller
-                                        name="country"
-                                        control={control}
-                                        rules={{ required: "Country is required" }}
-                                        render={({ field, fieldState: { error } }) => (
-                                            <TextField {...field} label="Country" variant="standard" className="custom-textfield-full mb-4"
-                                                error={!!error} helperText={error ? error.message : ""} />
-                                        )}
-                                    />
-                                </Box>
-                            </Box>
-                            <Controller
-                                name="address"
-                                control={control}
-                                rules={{ required: "Address is required" }}
-                                render={({ field, fieldState: { error } }) => (
-                                    <TextField {...field} label="Address" variant="standard" className="custom-textfield-full mb-4"
-                                        error={!!error} helperText={error ? error.message : ""} />
-                                )}
-                            />
-
-                            {/* Description */}
-                            {/* <Controller
-                                name="description"
-                                control={control}
-                                render={({ field }) => (
-                                    <TextField sx={{ mt: 2 }} {...field} label="Description (Optional)" variant="standard" className="custom-textfield-full mb-4" />
-                                )}
-                            /> */}
-
                             <Box className="row mt-2">
                                 <Box className="col-2">
                                     <FormControl component="fieldset" error={!!errors.totalPerformer}>
                                         <FormLabel
+                                            className='fontSizeFormTitle'
                                             component="legend"
                                             sx={{
                                                 color: "#e5cc92", // Gold text color
@@ -603,104 +522,348 @@ const Register = () => {
                                     </FormControl>
                                 </Box>
                             </Box>
+
                             {/* #region Student's Info */}
                             {fields.map((item, index) => (
-                                <Box className="row mt-2" key={item.id}>
-                                    <Box className="col-6">
-                                        <Controller
-                                            name={`performers.${index}.name`}
-                                            control={control}
-                                            rules={{
-                                                required: "Name is required", // Custom error message
-                                            }}
-                                            render={({ field, fieldState: { error } }) => (
-                                                <TextField
-                                                    {...field}
-                                                    placeholder="John Doe"
-                                                    id="standard-basic"
-                                                    label={t("name")}
-                                                    variant="standard"
-                                                    className="custom-textfield-full mb-4"
-                                                    error={!!error} // Highlight the field on error
-                                                    helperText={error ? error.message : ""}
-                                                />
-                                            )}
-                                        />
-                                    </Box>
-                                    <Box className="col-6">
-                                        <Box className='d-flex' sx={{ width: "100%", gap: 4 }}>
-                                            <LocalizationProvider dateAdapter={AdapterDayjs}>
-                                                <Controller
-                                                    name={`performers.${index}.dob`}
-                                                    control={control}
-                                                    rules={{ required: "Date of Birth is required" }}
-                                                    render={({ field, fieldState: { error } }) => (
-                                                        <DatePicker
-                                                            {...field}
-                                                            label="Date of Birth"
-                                                            value={field.value ? dayjs(field.value) : null}
-                                                            onChange={(newValue) => field.onChange(newValue)}
-                                                            sx={{
-                                                                mt: 4,
-                                                                mb: 4,
-                                                                "& .MuiInputBase-root": {
-                                                                    color: "#e5cc92", // Gold text color
-                                                                },
-                                                                "& .MuiOutlinedInput-notchedOutline": {
-                                                                    borderColor: "#e5cc92 !important", // Gold border (default)
-                                                                },
-                                                                "&:hover .MuiOutlinedInput-notchedOutline": {
-                                                                    borderColor: "#e5cc92 !important", // Gold border on hover
-                                                                },
-                                                                "& .MuiInputLabel-root": {
-                                                                    color: "#e5cc92", // Gold label color
-                                                                },
-                                                                "& .MuiInputLabel-root.Mui-focused": {
-                                                                    color: "#e5cc92 !important", // Force gold label on focus
-                                                                },
-                                                                "& .MuiIconButton-root": {
-                                                                    color: "#e5cc92", // Gold calendar icon
-                                                                },
-                                                                "& .MuiPickersDay-root": {
-                                                                    color: "#e5cc92", // Gold date numbers
-                                                                },
-                                                                "& .MuiPickersDay-root.Mui-selected": {
-                                                                    backgroundColor: "#e5cc92", // Gold background on selected date
-                                                                    color: "black", // Black text on selected date
-                                                                },
-                                                                "& .MuiOutlinedInput-root": {
-                                                                    "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
-                                                                        borderColor: "#e5cc92 !important", // Force gold outline when focused
-                                                                    },
-                                                                },
-                                                                "& .MuiInputBase-input": {
-                                                                    caretColor: "#e5cc92", // Gold cursor
-                                                                },
-                                                                "& .Mui-focused": {
-                                                                    color: "#e5cc92 !important", // Forces gold text when focused
-                                                                },
-                                                                "& .MuiOutlinedInput-root.Mui-focused": {
-                                                                    borderColor: "#e5cc92 !important", // Forces gold border when focused
-                                                                },
-                                                                "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline": {
-                                                                    borderColor: "#e5cc92 !important", // Forces gold border line when focused
-                                                                },
-                                                            }}
-                                                            slotProps={{
-                                                                textField: {
-                                                                    variant: "outlined", // Change this to "standard" if you prefer no outline
-                                                                    error: !!error,
-                                                                    helperText: error ? error.message : "",
-                                                                    InputLabelProps: { shrink: true },
-                                                                },
-                                                            }}
-                                                        />
-                                                    )}
-                                                />
-                                            </LocalizationProvider>
+                                <>
+                                    <FormLabel
+                                        className='mt-4 fontSizeFormTitle'
+                                        component="legend"
+                                        sx={{
+                                            color: "#e5cc92", // Gold text color
+                                            "&.Mui-focused": { color: "#e5cc92 !important" }, // Forces gold on focus
+                                            "&:hover": { color: "#e5cc92 !important" }, // Forces gold on hover
+                                            marginBottom: 0,
+
+                                        }}
+                                    >
+                                        {`Personal Information ${index + 1}`}
+                                    </FormLabel>
+
+                                    {/* First Name & Last Name */}
+                                    <Box className="row">
+                                        <Box className="col-6">
+                                            <Controller
+                                                name={`performers.${index}.firstName`}
+                                                control={control}
+                                                rules={{ required: "First Name is required" }}
+                                                render={({ field, fieldState: { error } }) => (
+                                                    <TextField {...field} label="First Name" variant="standard" className="custom-textfield-full mb-4"
+                                                        error={!!error} helperText={error ? error.message : ""} />
+                                                )}
+                                            />
+                                        </Box>
+                                        <Box className="col-6">
+                                            <Controller
+                                                name={`performers.${index}.lastName`}
+                                                control={control}
+                                                rules={{ required: "Last Name is required" }}
+                                                render={({ field, fieldState: { error } }) => (
+                                                    <TextField {...field} label="Last Name" variant="standard" className="custom-textfield-full mb-4"
+                                                        error={!!error} helperText={error ? error.message : ""} />
+                                                )}
+                                            />
                                         </Box>
                                     </Box>
-                                </Box>
+
+                                    {/* Dob & Nationality */}
+                                    <Box className="row mt-2" key={item.id}>
+                                        <Box className="col-6">
+                                            <Controller
+                                                name={`performers.${index}.nationality`}
+                                                control={control}
+                                                rules={{
+                                                    required: "Nationality is required", // Custom error message
+                                                }}
+                                                render={({ field, fieldState: { error } }) => (
+                                                    <TextField
+                                                        {...field}
+                                                        placeholder="Indonesia"
+                                                        id="standard-basic"
+                                                        label={t("Nationality")}
+                                                        variant="standard"
+                                                        className="custom-textfield-full mb-4"
+                                                        error={!!error} // Highlight the field on error
+                                                        helperText={error ? error.message : ""}
+                                                    />
+                                                )}
+                                            />
+                                        </Box>
+                                        <Box className="col-6">
+                                            <Box className='d-flex' sx={{ width: "100%", gap: 4 }}>
+                                                <LocalizationProvider dateAdapter={AdapterDayjs}>
+                                                    <Controller
+                                                        name={`performers.${index}.dob`}
+                                                        control={control}
+                                                        rules={{ required: "Date of Birth is required" }}
+                                                        render={({ field, fieldState: { error } }) => (
+                                                            <DatePicker
+                                                                {...field}
+                                                                label="Date of Birth"
+                                                                value={field.value ? dayjs(field.value) : null}
+                                                                onChange={(newValue) => field.onChange(newValue)}
+                                                                sx={{
+                                                                    mt: 4,
+                                                                    mb: 4,
+                                                                    "& .MuiInputBase-root": {
+                                                                        color: "#e5cc92", // Gold text color
+                                                                    },
+                                                                    "& .MuiOutlinedInput-notchedOutline": {
+                                                                        borderColor: "#e5cc92 !important", // Gold border (default)
+                                                                    },
+                                                                    "&:hover .MuiOutlinedInput-notchedOutline": {
+                                                                        borderColor: "#e5cc92 !important", // Gold border on hover
+                                                                    },
+                                                                    "& .MuiInputLabel-root": {
+                                                                        color: "#e5cc92", // Gold label color
+                                                                    },
+                                                                    "& .MuiInputLabel-root.Mui-focused": {
+                                                                        color: "#e5cc92 !important", // Force gold label on focus
+                                                                    },
+                                                                    "& .MuiIconButton-root": {
+                                                                        color: "#e5cc92", // Gold calendar icon
+                                                                    },
+                                                                    "& .MuiPickersDay-root": {
+                                                                        color: "#e5cc92", // Gold date numbers
+                                                                    },
+                                                                    "& .MuiPickersDay-root.Mui-selected": {
+                                                                        backgroundColor: "#e5cc92", // Gold background on selected date
+                                                                        color: "black", // Black text on selected date
+                                                                    },
+                                                                    "& .MuiOutlinedInput-root": {
+                                                                        "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
+                                                                            borderColor: "#e5cc92 !important", // Force gold outline when focused
+                                                                        },
+                                                                    },
+                                                                    "& .MuiInputBase-input": {
+                                                                        caretColor: "#e5cc92", // Gold cursor
+                                                                    },
+                                                                    "& .Mui-focused": {
+                                                                        color: "#e5cc92 !important", // Forces gold text when focused
+                                                                    },
+                                                                    "& .MuiOutlinedInput-root.Mui-focused": {
+                                                                        borderColor: "#e5cc92 !important", // Forces gold border when focused
+                                                                    },
+                                                                    "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline": {
+                                                                        borderColor: "#e5cc92 !important", // Forces gold border line when focused
+                                                                    },
+                                                                }}
+                                                                slotProps={{
+                                                                    textField: {
+                                                                        variant: "outlined", // Change this to "standard" if you prefer no outline
+                                                                        error: !!error,
+                                                                        helperText: error ? error.message : "",
+                                                                        InputLabelProps: { shrink: true },
+                                                                    },
+                                                                }}
+                                                            />
+                                                        )}
+                                                    />
+                                                </LocalizationProvider>
+                                            </Box>
+                                        </Box>
+                                    </Box>
+
+                                    {/* Gender */}
+                                    <FormControl component="fieldset" error={!!errors.userType}>
+                                        <FormLabel
+                                            fontSizeFormTitle
+                                            component="legend"
+                                            sx={{
+                                                color: "#e5cc92", // Gold text color
+                                                "&.Mui-focused": { color: "#e5cc92 !important" }, // Forces gold on focus
+                                                "&:hover": { color: "#e5cc92 !important" }, // Forces gold on hover
+                                            }}
+                                        >
+                                            Gender
+                                        </FormLabel>
+
+                                        <Controller
+                                            name={`performers.${index}.gender`}
+                                            control={control}
+                                            rules={{ required: "Please Choose" }}
+                                            render={({ field }) => (
+                                                <RadioGroup {...field} row>
+                                                    {Object.entries(gender).map(([key, label]) => (
+                                                        <FormControlLabel
+                                                            id={`${key}-${label}`}
+                                                            key={key}
+                                                            value={key}
+                                                            control={
+                                                                <Radio
+                                                                    sx={{
+                                                                        color: "#e5cc92", // Unselected color
+                                                                        "&.Mui-checked": {
+                                                                            color: "#e5cc92", // Selected color
+                                                                        },
+
+                                                                        // 👇 Removes blue focus and replaces with gold glow
+                                                                        "&.Mui-focusVisible": {
+                                                                            outline: "2px solid #e5cc92", // Gold outline when focused
+                                                                        },
+                                                                        "&.Mui-checked.Mui-focusVisible": {
+                                                                            outline: "2px solid #e5cc92", // Gold glow for checked state
+                                                                        },
+                                                                    }}
+                                                                />
+                                                            }
+                                                            label={label}
+                                                            sx={{ color: "#e5cc92" }}
+                                                        />
+                                                    ))}
+                                                </RadioGroup>
+                                            )}
+                                        />
+                                        {errors.performers?.[index]?.gender && (
+                                            <p style={{ color: "red", marginTop: "4px" }}>
+                                                {errors.performers[index].gender.message}
+                                            </p>
+                                        )}
+                                    </FormControl>
+
+
+                                    {/* Email/Phone Number */}
+                                    <Box className="row align-items-center">
+                                        <Box className="col-6">
+                                            <Controller
+                                                name={`performers.${index}.email`}
+                                                control={control}
+                                                rules={{
+                                                    required: "Email is required", // Custom error message
+                                                    pattern: {
+                                                        value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
+                                                        message: "Please enter a valid email address",
+                                                    },
+                                                }}
+                                                render={({ field, fieldState: { error } }) => (
+                                                    <TextField
+                                                        {...field}
+                                                        type="email" // Ensure email input type is set
+                                                        placeholder="JohnDoe@gmail.com"
+                                                        id="standard-basic"
+                                                        label={t("email")}
+                                                        variant="standard"
+                                                        className="custom-textfield-full mb-4"
+                                                        error={!!error} // Highlight the field on error
+                                                        helperText={error ? error.message : ""}
+                                                    />
+                                                )}
+                                            />
+
+                                        </Box>
+                                        <Box className="col-6">
+                                            <Controller
+                                                name={`performers.${index}.phoneNumber`}
+                                                control={control}
+                                                rules={{ required: "Phone Number is required" }}
+                                                render={({ field, fieldState: { error } }) => (
+                                                    <InputNumber
+                                                        {...field}
+                                                        style={{
+                                                            width: '100%',
+                                                            color: '#e5cc92',
+                                                            borderColor: '#e5cc92',
+                                                            backgroundColor: 'white',
+                                                        }}
+                                                        className="custom-input-gold"
+                                                        addonBefore={
+                                                            <Controller
+                                                                name={`performers.${index}.countryCode`}
+                                                                control={control}
+                                                                defaultValue={['+1']}
+                                                                rules={{ required: "Country code is required" }}
+                                                                render={({ field }) => (
+                                                                    <Cascader
+                                                                        {...field}
+                                                                        options={countryCodes.map(code => ({ value: code.code, label: code.name }))}
+                                                                        // value={countryCode}
+                                                                        // onChange={(value) => setCountryCode(value)}
+                                                                        placeholder="+Code"
+                                                                        style={{
+                                                                            width: 150,
+                                                                            color: '#e5cc92',
+                                                                            fontSize: 12,
+                                                                            borderColor: '#e5cc92',
+                                                                            backgroundColor: 'white',
+                                                                        }}
+                                                                        dropdownStyle={{
+                                                                            // color: '#e5cc92',
+                                                                        }}
+                                                                        popupClassName="custom-cascader-popup"
+                                                                    />
+                                                                )}
+                                                            />
+                                                        }
+                                                        status={error ? 'error' : ''}
+                                                    />
+                                                )}
+                                            />
+                                        </Box>
+                                    </Box>
+
+                                    {/* City/Country */}
+                                    <Box className="row">
+                                        <Box className="col-6">
+                                            <Controller
+                                                name={`performers.${index}.city`}
+                                                control={control}
+                                                rules={{ required: "City is required" }}
+                                                render={({ field, fieldState: { error } }) => (
+                                                    <TextField {...field} label="City" variant="standard" className="custom-textfield-full mb-4"
+                                                        error={!!error} helperText={error ? error.message : ""} />
+                                                )}
+                                            />
+                                        </Box>
+                                        <Box className="col-6">
+                                            <Controller
+                                                name={`performers.${index}.country`}
+                                                control={control}
+                                                rules={{ required: "Country is required" }}
+                                                render={({ field, fieldState: { error } }) => (
+                                                    <TextField {...field} label="Country" variant="standard" className="custom-textfield-full mb-4"
+                                                        error={!!error} helperText={error ? error.message : ""} />
+                                                )}
+                                            />
+                                        </Box>
+                                    </Box>
+
+                                    {/* province/zipcode */}
+                                    <Box className="row">
+                                        <Box className="col-6">
+                                            <Controller
+                                                name={`performers.${index}.province`}
+                                                control={control}
+                                                rules={{ required: "Province is required" }}
+                                                render={({ field, fieldState: { error } }) => (
+                                                    <TextField {...field} label="Province" variant="standard" className="custom-textfield-full mb-4"
+                                                        error={!!error} helperText={error ? error.message : ""} />
+                                                )}
+                                            />
+                                        </Box>
+                                        <Box className="col-6">
+                                            <Controller
+                                                name={`performers.${index}.zipCode`}
+                                                control={control}
+                                                rules={{ required: "zipCode is required" }}
+                                                render={({ field, fieldState: { error } }) => (
+                                                    <TextField {...field} label="zipCode" variant="standard" className="custom-textfield-full mb-4"
+                                                        error={!!error} helperText={error ? error.message : ""} />
+                                                )}
+                                            />
+                                        </Box>
+                                    </Box>
+
+                                    {/* Address */}
+                                    <Controller
+                                        name={`performers.${index}.addressLine`}
+                                        control={control}
+                                        rules={{ required: "Address Line is required" }}
+                                        render={({ field, fieldState: { error } }) => (
+                                            <TextField {...field} label="Address Line" variant="standard" className="custom-textfield-full mb-4"
+                                                error={!!error} helperText={error ? error.message : ""} />
+                                        )}
+                                    />
+                                </>
                             ))}
 
                             {/* Exam Certificate Upload */}
