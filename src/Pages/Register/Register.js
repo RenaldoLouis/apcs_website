@@ -28,31 +28,11 @@ import { useTranslation } from "react-i18next";
 import { toast } from 'react-toastify';
 import apis from '../../apis';
 import FileInput from '../../components/molecules/FileInput';
-import { CompetitionCategory } from '../../constant/CompetitionCategory';
+import { ageCategories, competitionList, PianoInstrumentList } from '../../constant/RegisterPageConst';
 import { db } from '../../firebase';
 
 const Register = () => {
     const { t } = useTranslation();
-
-    const ageCategories = {
-        Poco: "Poco (4-5 years old)",
-        Petite: "Petite (6-7 years old)",
-        Primary: "Primary (8-11 years old)",
-        Young: "Young (12-15 years old)",
-        Junior: "Junior (16-19 years old)",
-        Youth: "Youth (20-23 years old)",
-        OpenAge: "Open Age (24 years old and up)",
-        FreeChoice: "Free Choice (Combination Age - No Limitation)"
-    }
-
-    const competitionList = {
-        Piano: "Piano",
-        Strings: "Strings",
-        Woodwinds: "Woodwinds",
-        Brass: "Brass",
-        Percussions: "Percussions",
-        VocalChoir: "VocalChoir",
-    }
 
     const userType = {
         Teacher: "I'm a Teacher registering my students",
@@ -100,6 +80,8 @@ const Register = () => {
         }
     };
 
+
+    // TO DO ADD ANIMATION PROGRESS
     const onSubmit = async (data) => {
         try {
             setIsLoading(true)
@@ -214,56 +196,16 @@ const Register = () => {
         setTotalPerformer(value)
     }
 
-    const tooltipMessageYoutubeFormat = useMemo(() => {
-        let text = null;
+    const instrumentCategoryList = useMemo(() => {
         switch (selectedCompetition) {
-            case CompetitionCategory.Piano_Solo:
-                text = <p>
-                    Example:
-                    APCSCF2024 - PIANO SOLO - POCO - WALLACE JOHANNA TANTONO - Sonata in F Major
-                    (If you have a longer name, (Wallace Johanna Tantono), please simplify into Wallace J.T).
-                </p>
+            case competitionList.Piano:
+                return PianoInstrumentList
                 break;
-            case CompetitionCategory.Piano_Fourhands_one:
-                text = <p>
-                    Example:
-                    APCSCF2024 - PIANO FOURHANDS - FREE CHOICE - KIRANA SEAN & SKY YOHANNA - MOZART PIANO SONATA K.381
-                    (If you have a longer name, please simplify it.).
-                </p>
-                break;
-            case CompetitionCategory.Piano_Fourhands_two:
-                text = <p>
-                    Example:
-                    APCSCF2024 - PIANO FOURHANDS - FREE CHOICE - KIRANA SEAN & SKY YOHANNA - Scaramouche Op.165b - Darius Milhaud for 2 Pianos 4 Hands
-                    (If you have a longer name, please simplify it.).
-                </p>
-                break;
-            case CompetitionCategory.Chamber_Music_one:
-                text = <p>
-                    Example:
-                    APCSCF2024 - CHAMBER MUSIC - FREE CHOICE - RINA JULIANNA, MATTHEW TAN, RYAN WIJAYA, LINA TIONANDA) - Lavignac "Galop- Marche"
-                    (If you have a longer name, please simplify it.).
-                </p>
-                break;
-            case CompetitionCategory.Chamber_Music_two:
-                text = <p>
-                    Example:
-                    APCSCF2024 - CHAMBER MUSIC - FREE CHOICE - TIMOTHY TIO, KIMBERLY WIJAYA, MAY JULIO, JONATHAN ROBERT - Champagne Toccata - William Gillock for 2 Piano 8 Hands
-                    (If you have a longer name, please simplify it.).
-                </p>
-                break;
-            case CompetitionCategory.Chamber_Music_any:
-                text = <p>
-                    Example:
-                    APCSCF2024 - CHAMBER MUSIC - FREE CHOICE - TIMOTHY's Chamber - Dvořák: Piano Quintet No. 2, Op. 81
-                    (If you have a longer name, please simplify it.).
-                </p>
-                break;
+
             default:
+                return {}
+                break;
         }
-
-        return text
-
     }, [selectedCompetition])
 
     return (
@@ -402,7 +344,7 @@ const Register = () => {
                             </Box>
 
                             {/* Competition Category (Radio Button) */}
-                            <FormControl component="fieldset" error={!!errors.competitionCategory}>
+                            <FormControl className='mt-4' component="fieldset" error={!!errors.competitionCategory}>
                                 <FormLabel
                                     component="legend"
                                     sx={{
@@ -453,8 +395,62 @@ const Register = () => {
                                 {errors.competitionCategory && <p style={{ color: "red" }}>{errors.competitionCategory.message}</p>}
                             </FormControl>
 
+                            {/* Instrument Category (Radio Buttons) */}
+                            {Object.keys(instrumentCategoryList).length > 0 && (
+                                <FormControl className='mt-4' component="fieldset" error={!!errors.instrumentCategory}>
+                                    <FormLabel
+                                        component="legend"
+                                        sx={{
+                                            color: "#e5cc92", // Gold text color
+                                            "&.Mui-focused": { color: "#e5cc92 !important" }, // Forces gold on focus
+                                            "&:hover": { color: "#e5cc92 !important" }, // Forces gold on hover
+                                        }}
+                                    >
+                                        Select Instrument Category
+                                    </FormLabel>
+
+                                    <Controller
+                                        name="instrumentCategory"
+                                        control={control}
+                                        rules={{ required: "Please select an instrument category" }}
+                                        render={({ field }) => (
+                                            <RadioGroup {...field} row>
+                                                {Object.entries(instrumentCategoryList).map(([key, label]) => (
+                                                    <FormControlLabel
+                                                        id={`${key}-${label}`}
+                                                        key={key}
+                                                        value={key}
+                                                        control={
+                                                            <Radio
+                                                                sx={{
+                                                                    color: "#e5cc92", // Unselected color
+                                                                    "&.Mui-checked": {
+                                                                        color: "#e5cc92", // Selected color
+                                                                    },
+
+                                                                    // 👇 Removes blue focus and replaces with gold glow
+                                                                    "&.Mui-focusVisible": {
+                                                                        outline: "2px solid #e5cc92", // Gold outline when focused
+                                                                    },
+                                                                    "&.Mui-checked.Mui-focusVisible": {
+                                                                        outline: "2px solid #e5cc92", // Gold glow for checked state
+                                                                    },
+                                                                }}
+                                                            />
+                                                        }
+                                                        label={label}
+                                                        sx={{ color: "#e5cc92" }}
+                                                    />
+                                                ))}
+                                            </RadioGroup>
+                                        )}
+                                    />
+                                    {errors.instrumentCategory && <p style={{ color: "red" }}>{errors.instrumentCategory.message}</p>}
+                                </FormControl>
+                            )}
+
                             {/* Age Category (Radio Buttons) */}
-                            <FormControl component="fieldset" error={!!errors.ageCategory}>
+                            <FormControl className='mt-4' component="fieldset" error={!!errors.ageCategory}>
                                 <FormLabel
                                     component="legend"
                                     sx={{
@@ -591,7 +587,7 @@ const Register = () => {
                                                     suffix="Person"
                                                     min={1} max={15}
                                                     onError={!!error}
-                                                    defaultValue={field.value} // or use `value={field.value}` explicitly
+                                                    defaultValue={1} // or use `value={field.value}` explicitly
                                                     onChange={(value) => {
                                                         field.onChange(value);       // Update form state
                                                         handleChangePerformer(value); // Your custom logic
@@ -753,7 +749,6 @@ const Register = () => {
                                     <p>
                                         Make sure to fill the title on YouTube with the format: APCSCF2024 - (INSTRUMENT CATEGORIES) - (AGE CATEGORIES) - (FULL NAME) - (PIECE)
                                     </p>
-                                    {tooltipMessageYoutubeFormat}
                                 </div>}>
                                     <IconButton sx={{ color: "#e5cc92", fontSize: 16, mt: 1 }}>
                                         <QuestionCircleOutlined />
