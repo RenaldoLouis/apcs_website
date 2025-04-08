@@ -6,7 +6,7 @@ import { Button, IconButton, InputLabel, Tooltip, Typography } from "@mui/materi
 import React, { useMemo } from "react";
 import { useController } from "react-hook-form";
 
-const FileInput = ({ name, control, label, rules = {}, tooltipLabel }) => {
+const FileInput = ({ name, control, label, rules = {}, tooltipLabel, smallNotes = null, inputRef }) => {
     // Custom validation function to check for spaces in the file name.
     const customValidate = (value) => {
         if (value && value.length > 0) {
@@ -56,11 +56,15 @@ const FileInput = ({ name, control, label, rules = {}, tooltipLabel }) => {
                 id={name}
                 type="file"
                 accept="application/pdf"
-                ref={ref}
+                // ref={ref}
+                ref={(e) => {
+                    ref(e); // react-hook-form ref
+                    inputRef.current = e; // your manual ref
+                }}
                 onChange={(e) => onChange(e.target.files)}
                 style={{ display: "none" }}
             />
-            <label htmlFor={name} style={{ display: "block", marginTop: "15px", width: "fit-content" }}>
+            <label htmlFor={name} style={{ display: "block", marginTop: "25px", width: "fit-content" }}>
                 <InputLabel
                     sx={{
                         color: "#e5cc92",
@@ -68,7 +72,7 @@ const FileInput = ({ name, control, label, rules = {}, tooltipLabel }) => {
                         "&.Mui-focused": { color: "#e5cc92 !important" },
                     }}
                 >
-                    <div className='d-flex align-items-center'>
+                    <div className='d-flex align-items-center' style={{ height: '16px' }}>
                         {label}
                         <div>
                             <Tooltip
@@ -84,6 +88,7 @@ const FileInput = ({ name, control, label, rules = {}, tooltipLabel }) => {
                             </Tooltip>
                         </div>
                     </div>
+                    {smallNotes}
                 </InputLabel>
                 <div className='d-flex align-items-center'>
                     <Button

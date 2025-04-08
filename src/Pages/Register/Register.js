@@ -13,8 +13,7 @@ import {
     Radio,
     RadioGroup,
     TextField,
-    Tooltip,
-    Typography
+    Tooltip
 } from "@mui/material";
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
@@ -23,7 +22,7 @@ import { Cascader, InputNumber } from 'antd';
 import axios from 'axios';
 import dayjs from 'dayjs';
 import { addDoc, collection, serverTimestamp } from "firebase/firestore";
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import { Controller, useFieldArray, useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { toast } from 'react-toastify';
@@ -35,6 +34,9 @@ import { db } from '../../firebase';
 
 const Register = () => {
     const { t } = useTranslation();
+    const examInputRef = useRef();
+    const birthCertInputRef = useRef();
+    const repertoireInputRef = useRef();
 
     const userType = {
         Teacher: "I'm a Teacher registering my students",
@@ -63,7 +65,8 @@ const Register = () => {
             name: "",
             // phoneNumber: "",
             youtubeLink: "",
-            performers: []
+            performers: [],
+            totalPerformer: 1
         },
         mode: "onBlur", // or "onBlur"
     })
@@ -152,12 +155,25 @@ const Register = () => {
                 createdAt: serverTimestamp(),
             });
 
-            setIsLoading(false)
+            const dataEmail = formattedDatePerformers.map(({ email, firstName, lastName }) => ({
+                email,
+                name: `${firstName} ${lastName}`
+            }))
 
-            toast.success("Succesfully Register")
-            setIsSaveSuccess(true)
+            setProgressLoading(90)
 
-            setProgressLoading(100)
+            console.log("dataEmail", dataEmail)
+            apis.email.sendEmail(dataEmail).then((res) => {
+                if (res.status === 200) {
+                    toast.success("Succesfully Registered! Please check your email for confirmation.")
+                    setIsSaveSuccess(true)
+
+                    setProgressLoading(100)
+                } else {
+                    throw new Error("Email sending failed with status " + res.status);
+                }
+                setIsLoading(false)
+            })
         } catch (e) {
             setIsLoading(false)
             toast.error("Register failed, please try again. If the error persist please contact us")
@@ -169,6 +185,17 @@ const Register = () => {
         reset()
         setIsSaveSuccess(false)
         clearErrors()
+        setTotalPerformer(0)
+        // Clear file input
+        if (examInputRef.current) {
+            examInputRef.current.value = null;
+        }
+        if (birthCertInputRef.current) {
+            birthCertInputRef.current.value = null;
+        }
+        if (repertoireInputRef.current) {
+            repertoireInputRef.current.value = null;
+        }
         window.scrollTo({
             top: 0,
             behavior: "smooth"
@@ -880,8 +907,10 @@ const Register = () => {
                                 name="examCertificate"
                                 control={control}
                                 label="Exam Certificate"
+                                smallNotes={<small class="note">*Upload as one combined PDF for all performers.</small>}
                                 rules={{ required: "Upload required" }}
                                 tooltipLabel="Please attach your latest exam certificate / essay of maximum 80 words in pdf if you are not joining any exams. Please Upload All students in 1 pdf"
+                                inputRef={examInputRef}
                             />
 
                             {/* Birth Certificate Upload */}
@@ -889,8 +918,10 @@ const Register = () => {
                                 name="birthCertificate"
                                 control={control}
                                 label="Birth Certificate"
+                                smallNotes={<small class="note">*Upload as one combined PDF for all performers.</small>}
                                 rules={{ required: "Upload required" }}
                                 tooltipLabel="Please attach your copy of Birth Certificate/Passport/KTP (identity card) in pdf. Please Upload All students in 1 pdf"
+                                inputRef={birthCertInputRef}
                             />
 
                             {/* PDF Repertoire Upload */}
@@ -899,8 +930,10 @@ const Register = () => {
                                 name="pdfRepertoire"
                                 control={control}
                                 label="Repertoire"
+                                smallNotes={<small class="note">*Upload as one combined PDF for all performers.</small>}
                                 rules={{ required: "Upload required" }}
                                 tooltipLabel="Please attach your PDF repertoire here. Please Upload All students in 1 pdf"
+                                inputRef={repertoireInputRef}
                             />
 
                             {/* YouTube Link */}
@@ -1046,13 +1079,13 @@ const Register = () => {
                                                     justifyContent: 'center',
                                                 }}
                                             >
-                                                <Typography
+                                                {/* <Typography
                                                     variant="caption"
                                                     component="div"
                                                     sx={{ color: 'text.secondary' }}
                                                 >
                                                     {`${Math.round(progressLoading)}%`}
-                                                </Typography>
+                                                </Typography> */}
                                             </Box>
                                         </Box>
                                     )}
