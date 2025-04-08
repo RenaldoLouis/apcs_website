@@ -162,7 +162,6 @@ const Register = () => {
 
             setProgressLoading(90)
 
-            console.log("dataEmail", dataEmail)
             apis.email.sendEmail(dataEmail).then((res) => {
                 if (res.status === 200) {
                     toast.success("Succesfully Registered! Please check your email for confirmation.")
