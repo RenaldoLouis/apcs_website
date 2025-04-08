@@ -598,7 +598,7 @@ const Register = () => {
                                                 )}
                                             />
                                         </Box>
-                                        <Box className="col-6">
+                                        <Box className="col-3 align-content-center">
                                             <Box className='d-flex' sx={{ width: "100%", gap: 4 }}>
                                                 <LocalizationProvider dateAdapter={AdapterDayjs}>
                                                     <Controller
@@ -671,65 +671,65 @@ const Register = () => {
                                                 </LocalizationProvider>
                                             </Box>
                                         </Box>
-                                    </Box>
+                                        <Box className="col-3 align-content-center">
+                                            {/* Gender */}
+                                            <FormControl component="fieldset" error={!!errors.userType}>
+                                                <FormLabel
+                                                    fontSizeFormTitle
+                                                    component="legend"
+                                                    sx={{
+                                                        color: "#e5cc92", // Gold text color
+                                                        "&.Mui-focused": { color: "#e5cc92 !important" }, // Forces gold on focus
+                                                        "&:hover": { color: "#e5cc92 !important" }, // Forces gold on hover
+                                                    }}
+                                                >
+                                                    Gender
+                                                </FormLabel>
 
-                                    {/* Gender */}
-                                    <FormControl component="fieldset" error={!!errors.userType}>
-                                        <FormLabel
-                                            fontSizeFormTitle
-                                            component="legend"
-                                            sx={{
-                                                color: "#e5cc92", // Gold text color
-                                                "&.Mui-focused": { color: "#e5cc92 !important" }, // Forces gold on focus
-                                                "&:hover": { color: "#e5cc92 !important" }, // Forces gold on hover
-                                            }}
-                                        >
-                                            Gender
-                                        </FormLabel>
+                                                <Controller
+                                                    name={`performers.${index}.gender`}
+                                                    control={control}
+                                                    rules={{ required: "Please Choose" }}
+                                                    render={({ field }) => (
+                                                        <RadioGroup {...field} row>
+                                                            {Object.entries(gender).map(([key, label]) => (
+                                                                <FormControlLabel
+                                                                    id={`${key}-${label}`}
+                                                                    key={key}
+                                                                    value={key}
+                                                                    control={
+                                                                        <Radio
+                                                                            sx={{
+                                                                                color: "#e5cc92", // Unselected color
+                                                                                "&.Mui-checked": {
+                                                                                    color: "#e5cc92", // Selected color
+                                                                                },
 
-                                        <Controller
-                                            name={`performers.${index}.gender`}
-                                            control={control}
-                                            rules={{ required: "Please Choose" }}
-                                            render={({ field }) => (
-                                                <RadioGroup {...field} row>
-                                                    {Object.entries(gender).map(([key, label]) => (
-                                                        <FormControlLabel
-                                                            id={`${key}-${label}`}
-                                                            key={key}
-                                                            value={key}
-                                                            control={
-                                                                <Radio
-                                                                    sx={{
-                                                                        color: "#e5cc92", // Unselected color
-                                                                        "&.Mui-checked": {
-                                                                            color: "#e5cc92", // Selected color
-                                                                        },
-
-                                                                        // 👇 Removes blue focus and replaces with gold glow
-                                                                        "&.Mui-focusVisible": {
-                                                                            outline: "2px solid #e5cc92", // Gold outline when focused
-                                                                        },
-                                                                        "&.Mui-checked.Mui-focusVisible": {
-                                                                            outline: "2px solid #e5cc92", // Gold glow for checked state
-                                                                        },
-                                                                    }}
+                                                                                // 👇 Removes blue focus and replaces with gold glow
+                                                                                "&.Mui-focusVisible": {
+                                                                                    outline: "2px solid #e5cc92", // Gold outline when focused
+                                                                                },
+                                                                                "&.Mui-checked.Mui-focusVisible": {
+                                                                                    outline: "2px solid #e5cc92", // Gold glow for checked state
+                                                                                },
+                                                                            }}
+                                                                        />
+                                                                    }
+                                                                    label={label}
+                                                                    sx={{ color: "#e5cc92" }}
                                                                 />
-                                                            }
-                                                            label={label}
-                                                            sx={{ color: "#e5cc92" }}
-                                                        />
-                                                    ))}
-                                                </RadioGroup>
-                                            )}
-                                        />
-                                        {errors.performers?.[index]?.gender && (
-                                            <p style={{ color: "red", marginTop: "4px" }}>
-                                                {errors.performers[index].gender.message}
-                                            </p>
-                                        )}
-                                    </FormControl>
-
+                                                            ))}
+                                                        </RadioGroup>
+                                                    )}
+                                                />
+                                                {errors.performers?.[index]?.gender && (
+                                                    <p style={{ color: "red", marginTop: "4px" }}>
+                                                        {errors.performers[index].gender.message}
+                                                    </p>
+                                                )}
+                                            </FormControl>
+                                        </Box >
+                                    </Box>
 
                                     {/* Email/Phone Number */}
                                     <Box className="row align-items-center">
@@ -1061,7 +1061,7 @@ const Register = () => {
                         </form>
                     </div>
                 </div>
-            </div>
+            </div >
         </div >
     )
 }
