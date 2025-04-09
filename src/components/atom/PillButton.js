@@ -22,7 +22,7 @@ const PillButton = (props) => {
                 // size={"medium"}
                 variant="contained"
                 sx={{
-                    width: 150,
+                    minWidth: 150,
                     zIndex: 10,
                     fontSize: isSmallMobileAndSmaller ? "10px" : "1.5vmin",
                     borderRadius: 25,
@@ -46,6 +46,7 @@ const PillButton = (props) => {
                 // size={"medium"}
                 variant="contained"
                 sx={{
+                    width: "fit-content",
                     margin: "14px",
                     zIndex: 10,
                     fontSize: isSmallMobileAndSmaller ? "10px" : "1.5vmin",
