@@ -275,7 +275,7 @@ const Register = () => {
                         </div>
                         <form className="d-flex flex-column" onSubmit={handleSubmit(onSubmit, onError)}>
                             <Box className="row">
-                                <Box className="col-7">
+                                <Box className="col-md-7 col-sm-12">
                                     <FormControl component="fieldset" error={!!errors.userType}>
                                         <FormLabel
                                             className='fontSizeFormTitle'
@@ -516,8 +516,9 @@ const Register = () => {
                                 {errors.ageCategory && <p style={{ color: "red" }}>{errors.ageCategory.message}</p>}
                             </FormControl>
 
+                            {/* Total Performer */}
                             <Box className="row mt-2">
-                                <Box className="col-2">
+                                <Box className="col-6 col-md-2">
                                     <FormControl component="fieldset" error={!!errors.totalPerformer}>
                                         <FormLabel
                                             className='fontSizeFormTitle'
@@ -624,7 +625,7 @@ const Register = () => {
                                                 )}
                                             />
                                         </Box>
-                                        <Box className="col-3 align-content-center">
+                                        <Box className="col-6 col-md-3 align-content-center">
                                             <Box className='d-flex' sx={{ width: "100%", gap: 4 }}>
                                                 <LocalizationProvider dateAdapter={AdapterDayjs}>
                                                     <Controller
@@ -697,7 +698,7 @@ const Register = () => {
                                                 </LocalizationProvider>
                                             </Box>
                                         </Box>
-                                        <Box className="col-3 align-content-center">
+                                        <Box className=" col-12 col-md-3 align-content-center">
                                             {/* Gender */}
                                             <FormControl component="fieldset" error={!!errors.userType}>
                                                 <FormLabel
@@ -759,7 +760,7 @@ const Register = () => {
 
                                     {/* Email/Phone Number */}
                                     <Box className="row align-items-center">
-                                        <Box className="col-6">
+                                        <Box className="col-12 col-md-6">
                                             <Controller
                                                 name={`performers.${index}.email`}
                                                 control={control}
@@ -786,7 +787,7 @@ const Register = () => {
                                             />
 
                                         </Box>
-                                        <Box className="col-6">
+                                        <Box className="col-12 col-md-6">
                                             <Controller
                                                 name={`performers.${index}.phoneNumber`}
                                                 control={control}
