@@ -227,9 +227,9 @@ const Register = () => {
 
     const performerExpText = useMemo(() => {
         if (!isEnsemble) {
-            return "you are performing solo"
+            return t("register.for.performingSolo")
         } else {
-            return "you are performing as an ensemble"
+            return t("register.for.performingEnsemble")
         }
     }, [isEnsemble])
 
@@ -255,21 +255,21 @@ const Register = () => {
                 <div className="row">
                     <div className="col-sm">
                         <div className="mangolaineFont goldenTextColor d-flex align-items-center justify-center" style={{ fontSize: "6vmin" }}>
-                            REGISTER
+                            {t("register.title")}
                         </div>
+
                         <div className="creamText" style={{ color: '#e5cc92' }}>
                             <div>
                                 <strong>
-                                    Please complete the form below in accordance with the Terms & Conditions.
+                                    {t("register.description.line1")}
                                 </strong>
                             </div>
-                            <strong>
-                                Important Notes:
-                            </strong>
+
+                            <strong>{t("register.description.importantNotes")}</strong>
                             <ul>
-                                <li>Participant age will be calculated based on their age as of <strong>31 December 2025</strong>.</li>
+                                <li>{t("register.description.ageInfo")}</li>
                                 <li>
-                                    <strong> APCS Music </strong>reserves the right to reassign participants to the appropriate age category if the submitted information does not meet the eligibility requirements.
+                                    <strong>APCS Music </strong>{t("register.description.disclaimer")}
                                 </li>
                             </ul>
                         </div>
@@ -281,18 +281,18 @@ const Register = () => {
                                             className='fontSizeFormTitle'
                                             component="legend"
                                             sx={{
-                                                color: "#e5cc92", // Gold text color
-                                                "&.Mui-focused": { color: "#e5cc92 !important" }, // Forces gold on focus
-                                                "&:hover": { color: "#e5cc92 !important" }, // Forces gold on hover
+                                                color: "#e5cc92",
+                                                "&.Mui-focused": { color: "#e5cc92 !important" },
+                                                "&:hover": { color: "#e5cc92 !important" },
                                             }}
                                         >
-                                            Who are you?
+                                            {t("register.form.whoAreYou")}
                                         </FormLabel>
 
                                         <Controller
                                             name="userType"
                                             control={control}
-                                            rules={{ required: "Please Choose" }}
+                                            rules={{ required: t("register.errors.required") }}
                                             render={({ field }) => (
                                                 <RadioGroup {...field} row>
                                                     {Object.entries(userType).map(([key, label]) => (
@@ -303,17 +303,13 @@ const Register = () => {
                                                             control={
                                                                 <Radio
                                                                     sx={{
-                                                                        color: "#e5cc92", // Unselected color
-                                                                        "&.Mui-checked": {
-                                                                            color: "#e5cc92", // Selected color
-                                                                        },
-
-                                                                        // 👇 Removes blue focus and replaces with gold glow
+                                                                        color: "#e5cc92",
+                                                                        "&.Mui-checked": { color: "#e5cc92" },
                                                                         "&.Mui-focusVisible": {
-                                                                            outline: "2px solid #e5cc92", // Gold outline when focused
+                                                                            outline: "2px solid #e5cc92",
                                                                         },
                                                                         "&.Mui-checked.Mui-focusVisible": {
-                                                                            outline: "2px solid #e5cc92", // Gold glow for checked state
+                                                                            outline: "2px solid #e5cc92",
                                                                         },
                                                                     }}
                                                                 />
@@ -325,28 +321,33 @@ const Register = () => {
                                                 </RadioGroup>
                                             )}
                                         />
-                                        {errors.userType && <p style={{ color: "red" }}>{errors.userType.message}</p>}
+                                        {errors.userType && (
+                                            <p style={{ color: "red" }}>{errors.userType.message}</p>
+                                        )}
                                     </FormControl>
                                 </Box>
                             </Box>
+
 
                             {/* Teacher's/Parent's Name */}
                             <Controller
                                 name="name"
                                 control={control}
-                                rules={{ required: "Name is required" }}
+                                rules={{ required: t("register.errors.required") }}
                                 render={({ field, fieldState: { error } }) => (
                                     <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
                                         <TextField
                                             {...field}
-                                            label={userTypeValue !== "Teacher" ? "Parent's Name" : "Teacher's Name"}
+                                            label={userTypeValue !== "Teacher"
+                                                ? t("register.form.parentName")
+                                                : t("register.form.teacherName")}
                                             variant="standard"
                                             className="custom-textfield-full mb-4"
                                             error={!!error}
                                             helperText={error ? error.message : ""}
                                         />
 
-                                        <Tooltip title="If you are registering yourself input '-' here and input your name in performer below">
+                                        <Tooltip title={t("register.form.teacherNameNote")}>
                                             <IconButton sx={{ color: "#e5cc92", fontSize: 16, mt: 1 }}>
                                                 <QuestionCircleOutlined />
                                             </IconButton>
@@ -355,24 +356,25 @@ const Register = () => {
                                 )}
                             />
 
+
                             {/* Competition Category (Radio Button) */}
                             <FormControl className='mt-4' component="fieldset" error={!!errors.competitionCategory}>
                                 <FormLabel
                                     className='fontSizeFormTitle'
                                     component="legend"
                                     sx={{
-                                        color: "#e5cc92", // Gold text color
-                                        "&.Mui-focused": { color: "#e5cc92 !important" }, // Forces gold on focus
-                                        "&:hover": { color: "#e5cc92 !important" }, // Forces gold on hover
+                                        color: "#e5cc92",
+                                        "&.Mui-focused": { color: "#e5cc92 !important" },
+                                        "&:hover": { color: "#e5cc92 !important" },
                                     }}
                                 >
-                                    Select Competition Category
+                                    {t("register.form.competitionCategory")}
                                 </FormLabel>
 
                                 <Controller
                                     name="competitionCategory"
                                     control={control}
-                                    rules={{ required: "Please select an competition category" }}
+                                    rules={{ required: t("register.errors.required") }}
                                     render={({ field }) => (
                                         <RadioGroup {...field} row>
                                             {Object.entries(competitionList).map(([key, label]) => (
@@ -383,30 +385,31 @@ const Register = () => {
                                                     control={
                                                         <Radio
                                                             sx={{
-                                                                color: "#e5cc92", // Unselected color
+                                                                color: "#e5cc92",
                                                                 "&.Mui-checked": {
-                                                                    color: "#e5cc92", // Selected color
+                                                                    color: "#e5cc92",
                                                                 },
-
-                                                                // 👇 Removes blue focus and replaces with gold glow
                                                                 "&.Mui-focusVisible": {
-                                                                    outline: "2px solid #e5cc92", // Gold outline when focused
+                                                                    outline: "2px solid #e5cc92",
                                                                 },
                                                                 "&.Mui-checked.Mui-focusVisible": {
-                                                                    outline: "2px solid #e5cc92", // Gold glow for checked state
+                                                                    outline: "2px solid #e5cc92",
                                                                 },
                                                             }}
                                                         />
                                                     }
-                                                    label={label}
+                                                    label={t(`register.competitionList.${key}`)}
                                                     sx={{ color: "#e5cc92" }}
                                                 />
                                             ))}
                                         </RadioGroup>
                                     )}
                                 />
-                                {errors.competitionCategory && <p style={{ color: "red" }}>{errors.competitionCategory.message}</p>}
+                                {errors.competitionCategory && (
+                                    <p style={{ color: "red" }}>{errors.competitionCategory.message}</p>
+                                )}
                             </FormControl>
+
 
                             {/* Instrument Category (Radio Buttons) */}
                             {Object.keys(instrumentCategoryList).length > 0 && (
@@ -415,18 +418,18 @@ const Register = () => {
                                         className='fontSizeFormTitle'
                                         component="legend"
                                         sx={{
-                                            color: "#e5cc92", // Gold text color
-                                            "&.Mui-focused": { color: "#e5cc92 !important" }, // Forces gold on focus
-                                            "&:hover": { color: "#e5cc92 !important" }, // Forces gold on hover
+                                            color: "#e5cc92",
+                                            "&.Mui-focused": { color: "#e5cc92 !important" },
+                                            "&:hover": { color: "#e5cc92 !important" },
                                         }}
                                     >
-                                        Select Instrument Category
+                                        {t("register.form.instrumentCategory")}
                                     </FormLabel>
 
                                     <Controller
                                         name="instrumentCategory"
                                         control={control}
-                                        rules={{ required: "Please select an instrument category" }}
+                                        rules={{ required: t("register.errors.required") }}
                                         render={({ field }) => (
                                             <RadioGroup {...field} row>
                                                 {Object.entries(instrumentCategoryList).map(([key, label]) => (
@@ -437,31 +440,32 @@ const Register = () => {
                                                         control={
                                                             <Radio
                                                                 sx={{
-                                                                    color: "#e5cc92", // Unselected color
+                                                                    color: "#e5cc92",
                                                                     "&.Mui-checked": {
-                                                                        color: "#e5cc92", // Selected color
+                                                                        color: "#e5cc92",
                                                                     },
-
-                                                                    // 👇 Removes blue focus and replaces with gold glow
                                                                     "&.Mui-focusVisible": {
-                                                                        outline: "2px solid #e5cc92", // Gold outline when focused
+                                                                        outline: "2px solid #e5cc92",
                                                                     },
                                                                     "&.Mui-checked.Mui-focusVisible": {
-                                                                        outline: "2px solid #e5cc92", // Gold glow for checked state
+                                                                        outline: "2px solid #e5cc92",
                                                                     },
                                                                 }}
                                                             />
                                                         }
-                                                        label={label}
+                                                        label={t(`register.instrumentList.${key}`)}
                                                         sx={{ color: "#e5cc92" }}
                                                     />
                                                 ))}
                                             </RadioGroup>
                                         )}
                                     />
-                                    {errors.instrumentCategory && <p style={{ color: "red" }}>{errors.instrumentCategory.message}</p>}
+                                    {errors.instrumentCategory && (
+                                        <p style={{ color: "red" }}>{errors.instrumentCategory.message}</p>
+                                    )}
                                 </FormControl>
                             )}
+
 
                             {/* Age Category (Radio Buttons) */}
                             <FormControl className='mt-4' component="fieldset" error={!!errors.ageCategory}>
@@ -469,18 +473,18 @@ const Register = () => {
                                     className='fontSizeFormTitle'
                                     component="legend"
                                     sx={{
-                                        color: "#e5cc92", // Gold text color
-                                        "&.Mui-focused": { color: "#e5cc92 !important" }, // Forces gold on focus
-                                        "&:hover": { color: "#e5cc92 !important" }, // Forces gold on hover
+                                        color: "#e5cc92",
+                                        "&.Mui-focused": { color: "#e5cc92 !important" },
+                                        "&:hover": { color: "#e5cc92 !important" },
                                     }}
                                 >
-                                    Select Age Category
+                                    {t("register.form.ageCategory")}
                                 </FormLabel>
 
                                 <Controller
                                     name="ageCategory"
                                     control={control}
-                                    rules={{ required: "Please select an age category" }}
+                                    rules={{ required: t("register.errors.required") }}
                                     render={({ field }) => (
                                         <RadioGroup {...field} row>
                                             {Object.entries(ageCategories).map(([key, label]) => (
@@ -491,30 +495,31 @@ const Register = () => {
                                                     control={
                                                         <Radio
                                                             sx={{
-                                                                color: "#e5cc92", // Unselected color
+                                                                color: "#e5cc92",
                                                                 "&.Mui-checked": {
-                                                                    color: "#e5cc92", // Selected color
+                                                                    color: "#e5cc92",
                                                                 },
-
-                                                                // 👇 Removes blue focus and replaces with gold glow
                                                                 "&.Mui-focusVisible": {
-                                                                    outline: "2px solid #e5cc92", // Gold outline when focused
+                                                                    outline: "2px solid #e5cc92",
                                                                 },
                                                                 "&.Mui-checked.Mui-focusVisible": {
-                                                                    outline: "2px solid #e5cc92", // Gold glow for checked state
+                                                                    outline: "2px solid #e5cc92",
                                                                 },
                                                             }}
                                                         />
                                                     }
-                                                    label={label}
+                                                    label={t(`register.ageCategories.${key}`)}
                                                     sx={{ color: "#e5cc92" }}
                                                 />
                                             ))}
                                         </RadioGroup>
                                     )}
                                 />
-                                {errors.ageCategory && <p style={{ color: "red" }}>{errors.ageCategory.message}</p>}
+                                {errors.ageCategory && (
+                                    <p style={{ color: "red" }}>{errors.ageCategory.message}</p>
+                                )}
                             </FormControl>
+
 
                             {/* Total Performer */}
                             <Box className="row mt-2">
@@ -524,68 +529,74 @@ const Register = () => {
                                             className='fontSizeFormTitle'
                                             component="legend"
                                             sx={{
-                                                color: "#e5cc92", // Gold text color
-                                                "&.Mui-focused": { color: "#e5cc92 !important" }, // Forces gold on focus
-                                                "&:hover": { color: "#e5cc92 !important" }, // Forces gold on hover
+                                                color: "#e5cc92",
+                                                "&.Mui-focused": { color: "#e5cc92 !important" },
+                                                "&:hover": { color: "#e5cc92 !important" },
                                             }}
                                         >
-                                            Input total performer
+                                            {t("register.form.performerCount")}
                                         </FormLabel>
+
                                         <Controller
                                             name="totalPerformer"
                                             control={control}
-                                            rules={{
-                                                required: "Total Performer Is required", // Custom error message
-                                            }}
+                                            rules={{ required: t("register.errors.required") }}
                                             render={({ field, fieldState: { error } }) => (
                                                 <InputNumber
-                                                    suffix="Person"
-                                                    min={1} max={15}
+                                                    suffix={t("register.form.personSuffix")} // Optional, for localization
+                                                    min={1}
+                                                    max={15}
                                                     onError={!!error}
-                                                    defaultValue={1} // or use `value={field.value}` explicitly
+                                                    defaultValue={1}
                                                     onChange={(value) => {
-                                                        field.onChange(value);       // Update form state
-                                                        handleChangePerformer(value); // Your custom logic
+                                                        field.onChange(value);
+                                                        handleChangePerformer(value);
                                                     }}
-                                                    style={{
-                                                        width: '100%',
-                                                    }}
+                                                    style={{ width: '100%' }}
                                                 />
                                             )}
                                         />
-                                        <small class="note">*{performerExpText}.</small>
-                                        {errors.totalPerformer && <p style={{ color: "red" }}>{errors.totalPerformer.message}</p>}
+
+                                        <small className="note">*{performerExpText}. </small>
+
+                                        {errors.totalPerformer && (
+                                            <p style={{ color: "red" }}>{errors.totalPerformer.message}</p>
+                                        )}
                                     </FormControl>
                                 </Box>
                             </Box>
 
                             {/* #region Student's Info */}
                             {fields.map((item, index) => (
-                                <>
+                                <React.Fragment key={item.id}>
                                     <FormLabel
                                         className='mt-4 fontSizeFormTitle'
                                         component="legend"
                                         sx={{
-                                            color: "#e5cc92", // Gold text color
-                                            "&.Mui-focused": { color: "#e5cc92 !important" }, // Forces gold on focus
-                                            "&:hover": { color: "#e5cc92 !important" }, // Forces gold on hover
+                                            color: "#e5cc92",
+                                            "&.Mui-focused": { color: "#e5cc92 !important" },
+                                            "&:hover": { color: "#e5cc92 !important" },
                                             marginBottom: 0,
-
                                         }}
                                     >
-                                        {`Personal Information ${index + 1}`}
+                                        {`${t("register.form.personalInformation")} ${index + 1}`}
                                     </FormLabel>
 
-                                    {/* First Name & Last Name */}
+                                    {/* First & Last Name */}
                                     <Box className="row">
                                         <Box className="col-6">
                                             <Controller
                                                 name={`performers.${index}.firstName`}
                                                 control={control}
-                                                rules={{ required: "First Name is required" }}
+                                                rules={{ required: t("register.errors.required") }}
                                                 render={({ field, fieldState: { error } }) => (
-                                                    <TextField {...field} label="First Name" variant="standard" className="custom-textfield-full mb-4"
-                                                        error={!!error} helperText={error ? error.message : ""} />
+                                                    <TextField {...field}
+                                                        label={t("register.form.firstName")}
+                                                        variant="standard"
+                                                        className="custom-textfield-full mb-4"
+                                                        error={!!error}
+                                                        helperText={error?.message}
+                                                    />
                                                 )}
                                             />
                                         </Box>
@@ -593,49 +604,52 @@ const Register = () => {
                                             <Controller
                                                 name={`performers.${index}.lastName`}
                                                 control={control}
-                                                rules={{ required: "Last Name is required" }}
+                                                rules={{ required: t("register.errors.required") }}
                                                 render={({ field, fieldState: { error } }) => (
-                                                    <TextField {...field} label="Last Name" variant="standard" className="custom-textfield-full mb-4"
-                                                        error={!!error} helperText={error ? error.message : ""} />
+                                                    <TextField {...field}
+                                                        label={t("register.form.lastName")}
+                                                        variant="standard"
+                                                        className="custom-textfield-full mb-4"
+                                                        error={!!error}
+                                                        helperText={error?.message}
+                                                    />
                                                 )}
                                             />
                                         </Box>
                                     </Box>
 
-                                    {/* Dob & Nationality */}
-                                    <Box className="row mt-2" key={item.id}>
+                                    {/* Nationality, DOB, Gender */}
+                                    <Box className="row mt-2">
                                         <Box className="col-6">
                                             <Controller
                                                 name={`performers.${index}.nationality`}
                                                 control={control}
-                                                rules={{
-                                                    required: "Nationality is required", // Custom error message
-                                                }}
+                                                rules={{ required: t("register.errors.required") }}
                                                 render={({ field, fieldState: { error } }) => (
                                                     <TextField
                                                         {...field}
                                                         placeholder="Indonesia"
-                                                        id="standard-basic"
-                                                        label={t("Nationality")}
+                                                        label={t("register.form.nationality")}
                                                         variant="standard"
                                                         className="custom-textfield-full mb-4"
-                                                        error={!!error} // Highlight the field on error
-                                                        helperText={error ? error.message : ""}
+                                                        error={!!error}
+                                                        helperText={error?.message}
                                                     />
                                                 )}
                                             />
                                         </Box>
+
                                         <Box className="col-6 col-md-3 align-content-center">
                                             <Box className='d-flex' sx={{ width: "100%", gap: 4 }}>
                                                 <LocalizationProvider dateAdapter={AdapterDayjs}>
                                                     <Controller
                                                         name={`performers.${index}.dob`}
                                                         control={control}
-                                                        rules={{ required: "Date of Birth is required" }}
+                                                        rules={{ required: t("register.errors.required") }}
                                                         render={({ field, fieldState: { error } }) => (
                                                             <DatePicker
                                                                 {...field}
-                                                                label="Date of Birth"
+                                                                label={t("register.form.dob")}
                                                                 value={field.value ? dayjs(field.value) : null}
                                                                 onChange={(newValue) => field.onChange(newValue)}
                                                                 sx={{
@@ -686,7 +700,7 @@ const Register = () => {
                                                                 }}
                                                                 slotProps={{
                                                                     textField: {
-                                                                        variant: "outlined", // Change this to "standard" if you prefer no outline
+                                                                        variant: "outlined",
                                                                         error: !!error,
                                                                         helperText: error ? error.message : "",
                                                                         InputLabelProps: { shrink: true },
@@ -697,26 +711,27 @@ const Register = () => {
                                                     />
                                                 </LocalizationProvider>
                                             </Box>
+
+
                                         </Box>
-                                        <Box className=" col-12 col-md-3 align-content-center">
-                                            {/* Gender */}
+
+                                        <Box className="col-12 col-md-3 align-content-center">
                                             <FormControl component="fieldset" error={!!errors.userType}>
                                                 <FormLabel
-                                                    fontSizeFormTitle
                                                     component="legend"
                                                     sx={{
-                                                        color: "#e5cc92", // Gold text color
-                                                        "&.Mui-focused": { color: "#e5cc92 !important" }, // Forces gold on focus
-                                                        "&:hover": { color: "#e5cc92 !important" }, // Forces gold on hover
+                                                        color: "#e5cc92",
+                                                        "&.Mui-focused": { color: "#e5cc92 !important" },
+                                                        "&:hover": { color: "#e5cc92 !important" },
                                                     }}
                                                 >
-                                                    Gender
+                                                    {t("register.form.gender")}
                                                 </FormLabel>
 
                                                 <Controller
                                                     name={`performers.${index}.gender`}
                                                     control={control}
-                                                    rules={{ required: "Please Choose" }}
+                                                    rules={{ required: t("register.errors.required") }}
                                                     render={({ field }) => (
                                                         <RadioGroup {...field} row>
                                                             {Object.entries(gender).map(([key, label]) => (
@@ -755,21 +770,21 @@ const Register = () => {
                                                     </p>
                                                 )}
                                             </FormControl>
-                                        </Box >
+                                        </Box>
                                     </Box>
 
-                                    {/* Email/Phone Number */}
+                                    {/* Email & Phone */}
                                     <Box className="row align-items-center">
                                         <Box className="col-12 col-md-6">
                                             <Controller
                                                 name={`performers.${index}.email`}
                                                 control={control}
                                                 rules={{
-                                                    required: "Email is required", // Custom error message
+                                                    required: t("register.errors.required"),
                                                     pattern: {
                                                         value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
-                                                        message: "Please enter a valid email address",
-                                                    },
+                                                        message: t("register.errors.email")
+                                                    }
                                                 }}
                                                 render={({ field, fieldState: { error } }) => (
                                                     <TextField
@@ -777,21 +792,20 @@ const Register = () => {
                                                         type="email" // Ensure email input type is set
                                                         placeholder="JohnDoe@gmail.com"
                                                         id="standard-basic"
-                                                        label={t("email")}
+                                                        label={t("register.form.email")}
                                                         variant="standard"
                                                         className="custom-textfield-full mb-4"
-                                                        error={!!error} // Highlight the field on error
+                                                        error={!!error}
                                                         helperText={error ? error.message : ""}
                                                     />
                                                 )}
                                             />
-
                                         </Box>
                                         <Box className="col-12 col-md-6">
                                             <Controller
                                                 name={`performers.${index}.phoneNumber`}
                                                 control={control}
-                                                rules={{ required: "Phone Number is required" }}
+                                                rules={{ required: t("register.errors.required") }}
                                                 render={({ field, fieldState: { error } }) => (
                                                     <InputNumber
                                                         {...field}
@@ -807,13 +821,12 @@ const Register = () => {
                                                                 name={`performers.${index}.countryCode`}
                                                                 control={control}
                                                                 defaultValue={['+1']}
-                                                                rules={{ required: "Country code is required" }}
+                                                                rules={{ required: t("register.errors.required") }}
                                                                 render={({ field }) => (
                                                                     <Cascader
                                                                         {...field}
                                                                         options={countryCodes.map(code => ({ value: code.code, label: code.name }))}
-                                                                        // value={countryCode}
-                                                                        // onChange={(value) => setCountryCode(value)}
+
                                                                         placeholder="+Code"
                                                                         style={{
                                                                             width: 150,
@@ -837,16 +850,15 @@ const Register = () => {
                                         </Box>
                                     </Box>
 
-                                    {/* City/Country */}
+                                    {/* City / Country */}
                                     <Box className="row">
                                         <Box className="col-6">
                                             <Controller
                                                 name={`performers.${index}.city`}
                                                 control={control}
-                                                rules={{ required: "City is required" }}
+                                                rules={{ required: t("register.errors.required") }}
                                                 render={({ field, fieldState: { error } }) => (
-                                                    <TextField {...field} label="City" variant="standard" className="custom-textfield-full mb-4"
-                                                        error={!!error} helperText={error ? error.message : ""} />
+                                                    <TextField {...field} label={t("register.form.city")} variant="standard" className="custom-textfield-full mb-4" error={!!error} helperText={error?.message} />
                                                 )}
                                             />
                                         </Box>
@@ -854,25 +866,23 @@ const Register = () => {
                                             <Controller
                                                 name={`performers.${index}.country`}
                                                 control={control}
-                                                rules={{ required: "Country is required" }}
+                                                rules={{ required: t("register.errors.required") }}
                                                 render={({ field, fieldState: { error } }) => (
-                                                    <TextField {...field} label="Country" variant="standard" className="custom-textfield-full mb-4"
-                                                        error={!!error} helperText={error ? error.message : ""} />
+                                                    <TextField {...field} label={t("register.form.country")} variant="standard" className="custom-textfield-full mb-4" error={!!error} helperText={error?.message} />
                                                 )}
                                             />
                                         </Box>
                                     </Box>
 
-                                    {/* province/zipcode */}
+                                    {/* Province / Zipcode */}
                                     <Box className="row">
                                         <Box className="col-6">
                                             <Controller
                                                 name={`performers.${index}.province`}
                                                 control={control}
-                                                rules={{ required: "Province is required" }}
+                                                rules={{ required: t("register.errors.required") }}
                                                 render={({ field, fieldState: { error } }) => (
-                                                    <TextField {...field} label="Province" variant="standard" className="custom-textfield-full mb-4"
-                                                        error={!!error} helperText={error ? error.message : ""} />
+                                                    <TextField {...field} label={t("register.form.province")} variant="standard" className="custom-textfield-full mb-4" error={!!error} helperText={error?.message} />
                                                 )}
                                             />
                                         </Box>
@@ -880,10 +890,9 @@ const Register = () => {
                                             <Controller
                                                 name={`performers.${index}.zipCode`}
                                                 control={control}
-                                                rules={{ required: "zipCode is required" }}
+                                                rules={{ required: t("register.errors.required") }}
                                                 render={({ field, fieldState: { error } }) => (
-                                                    <TextField {...field} label="zipCode" variant="standard" className="custom-textfield-full mb-4"
-                                                        error={!!error} helperText={error ? error.message : ""} />
+                                                    <TextField {...field} label={t("register.form.zipcode")} variant="standard" className="custom-textfield-full mb-4" error={!!error} helperText={error?.message} />
                                                 )}
                                             />
                                         </Box>
@@ -893,23 +902,23 @@ const Register = () => {
                                     <Controller
                                         name={`performers.${index}.addressLine`}
                                         control={control}
-                                        rules={{ required: "Address Line is required" }}
+                                        rules={{ required: t("register.errors.required") }}
                                         render={({ field, fieldState: { error } }) => (
-                                            <TextField {...field} label="Address Line" variant="standard" className="custom-textfield-full mb-4"
-                                                error={!!error} helperText={error ? error.message : ""} />
+                                            <TextField {...field} label={t("register.form.address")} variant="standard" className="custom-textfield-full mb-4" error={!!error} helperText={error?.message} />
                                         )}
                                     />
-                                </>
+                                </React.Fragment>
                             ))}
 
+
                             {/* Exam Certificate Upload */}
-                            <FileInput
+                            < FileInput
                                 name="examCertificate"
                                 control={control}
-                                label="Exam Certificate"
-                                smallNotes={<small class="note">*Upload as one combined PDF for all performers.</small>}
-                                rules={{ required: "Upload required" }}
-                                tooltipLabel="Please attach your latest exam certificate / essay of maximum 80 words in pdf if you are not joining any exams. Please Upload All students in 1 pdf"
+                                label={t("register.form.examCert")}
+                                smallNotes={<small className="note">{t("register.notes.uploadCombined")}</small>}
+                                rules={{ required: t("register.errors.required") }}
+                                tooltipLabel={t("register.form.examCertTooltip")}
                                 inputRef={examInputRef}
                             />
 
@@ -917,88 +926,90 @@ const Register = () => {
                             <FileInput
                                 name="birthCertificate"
                                 control={control}
-                                label="Birth Certificate"
-                                smallNotes={<small class="note">*Upload as one combined PDF for all performers.</small>}
-                                rules={{ required: "Upload required" }}
-                                tooltipLabel="Please attach your copy of Birth Certificate/Passport/KTP (identity card) in pdf. Please Upload All students in 1 pdf"
+                                label={t("register.form.birthCert")}
+                                smallNotes={<small className="note">{t("register.notes.uploadCombined")}</small>}
+                                rules={{ required: t("register.errors.required") }}
+                                tooltipLabel={t("register.form.birthCertTooltip")}
                                 inputRef={birthCertInputRef}
                             />
 
                             {/* PDF Repertoire Upload */}
-
                             <FileInput
                                 name="pdfRepertoire"
                                 control={control}
-                                label="Repertoire"
-                                smallNotes={<small class="note">*Upload as one combined PDF for all performers.</small>}
-                                rules={{ required: "Upload required" }}
-                                tooltipLabel="Please attach your PDF repertoire here. Please Upload All students in 1 pdf"
+                                label={t("register.form.repertoire")}
+                                smallNotes={<small className="note">{t("register.notes.uploadCombined")}</small>}
+                                rules={{ required: t("register.errors.required") }}
+                                tooltipLabel={t("register.form.repertoireTooltip")}
                                 inputRef={repertoireInputRef}
                             />
+
 
                             {/* YouTube Link */}
                             <div className='d-flex'>
                                 <Controller
                                     name="youtubeLink"
                                     control={control}
-                                    rules={{ required: "YouTube link is required" }}
+                                    rules={{ required: t("register.errors.required") }}
                                     render={({ field, fieldState: { error } }) => (
-                                        <TextField {...field}
+                                        <TextField
+                                            {...field}
                                             sx={{ mt: 2 }}
-                                            label="YouTube Video Link" variant="standard" className="custom-textfield-full mb-4"
-                                            error={!!error} helperText={error ? error.message : ""} />
+                                            label={t("register.form.youtube")}
+                                            variant="standard"
+                                            className="custom-textfield-full mb-4"
+                                            error={!!error}
+                                            helperText={error ? error.message : ""}
+                                        />
                                     )}
                                 />
 
-                                <Tooltip title={<div>
-                                    <p>
-                                        Make sure to fill the title on YouTube with the format: APCSCF2024 - (INSTRUMENT CATEGORIES) - (AGE CATEGORIES) - (FULL NAME) - (PIECE)
-                                    </p>
-                                </div>}>
+                                <Tooltip title={
+                                    <div>
+                                        <p>{t("register.form.youtubeNote")}</p>
+                                    </div>
+                                }>
                                     <IconButton sx={{ color: "#e5cc92", fontSize: 16, mt: 1 }}>
                                         <QuestionCircleOutlined />
                                     </IconButton>
                                 </Tooltip>
                             </div>
 
-                            {/* Agreement Checkbox */}
+                            {/* Agreement */}
                             <Box className="creamText" sx={{ mt: 2 }}>
-                                I acknowledge and agree that in order to join the APCs CLASSICAL FESTIVAL 2024 event,
-                                I will be in compliance with the terms and conditions,
-                                rules and regulations as well as the privacy policy of APCs MUSIC.
-                                I will be disqualified if I did not meet any requirement
-                                and did not obey the rules & regulations, terms & conditions
-                                and privacy policy that were given by APCs MUSIC.
+                                {t("register.form.agreementText")}
                             </Box>
+
                             <FormControlLabel
                                 sx={{
-                                    color: "#e5cc92", // Gold text color
-                                    "&.Mui-focused": { color: "#e5cc92 !important" }, // Forces gold on focus
-                                    "&:hover": { color: "#e5cc92 !important" }, // Forces gold on hover
+                                    color: "#e5cc92",
+                                    "&.Mui-focused": { color: "#e5cc92 !important" },
+                                    "&:hover": { color: "#e5cc92 !important" },
                                 }}
                                 control={
                                     <Controller
                                         name="agreement"
                                         control={control}
-                                        rules={{ required: "Required" }}
+                                        rules={{ required: t("register.errors.required") }}
                                         render={({ field }) => (
                                             <Checkbox
                                                 {...field}
                                                 sx={{
-                                                    color: "#e5cc92", // Unchecked color
+                                                    color: "#e5cc92",
                                                     "&.Mui-checked": {
-                                                        color: "#e5cc92", // Checked color
+                                                        color: "#e5cc92",
                                                     },
                                                     "&.Mui-focusVisible": {
-                                                        outline: "2px solid #e5cc92", // Gold focus outline
+                                                        outline: "2px solid #e5cc92",
                                                     },
                                                 }}
                                             />
                                         )}
                                     />
                                 }
-                                label="I agree to the terms and conditions."
+                                label={t("register.form.agree")}
                             />
+
                             {errors.agreement && <p style={{ color: "red" }}>{errors.agreement.message}</p>}
 
                             {/* Submit Button */}
@@ -1020,7 +1031,7 @@ const Register = () => {
 
                                     }}
                                 >
-                                    Submit Another Registrant
+                                    {t("register.submitAnotherRegistrant")}
                                 </Button>
                             ) : (
                                 <Button
@@ -1041,7 +1052,7 @@ const Register = () => {
 
                                     }}
                                 >
-                                    Submit
+                                    {t("register.submit")}
                                     {/* {isLoading && (
                                         <CircularProgress
                                             size={24}

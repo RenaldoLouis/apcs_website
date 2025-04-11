@@ -72,5 +72,95 @@
     "email": "Email",
     "country": "Negara",
     "phoneNumber": "Nomor Telepon",
-    "commentContact": "Butuh informasi lebih lanjut?"
+    "commentContact": "Butuh informasi lebih lanjut?",
+    "register": {
+        "title": "DAFTAR",
+        "description": {
+            "line1": "Silakan lengkapi formulir di bawah sesuai dengan Syarat & Ketentuan.",
+            "importantNotes": "Catatan Penting:",
+            "ageInfo": "Usia peserta akan dihitung berdasarkan usia per 31 Desember 2025.",
+            "disclaimer": "APCS Music berhak untuk menempatkan ulang peserta ke kategori usia yang sesuai jika informasi yang dikirimkan tidak memenuhi persyaratan yang berlaku."
+        },
+        "userType": {
+            "Teacher": "Saya adalah Guru yang mendaftarkan murid saya",
+            "Personal": "Saya mendaftar untuk diri saya sendiri (Jika Anda adalah peserta/orang tua yang mendaftarkan anak)"
+        },
+        "gender": {
+            "Male": "Laki-laki",
+            "Female": "Perempuan",
+            "Other": "Lainnya"
+        },
+        "form": {
+            "whoAreYou": "Siapa Anda?",
+            "teacherName": "Nama Guru",
+            "parentName": "Nama Orang Tua",
+            "teacherNameNote": "Jika Anda mendaftarkan diri sendiri, isi '-' dan tulis nama Anda di bagian performer di bawah.",
+            "competitionCategory": "Pilih Kategori Kompetisi",
+            "instrumentCategory": "Pilih Kategori Instrumen",
+            "ageCategory": "Pilih Kategori Usia",
+            "performerCount": "Jumlah performer",
+            "performingSolo": "Anda tampil solo",
+            "performingEnsemble": "Anda tampil sebagai ansambel",
+            "personalInformation": "Informasi Pribadi",
+            "firstName": "Nama Depan",
+            "lastName": "Nama Belakang",
+            "dob": "Tanggal Lahir",
+            "nationality": "Kebangsaan",
+            "gender": "Jenis Kelamin",
+            "email": "Email",
+            "phone": "Nomor Telepon",
+            "city": "Kota",
+            "country": "Negara",
+            "province": "Provinsi",
+            "zipcode": "Kode Pos",
+            "address": "Alamat Lengkap",
+            "examCert": "Sertifikat Ujian",
+            "birthCert": "Akte Kelahiran",
+            "repertoire": "Repertoar",
+            "youtube": "Link Video YouTube",
+            "youtubeNote": "Pastikan judul video di YouTube mengikuti format: APCSCF2024 - (KATEGORI INSTRUMEN) - (KATEGORI USIA) - (NAMA LENGKAP) - (JUDUL LAGU)",
+            "agreementText": "Saya memahami dan menyetujui bahwa untuk mengikuti acara APCs CLASSICAL FESTIVAL 2024, saya akan mematuhi syarat dan ketentuan, peraturan dan kebijakan privasi dari APCs MUSIC. Saya akan didiskualifikasi jika tidak memenuhi persyaratan dan tidak mematuhi aturan serta kebijakan yang telah ditetapkan.",
+            "agree": "Saya setuju dengan syarat dan ketentuan.",
+            "submit": "Kirim",
+            "submitAnother": "Kirim Peserta Lain"
+        },
+        "ageCateogirs": {
+            "child": "Anak-anak",
+            "teen": "Remaja",
+            "adult": "Dewasa",
+            "senior": "Lansia"
+        },
+        "notes": {
+            "uploadCombined": "*Unggah dalam satu file PDF gabungan untuk semua peserta."
+        },
+        "errors": {
+            "required": "Bidang ini wajib diisi",
+            "email": "Silakan masukkan alamat email yang valid"
+        },
+        "success": {
+            "register": "Berhasil didaftarkan! Silakan periksa email Anda untuk konfirmasi."
+        },
+        "error": {
+            "register": "Pendaftaran gagal, silakan coba lagi. Jika masalah terus berlanjut, silakan hubungi kami."
+        },
+        "instrumentList": {
+            "Piano_Solo": "Piano Solo (Satu piano, dua tangan)",
+            "Piano_Fourhands_one": "Piano Empat Tangan (Satu piano, empat tangan)",
+            "Piano_Fourhands_two": "Piano Empat Tangan (Dua piano, empat tangan)",
+            "Chamber_Music_one": "Musik Kamar (Satu piano, enam-delapan tangan)",
+            "Chamber_Music_two": "Musik Kamar (Dua piano, enam-delapan tangan)",
+            "Chamber_Music_any": "Musik Kamar (Instrumen apa saja dengan piano)"
+        },
+        "competitionList": {
+            "Piano": "Piano",
+            "Strings": "Alat Musik Gesek",
+            "Woodwinds": "Alat Musik Tiup Kayu",
+            "Brass": "Alat Musik Tiup Logam",
+            "Percussions": "Alat Musik Perkusi",
+            "Guitar": "Gitar",
+            "VocalChoir": "Paduan Suara / Vokal"
+        },
+        "submitAnotherRegistrant": "Daftarkan lagi",
+        "submit": "Daftar"
+    }
 }

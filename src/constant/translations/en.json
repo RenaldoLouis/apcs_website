@@ -72,5 +72,95 @@
     "email": "Email",
     "country": "Country",
     "phoneNumber": "Phone Number",
-    "commentContact": "How can we help you?"
+    "commentContact": "How can we help you?",
+    "register": {
+        "title": "REGISTER",
+        "description": {
+            "line1": "Please complete the form below in accordance with the Terms & Conditions.",
+            "importantNotes": "Important Notes:",
+            "ageInfo": "Participant age will be calculated based on their age as of 31 December 2025.",
+            "disclaimer": "APCS Music reserves the right to reassign participants to the appropriate age category if the submitted information does not meet the eligibility requirements."
+        },
+        "userType": {
+            "Teacher": "I'm a Teacher registering my students",
+            "Personal": "I'm Registering myself (If you are participants / parents register for your child)"
+        },
+        "gender": {
+            "Male": "Male",
+            "Female": "Female",
+            "Other": "Other"
+        },
+        "form": {
+            "whoAreYou": "Who are you?",
+            "teacherName": "Teacher's Name",
+            "parentName": "Parent's Name",
+            "teacherNameNote": "If you are registering yourself input '-' here and input your name in performer below",
+            "competitionCategory": "Select Competition Category",
+            "instrumentCategory": "Select Instrument Category",
+            "ageCategory": "Select Age Category",
+            "performerCount": "Input total performer",
+            "performingSolo": "you are performing solo",
+            "performingEnsemble": "you are performing as an ensemble",
+            "personalInformation": "Personal Information",
+            "firstName": "First Name",
+            "lastName": "Last Name",
+            "dob": "Date of Birth",
+            "nationality": "Nationality",
+            "gender": "Gender",
+            "email": "Email",
+            "phone": "Phone Number",
+            "city": "City",
+            "country": "Country",
+            "province": "Province",
+            "zipcode": "Zip Code",
+            "address": "Address Line",
+            "examCert": "Exam Certificate",
+            "birthCert": "Birth Certificate",
+            "repertoire": "Repertoire",
+            "youtube": "YouTube Video Link",
+            "youtubeNote": "Make sure to fill the title on YouTube with the format: APCSCF2024 - (INSTRUMENT CATEGORIES) - (AGE CATEGORIES) - (FULL NAME) - (PIECE)",
+            "agreementText": "I acknowledge and agree that in order to join the APCs CLASSICAL FESTIVAL 2024 event, I will be in compliance with the terms and conditions, rules and regulations as well as the privacy policy of APCs MUSIC. I will be disqualified if I did not meet any requirement and did not obey the rules & regulations, terms & conditions and privacy policy that were given by APCs MUSIC.",
+            "agree": "I agree to the terms and conditions.",
+            "submit": "Submit",
+            "submitAnother": "Submit Another Registrant"
+        },
+        "ageCateogirs": {
+            "child": "Child",
+            "teen": "Teenager",
+            "adult": "Adult",
+            "senior": "Senior"
+        },
+        "notes": {
+            "uploadCombined": "*Upload as one combined PDF for all performers."
+        },
+        "errors": {
+            "required": "This field is required",
+            "email": "Please enter a valid email address"
+        },
+        "success": {
+            "register": "Successfully Registered! Please check your email for confirmation."
+        },
+        "error": {
+            "register": "Register failed, please try again. If the error persists please contact us"
+        },
+        "instrumentList": {
+            "Piano_Solo": "Piano Solo (One piano, two hands)",
+            "Piano_Fourhands_one": "Piano Fourhands (One piano, four hands)",
+            "Piano_Fourhands_two": "Piano Fourhands (Two pianos, four hands)",
+            "Chamber_Music_one": "Chamber Music (One piano, six-eight hands)",
+            "Chamber_Music_two": "Chamber Music (Two pianos, six-eight hands)",
+            "Chamber_Music_any": "Chamber Music (Any instrument(s) with piano(s))"
+        },
+        "competitionList": {
+            "Piano": "Piano",
+            "Strings": "Strings",
+            "Woodwinds": "Woodwinds",
+            "Brass": "Brass",
+            "Percussions": "Percussions",
+            "Guitar": "Guitar",
+            "VocalChoir": "Vocal Choir"
+        },
+        "submitAnotherRegistrant": "Submit Another Registrant",
+        "submit": "Submit"
+    }
 }
