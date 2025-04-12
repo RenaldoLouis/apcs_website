@@ -39,14 +39,14 @@ const Register = () => {
     const repertoireInputRef = useRef();
 
     const userType = {
-        Teacher: "I'm a Teacher registering my students",
-        Personal: "I'm Registering myself (If you are participants / parents register for your child)",
+        Teacher: t("register.imTeacher"),
+        Personal: t("register.imParent"),
     }
 
     const gender = {
-        Male: "Male",
-        Female: "Female",
-        Other: "Other"
+        Male: t("register.gender.Male"),
+        Female: t("register.gender.Female"),
+        Other: t("register.gender.Other")
     }
 
     const [isLoading, setIsLoading] = useState(false);
@@ -227,9 +227,9 @@ const Register = () => {
 
     const performerExpText = useMemo(() => {
         if (!isEnsemble) {
-            return t("register.for.performingSolo")
+            return t("register.form.performingSolo")
         } else {
-            return t("register.for.performingEnsemble")
+            return t("register.form.performingEnsemble")
         }
     }, [isEnsemble])
 
@@ -275,7 +275,7 @@ const Register = () => {
                         </div>
                         <form className="d-flex flex-column" onSubmit={handleSubmit(onSubmit, onError)}>
                             <Box className="row">
-                                <Box className="col-md-7 col-sm-12">
+                                <Box className="col-md-8 col-sm-12">
                                     <FormControl component="fieldset" error={!!errors.userType}>
                                         <FormLabel
                                             className='fontSizeFormTitle'

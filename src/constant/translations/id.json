@@ -91,6 +91,7 @@
             "Other": "Lainnya"
         },
         "form": {
+            "personSuffix": "Orang",
             "whoAreYou": "Siapa Anda?",
             "teacherName": "Nama Guru",
             "parentName": "Nama Orang Tua",
@@ -114,7 +115,7 @@
             "province": "Provinsi",
             "zipcode": "Kode Pos",
             "address": "Alamat Lengkap",
-            "examCert": "Sertifikat Ujian",
+            "examCert": "Sertifikat Ujian / Rekomendasi Guru",
             "birthCert": "Akte Kelahiran",
             "repertoire": "Repertoar",
             "youtube": "Link Video YouTube",
@@ -161,6 +162,8 @@
             "VocalChoir": "Paduan Suara / Vokal"
         },
         "submitAnotherRegistrant": "Daftarkan lagi",
-        "submit": "Daftar"
+        "submit": "Daftar",
+        "imTeacher": "Saya seorang guru yang mendaftarkan murid-murid saya",
+        "imParent": "Saya mendaftarkan diri saya (Jika Anda adalah peserta / orang tua yang mendaftarkan anak Anda)"
     }
 }

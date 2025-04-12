@@ -91,6 +91,7 @@
             "Other": "Other"
         },
         "form": {
+            "personSuffix": "Person",
             "whoAreYou": "Who are you?",
             "teacherName": "Teacher's Name",
             "parentName": "Parent's Name",
@@ -114,7 +115,7 @@
             "province": "Province",
             "zipcode": "Zip Code",
             "address": "Address Line",
-            "examCert": "Exam Certificate",
+            "examCert": "Exam Certificate / Teacher Recommendation",
             "birthCert": "Birth Certificate",
             "repertoire": "Repertoire",
             "youtube": "YouTube Video Link",
@@ -161,6 +162,8 @@
             "VocalChoir": "Vocal Choir"
         },
         "submitAnotherRegistrant": "Submit Another Registrant",
-        "submit": "Submit"
+        "submit": "Submit",
+        "imTeacher": "I'm a Teacher registering my students",
+        "imParent": "I'm Registering myself (If you are participants / parents register for your child)"
     }
 }
