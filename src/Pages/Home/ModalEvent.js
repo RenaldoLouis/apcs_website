@@ -20,7 +20,7 @@ const modalStyle = {
     flexDirection: 'row',
     gap: '24px',
     flexWrap: 'wrap',
-    backgroundImage: `url(${modalBackground2})`,
+    // backgroundImage: `url(${modalBackground2})`,
     backgroundSize: "cover"
 };
 
@@ -32,7 +32,7 @@ const posterStyle = {
 };
 
 const ModalEvent = ({ open, handleClose }) => {
-    const targetDate = new Date('April 7, 2025 00:00:00');
+    const targetDate = new Date('April 17, 2025 00:00:00');
 
     const calculateTimeLeft = () => {
         const now = new Date();
@@ -93,7 +93,7 @@ const ModalEvent = ({ open, handleClose }) => {
                     </Typography>
 
                     <Typography variant="subtitle1" sx={{ color: '#EBBC64', fontWeight: 500, mb: 1 }}>
-                        Countdown to April 7, 2025:
+                        Countdown to April 17, 2025:
                     </Typography>
 
                     <Box sx={{

@@ -74,6 +74,16 @@
     "phoneNumber": "Nomor Telepon",
     "commentContact": "Butuh informasi lebih lanjut?",
     "register": {
+        "ageCategories": {
+            "Poco": "Poco (4-5 tahun)",
+            "Petite": "Petite (6-7 tahun)",
+            "Primary": "Primary (8-11 tahun)",
+            "Young": "Young (12-15 tahun)",
+            "Junior": "Junior (16-19 tahun)",
+            "Youth": "Youth (20-23 tahun)",
+            "OpenAge": "Usia Terbuka (24 tahun ke atas)",
+            "FreeChoice": "Pilihan Bebas (Kombinasi Usia - Tanpa Batasan)"
+        },
         "title": "DAFTAR",
         "description": {
             "line1": "Silakan lengkapi formulir di bawah sesuai dengan Syarat & Ketentuan.",
@@ -123,7 +133,10 @@
             "agreementText": "Saya memahami dan menyetujui bahwa untuk mengikuti acara APCs CLASSICAL FESTIVAL 2024, saya akan mematuhi syarat dan ketentuan, peraturan dan kebijakan privasi dari APCs MUSIC. Saya akan didiskualifikasi jika tidak memenuhi persyaratan dan tidak mematuhi aturan serta kebijakan yang telah ditetapkan.",
             "agree": "Saya setuju dengan syarat dan ketentuan.",
             "submit": "Kirim",
-            "submitAnother": "Kirim Peserta Lain"
+            "submitAnother": "Kirim Peserta Lain",
+            "examCertTooltip": "Silakan lampirkan sertifikat ujian terbaru Anda / esai maksimal 80 kata dalam format PDF jika Anda tidak mengikuti ujian apa pun.",
+            "birthCertTooltip": "Silakan lampirkan salinan Akta Kelahiran/Passport/KTP Anda dalam format PDF.",
+            "repertoireTooltip": "Silakan lampirkan file PDF repertoar Anda di sini."
         },
         "ageCateogirs": {
             "child": "Anak-anak",
@@ -159,7 +172,9 @@
             "Brass": "Alat Musik Tiup Logam",
             "Percussions": "Alat Musik Perkusi",
             "Guitar": "Gitar",
-            "VocalChoir": "Paduan Suara / Vokal"
+            "Vocal": "Vokal ",
+            "Choir": "Paduan Suara",
+            "Harp": "Harpa"
         },
         "submitAnotherRegistrant": "Daftarkan lagi",
         "submit": "Daftar",

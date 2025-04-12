@@ -74,6 +74,16 @@
     "phoneNumber": "Phone Number",
     "commentContact": "How can we help you?",
     "register": {
+        "ageCategories": {
+            "Poco": "Poco (4-5 years old)",
+            "Petite": "Petite (6-7 years old)",
+            "Primary": "Primary (8-11 years old)",
+            "Young": "Young (12-15 years old)",
+            "Junior": "Junior (16-19 years old)",
+            "Youth": "Youth (20-23 years old)",
+            "OpenAge": "Open Age (24 years old and up)",
+            "FreeChoice": "Free Choice (Combination Age - No Limitation)"
+        },
         "title": "REGISTER",
         "description": {
             "line1": "Please complete the form below in accordance with the Terms & Conditions.",
@@ -123,7 +133,10 @@
             "agreementText": "I acknowledge and agree that in order to join the APCs CLASSICAL FESTIVAL 2024 event, I will be in compliance with the terms and conditions, rules and regulations as well as the privacy policy of APCs MUSIC. I will be disqualified if I did not meet any requirement and did not obey the rules & regulations, terms & conditions and privacy policy that were given by APCs MUSIC.",
             "agree": "I agree to the terms and conditions.",
             "submit": "Submit",
-            "submitAnother": "Submit Another Registrant"
+            "submitAnother": "Submit Another Registrant",
+            "examCertTooltip": "Please attach your latest exam certificate / essay of maximum 80 words in pdf if you are not joining any exams.",
+            "birthCertTooltip": "Please attach your copy of Birth Certificate/Passport/KTP (identity card) in pdf.",
+            "repertoireTooltip": "Please attach your PDF repertoire here."
         },
         "ageCateogirs": {
             "child": "Child",
@@ -159,7 +172,9 @@
             "Brass": "Brass",
             "Percussions": "Percussions",
             "Guitar": "Guitar",
-            "VocalChoir": "Vocal Choir"
+            "Vocal": "Vocal",
+            "Choir": "Choir",
+            "Harp": "Harp"
         },
         "submitAnotherRegistrant": "Submit Another Registrant",
         "submit": "Submit",

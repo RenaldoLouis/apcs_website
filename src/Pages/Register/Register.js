@@ -133,7 +133,7 @@ const Register = () => {
             });
 
             const formattedDatePerformers = data?.performers.map((performer) => {
-                const formattedDate = performer?.dob?.format("YYYY-MM-DD") ?? null;
+                const formattedDate = performer?.dob?.format("DD/MM/YYYY") ?? null;
 
                 return { ...performer, dob: formattedDate }
             })
@@ -652,6 +652,7 @@ const Register = () => {
                                                                 label={t("register.form.dob")}
                                                                 value={field.value ? dayjs(field.value) : null}
                                                                 onChange={(newValue) => field.onChange(newValue)}
+                                                                format='DD/MM/YYYY'
                                                                 sx={{
                                                                     // mt: 2,
                                                                     // mb: 2,

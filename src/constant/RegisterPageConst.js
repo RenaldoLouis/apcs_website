@@ -16,7 +16,9 @@ export const competitionList = {
     Brass: "Brass",
     Percussions: "Percussions",
     Guitar: "Guitar",
-    VocalChoir: "VocalChoir",
+    Vocal: "Vocal",
+    Choir: "Choir",
+    Harp: "Harp",
 }
 
 export const PianoInstrumentList = {
