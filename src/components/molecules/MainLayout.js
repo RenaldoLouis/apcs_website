@@ -6,15 +6,23 @@ import Footer from "./Footer";
 import { Box } from "@mui/material";
 import PillButton from "../atom/PillButton";
 import { PillButtonType } from "../../constant/PillButtonType";
+import {
+    CloseOutlined
+} from '@ant-design/icons';
 
 const MainLayout = (props) => {
     const { children, hidden = false } = props
     const navigate = useNavigate();
 
     const [isNavbarMobileOpen, setIsNavbarMobileOpen] = useState(false);
+    const [isShowStickyFooter, setIsShowStickyFooter] = useState(true);
 
     const handleClickRegister = () => {
         navigate(PathName.register);
+    }
+
+    const handleRemoveStickyFooter = () => {
+        setIsShowStickyFooter(false)
     }
 
     return (
@@ -28,13 +36,15 @@ const MainLayout = (props) => {
             <Footer />
 
             {/* TO DO update View */}
-            <footer className="sticky-footer">
+            <footer className={isShowStickyFooter ? "sticky-footer" : "sticky-footer-hidden"}>
                 <Box className="row">
                     <Box className="col-12 d-flex justify-content-around align-items-center">
                         <p style={{ visibility: "hidden" }} />
                         <p style={{ marginBottom: 0 }}>Take the stage in a world-class concert and earn your chance to perform at the heart of the orchestra.</p>
                         <Box className="d-flex">
                             <PillButton type={PillButtonType.PRIMARY} text={"Register"} onClick={handleClickRegister} />
+
+                            <CloseOutlined style={{ marginLeft: 36, cursor: "pointer" }} onClick={handleRemoveStickyFooter} />
                         </Box>
                     </Box>
                 </Box>
