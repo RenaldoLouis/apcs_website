@@ -947,7 +947,7 @@ const Register = () => {
 
 
                             {/* YouTube Link */}
-                            <div className='d-flex'>
+                            <div className='d-flex' style={{ height: 86 }}>
                                 <Controller
                                     name="youtubeLink"
                                     control={control}
@@ -975,6 +975,9 @@ const Register = () => {
                                     </IconButton>
                                 </Tooltip>
                             </div>
+
+                            <small className="note">Example: APCSCF2024 - CHAMBER MUSIC - FREE CHOICE - RINA JULIANNA, MATTHEW TAN, RYAN TANAKO J, LINA JESSICA H
+                            </small>
 
                             {/* Agreement */}
                             <Box className="creamText" sx={{ mt: 2 }}>
