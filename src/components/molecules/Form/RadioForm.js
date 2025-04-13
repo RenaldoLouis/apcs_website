@@ -7,7 +7,7 @@ import { useTranslation } from "react-i18next";
 
 export const RadioForm = (props) => {
     const { t } = useTranslation()
-    const { errors, control, title, name, itemList } = props
+    const { errors, control, title, name, itemList, disabled = false } = props
 
     return (
         <FormControl className='mt-4' component="fieldset" error={!!get(errors, name)}>
@@ -34,6 +34,7 @@ export const RadioForm = (props) => {
                                 id={`${key}-${label}`}
                                 key={key}
                                 value={key}
+                                disabled={disabled}
                                 control={
                                     <Radio
                                         sx={{
@@ -47,11 +48,22 @@ export const RadioForm = (props) => {
                                             "&.Mui-checked.Mui-focusVisible": {
                                                 outline: "2px solid #e5cc92",
                                             },
+                                            "&.Mui-disabled": {
+                                                color: "#a18f65", // Custom color when disabled
+                                            },
                                         }}
                                     />
                                 }
                                 label={t(`register.${name}.${key}`)}
-                                sx={{ color: "#e5cc92" }}
+                                sx={{
+                                    color: "#e5cc92",
+                                    "&.Mui-disabled": {
+                                        color: "#a18f65", // Disabled label color
+                                        ".MuiTypography-root": {
+                                            color: "#a18f65", // Text node inside the label
+                                        },
+                                    },
+                                }}
                             />
                         ))}
                     </RadioGroup>
