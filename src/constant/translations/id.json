@@ -163,7 +163,11 @@
             "Piano_Fourhands_two": "Piano Empat Tangan (Dua piano, empat tangan)",
             "Chamber_Music_one": "Musik Kamar (Satu piano, enam-delapan tangan)",
             "Chamber_Music_two": "Musik Kamar (Dua piano, enam-delapan tangan)",
-            "Chamber_Music_any": "Musik Kamar (Instrumen apa saja dengan piano)"
+            "Chamber_Music_any": "Musik Kamar (Instrumen apa saja dengan piano)",
+            "One_Piano_Mutiple_Hands": "Satu Piano, Banyak Tangan (4–8 Tangan)",
+            "Two_Piano_Multiple_Hands": "Dua Piano, Banyak Tangan (4–16 Tangan)",
+            "One_Piano_Instruments": "2–5 Instrumen/Pemain dengan 1 Piano",
+            "TwoPiano_Instruments": "6–9 Instrumen/Pemain dengan 2 Piano"
         },
         "competitionList": {
             "Piano": "Piano",
@@ -180,6 +184,7 @@
         "submit": "Daftar",
         "imTeacher": "Saya seorang guru yang mendaftarkan murid-murid saya",
         "imParent": "Saya mendaftarkan diri saya (Jika Anda adalah peserta / orang tua yang mendaftarkan anak Anda)",
+        "PerformanceCategoryTitle": "Kategori Penampilan",
         "PerformanceCategory": {
             "Solo": "Tunggal",
             "Ensemble": "Ensembel"

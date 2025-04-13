@@ -7,10 +7,10 @@ import { useTranslation } from "react-i18next";
 
 export const RadioForm = (props) => {
     const { t } = useTranslation()
-    const { errors, control, title, name, itemList, dataKey } = props
+    const { errors, control, title, name, itemList } = props
 
     return (
-        <FormControl className='mt-4' component="fieldset" error={!!get(errors, dataKey)}>
+        <FormControl className='mt-4' component="fieldset" error={!!get(errors, name)}>
             <FormLabel
                 className='fontSizeFormTitle'
                 component="legend"
@@ -50,15 +50,15 @@ export const RadioForm = (props) => {
                                         }}
                                     />
                                 }
-                                label={t(`register.${dataKey}.${key}`)}
+                                label={t(`register.${name}.${key}`)}
                                 sx={{ color: "#e5cc92" }}
                             />
                         ))}
                     </RadioGroup>
                 )}
             />
-            {get(errors, dataKey) && (
-                <p style={{ color: "red" }}>{get(errors, dataKey).message}</p>
+            {get(errors, name) && (
+                <p style={{ color: "red" }}>{get(errors, name).message}</p>
             )}
         </FormControl>
     )
@@ -67,10 +67,9 @@ export const RadioForm = (props) => {
 RadioForm.propTypes = {
     errors: PropTypes.object.isRequired,
     control: PropTypes.object.isRequired,
-    title: PropTypes.string,
+    title: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
-    itemList: PropTypes.object.isRequired,
-    dataKey: PropTypes.string.isRequired,
+    itemList: PropTypes.object.isRequired
 };
 
 export default RadioForm;

@@ -163,7 +163,11 @@
             "Piano_Fourhands_two": "Piano Fourhands (Two pianos, four hands)",
             "Chamber_Music_one": "Chamber Music (One piano, six-eight hands)",
             "Chamber_Music_two": "Chamber Music (Two pianos, six-eight hands)",
-            "Chamber_Music_any": "Chamber Music (Any instrument(s) with piano(s))"
+            "Chamber_Music_any": "Chamber Music (Any instrument(s) with piano(s))",
+            "One_Piano_Mutiple_Hands": "One Piano, Multiple Hands (4-8 Hands)",
+            "Two_Piano_Multiple_Hands": "Two Pianos, Multiple Hands (4-16 Hands)",
+            "One_Piano_Instruments": "Any 2-5 Instruments/Performers with 1 Piano",
+            "TwoPiano_Instruments": "Any 6-9 Instruments/Performers with 2 Pianos"
         },
         "competitionList": {
             "Piano": "Piano",
@@ -180,6 +184,7 @@
         "submit": "Submit",
         "imTeacher": "I'm a Teacher registering my students",
         "imParent": "I'm Registering myself (If you are participants / parents register for your child)",
+        "PerformanceCategoryTitle": "Performance Category",
         "PerformanceCategory": {
             "Solo": "Solo",
             "Ensemble": "Ensemble"

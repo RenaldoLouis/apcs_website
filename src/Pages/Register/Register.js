@@ -30,7 +30,7 @@ import apis from '../../apis';
 import FileInput from '../../components/molecules/FileInput';
 import RadioForm from '../../components/molecules/Form/RadioForm';
 import { countryCodes } from '../../constant/CountryCodePhone';
-import { ageCategories, competitionList, PerformanceCategory, PianoInstrumentList } from '../../constant/RegisterPageConst';
+import { ageCategories, competitionList, PerformanceCategory, PianoInstrumentListEnsemble, PianoInstrumentListSolo } from '../../constant/RegisterPageConst';
 import { db } from '../../firebase';
 
 const Register = () => {
@@ -71,6 +71,11 @@ const Register = () => {
         },
         mode: "onBlur", // or "onBlur"
     })
+
+    const selectedCompetition = watch("competitionCategory");
+    const userTypeValue = watch("userType");
+    const PerformanceCategoryValue = watch("PerformanceCategory");
+
     const { fields, append, remove } = useFieldArray({
         control,
         name: "performers"
@@ -203,9 +208,6 @@ const Register = () => {
         setProgressLoading(10)
     }
 
-    const selectedCompetition = watch("competitionCategory");
-    const userTypeValue = watch("userType");
-
     // Sync the fields with `totalPerformer`
     useEffect(() => {
         const currentLength = fields.length;
@@ -241,14 +243,18 @@ const Register = () => {
     const instrumentCategoryList = useMemo(() => {
         switch (selectedCompetition) {
             case competitionList.Piano:
-                return PianoInstrumentList
+                if (PerformanceCategoryValue === PerformanceCategory.Solo) {
+                    return PianoInstrumentListSolo
+                } else {
+                    return PianoInstrumentListEnsemble
+                }
                 break;
 
             default:
                 return {}
                 break;
         }
-    }, [selectedCompetition])
+    }, [selectedCompetition, PerformanceCategoryValue])
 
     return (
         <div className="primaryBackgroundBlack" style={{ padding: "128px 0px 48px 0px" }}>
@@ -383,6 +389,81 @@ const Register = () => {
                                                     id={`${key}-${label}`}
                                                     key={key}
                                                     value={key}
+                                                    disabled={key !== competitionList.Piano ? true : false}
+                                                    control={
+                                                        <Radio
+                                                            sx={{
+                                                                color: "#e5cc92",
+                                                                "&.Mui-checked": {
+                                                                    color: "#e5cc92",
+                                                                },
+                                                                "&.Mui-focusVisible": {
+                                                                    outline: "2px solid #e5cc92",
+                                                                },
+                                                                "&.Mui-checked.Mui-focusVisible": {
+                                                                    outline: "2px solid #e5cc92",
+                                                                },
+                                                                "&.Mui-disabled": {
+                                                                    color: "#a18f65", // Custom color when disabled
+                                                                },
+                                                            }}
+                                                        />
+                                                    }
+                                                    label={t(`register.competitionList.${key}`)}
+                                                    sx={{
+                                                        color: "#e5cc92",
+                                                        "&.Mui-disabled": {
+                                                            color: "#a18f65", // Disabled label color
+                                                            ".MuiTypography-root": {
+                                                                color: "#a18f65", // Text node inside the label
+                                                            },
+                                                        },
+                                                    }}
+                                                />
+                                            ))}
+                                        </RadioGroup>
+                                    )}
+                                />
+                                {errors.competitionCategory && (
+                                    <p style={{ color: "red" }}>{errors.competitionCategory.message}</p>
+                                )}
+                            </FormControl>
+
+                            {/* Performance Category */}
+                            <RadioForm
+                                errors={errors}
+                                control={control}
+                                title={t("register.PerformanceCategoryTitle")}
+                                name='PerformanceCategory'
+                                itemList={PerformanceCategory}
+                            />
+
+
+                            {/* Instrument Category (Radio Buttons) */}
+                            <FormControl className='mt-4' component="fieldset" error={!!errors.instrumentCategory}>
+                                <FormLabel
+                                    className='fontSizeFormTitle'
+                                    component="legend"
+                                    sx={{
+                                        color: "#e5cc92",
+                                        "&.Mui-focused": { color: "#e5cc92 !important" },
+                                        "&:hover": { color: "#e5cc92 !important" },
+                                    }}
+                                >
+                                    {t("register.form.instrumentCategory")}
+                                </FormLabel>
+
+                                <Controller
+                                    name="instrumentCategory"
+                                    control={control}
+                                    rules={{ required: t("register.errors.required") }}
+                                    render={({ field }) => (
+                                        <RadioGroup {...field} row>
+                                            {Object.entries(instrumentCategoryList).map(([key, label]) => (
+                                                <FormControlLabel
+                                                    id={`${key}-${label}`}
+                                                    key={key}
+                                                    value={key}
                                                     control={
                                                         <Radio
                                                             sx={{
@@ -399,83 +480,17 @@ const Register = () => {
                                                             }}
                                                         />
                                                     }
-                                                    label={t(`register.competitionList.${key}`)}
+                                                    label={t(`register.instrumentList.${key}`)}
                                                     sx={{ color: "#e5cc92" }}
                                                 />
                                             ))}
                                         </RadioGroup>
                                     )}
                                 />
-                                {errors.competitionCategory && (
-                                    <p style={{ color: "red" }}>{errors.competitionCategory.message}</p>
+                                {errors.instrumentCategory && (
+                                    <p style={{ color: "red" }}>{errors.instrumentCategory.message}</p>
                                 )}
                             </FormControl>
-
-                            {/* Performance Category */}
-                            <RadioForm
-                                errors={errors}
-                                control={control}
-                                title={"Performance Category"}
-                                name='PerformanceCategory'
-                                itemList={PerformanceCategory}
-                                dataKey='PerformanceCategory'
-                            />
-
-
-                            {/* Instrument Category (Radio Buttons) */}
-                            {Object.keys(instrumentCategoryList).length > 0 && (
-                                <FormControl className='mt-4' component="fieldset" error={!!errors.instrumentCategory}>
-                                    <FormLabel
-                                        className='fontSizeFormTitle'
-                                        component="legend"
-                                        sx={{
-                                            color: "#e5cc92",
-                                            "&.Mui-focused": { color: "#e5cc92 !important" },
-                                            "&:hover": { color: "#e5cc92 !important" },
-                                        }}
-                                    >
-                                        {t("register.form.instrumentCategory")}
-                                    </FormLabel>
-
-                                    <Controller
-                                        name="instrumentCategory"
-                                        control={control}
-                                        rules={{ required: t("register.errors.required") }}
-                                        render={({ field }) => (
-                                            <RadioGroup {...field} row>
-                                                {Object.entries(instrumentCategoryList).map(([key, label]) => (
-                                                    <FormControlLabel
-                                                        id={`${key}-${label}`}
-                                                        key={key}
-                                                        value={key}
-                                                        control={
-                                                            <Radio
-                                                                sx={{
-                                                                    color: "#e5cc92",
-                                                                    "&.Mui-checked": {
-                                                                        color: "#e5cc92",
-                                                                    },
-                                                                    "&.Mui-focusVisible": {
-                                                                        outline: "2px solid #e5cc92",
-                                                                    },
-                                                                    "&.Mui-checked.Mui-focusVisible": {
-                                                                        outline: "2px solid #e5cc92",
-                                                                    },
-                                                                }}
-                                                            />
-                                                        }
-                                                        label={t(`register.instrumentList.${key}`)}
-                                                        sx={{ color: "#e5cc92" }}
-                                                    />
-                                                ))}
-                                            </RadioGroup>
-                                        )}
-                                    />
-                                    {errors.instrumentCategory && (
-                                        <p style={{ color: "red" }}>{errors.instrumentCategory.message}</p>
-                                    )}
-                                </FormControl>
-                            )}
 
 
                             {/* Age Category (Radio Buttons) */}
