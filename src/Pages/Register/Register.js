@@ -28,8 +28,9 @@ import { useTranslation } from "react-i18next";
 import { toast } from 'react-toastify';
 import apis from '../../apis';
 import FileInput from '../../components/molecules/FileInput';
+import RadioForm from '../../components/molecules/Form/RadioForm';
 import { countryCodes } from '../../constant/CountryCodePhone';
-import { ageCategories, competitionList, PianoInstrumentList } from '../../constant/RegisterPageConst';
+import { ageCategories, competitionList, PerformanceCategory, PianoInstrumentList } from '../../constant/RegisterPageConst';
 import { db } from '../../firebase';
 
 const Register = () => {
@@ -409,6 +410,16 @@ const Register = () => {
                                     <p style={{ color: "red" }}>{errors.competitionCategory.message}</p>
                                 )}
                             </FormControl>
+
+                            {/* Performance Category */}
+                            <RadioForm
+                                errors={errors}
+                                control={control}
+                                title={"Performance Category"}
+                                name='PerformanceCategory'
+                                itemList={PerformanceCategory}
+                                dataKey='PerformanceCategory'
+                            />
 
 
                             {/* Instrument Category (Radio Buttons) */}

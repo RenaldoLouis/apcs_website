@@ -126,7 +126,7 @@
             "zipcode": "Kode Pos",
             "address": "Alamat Lengkap",
             "examCert": "Sertifikat Ujian / Rekomendasi Guru",
-            "birthCert": "Akte Kelahiran",
+            "birthCert": "Akte Kelahiran / paspor / Id",
             "repertoire": "Repertoar",
             "youtube": "Link Video YouTube",
             "youtubeNote": "Pastikan judul video di YouTube mengikuti format: APCSCF2024 - (KATEGORI INSTRUMEN) - (KATEGORI USIA) - (NAMA LENGKAP) - (JUDUL LAGU)",
@@ -179,6 +179,10 @@
         "submitAnotherRegistrant": "Daftarkan lagi",
         "submit": "Daftar",
         "imTeacher": "Saya seorang guru yang mendaftarkan murid-murid saya",
-        "imParent": "Saya mendaftarkan diri saya (Jika Anda adalah peserta / orang tua yang mendaftarkan anak Anda)"
+        "imParent": "Saya mendaftarkan diri saya (Jika Anda adalah peserta / orang tua yang mendaftarkan anak Anda)",
+        "PerformanceCategory": {
+            "Solo": "Tunggal",
+            "Ensemble": "Ensembel"
+        }
     }
 }

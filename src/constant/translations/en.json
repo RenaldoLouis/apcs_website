@@ -126,7 +126,7 @@
             "zipcode": "Zip Code",
             "address": "Address Line",
             "examCert": "Exam Certificate / Teacher Recommendation",
-            "birthCert": "Birth Certificate",
+            "birthCert": "Birth Certificate / Passport / Id",
             "repertoire": "Repertoire",
             "youtube": "YouTube Video Link",
             "youtubeNote": "Make sure to fill the title on YouTube with the format: APCSCF2024 - (INSTRUMENT CATEGORIES) - (AGE CATEGORIES) - (FULL NAME) - (PIECE)",
@@ -179,6 +179,10 @@
         "submitAnotherRegistrant": "Submit Another Registrant",
         "submit": "Submit",
         "imTeacher": "I'm a Teacher registering my students",
-        "imParent": "I'm Registering myself (If you are participants / parents register for your child)"
+        "imParent": "I'm Registering myself (If you are participants / parents register for your child)",
+        "PerformanceCategory": {
+            "Solo": "Solo",
+            "Ensemble": "Ensemble"
+        }
     }
 }

@@ -30,3 +30,7 @@ export const PianoInstrumentList = {
     Chamber_Music_any: "Chamber Music (Any instrument(s) with piano(s))",
 }
 
+export const PerformanceCategory = {
+    Solo: "Solo",
+    Ensemble: "Ensemble"
+}

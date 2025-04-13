@@ -1,6 +1,5 @@
 import { Box, Modal, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
-import modalBackground2 from "../../assets/images/modal_background2.png";
 
 const modalStyle = {
     position: 'absolute',
@@ -32,7 +31,7 @@ const posterStyle = {
 };
 
 const ModalEvent = ({ open, handleClose }) => {
-    const targetDate = new Date('April 17, 2025 00:00:00');
+    const targetDate = new Date('April 21, 2025 00:00:00');
 
     const calculateTimeLeft = () => {
         const now = new Date();
