@@ -91,7 +91,6 @@ const Register = () => {
     const userTypeValue = watch("userType");
     const PerformanceCategoryValue = watch("PerformanceCategory");
     const sameAddressValue = watch("sameAddress");
-    // const performersValue = watch("performers");
     const performersValue = useWatch({ control, name: "performers" });
 
     const { fields, append, remove } = useFieldArray({
@@ -273,6 +272,32 @@ const Register = () => {
                 break;
         }
     }, [selectedCompetition, PerformanceCategoryValue])
+
+    const minimalPerformer = useMemo(() => {
+        if (PerformanceCategoryValue === PerformanceCategory.Solo) {
+            return 1
+        } else {
+            return 2
+        }
+    }, [PerformanceCategoryValue])
+
+    const maximalPerformer = useMemo(() => {
+        if (PerformanceCategoryValue === PerformanceCategory.Solo) {
+            return 1
+        } else {
+            return 15
+        }
+    }, [PerformanceCategoryValue])
+
+    useEffect(() => {
+        if (PerformanceCategoryValue === PerformanceCategory.Solo) {
+            setTotalPerformer(1)
+            setValue('totalPerformer', 1)
+        } else {
+            setTotalPerformer(2)
+            setValue('totalPerformer', 2)
+        }
+    }, [PerformanceCategoryValue])
 
     const copyAddressFields = (from, to) => {
         setValue(`performers.${to}.addressLine`, from.addressLine);
@@ -639,11 +664,13 @@ const Register = () => {
                                             rules={{ required: t("register.errors.required") }}
                                             render={({ field, fieldState: { error } }) => (
                                                 <InputNumber
+                                                    key={"totalPerformerInput"}
                                                     suffix={t("register.form.personSuffix")} // Optional, for localization
-                                                    min={1}
-                                                    max={15}
+                                                    min={minimalPerformer}
+                                                    max={maximalPerformer}
                                                     onError={!!error}
-                                                    defaultValue={1}
+                                                    defaultValue={minimalPerformer}
+                                                    value={field.value} // <-- Controlled value
                                                     onChange={(value) => {
                                                         field.onChange(value);
                                                         handleChangePerformer(value);
