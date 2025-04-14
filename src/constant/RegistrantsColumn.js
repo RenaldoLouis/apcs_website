@@ -47,5 +47,14 @@ export const Registrants2025Columns = [
     { title: "YouTube Link", dataIndex: "youtubeLink" },
     { title: "Age Category", dataIndex: "ageCategory" },
     { title: "Instrument Category", dataIndex: "instrumentCategory" },
-    { title: "Created At", dataIndex: "createdAt" },
+    {
+        title: "Created At", dataIndex: "createdAt",
+        render: (createdAt) => {
+            if (createdAt?.seconds) {
+                const date = new Date(createdAt.seconds * 1000);
+                return date.toLocaleString(); // or date.toLocaleDateString(), etc.
+            }
+            return "-";
+        },
+    },
 ];
