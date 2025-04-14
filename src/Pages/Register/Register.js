@@ -955,7 +955,13 @@ const Register = () => {
                                                 control={control}
                                                 rules={{ required: t("register.errors.required") }}
                                                 render={({ field, fieldState: { error } }) => (
-                                                    <TextField {...field} label={t("register.form.city")} variant="standard" className="custom-textfield-full mb-4" error={!!error} helperText={error?.message} />
+                                                    <TextField {...field}
+                                                        key={field.value ?? `city-${index}`} // 👈 force rerender when value changes
+                                                        label={t("register.form.city")}
+                                                        variant="standard"
+                                                        className="custom-textfield-full mb-4"
+                                                        error={!!error}
+                                                        helperText={error?.message} />
                                                 )}
                                             />
                                         </Box>
@@ -965,7 +971,9 @@ const Register = () => {
                                                 control={control}
                                                 rules={{ required: t("register.errors.required") }}
                                                 render={({ field, fieldState: { error } }) => (
-                                                    <TextField {...field} label={t("register.form.country")} variant="standard" className="custom-textfield-full mb-4" error={!!error} helperText={error?.message} />
+                                                    <TextField {...field}
+                                                        key={field.value ?? `country-${index}`} // 👈 force rerender when value changes
+                                                        label={t("register.form.country")} variant="standard" className="custom-textfield-full mb-4" error={!!error} helperText={error?.message} />
                                                 )}
                                             />
                                         </Box>
@@ -979,7 +987,9 @@ const Register = () => {
                                                 control={control}
                                                 rules={{ required: t("register.errors.required") }}
                                                 render={({ field, fieldState: { error } }) => (
-                                                    <TextField {...field} label={t("register.form.province")} variant="standard" className="custom-textfield-full mb-4" error={!!error} helperText={error?.message} />
+                                                    <TextField {...field}
+                                                        key={field.value ?? `province-${index}`} // 👈 force rerender when value changes
+                                                        label={t("register.form.province")} variant="standard" className="custom-textfield-full mb-4" error={!!error} helperText={error?.message} />
                                                 )}
                                             />
                                         </Box>
@@ -989,7 +999,9 @@ const Register = () => {
                                                 control={control}
                                                 rules={{ required: t("register.errors.required") }}
                                                 render={({ field, fieldState: { error } }) => (
-                                                    <TextField {...field} label={t("register.form.zipcode")} variant="standard" className="custom-textfield-full mb-4" error={!!error} helperText={error?.message} />
+                                                    <TextField {...field}
+                                                        key={field.value ?? `zipCode-${index}`} // 👈 force rerender when value changes
+                                                        label={t("register.form.zipcode")} variant="standard" className="custom-textfield-full mb-4" error={!!error} helperText={error?.message} />
                                                 )}
                                             />
                                         </Box>
@@ -1001,7 +1013,10 @@ const Register = () => {
                                         control={control}
                                         rules={{ required: t("register.errors.required") }}
                                         render={({ field, fieldState: { error } }) => (
-                                            <TextField {...field} label={t("register.form.address")} variant="standard" className="custom-textfield-full mb-4" error={!!error} helperText={error?.message} />
+                                            <TextField {...field}
+                                                key={field.value ?? `addressLine-${index}`} // 👈 force rerender when value changes
+
+                                                label={t("register.form.address")} variant="standard" className="custom-textfield-full mb-4" error={!!error} helperText={error?.message} />
                                         )}
                                     />
 
