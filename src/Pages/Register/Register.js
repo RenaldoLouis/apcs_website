@@ -23,7 +23,7 @@ import axios from 'axios';
 import dayjs from 'dayjs';
 import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 import React, { useEffect, useMemo, useRef, useState } from "react";
-import { Controller, useFieldArray, useForm } from "react-hook-form";
+import { Controller, useFieldArray, useForm, useWatch } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { toast } from 'react-toastify';
 import apis from '../../apis';
@@ -55,7 +55,7 @@ const Register = () => {
     const [totalPerformer, setTotalPerformer] = useState(1);
     const [progressLoading, setProgressLoading] = useState(10);
 
-    const { watch, register, control, formState: { errors }, handleSubmit, reset, clearErrors } = useForm({
+    const { setValue, watch, register, control, formState: { errors }, handleSubmit, reset, clearErrors } = useForm({
         defaultValues: {
             // address: "",
             ageCategory: null,
@@ -66,15 +66,33 @@ const Register = () => {
             name: "",
             // phoneNumber: "",
             youtubeLink: "",
-            performers: [],
-            totalPerformer: 1
+            performers: [{
+                firstName: "",
+                lastName: "",
+                email: "",
+                phoneNumber: "",
+                countryCode: [""],
+                city: "",
+                country: "",
+                province: "",
+                zipCode: "",
+                addressLine: "",
+                dob: null
+            }],
+            totalPerformer: 1,
+            PerformanceCategory: PerformanceCategory.Solo,
+            sameAddress: false
         },
         mode: "onBlur", // or "onBlur"
+        shouldUnregister: false,
     })
 
     const selectedCompetition = watch("competitionCategory");
     const userTypeValue = watch("userType");
     const PerformanceCategoryValue = watch("PerformanceCategory");
+    const sameAddressValue = watch("sameAddress");
+    // const performersValue = watch("performers");
+    const performersValue = useWatch({ control, name: "performers" });
 
     const { fields, append, remove } = useFieldArray({
         control,
@@ -255,6 +273,58 @@ const Register = () => {
                 break;
         }
     }, [selectedCompetition, PerformanceCategoryValue])
+
+    const copyAddressFields = (from, to) => {
+        setValue(`performers.${to}.addressLine`, from.addressLine);
+        setValue(`performers.${to}.city`, from.city);
+        setValue(`performers.${to}.country`, from.country);
+        setValue(`performers.${to}.province`, from.province);
+        setValue(`performers.${to}.zipCode`, from.zipCode);
+    };
+
+    useEffect(() => {
+        if (!sameAddressValue) return;
+        const source = performersValue?.[0];
+        if (!source) return;
+
+        for (let i = 1; i < performersValue.length; i++) {
+            copyAddressFields(source, i);
+        }
+    }, [sameAddressValue, performersValue, setValue]);
+
+    const sameAddressCheckbox = useMemo(() => {
+        return (
+            <FormControlLabel
+                key="sameAddressCheckbox"
+                sx={{
+                    color: "#e5cc92",
+                    "&.Mui-focused": { color: "#e5cc92 !important" },
+                    "&:hover": { color: "#e5cc92 !important" },
+                }}
+                control={
+                    <Controller
+                        name="sameAddress"
+                        control={control}
+                        render={({ field }) => (
+                            <Checkbox
+                                {...field}
+                                sx={{
+                                    color: "#e5cc92",
+                                    "&.Mui-checked": {
+                                        color: "#e5cc92",
+                                    },
+                                    "&.Mui-focusVisible": {
+                                        outline: "2px solid #e5cc92",
+                                    },
+                                }}
+                            />
+                        )}
+                    />
+                }
+                label={t("register.SameAddress")}
+            />
+        );
+    }, [control, t]);
 
     return (
         <div className="primaryBackgroundBlack" style={{ padding: "128px 0px 48px 0px" }}>
@@ -934,8 +1004,13 @@ const Register = () => {
                                             <TextField {...field} label={t("register.form.address")} variant="standard" className="custom-textfield-full mb-4" error={!!error} helperText={error?.message} />
                                         )}
                                     />
+
+                                    {index === 0 && (
+                                        sameAddressCheckbox
+                                    )}
                                 </React.Fragment>
-                            ))}
+                            )
+                            )}
 
 
                             {/* Exam Certificate Upload */}
@@ -1002,14 +1077,13 @@ const Register = () => {
                                 </Tooltip>
                             </div>
 
-                            <small className="note">Example: APCSCF2024 - CHAMBER MUSIC - FREE CHOICE - RINA JULIANNA, MATTHEW TAN, RYAN TANAKO J, LINA JESSICA H
+                            <small className="note">*Example: APCSCF2024 - CHAMBER MUSIC - FREE CHOICE - RINA JULIANNA, MATTHEW TAN, RYAN TANAKO J, LINA JESSICA H
                             </small>
 
                             {/* Agreement */}
                             <Box className="creamText" sx={{ mt: 2 }}>
                                 {t("register.form.agreementText")}
                             </Box>
-
                             <FormControlLabel
                                 sx={{
                                     color: "#e5cc92",
@@ -1039,7 +1113,6 @@ const Register = () => {
                                 }
                                 label={t("register.form.agree")}
                             />
-
                             {errors.agreement && <p style={{ color: "red" }}>{errors.agreement.message}</p>}
 
                             {/* Submit Button */}

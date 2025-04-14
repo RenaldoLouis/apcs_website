@@ -188,6 +188,7 @@
         "PerformanceCategory": {
             "Solo": "Tunggal",
             "Ensemble": "Ensembel"
-        }
+        },
+        "SameAddress": "Semua siswa memiliki alamat yang sama."
     }
 }

@@ -188,6 +188,7 @@
         "PerformanceCategory": {
             "Solo": "Solo",
             "Ensemble": "Ensemble"
-        }
+        },
+        "SameAddress": "All student has the same address"
     }
 }
