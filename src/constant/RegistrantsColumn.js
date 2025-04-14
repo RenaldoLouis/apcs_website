@@ -31,7 +31,6 @@ export const Registrants2025Columns = [
     { title: "Competition Category", dataIndex: "competitionCategory" },
     { title: "Performance Category", dataIndex: "PerformanceCategory" },
     { title: "User Type", dataIndex: "userType" },
-    { title: "Agreement", dataIndex: "agreement" },
     {
         title: "Performers",
         dataIndex: "performers",

@@ -154,7 +154,7 @@ const Register = () => {
             const formattedDatePerformers = data?.performers.map((performer) => {
                 const formattedDate = performer?.dob?.format("DD/MM/YYYY") ?? null;
 
-                return { ...performer, dob: formattedDate }
+                return { ...performer, dob: formattedDate, countryCode: performer.countryCode[0] }
             })
 
             setProgressLoading(70)
