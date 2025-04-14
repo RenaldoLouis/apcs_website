@@ -84,12 +84,12 @@
             "OpenAge": "Usia Terbuka (24 tahun ke atas)",
             "FreeChoice": "Pilihan Bebas (Kombinasi Usia - Tanpa Batasan)"
         },
-        "title": "DAFTAR",
+        "title": "FORMULIR PENDAFTARAN APCS SOUND OF ASIA",
         "description": {
             "line1": "Silakan lengkapi formulir di bawah sesuai dengan Syarat & Ketentuan.",
             "importantNotes": "Catatan Penting:",
             "ageInfo": "Usia peserta akan dihitung berdasarkan usia per 31 Desember 2025.",
-            "disclaimer": "APCS Music berhak untuk menempatkan ulang peserta ke kategori usia yang sesuai jika informasi yang dikirimkan tidak memenuhi persyaratan yang berlaku."
+            "disclaimer": "berhak untuk menempatkan ulang peserta ke kategori usia yang sesuai jika informasi yang dikirimkan tidak memenuhi persyaratan yang berlaku."
         },
         "userType": {
             "Teacher": "Saya adalah Guru yang mendaftarkan murid saya",
@@ -129,8 +129,8 @@
             "birthCert": "Akte Kelahiran / paspor / Id",
             "repertoire": "Repertoar",
             "youtube": "Link Video YouTube",
-            "youtubeNote": "Pastikan judul video di YouTube mengikuti format: APCSCF2024 - (KATEGORI INSTRUMEN) - (KATEGORI USIA) - (NAMA LENGKAP) - (JUDUL LAGU)",
-            "agreementText": "Saya memahami dan menyetujui bahwa untuk mengikuti acara APCs CLASSICAL FESTIVAL 2024, saya akan mematuhi syarat dan ketentuan, peraturan dan kebijakan privasi dari APCs MUSIC. Saya akan didiskualifikasi jika tidak memenuhi persyaratan dan tidak mematuhi aturan serta kebijakan yang telah ditetapkan.",
+            "youtubeNote": "Pastikan judul video di YouTube mengikuti format: APCSTSOA25 - (KATEGORI INSTRUMEN) - (KATEGORI USIA) - (NAMA LENGKAP) - (JUDUL LAGU)",
+            "agreementText": "Saya memahami dan menyetujui bahwa untuk mengikuti acara APCS CLASSICAL FESTIVAL 2024, saya akan mematuhi syarat dan ketentuan, peraturan dan kebijakan privasi dari APCS MUSIC. Saya akan didiskualifikasi jika tidak memenuhi persyaratan dan tidak mematuhi aturan serta kebijakan yang telah ditetapkan.",
             "agree": "Saya setuju dengan syarat dan ketentuan.",
             "submit": "Kirim",
             "submitAnother": "Kirim Peserta Lain",

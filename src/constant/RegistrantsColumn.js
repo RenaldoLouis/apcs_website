@@ -27,16 +27,25 @@ export const RegistrantsColumns = [
 
 export const Registrants2025Columns = [
     { title: "Name", dataIndex: "name" },
-    { title: "Email", dataIndex: "email" },
-    { title: "Address", dataIndex: "address" },
-    { title: "City", dataIndex: "city" },
-    { title: "Country", dataIndex: "country" },
-    { title: "Phone Number", dataIndex: "phoneNumber" },
-    { title: "Teacher Name", dataIndex: "teacherName" },
+    { title: "Total Performer", dataIndex: "totalPerformer" },
+    { title: "Competition Category", dataIndex: "competitionCategory" },
+    { title: "Performance Category", dataIndex: "PerformanceCategory" },
+    { title: "User Type", dataIndex: "userType" },
+    { title: "Agreement", dataIndex: "agreement" },
+    {
+        title: "Performers",
+        dataIndex: "performers",
+        render: (performers) => {
+            if (Array.isArray(performers)) {
+                return performers.map((p, i) => (
+                    <div key={i}>{i + 1}. {p.firstName} {p.lastName}</div>
+                ));
+            }
+            return "-";
+        },
+    },
     { title: "YouTube Link", dataIndex: "youtubeLink" },
     { title: "Age Category", dataIndex: "ageCategory" },
     { title: "Instrument Category", dataIndex: "instrumentCategory" },
-    { title: "Date of Birth", dataIndex: "dob" },
-    { title: "Second Date of Birth", dataIndex: "dob2" },
     { title: "Created At", dataIndex: "createdAt" },
 ];

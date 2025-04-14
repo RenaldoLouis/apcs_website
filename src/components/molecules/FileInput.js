@@ -24,7 +24,6 @@ const FileInput = ({ name, control, label, rules = {}, tooltipLabel, smallNotes 
         ...rules,
         required: rules.required || "Upload required",
         validate: (value) => {
-            console.log("validation")
             if (rules.validate) {
                 const result = rules.validate(value);
                 if (result !== true) return result;

@@ -5,7 +5,6 @@ import {
     Box,
     Button,
     Checkbox,
-    CircularProgress,
     FormControl,
     FormControlLabel,
     FormLabel,
@@ -29,6 +28,7 @@ import { toast } from 'react-toastify';
 import apis from '../../apis';
 import FileInput from '../../components/molecules/FileInput';
 import RadioForm from '../../components/molecules/Form/RadioForm';
+import LoadingOverlay from '../../components/molecules/LoadingOverlay';
 import { countryCodes } from '../../constant/CountryCodePhone';
 import { ageCategories, competitionList, PerformanceCategory, PianoInstrumentListEnsemble, PianoInstrumentListSolo } from '../../constant/RegisterPageConst';
 import { db } from '../../firebase';
@@ -57,14 +57,10 @@ const Register = () => {
 
     const { setValue, watch, register, control, formState: { errors }, handleSubmit, reset, clearErrors } = useForm({
         defaultValues: {
-            // address: "",
             ageCategory: null,
-            // city: "",
             userType: "Teacher",
-            // country: "",
             competitionCategory: competitionList.Piano,
             name: "",
-            // phoneNumber: "",
             youtubeLink: "",
             performers: [{
                 firstName: "",
@@ -165,14 +161,14 @@ const Register = () => {
 
             // save data to Firebase
             await addDoc(collection(db, "Registrants2025"), {
-                // address: data.address,
                 ageCategory: data.ageCategory,
+                totalPerformer: data.totalPerformer,
+                agreement: data.agreement,
                 competitionCategory: data.competitionCategory,
-                // city: data.city,
+                PerformanceCategory: data.PerformanceCategory,
+                instrumentCategory: data.instrumentCategory,
                 userType: data.userType,
-                // country: data.country,
                 performers: formattedDatePerformers,
-                // phoneNumber: data.phoneNumber,
                 name: data.name,
                 youtubeLink: data.youtubeLink,
                 createdAt: serverTimestamp(),
@@ -460,7 +456,7 @@ const Register = () => {
 
 
                             {/* Competition Category (Radio Button) */}
-                            <FormControl className='mt-4' component="fieldset" error={!!errors.competitionCategory}>
+                            <FormControl className='mt-2' component="fieldset" error={!!errors.competitionCategory}>
                                 <FormLabel
                                     className='fontSizeFormTitle'
                                     component="legend"
@@ -1119,7 +1115,7 @@ const Register = () => {
                                 </Tooltip>
                             </div>
 
-                            <small className="note">*Example: APCSCF2024 - CHAMBER MUSIC - FREE CHOICE - RINA JULIANNA, MATTHEW TAN, RYAN TANAKO J, LINA JESSICA H
+                            <small className="note">*Example: APCSTSOA25 - CHAMBER MUSIC - FREE CHOICE - RINA JULIANNA, MATTHEW TAN, RYAN TANAKO J, LINA JESSICA H
                             </small>
 
                             {/* Agreement */}
@@ -1199,19 +1195,6 @@ const Register = () => {
                                 >
                                     {t("register.submit")}
                                     {/* {isLoading && (
-                                        <CircularProgress
-                                            size={24}
-                                            sx={{
-                                                color: "blue",
-                                                position: 'absolute',
-                                                top: '50%',
-                                                left: '50%',
-                                                marginTop: '-12px',
-                                                marginLeft: '-12px',
-                                            }}
-                                        />
-                                    )} */}
-                                    {isLoading && (
                                         <Box
                                             sx={{
                                                 color: "blue",
@@ -1235,18 +1218,12 @@ const Register = () => {
                                                     justifyContent: 'center',
                                                 }}
                                             >
-                                                {/* <Typography
-                                                    variant="caption"
-                                                    component="div"
-                                                    sx={{ color: 'text.secondary' }}
-                                                >
-                                                    {`${Math.round(progressLoading)}%`}
-                                                </Typography> */}
                                             </Box>
                                         </Box>
-                                    )}
+                                    )} */}
                                 </Button>
                             )}
+                            <LoadingOverlay open={isLoading} progress={progressLoading} />
                         </form>
                     </div>
                 </div>
