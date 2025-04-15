@@ -31,6 +31,7 @@ import RadioForm from '../../components/molecules/Form/RadioForm';
 import LoadingOverlay from '../../components/molecules/LoadingOverlay';
 import { countryCodes } from '../../constant/CountryCodePhone';
 import { ageCategories, competitionList, PerformanceCategory, PianoInstrumentListEnsemble, PianoInstrumentListSolo } from '../../constant/RegisterPageConst';
+import { useAuth } from '../../context/DataContext';
 import { db } from '../../firebase';
 
 const Register = () => {
@@ -50,6 +51,8 @@ const Register = () => {
         Other: t("register.gender.Other")
     }
 
+    const { isSmallMobileAndSmaller } = useAuth();
+
     const [isLoading, setIsLoading] = useState(false);
     const [isSaveSuccess, setIsSaveSuccess] = useState(false);
     const [totalPerformer, setTotalPerformer] = useState(1);
@@ -67,7 +70,7 @@ const Register = () => {
                 lastName: "",
                 email: "",
                 phoneNumber: "",
-                countryCode: [""],
+                countryCode: ["+62"],
                 city: "",
                 country: "",
                 province: "",
@@ -227,7 +230,21 @@ const Register = () => {
         if (totalPerformer > currentLength) {
             // Add fields
             for (let i = currentLength; i < totalPerformer; i++) {
-                append({ dob: null });
+                append({
+                    performers: [{
+                        firstName: "",
+                        lastName: "",
+                        email: "",
+                        phoneNumber: "",
+                        countryCode: ["+62"],
+                        city: "",
+                        country: "",
+                        province: "",
+                        zipCode: "",
+                        addressLine: "",
+                        dob: null
+                    }],
+                });
             }
         } else if (totalPerformer < currentLength) {
             // Remove fields
@@ -352,16 +369,16 @@ const Register = () => {
             <div className="container" style={{ marginBottom: 30 }}>
                 <div className="row">
                     <div className="col-sm">
-                        <div className="mangolaineFont goldenTextColor d-flex align-items-center justify-center" style={{ fontSize: "6vmin" }}>
+                        <div className="mb-4 mangolaineFont goldenTextColor d-flex align-items-center justify-center" style={{ fontSize: isSmallMobileAndSmaller ? "8vmin" : "6vmin" }}>
                             {t("register.title")}
                         </div>
 
                         <div className="creamText" style={{ color: '#e5cc92' }}>
-                            <div>
+                            {/* <div>
                                 <strong>
                                     {t("register.description.line1")}
                                 </strong>
-                            </div>
+                            </div> */}
 
                             <strong>{t("register.description.importantNotes")}</strong>
                             <ul>
@@ -940,13 +957,14 @@ const Register = () => {
                                                             <Controller
                                                                 name={`performers.${index}.countryCode`}
                                                                 control={control}
-                                                                defaultValue={['+1']}
+                                                                defaultValue={['+62']}
                                                                 rules={{ required: t("register.errors.required") }}
                                                                 render={({ field }) => (
                                                                     <Cascader
                                                                         {...field}
+                                                                        value={field.value} // Explicitly bind the value
+                                                                        onChange={field.onChange} // Make sure changes are captured
                                                                         options={countryCodes.map(code => ({ value: code.code, label: code.name }))}
-
                                                                         placeholder="+Code"
                                                                         style={{
                                                                             width: 150,

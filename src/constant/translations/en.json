@@ -84,11 +84,11 @@
             "OpenAge": "Open Age (24 years old and up)",
             "FreeChoice": "Free Choice (Combination Age - No Limitation)"
         },
-        "title": "APCS SOUND OF ASIA REGISTRATION FORM",
+        "title": "REGISTRATION FORM",
         "description": {
             "line1": "Please complete the form below in accordance with the Terms & Conditions.",
-            "importantNotes": "Important Notes:",
-            "ageInfo": "Participant age will be calculated based on their age as of 31 December 2025.",
+            "importantNotes": "Admission Rules:",
+            "ageInfo": "Participant age will be calculated based on their age as of 2 September 2024.",
             "disclaimer": "reserves the right to reassign participants to the appropriate age category if the submitted information does not meet the eligibility requirements."
         },
         "userType": {

@@ -84,11 +84,11 @@
             "OpenAge": "Usia Terbuka (24 tahun ke atas)",
             "FreeChoice": "Pilihan Bebas (Kombinasi Usia - Tanpa Batasan)"
         },
-        "title": "FORMULIR PENDAFTARAN APCS SOUND OF ASIA",
+        "title": "FORMULIR PENDAFTARAN",
         "description": {
             "line1": "Silakan lengkapi formulir di bawah sesuai dengan Syarat & Ketentuan.",
-            "importantNotes": "Catatan Penting:",
-            "ageInfo": "Usia peserta akan dihitung berdasarkan usia per 31 Desember 2025.",
+            "importantNotes": "Peraturan Pendaftaran:",
+            "ageInfo": "Usia peserta akan dihitung berdasarkan usia per 2 September 2024.",
             "disclaimer": "berhak untuk menempatkan ulang peserta ke kategori usia yang sesuai jika informasi yang dikirimkan tidak memenuhi persyaratan yang berlaku."
         },
         "userType": {
