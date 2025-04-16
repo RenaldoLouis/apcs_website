@@ -88,7 +88,7 @@
         "description": {
             "line1": "Silakan lengkapi formulir di bawah sesuai dengan Syarat & Ketentuan.",
             "importantNotes": "Peraturan Pendaftaran:",
-            "ageInfo": "Usia peserta akan dihitung berdasarkan usia per 2 September 2024.",
+            "ageInfo": "Usia peserta akan dihitung berdasarkan usia per 31 December 2025.",
             "disclaimer": "berhak untuk menempatkan ulang peserta ke kategori usia yang sesuai jika informasi yang dikirimkan tidak memenuhi persyaratan yang berlaku."
         },
         "userType": {
@@ -101,6 +101,7 @@
             "Other": "Lainnya"
         },
         "form": {
+            "placeholder_register_self": "\"-\" jika Anda mendaftar untuk diri sendiri",
             "personSuffix": "Orang",
             "whoAreYou": "Siapa Anda?",
             "teacherName": "Nama Guru",

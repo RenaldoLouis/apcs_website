@@ -88,7 +88,7 @@
         "description": {
             "line1": "Please complete the form below in accordance with the Terms & Conditions.",
             "importantNotes": "Admission Rules:",
-            "ageInfo": "Participant age will be calculated based on their age as of 2 September 2024.",
+            "ageInfo": "Participant age will be calculated based on their age as of 31 December 2025.",
             "disclaimer": "reserves the right to reassign participants to the appropriate age category if the submitted information does not meet the eligibility requirements."
         },
         "userType": {
@@ -101,6 +101,7 @@
             "Other": "Other"
         },
         "form": {
+            "placeholder_register_self": "\"-\" if you're registering yourself",
             "personSuffix": "Person",
             "whoAreYou": "Who are you?",
             "teacherName": "Teacher's Name",

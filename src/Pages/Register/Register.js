@@ -460,6 +460,7 @@ const Register = () => {
                                             className="custom-textfield-full mb-4"
                                             error={!!error}
                                             helperText={error ? error.message : ""}
+                                            placeholder={t('register.form.placeholder_register_self')}
                                         />
 
                                         <Tooltip title={t("register.form.teacherNameNote")}>
