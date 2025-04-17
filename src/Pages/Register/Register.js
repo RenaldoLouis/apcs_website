@@ -998,7 +998,9 @@ const Register = () => {
                                                 rules={{ required: t("register.errors.required") }}
                                                 render={({ field, fieldState: { error } }) => (
                                                     <TextField {...field}
-                                                        key={field.value ?? `city-${index}`} // 👈 force rerender when value changes
+                                                        // key={`${sameAddressValue ? field.value : `city-${index}`}`} // 👈 force rerender when value changes
+                                                        key={`${`city-${index}`}`}
+                                                        InputLabelProps={{ shrink: Boolean(field.value) }} // 👈 Optional: forces label to float when value exists
                                                         label={t("register.form.city")}
                                                         variant="standard"
                                                         className="custom-textfield-full mb-4"
@@ -1014,7 +1016,9 @@ const Register = () => {
                                                 rules={{ required: t("register.errors.required") }}
                                                 render={({ field, fieldState: { error } }) => (
                                                     <TextField {...field}
-                                                        key={field.value ?? `country-${index}`} // 👈 force rerender when value changes
+                                                        // key={`${sameAddressValue ? field.value : `country-${index}`}`} // 👈 force rerender when value changes
+                                                        key={`${`country-${index}`}`}
+                                                        InputLabelProps={{ shrink: Boolean(field.value) }} // 👈 Optional: forces label to float when value exists
                                                         label={t("register.form.country")} variant="standard" className="custom-textfield-full mb-4" error={!!error} helperText={error?.message} />
                                                 )}
                                             />
@@ -1030,7 +1034,9 @@ const Register = () => {
                                                 rules={{ required: t("register.errors.required") }}
                                                 render={({ field, fieldState: { error } }) => (
                                                     <TextField {...field}
-                                                        key={field.value ?? `province-${index}`} // 👈 force rerender when value changes
+                                                        // key={`${sameAddressValue ? field.value : `province-${index}`}`} // 👈 force rerender when value changes
+                                                        key={`${`province-${index}`}`}
+                                                        InputLabelProps={{ shrink: Boolean(field.value) }} // 👈 Optional: forces label to float when value exists
                                                         label={t("register.form.province")} variant="standard" className="custom-textfield-full mb-4" error={!!error} helperText={error?.message} />
                                                 )}
                                             />
@@ -1042,7 +1048,9 @@ const Register = () => {
                                                 rules={{ required: t("register.errors.required") }}
                                                 render={({ field, fieldState: { error } }) => (
                                                     <TextField {...field}
-                                                        key={field.value ?? `zipCode-${index}`} // 👈 force rerender when value changes
+                                                        // key={`${sameAddressValue ? field.value : `zipCode-${index}`}`} // 👈 force rerender when value changes
+                                                        key={`${`zipCode-${index}`}`}
+                                                        InputLabelProps={{ shrink: Boolean(field.value) }} // 👈 Optional: forces label to float when value exists
                                                         label={t("register.form.zipcode")} variant="standard" className="custom-textfield-full mb-4" error={!!error} helperText={error?.message} />
                                                 )}
                                             />
@@ -1056,8 +1064,9 @@ const Register = () => {
                                         rules={{ required: t("register.errors.required") }}
                                         render={({ field, fieldState: { error } }) => (
                                             <TextField {...field}
-                                                key={field.value ?? `addressLine-${index}`} // 👈 force rerender when value changes
-
+                                                // key={`${sameAddressValue ? field.value : `addressLine-${index}`}`} // 👈 force rerender when value changes
+                                                key={`${`addressLine-${index}`}`}
+                                                InputLabelProps={{ shrink: Boolean(field.value) }} // 👈 Optional: forces label to float when value exists
                                                 label={t("register.form.address")} variant="standard" className="custom-textfield-full mb-4" error={!!error} helperText={error?.message} />
                                         )}
                                     />
