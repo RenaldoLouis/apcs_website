@@ -26,6 +26,7 @@ import { Controller, useFieldArray, useForm, useWatch } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { toast } from 'react-toastify';
 import apis from '../../apis';
+import banner from "../../assets/images/banner.png";
 import FileInput from '../../components/molecules/FileInput';
 import RadioForm from '../../components/molecules/Form/RadioForm';
 import LoadingOverlay from '../../components/molecules/LoadingOverlay';
@@ -369,9 +370,16 @@ const Register = () => {
             <div className="container" style={{ marginBottom: 30 }}>
                 <div className="row">
                     <div className="col-sm">
-                        <div className="mb-4 mangolaineFont goldenTextColor d-flex align-items-center justify-center" style={{ fontSize: isSmallMobileAndSmaller ? "8vmin" : "6vmin" }}>
+                        <div className="mb-4 mangolaineFont creamText d-flex align-items-center justify-center" style={{ fontSize: isSmallMobileAndSmaller ? "8vmin" : "6vmin" }}>
                             {t("register.title")}
                         </div>
+                        <img
+                            className='mb-4'
+                            src={banner} // Replace with your actual path
+                            alt="Banner"
+                            style={{ width: "100%", borderRadius: "3%" }}
+                        // style={posterStyle}
+                        />
 
                         <div className="creamText" style={{ color: '#e5cc92' }}>
                             {/* <div>
@@ -380,7 +388,7 @@ const Register = () => {
                                 </strong>
                             </div> */}
 
-                            <strong>{t("register.description.importantNotes")}</strong>
+                            <strong className='fontSizeFormTitle'>{t("register.description.importantNotes")}</strong>
                             <ul>
                                 <li>{t("register.description.ageInfo")}</li>
                                 <li>
@@ -999,6 +1007,7 @@ const Register = () => {
                                                 render={({ field, fieldState: { error } }) => (
                                                     <TextField {...field}
                                                         // key={`${sameAddressValue ? field.value : `city-${index}`}`} // 👈 force rerender when value changes
+                                                        // value={field.value ?? ''}
                                                         key={`${`city-${index}`}`}
                                                         InputLabelProps={{ shrink: Boolean(field.value) }} // 👈 Optional: forces label to float when value exists
                                                         label={t("register.form.city")}
@@ -1017,6 +1026,7 @@ const Register = () => {
                                                 render={({ field, fieldState: { error } }) => (
                                                     <TextField {...field}
                                                         // key={`${sameAddressValue ? field.value : `country-${index}`}`} // 👈 force rerender when value changes
+                                                        // value={field.value ?? ''}
                                                         key={`${`country-${index}`}`}
                                                         InputLabelProps={{ shrink: Boolean(field.value) }} // 👈 Optional: forces label to float when value exists
                                                         label={t("register.form.country")} variant="standard" className="custom-textfield-full mb-4" error={!!error} helperText={error?.message} />
@@ -1035,6 +1045,7 @@ const Register = () => {
                                                 render={({ field, fieldState: { error } }) => (
                                                     <TextField {...field}
                                                         // key={`${sameAddressValue ? field.value : `province-${index}`}`} // 👈 force rerender when value changes
+                                                        // value={field.value ?? ''}
                                                         key={`${`province-${index}`}`}
                                                         InputLabelProps={{ shrink: Boolean(field.value) }} // 👈 Optional: forces label to float when value exists
                                                         label={t("register.form.province")} variant="standard" className="custom-textfield-full mb-4" error={!!error} helperText={error?.message} />
@@ -1049,6 +1060,7 @@ const Register = () => {
                                                 render={({ field, fieldState: { error } }) => (
                                                     <TextField {...field}
                                                         // key={`${sameAddressValue ? field.value : `zipCode-${index}`}`} // 👈 force rerender when value changes
+                                                        // value={field.value ?? ''}
                                                         key={`${`zipCode-${index}`}`}
                                                         InputLabelProps={{ shrink: Boolean(field.value) }} // 👈 Optional: forces label to float when value exists
                                                         label={t("register.form.zipcode")} variant="standard" className="custom-textfield-full mb-4" error={!!error} helperText={error?.message} />
@@ -1065,6 +1077,7 @@ const Register = () => {
                                         render={({ field, fieldState: { error } }) => (
                                             <TextField {...field}
                                                 // key={`${sameAddressValue ? field.value : `addressLine-${index}`}`} // 👈 force rerender when value changes
+                                                // value={field.value ?? ''}
                                                 key={`${`addressLine-${index}`}`}
                                                 InputLabelProps={{ shrink: Boolean(field.value) }} // 👈 Optional: forces label to float when value exists
                                                 label={t("register.form.address")} variant="standard" className="custom-textfield-full mb-4" error={!!error} helperText={error?.message} />

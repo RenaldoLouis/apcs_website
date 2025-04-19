@@ -1,3 +1,5 @@
+import poster from "../../assets/images/poster.jpeg";
+
 import { Box, Modal, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
 
@@ -8,7 +10,7 @@ const modalStyle = {
     transform: 'translate(-50%, -50%)',
     bgcolor: '#1E1E1E',
     color: '#fff',
-    border: `2px solid #EBBC64`,
+    border: `1px solid #EBBC64`,
     boxShadow: '0 12px 40px rgba(0, 0, 0, 0.6)',
     borderRadius: '16px',
     p: 4,
@@ -27,7 +29,7 @@ const posterStyle = {
     width: '250px',
     borderRadius: '12px',
     objectFit: 'cover',
-    border: '2px solid #EBBC64'
+    border: '1px solid #EBBC64'
 };
 
 const ModalEvent = ({ open, handleClose }) => {
@@ -70,7 +72,7 @@ const ModalEvent = ({ open, handleClose }) => {
             <Box sx={modalStyle}>
                 {/* Poster Image */}
                 <img
-                    src="/your-poster-image.jpg" // Replace with your actual path
+                    src={poster}
                     alt="Event Poster"
                     style={posterStyle}
                 />
@@ -78,9 +80,10 @@ const ModalEvent = ({ open, handleClose }) => {
                 {/* Text + Countdown Section */}
                 <Box sx={{ flex: 1 }}>
                     <Typography
+                        className="creamText"
                         id="modal-modal-title"
                         variant="h5"
-                        sx={{ color: '#EBBC64', fontWeight: 700 }}
+                        sx={{ fontWeight: 700 }}
                     >
                         A Prestigious Global Concert
                     </Typography>
@@ -91,7 +94,7 @@ const ModalEvent = ({ open, handleClose }) => {
                         Showcase your talent to the world for a chance to perform at the center of the orchestra.
                     </Typography>
 
-                    <Typography variant="subtitle1" sx={{ color: '#EBBC64', fontWeight: 500, mb: 1 }}>
+                    <Typography className="creamText" variant="subtitle1" sx={{ fontWeight: 500, mb: 1 }}>
                         Countdown to April 17, 2025:
                     </Typography>
 

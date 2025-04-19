@@ -46,10 +46,6 @@ const Footer = () => {
         window.open("https://api.whatsapp.com/send/?phone=6282213002686", '_blank');
     }
 
-    const handleDirectToWhatsApp = () => {
-        window.open("https://api.whatsapp.com/send/?phone=6281944163410", '_blank');
-    }
-
     return (
         <footer className="footer">
             <div className="container-fluid">
