@@ -33,7 +33,7 @@ const posterStyle = {
 };
 
 const ModalEvent = ({ open, handleClose }) => {
-    const targetDate = new Date('April 21, 2025 00:00:00');
+    const targetDate = new Date('May 17, 2025 00:00:00');
 
     const calculateTimeLeft = () => {
         const now = new Date();
@@ -85,17 +85,17 @@ const ModalEvent = ({ open, handleClose }) => {
                         variant="h5"
                         sx={{ fontWeight: 700 }}
                     >
-                        A Prestigious Global Concert
+                        The Sound of Asia
                     </Typography>
 
                     <div style={{ height: '3px', backgroundColor: '#EBBC64', width: '60px', margin: '12px 0' }} />
 
                     <Typography sx={{ color: '#ccc', mb: 2 }}>
-                        Showcase your talent to the world for a chance to perform at the center of the orchestra.
+                        This is the biggest APCS competition ever, bringing musicians from around the world to gather and perform at the heart of Asia.
                     </Typography>
 
                     <Typography className="creamText" variant="subtitle1" sx={{ fontWeight: 500, mb: 1 }}>
-                        Countdown to April 17, 2025:
+                        Registration Closed: May 17, 2025:
                     </Typography>
 
                     <Box sx={{
@@ -117,10 +117,8 @@ const ModalEvent = ({ open, handleClose }) => {
                         <span>{timeLeft.seconds}s</span>
                     </Box>
 
-                    {/* Optional CTA Button */}
-                    {/* You can style it further with MUI Button */}
                     <a
-                        href="/register"
+                        href="https://api.whatsapp.com/send/?phone=6282213002686"
                         style={{
                             backgroundColor: '#EBBC64',
                             color: '#1E1E1E',
