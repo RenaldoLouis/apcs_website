@@ -95,7 +95,7 @@ const ModalEvent = ({ open, handleClose }) => {
                     </Typography>
 
                     <Typography className="creamText" variant="subtitle1" sx={{ fontWeight: 500, mb: 1 }}>
-                        Registration Closed: May 17, 2025:
+                        Registration Closed: May 17, 2025
                     </Typography>
 
                     <Box sx={{
