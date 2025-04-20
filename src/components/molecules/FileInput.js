@@ -53,6 +53,7 @@ const FileInput = ({ name, control, label, rules = {}, tooltipLabel, smallNotes 
         <div className='col-md-6 col-sm-12'>
             <input
                 id={name}
+                name={name}
                 type="file"
                 accept="application/pdf"
                 // ref={ref}

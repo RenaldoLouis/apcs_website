@@ -98,15 +98,28 @@ const Register = () => {
         name: "performers"
     });
 
-    // fix error on personal information
-    const onError = (errors) => {
-        // Get the first error key
-        const firstErrorKey = Object.keys(errors)[0];
-        if (firstErrorKey) {
-            // Use document.querySelector to find the element with the corresponding name attribute
-            const errorElement = document.querySelector(`[name="${firstErrorKey}"]`);
-            const errorElementID = document.querySelector("#birthCertificate");
+    const getFirstErrorKey = (errorObj, path = '') => {
+        for (const key in errorObj) {
+            const newPath = path ? `${path}.${key}` : key;
+            const val = errorObj[key];
+            if (val?.message) {
+                return newPath;
+            } else if (typeof val === 'object') {
+                const nested = getFirstErrorKey(val, newPath);
+                if (nested) return nested;
+            }
+        }
+        return null;
+    };
 
+    const onError = (errors) => {
+        const fullErrorKey = getFirstErrorKey(errors);
+        if (fullErrorKey) {
+            const errorElement = document.querySelector(`[name="${fullErrorKey}"]`);
+            let errorElementID = null
+            if (errorElement === null || errorElement === undefined) {
+                errorElementID = document.querySelector(`#${fullErrorKey}`);
+            }
             let element = null
             element = errorElement || errorElementID
             if (element) {
@@ -164,7 +177,7 @@ const Register = () => {
             setProgressLoading(70)
 
             // save data to Firebase
-            await addDoc(collection(db, "Registrants2025"), {
+            const payload = {
                 ageCategory: data.ageCategory,
                 totalPerformer: data.totalPerformer,
                 agreement: data.agreement,
@@ -176,7 +189,9 @@ const Register = () => {
                 name: data.name,
                 youtubeLink: data.youtubeLink,
                 createdAt: serverTimestamp(),
-            });
+            };
+
+            await addDoc(collection(db, "Registrants2025"), payload);
 
             const dataEmail = formattedDatePerformers.map(({ email, firstName, lastName }) => ({
                 email,
@@ -232,19 +247,17 @@ const Register = () => {
             // Add fields
             for (let i = currentLength; i < totalPerformer; i++) {
                 append({
-                    performers: [{
-                        firstName: "",
-                        lastName: "",
-                        email: "",
-                        phoneNumber: "",
-                        countryCode: ["+62"],
-                        city: "",
-                        country: "",
-                        province: "",
-                        zipCode: "",
-                        addressLine: "",
-                        dob: null
-                    }],
+                    firstName: "",
+                    lastName: "",
+                    email: "",
+                    phoneNumber: "",
+                    countryCode: ["+62"],
+                    city: "",
+                    country: "",
+                    province: "",
+                    zipCode: "",
+                    addressLine: "",
+                    dob: null
                 });
             }
         } else if (totalPerformer < currentLength) {
@@ -553,6 +566,7 @@ const Register = () => {
                                 title={t("register.PerformanceCategoryTitle")}
                                 name='PerformanceCategory'
                                 itemList={PerformanceCategory}
+                                setValue={setValue}
                             />
 
 
@@ -575,7 +589,9 @@ const Register = () => {
                                     control={control}
                                     rules={{ required: t("register.errors.required") }}
                                     render={({ field }) => (
-                                        <RadioGroup {...field} row>
+                                        <RadioGroup {...field}
+                                            value={field.value || ""} // ✅ force controlled value
+                                            row>
                                             {Object.entries(instrumentCategoryList).map(([key, label]) => (
                                                 <FormControlLabel
                                                     id={`${key}-${label}`}
@@ -711,7 +727,7 @@ const Register = () => {
                                 </Box>
                             </Box>
 
-                            {/* #region Student's Info */}
+                            {/* #region Student's Personal Information*/}
                             {fields.map((item, index) => (
                                 <React.Fragment key={item.id}>
                                     <FormLabel
@@ -994,6 +1010,11 @@ const Register = () => {
                                                     />
                                                 )}
                                             />
+                                            {errors.performers?.[index]?.phoneNumber && (
+                                                <p style={{ color: "red", marginTop: "4px" }}>
+                                                    {errors.performers[index].phoneNumber.message}
+                                                </p>
+                                            )}
                                         </Box>
                                     </Box>
 

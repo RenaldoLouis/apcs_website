@@ -7,7 +7,7 @@ import { useTranslation } from "react-i18next";
 
 export const RadioForm = (props) => {
     const { t } = useTranslation()
-    const { errors, control, title, name, itemList, disabled = false } = props
+    const { errors, control, title, name, itemList, disabled = false, setValue } = props
 
     return (
         <FormControl className='mt-4' component="fieldset" error={!!get(errors, name)}>
@@ -28,7 +28,13 @@ export const RadioForm = (props) => {
                 control={control}
                 rules={{ required: t("register.errors.required") }}
                 render={({ field }) => (
-                    <RadioGroup {...field} row>
+                    <RadioGroup {...field}
+                        onChange={(e) => {
+                            const value = e.target.value;
+                            field.onChange(value); // update form state
+                            setValue('instrumentCategory', ''); // reset instrumentCategory
+                        }}
+                        row>
                         {Object.entries(itemList).map(([key, label]) => (
                             <FormControlLabel
                                 id={`${key}-${label}`}
