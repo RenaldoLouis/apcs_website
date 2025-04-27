@@ -347,6 +347,8 @@ const GaleryPage = () => {
 
 
     const handleClickEvent = (eventName) => {
+        setIsLoading(true)
+        setIsLoadingPictures(true)
         setSelectedEvent(eventName)
     }
 
