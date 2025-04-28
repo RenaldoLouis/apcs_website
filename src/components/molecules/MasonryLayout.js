@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import Masonry from './Masonry'
+import Masonry from './Masonry';
 
 const MasonryLayout = (props) => {
     const { images, setIsLoadingPictures, isLoadingPictures } = props
@@ -23,9 +23,9 @@ const MasonryLayout = (props) => {
                         };
                         resolve(tempObj);
 
-                        if (index === images.length - 1) {
-                            setIsLoadingPictures(false);
-                        }
+                        // if (index === images.length - 1) {
+                        setIsLoadingPictures(false);
+                        // }
                     };
                 });
             });
