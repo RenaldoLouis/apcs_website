@@ -212,7 +212,6 @@ const HomeMobile = (props) => {
                     </div>
                 </>
             )}
-            {/* TO DO update View */}
             <ModalEvent
                 open={open}
                 handleClose={handleClose}

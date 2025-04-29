@@ -33,7 +33,9 @@ const posterStyle = {
 };
 
 const ModalEvent = ({ open, handleClose }) => {
-    const targetDate = new Date('May 17, 2025 00:00:00');
+    const [tickKey, setTickKey] = useState(0);
+
+    const targetDate = new Date('Nov 01, 2025 00:00:00');
 
     const calculateTimeLeft = () => {
         const now = new Date();
@@ -41,27 +43,34 @@ const ModalEvent = ({ open, handleClose }) => {
         let timeLeft = {};
 
         if (difference > 0) {
+            const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+            const months = Math.floor(days / 30); // Rough estimate: 1 month ≈ 30 days
+            const remainingDays = days % 30;
+
             timeLeft = {
-                days: Math.floor(difference / (1000 * 60 * 60 * 24)),
+                months: months,
+                days: remainingDays,
+                totalDays: days,
                 hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
                 minutes: Math.floor((difference / (1000 * 60)) % 60),
                 seconds: Math.floor((difference / 1000) % 60)
             };
         } else {
-            timeLeft = { days: 0, hours: 0, minutes: 0, seconds: 0 };
+            timeLeft = { months: 0, days: 0, hours: 0, minutes: 0, seconds: 0 };
         }
         return timeLeft;
     };
+
 
     const [timeLeft, setTimeLeft] = useState(calculateTimeLeft());
 
     useEffect(() => {
         const timer = setInterval(() => {
             setTimeLeft(calculateTimeLeft());
+            setTickKey(prev => prev + 1); // Force re-trigger animation
         }, 1000);
         return () => clearInterval(timer);
     }, []);
-
     return (
         <Modal
             open={open}
@@ -95,27 +104,58 @@ const ModalEvent = ({ open, handleClose }) => {
                     </Typography>
 
                     <Typography className="creamText" variant="subtitle1" sx={{ fontWeight: 500, mb: 1 }}>
-                        Registration Closed: May 17, 2025
+                        Registration Closed: Nov 01, 2025
                     </Typography>
 
-                    <Box sx={{
-                        display: 'flex',
-                        gap: 2,
-                        fontFamily: 'monospace',
-                        fontSize: '18px',
-                        color: '#fff',
-                        background: '#2A2A2A',
-                        padding: '10px 16px',
-                        borderRadius: '8px',
-                        justifyContent: 'space-between',
-                        maxWidth: '300px',
-                        mb: 2
-                    }}>
-                        <span>{timeLeft.days}d</span>
-                        <span>{timeLeft.hours}h</span>
-                        <span>{timeLeft.minutes}m</span>
-                        <span>{timeLeft.seconds}s</span>
-                    </Box>
+                    {timeLeft.totalDays >= 30 ? (
+                        <Box
+                            sx={{
+                                fontFamily: 'monospace',
+                                color: '#fff',
+                                background: '#2A2A2A',
+                                padding: '12px 20px',
+                                borderRadius: '8px',
+                                mb: 2,
+                                display: 'flex',
+                                flexDirection: 'column',
+                                alignItems: 'center',
+                                textAlign: 'center',
+                                maxWidth: '400px',
+                            }}
+                        >
+                            <Typography variant="body1" sx={{ fontWeight: 500, fontSize: '20px' }}>
+                                {timeLeft.months > 0 && `${timeLeft.months} ${timeLeft.months === 1 ? 'month' : 'months'}`}
+                                {timeLeft.months > 0 && timeLeft.days > 0 && ' and '}
+                                {timeLeft.days > 0 && `${timeLeft.days} ${timeLeft.days === 1 ? 'day' : 'days'}`}
+                            </Typography>
+                            <Typography variant="body2" sx={{ color: '#aaa', fontSize: '16px', mt: 1 }}>
+                                {timeLeft.totalDays} days {timeLeft.hours}h {timeLeft.minutes}m {timeLeft.seconds}s left
+                            </Typography>
+                        </Box>
+                    ) : (
+                        <Box
+                            sx={{
+                                display: 'flex',
+                                gap: 2,
+                                fontFamily: 'monospace',
+                                fontSize: '18px',
+                                color: '#fff',
+                                background: '#2A2A2A',
+                                padding: '10px 16px',
+                                borderRadius: '8px',
+                                justifyContent: 'space-between',
+                                maxWidth: '400px',
+                                mb: 2
+                            }}
+                        >
+                            <span>{timeLeft.days}d</span>
+                            <span>{timeLeft.hours}h</span>
+                            <span>{timeLeft.minutes}m</span>
+                            <span key={tickKey} className="tick-animation">{timeLeft.seconds}s</span>
+                        </Box>
+                    )}
+
+
 
                     <a
                         href="https://api.whatsapp.com/send/?phone=6282213002686"

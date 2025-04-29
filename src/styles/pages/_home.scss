@@ -320,3 +320,8 @@
     font-size: 2vmin;
   }
 }
+
+.tick-animation {
+  display: inline-block;
+  animation: tick 0.6s ease-in-out;
+}

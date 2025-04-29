@@ -52,7 +52,6 @@ const MainLayout = (props) => {
             </section>
             <Footer />
 
-            {/* TO DO update View */}
             {isShowFooterRegister() && (
                 <footer className={isShowStickyFooter ? "sticky-footer" : "sticky-footer-hidden"}>
                     <Box className="row">
