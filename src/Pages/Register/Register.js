@@ -132,9 +132,22 @@ const Register = () => {
     const onSubmit = async (data) => {
         try {
             setIsLoading(true)
+            //save exam cert
+            const pdfRepertoire = data.pdfRepertoire[0]
+            const directoryName = pdfRepertoire.name.replace(/\s/g, "").replace(/\.[^/.]+$/, "");
+            const res2 = await apis.aws.postSignedUrl(directoryName, "pdfRepertoire")
+            const signedUrl2 = res2.data.link
+            await axios.put(signedUrl2, pdfRepertoire, {
+                headers: {
+                    'Content-Type': pdfRepertoire.type, // Ensure this matches the file type
+                },
+            });
+
+            setProgressLoading(30)
+
             //save birth cert first
             const birthCert = data.birthCertificate[0]
-            const directoryName = birthCert.name.replace(/\s/g, "").replace(/\.[^/.]+$/, "");
+            // const directoryName2 = birthCert.name.replace(/\s/g, "").replace(/\.[^/.]+$/, "");
             const res = await apis.aws.postSignedUrl(directoryName, "birthCert")
             const signedUrl = res.data.link
             await axios.put(signedUrl, birthCert, {
@@ -143,24 +156,11 @@ const Register = () => {
                 },
             });
 
-            setProgressLoading(30)
-
-            //save exam cert
-            const pdfRepertoire = data.pdfRepertoire[0]
-            const directoryName2 = pdfRepertoire.name.replace(/\s/g, "").replace(/\.[^/.]+$/, "");
-            const res2 = await apis.aws.postSignedUrl(directoryName2, "pdfRepertoire")
-            const signedUrl2 = res2.data.link
-            await axios.put(signedUrl2, pdfRepertoire, {
-                headers: {
-                    'Content-Type': pdfRepertoire.type, // Ensure this matches the file type
-                },
-            });
-
             setProgressLoading(50)
             //save pdf report
             const examCertificate = data.examCertificate[0]
-            const directoryName3 = examCertificate.name.replace(/\s/g, "").replace(/\.[^/.]+$/, "");
-            const res3 = await apis.aws.postSignedUrl(directoryName3, "examCertificate")
+            // const directoryName3 = examCertificate.name.replace(/\s/g, "").replace(/\.[^/.]+$/, "");
+            const res3 = await apis.aws.postSignedUrl(directoryName, "examCertificate")
             const signedUrl3 = res3.data.link
             await axios.put(signedUrl3, examCertificate, {
                 headers: {
@@ -1114,11 +1114,12 @@ const Register = () => {
 
 
                             {/* Exam Certificate Upload */}
-                            < FileInput
+                            <FileInput
                                 name="examCertificate"
                                 control={control}
                                 label={t("register.form.examCert")}
                                 smallNotes={<small className="note">{t("register.notes.uploadCombined")}</small>}
+                                extraSmallNotes={<small className="note">{t("register.notes.fileFormatExam")}</small>}
                                 rules={{ required: t("register.errors.required") }}
                                 tooltipLabel={t("register.form.examCertTooltip")}
                                 inputRef={examInputRef}
@@ -1130,6 +1131,7 @@ const Register = () => {
                                 control={control}
                                 label={t("register.form.birthCert")}
                                 smallNotes={<small className="note">{t("register.notes.uploadCombined")}</small>}
+                                extraSmallNotes={<small className="note">{t("register.notes.fileFormatBirthCert")}</small>}
                                 rules={{ required: t("register.errors.required") }}
                                 tooltipLabel={t("register.form.birthCertTooltip")}
                                 inputRef={birthCertInputRef}
@@ -1141,6 +1143,7 @@ const Register = () => {
                                 control={control}
                                 label={t("register.form.repertoire")}
                                 smallNotes={<small className="note">{t("register.notes.uploadCombined")}</small>}
+                                extraSmallNotes={<small className="note">{t("register.notes.fileFormatRepertoire")}</small>}
                                 rules={{ required: t("register.errors.required") }}
                                 tooltipLabel={t("register.form.repertoireTooltip")}
                                 inputRef={repertoireInputRef}
