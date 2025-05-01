@@ -2,7 +2,7 @@ import {
     CloudUploadOutlined,
     QuestionCircleOutlined
 } from '@ant-design/icons';
-import { Button, IconButton, InputLabel, Tooltip, Typography } from "@mui/material";
+import { Box, Button, IconButton, InputLabel, Tooltip, Typography } from "@mui/material";
 import React, { useMemo } from "react";
 import { useController } from "react-hook-form";
 
@@ -50,7 +50,7 @@ const FileInput = ({ name, control, label, rules = {}, tooltipLabel, smallNotes 
     }, [file]);
 
     return (
-        <div className='col-md-6 col-sm-12'>
+        <Box className='col-md-12 col-sm-12'>
             <input
                 id={name}
                 name={name}
@@ -114,7 +114,7 @@ const FileInput = ({ name, control, label, rules = {}, tooltipLabel, smallNotes 
                     {error.message}
                 </Typography>
             )}
-        </div>
+        </Box>
     );
 };
 

@@ -564,7 +564,9 @@ const Register = () => {
                                             placeholder={t('register.form.placeholder_register_self')}
                                         />
 
-                                        <Tooltip title={t("register.form.teacherNameNote")}>
+                                        <Tooltip
+                                            enterTouchDelay={0}              // Show immediately on tap
+                                            title={t("register.form.teacherNameNote")}>
                                             <IconButton sx={{ color: "#e5cc92", fontSize: 16, mt: 1 }}>
                                                 <QuestionCircleOutlined />
                                             </IconButton>
@@ -1058,6 +1060,7 @@ const Register = () => {
                                                             borderColor: '#e5cc92',
                                                             backgroundColor: 'white',
                                                         }}
+                                                        keyboard={false}
                                                         className="custom-input-gold"
                                                         addonBefore={
                                                             <Controller
