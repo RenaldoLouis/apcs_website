@@ -381,7 +381,7 @@ const Register = () => {
                     return 15
             }
         }
-    }, [PerformanceCategoryValue, selectedCompetition, PerformanceCategoryValue, instrumentCategoryValue])
+    }, [PerformanceCategoryValue, selectedCompetition, instrumentCategoryValue])
 
     useEffect(() => {
         if (PerformanceCategoryValue === PerformanceCategory.Solo) {
@@ -489,15 +489,27 @@ const Register = () => {
     const videoExampleFormatText = useMemo(() => {
         switch (selectedCompetition) {
             case competitionList.Piano:
-                return "*APCSTSOA2025 - PIANO - Any 2-5 instruments with one piano - TIMOTHY’S CHAMBER -FLIGHT OF THE BUMBLEBEE"
+                if (PerformanceCategoryValue === PerformanceCategory.Solo) {
+                    return "*APCSTSOA2025 - PIANO - OPEN AGE - JEREMY GLENN KENNEDY - Scarlatti: Sonata in B Minor, K 27, L 449: Allegro"
+                } else {
+                    return "*APCSTSOA2025 - PIANO - Any 2-5 instruments with one piano - TIMOTHY’S CHAMBER -FLIGHT OF THE BUMBLEBEE"
+                }
             case competitionList.Woodwinds:
-                return "*APCSTSOA2025 - Any 2-5 instruments - TIMOTHY’S CHAMBER - FLIGHT OF THE BUMBLEBEE"
+                if (PerformanceCategoryValue === PerformanceCategory.Solo) {
+                    return "*APCSTSOA2025 - FLUTE - OPEN AGE - JEREMY GLENN KENNEDY - Scarlatti: Sonata in B Minor, K 27, L 449: Allegro"
+                } else {
+                    return "*APCSTSOA2025 - Any 2-5 instruments - TIMOTHY’S CHAMBER - FLIGHT OF THE BUMBLEBEE"
+                }
             case competitionList.Percussions:
-                return "*APCSTSOA2025 - MULTI PERCUSSION - OPEN AGE - TIMOTHY’S CHAMBER - FLIGHT OF THEBUMBLEBEE"
+                if (PerformanceCategoryValue === PerformanceCategory.Solo) {
+                    return "*APCSTSOA2025 - MARIMBA - OPEN AGE - JEREMY GLENN KENNEDY - Scarlatti: Sonata in B Minor, K 27, L 449: Allegro"
+                } else {
+                    return "*APCSTSOA2025 - MULTI PERCUSSION - OPEN AGE - TIMOTHY’S CHAMBER - FLIGHT OF THEBUMBLEBEE"
+                }
             default:
                 return {}
         }
-    }, [selectedCompetition])
+    }, [selectedCompetition, PerformanceCategoryValue])
 
     return (
         <div className="primaryBackgroundBlack" style={{ padding: "128px 0px 48px 0px" }}>
