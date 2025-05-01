@@ -6,7 +6,7 @@ import { Box, Button, IconButton, InputLabel, Tooltip, Typography } from "@mui/m
 import React, { useMemo } from "react";
 import { useController } from "react-hook-form";
 
-const FileInput = ({ name, control, label, rules = {}, tooltipLabel, smallNotes = null, extraSmallNotes = null, inputRef }) => {
+const FileInput = ({ name, control, label, rules = {}, tooltipLabel, smallNotes = null, extraSmallNotes = null, extraExtraSmallNotes = null, inputRef }) => {
     // Custom validation function to check for spaces in the file name.
     const customValidate = (value) => {
         if (value && value.length > 0) {
@@ -101,6 +101,7 @@ const FileInput = ({ name, control, label, rules = {}, tooltipLabel, smallNotes 
                     </div>
                     <div className='d-flex flex-column'>
                         {smallNotes}
+                        {extraExtraSmallNotes}
                         {extraSmallNotes}
                     </div>
                 </InputLabel>

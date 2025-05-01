@@ -89,7 +89,21 @@
             "nineteen_plus": "Usia 19 tahun ke atas",
             "mixed": "Campuran",
             "older_than_four": "Usia 4 tahun ke atas",
-            "Combination": "Kombinasi"
+            "Combination": "Kombinasi",
+            "PetitewoodWind": "Petite (4-6 tahun)",
+            "PrimarywoodWind": "Primary (7-9 tahun)",
+            "YoungwoodWind": "Young (10-12 tahun)",
+            "JuniorwoodWind": "Junior (13-15 tahun)",
+            "YouthwoodWind": "Youth (16-19 tahun)",
+            "OpenAgewoodWind": "Usia Terbuka (4 tahun ke atas)",
+            "FreeChoicewoodWind": "Pilihan Bebas (4 tahun ke atas)",
+            "PetitePercussion": "Petite (6-7 tahun)",
+            "PrimaryPercussion": "Primary (8-11 tahun)",
+            "YoungPercussion": "Young (12-14 tahun)",
+            "JuniorPercussion": "Junior (15-18 tahun)",
+            "YouthPercussion": "Youth (19-22 tahun)",
+            "OpenAgePercussion": "Usia Terbuka (23 tahun ke atas)",
+            "FreeChoicePercussion": "Pilihan Bebas (4 tahun ke atas)"
         },
         "title": "FORMULIR PENDAFTARAN",
         "description": {
@@ -158,6 +172,7 @@
             "uploadCombined": "*Unggah sebagai satu file PDF gabungan untuk semua penampil. Pastikan nama file mencantumkan nama guru atau orang tua, atau salah satu nama siswa untuk keperluan identifikasi.",
             "fileFormatExam": "*Contoh: johnDoe_examCert.",
             "profilePhoto": "*Example: johnDoe_ProfilePhoto.",
+            "profilePhoto2": "*Gunakan gambar beresolusi tinggi (minimal 300 DPI atau kualitas baik dari kamera ponsel) untuk memastikan kejernihan.Foto yang buram atau berkualitas rendah mungkin tidak akan diproses.",
             "fileFormatRepertoire": "*Contoh: johnDoe_pdfRepertoire.",
             "fileFormatBirthCert": "*Contoh: johnDoe_birthCert."
         },

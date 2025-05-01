@@ -31,7 +31,7 @@ import FileInput from '../../components/molecules/FileInput';
 import RadioForm from '../../components/molecules/Form/RadioForm';
 import LoadingOverlay from '../../components/molecules/LoadingOverlay';
 import { countryCodes } from '../../constant/CountryCodePhone';
-import { ageCategories, competitionList, ensembleAgeCategories, PercussionAgeCategoriesEnsemble, PercussionInstrumentListEnsemble, PercussionInstrumentListSolo, PerformanceCategory, PianoInstrumentListEnsemble, PianoInstrumentListSolo, woodwinAgeCategoriesEnsemble, woodwinAgeCategoriesSolo, WoodwindInstrumentListEnsemble, WoodwindInstrumentListSolo } from '../../constant/RegisterPageConst';
+import { ageCategories, competitionList, ensembleAgeCategories, PercussionAgeCategoriesEnsemble, percussionAgeCategoriesSolo, PercussionInstrumentListEnsemble, PercussionInstrumentListSolo, PerformanceCategory, PianoInstrumentListEnsemble, PianoInstrumentListSolo, woodwinAgeCategoriesEnsemble, woodwinAgeCategoriesSolo, WoodwindInstrumentListEnsemble, WoodwindInstrumentListSolo } from '../../constant/RegisterPageConst';
 import { useAuth } from '../../context/DataContext';
 import { db } from '../../firebase';
 
@@ -350,7 +350,7 @@ const Register = () => {
                     if (PerformanceCategoryValue === PerformanceCategory.Solo) {
                         return 1
                     } else {
-                        return 15
+                        return 9
                     }
 
                 case competitionList.Woodwinds:
@@ -374,7 +374,7 @@ const Register = () => {
                             Trio: 3,
                             Quartet: 4,
                         };
-                        return maxPerformersByCategory[instrumentCategoryValue] || 15;
+                        return maxPerformersByCategory[instrumentCategoryValue] || 4;
                     }
 
                 default:
@@ -463,7 +463,7 @@ const Register = () => {
 
             case competitionList.Percussions:
                 if (PerformanceCategoryValue === PerformanceCategory.Solo) {
-                    return woodwinAgeCategoriesSolo
+                    return percussionAgeCategoriesSolo
                 } else {
                     return PercussionAgeCategoriesEnsemble
                 }
@@ -485,6 +485,19 @@ const Register = () => {
                 return true
         }
     }
+
+    const videoExampleFormatText = useMemo(() => {
+        switch (selectedCompetition) {
+            case competitionList.Piano:
+                return "*APCSTSOA2025 - PIANO - Any 2-5 instruments with one piano - TIMOTHY’S CHAMBER -FLIGHT OF THE BUMBLEBEE"
+            case competitionList.Woodwinds:
+                return "*APCSTSOA2025 - Any 2-5 instruments - TIMOTHY’S CHAMBER - FLIGHT OF THE BUMBLEBEE"
+            case competitionList.Percussions:
+                return "*APCSTSOA2025 - MULTI PERCUSSION - OPEN AGE - TIMOTHY’S CHAMBER - FLIGHT OF THEBUMBLEBEE"
+            default:
+                return {}
+        }
+    }, [selectedCompetition])
 
     return (
         <div className="primaryBackgroundBlack" style={{ padding: "128px 0px 48px 0px" }}>
@@ -1235,6 +1248,7 @@ const Register = () => {
                                 label={t("register.form.profilePhoto")}
                                 smallNotes={<small className="note">{t("register.notes.uploadCombined")}</small>}
                                 extraSmallNotes={<small className="note">{t("register.notes.profilePhoto")}</small>}
+                                extraExtraSmallNotes={<small className="note">{t("register.notes.profilePhoto2")}</small>}
                                 rules={{ required: t("register.errors.required") }}
                                 tooltipLabel={t("register.form.profilePhotoTooltip")}
                                 inputRef={profilePhotoInputRef}
@@ -1307,7 +1321,8 @@ const Register = () => {
                                 </Tooltip>
                             </div>
 
-                            <small className="note">*Example: APCSTSOA25 - CHAMBER MUSIC - FREE CHOICE - RINA JULIANNA, MATTHEW TAN, RYAN TANAKO J, LINA JESSICA H
+                            <small className="note">
+                                {videoExampleFormatText}
                             </small>
 
                             {/* Agreement */}
