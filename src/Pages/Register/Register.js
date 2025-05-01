@@ -788,6 +788,7 @@ const Register = () => {
                                                         handleChangePerformer(value);
                                                     }}
                                                     style={{ width: '100%' }}
+                                                    keyboard={false}
                                                     onKeyDown={(e) => e.preventDefault()} // ⛔ prevent manual typing
                                                 />
                                             )}
@@ -1052,7 +1053,6 @@ const Register = () => {
                                                             borderColor: '#e5cc92',
                                                             backgroundColor: 'white',
                                                         }}
-                                                        keyboard={false}
                                                         className="custom-input-gold"
                                                         addonBefore={
                                                             <Controller
