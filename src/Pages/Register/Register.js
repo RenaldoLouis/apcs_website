@@ -383,8 +383,6 @@ const Register = () => {
         }
     }, [PerformanceCategoryValue, selectedCompetition, PerformanceCategoryValue, instrumentCategoryValue])
 
-    console.log("maximalPerformer", maximalPerformer)
-
     useEffect(() => {
         if (PerformanceCategoryValue === PerformanceCategory.Solo) {
             setTotalPerformer(1)

@@ -10,6 +10,7 @@ const FileInput = ({ name, control, label, rules = {}, tooltipLabel, smallNotes 
     // Custom validation function to check for spaces in the file name.
     const customValidate = (value) => {
         if (value && value.length > 0) {
+            const file = value[0]; // define file here
             const fileName = value[0].name;
             // Check if file name contains any whitespace characters.
             if (/\s/.test(fileName)) {
