@@ -5,14 +5,14 @@ export const ageCategories = {
     Young: "Young (12-15 years old)",
     Junior: "Junior (16-19 years old)",
     Youth: "Youth (20-23 years old)",
-    OpenAge: "Open Age (24 years old and up)",
-    FreeChoice: "Free Choice (Combination Age - No Limitation)",
+    OpenAge: "Open Age (24+ years old)",
+    FreeChoice: "Free Choice (4+ years old)",
     JuniorEtude: "Juniot Etude (4+ years old)",
     ConcertEtude: "Concert Etude (4+ years old)"
 }
 
 export const ensembleAgeCategories = {
-    older_than_four: "4+ years old",
+    older_than_four: "4+* years old (Combination Age)",
 }
 
 export const woodwinAgeCategoriesSolo = {
@@ -21,8 +21,8 @@ export const woodwinAgeCategoriesSolo = {
     YoungwoodWind: "Young (10-12 years old)",
     JuniorwoodWind: "Junior (13-15 years old)",
     YouthwoodWind: "Youth (16-19 years old)",
-    OpenAgewoodWind: "Open Age (4+ years old))",
-    FreeChoicewoodWind: "Free Choice (4+ years old))",
+    OpenAgewoodWind: "Open Age (4+ years old)",
+    FreeChoicewoodWind: "Free Choice (4+ years old)",
 }
 
 export const percussionAgeCategoriesSolo = {
@@ -37,7 +37,7 @@ export const percussionAgeCategoriesSolo = {
 export const woodwinAgeCategoriesEnsemble = {
     four_nineteen: "4-19 years old",
     nineteen_plus: "19+ years old",
-    mixed: "Mixed",
+    mixed: "Mixed (Combination age)",
 }
 
 export const PercussionAgeCategoriesEnsemble = {

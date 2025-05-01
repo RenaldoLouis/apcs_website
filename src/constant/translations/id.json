@@ -147,7 +147,7 @@
             "province": "Provinsi",
             "zipcode": "Kode Pos",
             "address": "Alamat Lengkap",
-            "examCert": "Sertifikat Ujian / Rekomendasi Guru",
+            "examCert": "Sertifikat Ujian / Rekomendasi Guru / Biografi",
             "profilePhoto": "Foto Profil",
             "birthCert": "Akte Kelahiran / paspor / Id",
             "repertoire": "Repertoar",
@@ -170,11 +170,11 @@
         },
         "notes": {
             "uploadCombined": "*Unggah sebagai satu file PDF gabungan untuk semua penampil. Pastikan nama file mencantumkan nama guru atau orang tua, atau salah satu nama siswa untuk keperluan identifikasi.",
-            "fileFormatExam": "*Contoh: johnDoe_examCert.",
-            "profilePhoto": "*Example: johnDoe_ProfilePhoto.",
+            "fileFormatExam": "*Contoh: JohnDoe_examCert.",
+            "profilePhoto": "*Example: JohnDoe_ProfilePhoto.",
             "profilePhoto2": "*Gunakan gambar beresolusi tinggi (minimal 300 DPI atau kualitas baik dari kamera ponsel) untuk memastikan kejernihan.Foto yang buram atau berkualitas rendah mungkin tidak akan diproses.",
-            "fileFormatRepertoire": "*Contoh: johnDoe_pdfRepertoire.",
-            "fileFormatBirthCert": "*Contoh: johnDoe_birthCert."
+            "fileFormatRepertoire": "*Contoh: JohnDoe_pdfRepertoire.",
+            "fileFormatBirthCert": "*Contoh: JohnDoe_birthCert."
         },
         "errors": {
             "required": "Bidang ini wajib diisi",

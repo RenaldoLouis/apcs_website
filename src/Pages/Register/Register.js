@@ -101,6 +101,8 @@ const Register = () => {
         name: "performers"
     });
 
+    const watchedFields = watch("performers");
+
     const getFirstErrorKey = (errorObj, path = '') => {
         for (const key in errorObj) {
             const newPath = path ? `${path}.${key}` : key;
@@ -199,6 +201,7 @@ const Register = () => {
                 totalPerformer: data.totalPerformer,
                 agreement: data.agreement,
                 competitionCategory: data.competitionCategory,
+                teacherName: data.teacherName,
                 PerformanceCategory: data.PerformanceCategory,
                 instrumentCategory: data.instrumentCategory,
                 userType: data.userType,
@@ -263,30 +266,32 @@ const Register = () => {
 
     // Sync the fields with `totalPerformer`
     useEffect(() => {
-        const currentLength = fields.length;
-        if (totalPerformer > currentLength) {
-            // Add fields
-            for (let i = currentLength; i < totalPerformer; i++) {
-                append({
-                    firstName: "",
-                    lastName: "",
-                    email: "",
-                    phoneNumber: "",
-                    countryCode: ["+62"],
-                    city: "",
-                    country: "",
-                    province: "",
-                    zipCode: "",
-                    addressLine: "",
-                    dob: null
-                });
+        const timer = setTimeout(() => {
+            const currentLength = watchedFields.length;
+            if (totalPerformer > currentLength) {
+                for (let i = currentLength; i < totalPerformer; i++) {
+                    append({
+                        firstName: "",
+                        lastName: "",
+                        email: "",
+                        phoneNumber: "",
+                        countryCode: ["+62"],
+                        city: "",
+                        country: "",
+                        province: "",
+                        zipCode: "",
+                        addressLine: "",
+                        dob: null
+                    });
+                }
+            } else if (totalPerformer < currentLength) {
+                for (let i = currentLength; i > totalPerformer; i--) {
+                    remove(i - 1);
+                }
             }
-        } else if (totalPerformer < currentLength) {
-            // Remove fields
-            for (let i = currentLength; i > totalPerformer; i--) {
-                remove(i - 1);
-            }
-        }
+        }, 0)
+        return () => clearTimeout(timer);
+
     }, [totalPerformer]);
 
     const isEnsemble = useMemo(() => {
@@ -303,6 +308,7 @@ const Register = () => {
 
     const handleChangePerformer = (value) => {
         setTotalPerformer(value)
+        setValue('totalPerformer', value)
     }
 
     const instrumentCategoryList = useMemo(() => {
@@ -628,7 +634,25 @@ const Register = () => {
                                     </div>
                                 )}
                             />
-
+                            <Controller
+                                name="teacherName"
+                                control={control}
+                                rules={userTypeValue === "Personal" ? { required: t("register.errors.required") } : {}}
+                                render={({ field, fieldState: { error } }) => (
+                                    userTypeValue === "Personal" && (
+                                        <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+                                            <TextField
+                                                {...field}
+                                                label={t("register.form.teacherName")}
+                                                variant="standard"
+                                                className="custom-textfield-full mb-4"
+                                                error={!!error}
+                                                helperText={error ? error.message : ""}
+                                            />
+                                        </div>
+                                    )
+                                )}
+                            />
 
                             {/* Competition Category (Radio Button) */}
                             <FormControl className='mt-2' component="fieldset" error={!!errors.competitionCategory}>
