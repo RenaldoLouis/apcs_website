@@ -311,7 +311,6 @@ const Register = () => {
                 } else {
                     return PianoInstrumentListEnsemble
                 }
-                break;
 
             case competitionList.Woodwinds:
                 if (PerformanceCategoryValue === PerformanceCategory.Solo) {
@@ -319,7 +318,6 @@ const Register = () => {
                 } else {
                     return WoodwindInstrumentListEnsemble
                 }
-                break;
 
             case competitionList.Percussions:
                 if (PerformanceCategoryValue === PerformanceCategory.Solo) {
@@ -327,11 +325,9 @@ const Register = () => {
                 } else {
                     return PercussionInstrumentListEnsemble
                 }
-                break;
 
             default:
                 return {}
-                break;
         }
     }, [selectedCompetition, PerformanceCategoryValue])
 
@@ -421,7 +417,6 @@ const Register = () => {
                 } else {
                     return ensembleAgeCategories
                 }
-                break;
 
             case competitionList.Woodwinds:
                 if (PerformanceCategoryValue === PerformanceCategory.Solo) {
@@ -429,7 +424,6 @@ const Register = () => {
                 } else {
                     return woodwinAgeCategoriesEnsemble
                 }
-                break;
 
             case competitionList.Percussions:
                 if (PerformanceCategoryValue === PerformanceCategory.Solo) {
@@ -437,11 +431,9 @@ const Register = () => {
                 } else {
                     return PercussionAgeCategoriesEnsemble
                 }
-                break;
 
             default:
                 return {}
-                break;
         }
     }, [selectedCompetition, PerformanceCategoryValue])
 
