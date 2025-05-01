@@ -784,12 +784,15 @@ const Register = () => {
                                                     defaultValue={minimalPerformer}
                                                     value={field.value} // <-- Controlled value
                                                     onChange={(value) => {
-                                                        field.onChange(value);
-                                                        handleChangePerformer(value);
+                                                        if (PerformanceCategoryValue !== PerformanceCategory.Solo) {
+                                                            field.onChange(value);
+                                                            handleChangePerformer(value);
+                                                        }
                                                     }}
                                                     style={{ width: '100%' }}
-                                                    keyboard={false}
-                                                    onKeyDown={(e) => e.preventDefault()} // ⛔ prevent manual typing
+                                                    controls={true}
+                                                    keyboard={PerformanceCategoryValue === PerformanceCategory.Solo ? false : true}
+                                                    onKeyDown={(e) => PerformanceCategoryValue === PerformanceCategory.Solo ? e.preventDefault() : null} // ⛔ prevent manual typing
                                                 />
                                             )}
                                         />
