@@ -82,7 +82,14 @@
             "Junior": "Junior (16-19 years old)",
             "Youth": "Youth (20-23 years old)",
             "OpenAge": "Open Age (24 years old and up)",
-            "FreeChoice": "Free Choice (Combination Age - No Limitation)"
+            "FreeChoice": "Free Choice (Combination Age - No Limitation)",
+            "JuniorEtude": "Junior Etude (4+ years old)",
+            "ConcertEtude": "Concert Etude (4+ years old)",
+            "four_nineteen": "4–19 years old",
+            "nineteen_plus": "19+ years old",
+            "mixed": "Mixed",
+            "older_than_four": "4+ years old",
+            "Combination": "Combination"
         },
         "title": "REGISTRATION FORM",
         "description": {
@@ -127,6 +134,7 @@
             "zipcode": "Zip Code",
             "address": "Address Line",
             "examCert": "Exam Certificate / Teacher Recommendation",
+            "profilePhoto": "Profile Photo",
             "birthCert": "Birth Certificate / Passport / Id",
             "repertoire": "Repertoire",
             "youtube": "YouTube Video Link",
@@ -136,6 +144,7 @@
             "submit": "Submit",
             "submitAnother": "Submit Another Registrant",
             "examCertTooltip": "Please attach your latest exam certificate / essay of maximum 80 words in pdf if you are not joining any exams.",
+            "profilePhotoTooltip": "Upload a clear, front-facing photo with good lighting. Avoid blurry or dark images.",
             "birthCertTooltip": "Please attach your copy of Birth Certificate/Passport/KTP (identity card) in pdf.",
             "repertoireTooltip": "Please attach your PDF repertoire here."
         },
@@ -148,6 +157,7 @@
         "notes": {
             "uploadCombined": "*Upload as one combined PDF for all performers. Make sure the file name includes the teacher’s name or parent’s name or one of the students’ names for identification purposes.",
             "fileFormatExam": "*Example: johnDoe_examCert.",
+            "profilePhoto": "*Example: johnDoe_ProfilePhoto.",
             "fileFormatRepertoire": "*Example: johnDoe_pdfRepertoire.",
             "fileFormatBirthCert": "*Example: johnDoe_birthCert."
         },
@@ -170,8 +180,24 @@
             "Chamber_Music_any": "Chamber Music (Any instrument(s) with piano(s))",
             "One_Piano_Mutiple_Hands": "One Piano, Multiple Hands (4-8 Hands)",
             "Two_Piano_Multiple_Hands": "Two Pianos, Multiple Hands (4-16 Hands)",
-            "One_Piano_Instruments": "Any 2-5 Instruments/Performers with 1 Piano",
-            "TwoPiano_Instruments": "Any 6-9 Instruments/Performers with 2 Pianos"
+            "One_Piano_Instruments": "Any 2–5 Instruments/Performers with 1 Piano",
+            "TwoPiano_Instruments": "Any 6–9 Instruments/Performers with 2 Pianos",
+            "Marimba": "Marimba",
+            "Vibraphone": "Vibraphone",
+            "Multi_percussion": "Multi Percussion",
+            "Duo": "Percussion Duo",
+            "Trio": "Percussion Trio",
+            "Quartet": "Percussion Quartet",
+            "Piccolo": "Piccolo",
+            "Flute": "Flute",
+            "Oboe": "Oboe",
+            "Clarinet": "Clarinet",
+            "Saxophone": "Saxophone",
+            "Bassoon": "Bassoon",
+            "any_traditional_woodwin": "Any Traditional Woodwind",
+            "woodwind_two_five_performer": "2–5 Performers (Combination of Any Woodwind Instruments)",
+            "woodwind_six_nine_performer": "6–9 Performers (Combination of Any Woodwind Instruments)",
+            "woodwind_ten_fifteen_performer": "10–15 Performers (Combination of Any Woodwind Instruments)"
         },
         "competitionList": {
             "Piano": "Piano",

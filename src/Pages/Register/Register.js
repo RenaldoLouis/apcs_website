@@ -31,7 +31,7 @@ import FileInput from '../../components/molecules/FileInput';
 import RadioForm from '../../components/molecules/Form/RadioForm';
 import LoadingOverlay from '../../components/molecules/LoadingOverlay';
 import { countryCodes } from '../../constant/CountryCodePhone';
-import { ageCategories, competitionList, PerformanceCategory, PianoInstrumentListEnsemble, PianoInstrumentListSolo } from '../../constant/RegisterPageConst';
+import { ageCategories, competitionList, ensembleAgeCategories, PercussionAgeCategoriesEnsemble, PercussionInstrumentListEnsemble, PercussionInstrumentListSolo, PerformanceCategory, PianoInstrumentListEnsemble, PianoInstrumentListSolo, woodwinAgeCategoriesEnsemble, woodwinAgeCategoriesSolo, WoodwindInstrumentListEnsemble, WoodwindInstrumentListSolo } from '../../constant/RegisterPageConst';
 import { useAuth } from '../../context/DataContext';
 import { db } from '../../firebase';
 
@@ -132,9 +132,23 @@ const Register = () => {
     const onSubmit = async (data) => {
         try {
             setIsLoading(true)
+
+            //save ProfilePhoto
+            const profilePhoto = data.profilePhoto[0]
+            const directoryName = profilePhoto.name.replace(/\s/g, "").replace(/\.[^/.]+$/, "");
+            const res = await apis.aws.postSignedUrl(directoryName, "profilePhoto")
+            const signedUrl = res.data.link
+            await axios.put(signedUrl, profilePhoto, {
+                headers: {
+                    'Content-Type': profilePhoto.type, // Ensure this matches the file type
+                },
+            });
+            const profilePhotoS3Link = `s3://registrants2025/${directoryName}/profilePhoto.pdf`;
+            setProgressLoading(10)
+
             //save exam cert
             const pdfRepertoire = data.pdfRepertoire[0]
-            const directoryName = pdfRepertoire.name.replace(/\s/g, "").replace(/\.[^/.]+$/, "");
+            // const directoryName2 = pdfRepertoire.name.replace(/\s/g, "").replace(/\.[^/.]+$/, "");
             const res2 = await apis.aws.postSignedUrl(directoryName, "pdfRepertoire")
             const signedUrl2 = res2.data.link
             await axios.put(signedUrl2, pdfRepertoire, {
@@ -142,41 +156,41 @@ const Register = () => {
                     'Content-Type': pdfRepertoire.type, // Ensure this matches the file type
                 },
             });
-
+            const pdfRepertoireS3Link = `s3://registrants2025/${directoryName}/pdfRepertoire.pdf`;
             setProgressLoading(30)
 
             //save birth cert first
             const birthCert = data.birthCertificate[0]
-            // const directoryName2 = birthCert.name.replace(/\s/g, "").replace(/\.[^/.]+$/, "");
-            const res = await apis.aws.postSignedUrl(directoryName, "birthCert")
-            const signedUrl = res.data.link
-            await axios.put(signedUrl, birthCert, {
+            // const directoryName3 = birthCert.name.replace(/\s/g, "").replace(/\.[^/.]+$/, "");
+            const res3 = await apis.aws.postSignedUrl(directoryName, "birthCert")
+            const signedUrl3 = res3.data.link
+            await axios.put(signedUrl3, birthCert, {
                 headers: {
                     'Content-Type': birthCert.type, // Ensure this matches the file type
                 },
             });
-
+            const birthCertS3Link = `s3://registrants2025/${directoryName}/birthCert.pdf`;
             setProgressLoading(50)
+
             //save pdf report
             const examCertificate = data.examCertificate[0]
-            // const directoryName3 = examCertificate.name.replace(/\s/g, "").replace(/\.[^/.]+$/, "");
-            const res3 = await apis.aws.postSignedUrl(directoryName, "examCertificate")
-            const signedUrl3 = res3.data.link
-            await axios.put(signedUrl3, examCertificate, {
+            // const directoryName4 = examCertificate.name.replace(/\s/g, "").replace(/\.[^/.]+$/, "");
+            const res4 = await apis.aws.postSignedUrl(directoryName, "examCertificate")
+            const signedUrl4 = res4.data.link
+            await axios.put(signedUrl4, examCertificate, {
                 headers: {
                     'Content-Type': examCertificate.type, // Ensure this matches the file type
                 },
             });
+            const examCertificateS3Link = `s3://registrants2025/${directoryName}/examCertificate.pdf`;
+            setProgressLoading(70)
 
+            // save data to Firebase
             const formattedDatePerformers = data?.performers.map((performer) => {
                 const formattedDate = performer?.dob?.format("DD/MM/YYYY") ?? null;
 
                 return { ...performer, dob: formattedDate, countryCode: performer.countryCode[0] }
             })
-
-            setProgressLoading(70)
-
-            // save data to Firebase
             const payload = {
                 ageCategory: data.ageCategory,
                 totalPerformer: data.totalPerformer,
@@ -188,6 +202,10 @@ const Register = () => {
                 performers: formattedDatePerformers,
                 name: data.name,
                 youtubeLink: data.youtubeLink,
+                profilePhotoS3Link: profilePhotoS3Link,
+                pdfRepertoireS3Link: pdfRepertoireS3Link,
+                birthCertS3Link: birthCertS3Link,
+                examCertificateS3Link: examCertificateS3Link,
                 createdAt: serverTimestamp(),
             };
 
@@ -294,6 +312,22 @@ const Register = () => {
                 }
                 break;
 
+            case competitionList.Woodwinds:
+                if (PerformanceCategoryValue === PerformanceCategory.Solo) {
+                    return WoodwindInstrumentListSolo
+                } else {
+                    return WoodwindInstrumentListEnsemble
+                }
+                break;
+
+            case competitionList.Percussions:
+                if (PerformanceCategoryValue === PerformanceCategory.Solo) {
+                    return PercussionInstrumentListSolo
+                } else {
+                    return PercussionInstrumentListEnsemble
+                }
+                break;
+
             default:
                 return {}
                 break;
@@ -377,6 +411,51 @@ const Register = () => {
             />
         );
     }, [control, t]);
+
+    const filteredAgeCategories = useMemo(() => {
+        switch (selectedCompetition) {
+            case competitionList.Piano:
+                if (PerformanceCategoryValue === PerformanceCategory.Solo) {
+                    return ageCategories
+                } else {
+                    return ensembleAgeCategories
+                }
+                break;
+
+            case competitionList.Woodwinds:
+                if (PerformanceCategoryValue === PerformanceCategory.Solo) {
+                    return woodwinAgeCategoriesSolo
+                } else {
+                    return woodwinAgeCategoriesEnsemble
+                }
+                break;
+
+            case competitionList.Percussions:
+                if (PerformanceCategoryValue === PerformanceCategory.Solo) {
+                    return woodwinAgeCategoriesSolo
+                } else {
+                    return PercussionAgeCategoriesEnsemble
+                }
+                break;
+
+            default:
+                return {}
+                break;
+        }
+    }, [selectedCompetition, PerformanceCategoryValue])
+
+    const isCategoryDisabled = (key) => {
+        switch (key) {
+            case competitionList.Piano:
+                return false
+            case competitionList.Percussions:
+                return false
+            case competitionList.Woodwinds:
+                return false
+            default:
+                return true
+        }
+    }
 
     return (
         <div className="primaryBackgroundBlack" style={{ padding: "128px 0px 48px 0px" }}>
@@ -519,7 +598,7 @@ const Register = () => {
                                                     id={`${key}-${label}`}
                                                     key={key}
                                                     value={key}
-                                                    disabled={key !== competitionList.Piano ? true : false}
+                                                    disabled={isCategoryDisabled(key)}
                                                     control={
                                                         <Radio
                                                             sx={{
@@ -646,7 +725,7 @@ const Register = () => {
                                     rules={{ required: t("register.errors.required") }}
                                     render={({ field }) => (
                                         <RadioGroup {...field} row>
-                                            {Object.entries(ageCategories).map(([key, label]) => (
+                                            {Object.entries(filteredAgeCategories).map(([key, label]) => (
                                                 <FormControlLabel
                                                     id={`${key}-${label}`}
                                                     key={key}
@@ -714,6 +793,7 @@ const Register = () => {
                                                         handleChangePerformer(value);
                                                     }}
                                                     style={{ width: '100%' }}
+                                                    onKeyDown={(e) => e.preventDefault()} // ⛔ prevent manual typing
                                                 />
                                             )}
                                         />
@@ -1112,6 +1192,18 @@ const Register = () => {
                             )
                             )}
 
+
+                            {/* Profile Picture Upload */}
+                            <FileInput
+                                name="profilePhoto"
+                                control={control}
+                                label={t("register.form.profilePhoto")}
+                                smallNotes={<small className="note">{t("register.notes.uploadCombined")}</small>}
+                                extraSmallNotes={<small className="note">{t("register.notes.profilePhoto")}</small>}
+                                rules={{ required: t("register.errors.required") }}
+                                tooltipLabel={t("register.form.profilePhotoTooltip")}
+                                inputRef={examInputRef}
+                            />
 
                             {/* Exam Certificate Upload */}
                             <FileInput

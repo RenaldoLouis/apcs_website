@@ -6,15 +6,40 @@ export const ageCategories = {
     Junior: "Junior (16-19 years old)",
     Youth: "Youth (20-23 years old)",
     OpenAge: "Open Age (24 years old and up)",
-    FreeChoice: "Free Choice (Combination Age - No Limitation)"
+    FreeChoice: "Free Choice (Combination Age - No Limitation)",
+    JuniorEtude: "Juniot Etude (4+ years old)",
+    ConcertEtude: "Concert Etude (4+ years old)"
+}
+
+export const ensembleAgeCategories = {
+    older_than_four: "4+ years old",
+}
+
+export const woodwinAgeCategoriesSolo = {
+    Petite: "Petite (6-7 years old)",
+    Primary: "Primary (8-11 years old)",
+    Young: "Young (12-15 years old)",
+    Junior: "Junior (16-19 years old)",
+    Youth: "Youth (20-23 years old)",
+    OpenAge: "Open Age (24 years old and up)",
+    FreeChoice: "Free Choice (Combination Age - No Limitation)",
+}
+export const woodwinAgeCategoriesEnsemble = {
+    four_nineteen: "4-19 years old",
+    nineteen_plus: "19+ years old",
+    mixed: "Mixed",
+}
+
+export const PercussionAgeCategoriesEnsemble = {
+    Combination: "Combination",
 }
 
 export const competitionList = {
     Piano: "Piano",
-    Strings: "Strings",
     Woodwinds: "Woodwinds",
-    Brass: "Brass",
     Percussions: "Percussions",
+    Strings: "Strings",
+    Brass: "Brass",
     Guitar: "Guitar",
     Vocal: "Vocal",
     Choir: "Choir",
@@ -39,6 +64,34 @@ export const PianoInstrumentListEnsemble = {
     Two_Piano_Multiple_Hands: "Two Pianos, Multiple Hands (4-16 Hands)",
     One_Piano_Instruments: "Any 2-5 Instruments/Performers with 1 Piano",
     TwoPiano_Instruments: "Any 6-9 Instruments/Performers with 2 Pianos"
+}
+
+export const PercussionInstrumentListSolo = {
+    Marimba: "Marimba",
+    Vibraphone: "Vibraphone",
+    Multi_percussion: "Multi Percussion",
+}
+
+export const PercussionInstrumentListEnsemble = {
+    Duo: "Duo",
+    Trio: "Trio",
+    Quartet: "Quartet"
+}
+
+export const WoodwindInstrumentListSolo = {
+    Piccolo: "Piccolo",
+    Flute: "Flute",
+    Oboe: "Oboe",
+    Clarinet: "Clarinet",
+    Saxophone: "Saxophone",
+    Bassoon: "Bassoon",
+    any_traditional_woodwin: "Any Traditional Woodwind",
+}
+
+export const WoodwindInstrumentListEnsemble = {
+    woodwind_two_five_performer: "2-5 Performers (combination of any instruments)",
+    woodwind_six_nine_performer: "6-9 Performers (combination of any instruments)",
+    woodwind_ten_fifteen_performer: "10-15 Performers (combination of any instruments)"
 }
 
 export const PerformanceCategory = {

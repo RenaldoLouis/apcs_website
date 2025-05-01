@@ -104,7 +104,7 @@ const ModalEvent = ({ open, handleClose }) => {
                     </Typography>
 
                     <Typography className="creamText" variant="subtitle1" sx={{ fontWeight: 500, mb: 1 }}>
-                        Registration Closed: Nov 01, 2025
+                        Performance Date: Nov 01, 2025
                     </Typography>
 
                     {timeLeft.totalDays >= 30 ? (

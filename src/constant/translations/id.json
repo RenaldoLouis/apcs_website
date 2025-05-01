@@ -75,14 +75,21 @@
     "commentContact": "Butuh informasi lebih lanjut?",
     "register": {
         "ageCategories": {
-            "Poco": "Poco (4-5 tahun)",
-            "Petite": "Petite (6-7 tahun)",
-            "Primary": "Primary (8-11 tahun)",
-            "Young": "Young (12-15 tahun)",
-            "Junior": "Junior (16-19 tahun)",
-            "Youth": "Youth (20-23 tahun)",
-            "OpenAge": "Usia Terbuka (24 tahun ke atas)",
-            "FreeChoice": "Pilihan Bebas (Kombinasi Usia - Tanpa Batasan)"
+            "Poco": "Poco (Usia 4-5 tahun)",
+            "Petite": "Petite (Usia 6-7 tahun)",
+            "Primary": "Primary (Usia 8-11 tahun)",
+            "Young": "Young (Usia 12-15 tahun)",
+            "Junior": "Junior (Usia 16-19 tahun)",
+            "Youth": "Youth (Usia 20-23 tahun)",
+            "OpenAge": "Open Age (Usia 24 tahun ke atas)",
+            "FreeChoice": "Pilihan Bebas (Kombinasi Usia - Tidak Ada Batasan)",
+            "JuniorEtude": "Etude Junior (Usia 4 tahun ke atas)",
+            "ConcertEtude": "Etude Konser (Usia 4 tahun ke atas)",
+            "four_nineteen": "Usia 4–19 tahun",
+            "nineteen_plus": "Usia 19 tahun ke atas",
+            "mixed": "Campuran",
+            "older_than_four": "Usia 4 tahun ke atas",
+            "Combination": "Kombinasi"
         },
         "title": "FORMULIR PENDAFTARAN",
         "description": {
@@ -127,6 +134,7 @@
             "zipcode": "Kode Pos",
             "address": "Alamat Lengkap",
             "examCert": "Sertifikat Ujian / Rekomendasi Guru",
+            "profilePhoto": "Foto Profil",
             "birthCert": "Akte Kelahiran / paspor / Id",
             "repertoire": "Repertoar",
             "youtube": "Link Video YouTube",
@@ -136,6 +144,7 @@
             "submit": "Kirim",
             "submitAnother": "Kirim Peserta Lain",
             "examCertTooltip": "Silakan lampirkan sertifikat ujian terbaru Anda / esai maksimal 80 kata dalam format PDF jika Anda tidak mengikuti ujian apa pun.",
+            "profilePhotoTooltip": "Unggah foto dari depan yang jelas dan terang. Hindari gambar buram atau gelap.",
             "birthCertTooltip": "Silakan lampirkan salinan Akta Kelahiran/Passport/KTP Anda dalam format PDF.",
             "repertoireTooltip": "Silakan lampirkan file PDF repertoar Anda di sini."
         },
@@ -148,6 +157,7 @@
         "notes": {
             "uploadCombined": "*Unggah sebagai satu file PDF gabungan untuk semua penampil. Pastikan nama file mencantumkan nama guru atau orang tua, atau salah satu nama siswa untuk keperluan identifikasi.",
             "fileFormatExam": "*Contoh: johnDoe_examCert.",
+            "profilePhoto": "*Example: johnDoe_ProfilePhoto.",
             "fileFormatRepertoire": "*Contoh: johnDoe_pdfRepertoire.",
             "fileFormatBirthCert": "*Contoh: johnDoe_birthCert."
         },
@@ -167,11 +177,27 @@
             "Piano_Fourhands_two": "Piano Empat Tangan (Dua piano, empat tangan)",
             "Chamber_Music_one": "Musik Kamar (Satu piano, enam-delapan tangan)",
             "Chamber_Music_two": "Musik Kamar (Dua piano, enam-delapan tangan)",
-            "Chamber_Music_any": "Musik Kamar (Instrumen apa saja dengan piano)",
+            "Chamber_Music_any": "Musik Kamar (Instrumen apapun dengan piano)",
             "One_Piano_Mutiple_Hands": "Satu Piano, Banyak Tangan (4–8 Tangan)",
             "Two_Piano_Multiple_Hands": "Dua Piano, Banyak Tangan (4–16 Tangan)",
             "One_Piano_Instruments": "2–5 Instrumen/Pemain dengan 1 Piano",
-            "TwoPiano_Instruments": "6–9 Instrumen/Pemain dengan 2 Piano"
+            "TwoPiano_Instruments": "6–9 Instrumen/Pemain dengan 2 Piano",
+            "Marimba": "Marimba",
+            "Vibraphone": "Vibraphone",
+            "Multi_percussion": "Multi Perkusi",
+            "Duo": "Duo Perkusi",
+            "Trio": "Trio Perkusi",
+            "Quartet": "Kuartet Perkusi",
+            "Piccolo": "Piccolo",
+            "Flute": "Flute",
+            "Oboe": "Oboe",
+            "Clarinet": "Klarinet",
+            "Saxophone": "Saksofon",
+            "Bassoon": "Bassoon",
+            "any_traditional_woodwin": "Alat Tiup Kayu Tradisional Lainnya",
+            "woodwind_two_five_performer": "2–5 Pemain (Kombinasi alat tiup kayu apapun)",
+            "woodwind_six_nine_performer": "6–9 Pemain (Kombinasi alat tiup kayu apapun)",
+            "woodwind_ten_fifteen_performer": "10–15 Pemain (Kombinasi alat tiup kayu apapun)"
         },
         "competitionList": {
             "Piano": "Piano",
