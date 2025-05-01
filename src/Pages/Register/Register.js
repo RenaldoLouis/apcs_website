@@ -378,7 +378,7 @@ const Register = () => {
                     }
 
                 default:
-                    return 15
+                    return 2
             }
         }
     }, [PerformanceCategoryValue, selectedCompetition, instrumentCategoryValue])
@@ -391,7 +391,7 @@ const Register = () => {
             setTotalPerformer(2)
             setValue('totalPerformer', 2)
         }
-    }, [PerformanceCategoryValue])
+    }, [PerformanceCategoryValue, selectedCompetition])
 
     const copyAddressFields = (from, to) => {
         setValue(`performers.${to}.addressLine`, from.addressLine);
@@ -487,28 +487,29 @@ const Register = () => {
     }
 
     const videoExampleFormatText = useMemo(() => {
-        switch (selectedCompetition) {
-            case competitionList.Piano:
-                if (PerformanceCategoryValue === PerformanceCategory.Solo) {
-                    return "*APCSTSOA2025 - PIANO - OPEN AGE - JEREMY GLENN KENNEDY - Scarlatti: Sonata in B Minor, K 27, L 449: Allegro"
-                } else {
-                    return "*APCSTSOA2025 - PIANO - Any 2-5 instruments with one piano - TIMOTHY’S CHAMBER -FLIGHT OF THE BUMBLEBEE"
-                }
-            case competitionList.Woodwinds:
-                if (PerformanceCategoryValue === PerformanceCategory.Solo) {
-                    return "*APCSTSOA2025 - FLUTE - OPEN AGE - JEREMY GLENN KENNEDY - Scarlatti: Sonata in B Minor, K 27, L 449: Allegro"
-                } else {
-                    return "*APCSTSOA2025 - Any 2-5 instruments - TIMOTHY’S CHAMBER - FLIGHT OF THE BUMBLEBEE"
-                }
-            case competitionList.Percussions:
-                if (PerformanceCategoryValue === PerformanceCategory.Solo) {
-                    return "*APCSTSOA2025 - MARIMBA - OPEN AGE - JEREMY GLENN KENNEDY - Scarlatti: Sonata in B Minor, K 27, L 449: Allegro"
-                } else {
-                    return "*APCSTSOA2025 - MULTI PERCUSSION - OPEN AGE - TIMOTHY’S CHAMBER - FLIGHT OF THEBUMBLEBEE"
-                }
-            default:
-                return {}
-        }
+        // switch (selectedCompetition) {
+        //     case competitionList.Piano:
+        //         if (PerformanceCategoryValue === PerformanceCategory.Solo) {
+        //             return "*APCSTSOA2025 - PIANO - OPEN AGE - JEREMY GLENN KENNEDY - Scarlatti: Sonata in B Minor, K 27, L 449: Allegro"
+        //         } else {
+        //             return "*APCSTSOA2025 - PIANO - Any 2-5 instruments with one piano - TIMOTHY’S CHAMBER -FLIGHT OF THE BUMBLEBEE"
+        //         }
+        //     case competitionList.Woodwinds:
+        //         if (PerformanceCategoryValue === PerformanceCategory.Solo) {
+        //             return "*APCSTSOA2025 - FLUTE - OPEN AGE - JEREMY GLENN KENNEDY - Scarlatti: Sonata in B Minor, K 27, L 449: Allegro"
+        //         } else {
+        //             return "*APCSTSOA2025 - Any 2-5 instruments - TIMOTHY’S CHAMBER - FLIGHT OF THE BUMBLEBEE"
+        //         }
+        //     case competitionList.Percussions:
+        //         if (PerformanceCategoryValue === PerformanceCategory.Solo) {
+        //             return "*APCSTSOA2025 - MARIMBA - OPEN AGE - JEREMY GLENN KENNEDY - Scarlatti: Sonata in B Minor, K 27, L 449: Allegro"
+        //         } else {
+        //             return "*APCSTSOA2025 - MULTI PERCUSSION - OPEN AGE - TIMOTHY’S CHAMBER - FLIGHT OF THEBUMBLEBEE"
+        //         }
+        //     default:
+        //         return {}
+        // }
+        return "*https://youtu.be/FrVWHSeIXnY?si=8moHC_g6ncNZdAZO"
     }, [selectedCompetition, PerformanceCategoryValue])
 
     return (
