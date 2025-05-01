@@ -15,6 +15,16 @@ const FileInput = ({ name, control, label, rules = {}, tooltipLabel, smallNotes 
             if (/\s/.test(fileName)) {
                 return "File name should not contain spaces or &. Use underscores (_) instead (e.g. JohnDoe_AlexanderGrahamaBell).";
             }
+
+            // Check MIME type
+            if (file.type !== "application/pdf") {
+                return "Only PDF files are allowed.";
+            }
+
+            // Optional: check file extension too (extra safety)
+            if (!fileName.toLowerCase().endsWith(".pdf")) {
+                return "File must have a .pdf extension.";
+            }
         }
         return true;
     };

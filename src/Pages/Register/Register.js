@@ -65,6 +65,7 @@ const Register = () => {
             ageCategory: null,
             userType: "Teacher",
             competitionCategory: competitionList.Piano,
+            instrumentCategory: "",
             name: "",
             youtubeLink: "",
             performers: [{
@@ -90,6 +91,7 @@ const Register = () => {
 
     const selectedCompetition = watch("competitionCategory");
     const userTypeValue = watch("userType");
+    const instrumentCategoryValue = watch("instrumentCategory");
     const PerformanceCategoryValue = watch("PerformanceCategory");
     const sameAddressValue = watch("sameAddress");
     const performersValue = useWatch({ control, name: "performers" });
@@ -343,9 +345,45 @@ const Register = () => {
         if (PerformanceCategoryValue === PerformanceCategory.Solo) {
             return 1
         } else {
-            return 15
+            switch (selectedCompetition) {
+                case competitionList.Piano:
+                    if (PerformanceCategoryValue === PerformanceCategory.Solo) {
+                        return 1
+                    } else {
+                        return 15
+                    }
+
+                case competitionList.Woodwinds:
+                    if (PerformanceCategoryValue === PerformanceCategory.Solo) {
+                        return 1
+                    } else {
+                        const maxPerformersByCategory = {
+                            woodwind_two_five_performer: 5,
+                            woodwind_six_nine_performer: 9,
+                            woodwind_ten_fifteen_performer: 15,
+                        };
+                        return maxPerformersByCategory[instrumentCategoryValue] || 15;
+                    }
+
+                case competitionList.Percussions:
+                    if (PerformanceCategoryValue === PerformanceCategory.Solo) {
+                        return 1
+                    } else {
+                        const maxPerformersByCategory = {
+                            Duo: 2,
+                            Trio: 3,
+                            Quartet: 4,
+                        };
+                        return maxPerformersByCategory[instrumentCategoryValue] || 15;
+                    }
+
+                default:
+                    return 15
+            }
         }
-    }, [PerformanceCategoryValue])
+    }, [PerformanceCategoryValue, selectedCompetition, PerformanceCategoryValue, instrumentCategoryValue])
+
+    console.log("maximalPerformer", maximalPerformer)
 
     useEffect(() => {
         if (PerformanceCategoryValue === PerformanceCategory.Solo) {
