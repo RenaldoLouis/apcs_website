@@ -38,6 +38,7 @@ import { db } from '../../firebase';
 const Register = () => {
     const { t } = useTranslation();
     const examInputRef = useRef();
+    const profilePhotoInputRef = useRef();
     const birthCertInputRef = useRef();
     const repertoireInputRef = useRef();
 
@@ -1202,7 +1203,7 @@ const Register = () => {
                                 extraSmallNotes={<small className="note">{t("register.notes.profilePhoto")}</small>}
                                 rules={{ required: t("register.errors.required") }}
                                 tooltipLabel={t("register.form.profilePhotoTooltip")}
-                                inputRef={examInputRef}
+                                inputRef={profilePhotoInputRef}
                             />
 
                             {/* Exam Certificate Upload */}
