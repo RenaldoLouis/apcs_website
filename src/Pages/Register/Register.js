@@ -201,7 +201,6 @@ const Register = () => {
                 totalPerformer: data.totalPerformer,
                 agreement: data.agreement,
                 competitionCategory: data.competitionCategory,
-                teacherName: data.teacherName,
                 PerformanceCategory: data.PerformanceCategory,
                 instrumentCategory: data.instrumentCategory,
                 userType: data.userType,
@@ -213,6 +212,7 @@ const Register = () => {
                 birthCertS3Link: birthCertS3Link,
                 examCertificateS3Link: examCertificateS3Link,
                 createdAt: serverTimestamp(),
+                ...(data.teacherName && { teacherName: data.teacherName }),
             };
 
             await addDoc(collection(db, "Registrants2025"), payload);
