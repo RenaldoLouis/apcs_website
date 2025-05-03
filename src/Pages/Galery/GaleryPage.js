@@ -317,8 +317,8 @@ const GaleryPage = () => {
                         event.video = videoLookup[normalizedName];
                     }
                     const sortedPhotoList = photosList?.sort((a, b) => {
-                        const numA = parseInt(a.match(/(\d+)\.(jpg|png)$/)[1]);
-                        const numB = parseInt(b.match(/(\d+)\.(jpg|png)$/)[1]);
+                        const numA = parseInt(a.match(/(\d+)\.(jpg|png|webp)$/)[1]);
+                        const numB = parseInt(b.match(/(\d+)\.(jpg|png|webp)$/)[1]);
                         return numA - numB;
                     }).map(photo => `${photo}?v=${timestamp}`)
                     event.images = sortedPhotoList
