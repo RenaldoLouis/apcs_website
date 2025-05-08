@@ -60,7 +60,7 @@ const Register = () => {
     const [totalPerformer, setTotalPerformer] = useState(1);
     const [progressLoading, setProgressLoading] = useState(10);
 
-    const { setValue, watch, register, control, formState: { errors }, handleSubmit, reset, clearErrors } = useForm({
+    const { unregister, setValue, watch, register, control, formState: { errors }, handleSubmit, reset, clearErrors } = useForm({
         defaultValues: {
             ageCategory: null,
             userType: "Teacher",
@@ -483,10 +483,10 @@ const Register = () => {
         switch (key) {
             case competitionList.Piano:
                 return false
-            case competitionList.Percussions:
-                return false
-            case competitionList.Woodwinds:
-                return false
+            // case competitionList.Percussions:
+            //     return false
+            // case competitionList.Woodwinds:
+            //     return false
             default:
                 return true
         }
@@ -517,6 +517,12 @@ const Register = () => {
         // }
         return "*https://youtu.be/FrVWHSeIXnY?si=8moHC_g6ncNZdAZO"
     }, [selectedCompetition, PerformanceCategoryValue])
+
+    useEffect(() => {
+        if (userTypeValue !== "Personal") {
+            unregister("teacherName");
+        }
+    }, [userTypeValue, unregister]);
 
     return (
         <div className="primaryBackgroundBlack" style={{ padding: "128px 0px 48px 0px" }}>
@@ -634,25 +640,27 @@ const Register = () => {
                                     </div>
                                 )}
                             />
-                            <Controller
-                                name="teacherName"
-                                control={control}
-                                rules={userTypeValue === "Personal" ? { required: t("register.errors.required") } : {}}
-                                render={({ field, fieldState: { error } }) => (
-                                    userTypeValue === "Personal" && (
-                                        <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-                                            <TextField
-                                                {...field}
-                                                label={t("register.form.teacherName")}
-                                                variant="standard"
-                                                className="custom-textfield-full mb-4"
-                                                error={!!error}
-                                                helperText={error ? error.message : ""}
-                                            />
-                                        </div>
-                                    )
-                                )}
-                            />
+                            {userTypeValue === "Personal" && (
+                                <Controller
+                                    name="teacherName"
+                                    control={control}
+                                    rules={userTypeValue === "Personal" ? { required: t("register.errors.required") } : {}}
+                                    render={({ field, fieldState: { error } }) => (
+                                        userTypeValue === "Personal" && (
+                                            <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+                                                <TextField
+                                                    {...field}
+                                                    label={t("register.form.teacherName")}
+                                                    variant="standard"
+                                                    className="custom-textfield-full mb-4"
+                                                    error={!!error}
+                                                    helperText={error ? error.message : ""}
+                                                />
+                                            </div>
+                                        )
+                                    )}
+                                />
+                            )}
 
                             {/* Competition Category (Radio Button) */}
                             <FormControl className='mt-2' component="fieldset" error={!!errors.competitionCategory}>
