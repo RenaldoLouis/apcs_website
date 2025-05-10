@@ -1,7 +1,9 @@
-import poster from "../../assets/images/poster.jpeg";
-
-import { Box, Modal, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
+import { Box, Modal, Typography } from "@mui/material";
+import poster from "../../assets/images/poster.jpeg";
+import {
+    CloseOutlined,
+} from '@ant-design/icons';
 
 const modalStyle = {
     position: 'absolute',
@@ -88,14 +90,17 @@ const ModalEvent = ({ open, handleClose }) => {
 
                 {/* Text + Countdown Section */}
                 <Box sx={{ flex: 1 }}>
-                    <Typography
-                        className="creamText"
-                        id="modal-modal-title"
-                        variant="h5"
-                        sx={{ fontWeight: 700 }}
-                    >
-                        The Sound of Asia
-                    </Typography>
+                    <div className="d-flex justify-spaceBetween">
+                        <Typography
+                            className="creamText"
+                            id="modal-modal-title"
+                            variant="h5"
+                            sx={{ fontWeight: 700 }}
+                        >
+                            The Sound of Asia
+                        </Typography>
+                        <CloseOutlined onClick={handleClose} />
+                    </div>
 
                     <div style={{ height: '3px', backgroundColor: '#EBBC64', width: '60px', margin: '12px 0' }} />
 
