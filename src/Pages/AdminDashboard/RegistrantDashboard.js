@@ -14,7 +14,7 @@ const RegistrantDashboard = () => {
 
     const { token: { colorBgContainer, borderRadiusLG }, } = theme.useToken();
 
-    const { registrantDatas, page, setPage, totalDocs, allData, loading } = usePaginatedRegistrants(pageSize, "Registrants2025", "ageCategory");
+    const { registrantDatas, page, setPage, totalDocs, allData, loading } = usePaginatedRegistrants(pageSize, "Registrants2025", "createdAt");
 
     const handlePageChange = (pagination, filters, sorter, extra) => {
         setPage(pagination);

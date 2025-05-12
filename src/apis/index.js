@@ -23,6 +23,15 @@ const postRequest = async (path, payload) => {
   }
 };
 
+const postBlobRequest = async (path, payload) => {
+  try {
+    const res = await http.postBlob(path, payload);
+    return res;
+  } catch (err) {
+    return handleErrors(err);
+  }
+};
+
 const putRequest = async (path, payload) => {
   try {
     const res = await http.put(path, payload);
@@ -71,6 +80,7 @@ export default {
     getVideos: () => getRequest(`/api/v1/apcs/getVideos`)
   },
   aws: {
-    postSignedUrl: (directoryname, fileName) => postRequest(`/api/v1/apcs/signed-url-images?directoryname=${directoryname}&fileName=${fileName}`)
+    postSignedUrl: (directoryname, fileName) => postRequest(`/api/v1/apcs/signed-url-images?directoryname=${directoryname}&fileName=${fileName}`),
+    downloadFiles: (files) => postBlobRequest(`/api/v1/apcs/download-files-aws`, files),
   }
 };

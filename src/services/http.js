@@ -51,6 +51,9 @@ class HttpService {
   post(url, payload) {
     return this.axios.post(url, payload);
   }
+  postBlob(url, payload) {
+    return this.axios.post(url, payload, { responseType: 'blob' });
+  }
 
   put(url, payload) {
     return this.axios.put(url, payload);

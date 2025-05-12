@@ -1,3 +1,6 @@
+import { Button } from "antd";
+import apis from "../apis";
+
 export const RegistrantsColumns = [
     {
         title: 'Name',
@@ -56,4 +59,48 @@ export const Registrants2025Columns = [
             return "-";
         },
     },
+    {
+        title: 'Actions',
+        key: 'actions',
+        render: (text, record, index) => (
+            <Button type="link" onClick={() => handleDownloadPDF(record, index)}>
+                Download PDF
+            </Button>
+        ),
+    }
 ];
+
+const stripS3Prefix = (uri) => {
+    const parts = uri.split('/');
+    // Remove 's3:', '', 'bucket-name'
+    return parts.slice(3).join('/');
+};
+
+const handleDownloadPDF = async (record) => {
+    const filesToDownload = [
+        { fileName: stripS3Prefix(record.birthCertS3Link) },
+        { fileName: stripS3Prefix(record.examCertificateS3Link) },
+        { fileName: stripS3Prefix(record.pdfRepertoireS3Link) },
+        { fileName: stripS3Prefix(record.profilePhotoS3Link) },
+    ];
+
+    try {
+        const response = await apis.aws.downloadFiles(filesToDownload)
+
+
+        const blob = new Blob([response.data], { type: 'application/zip' });
+
+        // Programmatically trigger an invisible download
+        const url = window.URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = 'documents.zip'; // 👈 Desired filename
+        link.style.display = 'none'; // Keep it hidden
+        document.body.appendChild(link);
+        link.click(); // 👈 Trigger download
+        link.remove(); // Clean up
+        window.URL.revokeObjectURL(url); // Clean up blob URL
+    } catch (error) {
+        console.error('Download failed:', error);
+    }
+};
