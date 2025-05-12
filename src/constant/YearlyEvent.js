@@ -10,24 +10,13 @@ export const YearlyEvent = {
 }
 
 export const ListEvent = [
+
     {
-        title: YearlyEvent.TURNINGPOINT,
-        year: "2019"
+        title: YearlyEvent.CLASSICALFESTIVALJKT2024,
+        year: "2024"
     },
     {
-        title: YearlyEvent.AUTUMINKOREA,
-        year: "2020"
-    },
-    {
-        title: YearlyEvent.MAGICALMUSICSOUNDTRACT,
-        year: "2022"
-    },
-    {
-        title: YearlyEvent.CLASSICALFESTIVALSBY,
-        year: "2023"
-    },
-    {
-        title: YearlyEvent.CLASSICALFESTIVALJKT,
+        title: YearlyEvent.MASTERCLASS,
         year: "2023"
     },
     {
@@ -35,12 +24,24 @@ export const ListEvent = [
         year: "2023"
     },
     {
-        title: YearlyEvent.MASTERCLASS,
+        title: YearlyEvent.CLASSICALFESTIVALJKT,
         year: "2023"
     },
     {
-        title: YearlyEvent.CLASSICALFESTIVALJKT2024,
-        year: "2024"
+        title: YearlyEvent.CLASSICALFESTIVALSBY,
+        year: "2023"
+    },
+    {
+        title: YearlyEvent.MAGICALMUSICSOUNDTRACT,
+        year: "2022"
+    },
+    {
+        title: YearlyEvent.AUTUMINKOREA,
+        year: "2020"
+    },
+    {
+        title: YearlyEvent.TURNINGPOINT,
+        year: "2019"
     },
 ]
 

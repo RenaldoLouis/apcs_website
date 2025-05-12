@@ -23,7 +23,7 @@ export const DataContextProvider = ({ children }) => {
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
     const [imageHomeLoaded, setImageHomeLoaded] = useState(false);
-    const [selectedEvent, setSelectedEvent] = useState(YearlyEvent.TURNINGPOINT);
+    const [selectedEvent, setSelectedEvent] = useState(YearlyEvent.CLASSICALFESTIVALJKT2024);
 
     useEffect(() => {
         const unsubscribe = auth.onAuthStateChanged(async (user) => {
