@@ -137,10 +137,14 @@ const Register = () => {
     const onSubmit = async (data) => {
         try {
             setIsLoading(true)
+            const now = new Date();
+            const timestamp = now.toISOString().replace(/[-:.TZ]/g, "").slice(0, 14); // e.g. "20250512134501"
 
             //save ProfilePhoto
             const profilePhoto = data.profilePhoto[0]
-            const directoryName = profilePhoto.name.replace(/\s/g, "").replace(/\.[^/.]+$/, "");
+            const baseName = profilePhoto.name.replace(/\s/g, "").replace(/\.[^/.]+$/, "");
+            const directoryName = `${baseName}_${timestamp}`;
+
             const res = await apis.aws.postSignedUrl(directoryName, "profilePhoto")
             const signedUrl = res.data.link
             await axios.put(signedUrl, profilePhoto, {
