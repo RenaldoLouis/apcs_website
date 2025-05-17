@@ -34,6 +34,22 @@ export const percussionAgeCategoriesSolo = {
     OpenAgePercussion: "Open Age (23+ years old)",
     FreeChoicePercussion: "Free Choice (4+ years old)",
 }
+
+export const guitarAgeCategoriesSolo = {
+    PetiteGuitar: "Petite (4-6 years old)",
+    PrimaryGuitar: "Primary (7-9 years old)",
+    YoungGuitar: "Young (10-12 years old)",
+    JuniorGuitar: "Junior (13-15 years old)",
+    YouthGuitar: "Youth (16-19 years old)",
+    OpenAgeGuitar: "Open Age (4+ years old)",
+    FreeChoiceGuitar: "Free Choice (4+ years old)",
+}
+
+export const guitarAgeCategoriesEnsemble = {
+    four_nineteen: "4-19 years old",
+    nineteen_plus: "19+ years old",
+    mixed: "Mixed",
+}
 export const woodwinAgeCategoriesEnsemble = {
     four_nineteen: "4-19 years old",
     nineteen_plus: "19+ years old",
@@ -80,6 +96,17 @@ export const PercussionInstrumentListSolo = {
     Marimba: "Marimba",
     Vibraphone: "Vibraphone",
     Multi_percussion: "Multi Percussion",
+}
+
+export const GuitarInstrumentListSolo = {
+    Classic: "Classical Nylon Guitar (Classical)",
+    FreeGenre: "Any Acoustic Guitar Strings and Nylon (Free Genre)*",
+}
+
+export const GuitarInstrumentListEnsemble = {
+    twoToFive: "2-5 Performers (combination of any instruments)",
+    sixToNine: "6-9 Performers (combination of any instruments)",
+    tenToFifteen: "10-15 Performers (combination of any instruments)",
 }
 
 export const PercussionInstrumentListEnsemble = {

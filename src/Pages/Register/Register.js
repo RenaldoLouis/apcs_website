@@ -31,7 +31,7 @@ import FileInput from '../../components/molecules/FileInput';
 import RadioForm from '../../components/molecules/Form/RadioForm';
 import LoadingOverlay from '../../components/molecules/LoadingOverlay';
 import { countryCodes } from '../../constant/CountryCodePhone';
-import { ageCategories, competitionList, ensembleAgeCategories, PercussionAgeCategoriesEnsemble, percussionAgeCategoriesSolo, PercussionInstrumentListEnsemble, PercussionInstrumentListSolo, PerformanceCategory, PianoInstrumentListEnsemble, PianoInstrumentListSolo, woodwinAgeCategoriesEnsemble, woodwinAgeCategoriesSolo, WoodwindInstrumentListEnsemble, WoodwindInstrumentListSolo } from '../../constant/RegisterPageConst';
+import { ageCategories, competitionList, ensembleAgeCategories, guitarAgeCategoriesEnsemble, guitarAgeCategoriesSolo, GuitarInstrumentListEnsemble, GuitarInstrumentListSolo, PercussionAgeCategoriesEnsemble, percussionAgeCategoriesSolo, PercussionInstrumentListEnsemble, PercussionInstrumentListSolo, PerformanceCategory, PianoInstrumentListEnsemble, PianoInstrumentListSolo, woodwinAgeCategoriesEnsemble, woodwinAgeCategoriesSolo, WoodwindInstrumentListEnsemble, WoodwindInstrumentListSolo } from '../../constant/RegisterPageConst';
 import { useAuth } from '../../context/DataContext';
 import { db } from '../../firebase';
 
@@ -338,6 +338,47 @@ const Register = () => {
                     return PercussionInstrumentListEnsemble
                 }
 
+            case competitionList.Guitar:
+                if (PerformanceCategoryValue === PerformanceCategory.Solo) {
+                    return GuitarInstrumentListSolo
+                } else {
+                    return GuitarInstrumentListEnsemble
+                }
+
+            default:
+                return {}
+        }
+    }, [selectedCompetition, PerformanceCategoryValue])
+
+    const filteredAgeCategories = useMemo(() => {
+        switch (selectedCompetition) {
+            case competitionList.Piano:
+                if (PerformanceCategoryValue === PerformanceCategory.Solo) {
+                    return ageCategories
+                } else {
+                    return ensembleAgeCategories
+                }
+
+            case competitionList.Woodwinds:
+                if (PerformanceCategoryValue === PerformanceCategory.Solo) {
+                    return woodwinAgeCategoriesSolo
+                } else {
+                    return woodwinAgeCategoriesEnsemble
+                }
+
+            case competitionList.Percussions:
+                if (PerformanceCategoryValue === PerformanceCategory.Solo) {
+                    return percussionAgeCategoriesSolo
+                } else {
+                    return PercussionAgeCategoriesEnsemble
+                }
+            case competitionList.Guitar:
+                if (PerformanceCategoryValue === PerformanceCategory.Solo) {
+                    return guitarAgeCategoriesSolo
+                } else {
+                    return guitarAgeCategoriesEnsemble
+                }
+
             default:
                 return {}
         }
@@ -455,34 +496,6 @@ const Register = () => {
         );
     }, [control, t]);
 
-    const filteredAgeCategories = useMemo(() => {
-        switch (selectedCompetition) {
-            case competitionList.Piano:
-                if (PerformanceCategoryValue === PerformanceCategory.Solo) {
-                    return ageCategories
-                } else {
-                    return ensembleAgeCategories
-                }
-
-            case competitionList.Woodwinds:
-                if (PerformanceCategoryValue === PerformanceCategory.Solo) {
-                    return woodwinAgeCategoriesSolo
-                } else {
-                    return woodwinAgeCategoriesEnsemble
-                }
-
-            case competitionList.Percussions:
-                if (PerformanceCategoryValue === PerformanceCategory.Solo) {
-                    return percussionAgeCategoriesSolo
-                } else {
-                    return PercussionAgeCategoriesEnsemble
-                }
-
-            default:
-                return {}
-        }
-    }, [selectedCompetition, PerformanceCategoryValue])
-
     const isCategoryDisabled = (key) => {
         switch (key) {
             case competitionList.Piano:
@@ -490,6 +503,10 @@ const Register = () => {
             // case competitionList.Percussions:
             //     return false
             // case competitionList.Woodwinds:
+            //     return false
+            // case competitionList.Guitar:
+            //     return false
+            // case competitionList.Harp:
             //     return false
             default:
                 return true
@@ -762,7 +779,7 @@ const Register = () => {
                                     rules={{ required: t("register.errors.required") }}
                                     render={({ field }) => (
                                         <RadioGroup {...field}
-                                            value={field.value || ""} // ✅ force controlled value
+                                            value={field.value || ""}
                                             row>
                                             {Object.entries(instrumentCategoryList).map(([key, label]) => (
                                                 <FormControlLabel

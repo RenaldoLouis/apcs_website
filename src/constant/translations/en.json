@@ -103,7 +103,14 @@
             "JuniorPercussion": "Junior (15-18 years old)",
             "YouthPercussion": "Youth (19-22 years old)",
             "OpenAgePercussion": "Open Age (23+ years old)",
-            "FreeChoicePercussion": "Free Choice (4+ years old)"
+            "FreeChoicePercussion": "Free Choice (4+ years old)",
+            "PetiteGuitar": "Petite (4-6 years old)",
+            "PrimaryGuitar": "Primary (7-9 years old)",
+            "YoungGuitar": "Young (10-12 years old)",
+            "JuniorGuitar": "Junior (13-15 years old)",
+            "YouthGuitar": "Youth (16-19 years old)",
+            "OpenAgeGuitar": "Open Age (4+ years old)",
+            "FreeChoiceGuitar": "Free Choice (4+ years old)"
         },
         "title": "REGISTRATION FORM",
         "description": {
@@ -212,7 +219,12 @@
             "any_traditional_woodwin": "Any Traditional Woodwind",
             "woodwind_two_five_performer": "2–5 Performers (Combination of Any Woodwind Instruments)",
             "woodwind_six_nine_performer": "6–9 Performers (Combination of Any Woodwind Instruments)",
-            "woodwind_ten_fifteen_performer": "10–15 Performers (Combination of Any Woodwind Instruments)"
+            "woodwind_ten_fifteen_performer": "10–15 Performers (Combination of Any Woodwind Instruments)",
+            "Classic": "Classical Nylon Guitar (Classical)",
+            "FreeGenre": "Any Acoustic Guitar Strings and Nylon (Free Genre)*",
+            "twoToFive": "2-5 Performers (combination of any instruments)",
+            "sixToNine": "6-9 Performers (combination of any instruments)",
+            "tenToFifteen": "10-15 Performers (combination of any instruments)"
         },
         "competitionList": {
             "Piano": "Piano",

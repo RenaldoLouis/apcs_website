@@ -103,7 +103,14 @@
             "JuniorPercussion": "Junior (15-18 tahun)",
             "YouthPercussion": "Youth (19-22 tahun)",
             "OpenAgePercussion": "Usia Terbuka (23 tahun ke atas)",
-            "FreeChoicePercussion": "Pilihan Bebas (4 tahun ke atas)"
+            "FreeChoicePercussion": "Pilihan Bebas (4 tahun ke atas)",
+            "PetiteGuitar": "Petite (usia 4–6 tahun)",
+            "PrimaryGuitar": "Primary (usia 7–9 tahun)",
+            "YoungGuitar": "Young (usia 10–12 tahun)",
+            "JuniorGuitar": "Junior (usia 13–15 tahun)",
+            "YouthGuitar": "Youth (usia 16–19 tahun)",
+            "OpenAgeGuitar": "Usia Terbuka (usia 4+ tahun)",
+            "FreeChoiceGuitar": "Pilihan Bebas (usia 4+ tahun)"
         },
         "title": "FORMULIR PENDAFTARAN",
         "description": {
@@ -212,7 +219,12 @@
             "any_traditional_woodwin": "Alat Tiup Kayu Tradisional Lainnya",
             "woodwind_two_five_performer": "2–5 Pemain (Kombinasi alat tiup kayu apapun)",
             "woodwind_six_nine_performer": "6–9 Pemain (Kombinasi alat tiup kayu apapun)",
-            "woodwind_ten_fifteen_performer": "10–15 Pemain (Kombinasi alat tiup kayu apapun)"
+            "woodwind_ten_fifteen_performer": "10–15 Pemain (Kombinasi alat tiup kayu apapun)",
+            "Classic": "Gitar Klasik Nylon (Klasik)",
+            "FreeGenre": "Senar Gitar Akustik dan Nylon Apa Saja (Genre Bebas)*",
+            "twoToFive": "2-5 Penampil (kombinasi alat musik apa saja)",
+            "sixToNine": "6-9 Penampil (kombinasi alat musik apa saja)",
+            "tenToFifteen": "10-15 Penampil (kombinasi alat musik apa saja)"
         },
         "competitionList": {
             "Piano": "Piano",
