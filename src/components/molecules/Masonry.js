@@ -1,5 +1,5 @@
-import { useState, useEffect, useMemo, useRef } from 'react';
-import { useTransition, a } from '@react-spring/web';
+import { a, useTransition } from '@react-spring/web';
+import { useEffect, useMemo, useRef, useState } from 'react';
 
 function Masonry({ data }) {
     const [columns, setColumns] = useState(2);
@@ -96,9 +96,16 @@ function Masonry({ data }) {
                             // backgroundImage: `url(${item.image})`,
                             backgroundSize: 'cover',
                             backgroundPosition: 'center',
+                            overflow: "hidden",
+                            boxSizing: "border-box"
                         }}
                     >
-                        <img style={{ width: "100%", height: "auto" }} src={item.image} alt="Background" />
+                        <img style={{
+                            width: "calc(100% + 4px)",  // Add 4px to compensate for 2px crop on both sides
+                            height: "auto",
+                            // clipPath: "inset(2px)",
+                            margin: "-2px"  // Shift image up and left to crop visually
+                        }} src={item.image} alt="Background" />
                     </div>
                     {/* <div style={{ color: "white" }}>
                         asdas{item.id}
