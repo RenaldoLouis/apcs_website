@@ -224,7 +224,9 @@
             "FreeGenre": "Senar Gitar Akustik dan Nylon Apa Saja (Genre Bebas)*",
             "twoToFive": "2-5 Penampil (kombinasi alat musik apa saja)",
             "sixToNine": "6-9 Penampil (kombinasi alat musik apa saja)",
-            "tenToFifteen": "10-15 Penampil (kombinasi alat musik apa saja)"
+            "tenToFifteen": "10-15 Penampil (kombinasi alat musik apa saja)",
+            "pedal": "Pedal",
+            "lever": "Lever"
         },
         "competitionList": {
             "Piano": "Piano",

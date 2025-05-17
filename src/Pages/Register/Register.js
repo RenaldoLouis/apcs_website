@@ -31,7 +31,7 @@ import FileInput from '../../components/molecules/FileInput';
 import RadioForm from '../../components/molecules/Form/RadioForm';
 import LoadingOverlay from '../../components/molecules/LoadingOverlay';
 import { countryCodes } from '../../constant/CountryCodePhone';
-import { ageCategories, competitionList, ensembleAgeCategories, guitarAgeCategoriesEnsemble, guitarAgeCategoriesSolo, GuitarInstrumentListEnsemble, GuitarInstrumentListSolo, PercussionAgeCategoriesEnsemble, percussionAgeCategoriesSolo, PercussionInstrumentListEnsemble, PercussionInstrumentListSolo, PerformanceCategory, PianoInstrumentListEnsemble, PianoInstrumentListSolo, woodwinAgeCategoriesEnsemble, woodwinAgeCategoriesSolo, WoodwindInstrumentListEnsemble, WoodwindInstrumentListSolo } from '../../constant/RegisterPageConst';
+import { ageCategories, competitionList, ensembleAgeCategories, guitarAgeCategoriesEnsemble, guitarAgeCategoriesSolo, GuitarInstrumentListEnsemble, GuitarInstrumentListSolo, HarpInstrumentListEnsemble, HarpInstrumentListSolo, PercussionAgeCategoriesEnsemble, percussionAgeCategoriesSolo, PercussionInstrumentListEnsemble, PercussionInstrumentListSolo, PerformanceCategory, PianoInstrumentListEnsemble, PianoInstrumentListSolo, woodwinAgeCategoriesEnsemble, woodwinAgeCategoriesSolo, WoodwindInstrumentListEnsemble, WoodwindInstrumentListSolo } from '../../constant/RegisterPageConst';
 import { useAuth } from '../../context/DataContext';
 import { db } from '../../firebase';
 
@@ -345,6 +345,13 @@ const Register = () => {
                     return GuitarInstrumentListEnsemble
                 }
 
+            case competitionList.Harp:
+                if (PerformanceCategoryValue === PerformanceCategory.Solo) {
+                    return HarpInstrumentListSolo
+                } else {
+                    return HarpInstrumentListEnsemble
+                }
+
             default:
                 return {}
         }
@@ -373,6 +380,12 @@ const Register = () => {
                     return PercussionAgeCategoriesEnsemble
                 }
             case competitionList.Guitar:
+                if (PerformanceCategoryValue === PerformanceCategory.Solo) {
+                    return guitarAgeCategoriesSolo
+                } else {
+                    return guitarAgeCategoriesEnsemble
+                }
+            case competitionList.Harp:
                 if (PerformanceCategoryValue === PerformanceCategory.Solo) {
                     return guitarAgeCategoriesSolo
                 } else {

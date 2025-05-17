@@ -50,6 +50,22 @@ export const guitarAgeCategoriesEnsemble = {
     nineteen_plus: "19+ years old",
     mixed: "Mixed",
 }
+
+export const harpAgeCategoriesSolo = {
+    PetiteGuitar: "Petite (4-6 years old)",
+    PrimaryGuitar: "Primary (7-9 years old)",
+    YoungGuitar: "Young (10-12 years old)",
+    JuniorGuitar: "Junior (13-15 years old)",
+    YouthGuitar: "Youth (16-19 years old)",
+    OpenAgeGuitar: "Open Age (4+ years old)",
+    FreeChoiceGuitar: "Free Choice (4+ years old)",
+}
+
+export const harpAgeCategoriesEnsemble = {
+    four_nineteen: "4-19 years old",
+    nineteen_plus: "19+ years old",
+    mixed: "Mixed",
+}
 export const woodwinAgeCategoriesEnsemble = {
     four_nineteen: "4-19 years old",
     nineteen_plus: "19+ years old",
@@ -104,6 +120,17 @@ export const GuitarInstrumentListSolo = {
 }
 
 export const GuitarInstrumentListEnsemble = {
+    twoToFive: "2-5 Performers (combination of any instruments)",
+    sixToNine: "6-9 Performers (combination of any instruments)",
+    tenToFifteen: "10-15 Performers (combination of any instruments)",
+}
+
+export const HarpInstrumentListSolo = {
+    pedal: "Pedal Harp",
+    lever: "Level Harp",
+}
+
+export const HarpInstrumentListEnsemble = {
     twoToFive: "2-5 Performers (combination of any instruments)",
     sixToNine: "6-9 Performers (combination of any instruments)",
     tenToFifteen: "10-15 Performers (combination of any instruments)",
