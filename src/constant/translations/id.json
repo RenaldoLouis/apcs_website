@@ -74,6 +74,7 @@
     "phoneNumber": "Nomor Telepon",
     "commentContact": "Butuh informasi lebih lanjut?",
     "register": {
+        "noElectric": "Tidak diperbolehkan Menggunakan gitar listrik",
         "ageCategories": {
             "Poco": "Poco (Usia 4-5 tahun)",
             "Petite": "Petite (Usia 6-7 tahun)",

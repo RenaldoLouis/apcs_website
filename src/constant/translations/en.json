@@ -74,6 +74,7 @@
     "phoneNumber": "Phone Number",
     "commentContact": "How can we help you?",
     "register": {
+        "noElectric": "Strictly no electric guitar",
         "ageCategories": {
             "Poco": "Poco (4-5 years old)",
             "Petite": "Petite (6-7 years old)",

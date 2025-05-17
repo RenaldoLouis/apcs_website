@@ -770,6 +770,10 @@ const Register = () => {
                                 itemList={PerformanceCategory}
                                 setValue={setValue}
                             />
+                            {selectedCompetition === competitionList.Guitar && PerformanceCategoryValue === PerformanceCategory.Solo && (
+                                <small className="note">*{t("register.noElectric")}. </small>
+                            )}
+
 
 
                             {/* Instrument Category (Radio Buttons) */}
@@ -826,6 +830,10 @@ const Register = () => {
                                     <p style={{ color: "red" }}>{errors.instrumentCategory.message}</p>
                                 )}
                             </FormControl>
+                            {selectedCompetition === competitionList.Harp && PerformanceCategoryValue === PerformanceCategory.Ensemble && (
+                                <small className="note">*Solo Pedal with Ensemble/Piano, Lever Harp with Ensemble/
+                                    Piano, Harp Ensemble. </small>
+                            )}
 
 
                             {/* Age Category (Radio Buttons) */}
