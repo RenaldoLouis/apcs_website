@@ -5,4 +5,5 @@ export const CountryConst = {
     RSA: "RSA",
     CHI: "CHI",
     AMR: "AMR",
+    JP: "JP",
 }

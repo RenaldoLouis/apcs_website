@@ -1,12 +1,15 @@
-import React from "react";
 import { useTranslation } from "react-i18next";
 import amrFlag from "../../assets/images/amrFlag.jpg";
 import chinaflag from "../../assets/images/chinaflag.jpg";
 import denmarkflag from "../../assets/images/denmarkflag.jpg"; // fidland
+import japanFlag from "../../assets/images/Flag_of_Japan.png";
 import indFlag from "../../assets/images/indFlag.jpg";
 import jurist0 from "../../assets/images/jurists/jurist0.png";
 import jurist1 from "../../assets/images/jurists/jurist1.png";
 import jurist10 from "../../assets/images/jurists/jurist10.png";
+import jurist11 from "../../assets/images/jurists/jurist11.png";
+import jurist12 from "../../assets/images/jurists/jurist12.png";
+import jurist13 from "../../assets/images/jurists/jurist13.png";
 import jurist2 from "../../assets/images/jurists/jurist2.png";
 import jurist3 from "../../assets/images/jurists/jurist3.png";
 import jurist4 from "../../assets/images/jurists/jurist4.png";
@@ -111,6 +114,30 @@ const NotableJurist = () => {
             country: [CountryConst.IDN],
             link: "https://www.instagram.com/p/CvRD0tYhJI8/?igsh=eTZsd21ieXd3eGJ0&img_index=3"
         },
+        {
+            image: jurist11,
+            name: "NOZOMI HIWATASHI",
+            title: "Jurist 2024",
+            quote: t("about19"),
+            country: [CountryConst.JP],
+            link: "https://www.instagram.com/p/DJtLrHZBUOo/?img_index=3&igsh=MXJ3NXdncTA3c3pqdQ%3D%3D"
+        },
+        {
+            image: jurist12,
+            name: "AARON KURZ",
+            title: "Jurist 2024",
+            quote: t("about20"),
+            country: [CountryConst.AMR],
+            link: "https://www.instagram.com/p/DJW1yq4Bj34/?img_index=2&igsh=MTlrcWpjNW53cjdxMQ%3D%3D"
+        },
+        {
+            image: jurist13,
+            name: "DR. JIN YUN",
+            title: "Jurist 2024",
+            quote: t("about21"),
+            country: [CountryConst.KR],
+            link: "https://www.instagram.com/p/DJqT3uUBAP-/?igsh=MW1mYmsyZjg2cTR5NA%3D%3D&img_index=3"
+        },
     ]
 
     const handleOpenFirdy = () => {
@@ -183,6 +210,9 @@ const NotableJurist = () => {
                                 case CountryConst.AMR:
                                     return amrFlag;
 
+                                case CountryConst.JP:
+                                    return japanFlag;
+
                                 default:
                                     return indFlag;
 
@@ -214,7 +244,7 @@ const NotableJurist = () => {
                                 </div>
                                 <div className="d-flex" style={{ marginBottom: 40 }}>
                                     {eachData.country.map((eachCountry, index) => (
-                                        <img key={`country-${index}`} src={flagIcon(eachCountry)} alt={eachCountry} style={{ marginRight: 13, width: isMobileAndSmaller ? 35 : 50 }} />
+                                        <img key={`country-${index}`} src={flagIcon(eachCountry)} alt={eachCountry} style={{ height: 26, marginRight: 13, width: isMobileAndSmaller ? 35 : 50 }} />
                                     ))}
 
                                 </div>
