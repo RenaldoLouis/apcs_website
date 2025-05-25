@@ -30,6 +30,7 @@ import banner from "../../assets/images/banner.png";
 import FileInput from '../../components/molecules/FileInput';
 import RadioForm from '../../components/molecules/Form/RadioForm';
 import LoadingOverlay from '../../components/molecules/LoadingOverlay';
+import YoutubeDurationFetcher from '../../components/molecules/YoutubeVideoFetcher';
 import { countryCodes } from '../../constant/CountryCodePhone';
 import { ageCategories, competitionList, ensembleAgeCategories, guitarAgeCategoriesEnsemble, guitarAgeCategoriesSolo, GuitarInstrumentListEnsemble, GuitarInstrumentListSolo, HarpInstrumentListEnsemble, HarpInstrumentListSolo, PercussionAgeCategoriesEnsemble, percussionAgeCategoriesSolo, PercussionInstrumentListEnsemble, PercussionInstrumentListSolo, PerformanceCategory, PianoInstrumentListEnsemble, PianoInstrumentListSolo, woodwinAgeCategoriesEnsemble, woodwinAgeCategoriesSolo, WoodwindInstrumentListEnsemble, WoodwindInstrumentListSolo } from '../../constant/RegisterPageConst';
 import { useAuth } from '../../context/DataContext';
@@ -59,6 +60,7 @@ const Register = () => {
     const [isSaveSuccess, setIsSaveSuccess] = useState(false);
     const [totalPerformer, setTotalPerformer] = useState(1);
     const [progressLoading, setProgressLoading] = useState(10);
+    const [youtubeDuration, setYoutubeDuration] = useState(0);
 
     const { unregister, setValue, watch, register, control, formState: { errors }, handleSubmit, reset, clearErrors } = useForm({
         defaultValues: {
@@ -94,6 +96,8 @@ const Register = () => {
     const instrumentCategoryValue = watch("instrumentCategory");
     const PerformanceCategoryValue = watch("PerformanceCategory");
     const sameAddressValue = watch("sameAddress");
+    const youtubeLinkValue = watch("youtubeLink");
+    const watchedFields = watch("performers");
     const performersValue = useWatch({ control, name: "performers" });
 
     const { fields, append, remove } = useFieldArray({
@@ -101,7 +105,14 @@ const Register = () => {
         name: "performers"
     });
 
-    const watchedFields = watch("performers");
+    const extractVideoId = (url) => {
+        try {
+            const parsed = new URL(url);
+            return parsed.searchParams.get("v") || parsed.pathname.split("/").pop();
+        } catch {
+            return null;
+        }
+    };
 
     const getFirstErrorKey = (errorObj, path = '') => {
         for (const key in errorObj) {
@@ -211,6 +222,7 @@ const Register = () => {
                 performers: formattedDatePerformers,
                 name: data.name,
                 youtubeLink: data.youtubeLink,
+                videoDuration: youtubeDuration + 70,
                 profilePhotoS3Link: profilePhotoS3Link,
                 pdfRepertoireS3Link: pdfRepertoireS3Link,
                 birthCertS3Link: birthCertS3Link,
@@ -1522,7 +1534,14 @@ const Register = () => {
                     </div>
                 </div>
             </div >
+            <YoutubeDurationFetcher
+                videoId={extractVideoId(youtubeLinkValue)}
+                onDurationFetched={(duration) => {
+                    setYoutubeDuration(duration);
+                }}
+            />
         </div >
+
     )
 }
 
