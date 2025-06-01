@@ -1,10 +1,8 @@
-import React, { useState } from 'react';
-import { Layout, theme } from 'antd';
-import { Table } from 'antd';
-import usePaginatedUsers from '../../hooks/useFetchUsersData';
-import apis from '../../apis';
-import { Button, Flex } from 'antd';
+import { Button, Layout, Table, theme } from 'antd';
+import { useState } from 'react';
 import { toast } from 'react-toastify';
+import apis from '../../apis';
+import usePaginatedUsers from '../../hooks/useFetchUsersData';
 
 const { Content } = Layout;
 
@@ -93,7 +91,8 @@ const UserContent = () => {
 
     const handleClickSendEmail = () => {
         const listEmail = userDatas.map((eachData) => ({
-            email: eachData.email
+            email: eachData.email,
+            name: eachData.name
         }))
         try {
             setIsLoading(true)
