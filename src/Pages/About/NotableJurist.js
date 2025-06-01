@@ -10,6 +10,8 @@ import jurist10 from "../../assets/images/jurists/jurist10.png";
 import jurist11 from "../../assets/images/jurists/jurist11.png";
 import jurist12 from "../../assets/images/jurists/jurist12.png";
 import jurist13 from "../../assets/images/jurists/jurist13.png";
+import jurist14 from "../../assets/images/jurists/jurist14.png";
+import jurist15 from "../../assets/images/jurists/jurist15.png";
 import jurist2 from "../../assets/images/jurists/jurist2.png";
 import jurist3 from "../../assets/images/jurists/jurist3.png";
 import jurist4 from "../../assets/images/jurists/jurist4.png";
@@ -136,6 +138,22 @@ const NotableJurist = () => {
             title: "Jurist 2024",
             quote: t("about21"),
             country: [CountryConst.KR],
+            link: "https://www.instagram.com/p/DJqT3uUBAP-/?igsh=MW1mYmsyZjg2cTR5NA%3D%3D&img_index=3"
+        },
+        {
+            image: jurist14,
+            name: "LIVIA SCHWEIZER",
+            title: "Jurist 2024",
+            quote: t("about22"),
+            country: [CountryConst.DNMRK],
+            link: "https://www.instagram.com/p/DJqT3uUBAP-/?igsh=MW1mYmsyZjg2cTR5NA%3D%3D&img_index=3"
+        },
+        {
+            image: jurist15,
+            name: "HSIEH MENG FU",
+            title: "Jurist 2024",
+            quote: t("about23"),
+            country: [CountryConst.CHI],
             link: "https://www.instagram.com/p/DJqT3uUBAP-/?igsh=MW1mYmsyZjg2cTR5NA%3D%3D&img_index=3"
         },
     ]
