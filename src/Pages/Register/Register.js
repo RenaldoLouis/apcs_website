@@ -32,7 +32,7 @@ import RadioForm from '../../components/molecules/Form/RadioForm';
 import LoadingOverlay from '../../components/molecules/LoadingOverlay';
 import YoutubeDurationFetcher from '../../components/molecules/YoutubeVideoFetcher';
 import { countryCodes } from '../../constant/CountryCodePhone';
-import { ageCategories, competitionList, ensembleAgeCategories, guitarAgeCategoriesEnsemble, guitarAgeCategoriesSolo, GuitarInstrumentListEnsemble, GuitarInstrumentListSolo, HarpInstrumentListEnsemble, HarpInstrumentListSolo, PercussionAgeCategoriesEnsemble, percussionAgeCategoriesSolo, PercussionInstrumentListEnsemble, PercussionInstrumentListSolo, PerformanceCategory, PianoInstrumentListEnsemble, PianoInstrumentListSolo, woodwinAgeCategoriesEnsemble, woodwinAgeCategoriesSolo, WoodwindInstrumentListEnsemble, WoodwindInstrumentListSolo } from '../../constant/RegisterPageConst';
+import { ageCategories, brassAgeCategoriesEnsemble, brassAgeCategoriesSolo, BrassInstrumentListEnsemble, BrassInstrumentListSolo, competitionList, ensembleAgeCategories, guitarAgeCategoriesEnsemble, guitarAgeCategoriesSolo, GuitarInstrumentListEnsemble, GuitarInstrumentListSolo, HarpInstrumentListEnsemble, HarpInstrumentListSolo, PercussionAgeCategoriesEnsemble, percussionAgeCategoriesSolo, PercussionInstrumentListEnsemble, PercussionInstrumentListSolo, PerformanceCategory, PianoInstrumentListEnsemble, PianoInstrumentListSolo, woodwinAgeCategoriesEnsemble, woodwinAgeCategoriesSolo, WoodwindInstrumentListEnsemble, WoodwindInstrumentListSolo } from '../../constant/RegisterPageConst';
 import { useAuth } from '../../context/DataContext';
 import { db } from '../../firebase';
 
@@ -364,6 +364,13 @@ const Register = () => {
                     return HarpInstrumentListEnsemble
                 }
 
+            case competitionList.Brass:
+                if (PerformanceCategoryValue === PerformanceCategory.Solo) {
+                    return BrassInstrumentListSolo
+                } else {
+                    return BrassInstrumentListEnsemble
+                }
+
             default:
                 return {}
         }
@@ -402,6 +409,12 @@ const Register = () => {
                     return guitarAgeCategoriesSolo
                 } else {
                     return guitarAgeCategoriesEnsemble
+                }
+            case competitionList.Brass:
+                if (PerformanceCategoryValue === PerformanceCategory.Solo) {
+                    return brassAgeCategoriesSolo
+                } else {
+                    return brassAgeCategoriesEnsemble
                 }
 
             default:
@@ -451,6 +464,30 @@ const Register = () => {
                             Quartet: 4,
                         };
                         return maxPerformersByCategory[instrumentCategoryValue] || 4;
+                    }
+
+                case competitionList.Guitar:
+                    if (PerformanceCategoryValue === PerformanceCategory.Solo) {
+                        return 1
+                    } else {
+                        const maxPerformersByCategory = {
+                            twoToFive: 5,
+                            sixToNine: 9,
+                            tenToFifteen: 15,
+                        };
+                        return maxPerformersByCategory[instrumentCategoryValue] || 15;
+                    }
+
+                case competitionList.Brass:
+                    if (PerformanceCategoryValue === PerformanceCategory.Solo) {
+                        return 1
+                    } else {
+                        const maxPerformersByCategory = {
+                            twoToFive: 5,
+                            sixToNine: 9,
+                            tenToFifteen: 15,
+                        };
+                        return maxPerformersByCategory[instrumentCategoryValue] || 15;
                     }
 
                 default:
@@ -529,8 +566,12 @@ const Register = () => {
             //     return false
             // case competitionList.Woodwinds:
             //     return false
-            // case competitionList.Guitar:
+            case competitionList.Guitar:
+                return false
+            // case competitionList.Vocal:
             //     return false
+            case competitionList.Brass:
+                return false
             // case competitionList.Harp:
             //     return false
             default:

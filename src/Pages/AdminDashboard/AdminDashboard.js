@@ -45,7 +45,7 @@ const AdminDashboard = () => {
 
     const items = [
         getItem('User Data', '1', <PieChartOutlined />),
-        getItem('User Data', '2', <SendOutlined />),
+        getItem('User Winner Data', '2', <SendOutlined />),
         getItem('Admin Page', '3', <DesktopOutlined />),
         getItem('Registrant Data', '4', <DesktopOutlined />),
         getItem('Seating', '5', <UsergroupAddOutlined />),

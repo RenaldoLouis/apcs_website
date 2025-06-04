@@ -51,6 +51,23 @@ export const guitarAgeCategoriesEnsemble = {
     mixed: "Mixed",
 }
 
+export const brassAgeCategoriesSolo = {
+    PetiteBrass: "Petite (4-6 years old)",
+    PrimaryBrass: "Primary (7-9 years old)",
+    YoungBrass: "Young (10-12 years old)",
+    JuniorBrass: "Junior (13-15 years old)",
+    YouthBrass: "Youth (16-19 years old)",
+    OpenAgeBrass: "Open Age (4+ years old)",
+    ProfessionalsAgeBrass: "Professional (19+ years old)",
+    FreeChoiceBrass: "Free Choice (4+ years old)",
+}
+
+export const brassAgeCategoriesEnsemble = {
+    four_nineteen: "4-19 years old",
+    nineteen_plus: "19+ years old",
+    mixed: "Mixed",
+}
+
 export const harpAgeCategoriesSolo = {
     PetiteGuitar: "Petite (4-6 years old)",
     PrimaryGuitar: "Primary (7-9 years old)",
@@ -131,6 +148,20 @@ export const HarpInstrumentListSolo = {
 }
 
 export const HarpInstrumentListEnsemble = {
+    twoToFive: "2-5 Performers (combination of any instruments)",
+    sixToNine: "6-9 Performers (combination of any instruments)",
+    tenToFifteen: "10-15 Performers (combination of any instruments)",
+}
+
+export const BrassInstrumentListSolo = {
+    trumpet: "Trumpet",
+    trombone: "Trombone",
+    french_horn: "French Horn",
+    tuba: "Tuba",
+    any_traditional: "Any Traditional Brass",
+}
+
+export const BrassInstrumentListEnsemble = {
     twoToFive: "2-5 Performers (combination of any instruments)",
     sixToNine: "6-9 Performers (combination of any instruments)",
     tenToFifteen: "10-15 Performers (combination of any instruments)",

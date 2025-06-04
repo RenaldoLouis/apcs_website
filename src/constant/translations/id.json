@@ -116,7 +116,15 @@
             "JuniorGuitar": "Junior (usia 13–15 tahun)",
             "YouthGuitar": "Youth (usia 16–19 tahun)",
             "OpenAgeGuitar": "Usia Terbuka (usia 4+ tahun)",
-            "FreeChoiceGuitar": "Pilihan Bebas (usia 4+ tahun)"
+            "FreeChoiceGuitar": "Pilihan Bebas (usia 4+ tahun)",
+            "PetiteBrass": "Petite (Usia 4–6 tahun)",
+            "PrimaryBrass": "Primary (Usia 7–9 tahun)",
+            "YoungBrass": "Young (Usia 10–12 tahun)",
+            "JuniorBrass": "Junior (Usia 13–15 tahun)",
+            "YouthBrass": "Youth (Usia 16–19 tahun)",
+            "OpenAgeBrass": "Terbuka (Usia 4 tahun ke atas)",
+            "ProfessionalsAgeBrass": "Profesional (Usia 19 tahun ke atas)",
+            "FreeChoiceBrass": "Pilihan Bebas (Usia 4 tahun ke atas)"
         },
         "title": "FORMULIR PENDAFTARAN",
         "description": {
@@ -231,8 +239,13 @@
             "twoToFive": "2-5 Penampil (kombinasi alat musik apa saja)",
             "sixToNine": "6-9 Penampil (kombinasi alat musik apa saja)",
             "tenToFifteen": "10-15 Penampil (kombinasi alat musik apa saja)",
-            "pedal": "Pedal",
-            "lever": "Lever"
+            "pedal": "Pedal Harpa",
+            "lever": "Lever Harpa",
+            "trumpet": "Terompet",
+            "trombone": "Trombon",
+            "french_horn": "French Horn",
+            "tuba": "Tuba",
+            "any_traditional": "Instrumen Brass Tradisional Apa Pun*"
         },
         "competitionList": {
             "Piano": "Piano",
