@@ -4,6 +4,8 @@ import chinaflag from "../../assets/images/chinaflag.jpg";
 import denmarkflag from "../../assets/images/denmarkflag.jpg"; // fidland
 import japanFlag from "../../assets/images/Flag_of_Japan.png";
 import indFlag from "../../assets/images/indFlag.jpg";
+import italyFlag from "../../assets/images/italyFlag.png";
+import finlandFlag from "../../assets/images/finlandFlag.png";
 import jurist0 from "../../assets/images/jurists/jurist0.png";
 import jurist1 from "../../assets/images/jurists/jurist1.png";
 import jurist10 from "../../assets/images/jurists/jurist10.png";
@@ -145,7 +147,7 @@ const NotableJurist = () => {
             name: "LIVIA SCHWEIZER",
             title: "Jurist 2024",
             quote: t("about22"),
-            country: [CountryConst.DNMRK],
+            country: [CountryConst.ITL, CountryConst.FIN],
             link: "https://www.instagram.com/p/DJqT3uUBAP-/?igsh=MW1mYmsyZjg2cTR5NA%3D%3D&img_index=3"
         },
         {
@@ -230,6 +232,12 @@ const NotableJurist = () => {
 
                                 case CountryConst.JP:
                                     return japanFlag;
+
+                                case CountryConst.ITL:
+                                    return italyFlag;
+
+                                case CountryConst.FIN:
+                                    return finlandFlag;
 
                                 default:
                                     return indFlag;

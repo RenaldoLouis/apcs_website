@@ -564,16 +564,16 @@ const Register = () => {
                 return false
             // case competitionList.Percussions:
             //     return false
-            case competitionList.Woodwinds:
-                return false
+            // case competitionList.Woodwinds:
+            //     return false
             case competitionList.Guitar:
                 return false
             // case competitionList.Vocal:
             //     return false
             case competitionList.Brass:
                 return false
-            case competitionList.Harp:
-                return false
+            // case competitionList.Harp:
+            //     return false
             default:
                 return true
         }
