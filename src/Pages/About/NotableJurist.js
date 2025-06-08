@@ -14,6 +14,12 @@ import jurist12 from "../../assets/images/jurists/jurist12.png";
 import jurist13 from "../../assets/images/jurists/jurist13.png";
 import jurist14 from "../../assets/images/jurists/jurist14.png";
 import jurist15 from "../../assets/images/jurists/jurist15.png";
+import jurist16 from "../../assets/images/jurists/jurist16.png";
+import jurist17 from "../../assets/images/jurists/jurist17.png";
+import jurist18 from "../../assets/images/jurists/jurist18.png";
+import jurist19 from "../../assets/images/jurists/jurist19.png";
+import jurist20 from "../../assets/images/jurists/jurist20.png";
+import jurist21 from "../../assets/images/jurists/jurist21.png";
 import jurist2 from "../../assets/images/jurists/jurist2.png";
 import jurist3 from "../../assets/images/jurists/jurist3.png";
 import jurist4 from "../../assets/images/jurists/jurist4.png";
@@ -22,6 +28,9 @@ import jurist7 from "../../assets/images/jurists/jurist7.png";
 import jurist8 from "../../assets/images/jurists/jurist8.png";
 import jurist9 from "../../assets/images/jurists/jurist9.png";
 import koreaflag from "../../assets/images/koreaflag.jpg";
+import hungaryFlag from "../../assets/images/hungaryFlag.png";
+import singaporeFlag from "../../assets/images/singaporeFlag.png";
+import hongkongFLag from "../../assets/images/hongkongFlag.png";
 import russiaflag from "../../assets/images/russiaflag.jpg"; //estonia
 import AnimatedComponent from "../../components/atom/AnimatedComponent";
 import EllipsisText from "../../components/atom/EllipsisText";
@@ -158,6 +167,54 @@ const NotableJurist = () => {
             country: [CountryConst.CHI],
             link: "https://www.instagram.com/p/DJqT3uUBAP-/?igsh=MW1mYmsyZjg2cTR5NA%3D%3D&img_index=3"
         },
+        {
+            image: jurist16,
+            name: "András Dénes",
+            title: "Jurist 2024",
+            quote: t("about24"),
+            country: [CountryConst.HUN],
+            link: "https://www.instagram.com/p/DKgWHIhhL-E/?img_index=2"
+        },
+        {
+            image: jurist17,
+            name: "Bálint Képiró",
+            title: "Jurist 2024",
+            quote: t("about25"),
+            country: [CountryConst.HUN],
+            link: "https://www.instagram.com/p/DKgWHIhhL-E/?img_index=3"
+        },
+        {
+            image: jurist18,
+            name: "Theduardo",
+            title: "Jurist 2024",
+            quote: t("about26"),
+            country: [CountryConst.IDN],
+            link: "https://www.instagram.com/p/DKgRu_KBOGO/?img_index=2"
+        },
+        {
+            image: jurist19,
+            name: "YIFEI PEI",
+            title: "Jurist 2024",
+            quote: t("about27"),
+            country: [CountryConst.CHI],
+            link: "https://www.instagram.com/p/DKgRu_KBOGO/?img_index=3"
+        },
+        {
+            image: jurist20,
+            name: "KAREN TAY",
+            title: "Jurist 2024",
+            quote: t("about29"),
+            country: [CountryConst.SR],
+            link: "https://www.instagram.com/p/DJ_bzFdhHr2/?img_index=2"
+        },
+        {
+            image: jurist21,
+            name: "NATALIE LO",
+            title: "Jurist 2024",
+            quote: t("about28"),
+            country: [CountryConst.HK],
+            link: "https://www.instagram.com/p/DJ_bzFdhHr2/?img_index=3"
+        },
     ]
 
     const handleOpenFirdy = () => {
@@ -239,6 +296,15 @@ const NotableJurist = () => {
                                 case CountryConst.FIN:
                                     return finlandFlag;
 
+                                case CountryConst.HUN:
+                                    return hungaryFlag;
+
+                                case CountryConst.HK:
+                                    return hongkongFLag;
+
+                                case CountryConst.SR:
+                                    return singaporeFlag;
+
                                 default:
                                     return indFlag;
 
@@ -263,7 +329,7 @@ const NotableJurist = () => {
                                     </AnimatedComponent>
                                 </div>
                                 <div className="mangolaineFont text-align-center" style={{ fontSize: isMobileAndSmaller ? "6vmin" : "3.5vmin", marginBottom: 20 }}>
-                                    {eachData.name}
+                                    {eachData.name.toUpperCase()}
                                 </div>
                                 <div style={{ marginBottom: 20 }}>
                                     {eachData.title}

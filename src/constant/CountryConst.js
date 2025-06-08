@@ -7,5 +7,8 @@ export const CountryConst = {
     CHI: "CHI",
     AMR: "AMR",
     JP: "JP",
-    FIN: "Finland"
+    FIN: "Finland",
+    HUN: "Hungary",
+    HK: "Hongkong",
+    SR: "Singapore"
 }
