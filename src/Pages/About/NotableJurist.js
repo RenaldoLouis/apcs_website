@@ -2,10 +2,12 @@ import { useTranslation } from "react-i18next";
 import amrFlag from "../../assets/images/amrFlag.jpg";
 import chinaflag from "../../assets/images/chinaflag.jpg";
 import denmarkflag from "../../assets/images/denmarkflag.jpg"; // fidland
+import finlandFlag from "../../assets/images/finlandFlag.png";
 import japanFlag from "../../assets/images/Flag_of_Japan.png";
+import hongkongFLag from "../../assets/images/hongkongFlag.png";
+import hungaryFlag from "../../assets/images/hungaryFlag.png";
 import indFlag from "../../assets/images/indFlag.jpg";
 import italyFlag from "../../assets/images/italyFlag.png";
-import finlandFlag from "../../assets/images/finlandFlag.png";
 import jurist0 from "../../assets/images/jurists/jurist0.png";
 import jurist1 from "../../assets/images/jurists/jurist1.png";
 import jurist10 from "../../assets/images/jurists/jurist10.png";
@@ -18,9 +20,9 @@ import jurist16 from "../../assets/images/jurists/jurist16.png";
 import jurist17 from "../../assets/images/jurists/jurist17.png";
 import jurist18 from "../../assets/images/jurists/jurist18.png";
 import jurist19 from "../../assets/images/jurists/jurist19.png";
+import jurist2 from "../../assets/images/jurists/jurist2.png";
 import jurist20 from "../../assets/images/jurists/jurist20.png";
 import jurist21 from "../../assets/images/jurists/jurist21.png";
-import jurist2 from "../../assets/images/jurists/jurist2.png";
 import jurist3 from "../../assets/images/jurists/jurist3.png";
 import jurist4 from "../../assets/images/jurists/jurist4.png";
 import jurist6 from "../../assets/images/jurists/jurist6.png";
@@ -28,10 +30,8 @@ import jurist7 from "../../assets/images/jurists/jurist7.png";
 import jurist8 from "../../assets/images/jurists/jurist8.png";
 import jurist9 from "../../assets/images/jurists/jurist9.png";
 import koreaflag from "../../assets/images/koreaflag.jpg";
-import hungaryFlag from "../../assets/images/hungaryFlag.png";
-import singaporeFlag from "../../assets/images/singaporeFlag.png";
-import hongkongFLag from "../../assets/images/hongkongFlag.png";
 import russiaflag from "../../assets/images/russiaflag.jpg"; //estonia
+import singaporeFlag from "../../assets/images/singaporeFlag.png";
 import AnimatedComponent from "../../components/atom/AnimatedComponent";
 import EllipsisText from "../../components/atom/EllipsisText";
 import HeaderAbout from "../../components/atom/HeaderAbout";
@@ -185,7 +185,7 @@ const NotableJurist = () => {
         },
         {
             image: jurist18,
-            name: "Theduardo",
+            name: "Theduardo Prasetyo",
             title: "Jurist 2024",
             quote: t("about26"),
             country: [CountryConst.IDN],
