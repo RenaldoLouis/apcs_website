@@ -130,7 +130,15 @@
             "YouthBrass": "Youth (Usia 16–19 tahun)",
             "OpenAgeBrass": "Terbuka (Usia 4 tahun ke atas)",
             "ProfessionalsAgeBrass": "Profesional (Usia 19 tahun ke atas)",
-            "FreeChoiceBrass": "Pilihan Bebas (Usia 4 tahun ke atas)"
+            "FreeChoiceBrass": "Pilihan Bebas (Usia 4 tahun ke atas)",
+            "PetiteVocal": "Petite (usia 4–6 tahun)",
+            "PrimaryVocal": "Primary (usia 7–9 tahun)",
+            "YoungVocal": "Young (usia 10–12 tahun)",
+            "JuniorVocal": "Junior (usia 13–15 tahun)",
+            "YouthVocal": "Youth (usia 16–19 tahun)",
+            "OpenAgeVocal": "Usia Terbuka (usia 9+ tahun)",
+            "ProfessionalVocal": "Profesional (usia 19+ tahun)",
+            "FreeChoiceVocal": "Pilihan Bebas (usia 4+ tahun)"
         },
         "title": "FORMULIR PENDAFTARAN",
         "description": {
@@ -251,7 +259,16 @@
             "trombone": "Trombon",
             "french_horn": "French Horn",
             "tuba": "Tuba",
-            "any_traditional": "Instrumen Brass Tradisional Apa Pun*"
+            "any_traditional": "Instrumen Brass Tradisional Apa Pun*",
+            "Violin": "Violin",
+            "Viola": "Viola",
+            "Cello": "Cello",
+            "DoubleBass": "Double Bass",
+            "AnyTraditionalStrings": "Instrument Strings Tradisional Apa Pin",
+            "SoloVocal": "Solo dengan Instrumen Akustik (Klasik)",
+            "SoloAcousticVocal": "Solo tanpa Instrumen Akustik (Genre Bebas)",
+            "smallEnsemble": "Ensemble Kecil (Duo, Trio, Kuartet, Kuintet)",
+            "bigEnsemble": "Ensemble Besar/Paduan Suara (maks. 30 penampil)"
         },
         "competitionList": {
             "Piano": "Piano",
@@ -261,6 +278,7 @@
             "Percussions": "Alat Musik Perkusi",
             "Guitar": "Gitar",
             "Vocal": "Vokal ",
+            "VocalChoir": "Vocal&Choir",
             "Choir": "Paduan Suara",
             "Harp": "Harpa"
         },

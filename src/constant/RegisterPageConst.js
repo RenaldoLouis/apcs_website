@@ -11,6 +11,41 @@ export const ageCategories = {
     ConcertEtude: "Concert Etude (4+ years old)"
 }
 
+export const stringAgeCategoriesSolo = {
+    Poco: "Poco (4-5 years old)",
+    Petite: "Petite (6-7 years old)",
+    Primary: "Primary (8-11 years old)",
+    Young: "Young (12-15 years old)",
+    Junior: "Junior (16-19 years old)",
+    Youth: "Youth (20-23 years old)",
+    OpenAge: "Open Age (4+ years old)",
+    FreeChoice: "Free Choice (4+ years old)",
+    Professional: "Professionals (19-30 years old)",
+}
+
+export const stringAgeCategoriesEnsemble = {
+    four_nineteen: "4-19 years old",
+    nineteen_plus: "19-30 years old",
+    mixed: "Mixed",
+}
+
+export const vocalAgeCategoriesSolo = {
+    PetiteVocal: "Petite (4-6 years old)",
+    PrimaryVocal: "Primary (7-9 years old)",
+    YoungVocal: "Young (10-12 years old)",
+    JuniorVocal: "Junior (13-15 years old)",
+    YouthVocal: "Youth (16-19 years old)",
+    OpenAgeVocal: "Open Age (9+ years old)",
+    ProfessionalVocal: "Professionals (19+ years old)",
+    FreeChoiceVocal: "Free Choice (4+ years old)",
+}
+
+export const vocalAgeCategoriesEnsemble = {
+    four_nineteen: "4-19 years old",
+    nineteen_plus: "19-30 years old",
+    mixed: "Mixed",
+}
+
 export const ensembleAgeCategories = {
     older_than_four: "4+* years old (Combination Age)",
 }
@@ -100,8 +135,7 @@ export const competitionList = {
     Strings: "Strings",
     Brass: "Brass",
     Guitar: "Guitar",
-    Vocal: "Vocal",
-    Choir: "Choir",
+    VocalChoir: "VocalChoir",
     Harp: "Harp",
 }
 
@@ -123,6 +157,30 @@ export const PianoInstrumentListEnsemble = {
     Two_Piano_Multiple_Hands: "Two Pianos, Multiple Hands (4-16 Hands)",
     One_Piano_Instruments: "Any 2-5 Instruments/Performers with 1 Piano",
     TwoPiano_Instruments: "Any 6-9 Instruments/Performers with 2 Pianos"
+}
+
+export const StringsInstrumentListSolo = {
+    Violin: "Violin",
+    Viola: "Viola",
+    Cello: "Cello",
+    DoubleBass: "Double Bass",
+    AnyTraditionalStrings: "Any Traditional Strings",
+}
+
+export const StringsInstrumentListEnsemble = {
+    twoToFive: "2-5 Performers (combination of any instruments)",
+    sixToNine: "6-9 Performers (combination of any instruments)",
+    tenToFifteen: "10-15 Performers (combination of any instruments)",
+}
+
+export const VocalInstrumentListSolo = {
+    SoloVocal: "Solo With Acoustic Instrument (Classical)",
+    SoloAcousticVocal: "Solo Without Acoustic Instrument (Free Genre)"
+}
+
+export const VocalInstrumentListEnsemble = {
+    smallEnsemble: "Small Ensemble (Duo, Trio, Quartet, Quintet)",
+    bigEnsemble: "Big Ensemble/Choir(max. 30 performers) "
 }
 
 export const PercussionInstrumentListSolo = {

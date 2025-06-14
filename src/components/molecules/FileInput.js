@@ -3,10 +3,10 @@ import {
     QuestionCircleOutlined
 } from '@ant-design/icons';
 import { Box, Button, IconButton, InputLabel, Tooltip, Typography } from "@mui/material";
-import React, { useMemo } from "react";
+import { useMemo } from "react";
 import { useController } from "react-hook-form";
 
-const FileInput = ({ name, control, label, rules = {}, tooltipLabel, smallNotes = null, extraSmallNotes = null, extraExtraSmallNotes = null, inputRef }) => {
+const FileInput = ({ name, control, label, rules = {}, tooltipLabel, smallNotes = null, extraSmallNotes = null, extraExtraSmallNotes = null, inputRef, setValue }) => {
     // Custom validation function to check for spaces in the file name.
     const customValidate = (value) => {
         if (value && value.length > 0) {
@@ -61,7 +61,9 @@ const FileInput = ({ name, control, label, rules = {}, tooltipLabel, smallNotes 
     }, [file]);
 
     return (
-        <Box className='col-md-12 col-sm-12'>
+        <Box
+            id={`file-input-wrapper-${name}`}
+            className='col-md-12 col-sm-12'>
             <input
                 id={name}
                 name={name}
@@ -72,7 +74,15 @@ const FileInput = ({ name, control, label, rules = {}, tooltipLabel, smallNotes 
                     ref(e); // react-hook-form ref
                     inputRef.current = e; // your manual ref
                 }}
-                onChange={(e) => onChange(e.target.files)}
+                onChange={(e) => {
+                    const files = e.target.files;
+                    if (!files || files.length === 0) {
+                        // user clicked "cancel"
+                        setValue(name, null, { shouldValidate: true }); // ✅ ensure RHF state is updated
+                    } else {
+                        onChange(files);
+                    }
+                }}
                 style={{ display: "none" }}
             />
             <label htmlFor={name} style={{ display: "block", marginTop: "25px", width: "fit-content" }}>

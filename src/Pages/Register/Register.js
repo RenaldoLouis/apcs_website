@@ -32,7 +32,7 @@ import RadioForm from '../../components/molecules/Form/RadioForm';
 import LoadingOverlay from '../../components/molecules/LoadingOverlay';
 import YoutubeDurationFetcher from '../../components/molecules/YoutubeVideoFetcher';
 import { countryCodes } from '../../constant/CountryCodePhone';
-import { ageCategories, brassAgeCategoriesEnsemble, brassAgeCategoriesSolo, BrassInstrumentListEnsemble, BrassInstrumentListSolo, competitionList, ensembleAgeCategories, guitarAgeCategoriesEnsemble, guitarAgeCategoriesSolo, GuitarInstrumentListEnsemble, GuitarInstrumentListSolo, HarpInstrumentListEnsemble, HarpInstrumentListSolo, PercussionAgeCategoriesEnsemble, percussionAgeCategoriesSolo, PercussionInstrumentListEnsemble, PercussionInstrumentListSolo, PerformanceCategory, PianoInstrumentListEnsemble, PianoInstrumentListSolo, woodwinAgeCategoriesEnsemble, woodwinAgeCategoriesSolo, WoodwindInstrumentListEnsemble, WoodwindInstrumentListSolo } from '../../constant/RegisterPageConst';
+import { ageCategories, brassAgeCategoriesEnsemble, brassAgeCategoriesSolo, BrassInstrumentListEnsemble, BrassInstrumentListSolo, competitionList, ensembleAgeCategories, guitarAgeCategoriesEnsemble, guitarAgeCategoriesSolo, GuitarInstrumentListEnsemble, GuitarInstrumentListSolo, HarpInstrumentListEnsemble, HarpInstrumentListSolo, PercussionAgeCategoriesEnsemble, percussionAgeCategoriesSolo, PercussionInstrumentListEnsemble, PercussionInstrumentListSolo, PerformanceCategory, PianoInstrumentListEnsemble, PianoInstrumentListSolo, stringAgeCategoriesEnsemble, stringAgeCategoriesSolo, StringsInstrumentListEnsemble, StringsInstrumentListSolo, vocalAgeCategoriesEnsemble, vocalAgeCategoriesSolo, VocalInstrumentListEnsemble, VocalInstrumentListSolo, woodwinAgeCategoriesEnsemble, woodwinAgeCategoriesSolo, WoodwindInstrumentListEnsemble, WoodwindInstrumentListSolo } from '../../constant/RegisterPageConst';
 import { useAuth } from '../../context/DataContext';
 import { db } from '../../firebase';
 
@@ -130,18 +130,30 @@ const Register = () => {
 
     const onError = (errors) => {
         const fullErrorKey = getFirstErrorKey(errors);
-        if (fullErrorKey) {
-            const errorElement = document.querySelector(`[name="${fullErrorKey}"]`);
-            let errorElementID = null
-            if (errorElement === null || errorElement === undefined) {
-                errorElementID = document.querySelector(`#${fullErrorKey}`);
-            }
-            let element = null
-            element = errorElement || errorElementID
-            if (element) {
-                element.scrollIntoView({ behavior: "smooth", block: "center" });
-                element.focus();
-            }
+        if (!fullErrorKey) return;
+
+        const errorElement = document.querySelector(`[name="${fullErrorKey}"]`);
+        const errorElementID = document.getElementById(fullErrorKey);
+
+        // Check if this is a file input by checking tagName + type
+        const isHiddenFileInput =
+            errorElement?.tagName === "INPUT" &&
+            errorElement?.type === "file" &&
+            getComputedStyle(errorElement).display === "none";
+
+        let targetElement = null;
+
+        if (isHiddenFileInput) {
+            // Prefer scrolling to a visible wrapper for file inputs
+            targetElement = document.getElementById(`file-input-wrapper-${fullErrorKey}`);
+        }
+
+        // Fallbacks if not a hidden file input
+        targetElement = targetElement || errorElement || errorElementID;
+
+        if (targetElement) {
+            targetElement.scrollIntoView({ behavior: "smooth", block: "center" });
+            targetElement.focus?.({ preventScroll: true }); // preventScroll so it doesn't jump after scrolling
         }
     };
 
@@ -371,6 +383,20 @@ const Register = () => {
                     return BrassInstrumentListEnsemble
                 }
 
+            case competitionList.Strings:
+                if (PerformanceCategoryValue === PerformanceCategory.Solo) {
+                    return StringsInstrumentListSolo
+                } else {
+                    return StringsInstrumentListEnsemble
+                }
+
+            case competitionList.VocalChoir:
+                if (PerformanceCategoryValue === PerformanceCategory.Solo) {
+                    return VocalInstrumentListSolo
+                } else {
+                    return VocalInstrumentListEnsemble
+                }
+
             default:
                 return {}
         }
@@ -415,6 +441,20 @@ const Register = () => {
                     return brassAgeCategoriesSolo
                 } else {
                     return brassAgeCategoriesEnsemble
+                }
+
+            case competitionList.Strings:
+                if (PerformanceCategoryValue === PerformanceCategory.Solo) {
+                    return stringAgeCategoriesSolo
+                } else {
+                    return stringAgeCategoriesEnsemble
+                }
+
+            case competitionList.VocalChoir:
+                if (PerformanceCategoryValue === PerformanceCategory.Solo) {
+                    return vocalAgeCategoriesSolo
+                } else {
+                    return vocalAgeCategoriesEnsemble
                 }
 
             default:
@@ -490,6 +530,29 @@ const Register = () => {
                         return maxPerformersByCategory[instrumentCategoryValue] || 15;
                     }
 
+                case competitionList.Strings:
+                    if (PerformanceCategoryValue === PerformanceCategory.Solo) {
+                        return 1
+                    } else {
+                        const maxPerformersByCategory = {
+                            twoToFive: 5,
+                            sixToNine: 9,
+                            tenToFifteen: 15,
+                        };
+                        return maxPerformersByCategory[instrumentCategoryValue] || 15;
+                    }
+
+                case competitionList.VocalChoir:
+                    if (PerformanceCategoryValue === PerformanceCategory.Solo) {
+                        return 1
+                    } else {
+                        const maxPerformersByCategory = {
+                            smallEnsemble: 5,
+                            bigEnsemble: 30
+                        };
+                        return maxPerformersByCategory[instrumentCategoryValue] || 5;
+                    }
+
                 default:
                     return 2
             }
@@ -562,18 +625,20 @@ const Register = () => {
         switch (key) {
             case competitionList.Piano:
                 return false
-            // case competitionList.Percussions:
-            //     return false
-            // case competitionList.Woodwinds:
-            //     return false
+            case competitionList.Percussions:
+                return false
+            case competitionList.Woodwinds:
+                return false
             case competitionList.Guitar:
                 return false
-            // case competitionList.Vocal:
-            //     return false
+            case competitionList.VocalChoir:
+                return false
             case competitionList.Brass:
                 return false
-            // case competitionList.Harp:
-            //     return false
+            case competitionList.Harp:
+                return false
+            case competitionList.Strings:
+                return false
             default:
                 return true
         }
@@ -1392,6 +1457,7 @@ const Register = () => {
                                 rules={{ required: t("register.errors.required") }}
                                 tooltipLabel={t("register.form.profilePhotoTooltip")}
                                 inputRef={profilePhotoInputRef}
+                                setValue={setValue}
                             />
 
                             {/* Exam Certificate Upload */}
@@ -1404,6 +1470,7 @@ const Register = () => {
                                 rules={{ required: t("register.errors.required") }}
                                 tooltipLabel={t("register.form.examCertTooltip")}
                                 inputRef={examInputRef}
+                                setValue={setValue}
                             />
 
                             {/* Birth Certificate Upload */}
@@ -1416,6 +1483,7 @@ const Register = () => {
                                 rules={{ required: t("register.errors.required") }}
                                 tooltipLabel={t("register.form.birthCertTooltip")}
                                 inputRef={birthCertInputRef}
+                                setValue={setValue}
                             />
 
                             {/* PDF Repertoire Upload */}
@@ -1428,6 +1496,7 @@ const Register = () => {
                                 rules={{ required: t("register.errors.required") }}
                                 tooltipLabel={t("register.form.repertoireTooltip")}
                                 inputRef={repertoireInputRef}
+                                setValue={setValue}
                             />
 
 
