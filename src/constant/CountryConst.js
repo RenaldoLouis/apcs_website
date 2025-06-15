@@ -10,5 +10,7 @@ export const CountryConst = {
     FIN: "Finland",
     HUN: "Hungary",
     HK: "Hongkong",
-    SR: "Singapore"
+    SR: "Singapore",
+    TRK: "Turkey",
+    EST: "Estonia"
 }

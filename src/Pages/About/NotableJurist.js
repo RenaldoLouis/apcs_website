@@ -2,6 +2,7 @@ import { useTranslation } from "react-i18next";
 import amrFlag from "../../assets/images/amrFlag.jpg";
 import chinaflag from "../../assets/images/chinaflag.jpg";
 import denmarkflag from "../../assets/images/denmarkflag.jpg"; // fidland
+import estoniaFlag from "../../assets/images/estoniaFlag.png";
 import finlandFlag from "../../assets/images/finlandFlag.png";
 import japanFlag from "../../assets/images/Flag_of_Japan.png";
 import hongkongFLag from "../../assets/images/hongkongFlag.png";
@@ -23,6 +24,10 @@ import jurist19 from "../../assets/images/jurists/jurist19.png";
 import jurist2 from "../../assets/images/jurists/jurist2.png";
 import jurist20 from "../../assets/images/jurists/jurist20.png";
 import jurist21 from "../../assets/images/jurists/jurist21.png";
+import jurist22 from "../../assets/images/jurists/jurist22.png";
+import jurist23 from "../../assets/images/jurists/jurist23.png";
+import jurist24 from "../../assets/images/jurists/Jurist24.png";
+import jurist25 from "../../assets/images/jurists/Jurist25.png";
 import jurist3 from "../../assets/images/jurists/jurist3.png";
 import jurist4 from "../../assets/images/jurists/jurist4.png";
 import jurist6 from "../../assets/images/jurists/jurist6.png";
@@ -32,6 +37,7 @@ import jurist9 from "../../assets/images/jurists/jurist9.png";
 import koreaflag from "../../assets/images/koreaflag.jpg";
 import russiaflag from "../../assets/images/russiaflag.jpg"; //estonia
 import singaporeFlag from "../../assets/images/singaporeFlag.png";
+import turkeyFlag from "../../assets/images/turkeyFlag.png";
 import AnimatedComponent from "../../components/atom/AnimatedComponent";
 import EllipsisText from "../../components/atom/EllipsisText";
 import HeaderAbout from "../../components/atom/HeaderAbout";
@@ -215,6 +221,38 @@ const NotableJurist = () => {
             country: [CountryConst.HK],
             link: "https://www.instagram.com/p/DJ_bzFdhHr2/?img_index=3"
         },
+        {
+            image: jurist23,
+            name: "Vahur Luhtsalu",
+            title: "Jurist 2024",
+            quote: t("about30"),
+            country: [CountryConst.EST],
+            link: "https://www.instagram.com/p/DKyvVwTBS-h/?img_index=3"
+        },
+        {
+            image: jurist22,
+            name: "Öykü Melis Şahin",
+            title: "Jurist 2024",
+            quote: t("about31"),
+            country: [CountryConst.TRK],
+            link: "https://www.instagram.com/p/DKyvVwTBS-h/?img_index=2"
+        },
+        {
+            image: jurist24,
+            name: "Jennifer Tan",
+            title: "Jurist 2024",
+            quote: t("about32"),
+            country: [CountryConst.IDN],
+            link: "https://www.instagram.com/p/DKr4wOFB4_O/?img_index=2"
+        },
+        {
+            image: jurist25,
+            name: "Jessica januar",
+            title: "Jurist 2024",
+            quote: t("about33"),
+            country: [CountryConst.IDN],
+            link: "https://www.instagram.com/p/DKr4wOFB4_O/?img_index=3"
+        },
     ]
 
     const handleOpenFirdy = () => {
@@ -304,6 +342,12 @@ const NotableJurist = () => {
 
                                 case CountryConst.SR:
                                     return singaporeFlag;
+
+                                case CountryConst.TRK:
+                                    return turkeyFlag;
+
+                                case CountryConst.EST:
+                                    return estoniaFlag;
 
                                 default:
                                     return indFlag;
