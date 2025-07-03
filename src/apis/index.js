@@ -84,5 +84,9 @@ export default {
   aws: {
     postSignedUrl: (directoryname, fileName) => postRequest(`/api/v1/apcs/signed-url-images?directoryname=${directoryname}&fileName=${fileName}`),
     downloadFiles: (files) => postBlobRequest(`/api/v1/apcs/download-files-aws`, files),
+  },
+  bookings: {
+    create: (data) => postRequest(`/api/v1/apcs/bookings`, data),
+    checkStatus: (bookingId) => postRequest(`/api/v1/apcs/bookings/status?bookingId=${bookingId}`),
   }
 };

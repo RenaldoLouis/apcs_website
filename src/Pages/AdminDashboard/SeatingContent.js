@@ -1,199 +1,236 @@
-import { Button } from 'antd';
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import SeatPicker from "react-seat-picker";
+import { Alert, Button, Card, Checkbox, Col, Divider, Input, InputNumber, List, message, Row, Spin, Typography } from 'antd';
+import { useMemo, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import SeatPicker from 'react-seat-picker';
 import apis from '../../apis';
-import Barcode from 'react-barcode';
+import { useEventBookingData } from '../../hooks/useEventBookingData';
+
+const { Title, Text, Paragraph } = Typography;
 
 const SeatingContent = () => {
-    const [selected, setSelected] = useState([]);
-    let navigate = useNavigate();
-    const rows = [
-        [
-            { id: 1, number: "A1" },
-            { id: 2, number: "A2" },
-            { id: 3, number: "A3" },
-            { id: 4, number: "A4" },
-            { id: 24, number: "A5" },
-            { id: 34, number: "A5" },
-            { id: 44, number: "A6" },
-            { id: 54, number: "A7" },
-            null,
-            { id: 5, number: "A8" },
-            { id: 6, number: "A9" },
-            { id: 7, number: "A10" },
-            { id: 8, number: "A11" },
-            { id: 9, number: "A12", isReserved: true }
-        ],
-        [
-            { id: 11, number: "B1" },
-            { id: 12, number: "B2" },
-            { id: 13, number: "B3", isReserved: true },
-            { id: 14, number: "B4" },
-            { id: 74, number: "B5" },
-            { id: 84, number: "B6" },
-            { id: 34, number: "B7" },
-            { id: 94, number: "B8" },
-            null,
-            { id: 15, number: "B9" },
-            { id: 16, number: "B10" },
-            { id: 17, number: "B11" },
-            { id: 18, number: "B12" },
-            { id: 19, number: "B13" }
-        ],
-        [
-            { id: 21, number: "C1" },
-            { id: 22, number: "C2" },
-            { id: 23, number: "C3" },
-            { id: 24, number: "C4" },
-            { id: 29, number: "C5" },
-            { id: 20, number: "C6" },
-            { id: 99, number: "C7" },
-            { id: 98, number: "C8" },
-            null,
-            { id: 25, number: "C9" },
-            { id: 26, number: "C10" },
-            { id: 27, number: "C11", isReserved: true },
-            { id: 28, number: "C12" },
-            { id: 29, number: "C13" },
-            null
-        ],
-        [
-            { id: 11, number: "D1" },
-            { id: 12, number: "D2" },
-            { id: 13, number: "D3", isReserved: true },
-            { id: 14, number: "D4" },
-            { id: 74, number: "D5" },
-            { id: 84, number: "D6" },
-            { id: 34, number: "D7" },
-            { id: 94, number: "D8" },
-            null,
-            { id: 15, number: "D9" },
-            { id: 16, number: "D10" },
-            { id: 17, number: "D11" },
-            { id: 18, number: "D12" },
-            { id: 19, number: "D13" }
-        ],
-        [
-            { id: 11, number: "E1" },
-            { id: 12, number: "E2" },
-            { id: 13, number: "E3" },
-            { id: 14, number: "E4" },
-            { id: 74, number: "E5" },
-            { id: 84, number: "E6" },
-            { id: 34, number: "E7" },
-            { id: 94, number: "E8" },
-            null,
-            { id: 15, number: "E9" },
-            { id: 16, number: "E10" },
-            { id: 17, number: "E11" },
-            { id: 18, number: "E12" },
-            { id: 19, number: "E13" }
-        ],
-        [
-            { id: 11, number: "F1" },
-            { id: 12, number: "F2" },
-            { id: 13, number: "F3" },
-            { id: 14, number: "F4" },
-            { id: 74, number: "F5" },
-            { id: 84, number: "F6" },
-            { id: 34, number: "F7" },
-            { id: 94, number: "F8" },
-            null,
-            { id: 15, number: "F9" },
-            { id: 16, number: "F10" },
-            { id: 17, number: "F11" },
-            { id: 18, number: "F12" },
-            { id: 19, number: "F13" }
-        ],
-        [
-            { id: 11, number: "G1" },
-            { id: 12, number: "G2" },
-            { id: 13, number: "G3" },
-            { id: 14, number: "G4" },
-            { id: 74, number: "G5" },
-            { id: 84, number: "G6" },
-            { id: 34, number: "G7", isReserved: true },
-            { id: 94, number: "G8" },
-            null,
-            { id: 15, number: "G9" },
-            { id: 16, number: "G10" },
-            { id: 17, number: "G11" },
-            { id: 18, number: "G12" },
-            { id: 19, number: "G13" }
-        ]
-    ];
-    const price = 30;
-    const totalprice = price * selected.length;
-    const addSeatCallback = ({ row, number, id }, addCb) => {
-        setSelected((prevItems) => [...prevItems, number]);
-        const newTooltip = `tooltip for id-${id} added by callback`;
-        addCb(row, number, id, newTooltip);
+    // const { eventId } = useParams();
+    const navigate = useNavigate();
+
+    const eventId = "galaConcert2025"
+
+    // 2. Use the custom hook to fetch all data directly from Firebase
+    const { event, seats: flatSeatList, loading, error } = useEventBookingData(eventId);
+
+    // State for user's choices (this is UI state, so it stays in the component)
+    const [ticketQuantity, setTicketQuantity] = useState(1);
+    const [wantsToSelectSeats, setWantsToSelectSeats] = useState(false);
+    const [selectedSeats, setSelectedSeats] = useState([]);
+    const [emailBuyer, setEmailBuyer] = useState([]);
+    const [selectedAddOns, setSelectedAddOns] = useState([]);
+
+    // Memoize the formatted seats for the SeatPicker to avoid re-calculating on every render
+    const formattedSeatsForPicker = useMemo(() => {
+        if (!flatSeatList) return [];
+        const rows = flatSeatList.reduce((acc, seat) => {
+            const { row, number, status, id, areaType, rowType } = seat;
+            const price = event?.pricingTiers[areaType]?.[rowType] || 0;
+            if (!acc[row]) acc[row] = [];
+            acc[row].push({ id, number, isReserved: status === 'reserved', tooltip: `+ $${price}` });
+            return acc;
+        }, {});
+        // Ensure rows are sorted and add nulls for aisles if needed
+        return Object.keys(rows).sort().map(key => rows[key].sort((a, b) => a.number - b.number));
+    }, [flatSeatList, event]);
+
+    // Calculation logic - this remains the same
+    const orderSummary = useMemo(() => {
+        if (!event) return { items: [], total: 0 };
+        const items = [];
+        let total = 0;
+        items.push({ description: `General Admission Ticket`, quantity: ticketQuantity, price: event.baseTicketPrice * ticketQuantity });
+        total += event.baseTicketPrice * ticketQuantity;
+        selectedSeats.forEach(seat => {
+            items.push({ description: `Seat Reservation (${seat.label})`, quantity: 1, price: seat.price });
+            total += seat.price;
+        });
+        selectedAddOns.forEach(addOn => {
+            items.push({ description: addOn.name, quantity: 1, price: addOn.price });
+            total += addOn.price;
+        });
+        return { items, total };
+    }, [event, ticketQuantity, selectedSeats, selectedAddOns]);
+
+
+    // UI Event Handlers - these remain the same
+    const handleTicketQuantityChange = (value) => {
+        setTicketQuantity(value);
+        setSelectedSeats([]);
+    };
+    const handleAddOnCheckboxChange = (e, addOn) => {
+        if (e.target.checked) setSelectedAddOns(prev => [...prev, addOn]);
+        else setSelectedAddOns(prev => prev.filter(item => item.id !== addOn.id));
     };
 
+
+    // Seat Picker Callbacks
+    const addSeatCallback = ({ row, number, id }, addCb) => {
+        const seatData = flatSeatList.find(s => s.id === id);
+        if (!seatData || !event) return;
+
+        const seatPrice = event.pricingTiers[seatData.areaType]?.[seatData.rowType] || 0;
+        const newSeat = { id: seatData.id, label: seatData.seatLabel, price: seatPrice };
+
+        setSelectedSeats(prev => [...prev, newSeat]);
+        addCb(row, number, id);
+    };
     const removeSeatCallback = ({ row, number, id }, removeCb) => {
-        setSelected((list) => list.filter((item) => item !== number));
+        setSelectedSeats(prev => prev.filter(seat => seat.id !== id));
         removeCb(row, number);
     };
 
-    const handleClickSendEmail = () => {
-        try {
-            // setIsLoading(true)
-            apis.email.sendEmail().then((res) => {
-                if (res.status === 200) {
-                    // setIsLoading(false)
-                } else {
-                    // setIsLoading(false)
-                }
-            })
-        } catch (e) {
-            console.error(e)
+    // --- Final Submission ---
+    // IMPORTANT: This function still calls our secure Node.js backend
+    // It does NOT write directly to Firebase from the client.
+    const handleContinueToPayment = async () => {
+        if (!emailBuyer) {
+            message.error('Please enter your email address.');
+            return;
         }
+
+        if (!/\S+@\S+\.\S+/.test(emailBuyer)) {
+            message.error('Please enter a valid email address.');
+            return;
+        }
+
+        if (wantsToSelectSeats && selectedSeats.length !== ticketQuantity) {
+            message.error(`You must select ${ticketQuantity} seat(s) to match the number of tickets.`);
+            return;
+        }
+
+        // This is the secure payload for our backend
+        const bookingPayload = {
+            eventId: eventId,
+            userEmail: emailBuyer,
+            ticketQuantity: ticketQuantity,
+            selectedSeatIds: selectedSeats.length <= 0 ? null : selectedSeats.map(s => s.id),
+            selectedAddOnIds: selectedAddOns.length <= 0 ? null : selectedAddOns.map(a => a.id),
+        };
+
+        try {
+            message.loading({ content: 'Initiating your booking...', key: 'booking' });
+            // The ONLY backend call in this component, for the secure operation.
+            console.log("hit api", bookingPayload)
+            const response = await apis.bookings.create(bookingPayload);
+
+            message.success({ content: 'Booking initiated!', key: 'booking' });
+
+            console.log("move page", response)
+            // Navigate to payment page with all the necessary data
+            // navigate('/payment', {
+            //     state: {
+            //         orderSummary: orderSummary,
+            //         qrisString: response.data.qrisString, // From backend
+            //         bookingId: response.data.bookingId, // From backend
+            //     }
+            // });
+
+        } catch (err) {
+            message.error({ content: err.response?.data?.message || 'Failed to create booking.', key: 'booking' });
+            console.error("Booking creation failed:", err);
+        }
+    };
+
+    // --- Render Logic ---
+    if (loading) {
+        return <div style={{ display: 'flex', justifyContent: 'center', padding: '50px' }}><Spin size="large" tip="Loading Event..." /></div>;
+    }
+
+    if (error || !event) {
+        return <Alert message="Error" description="Could not load event data. Please try again later." type="error" showIcon />;
     }
 
     return (
-        <div className="seats">
+        <Row gutter={[32, 32]} style={{ padding: '40px' }}>
+            <Col xs={24} md={14}>
+                <Title level={2}>{event.title}</Title>
+                <Paragraph>{new Date(event.date?.seconds * 1000).toLocaleDateString('en-GB', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</Paragraph>
+                <Divider />
 
-            <Button
-                // isLoading={isLoading} 
-                onClick={handleClickSendEmail} type="primary">Primary Button</Button>
-            <Barcode value="seat1" displayValue={false} />
-            <div className="screens">
-                <h3 className="screen">SCREEN</h3>
-            </div>
+                <Card title="1. Select Your Tickets" style={{ marginBottom: '24px' }}>
+                    <Row align="middle" justify="space-between">
+                        <Col><Text>General Admission (Base Price: ${event.baseTicketPrice})</Text></Col>
+                        <Col><InputNumber min={1} max={10} value={ticketQuantity} onChange={handleTicketQuantityChange} /></Col>
+                    </Row>
+                </Card>
 
-            <h5 className="seat_price">CLASSIC $30</h5>
-            <SeatPicker
-                addSeatCallback={addSeatCallback}
-                removeSeatCallback={removeSeatCallback}
-                rows={rows}
-                alpha
-                maxReservableSeats={10}
-                visible
-            />
-            {selected.length !== 0 ? (
-                <>
-                    <div className="seat-price">
-                        <div className="seat-select">
-                            <h1 className="seats-select">SEAT:{selected.toString()}</h1>
+                <Card title="2. Choose Your Seats (Optional)" style={{ marginBottom: '24px' }}>
+                    <Checkbox checked={wantsToSelectSeats} onChange={(e) => setWantsToSelectSeats(e.target.checked)}>
+                        I want to choose my specific seat (additional charges apply).
+                    </Checkbox>
+                    {wantsToSelectSeats && (
+                        <div style={{ marginTop: '20px', display: 'flex', justifyContent: 'center' }}>
+                            {formattedSeatsForPicker.length > 0 ? (
+                                <SeatPicker
+                                    addSeatCallback={addSeatCallback}
+                                    removeSeatCallback={removeSeatCallback}
+                                    rows={formattedSeatsForPicker}
+                                    maxReservableSeats={ticketQuantity}
+                                    alpha
+                                    visible
+                                    selectedByDefault
+                                />
+                            ) : <Spin />}
                         </div>
-                        <div className="totalprice">
-                            <h1 className="price">
-                                price:{"$"}
-                                {totalprice}
-                            </h1>
-                        </div>
-                    </div>
-                    <button
-                        className="continue"
-                        onClick={() => navigate(`/Final/${selected}/${totalprice}`)}
-                    >
-                        continue
-                    </button>
-                </>
-            ) : null}
-        </div>
-    )
-}
+                    )}
+                </Card>
+
+                <Card title="3. Optional Packages">
+                    <List
+                        dataSource={event.addOns}
+                        renderItem={item => (
+                            <List.Item>
+                                <Checkbox onChange={(e) => handleAddOnCheckboxChange(e, item)}>
+                                    {item.name} (+${item.price})
+                                </Checkbox>
+                            </List.Item>
+                        )}
+                    />
+                </Card>
+
+                <Card title="4. Your Email Address">
+                    <Paragraph type="secondary">Your e-ticket will be sent to this address.</Paragraph>
+                    <Input
+                        placeholder="Enter your email"
+                        value={emailBuyer}
+                        onChange={(e) => setEmailBuyer(e.target.value)}
+                        size="large"
+                    />
+                </Card>
+            </Col>
+
+            <Col xs={24} md={10}>
+                <Card style={{ position: 'sticky', top: '20px' }}>
+                    <Title level={4}>Order Summary</Title>
+                    <List
+                        dataSource={orderSummary.items}
+                        renderItem={item => (
+                            <List.Item>
+                                <List.Item.Meta
+                                    title={item.description}
+                                    description={item.quantity > 1 ? `Quantity: ${item.quantity}` : ''}
+                                />
+                                <Text>${item.price}</Text>
+                            </List.Item>
+                        )}
+                        style={{ minHeight: '150px' }}
+                    />
+                    <Divider />
+                    <Row justify="space-between">
+                        <Col><Title level={3}>Total</Title></Col>
+                        <Col><Title level={3}>${orderSummary.total}</Title></Col>
+                    </Row>
+                    <Button type="primary" size="large" block onClick={handleContinueToPayment} disabled={loading}>
+                        Continue to Payment
+                    </Button>
+                </Card>
+            </Col>
+        </Row>
+    );
+};
 
 export default SeatingContent;

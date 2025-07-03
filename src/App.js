@@ -1,37 +1,36 @@
-import React, { useEffect } from "react";
-import "./App.css";
-import { DataContextProvider, useAuth } from "./context/DataContext";
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-} from "react-router-dom";
-import PublicRoute from "./PublicRoute";
-import Home from "./Pages/Home/Home";
-import LandingPage from "./Pages/Landing/LandingPage";
-import persona5 from "./assets/audios/p5.mp3"
+import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { AnimatePresence } from 'framer-motion';
-import Transition from "./components/atom/Transition";
-import Achievers from "./Pages/Achievers/Achievers";
-import About from "./Pages/About/About";
-import Podcast from "./Pages/Podcast/Podcast";
-import MainLayout from "./components/molecules/MainLayout";
-import GaleryPage from "./Pages/Galery/GaleryPage";
-import Login from "./Pages/Login/Login";
-import AdminDashboard from "./Pages/AdminDashboard/AdminDashboard";
-import ProtectedRoute from "./ProtectedRoute";
+import i18next from "i18next";
+import { useEffect } from "react";
 import { CookiesProvider } from "react-cookie";
 import { I18nextProvider } from "react-i18next";
-import i18next from "i18next";
+import {
+  Route,
+  BrowserRouter as Router,
+  Routes,
+} from "react-router-dom";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import "./App.css";
+import persona5 from "./assets/audios/p5.mp3";
+import homeScreenImageGradient from "./assets/images/homeScreenImageGradient.jpg";
+import homeScreenImageGradientMobile from "./assets/images/homeScreenImageGradientMobile.jpg";
+import MainLayout from "./components/molecules/MainLayout";
 import { PathName } from "./constant/PathName";
+import { DataContextProvider, useAuth } from "./context/DataContext";
+import About from "./Pages/About/About";
+import Achievers from "./Pages/Achievers/Achievers";
+import AdminDashboard from "./Pages/AdminDashboard/AdminDashboard";
+import PaymentPage from "./Pages/AdminDashboard/PaymentPage";
 import ContactUs from "./Pages/ContactUs/ContactUs";
-import { createTheme, ThemeProvider, responsiveFontSizes } from '@mui/material/styles';
-import homeScreenImageGradient from "./assets/images/homeScreenImageGradient.jpg"
-import homeScreenImageGradientMobile from "./assets/images/homeScreenImageGradientMobile.jpg"
-import Payment from "./Pages/Payment/Payment";
+import GaleryPage from "./Pages/Galery/GaleryPage";
+import Home from "./Pages/Home/Home";
+import LandingPage from "./Pages/Landing/LandingPage";
+import Login from "./Pages/Login/Login";
+import Podcast from "./Pages/Podcast/Podcast";
 import Register from "./Pages/Register/Register";
+import ProtectedRoute from "./ProtectedRoute";
+import PublicRoute from "./PublicRoute";
 
 const audio = new Audio(persona5);
 
@@ -65,11 +64,16 @@ const Main = () => {
         <Route path={PathName.podcast} element={<MainLayout children={<Podcast />} />} />
         <Route path={PathName.contactUs} element={<MainLayout children={<ContactUs />} />} />
         <Route path={PathName.register} element={<MainLayout children={<Register />} hidden={true} />} />
-        <Route path={"/payment"} element={<MainLayout children={<Payment />} />} />
+        {/* <Route path={"/payment"} element={<MainLayout children={<Payment />} />} /> */}
         <Route path="/login" element={<Login />} />
         <Route path="/adminDashboard" element={
           <ProtectedRoute>
             <AdminDashboard />
+          </ProtectedRoute>
+        } />
+        <Route path="/payment" element={
+          <ProtectedRoute>
+            <PaymentPage />
           </ProtectedRoute>
         } />
         <Route path="*" element={<PublicRoute />} />
