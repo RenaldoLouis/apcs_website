@@ -1,7 +1,6 @@
-import React from "react";
 import { TextSizeType } from "../../constant/TextSizeType";
 
-const Typograhpy = ({ className, text, size, style = null }) => {
+const Typography = ({ className, text, size, style = null }) => {
 
     let fontSize = () => {
         switch (size) {
@@ -23,4 +22,4 @@ const Typograhpy = ({ className, text, size, style = null }) => {
     )
 }
 
-export default Typograhpy;
+export default Typography;

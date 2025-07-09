@@ -7,7 +7,7 @@ import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { TextSizeType } from "../../../constant/TextSizeType";
 import { formatDuration, shuffleArray, splitEvenlyBetweenTwo } from "../../../utils/Utils";
-import Typograhpy from "../../atom/Typograhpy";
+import Typography from "../../atom/Typography";
 import DragDrop from "./DragDrop";
 
 const RegistrantAssignment = ({ allData, isLoading }) => {
@@ -355,7 +355,7 @@ const RegistrantAssignment = ({ allData, isLoading }) => {
             </div>
 
             <div className="flex justify-center">
-                <Typograhpy
+                <Typography
                     className="mb-12"
                     text={"Day of Events Rundown"}
                     size={TextSizeType.big}

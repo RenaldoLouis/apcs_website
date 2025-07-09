@@ -1,12 +1,9 @@
-import React, { useEffect, useState } from "react";
-import Typograhpy from "../../atom/Typograhpy";
-import { Steps } from "antd";
-import { RegistrantStatus } from "../../../constant/RegistrantStatus";
-import { TextSizeType } from "../../../constant/TextSizeType";
-import { Space, TimePicker, Form, Button } from 'antd';
+import { EditOutlined } from '@ant-design/icons';
+import { Button, Form, Steps, TimePicker } from "antd";
 import dayjs from "dayjs";
 import customParseFormat from "dayjs/plugin/customParseFormat";
-import { EditOutlined } from '@ant-design/icons';
+import { useEffect, useState } from "react";
+import Typography from "../../atom/Typography";
 
 dayjs.extend(customParseFormat);
 
@@ -61,7 +58,7 @@ const RundownEventSteps = ({ eachEvent, day, totalSteps, setTotalSteps }) => {
 
     return (
         <div className="flex-column">
-            <Typograhpy
+            <Typography
                 className="mb-12 flex justify-center"
                 text={`Day${day}`}
                 style={{ color: "black" }}

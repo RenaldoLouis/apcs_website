@@ -676,6 +676,52 @@ const Register = () => {
         }
     }, [userTypeValue, unregister]);
 
+    const tncPdfLink = useMemo(() => {
+        switch (selectedCompetition) {
+            case competitionList.Piano:
+                return "https://drive.google.com/file/d/1lVNvlKz8pwqr1UJmgNxE0JcT2T9FDsGg/view?usp=drive_link"
+            case competitionList.Percussions:
+                return "https://drive.google.com/file/d/1FmkzzfzpH8RiVRqKLCORLdUSI2Ldrf6N/view?usp=drive_link"
+            case competitionList.Woodwinds:
+                return "https://drive.google.com/file/d/1RLiRkGbCbSXEmv8ZhsoE8uuariWLvoOJ/view?usp=drive_link"
+            case competitionList.Guitar:
+                return "https://drive.google.com/file/d/1csQ7oLgx3RPsM0wgEj3ZJ59akmTM0Z3K/view?usp=drive_link"
+            case competitionList.VocalChoir:
+                return "https://drive.google.com/file/d/1GbdTZ9stbKujYK1unMh6hC0fKoGOyvt_/view?usp=drive_link"
+            case competitionList.Brass:
+                return "https://drive.google.com/file/d/1_Baord6xZI3WSS-P9RB2Mpsd5Sk-6xF0/view?usp=drive_link"
+            case competitionList.Harp:
+                return "https://drive.google.com/file/d/1Og9GQdnj9ANyAhFwdBJmVxQAQ_NlNV2G/view?usp=drive_link"
+            case competitionList.Strings:
+                return "https://drive.google.com/file/d/1m3Wpzw2liWdK-Kh7oRaoq97gj3JTg0nO/view?usp=drive_link"
+            default:
+                return "https://drive.google.com/file/d/1lVNvlKz8pwqr1UJmgNxE0JcT2T9FDsGg/view?usp=drive_link"
+        }
+    }, [selectedCompetition]);
+
+    const pricePdfLink = useMemo(() => {
+        switch (selectedCompetition) {
+            case competitionList.Piano:
+                return "https://drive.google.com/file/d/1y8zCdACvBfuWafIxOaJPqaBS-LHftSDP/view?usp=drive_link"
+            case competitionList.Percussions:
+                return "https://drive.google.com/file/d/19bSQmC_VFEcqYaGnurN3b0d0nR9O2roi/view?usp=drive_link"
+            case competitionList.Woodwinds:
+                return "https://drive.google.com/file/d/1brsGZ77X2p1s1U34qWBS9rjYu1BCnq3R/view?usp=drive_link"
+            case competitionList.Guitar:
+                return "https://drive.google.com/file/d/1vSNQXTJufxy0xt9ZiGER7X5IUM4RVyfj/view?usp=drive_link"
+            case competitionList.VocalChoir:
+                return "https://drive.google.com/file/d/1BT9MQp5KXD68qQxbmPESvWAEP8lRuI1g/view?usp=drive_link"
+            case competitionList.Brass:
+                return "https://drive.google.com/file/d/1Y50K8H4Z5d3VcrxmYnqmQuoZRzw2pAY4/view?usp=drive_link"
+            case competitionList.Harp:
+                return "https://drive.google.com/file/d/1GkyWWVxwaikW2yN0UhoPM6ksRYeV_cKF/view?usp=drive_link"
+            case competitionList.Strings:
+                return "https://drive.google.com/file/d/1T6Aka3iK3EHdYeJrw2S8owN8NKfj-YK_/view?usp=drive_link"
+            default:
+                return "https://drive.google.com/file/d/1y8zCdACvBfuWafIxOaJPqaBS-LHftSDP/view?usp=drive_link"
+        }
+    }, [selectedCompetition]);
+
     return (
         <div className="primaryBackgroundBlack" style={{ padding: "128px 0px 48px 0px" }}>
             <div className="container" style={{ marginBottom: 30 }}>
@@ -878,6 +924,26 @@ const Register = () => {
                                     <p style={{ color: "red" }}>{errors.competitionCategory.message}</p>
                                 )}
                             </FormControl>
+
+                            <div className="text-white whitespace-nowrap" style={{ fontSize: 14 }}>
+                                Terms and Conditions can be found{" "}
+                                <a href={tncPdfLink}
+                                    target='_blank'
+                                    style={{ color: '#FBBF24' }} // Using a specific golden-yellow hex code
+                                    className="font-medium underline decoration-amber-400/50 underline-offset-4 transition-colors hover:text-amber-300 hover:decoration-amber-300"
+                                >
+                                    here
+                                </a>
+                                , and pricing details are available{" "}
+                                <a href={pricePdfLink}
+                                    target='_blank'
+                                    style={{ color: '#FBBF24' }} // Using a specific golden-yellow hex code
+                                    className="font-medium underline decoration-amber-400/50 underline-offset-4 transition-colors hover:text-amber-300 hover:decoration-amber-300"
+                                >
+                                    here
+                                </a>
+                                .
+                            </div>
 
                             {/* Performance Category */}
                             <RadioForm

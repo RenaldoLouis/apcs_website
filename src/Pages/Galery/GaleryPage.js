@@ -10,7 +10,7 @@ import Galery from "./Galery";
 
 import { useSwipeable } from 'react-swipeable';
 import apis from "../../apis";
-import Typograhpy from "../../components/atom/Typograhpy";
+import Typography from "../../components/atom/Typography";
 import { useAuth } from "../../context/DataContext";
 
 
@@ -468,7 +468,7 @@ const GaleryPage = () => {
                         <div className="row">
                             <div className={galeryContent?.name === YearlyEvent.CLASSICALFESTIVALSBY ? "col-lg-9 mx-auto d-flex flex-column justify-content-center align-items-center" : "col-lg-6 mx-auto d-flex flex-column justify-content-center align-items-center"}>
                                 <div className="italicText textColor mt-4 mb-4">
-                                    <Typograhpy
+                                    <Typography
                                         text={"featuring"}
                                     />
                                 </div>
