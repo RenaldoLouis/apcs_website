@@ -32,6 +32,7 @@ import RadioForm from '../../components/molecules/Form/RadioForm';
 import LoadingOverlay from '../../components/molecules/LoadingOverlay';
 import YoutubeDurationFetcher from '../../components/molecules/YoutubeVideoFetcher';
 import { countryCodes } from '../../constant/CountryCodePhone';
+import { PaymentStatus } from '../../constant/PaymentStatus';
 import { ageCategories, brassAgeCategoriesEnsemble, brassAgeCategoriesSolo, BrassInstrumentListEnsemble, BrassInstrumentListSolo, competitionList, ensembleAgeCategories, guitarAgeCategoriesEnsemble, guitarAgeCategoriesSolo, GuitarInstrumentListEnsemble, GuitarInstrumentListSolo, HarpInstrumentListEnsemble, HarpInstrumentListSolo, PercussionAgeCategoriesEnsemble, percussionAgeCategoriesSolo, PercussionInstrumentListEnsemble, PercussionInstrumentListSolo, PerformanceCategory, PianoInstrumentListEnsemble, PianoInstrumentListSolo, stringAgeCategoriesEnsemble, stringAgeCategoriesSolo, StringsInstrumentListEnsemble, StringsInstrumentListSolo, vocalAgeCategoriesEnsemble, vocalAgeCategoriesSolo, VocalInstrumentListEnsemble, VocalInstrumentListSolo, woodwinAgeCategoriesEnsemble, woodwinAgeCategoriesSolo, WoodwindInstrumentListEnsemble, WoodwindInstrumentListSolo } from '../../constant/RegisterPageConst';
 import { useAuth } from '../../context/DataContext';
 import { db } from '../../firebase';
@@ -97,7 +98,7 @@ const Register = () => {
     const PerformanceCategoryValue = watch("PerformanceCategory");
     const sameAddressValue = watch("sameAddress");
     const youtubeLinkValue = watch("youtubeLink");
-    const watchedFields = watch("performers");
+    const watchedFieldsPerformer = watch("performers");
     const performersValue = useWatch({ control, name: "performers" });
 
     const { fields, append, remove } = useFieldArray({
@@ -223,6 +224,13 @@ const Register = () => {
 
                 return { ...performer, dob: formattedDate, countryCode: performer.countryCode[0] }
             })
+
+
+            const HUNGARY_COUNTRY_CODE = '+36';
+            const isHungaryParticipant = watchedFieldsPerformer?.some(
+                performer => performer?.countryCode?.[0] === HUNGARY_COUNTRY_CODE
+            );
+
             const payload = {
                 ageCategory: data.ageCategory,
                 totalPerformer: data.totalPerformer,
@@ -241,17 +249,20 @@ const Register = () => {
                 examCertificateS3Link: examCertificateS3Link,
                 createdAt: serverTimestamp(),
                 ...(data.teacherName && { teacherName: data.teacherName }),
+                ...(isHungaryParticipant && { paymentStatus: PaymentStatus.PENDING })
             };
 
             await addDoc(collection(db, "Registrants2025"), payload);
 
             const dataEmail = formattedDatePerformers.map(({ email, firstName, lastName }) => ({
                 email,
-                name: `${firstName} ${lastName}`
+                name: `${firstName} ${lastName}`,
+                competitionCategory: data.competitionCategory,
+                instrumentCategory: data.instrumentCategory,
             }))
 
             setProgressLoading(90)
-
+            // send email general after register
             apis.email.sendEmail(dataEmail).then((res) => {
                 if (res.status === 200) {
                     toast.success("Succesfully Registered! Please check your email for confirmation.")
@@ -263,6 +274,29 @@ const Register = () => {
                 }
                 setIsLoading(false)
             })
+
+            //send email to notify APCS
+            apis.email.sendEmailNotifyApcs(dataEmail).then((res) => {
+                if (res.status === 200) {
+                    setIsSaveSuccess(true)
+                } else {
+                    throw new Error("Email notificaion sending failed with status " + res.status);
+                }
+                setIsLoading(false)
+            })
+
+            // send email for hungary ask for payment
+            if (isHungaryParticipant) {
+                apis.email.sendEmailPaymentRequest(dataEmail).then((res) => {
+                    if (res.status === 200) {
+                        setIsSaveSuccess(true)
+                    } else {
+                        throw new Error("Email payment sending failed with status " + res.status);
+                    }
+                    setIsLoading(false)
+                })
+            }
+
         } catch (e) {
             setIsLoading(false)
             toast.error("Register failed, please try again. If the error persist please contact us")
@@ -295,7 +329,7 @@ const Register = () => {
     // Sync the fields with `totalPerformer`
     useEffect(() => {
         const timer = setTimeout(() => {
-            const currentLength = watchedFields.length;
+            const currentLength = watchedFieldsPerformer.length;
             if (totalPerformer > currentLength) {
                 for (let i = currentLength; i < totalPerformer; i++) {
                     append({
@@ -929,7 +963,7 @@ const Register = () => {
                                 Terms and Conditions can be found{" "}
                                 <a href={tncPdfLink}
                                     target='_blank'
-                                    style={{ color: '#FBBF24' }} // Using a specific golden-yellow hex code
+                                    style={{ color: '#FBBF24' }}
                                     className="font-medium underline decoration-amber-400/50 underline-offset-4 transition-colors hover:text-amber-300 hover:decoration-amber-300"
                                 >
                                     here
@@ -937,7 +971,7 @@ const Register = () => {
                                 , and pricing details are available{" "}
                                 <a href={pricePdfLink}
                                     target='_blank'
-                                    style={{ color: '#FBBF24' }} // Using a specific golden-yellow hex code
+                                    style={{ color: '#FBBF24' }}
                                     className="font-medium underline decoration-amber-400/50 underline-offset-4 transition-colors hover:text-amber-300 hover:decoration-amber-300"
                                 >
                                     here

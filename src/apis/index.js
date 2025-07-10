@@ -76,6 +76,8 @@ export default {
     sendEmail: (data) => postRequest(`/api/v1/apcs/sendEmail`, data),
     sendEmailWinner: (data) => postRequest(`/api/v1/apcs/sendEmailWinner`, data),
     sendEmailMarketing: (data) => postRequest(`/api/v1/apcs/sendEmailMarketing`, data),
+    sendEmailPaymentRequest: (data) => postRequest(`/api/v1/apcs/sendEmailPaymentRequest`, data),
+    sendEmailNotifyApcs: (data) => postRequest(`/api/v1/apcs/sendEmailNotifyApcs`, data),
   },
   galery: {
     getGalery: (eventName) => getRequest(`/api/v1/apcs/getGaleries?eventName=${eventName}`),
