@@ -33,7 +33,7 @@ import LoadingOverlay from '../../components/molecules/LoadingOverlay';
 import YoutubeDurationFetcher from '../../components/molecules/YoutubeVideoFetcher';
 import { countryCodes } from '../../constant/CountryCodePhone';
 import { PaymentStatus } from '../../constant/PaymentStatus';
-import { ageCategories, brassAgeCategoriesEnsemble, brassAgeCategoriesSolo, BrassInstrumentListEnsemble, BrassInstrumentListSolo, competitionList, ensembleAgeCategories, guitarAgeCategoriesEnsemble, guitarAgeCategoriesSolo, GuitarInstrumentListEnsemble, GuitarInstrumentListSolo, HarpInstrumentListEnsemble, HarpInstrumentListSolo, PercussionAgeCategoriesEnsemble, percussionAgeCategoriesSolo, PercussionInstrumentListEnsemble, PercussionInstrumentListSolo, PerformanceCategory, PianoInstrumentListEnsemble, PianoInstrumentListSolo, stringAgeCategoriesEnsemble, stringAgeCategoriesSolo, StringsInstrumentListEnsemble, StringsInstrumentListSolo, vocalAgeCategoriesEnsemble, vocalAgeCategoriesSolo, VocalInstrumentListEnsemble, VocalInstrumentListSolo, woodwinAgeCategoriesEnsemble, woodwinAgeCategoriesSolo, WoodwindInstrumentListEnsemble, WoodwindInstrumentListSolo } from '../../constant/RegisterPageConst';
+import { ageCategories, brassAgeCategoriesEnsemble, brassAgeCategoriesSolo, BrassInstrumentListEnsemble, BrassInstrumentListSolo, competitionList, ensembleAgeCategories, guitarAgeCategoriesEnsemble, guitarAgeCategoriesSolo, GuitarInstrumentListEnsemble, GuitarInstrumentListSolo, HarpInstrumentListEnsemble, HarpInstrumentListSolo, PercussionAgeCategoriesEnsemble, percussionAgeCategoriesSolo, PercussionInstrumentListEnsemble, PercussionInstrumentListSolo, PerformanceCategory, PianoInstrumentListEnsemble, PianoInstrumentListSolo, stringAgeCategoriesEnsemble, stringAgeCategoriesSolo, StringsInstrumentListEnsemble, StringsInstrumentListSolo, vocalAgeCategoriesEnsemble, vocalAgeCategoriesSolo, VocalInstrumentListEnsembleElaborated, VocalInstrumentListSolo, woodwinAgeCategoriesEnsemble, woodwinAgeCategoriesSolo, WoodwindInstrumentListEnsemble, WoodwindInstrumentListSolo } from '../../constant/RegisterPageConst';
 import { useAuth } from '../../context/DataContext';
 import { db } from '../../firebase';
 
@@ -529,7 +529,7 @@ const Register = () => {
                 if (PerformanceCategoryValue === PerformanceCategory.Solo) {
                     return VocalInstrumentListSolo
                 } else {
-                    return VocalInstrumentListEnsemble
+                    return VocalInstrumentListEnsembleElaborated
                 }
 
             default:

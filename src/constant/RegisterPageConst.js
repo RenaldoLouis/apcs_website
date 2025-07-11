@@ -183,6 +183,14 @@ export const VocalInstrumentListEnsemble = {
     bigEnsemble: "Big Ensemble/Choir(max. 30 performers) "
 }
 
+export const VocalInstrumentListEnsembleElaborated = {
+    twoToFive: "2-5 performer",
+    sixToNine: "6-9 performer",
+    tenToFifteen: "10-15 performer",
+    sixteenToTwenty: "16-20 performer",
+    twentyOneToThirty: "20-30 performer",
+}
+
 export const PercussionInstrumentListSolo = {
     Marimba: "Marimba",
     Vibraphone: "Vibraphone",
