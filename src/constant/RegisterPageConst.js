@@ -104,13 +104,13 @@ export const brassAgeCategoriesEnsemble = {
 }
 
 export const harpAgeCategoriesSolo = {
-    PetiteGuitar: "Petite (4-6 years old)",
-    PrimaryGuitar: "Primary (7-9 years old)",
-    YoungGuitar: "Young (10-12 years old)",
-    JuniorGuitar: "Junior (13-15 years old)",
-    YouthGuitar: "Youth (16-19 years old)",
-    OpenAgeGuitar: "Open Age (4+ years old)",
-    FreeChoiceGuitar: "Free Choice (4+ years old)",
+    PetiteHarp: "Petite (4-6 years old)",
+    PrimaryHarp: "Primary (7-9 years old)",
+    YoungHarp: "Young (10-12 years old)",
+    JuniorHarp: "Junior (13-15 years old)",
+    YouthHarp: "Youth (16-19 years old)",
+    OpenAgeHarp: "Open Age (4+ years old)",
+    FreeChoiceHarp: "Free Choice (4+ years old)",
 }
 
 export const harpAgeCategoriesEnsemble = {

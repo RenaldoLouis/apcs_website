@@ -20,7 +20,7 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { Cascader, InputNumber } from 'antd';
 import axios from 'axios';
 import dayjs from 'dayjs';
-import { addDoc, collection, serverTimestamp } from "firebase/firestore";
+import { addDoc, collection, doc, getDoc, serverTimestamp } from 'firebase/firestore';
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { Controller, useFieldArray, useForm, useWatch } from "react-hook-form";
 import { useTranslation } from "react-i18next";
@@ -158,6 +158,97 @@ const Register = () => {
         }
     };
 
+    const calculatePrice = async (data, isInternational) => {
+        try {
+            // 1. Determine the document ID (e.g., "Piano" -> "piano")
+            const categoryId = data.competitionCategory.toLowerCase();
+
+            // 2. Fetch the pricing rules for the entire category
+            const priceDocRef = doc(db, 'Registration2025Fee', categoryId);
+
+            const priceDocSnap = await getDoc(priceDocRef);
+
+            if (!priceDocSnap.exists()) {
+                throw new Error(`Pricing info for category "${categoryId}" not found.`);
+            }
+            const pricingData = priceDocSnap.data();
+            let selectedTier = null;
+
+            // console.log("data", data)
+            // console.log("pricingData", pricingData)
+            // 3. Find the correct pricing tier based on performance type
+            if (data.PerformanceCategory === PerformanceCategory.Solo) {
+                selectedTier = pricingData.fees.find(
+                    tier => tier.category.toLowerCase() === data.ageCategory.toLowerCase()
+                );
+            }
+            else if (data.PerformanceCategory === PerformanceCategory.Ensemble) {
+                // For ensembles, we need to match both category and age group
+                selectedTier = pricingData.fees.find(tier => {
+                    // First, the main category must always match.
+                    const categoryMatch = tier.category.toLowerCase() === data.instrumentCategory.toLowerCase();
+
+                    // If the main category doesn't match, this isn't the right tier.
+                    if (!categoryMatch) {
+                        return false;
+                    }
+
+                    // Now, check the age group conditionally.
+                    // If the pricing data in Firestore does NOT have an age_group, it's a match (e.g., for Piano).
+                    if (!tier.age_group) {
+                        return true;
+                    }
+
+                    // If it DOES have an age_group, then it must match the one from the form.
+                    return tier.age_group.toLowerCase() === data.ageCategory.toLowerCase();
+                });
+            }
+
+            // console.log("selectedTier", selectedTier)
+            if (!selectedTier) {
+                throw new Error(`Could not find a matching price for the selected options.`);
+            }
+
+            // 4. Determine currency and final price
+            let amount = 0;
+            let currency = '';
+
+            // SPECIAL LOGIC for Vocal/Choir ensemble pricing
+            if (categoryId === 'vocalchoir' && data.PerformanceCategory === PerformanceCategory.Ensemble) {
+                // Check if the number of performers qualifies for the special price
+                const useSpecialPrice = data.totalPerformer === selectedTier.maxPerformers;
+
+                if (isInternational) {
+                    amount = useSpecialPrice ? selectedTier.internationalPriceSpecial : selectedTier.internationalPriceRegular;
+                    currency = 'USD';
+                } else {
+                    amount = useSpecialPrice ? selectedTier.nationalPriceSpecial : selectedTier.nationalPriceRegular;
+                    currency = 'IDR';
+                }
+            } else {
+                // Standard logic for all other categories
+                if (isInternational) {
+                    amount = selectedTier.internationalPrice;
+                    currency = 'USD';
+                } else {
+                    amount = selectedTier.nationalPrice;
+                    currency = 'IDR';
+                }
+            }
+
+            // 5. Return a structured price object
+            return {
+                amount: amount,
+                currency: currency,
+                formattedAmount: `${currency} ${amount.toLocaleString(currency === 'IDR' ? 'id-ID' : 'en-US')}`
+            };
+
+        } catch (error) {
+            console.error("Price calculation failed:", error);
+            return { amount: 0, currency: 'N/A', formattedAmount: 'Not Available' };
+        }
+    };
+
     const onSubmit = async (data) => {
         try {
             setIsLoading(true)
@@ -227,8 +318,13 @@ const Register = () => {
 
 
             const HUNGARY_COUNTRY_CODE = '+36';
+            const IdCode = '+62';
             const isHungaryParticipant = watchedFieldsPerformer?.some(
                 performer => performer?.countryCode?.[0] === HUNGARY_COUNTRY_CODE
+            );
+
+            const isInternational = watchedFieldsPerformer?.some(
+                performer => performer?.countryCode?.[0] !== IdCode
             );
 
             const payload = {
@@ -254,12 +350,17 @@ const Register = () => {
 
             await addDoc(collection(db, "Registrants2025"), payload);
 
+            const price = await calculatePrice(data, isInternational);
+
             const dataEmail = formattedDatePerformers.map(({ email, firstName, lastName }) => ({
                 email,
                 name: `${firstName} ${lastName}`,
                 competitionCategory: data.competitionCategory,
                 instrumentCategory: data.instrumentCategory,
+                price: price.formattedAmount
             }))
+
+            // console.log("dataEmail", dataEmail)
 
             setProgressLoading(90)
             // send email general after register
