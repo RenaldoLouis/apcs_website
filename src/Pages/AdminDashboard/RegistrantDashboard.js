@@ -1,10 +1,12 @@
-import { Button, Layout, Pagination, Table, theme } from 'antd';
+import { Button, Layout, message, Pagination, Table, theme } from 'antd';
 import ExcelJS from "exceljs";
 import * as FileSaver from "file-saver";
 import { saveAs } from "file-saver";
+import { doc, updateDoc } from "firebase/firestore";
 import JSZip from "jszip";
-import React from 'react';
-import { Registrants2025Columns } from '../../constant/RegistrantsColumn';
+import apis from '../../apis';
+import { getRegistrants2025Columns } from '../../constant/RegistrantsColumn';
+import { db } from '../../firebase';
 import usePaginatedRegistrants from '../../hooks/useFetchRegistrantsData';
 
 const { Content } = Layout;
@@ -14,11 +16,18 @@ const RegistrantDashboard = () => {
 
     const { token: { colorBgContainer, borderRadiusLG }, } = theme.useToken();
 
-    const { registrantDatas, page, setPage, totalDocs, allData, loading } = usePaginatedRegistrants(pageSize, "Registrants2025", "createdAt");
+    const { registrantDatas, page, setPage, totalDocs, allData, loading, fetchUserData } = usePaginatedRegistrants(pageSize, "Registrants2025", "createdAt");
 
     const handlePageChange = (pagination, filters, sorter, extra) => {
         setPage(pagination);
     };
+
+    const stripS3Prefix = (uri) => {
+        const parts = uri.split('/');
+        // Remove 's3:', '', 'bucket-name'
+        return parts.slice(3).join('/');
+    };
+
 
     async function createAndDownloadZip(pdfBlobs) {
         console.log("pdfBlobs", pdfBlobs)
@@ -76,6 +85,51 @@ const RegistrantDashboard = () => {
         });
     };
 
+
+    const handleDownloadPDF = async (record) => {
+        const filesToDownload = [
+            { fileName: stripS3Prefix(record.birthCertS3Link) },
+            { fileName: stripS3Prefix(record.examCertificateS3Link) },
+            { fileName: stripS3Prefix(record.pdfRepertoireS3Link) },
+            { fileName: stripS3Prefix(record.profilePhotoS3Link) },
+        ];
+
+        try {
+            const response = await apis.aws.downloadFiles(filesToDownload)
+
+
+            const blob = new Blob([response.data], { type: 'application/zip' });
+
+            // Programmatically trigger an invisible download
+            const url = window.URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = 'documents.zip'; // 👈 Desired filename
+            link.style.display = 'none'; // Keep it hidden
+            document.body.appendChild(link);
+            link.click(); // 👈 Trigger download
+            link.remove(); // Clean up
+            window.URL.revokeObjectURL(url); // Clean up blob URL
+        } catch (error) {
+            console.error('Download failed:', error);
+        }
+    };
+
+    const updatePaymentStatus = async (record) => {
+        try {
+            const docRef = doc(db, 'Registrants2025', record.id);
+            await updateDoc(docRef, {
+                paymentStatus: "PAID"
+            });
+            message.success({ content: `Successfully updated registrant(s)!`, key: 'updateStatus' });
+            fetchUserData(1)
+        } catch (error) {
+            console.error("Error updating document(s): ", error);
+        }
+    };
+
+    const columns = getRegistrants2025Columns(handleDownloadPDF, updatePaymentStatus);
+
     return (
         <Content
             style={{
@@ -90,7 +144,7 @@ const RegistrantDashboard = () => {
                     borderRadius: borderRadiusLG,
                 }}
             >
-                <Table columns={Registrants2025Columns} dataSource={registrantDatas} onChange={handlePageChange} pagination={false} />
+                <Table columns={columns} dataSource={registrantDatas} onChange={handlePageChange} pagination={false} />
                 <Pagination
                     className='mt-16'
                     current={page}

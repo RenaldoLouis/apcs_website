@@ -1,5 +1,5 @@
 import { collection, getDocs, limit, orderBy, query, startAt } from 'firebase/firestore';
-import { isEmpty } from 'lodash';
+import { cloneDeep, isEmpty } from 'lodash';
 import { useCallback, useEffect, useState } from 'react';
 import { useAuth } from '../context/DataContext';
 import { db } from '../firebase';
@@ -46,7 +46,16 @@ const usePaginatedRegistrants = (pageSize = 10, collectionName = "Registrants", 
             const querySnapshot = await getDocs(q);
             const newData = querySnapshot.docs.map(doc => ({ ...doc.data(), id: doc.id }));
 
-            setRegistrantDatas(newData);
+            const addPaymentStatus = newData.map((eachData) => {
+
+                const tempData = cloneDeep(eachData)
+                if (!tempData.paymentStatus) {
+                    tempData.paymentStatus = "PAID"
+                }
+
+                return tempData;
+            })
+            setRegistrantDatas(addPaymentStatus);
 
             // Calculate total documents for pagination
             if (pageNumber === 1) {
@@ -72,7 +81,7 @@ const usePaginatedRegistrants = (pageSize = 10, collectionName = "Registrants", 
 
     const totalPages = Math.ceil(totalDocs / pageSize);
 
-    return { registrantDatas, loading, error, page, setPage, totalPages, totalDocs, allData };
+    return { registrantDatas, loading, error, page, setPage, totalPages, totalDocs, allData, fetchUserData };
 };
 
 export default usePaginatedRegistrants;

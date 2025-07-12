@@ -342,7 +342,7 @@ const Register = () => {
                 examCertificateS3Link: examCertificateS3Link,
                 createdAt: serverTimestamp(),
                 ...(data.teacherName && { teacherName: data.teacherName }),
-                ...(isHungaryParticipant && { paymentStatus: PaymentStatus.PENDING })
+                ...(isInternational && { paymentStatus: PaymentStatus.PENDING })
             };
 
             await addDoc(collection(db, "Registrants2025"), payload);
@@ -360,18 +360,20 @@ const Register = () => {
             // console.log("dataEmail", dataEmail)
 
             setProgressLoading(90)
-            // send email general after register
-            apis.email.sendEmail(dataEmail).then((res) => {
-                if (res.status === 200) {
-                    toast.success("Succesfully Registered! Please check your email for confirmation.")
-                    setIsSaveSuccess(true)
+            // send email welcome to Indonesia registrant after register
+            if (!isInternational) {
+                apis.email.sendEmail(dataEmail).then((res) => {
+                    if (res.status === 200) {
+                        toast.success("Succesfully Registered! Please check your email for confirmation.")
+                        setIsSaveSuccess(true)
 
-                    setProgressLoading(100)
-                } else {
-                    throw new Error("Email sending failed with status " + res.status);
-                }
-                setIsLoading(false)
-            })
+                        setProgressLoading(100)
+                    } else {
+                        throw new Error("Email sending failed with status " + res.status);
+                    }
+                    setIsLoading(false)
+                })
+            }
 
             //send email to notify APCS
             apis.email.sendEmailNotifyApcs(dataEmail).then((res) => {
@@ -383,8 +385,8 @@ const Register = () => {
                 setIsLoading(false)
             })
 
-            // send email for hungary ask for payment
-            if (isHungaryParticipant) {
+            // send email for International Client ask for payment
+            if (isInternational) {
                 apis.email.sendEmailPaymentRequest(dataEmail).then((res) => {
                     if (res.status === 200) {
                         setIsSaveSuccess(true)

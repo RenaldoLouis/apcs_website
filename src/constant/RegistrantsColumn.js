@@ -1,5 +1,4 @@
 import { Button } from "antd";
-import apis from "../apis";
 
 export const RegistrantsColumns = [
     {
@@ -28,12 +27,13 @@ export const RegistrantsColumns = [
     },
 ];
 
-export const Registrants2025Columns = [
+export const getRegistrants2025Columns = (handleDownloadPDF, handleUpdateStatus) => [
     { title: "Name", dataIndex: "name" },
     { title: "Total Performer", dataIndex: "totalPerformer" },
     { title: "Competition Category", dataIndex: "competitionCategory" },
     { title: "Performance Category", dataIndex: "PerformanceCategory" },
     { title: "User Type", dataIndex: "userType" },
+    { title: "Payment Status", dataIndex: "paymentStatus" },
     {
         title: "Performers",
         dataIndex: "performers",
@@ -54,7 +54,7 @@ export const Registrants2025Columns = [
         render: (createdAt) => {
             if (createdAt?.seconds) {
                 const date = new Date(createdAt.seconds * 1000);
-                return date.toLocaleString(); // or date.toLocaleDateString(), etc.
+                return date.toLocaleString();
             }
             return "-";
         },
@@ -62,45 +62,56 @@ export const Registrants2025Columns = [
     {
         title: 'Actions',
         key: 'actions',
-        render: (text, record, index) => (
-            <Button type="link" onClick={() => handleDownloadPDF(record, index)}>
-                Download PDF
-            </Button>
+        // The render function now calls the handlers passed as arguments
+        render: (text, record) => (
+            <div>
+                <Button type="link" onClick={() => handleDownloadPDF(record)}>
+                    Download PDF
+                </Button>
+
+                <Button type="primary" onClick={() => handleUpdateStatus(record)}>
+                    Mark as Paid
+                </Button>
+            </div>
         ),
     }
 ];
 
-const stripS3Prefix = (uri) => {
-    const parts = uri.split('/');
-    // Remove 's3:', '', 'bucket-name'
-    return parts.slice(3).join('/');
-};
 
-const handleDownloadPDF = async (record) => {
-    const filesToDownload = [
-        { fileName: stripS3Prefix(record.birthCertS3Link) },
-        { fileName: stripS3Prefix(record.examCertificateS3Link) },
-        { fileName: stripS3Prefix(record.pdfRepertoireS3Link) },
-        { fileName: stripS3Prefix(record.profilePhotoS3Link) },
-    ];
+// const updatePaymentStatus = async () => {
+//     // First, check if any rows have been selected
+//     if (selectedRowKeys.length === 0) {
+//         message.error("Please select at least one registrant to update.");
+//         return;
+//     }
 
-    try {
-        const response = await apis.aws.downloadFiles(filesToDownload)
+//     message.loading({ content: `Updating ${selectedRowKeys.length} registrant(s)...`, key: 'updateStatus' });
 
+//     try {
+//         // Create an array of all the update promises
+//         const updatePromises = selectedRowKeys.map(registrantId => {
+//             // Get a reference to the specific document in the 'Registrant2025' collection
+//             const docRef = doc(db, 'Registrant2025', registrantId);
 
-        const blob = new Blob([response.data], { type: 'application/zip' });
+//             // Return the promise from the updateDoc call
+//             // Here we update the paymentStatus field. You can add more fields if needed.
+//             return updateDoc(docRef, {
+//                 paymentStatus: "PAID"
+//             });
+//         });
 
-        // Programmatically trigger an invisible download
-        const url = window.URL.createObjectURL(blob);
-        const link = document.createElement('a');
-        link.href = url;
-        link.download = 'documents.zip'; // 👈 Desired filename
-        link.style.display = 'none'; // Keep it hidden
-        document.body.appendChild(link);
-        link.click(); // 👈 Trigger download
-        link.remove(); // Clean up
-        window.URL.revokeObjectURL(url); // Clean up blob URL
-    } catch (error) {
-        console.error('Download failed:', error);
-    }
-};
+//         // Use Promise.all to run all updates in parallel for better performance
+//         await Promise.all(updatePromises);
+
+//         message.success({ content: `Successfully updated ${selectedRowKeys.length} registrant(s)!`, key: 'updateStatus' });
+
+//         // 3. Refresh the data in the table to show the change
+//         // and clear the selection.
+//         fetchData(page); // Replace with your actual function to refetch data
+//         setSelectedRowKeys([]);
+
+//     } catch (error) {
+//         console.error("Error updating document(s): ", error);
+//         message.error({ content: `Failed to update status. Error: ${error.message}`, key: 'updateStatus' });
+//     }
+// };
