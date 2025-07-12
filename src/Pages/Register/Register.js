@@ -174,8 +174,6 @@ const Register = () => {
             const pricingData = priceDocSnap.data();
             let selectedTier = null;
 
-            // console.log("data", data)
-            // console.log("pricingData", pricingData)
             // 3. Find the correct pricing tier based on performance type
             if (data.PerformanceCategory === PerformanceCategory.Solo) {
                 selectedTier = pricingData.fees.find(
@@ -204,7 +202,6 @@ const Register = () => {
                 });
             }
 
-            // console.log("selectedTier", selectedTier)
             if (!selectedTier) {
                 throw new Error(`Could not find a matching price for the selected options.`);
             }
@@ -686,6 +683,18 @@ const Register = () => {
                             bigEnsemble: 30
                         };
                         return maxPerformersByCategory[instrumentCategoryValue] || 5;
+                    }
+
+                case competitionList.Harp:
+                    if (PerformanceCategoryValue === PerformanceCategory.Solo) {
+                        return 1
+                    } else {
+                        const maxPerformersByCategory = {
+                            twoToFive: 5,
+                            sixToNine: 9,
+                            tenToFifteen: 15,
+                        };
+                        return maxPerformersByCategory[instrumentCategoryValue] || 15;
                     }
 
                 default:

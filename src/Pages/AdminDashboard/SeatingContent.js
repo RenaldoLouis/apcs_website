@@ -121,13 +121,13 @@ const SeatingContent = () => {
 
             console.log("move page", response)
             // Navigate to payment page with all the necessary data
-            // navigate('/payment', {
-            //     state: {
-            //         orderSummary: orderSummary,
-            //         qrisString: response.data.qrisString, // From backend
-            //         bookingId: response.data.bookingId, // From backend
-            //     }
-            // });
+            navigate('/payment', {
+                state: {
+                    orderSummary: orderSummary,
+                    qrisString: response.data.qrisString, // From backend
+                    bookingId: response.data.bookingId, // From backend
+                }
+            });
 
         } catch (err) {
             message.error({ content: err.response?.data?.message || 'Failed to create booking.', key: 'booking' });
