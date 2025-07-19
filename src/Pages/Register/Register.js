@@ -868,6 +868,29 @@ const Register = () => {
         }
     }, [selectedCompetition]);
 
+    const warningPerformenceSchedule = useMemo(() => {
+        switch (selectedCompetition) {
+            case competitionList.Piano:
+                return "Performers with 2 Pianos is for the performance of the upcoming year, 2026. For detailed information, please refer to the Terms and Conditions."
+            case competitionList.Percussions:
+                return "This registration is for the performance season of the upcoming year, 2026. For detailed timelines and schedules, please refer to the Terms and Conditions"
+            case competitionList.Woodwinds:
+                return "This registration for ensemble is for the performance season of the upcoming year, 2026. For detailed timelines and schedules, please refer to the Terms and Conditions"
+            case competitionList.Guitar:
+                return "This registration for ensemble is for the performance season of the upcoming year, 2026. For detailed timelines and schedules, please refer to the Terms and Conditions"
+            case competitionList.VocalChoir:
+                return null
+            case competitionList.Brass:
+                return "This registration is for the performance season of the upcoming year, 2026. For detailed timelines and schedules, please refer to the Terms and Conditions"
+            case competitionList.Harp:
+                return "This registration is for the performance season of the upcoming year, 2026. For detailed timelines and schedules, please refer to the Terms and Conditions"
+            case competitionList.Strings:
+                return "This registration for ensemble is for the performance season of the upcoming year, 2026. For detailed timelines and schedules, please refer to the Terms and Conditions"
+            default:
+                return "This registration is for the performance season of the upcoming year, 2026. For detailed timelines and schedules, please refer to the Terms and Conditions"
+        }
+    }, [selectedCompetition]);
+
     return (
         <div className="primaryBackgroundBlack" style={{ padding: "128px 0px 48px 0px" }}>
             <div className="container" style={{ marginBottom: 30 }}>
@@ -1090,6 +1113,12 @@ const Register = () => {
                                 </a>
                                 .
                             </div>
+
+                            {warningPerformenceSchedule !== null && (
+                                <p style={{ color: '#ef4444', marginTop: '12px', fontSize: '14px', maxWidth: '100%', marginBottom: 0 }}>
+                                    <strong>Important Notice:</strong> {warningPerformenceSchedule}
+                                </p>
+                            )}
 
                             {/* Performance Category */}
                             <RadioForm
