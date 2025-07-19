@@ -877,15 +877,15 @@ const Register = () => {
             case competitionList.Woodwinds:
                 return "This registration for ensemble is for the performance season of the upcoming year, 2026. For detailed timelines and schedules, please refer to the Terms and Conditions"
             case competitionList.Guitar:
-                return "This registration for ensemble is for the performance season of the upcoming year, 2026. For detailed timelines and schedules, please refer to the Terms and Conditions"
+                return "This registration for ensemble guitar with 2 pianos is for the performance season of the upcoming year, 2026. For detailed timelines and schedules, please refer to the Terms and Conditions"
             case competitionList.VocalChoir:
-                return null
+                return "For detailed timelines and schedules, please refer to the Terms and Conditions"
             case competitionList.Brass:
                 return "This registration is for the performance season of the upcoming year, 2026. For detailed timelines and schedules, please refer to the Terms and Conditions"
             case competitionList.Harp:
                 return "This registration is for the performance season of the upcoming year, 2026. For detailed timelines and schedules, please refer to the Terms and Conditions"
             case competitionList.Strings:
-                return "This registration for ensemble is for the performance season of the upcoming year, 2026. For detailed timelines and schedules, please refer to the Terms and Conditions"
+                return "For detailed timelines and schedules, please refer to the Terms and Conditions"
             default:
                 return "This registration is for the performance season of the upcoming year, 2026. For detailed timelines and schedules, please refer to the Terms and Conditions"
         }
