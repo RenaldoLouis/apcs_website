@@ -1115,7 +1115,7 @@ const Register = () => {
                             </div>
 
                             {warningPerformenceSchedule !== null && (
-                                <p style={{ color: '#ef4444', marginTop: '12px', fontSize: '14px', maxWidth: '100%', marginBottom: 0 }}>
+                                <p style={{ color: '#FBBF24', marginTop: '12px', fontSize: '14px', maxWidth: '100%' }}>
                                     <strong>Important Notice:</strong> {warningPerformenceSchedule}
                                 </p>
                             )}
