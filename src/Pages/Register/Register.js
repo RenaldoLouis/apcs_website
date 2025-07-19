@@ -856,7 +856,7 @@ const Register = () => {
             case competitionList.Guitar:
                 return "https://drive.google.com/file/d/1vSNQXTJufxy0xt9ZiGER7X5IUM4RVyfj/view?usp=drive_link"
             case competitionList.VocalChoir:
-                return "https://drive.google.com/file/d/1BT9MQp5KXD68qQxbmPESvWAEP8lRuI1g/view?usp=drive_link"
+                return "https://drive.google.com/file/d/1BT9MQp5KXD68qQxbmPESvWAEP8lRuI1g/view"
             case competitionList.Brass:
                 return "https://drive.google.com/file/d/1Y50K8H4Z5d3VcrxmYnqmQuoZRzw2pAY4/view?usp=drive_link"
             case competitionList.Harp:
