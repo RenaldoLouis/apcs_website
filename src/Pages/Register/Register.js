@@ -335,7 +335,7 @@ const Register = () => {
                 performers: formattedDatePerformers,
                 name: data.name,
                 youtubeLink: data.youtubeLink,
-                videoDuration: youtubeDuration + 70,
+                videoDuration: youtubeDuration ?? 0,
                 profilePhotoS3Link: profilePhotoS3Link,
                 pdfRepertoireS3Link: pdfRepertoireS3Link,
                 birthCertS3Link: birthCertS3Link,
