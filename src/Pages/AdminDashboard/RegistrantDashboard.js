@@ -43,31 +43,74 @@ const RegistrantDashboard = () => {
         saveAs(zipBlob, "registrant.zip");
     }
 
+    // 1. ADD THESE HELPER FUNCTIONS
+    // This function takes an S3 URI like "s3://bucket/key..." and returns just the object key.
+    const getS3KeyFromUri = (uri) => {
+        if (!uri) return '';
+        // This splits the string by slashes and takes everything after the 3rd slash.
+        return uri.split('/').slice(3).join('/');
+    };
+
+    // This function takes an object key and constructs the full public HTTPS URL.
+    const constructS3PublicUrl = (s3Key) => {
+        const BUCKET_NAME = 'registrants2025';
+        // Make sure this is your bucket's actual region
+        const BUCKET_REGION = 'ap-southeast-1';
+        return `https://${BUCKET_NAME}.s3.${BUCKET_REGION}.amazonaws.com/${s3Key}`;
+    };
+
     const handleExportToExcel = () => {
-        const data = registrantDatas
-        // Create a new workbook
+        const data = []; // assuming registrantDatas comes from your hook
+        registrantDatas.forEach((eachData, index) => {
+            const tempObj = {
+                no: index + 1,
+                Contestant: `${eachData.performers[0].firstName} ${eachData.performers[0].lastName}`,
+                PDF_Repertoire: eachData.pdfRepertoireS3Link,
+                Performance_Video: eachData.youtubeLink
+            }
+            data.push(tempObj)
+        })
+
         const workbook = new ExcelJS.Workbook();
-        // Create a worksheet with a title
         const worksheet = workbook.addWorksheet("Registrants 2025");
 
         if (data.length > 0) {
-            // Create headers from the keys of the first record
             const headers = Object.keys(data[0]);
             worksheet.addRow(headers);
 
-            // Add each registrant record as a row in the worksheet
             data.forEach((item) => {
                 const rowValues = headers.map((header) => {
                     let value = item[header];
-                    // If the field is createdAt, convert from Firestore timestamp object to a readable date
-                    if (header === "createdAt" && value) {
-                        // Convert seconds to a JavaScript Date (ignoring nanoseconds)
+
+                    if (header === "createdAt" && value?.seconds) {
                         value = new Date(value.seconds * 1000).toLocaleString();
                     }
-                    // Optionally, convert null to an empty string
-                    if (value === null) {
+
+                    // --- THIS IS THE KEY LOGIC ---
+                    // If the column is for the public repertoire link, format it as a hyperlink
+                    if (header === "PDF_Repertoire" && value) {
+                        const s3Key = getS3KeyFromUri(value);
+
+                        if (s3Key) {
+                            const publicUrl = constructS3PublicUrl(s3Key);
+                            // ExcelJS requires this specific object format for hyperlinks
+                            value = {
+                                text: 'View Repertoire PDF', // The text that will appear in the cell
+                                hyperlink: publicUrl,
+                                tooltip: publicUrl, // Optional: show URL on hover
+                            };
+                        }
+                    }
+                    // --- END OF KEY LOGIC ---
+
+                    if (value === null || typeof value === 'undefined') {
                         value = "";
                     }
+                    // Handle objects that are not hyperlinks (like the performers array)
+                    if (typeof value === 'object' && !value.hyperlink) {
+                        value = JSON.stringify(value);
+                    }
+
                     return value;
                 });
                 worksheet.addRow(rowValues);
@@ -76,7 +119,7 @@ const RegistrantDashboard = () => {
             worksheet.addRow(["No data available"]);
         }
 
-        // Generate Excel file and trigger download
+        // Generate Excel file
         workbook.xlsx.writeBuffer().then((buffer) => {
             const blob = new Blob([buffer], {
                 type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
