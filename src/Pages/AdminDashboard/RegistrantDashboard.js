@@ -59,14 +59,37 @@ const RegistrantDashboard = () => {
         return `https://${BUCKET_NAME}.s3.${BUCKET_REGION}.amazonaws.com/${s3Key}`;
     };
 
+    function formatDuration(totalSeconds) {
+        // Handle non-numeric or negative inputs gracefully
+        if (isNaN(totalSeconds) || totalSeconds < 0) {
+            return "00:00";
+        }
+
+        // 1. Calculate the minutes by dividing by 60 and taking the integer part
+        const minutes = Math.floor(totalSeconds / 60);
+
+        // 2. Calculate the remaining seconds using the modulo operator
+        const seconds = totalSeconds % 60;
+
+        // 3. Pad both numbers with a leading zero if they are less than 10
+        const paddedMinutes = String(minutes).padStart(2, '0');
+        const paddedSeconds = String(seconds).padStart(2, '0');
+
+        // 4. Combine them into the final format
+        return `${paddedMinutes}:${paddedSeconds}`;
+    }
+
     const handleExportToExcel = () => {
         const data = []; // assuming registrantDatas comes from your hook
+
         registrantDatas.forEach((eachData, index) => {
+            const formattedTime = formatDuration(eachData.videoDuration);
             const tempObj = {
                 no: index + 1,
                 Contestant: `${eachData.performers[0].firstName} ${eachData.performers[0].lastName}`,
                 PDF_Repertoire: eachData.pdfRepertoireS3Link,
-                Performance_Video: eachData.youtubeLink
+                Performance_Video: eachData.youtubeLink,
+                duration: formattedTime
             }
             data.push(tempObj)
         })
