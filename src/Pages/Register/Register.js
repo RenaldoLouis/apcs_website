@@ -982,7 +982,18 @@ const Register = () => {
                             <Controller
                                 name="name"
                                 control={control}
-                                rules={{ required: t("register.errors.required") }}
+                                // Add the new rules for minLength and pattern here
+                                rules={{
+                                    required: t("register.errors.required"),
+                                    minLength: {
+                                        value: 3,
+                                        message: t("register.errors.nameMinLength") // New error message
+                                    },
+                                    pattern: {
+                                        value: /^[A-Za-z\s'-]+$/, // Regex to allow letters, spaces, apostrophes, hyphens
+                                        message: t("register.errors.nameMinLength") // New error message
+                                    }
+                                }}
                                 render={({ field, fieldState: { error } }) => (
                                     <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
                                         <TextField
@@ -998,7 +1009,7 @@ const Register = () => {
                                         />
 
                                         <Tooltip
-                                            enterTouchDelay={0}              // Show immediately on tap
+                                            enterTouchDelay={0}
                                             title={t("register.form.teacherNameNote")}>
                                             <IconButton sx={{ color: "#e5cc92", fontSize: 16, mt: 1 }}>
                                                 <QuestionCircleOutlined />
@@ -1011,7 +1022,18 @@ const Register = () => {
                                 <Controller
                                     name="teacherName"
                                     control={control}
-                                    rules={userTypeValue === "Personal" ? { required: t("register.errors.required") } : {}}
+                                    // Add the new rules inside the existing ternary operator
+                                    rules={userTypeValue === "Personal" ? {
+                                        required: t("register.errors.required"),
+                                        minLength: {
+                                            value: 3,
+                                            message: t("register.errors.nameMinLength")
+                                        },
+                                        pattern: {
+                                            value: /^[A-Za-z\s'-]+$/,
+                                            message: t("register.errors.nameMinLength")
+                                        }
+                                    } : {}}
                                     render={({ field, fieldState: { error } }) => (
                                         userTypeValue === "Personal" && (
                                             <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>

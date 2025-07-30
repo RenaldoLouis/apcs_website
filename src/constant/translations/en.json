@@ -216,7 +216,8 @@
         },
         "errors": {
             "required": "This field is required",
-            "email": "Please enter a valid email address"
+            "email": "Please enter a valid email address",
+            "nameMinLength": "Plese enter a valid name"
         },
         "success": {
             "register": "Successfully Registered! Please check your email for confirmation."

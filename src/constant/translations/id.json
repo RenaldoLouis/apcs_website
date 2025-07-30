@@ -217,7 +217,8 @@
         },
         "errors": {
             "required": "Bidang ini wajib diisi",
-            "email": "Silakan masukkan alamat email yang valid"
+            "email": "Silakan masukkan alamat email yang valid",
+            "nameMinLength": "Plese enter a valid name"
         },
         "success": {
             "register": "Berhasil didaftarkan! Silakan periksa email Anda untuk konfirmasi."
