@@ -31,6 +31,7 @@ import Podcast from "./Pages/Podcast/Podcast";
 import Register from "./Pages/Register/Register";
 import ProtectedRoute from "./ProtectedRoute";
 import PublicRoute from "./PublicRoute";
+import ScannerPage from './Pages/Scanner/ScannerPage';
 
 const audio = new Audio(persona5);
 
@@ -74,6 +75,11 @@ const Main = () => {
         <Route path="/payment" element={
           <ProtectedRoute>
             <PaymentPage />
+          </ProtectedRoute>
+        } />
+        <Route path="/scan" element={
+          <ProtectedRoute>
+            <ScannerPage />
           </ProtectedRoute>
         } />
         <Route path="*" element={<PublicRoute />} />

@@ -90,5 +90,8 @@ export default {
   bookings: {
     create: (data) => postRequest(`/api/v1/apcs/bookings`, data),
     checkStatus: (bookingId) => postRequest(`/api/v1/apcs/bookings/status?bookingId=${bookingId}`),
-  }
+  },
+  tickets: {
+    verify: (eventName) => getRequest(`/api/v1/apcs/getGaleries?eventName=${eventName}`),
+  },
 };
