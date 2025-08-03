@@ -29,6 +29,7 @@ export const RegistrantsColumns = [
 
 export const getRegistrants2025Columns = (handleDownloadPDF, handleUpdateStatus) => [
     { title: "Name", dataIndex: "name" },
+    { title: "Teacher Name", dataIndex: "teacherName" },
     { title: "Total Performer", dataIndex: "totalPerformer" },
     { title: "Competition Category", dataIndex: "competitionCategory" },
     { title: "Performance Category", dataIndex: "PerformanceCategory" },
