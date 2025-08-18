@@ -9,6 +9,13 @@ import { getRegistrants2025Columns } from '../../constant/RegistrantsColumn';
 import { db } from '../../firebase';
 import usePaginatedRegistrants from '../../hooks/useFetchRegistrantsData';
 
+import { collection, getDocs, writeBatch } from "firebase/firestore";
+import { useState } from 'react';
+import { extractVideoId, fetchYouTubeDuration } from '../../utils/youtube';
+// Import the new utility functions
+import { Modal, Progress } from 'antd';
+
+// ...other imports
 const { Content } = Layout;
 
 const RegistrantDashboard = () => {
@@ -17,6 +24,11 @@ const RegistrantDashboard = () => {
     const { token: { colorBgContainer, borderRadiusLG }, } = theme.useToken();
 
     const { registrantDatas, page, setPage, totalDocs, allData, loading, fetchUserData } = usePaginatedRegistrants(pageSize, "Registrants2025", "createdAt");
+
+    // --- State for the new update process ---
+    const [isUpdating, setIsUpdating] = useState(false);
+    const [progress, setProgress] = useState(0);
+    const [updateMessage, setUpdateMessage] = useState('');
 
     const handlePageChange = (pagination, filters, sorter, extra) => {
         setPage(pagination);
@@ -196,6 +208,69 @@ const RegistrantDashboard = () => {
 
     const columns = getRegistrants2025Columns(handleDownloadPDF, updatePaymentStatus);
 
+    const handleRecheckDurations = async () => {
+        setIsUpdating(true);
+        setProgress(0);
+        setUpdateMessage("Fetching all registrant data...");
+
+        try {
+            const querySnapshot = await getDocs(collection(db, "Registrants2025"));
+            const allDocs = querySnapshot.docs;
+            const total = allDocs.length;
+
+            if (total === 0) {
+                message.info("No registrants to update.");
+                setIsUpdating(false);
+                return;
+            }
+
+            let batch = writeBatch(db);
+            let operationsCount = 0;
+            let updatedCount = 0;
+
+            for (let i = 0; i < total; i++) {
+                const docSnap = allDocs[i];
+                const registrant = docSnap.data();
+
+                const performerName = registrant.performers[0]?.firstName || registrant.name;
+                setUpdateMessage(`(${i + 1}/${total}) Checking video for ${performerName}...`);
+
+                const videoId = extractVideoId(registrant.youtubeLink);
+                if (videoId) {
+                    // This now calls the real, promisified function from your utils
+                    const newDuration = await fetchYouTubeDuration(videoId);
+
+                    if (newDuration !== null && newDuration !== registrant.videoDuration) {
+                        batch.update(docSnap.ref, { videoDuration: newDuration });
+                        operationsCount++;
+                        updatedCount++;
+                    }
+                }
+
+                setProgress(Math.round(((i + 1) / total) * 100));
+
+                if (operationsCount === 499) {
+                    await batch.commit();
+                    batch = writeBatch(db);
+                    operationsCount = 0;
+                }
+            }
+
+            if (operationsCount > 0) {
+                await batch.commit();
+            }
+
+            message.success(`Process complete! ${updatedCount} video durations were updated.`);
+            fetchUserData(page);
+
+        } catch (error) {
+            console.error("Failed during bulk update:", error);
+            message.error("An error occurred during the update process.");
+        } finally {
+            setIsUpdating(false);
+        }
+    };
+
     return (
         <Content
             style={{
@@ -208,6 +283,7 @@ const RegistrantDashboard = () => {
                     minHeight: 360,
                     background: colorBgContainer,
                     borderRadius: borderRadiusLG,
+                    overflow: 'auto',
                 }}
             >
                 <Table columns={columns} dataSource={registrantDatas} onChange={handlePageChange} pagination={false} />
@@ -230,7 +306,25 @@ const RegistrantDashboard = () => {
                 }}
             >
                 <Button type="primary" onClick={handleExportToExcel}>Export to excel</Button>
+
+                <Button
+                    style={{ marginLeft: 8 }}
+                    onClick={handleRecheckDurations}
+                    loading={isUpdating} // Use the new loading state
+                >
+                    Re-check All YouTube Durations
+                </Button>
             </div>
+            <Modal
+                title="Updating Video Durations"
+                open={isUpdating}
+                footer={null}
+                closable={false}
+            >
+                <p>{updateMessage}</p>
+                <Progress percent={progress} />
+                <p style={{ marginTop: '10px', textAlign: 'center' }}>Please keep this tab open until the process is complete.</p>
+            </Modal>
         </Content>
     )
 }
