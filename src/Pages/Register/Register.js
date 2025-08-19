@@ -908,6 +908,12 @@ const Register = () => {
         return lowercasedValue.includes('traditional') || lowercasedValue.includes('tradisional');
     }, [instrumentCategoryValue]);
 
+    useEffect(() => {
+        if (!isTraditionalInstrumentSelected) {
+            unregister("traditionalInstrument");
+        }
+    }, [isTraditionalInstrumentSelected, unregister]);
+
 
     return (
         <div className="primaryBackgroundBlack" style={{ padding: "128px 0px 48px 0px" }}>
@@ -1174,7 +1180,6 @@ const Register = () => {
                             )}
 
 
-
                             {/* Instrument Category (Radio Buttons) */}
                             <FormControl className='mt-4' component="fieldset" error={!!errors.instrumentCategory}>
                                 <FormLabel
@@ -1238,6 +1243,13 @@ const Register = () => {
                                 <Controller
                                     name="traditionalInstrument"
                                     control={control}
+                                    rules={isTraditionalInstrumentSelected ? {
+                                        required: t("register.errors.required"),
+                                        minLength: {
+                                            value: 3,
+                                            message: t("register.errors.nameMinLength")
+                                        }
+                                    } : {}}
                                     render={({ field, fieldState: { error } }) => (
                                         <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
                                             <TextField
