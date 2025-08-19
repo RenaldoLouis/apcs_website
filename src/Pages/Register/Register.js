@@ -69,6 +69,7 @@ const Register = () => {
             userType: "Teacher",
             competitionCategory: competitionList.Piano,
             instrumentCategory: "",
+            traditionalInstrument: "",
             name: "",
             youtubeLink: "",
             performers: [{
@@ -331,6 +332,7 @@ const Register = () => {
                 competitionCategory: data.competitionCategory,
                 PerformanceCategory: data.PerformanceCategory,
                 instrumentCategory: data.instrumentCategory,
+                traditionalInstrument: data?.traditionalInstrument ?? "",
                 userType: data.userType,
                 performers: formattedDatePerformers,
                 name: data.name,
@@ -356,8 +358,6 @@ const Register = () => {
                 instrumentCategory: data.instrumentCategory,
                 price: price.formattedAmount
             }))
-
-            // console.log("dataEmail", dataEmail)
 
             setProgressLoading(90)
             // send email welcome to Indonesia registrant after register
@@ -891,6 +891,24 @@ const Register = () => {
         }
     }, [selectedCompetition]);
 
+    useEffect(() => {
+        setValue('instrumentCategory', Object.keys(instrumentCategoryList)[0])
+    }, [selectedCompetition])
+
+    const isTraditionalInstrumentSelected = useMemo(() => {
+        // First, ensure the value is a string to prevent errors
+        if (typeof instrumentCategoryValue !== 'string') {
+            return false;
+        }
+
+        // Convert the value to lowercase once for efficiency
+        const lowercasedValue = instrumentCategoryValue.toLowerCase();
+
+        // Check if the lowercase string includes either the English or Indonesian word
+        return lowercasedValue.includes('traditional') || lowercasedValue.includes('tradisional');
+    }, [instrumentCategoryValue]);
+
+
     return (
         <div className="primaryBackgroundBlack" style={{ padding: "128px 0px 48px 0px" }}>
             <div className="container" style={{ marginBottom: 30 }}>
@@ -1216,6 +1234,24 @@ const Register = () => {
                                     Piano, Harp Ensemble. </small>
                             )}
 
+                            {isTraditionalInstrumentSelected && (
+                                <Controller
+                                    name="traditionalInstrument"
+                                    control={control}
+                                    render={({ field, fieldState: { error } }) => (
+                                        <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+                                            <TextField
+                                                {...field}
+                                                label={t("register.form.traditionalInstrument")}
+                                                variant="standard"
+                                                className="custom-textfield-full mb-4"
+                                                error={!!error}
+                                                helperText={error ? error.message : ""}
+                                            />
+                                        </div>
+                                    )}
+                                />
+                            )}
 
                             {/* Age Category (Radio Buttons) */}
                             <FormControl className='mt-4' component="fieldset" error={!!errors.ageCategory}>

@@ -195,11 +195,13 @@ export const PercussionInstrumentListSolo = {
     Marimba: "Marimba",
     Vibraphone: "Vibraphone",
     Multi_percussion: "Multi Percussion",
+    Any_Traditional_Percussion: "Any Traditional Percussion",
 }
 
 export const GuitarInstrumentListSolo = {
     Classic: "Classical Nylon Guitar (Classical)",
     FreeGenre: "Any Acoustic Guitar Strings and Nylon (Free Genre)*",
+    Any_Traditional_Guitar: "Any Traditional Guitar",
 }
 
 export const GuitarInstrumentListEnsemble = {
@@ -210,7 +212,8 @@ export const GuitarInstrumentListEnsemble = {
 
 export const HarpInstrumentListSolo = {
     pedal: "Pedal Harp",
-    lever: "Level Harp",
+    lever: "Lever Harp",
+    Any_Traditional_Harp: "Any Traditional Harp",
 }
 
 export const HarpInstrumentListEnsemble = {
@@ -246,7 +249,7 @@ export const WoodwindInstrumentListSolo = {
     Clarinet: "Clarinet",
     Saxophone: "Saxophone",
     Bassoon: "Bassoon",
-    any_traditional_woodwin: "Any Traditional Woodwind",
+    any_traditional_woodwind: "Any Traditional Woodwind",
 }
 
 export const WoodwindInstrumentListEnsemble = {
