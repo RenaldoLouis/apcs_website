@@ -96,7 +96,7 @@ const NotableJurist = () => {
         {
             image: jurist7,
             name: "MARTIN KESUMA",
-            title: "Jurist 2024",
+            title: "Jurist 2024 & 2025",
             quote: t("about15"),
             country: [CountryConst.IDN, CountryConst.AMR],
             link: "https://www.instagram.com/p/C4pZ41uvxCp/?igsh=MW1pd2tuYWpsN29haw%3D%3D&img_index=5"
@@ -136,7 +136,7 @@ const NotableJurist = () => {
         {
             image: jurist11,
             name: "NOZOMI HIWATASHI",
-            title: "Jurist 2024",
+            title: "Jurist 2025",
             quote: t("about19"),
             country: [CountryConst.JP],
             link: "https://www.instagram.com/p/DJtLrHZBUOo/?img_index=3&igsh=MXJ3NXdncTA3c3pqdQ%3D%3D"
@@ -144,7 +144,7 @@ const NotableJurist = () => {
         {
             image: jurist12,
             name: "AARON KURZ",
-            title: "Jurist 2024",
+            title: "Jurist 2025",
             quote: t("about20"),
             country: [CountryConst.AMR],
             link: "https://www.instagram.com/p/DJW1yq4Bj34/?img_index=2&igsh=MTlrcWpjNW53cjdxMQ%3D%3D"
@@ -152,7 +152,7 @@ const NotableJurist = () => {
         {
             image: jurist13,
             name: "DR. JIN YUN",
-            title: "Jurist 2024",
+            title: "Jurist 2025",
             quote: t("about21"),
             country: [CountryConst.KR],
             link: "https://www.instagram.com/p/DJqT3uUBAP-/?igsh=MW1mYmsyZjg2cTR5NA%3D%3D&img_index=3"
@@ -160,7 +160,7 @@ const NotableJurist = () => {
         {
             image: jurist14,
             name: "LIVIA SCHWEIZER",
-            title: "Jurist 2024",
+            title: "Jurist 2025",
             quote: t("about22"),
             country: [CountryConst.ITL, CountryConst.FIN],
             link: "https://www.instagram.com/p/DJqT3uUBAP-/?igsh=MW1mYmsyZjg2cTR5NA%3D%3D&img_index=3"
@@ -168,7 +168,7 @@ const NotableJurist = () => {
         {
             image: jurist15,
             name: "HSIEH MENG FU",
-            title: "Jurist 2024",
+            title: "Jurist 2025",
             quote: t("about23"),
             country: [CountryConst.CHI],
             link: "https://www.instagram.com/p/DJqT3uUBAP-/?igsh=MW1mYmsyZjg2cTR5NA%3D%3D&img_index=3"
@@ -176,7 +176,7 @@ const NotableJurist = () => {
         {
             image: jurist16,
             name: "András Dénes",
-            title: "Jurist 2024",
+            title: "Jurist 2025",
             quote: t("about24"),
             country: [CountryConst.HUN],
             link: "https://www.instagram.com/p/DKgWHIhhL-E/?img_index=2"
@@ -184,7 +184,7 @@ const NotableJurist = () => {
         {
             image: jurist17,
             name: "Bálint Képiró",
-            title: "Jurist 2024",
+            title: "Jurist 2025",
             quote: t("about25"),
             country: [CountryConst.HUN],
             link: "https://www.instagram.com/p/DKgWHIhhL-E/?img_index=3"
@@ -192,7 +192,7 @@ const NotableJurist = () => {
         {
             image: jurist18,
             name: "Theduardo Prasetyo",
-            title: "Jurist 2024",
+            title: "Jurist 2025",
             quote: t("about26"),
             country: [CountryConst.IDN],
             link: "https://www.instagram.com/p/DKgRu_KBOGO/?img_index=2"
@@ -200,7 +200,7 @@ const NotableJurist = () => {
         {
             image: jurist19,
             name: "YIFEI PEI",
-            title: "Jurist 2024",
+            title: "Jurist 2025",
             quote: t("about27"),
             country: [CountryConst.CHI],
             link: "https://www.instagram.com/p/DKgRu_KBOGO/?img_index=3"
@@ -208,7 +208,7 @@ const NotableJurist = () => {
         {
             image: jurist20,
             name: "KAREN TAY",
-            title: "Jurist 2024",
+            title: "Jurist 2025",
             quote: t("about29"),
             country: [CountryConst.SR],
             link: "https://www.instagram.com/p/DJ_bzFdhHr2/?img_index=2"
@@ -216,7 +216,7 @@ const NotableJurist = () => {
         {
             image: jurist21,
             name: "NATALIE LO",
-            title: "Jurist 2024",
+            title: "Jurist 2025",
             quote: t("about28"),
             country: [CountryConst.HK],
             link: "https://www.instagram.com/p/DJ_bzFdhHr2/?img_index=3"
@@ -224,7 +224,7 @@ const NotableJurist = () => {
         {
             image: jurist23,
             name: "Vahur Luhtsalu",
-            title: "Jurist 2024",
+            title: "Jurist 2025",
             quote: t("about30"),
             country: [CountryConst.EST],
             link: "https://www.instagram.com/p/DKyvVwTBS-h/?img_index=3"
@@ -232,7 +232,7 @@ const NotableJurist = () => {
         {
             image: jurist22,
             name: "Öykü Melis Şahin",
-            title: "Jurist 2024",
+            title: "Jurist 2025",
             quote: t("about31"),
             country: [CountryConst.TRK],
             link: "https://www.instagram.com/p/DKyvVwTBS-h/?img_index=2"
@@ -240,7 +240,7 @@ const NotableJurist = () => {
         {
             image: jurist24,
             name: "Jennifer Tan",
-            title: "Jurist 2024",
+            title: "Jurist 2025",
             quote: t("about32"),
             country: [CountryConst.IDN],
             link: "https://www.instagram.com/p/DKr4wOFB4_O/?img_index=2"
@@ -248,7 +248,7 @@ const NotableJurist = () => {
         {
             image: jurist25,
             name: "Jessica januar",
-            title: "Jurist 2024",
+            title: "Jurist 2025",
             quote: t("about33"),
             country: [CountryConst.IDN],
             link: "https://www.instagram.com/p/DKr4wOFB4_O/?img_index=3"
