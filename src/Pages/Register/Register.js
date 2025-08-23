@@ -408,7 +408,7 @@ const Register = () => {
         reset()
         setIsSaveSuccess(false)
         clearErrors()
-        setTotalPerformer(0)
+        setTotalPerformer(1)
         // Clear file input
         if (examInputRef.current) {
             examInputRef.current.value = null;
@@ -423,7 +423,7 @@ const Register = () => {
             top: 0,
             behavior: "smooth"
         });
-        setProgressLoading(10)
+        setProgressLoading(0)
     }
 
     // Sync the fields with `totalPerformer`
