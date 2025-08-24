@@ -2,10 +2,11 @@ import {
     DesktopOutlined,
     FileOutlined,
     PieChartOutlined,
+    ReadOutlined,
     SendOutlined,
     TeamOutlined,
     UsergroupAddOutlined,
-    UserOutlined
+    UserOutlined,
 } from '@ant-design/icons';
 import { Layout, Menu, theme } from 'antd';
 import { useState } from 'react';
@@ -14,6 +15,7 @@ import { useAuth } from '../../context/DataContext';
 import AdminContent from './AdminContent';
 import MarketingContent from './MarketingContent';
 import RegistrantDashboard from './RegistrantDashboard';
+import SeatingEvent from './SeatEvent';
 import SeatingContent from './SeatingContent';
 import UserContent from './UserContent';
 
@@ -49,13 +51,14 @@ const AdminDashboard = () => {
         getItem('Admin Page', '3', <DesktopOutlined />),
         getItem('Registrant Data', '4', <DesktopOutlined />),
         getItem('Seating', '5', <UsergroupAddOutlined />),
+        getItem('Seat Event', '6', <ReadOutlined />),
         getItem('User', 'sub1', <UserOutlined />, () => { }, [
-            getItem('Tom', '6'),
-            getItem('Bill', '7'),
-            getItem('Alex', '8'),
+            getItem('Tom', '7'),
+            getItem('Bill', '8'),
+            getItem('Alex', '9'),
         ]),
-        getItem('Team', 'sub2', <TeamOutlined />, () => { }, [getItem('Team 1', '9'), getItem('Team 2', '10')]),
-        getItem('Sign out', '11', <FileOutlined />, handleSignOut),
+        getItem('Team', 'sub2', <TeamOutlined />, () => { }, [getItem('Team 1', '10'), getItem('Team 2', '11')]),
+        getItem('Sign out', '12', <FileOutlined />, handleSignOut),
     ];
 
 
@@ -71,6 +74,8 @@ const AdminDashboard = () => {
                 return <RegistrantDashboard />;
             case '5':
                 return <SeatingContent />;
+            case '6':
+                return <SeatingEvent />;
             default:
                 return <UserContent />;
         }
