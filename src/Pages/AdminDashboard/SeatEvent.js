@@ -37,6 +37,9 @@ const SeatingEvent = () => {
     const [ticketVenue2Level2, setTicketVenue2Level2] = useState(0);
 
     const [selectedRegistrant, setSelectedRegistrant] = useState(null);
+    const [selectedValueRegistrant, setSelectedValueRegistrant] = useState(null); // <-- Add this line
+
+
     const [selectedDate, setSelectedDate] = useState(null);
     const [selectedSession, setSelectedSession] = useState(null);
 
@@ -178,19 +181,17 @@ const SeatingEvent = () => {
 
     const handleChange = (selectedEmail, selectedOption) => {
         setEmailBuyer(selectedEmail);
-        setSelectedRegistrant(selectedOption.label);
+        setSelectedRegistrant(selectedEmail);
+        setSelectedValueRegistrant(selectedOption.label)
     };
 
-    const listPerformerName = useMemo(() => {
-        if (!registrantDatas) return [];
-        return registrantDatas.map((eachData) => {
-            const performer = eachData?.performers[0];
-            return {
-                value: performer?.email, // Use email as the value
-                label: `${performer?.firstName} (${performer?.lastName})`
-            };
-        });
-    }, [registrantDatas]);
+    const listPerformerName = registrantDatas ? registrantDatas.map((eachData) => {
+        const performer = eachData?.performers[0];
+        return {
+            value: performer?.email,
+            label: `${performer?.firstName} (${performer?.lastName})`
+        };
+    }) : [];
 
     console.log("List Performer Name: ", listPerformerName);
 
@@ -223,6 +224,7 @@ const SeatingEvent = () => {
                                 onChange={handleChange}
                                 options={listPerformerName}
                                 value={selectedRegistrant}
+                                virtual={false}
                             />
                         </Col>
                     </Row>
