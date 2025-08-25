@@ -32,6 +32,8 @@ const SeatingEvent = () => {
     const [tempSelectedRow, setTempSelectedRow] = useState(null);
     const [selectedRegistrantName, setSelectedRegistrantName] = useState('');
     const [emailBuyer, setEmailBuyer] = useState('');
+    const [searchTerm, setSearchTerm] = useState('');
+
     // State for user's choices (this is UI state, so it stays in the component)
     const [ticketVenue1Level1, setTicketVenue1Level1] = useState(0);
     const [ticketVenue1Level2, setTicketVenue1Level2] = useState(0);
@@ -51,6 +53,20 @@ const SeatingEvent = () => {
     const [wantsToSelectSeats, setWantsToSelectSeats] = useState(false);
     const [selectedSeats, setSelectedSeats] = useState([]);
     const [selectedAddOns, setSelectedAddOns] = useState([]);
+
+    const filteredData = useMemo(() => {
+        if (!registrantDatas) return [];
+        if (!searchTerm) {
+            return registrantDatas; // If no search term, return all data
+        }
+        return registrantDatas.filter(registrant => {
+            const performer = registrant.performers?.[0];
+            if (!performer) return false;
+
+            const fullName = `${performer.firstName} ${performer.lastName}`.toLowerCase();
+            return fullName.includes(searchTerm.toLowerCase());
+        });
+    }, [registrantDatas, searchTerm]);
 
     // Memoize the formatted seats for the SeatPicker to avoid re-calculating on every render
     const formattedSeatsForPicker = useMemo(() => {
@@ -258,9 +274,6 @@ const SeatingEvent = () => {
         };
     }) : [];
 
-    console.log("registrantDatas", registrantDatas);
-
-
     // --- Render Logic ---
     if (loading) {
         return <div style={{ display: 'flex', justifyContent: 'center', padding: '50px' }}><Spin size="large" tip="Loading Event..." /></div>;
@@ -448,10 +461,18 @@ const SeatingEvent = () => {
                 okText="Select"
                 okButtonProps={{ disabled: !tempSelectedRow }} // Disable OK if nothing is selected
             >
+                <Input.Search
+                    placeholder="Search by performer name..."
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)} // Live search as you type
+                    style={{ marginBottom: 16 }}
+                    allowClear
+                />
                 <Table
                     rowSelection={rowSelection}
                     columns={columns}
-                    dataSource={registrantDatas.map(item => ({ ...item, key: item.id }))} // Add a unique 'key' for each row
+                    // dataSource={registrantDatas.map(item => ({ ...item, key: item.id }))} // Add a unique 'key' for each row
+                    dataSource={filteredData.map(item => ({ ...item, key: item.id }))}
                     pagination={{ pageSize: 5 }} // Optional: Paginate for long lists
                 />
             </Modal>
