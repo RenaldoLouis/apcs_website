@@ -106,7 +106,8 @@ const SeatingEvent = () => {
         }
 
         const bookingPayload = {
-            eventId,
+            eventId: eventId,
+            userId: formData.registrant.id,
             userEmail: formData.registrant.email,
             venue: formData.venue,
             date: formData.date,
@@ -117,9 +118,22 @@ const SeatingEvent = () => {
 
         try {
             message.loading({ content: 'Initiating your booking...', key: 'booking' });
-            const response = await apis.bookings.create(bookingPayload);
+            // 1. Save the booking info and get the token back
+            console.log("bookingPayload", bookingPayload)
+            const saveResponse = await apis.bookings.saveSeatBookProfileInfo(bookingPayload);
+            const { bookingId, seatSelectionToken } = saveResponse.data;
+
+            // 2. Prepare the payload for the email, now including the token
+            const emailPayload = {
+                ...bookingPayload,
+                bookingId: bookingId,
+                seatSelectionToken: seatSelectionToken // Add the token here
+            };
+            console.log("emailPayload", emailPayload)
+            // 3. Send the email with the token
+            // await apis.bookings.sendSeatBookingEmail(emailPayload);
             message.success({ content: 'Booking initiated!', key: 'booking' });
-            navigate('/payment', { state: { /* ... pass necessary data ... */ } });
+            // navigate('/payment', { state: { /* ... pass necessary data ... */ } });
         } catch (err) {
             message.error({ content: err.response?.data?.message || 'Failed to create booking.', key: 'booking' });
         }
