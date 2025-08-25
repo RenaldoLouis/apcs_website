@@ -1,4 +1,4 @@
-import { Alert, Button, Card, Checkbox, Col, Divider, Input, InputNumber, List, message, Radio, Row, Select, Space, Spin, Typography } from 'antd';
+import { Alert, Button, Card, Checkbox, Col, Divider, Input, InputNumber, List, message, Modal, Radio, Row, Select, Space, Spin, Table, Typography } from 'antd';
 import { useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import apis from '../../apis';
@@ -28,6 +28,10 @@ const SeatingEvent = () => {
     // 2. Use the custom hook to fetch all data directly from Firebase
     const { event, seats: flatSeatList, error } = useEventBookingData(eventId);
 
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [tempSelectedRow, setTempSelectedRow] = useState(null);
+    const [selectedRegistrantName, setSelectedRegistrantName] = useState('');
+    const [emailBuyer, setEmailBuyer] = useState('');
     // State for user's choices (this is UI state, so it stays in the component)
     const [ticketVenue1Level1, setTicketVenue1Level1] = useState(0);
     const [ticketVenue1Level2, setTicketVenue1Level2] = useState(0);
@@ -46,7 +50,6 @@ const SeatingEvent = () => {
     const [ticketQuantity, setTicketQuantity] = useState(0);
     const [wantsToSelectSeats, setWantsToSelectSeats] = useState(false);
     const [selectedSeats, setSelectedSeats] = useState([]);
-    const [emailBuyer, setEmailBuyer] = useState("");
     const [selectedAddOns, setSelectedAddOns] = useState([]);
 
     // Memoize the formatted seats for the SeatPicker to avoid re-calculating on every render
@@ -80,6 +83,68 @@ const SeatingEvent = () => {
         });
         return { items, total };
     }, [event, ticketQuantity, selectedSeats, selectedAddOns]);
+
+    const columns = [
+        {
+            title: 'Performer Name',
+            key: 'performerName',
+            render: (_, record) => {
+                const performer = record.performers[0];
+                return `${performer?.firstName || ''} ${performer?.lastName || ''}`;
+            },
+            // Enable searching by performer name
+            onFilter: (value, record) => {
+                const performer = record.performers[0];
+                const fullName = `${performer?.firstName || ''} ${performer?.lastName || ''}`;
+                return fullName.toLowerCase().includes(value.toLowerCase());
+            },
+        },
+        {
+            title: 'Email',
+            key: 'email',
+            render: (_, record) => record.performers[0]?.email,
+        },
+        {
+            title: 'Competition',
+            dataIndex: 'competitionCategory',
+            key: 'competitionCategory',
+        },
+        {
+            title: 'Instrument',
+            dataIndex: 'instrumentCategory',
+            key: 'instrumentCategory',
+        },
+        {
+            title: 'Age Category',
+            dataIndex: 'ageCategory',
+            key: 'ageCategory',
+        },
+    ];
+
+    const rowSelection = {
+        type: 'radio', // Allow only one selection at a time
+        onChange: (selectedRowKeys, selectedRows) => {
+            // Store the full selected registrant object temporarily
+            setTempSelectedRow(selectedRows[0]);
+        },
+    };
+
+    // --- Modal Controls ---
+    const showModal = () => setIsModalOpen(true);
+
+    const handleOk = () => {
+        if (tempSelectedRow) {
+            const performer = tempSelectedRow.performers[0];
+            // Set the final state with the selected user's info
+            setSelectedRegistrantName(`${performer.firstName} ${performer.lastName}`);
+            setEmailBuyer(performer.email);
+        }
+        setIsModalOpen(false); // Close the modal
+    };
+
+    const handleCancel = () => {
+        setIsModalOpen(false);
+    };
 
 
     // UI Event Handlers - these remain the same
@@ -193,7 +258,7 @@ const SeatingEvent = () => {
         };
     }) : [];
 
-    console.log("List Performer Name: ", listPerformerName);
+    console.log("registrantDatas", registrantDatas);
 
 
     // --- Render Logic ---
@@ -206,138 +271,137 @@ const SeatingEvent = () => {
     }
 
     return (
-        <Row gutter={[32, 32]} style={{ padding: '40px' }}>
-            <Col xs={24} md={14}>
-                <Title level={2}>{event.title}</Title>
-                <Paragraph>{new Date(event.date?.seconds * 1000).toLocaleDateString('en-GB', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</Paragraph>
-                <Divider />
+        <>
 
-                <Card title="1. Select Registrant" style={{ marginBottom: '24px' }}>
-                    <Row align="middle" justify="space-between">
-                        <Col><Text>Selection based on per transaction</Text></Col>
-                        <Col>
-                            <Select
-                                showSearch
-                                style={{ width: 250 }}
-                                placeholder="Search to Select a Registrant"
-                                optionFilterProp="label"
-                                onChange={handleChange}
-                                options={listPerformerName}
-                                value={selectedRegistrant}
-                                virtual={false}
-                            />
-                        </Col>
-                    </Row>
-                    <Row align="middle" justify="space-between">
-                        <Paragraph type="secondary">The link to select seat will sent to this address.</Paragraph>
-                        <Input
-                            placeholder="Enter Registrant email"
-                            value={emailBuyer}
-                            size="large"
-                            disabled={true}
-                        />
-                    </Row>
-                </Card>
+            <Row gutter={[32, 32]} style={{ padding: '40px' }}>
+                <Col xs={24} md={14}>
+                    <Title level={2}>{event.title}</Title>
+                    <Paragraph>{new Date(event.date?.seconds * 1000).toLocaleDateString('en-GB', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</Paragraph>
+                    <Divider />
 
-                <Card title="2. Select Venue" style={{ marginBottom: '24px' }}>
-                    <Row align="middle" justify="space-between">
-                        <Col><Text>Selection Venue</Text></Col>
-                        <Col>
-                            <Select
-                                showSearch
-                                style={{ width: 250 }}
-                                placeholder="Search to Select a Venue"
-                                optionFilterProp="label"
-                                // onChange={handleChange}
-                                options={venueOptions}
-                            />
-                        </Col>
-                    </Row>
-                </Card>
-
-                <Card title="3. Select Your Tickets" style={{ marginBottom: '24px' }}>
-                    <Row align="middle" justify="space-between">
-                        <Col><Text>Lento (Base Price: ${event.baseTicketPrice})</Text></Col>
-                        <Col><InputNumber min={1} max={10} value={ticketVenue1Level1} onChange={handleTicketQuantityChange1} /> </Col>
-                    </Row>
-                    {ticketVenue1Level1 > 0 && (
+                    <Card title="1. Select Registrant" style={{ marginBottom: '24px' }}>
                         <Row align="middle" justify="space-between">
-                            <Checkbox checked={wantsToSelectSeats} onChange={(e) => setWantsToSelectSeats(e.target.checked)}>
-                                I want to choose my specific seat (additional charges apply).
-                            </Checkbox>
-                            {wantsToSelectSeats && (
-                                <Col> <InputNumber min={1} max={10} value={ticketVenue1Level1} onChange={handleTicketQuantityChange1} /> </Col>
-                            )}
+                            <Col>
+                                <Text strong>
+                                    {selectedRegistrantName ? `Selected: ${selectedRegistrantName}` : 'No Registrant Selected'}
+                                </Text>
+                            </Col>
+                            <Col>
+                                <Button type="primary" onClick={showModal}>
+                                    Select Registrant
+                                </Button>
+                            </Col>
                         </Row>
-                    )}
+                        <Row align="middle" justify="space-between" style={{ marginTop: 16 }}>
+                            <Paragraph type="secondary">The link to select a seat will be sent to this address.</Paragraph>
+                            <Input
+                                placeholder="Registrant email will appear here"
+                                value={emailBuyer}
+                                size="large"
+                                disabled={true}
+                            />
+                        </Row>
+                    </Card>
 
-                    <Row className='mt-2' align="middle" justify="space-between">
-                        <Col><Text>Allegro (Base Price: ${event.baseTicketPrice})</Text></Col>
-                        <Col><InputNumber min={1} max={10} value={ticketVenue1Level2} onChange={handleTicketQuantityChange2} /></Col>
-                    </Row>
-                    <Row className='mt-2' align="middle" justify="space-between">
-                        <Col><Text>Presto (Base Price: ${event.baseTicketPrice})</Text></Col>
-                        <Col><InputNumber min={1} max={10} value={ticketVenue1Level3} onChange={handleTicketQuantityChange3} /></Col>
-                    </Row>
-                </Card>
+                    <Card title="2. Select Venue" style={{ marginBottom: '24px' }}>
+                        <Row align="middle" justify="space-between">
+                            <Col><Text>Selection Venue</Text></Col>
+                            <Col>
+                                <Select
+                                    showSearch
+                                    style={{ width: 250 }}
+                                    placeholder="Search to Select a Venue"
+                                    optionFilterProp="label"
+                                    // onChange={handleChange}
+                                    options={venueOptions}
+                                />
+                            </Col>
+                        </Row>
+                    </Card>
 
-                <Card title="4. Select Date & Session" style={{ marginBottom: '24px' }}>
-                    <Space direction="vertical" size="large" style={{ width: '100%' }}>
+                    <Card title="3. Select Your Tickets" style={{ marginBottom: '24px' }}>
+                        <Row align="middle" justify="space-between">
+                            <Col><Text>Lento (Base Price: ${event.baseTicketPrice})</Text></Col>
+                            <Col><InputNumber min={1} max={10} value={ticketVenue1Level1} onChange={handleTicketQuantityChange1} /> </Col>
+                        </Row>
+                        {ticketVenue1Level1 > 0 && (
+                            <Row align="middle" justify="space-between">
+                                <Checkbox checked={wantsToSelectSeats} onChange={(e) => setWantsToSelectSeats(e.target.checked)}>
+                                    I want to choose my specific seat (additional charges apply).
+                                </Checkbox>
+                                {wantsToSelectSeats && (
+                                    <Col> <InputNumber min={1} max={10} value={ticketVenue1Level1} onChange={handleTicketQuantityChange1} /> </Col>
+                                )}
+                            </Row>
+                        )}
 
-                        {/* --- 1. Date Selection --- */}
-                        <div>
-                            <Text strong>Select a Date</Text>
-                            <Radio.Group
-                                onChange={handleDateChange}
-                                value={selectedDate}
-                                style={{ marginTop: '10px' }}
-                                optionType="button"
-                                buttonStyle="solid"
-                            >
-                                {Object.keys(availableSessions).map(date => (
-                                    <Radio.Button key={date} value={date}>
-                                        {new Date(date).toLocaleDateString('id-ID', { weekday: 'short', day: 'numeric', month: 'short' })}
-                                    </Radio.Button>
-                                ))}
-                            </Radio.Group>
-                        </div>
+                        <Row className='mt-2' align="middle" justify="space-between">
+                            <Col><Text>Allegro (Base Price: ${event.baseTicketPrice})</Text></Col>
+                            <Col><InputNumber min={1} max={10} value={ticketVenue1Level2} onChange={handleTicketQuantityChange2} /></Col>
+                        </Row>
+                        <Row className='mt-2' align="middle" justify="space-between">
+                            <Col><Text>Presto (Base Price: ${event.baseTicketPrice})</Text></Col>
+                            <Col><InputNumber min={1} max={10} value={ticketVenue1Level3} onChange={handleTicketQuantityChange3} /></Col>
+                        </Row>
+                    </Card>
 
-                        {/* --- 2. Session Selection (Only shows after a date is selected) --- */}
-                        {selectedDate && (
+                    <Card title="4. Select Date & Session" style={{ marginBottom: '24px' }}>
+                        <Space direction="vertical" size="large" style={{ width: '100%' }}>
+
+                            {/* --- 1. Date Selection --- */}
                             <div>
-                                <Text strong>Select a Session for {new Date(selectedDate).toLocaleDateString('id-ID', { month: 'long', day: 'numeric' })}</Text>
+                                <Text strong>Select a Date</Text>
                                 <Radio.Group
-                                    onChange={handleSessionChange}
-                                    value={selectedSession}
-                                    style={{ marginTop: '10px', display: 'flex', flexWrap: 'wrap', gap: '8px' }}
+                                    onChange={handleDateChange}
+                                    value={selectedDate}
+                                    style={{ marginTop: '10px' }}
                                     optionType="button"
+                                    buttonStyle="solid"
                                 >
-                                    {availableSessions[selectedDate].map(session => (
-                                        <Radio.Button key={session} value={session}>
-                                            {session}
+                                    {Object.keys(availableSessions).map(date => (
+                                        <Radio.Button key={date} value={date}>
+                                            {new Date(date).toLocaleDateString('id-ID', { weekday: 'short', day: 'numeric', month: 'short' })}
                                         </Radio.Button>
                                     ))}
                                 </Radio.Group>
                             </div>
-                        )}
 
-                    </Space>
-                </Card>
+                            {/* --- 2. Session Selection (Only shows after a date is selected) --- */}
+                            {selectedDate && (
+                                <div>
+                                    <Text strong>Select a Session for {new Date(selectedDate).toLocaleDateString('id-ID', { month: 'long', day: 'numeric' })}</Text>
+                                    <Radio.Group
+                                        onChange={handleSessionChange}
+                                        value={selectedSession}
+                                        style={{ marginTop: '10px', display: 'flex', flexWrap: 'wrap', gap: '8px' }}
+                                        optionType="button"
+                                    >
+                                        {availableSessions[selectedDate].map(session => (
+                                            <Radio.Button key={session} value={session}>
+                                                {session}
+                                            </Radio.Button>
+                                        ))}
+                                    </Radio.Group>
+                                </div>
+                            )}
 
-                <Card title="5. Optional Packages" style={{ marginBottom: '24px' }}>
-                    <List
-                        dataSource={event.addOns}
-                        renderItem={item => (
-                            <List.Item>
-                                <Checkbox onChange={(e) => handleAddOnCheckboxChange(e, item)}>
-                                    {item.name} (+${item.price})
-                                </Checkbox>
-                            </List.Item>
-                        )}
-                    />
-                </Card>
+                        </Space>
+                    </Card>
 
-                {/* <Card title="6. Registrant Email Address">
+                    <Card title="5. Optional Packages" style={{ marginBottom: '24px' }}>
+                        <List
+                            dataSource={event.addOns}
+                            renderItem={item => (
+                                <List.Item>
+                                    <Checkbox onChange={(e) => handleAddOnCheckboxChange(e, item)}>
+                                        {item.name} (+${item.price})
+                                    </Checkbox>
+                                </List.Item>
+                            )}
+                        />
+                    </Card>
+
+                    {/* <Card title="6. Registrant Email Address">
                     <Paragraph type="secondary">The link to select seat will sent to this address.</Paragraph>
                     <Input
                         placeholder="Enter Registrant email"
@@ -346,35 +410,52 @@ const SeatingEvent = () => {
                         size="large"
                     />
                 </Card> */}
-            </Col>
+                </Col>
 
-            <Col xs={24} md={10}>
-                <Card style={{ position: 'sticky', top: '20px' }}>
-                    <Title level={4}>Order Summary</Title>
-                    <List
-                        dataSource={orderSummary.items}
-                        renderItem={item => (
-                            <List.Item>
-                                <List.Item.Meta
-                                    title={item.description}
-                                    description={item.quantity > 1 ? `Quantity: ${item.quantity}` : ''}
-                                />
-                                <Text>${item.price}</Text>
-                            </List.Item>
-                        )}
-                        style={{ minHeight: '150px' }}
-                    />
-                    <Divider />
-                    <Row justify="space-between">
-                        <Col><Title level={3}>Total</Title></Col>
-                        <Col><Title level={3}>${orderSummary.total}</Title></Col>
-                    </Row>
-                    <Button type="primary" size="large" block onClick={handleContinueToPayment} disabled={loading}>
-                        Continue to Payment
-                    </Button>
-                </Card>
-            </Col>
-        </Row>
+                <Col xs={24} md={10}>
+                    <Card style={{ position: 'sticky', top: '20px' }}>
+                        <Title level={4}>Order Summary</Title>
+                        <List
+                            dataSource={orderSummary.items}
+                            renderItem={item => (
+                                <List.Item>
+                                    <List.Item.Meta
+                                        title={item.description}
+                                        description={item.quantity > 1 ? `Quantity: ${item.quantity}` : ''}
+                                    />
+                                    <Text>${item.price}</Text>
+                                </List.Item>
+                            )}
+                            style={{ minHeight: '150px' }}
+                        />
+                        <Divider />
+                        <Row justify="space-between">
+                            <Col><Title level={3}>Total</Title></Col>
+                            <Col><Title level={3}>${orderSummary.total}</Title></Col>
+                        </Row>
+                        <Button type="primary" size="large" block onClick={handleContinueToPayment} disabled={loading}>
+                            Continue to Payment
+                        </Button>
+                    </Card>
+                </Col>
+            </Row>
+            <Modal
+                title="Select a Registrant"
+                open={isModalOpen}
+                onOk={handleOk}
+                onCancel={handleCancel}
+                width={1000} // Make the modal wider to fit the table
+                okText="Select"
+                okButtonProps={{ disabled: !tempSelectedRow }} // Disable OK if nothing is selected
+            >
+                <Table
+                    rowSelection={rowSelection}
+                    columns={columns}
+                    dataSource={registrantDatas.map(item => ({ ...item, key: item.id }))} // Add a unique 'key' for each row
+                    pagination={{ pageSize: 5 }} // Optional: Paginate for long lists
+                />
+            </Modal>
+        </>
     );
 };
 
