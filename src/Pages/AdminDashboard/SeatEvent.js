@@ -33,6 +33,7 @@ const SeatingEvent = () => {
     const [selectedRegistrantName, setSelectedRegistrantName] = useState('');
     const [emailBuyer, setEmailBuyer] = useState('');
     const [searchTerm, setSearchTerm] = useState('');
+    const [selectedVenue, setSelectedVenue] = useState('');
 
     // State for user's choices (this is UI state, so it stays in the component)
     const [ticketVenue1Level1, setTicketVenue1Level1] = useState(0);
@@ -45,15 +46,14 @@ const SeatingEvent = () => {
     const [ticketVenue2Level1, setTicketVenue2Level1] = useState(0);
     const [ticketVenue2Level2, setTicketVenue2Level2] = useState(0);
 
-    const [selectedRegistrant, setSelectedRegistrant] = useState(null);
-    const [selectedValueRegistrant, setSelectedValueRegistrant] = useState(null); // <-- Add this line
-
 
     const [selectedDate, setSelectedDate] = useState(null);
     const [selectedSession, setSelectedSession] = useState(null);
 
     const [ticketQuantity, setTicketQuantity] = useState(0);
-    const [wantsToSelectSeats, setWantsToSelectSeats] = useState(false);
+    const [wantsToSelectSeatsVenue1Level1, setWantsToSelectSeatsVenue1Level1] = useState(false);
+    const [wantsToSelectSeatsVenue1Level2, setWantsToSelectSeatsVenue1Level2] = useState(false);
+    const [wantsToSelectSeatsVenue1Level3, setWantsToSelectSeatsVenue1Level3] = useState(false);
     const [selectedSeats, setSelectedSeats] = useState([]);
     const [selectedAddOns, setSelectedAddOns] = useState([]);
 
@@ -116,7 +116,6 @@ const SeatingEvent = () => {
         },
     };
 
-    // --- Modal Controls ---
     const showModal = () => setIsModalOpen(true);
 
     const handleModalConfirm = () => {
@@ -132,6 +131,11 @@ const SeatingEvent = () => {
     const handleCloseModal = () => {
         setIsModalOpen(false);
     };
+
+    const handleChangeVenue = (value) => {
+        setSelectedVenue(value)
+    }
+    console.log("selectedVenue", selectedVenue);
 
     // UI Event Handlers - these remain the same
     const handleTicketQuantityChange1 = (value) => {
@@ -155,12 +159,10 @@ const SeatingEvent = () => {
     const handleDateChange = (e) => {
         setSelectedDate(e.target.value);
         setSelectedSession(null); // Reset session when date changes
-        // setWantsToSelectSeats(false); // Reset seat selection
     };
 
     const handleSessionChange = (e) => {
         setSelectedSession(e.target.value);
-        // setWantsToSelectSeats(false); // Reset seat selection
     };
 
     const handleAddOnCheckboxChange = (e, addOn) => {
@@ -179,11 +181,6 @@ const SeatingEvent = () => {
 
         if (!/\S+@\S+\.\S+/.test(emailBuyer)) {
             message.error('Please enter a valid email address.');
-            return;
-        }
-
-        if (wantsToSelectSeats && selectedSeats.length !== ticketQuantity) {
-            message.error(`You must select ${ticketQuantity} seat(s) to match the number of tickets.`);
             return;
         }
 
@@ -221,7 +218,7 @@ const SeatingEvent = () => {
     const orderSummary = useMemo(() => {
         // Return a default structure if the event data isn't loaded yet
         if (!event) {
-            return { items: [], total: 0, registrantName: '', date: '', session: '' };
+            return { items: [], venue: "", total: 0, registrantName: '', date: '', session: '', };
         }
 
         const items = [];
@@ -235,7 +232,7 @@ const SeatingEvent = () => {
         }
 
         // 2. Add Seat Selection add-on if selected for Lento
-        if (wantsToSelectSeats && addOnTicketVenue1Level1 > 0) {
+        if (wantsToSelectSeatsVenue1Level1 && addOnTicketVenue1Level1 > 0) {
             const seatPrice = 10; // Example price, replace with your actual price
             const price = seatPrice * addOnTicketVenue1Level1;
             items.push({ description: 'Seat Selection Add-on (Lento)', quantity: addOnTicketVenue1Level1, price });
@@ -265,6 +262,7 @@ const SeatingEvent = () => {
         return {
             items,
             total,
+            venue: selectedVenue,
             registrantName: selectedRegistrantName,
             date: selectedDate ? new Date(selectedDate).toLocaleDateString('id-ID', { month: 'long', day: 'numeric' }) : '',
             session: selectedSession,
@@ -272,8 +270,8 @@ const SeatingEvent = () => {
     }, [
         event,
         ticketVenue1Level1, ticketVenue1Level2, ticketVenue1Level3,
-        wantsToSelectSeats, addOnTicketVenue1Level1,
-        selectedAddOns, selectedRegistrantName, selectedDate, selectedSession
+        wantsToSelectSeatsVenue1Level1, addOnTicketVenue1Level1,
+        selectedAddOns, selectedRegistrantName, selectedDate, selectedSession, selectedVenue
     ]); // Updated dependency array
 
 
@@ -328,7 +326,7 @@ const SeatingEvent = () => {
                                     style={{ width: 250 }}
                                     placeholder="Search to Select a Venue"
                                     optionFilterProp="label"
-                                    // onChange={handleChange}
+                                    onChange={handleChangeVenue}
                                     options={venueOptions}
                                 />
                             </Col>
@@ -342,10 +340,10 @@ const SeatingEvent = () => {
                         </Row>
                         {ticketVenue1Level1 > 0 && (
                             <Row align="middle" justify="space-between">
-                                <Checkbox checked={wantsToSelectSeats} onChange={(e) => setWantsToSelectSeats(e.target.checked)}>
+                                <Checkbox checked={wantsToSelectSeatsVenue1Level1} onChange={(e) => setWantsToSelectSeatsVenue1Level1(e.target.checked)}>
                                     I want to choose my specific seat (additional charges apply).
                                 </Checkbox>
-                                {wantsToSelectSeats && (
+                                {wantsToSelectSeatsVenue1Level1 && (
                                     <Col> <InputNumber min={1} max={10} value={addOnTicketVenue1Level1} onChange={handleAddsOnTicketQuantityChange1} /> </Col>
                                 )}
                             </Row>
@@ -355,10 +353,31 @@ const SeatingEvent = () => {
                             <Col><Text>Allegro (Base Price: ${event.baseTicketPrice})</Text></Col>
                             <Col><InputNumber min={1} max={10} value={ticketVenue1Level2} onChange={handleTicketQuantityChange2} /></Col>
                         </Row>
+                        {ticketVenue1Level2 > 0 && (
+                            <Row align="middle" justify="space-between">
+                                <Checkbox checked={wantsToSelectSeatsVenue1Level2} onChange={(e) => setWantsToSelectSeatsVenue1Level2(e.target.checked)}>
+                                    I want to choose my specific seat (additional charges apply).
+                                </Checkbox>
+                                {wantsToSelectSeatsVenue1Level2 && (
+                                    <Col> <InputNumber min={1} max={10} value={addOnTicketVenue1Level1} onChange={handleAddsOnTicketQuantityChange1} /> </Col>
+                                )}
+                            </Row>
+                        )}
+
                         <Row className='mt-2' align="middle" justify="space-between">
                             <Col><Text>Presto (Base Price: ${event.baseTicketPrice})</Text></Col>
                             <Col><InputNumber min={1} max={10} value={ticketVenue1Level3} onChange={handleTicketQuantityChange3} /></Col>
                         </Row>
+                        {ticketVenue1Level3 > 0 && (
+                            <Row align="middle" justify="space-between">
+                                <Checkbox checked={wantsToSelectSeatsVenue1Level3} onChange={(e) => setWantsToSelectSeatsVenue1Level3(e.target.checked)}>
+                                    I want to choose my specific seat (additional charges apply).
+                                </Checkbox>
+                                {wantsToSelectSeatsVenue1Level3 && (
+                                    <Col> <InputNumber min={1} max={10} value={addOnTicketVenue1Level1} onChange={handleAddsOnTicketQuantityChange1} /> </Col>
+                                )}
+                            </Row>
+                        )}
                     </Card>
 
                     <Card title="4. Select Date & Session" style={{ marginBottom: '24px' }}>
@@ -427,6 +446,11 @@ const SeatingEvent = () => {
                             {orderSummary.registrantName && (
                                 <Paragraph>
                                     For: <Text strong>{orderSummary.registrantName}</Text>
+                                </Paragraph>
+                            )}
+                            {orderSummary.venue && (
+                                <Paragraph>
+                                    On: <Text strong>{orderSummary.venue}</Text>
                                 </Paragraph>
                             )}
                             {orderSummary.date && orderSummary.session && (
