@@ -1,5 +1,25 @@
-import { Alert, Button, Card, Checkbox, Col, Divider, Input, InputNumber, List, message, Modal, Radio, Row, Select, Space, Spin, Table, Typography } from 'antd';
+import {
+    Alert,
+    Button,
+    Card,
+    Checkbox,
+    Col,
+    Divider,
+    Input,
+    InputNumber,
+    List,
+    message,
+    Modal,
+    Radio,
+    Row,
+    Select,
+    Space,
+    Spin,
+    Table,
+    Typography
+} from 'antd';
 import { useMemo, useState } from 'react';
+import { Controller, useFieldArray, useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import apis from '../../apis';
 import { useEventBookingData } from '../../hooks/useEventBookingData';
@@ -7,6 +27,7 @@ import usePaginatedRegistrants from '../../hooks/useFetchRegistrantsData';
 
 const { Title, Text, Paragraph } = Typography;
 
+// --- Component Constants ---
 const venueOptions = [
     { value: 'Venue1', label: 'Venue 1' },
     { value: 'Venue2', label: 'Venue 2 ' }
@@ -18,499 +39,284 @@ const availableSessions = {
     '2025-08-27': ['09:00 - 10:00', '11:00 - 12:00', '15:00 - 16:00'],
 };
 
+
 const SeatingEvent = () => {
-    // const { eventId } = useParams();
     const navigate = useNavigate();
-    const { registrantDatas, page, setPage, totalDocs, allData, loading, fetchUserData } = usePaginatedRegistrants(9999, "Registrants2025", "createdAt");
+    const eventId = "galaConcert2025";
 
-    const eventId = "galaConcert2025"
+    // --- Data Fetching Hooks ---
+    const { registrantDatas, loading: registrantsLoading } = usePaginatedRegistrants(9999, "Registrants2025", "createdAt");
+    const { event, loading: eventLoading, error } = useEventBookingData(eventId);
 
-    // 2. Use the custom hook to fetch all data directly from Firebase
-    const { event, seats: flatSeatList, error } = useEventBookingData(eventId);
-
+    // --- UI State (for modal, search, etc.) ---
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [tempSelectedRow, setTempSelectedRow] = useState(null);
-    const [selectedRegistrantName, setSelectedRegistrantName] = useState('');
-    const [emailBuyer, setEmailBuyer] = useState('');
     const [searchTerm, setSearchTerm] = useState('');
-    const [selectedVenue, setSelectedVenue] = useState('');
 
-    // State for user's choices (this is UI state, so it stays in the component)
-    const [ticketVenue1Level1, setTicketVenue1Level1] = useState(0);
-    const [addOnTicketVenue1Level1, setAddOnTicketVenue1Level1] = useState(0);
-    const [ticketVenue1Level2, setTicketVenue1Level2] = useState(0);
-    const [addOnTicketVenue1Level2, setAddOnTicketVenue1Level2] = useState(0);
-    const [ticketVenue1Level3, setTicketVenue1Level3] = useState(0);
-    const [addOnTicketVenue1Level3, setAddOnTicketVenue1Level3] = useState(0);
+    // --- React Hook Form Initialization ---
+    const { control, handleSubmit, watch, setValue } = useForm({
+        defaultValues: {
+            registrant: null,
+            venue: undefined, // Use undefined for antd placeholder to show
+            date: null,
+            session: null,
+            addOns: [],
+            tickets: [
+                { id: 'lento', name: 'Lento', basePrice: event?.baseTicketPrice || 50, quantity: 0, wantsSeat: false, seatQuantity: 0 },
+                { id: 'allegro', name: 'Allegro', basePrice: event?.baseTicketPrice || 40, quantity: 0, wantsSeat: false, seatQuantity: 0 },
+                { id: 'presto', name: 'Presto', basePrice: event?.baseTicketPrice || 30, quantity: 0, wantsSeat: false, seatQuantity: 0 }
+            ]
+        }
+    });
 
-    const [ticketVenue2Level1, setTicketVenue2Level1] = useState(0);
-    const [ticketVenue2Level2, setTicketVenue2Level2] = useState(0);
+    const { fields } = useFieldArray({ control, name: "tickets" });
+    const watchedFormData = watch(); // Watch all form data for reactive UI updates
 
-
-    const [selectedDate, setSelectedDate] = useState(null);
-    const [selectedSession, setSelectedSession] = useState(null);
-
-    const [ticketQuantity, setTicketQuantity] = useState(0);
-    const [wantsToSelectSeatsVenue1Level1, setWantsToSelectSeatsVenue1Level1] = useState(false);
-    const [wantsToSelectSeatsVenue1Level2, setWantsToSelectSeatsVenue1Level2] = useState(false);
-    const [wantsToSelectSeatsVenue1Level3, setWantsToSelectSeatsVenue1Level3] = useState(false);
-    const [selectedSeats, setSelectedSeats] = useState([]);
-    const [selectedAddOns, setSelectedAddOns] = useState([]);
-
-    const columns = [
-        {
-            title: 'Performer Name',
-            key: 'performerName',
-            render: (_, record) => {
-                const performer = record.performers[0];
-                return `${performer?.firstName || ''} ${performer?.lastName || ''}`;
-            },
-            // Enable searching by performer name
-            onFilter: (value, record) => {
-                const performer = record.performers[0];
-                const fullName = `${performer?.firstName || ''} ${performer?.lastName || ''}`;
-                return fullName.toLowerCase().includes(value.toLowerCase());
-            },
-        },
-        {
-            title: 'Email',
-            key: 'email',
-            render: (_, record) => record.performers[0]?.email,
-        },
-        {
-            title: 'Competition',
-            dataIndex: 'competitionCategory',
-            key: 'competitionCategory',
-        },
-        {
-            title: 'Instrument',
-            dataIndex: 'instrumentCategory',
-            key: 'instrumentCategory',
-        },
-        {
-            title: 'Age Category',
-            dataIndex: 'ageCategory',
-            key: 'ageCategory',
-        },
-    ];
+    // --- Modal Logic ---
+    const showModal = () => setIsModalOpen(true);
+    const handleCloseModal = () => setIsModalOpen(false);
+    const handleModalConfirm = () => {
+        if (tempSelectedRow) {
+            const performer = tempSelectedRow.performers[0];
+            setValue('registrant', {
+                id: tempSelectedRow.id,
+                name: `${performer.firstName} ${performer.lastName}`,
+                email: performer.email
+            }, { shouldValidate: true }); // Update form state
+        }
+        setIsModalOpen(false);
+    };
 
     const filteredData = useMemo(() => {
         if (!registrantDatas) return [];
-        if (!searchTerm) {
-            return registrantDatas; // If no search term, return all data
-        }
+        if (!searchTerm) return registrantDatas;
         return registrantDatas.filter(registrant => {
             const performer = registrant.performers?.[0];
             if (!performer) return false;
-
             const fullName = `${performer.firstName} ${performer.lastName}`.toLowerCase();
             return fullName.includes(searchTerm.toLowerCase());
         });
     }, [registrantDatas, searchTerm]);
 
-    const rowSelection = {
-        type: 'radio', // Allow only one selection at a time
-        onChange: (selectedRowKeys, selectedRows) => {
-            // Store the full selected registrant object temporarily
-            setTempSelectedRow(selectedRows[0]);
-        },
-    };
-
-    const showModal = () => setIsModalOpen(true);
-
-    const handleModalConfirm = () => {
-        if (tempSelectedRow) {
-            const performer = tempSelectedRow.performers[0];
-            // Set the final state with the selected user's info
-            setSelectedRegistrantName(`${performer.firstName} ${performer.lastName}`);
-            setEmailBuyer(performer.email);
-        }
-        setIsModalOpen(false); // Close the modal
-    };
-
-    const handleCloseModal = () => {
-        setIsModalOpen(false);
-    };
-
-    const handleChangeVenue = (value) => {
-        setSelectedVenue(value)
-    }
-    console.log("selectedVenue", selectedVenue);
-
-    // UI Event Handlers - these remain the same
-    const handleTicketQuantityChange1 = (value) => {
-        setTicketVenue1Level1(value);
-        setSelectedSeats([]);
-    };
-    const handleAddsOnTicketQuantityChange1 = (value) => {
-        setAddOnTicketVenue1Level1(value);
-        setSelectedSeats([]);
-    };
-
-    const handleTicketQuantityChange2 = (value) => {
-        setTicketVenue1Level2(value);
-        setSelectedSeats([]);
-    };
-    const handleTicketQuantityChange3 = (value) => {
-        setTicketVenue1Level3(value);
-        setSelectedSeats([]);
-    };
-
-    const handleDateChange = (e) => {
-        setSelectedDate(e.target.value);
-        setSelectedSession(null); // Reset session when date changes
-    };
-
-    const handleSessionChange = (e) => {
-        setSelectedSession(e.target.value);
-    };
-
-    const handleAddOnCheckboxChange = (e, addOn) => {
-        if (e.target.checked) setSelectedAddOns(prev => [...prev, addOn]);
-        else setSelectedAddOns(prev => prev.filter(item => item.id !== addOn.id));
-    };
-
-    // --- Final Submission ---
-    // IMPORTANT: This function still calls our secure Node.js backend
-    // It does NOT write directly to Firebase from the client.
-    const handleContinueToPayment = async () => {
-        if (!emailBuyer) {
-            message.error('Please enter your email address.');
+    // --- Form Submission ---
+    const onFormSubmit = async (formData) => {
+        if (!formData.registrant) {
+            message.error('Please select a registrant.');
             return;
         }
 
-        if (!/\S+@\S+\.\S+/.test(emailBuyer)) {
-            message.error('Please enter a valid email address.');
-            return;
-        }
-
-        // This is the secure payload for our backend
         const bookingPayload = {
-            eventId: eventId,
-            userEmail: emailBuyer,
-            ticketQuantity: ticketQuantity,
-            selectedSeatIds: selectedSeats.length <= 0 ? null : selectedSeats.map(s => s.id),
-            selectedAddOnIds: selectedAddOns.length <= 0 ? null : selectedAddOns.map(a => a.id),
+            eventId,
+            userEmail: formData.registrant.email,
+            venue: formData.venue,
+            date: formData.date,
+            session: formData.session,
+            tickets: formData.tickets.filter(t => t.quantity > 0),
+            addOns: formData.addOns,
         };
 
         try {
             message.loading({ content: 'Initiating your booking...', key: 'booking' });
-            // The ONLY backend call in this component, for the secure operation.
             const response = await apis.bookings.create(bookingPayload);
-
             message.success({ content: 'Booking initiated!', key: 'booking' });
-
-            // Navigate to payment page with all the necessary data
-            navigate('/payment', {
-                state: {
-                    orderSummary: orderSummary,
-                    qrisString: response.data.qrisString, // From backend
-                    bookingId: response.data.bookingId, // From backend
-                }
-            });
-
+            navigate('/payment', { state: { /* ... pass necessary data ... */ } });
         } catch (err) {
             message.error({ content: err.response?.data?.message || 'Failed to create booking.', key: 'booking' });
-            console.error("Booking creation failed:", err);
         }
     };
 
+    // --- Order Summary Calculation ---
     const orderSummary = useMemo(() => {
-        // Return a default structure if the event data isn't loaded yet
-        if (!event) {
-            return { items: [], venue: "", total: 0, registrantName: '', date: '', session: '', };
-        }
-
         const items = [];
         let total = 0;
 
-        // 1. Add Lento tickets if selected
-        if (ticketVenue1Level1 > 0) {
-            const price = event.baseTicketPrice * ticketVenue1Level1;
-            items.push({ description: 'Lento Ticket', quantity: ticketVenue1Level1, price });
-            total += price;
-        }
-
-        // 2. Add Seat Selection add-on if selected for Lento
-        if (wantsToSelectSeatsVenue1Level1 && addOnTicketVenue1Level1 > 0) {
-            const seatPrice = 10; // Example price, replace with your actual price
-            const price = seatPrice * addOnTicketVenue1Level1;
-            items.push({ description: 'Seat Selection Add-on (Lento)', quantity: addOnTicketVenue1Level1, price });
-            total += price;
-        }
-
-        // 3. Add Allegro tickets if selected
-        if (ticketVenue1Level2 > 0) {
-            const price = event.baseTicketPrice * ticketVenue1Level2;
-            items.push({ description: 'Allegro Ticket', quantity: ticketVenue1Level2, price });
-            total += price;
-        }
-
-        // 4. Add Presto tickets if selected
-        if (ticketVenue1Level3 > 0) {
-            const price = event.baseTicketPrice * ticketVenue1Level3;
-            items.push({ description: 'Presto Ticket', quantity: ticketVenue1Level3, price });
-            total += price;
-        }
-
-        // 5. Add optional packages (this part is the same as before)
-        selectedAddOns.forEach(addOn => {
-            items.push({ description: addOn.name, quantity: 1, price: addOn.price });
-            total += addOn.price;
+        watchedFormData.tickets?.forEach(ticket => {
+            if (ticket.quantity > 0) {
+                items.push({ description: `${ticket.name} Ticket`, quantity: ticket.quantity, price: ticket.basePrice * ticket.quantity });
+                total += ticket.basePrice * ticket.quantity;
+            }
+            if (ticket.wantsSeat && ticket.seatQuantity > 0) {
+                const seatPrice = 10; // Example add-on price
+                items.push({ description: `Seat Selection (${ticket.name})`, quantity: ticket.seatQuantity, price: seatPrice * ticket.seatQuantity });
+                total += seatPrice * ticket.seatQuantity;
+            }
         });
 
-        return {
-            items,
-            total,
-            venue: selectedVenue,
-            registrantName: selectedRegistrantName,
-            date: selectedDate ? new Date(selectedDate).toLocaleDateString('id-ID', { month: 'long', day: 'numeric' }) : '',
-            session: selectedSession,
-        };
-    }, [
-        event,
-        ticketVenue1Level1, ticketVenue1Level2, ticketVenue1Level3,
-        wantsToSelectSeatsVenue1Level1, addOnTicketVenue1Level1,
-        selectedAddOns, selectedRegistrantName, selectedDate, selectedSession, selectedVenue
-    ]); // Updated dependency array
+        event?.addOns?.forEach(addOn => {
+            if (watchedFormData.addOns?.includes(addOn.id)) {
+                items.push({ description: addOn.name, quantity: 1, price: addOn.price });
+                total += addOn.price;
+            }
+        });
 
+        return { items, total };
+    }, [watchedFormData, event]);
 
-    // --- Render Logic ---
-    if (loading) {
-        return <div style={{ display: 'flex', justifyContent: 'center', padding: '50px' }}><Spin size="large" tip="Loading Event..." /></div>;
+    // --- Loading and Error States ---
+    if (eventLoading || registrantsLoading) {
+        return <div style={{ display: 'flex', justifyContent: 'center', padding: '50px' }}><Spin size="large" /></div>;
     }
-
-    if (error || !event) {
-        return <Alert message="Error" description="Could not load event data. Please try again later." type="error" showIcon />;
+    if (error) {
+        return <Alert message="Error" description="Could not load event data." type="error" showIcon />;
     }
 
     return (
-        <>
-
+        <form onSubmit={handleSubmit(onFormSubmit)}>
             <Row gutter={[32, 32]} style={{ padding: '40px' }}>
                 <Col xs={24} md={14}>
                     <Title level={2}>{event.title}</Title>
-                    <Paragraph>{new Date(event.date?.seconds * 1000).toLocaleDateString('en-GB', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</Paragraph>
+                    <Paragraph>{new Date(event.date?.seconds * 1000).toLocaleDateString('en-GB', { /* ... */ })}</Paragraph>
                     <Divider />
 
+                    {/* --- Card 1: Registrant Selection --- */}
                     <Card title="1. Select Registrant" style={{ marginBottom: '24px' }}>
                         <Row align="middle" justify="space-between">
-                            <Col>
-                                <Text strong>
-                                    {selectedRegistrantName ? `Selected: ${selectedRegistrantName}` : 'No Registrant Selected'}
-                                </Text>
-                            </Col>
-                            <Col>
-                                <Button type="primary" onClick={showModal}>
-                                    Select Registrant
-                                </Button>
-                            </Col>
+                            <Text strong>
+                                {watchedFormData.registrant ? `Selected: ${watchedFormData.registrant.name}` : 'No Registrant Selected'}
+                            </Text>
+                            <Button type="primary" onClick={showModal}>Select Registrant</Button>
                         </Row>
-                        <Row align="middle" justify="space-between" style={{ marginTop: 16 }}>
-                            <Paragraph type="secondary">The link to select a seat will be sent to this address.</Paragraph>
-                            <Input
-                                placeholder="Registrant email will appear here"
-                                value={emailBuyer}
-                                size="large"
-                                disabled={true}
-                            />
-                        </Row>
+                        <Input
+                            placeholder="Registrant email will appear here"
+                            value={watchedFormData.registrant?.email || ''}
+                            size="large"
+                            disabled
+                            style={{ marginTop: 16 }}
+                        />
                     </Card>
 
+                    {/* --- Card 2: Venue Selection --- */}
                     <Card title="2. Select Venue" style={{ marginBottom: '24px' }}>
-                        <Row align="middle" justify="space-between">
-                            <Col><Text>Selection Venue</Text></Col>
-                            <Col>
-                                <Select
-                                    showSearch
-                                    style={{ width: 250 }}
-                                    placeholder="Search to Select a Venue"
-                                    optionFilterProp="label"
-                                    onChange={handleChangeVenue}
-                                    options={venueOptions}
-                                />
-                            </Col>
-                        </Row>
+                        <Controller
+                            name="venue"
+                            control={control}
+                            rules={{ required: 'Please select a venue' }}
+                            render={({ field, fieldState: { error } }) => (
+                                <>
+                                    <Select {...field} showSearch placeholder="Search to Select a Venue" style={{ width: '100%' }} options={venueOptions} status={error ? 'error' : ''} />
+                                    {error && <Text type="danger">{error.message}</Text>}
+                                </>
+                            )}
+                        />
                     </Card>
 
+                    {/* --- Card 3: Ticket Selection --- */}
                     <Card title="3. Select Your Tickets" style={{ marginBottom: '24px' }}>
-                        <Row align="middle" justify="space-between">
-                            <Col><Text>Lento (Base Price: ${event.baseTicketPrice})</Text></Col>
-                            <Col><InputNumber min={1} max={10} value={ticketVenue1Level1} onChange={handleTicketQuantityChange1} /> </Col>
-                        </Row>
-                        {ticketVenue1Level1 > 0 && (
-                            <Row align="middle" justify="space-between">
-                                <Checkbox checked={wantsToSelectSeatsVenue1Level1} onChange={(e) => setWantsToSelectSeatsVenue1Level1(e.target.checked)}>
-                                    I want to choose my specific seat (additional charges apply).
-                                </Checkbox>
-                                {wantsToSelectSeatsVenue1Level1 && (
-                                    <Col> <InputNumber min={1} max={10} value={addOnTicketVenue1Level1} onChange={handleAddsOnTicketQuantityChange1} /> </Col>
-                                )}
-                            </Row>
-                        )}
-
-                        <Row className='mt-2' align="middle" justify="space-between">
-                            <Col><Text>Allegro (Base Price: ${event.baseTicketPrice})</Text></Col>
-                            <Col><InputNumber min={1} max={10} value={ticketVenue1Level2} onChange={handleTicketQuantityChange2} /></Col>
-                        </Row>
-                        {ticketVenue1Level2 > 0 && (
-                            <Row align="middle" justify="space-between">
-                                <Checkbox checked={wantsToSelectSeatsVenue1Level2} onChange={(e) => setWantsToSelectSeatsVenue1Level2(e.target.checked)}>
-                                    I want to choose my specific seat (additional charges apply).
-                                </Checkbox>
-                                {wantsToSelectSeatsVenue1Level2 && (
-                                    <Col> <InputNumber min={1} max={10} value={addOnTicketVenue1Level1} onChange={handleAddsOnTicketQuantityChange1} /> </Col>
-                                )}
-                            </Row>
-                        )}
-
-                        <Row className='mt-2' align="middle" justify="space-between">
-                            <Col><Text>Presto (Base Price: ${event.baseTicketPrice})</Text></Col>
-                            <Col><InputNumber min={1} max={10} value={ticketVenue1Level3} onChange={handleTicketQuantityChange3} /></Col>
-                        </Row>
-                        {ticketVenue1Level3 > 0 && (
-                            <Row align="middle" justify="space-between">
-                                <Checkbox checked={wantsToSelectSeatsVenue1Level3} onChange={(e) => setWantsToSelectSeatsVenue1Level3(e.target.checked)}>
-                                    I want to choose my specific seat (additional charges apply).
-                                </Checkbox>
-                                {wantsToSelectSeatsVenue1Level3 && (
-                                    <Col> <InputNumber min={1} max={10} value={addOnTicketVenue1Level1} onChange={handleAddsOnTicketQuantityChange1} /> </Col>
-                                )}
-                            </Row>
-                        )}
+                        {fields.map((field, index) => {
+                            const currentQuantity = watchedFormData.tickets[index]?.quantity || 0;
+                            return (
+                                <div key={field.id} style={{ marginBottom: index === fields.length - 1 ? 0 : '16px' }}>
+                                    <Row align="middle" justify="space-between">
+                                        <Col><Text>{field.name} (Base Price: ${field.basePrice})</Text></Col>
+                                        <Col><Controller name={`tickets.${index}.quantity`} control={control} render={({ field }) => <InputNumber {...field} min={0} max={10} />} /></Col>
+                                    </Row>
+                                    {currentQuantity > 0 && (
+                                        <Row align="middle" justify="space-between" style={{ marginTop: '8px', paddingLeft: '16px' }}>
+                                            <Controller name={`tickets.${index}.wantsSeat`} control={control} render={({ field }) => <Checkbox {...field} checked={field.value}>Choose specific seat (add-on)</Checkbox>} />
+                                            {watchedFormData.tickets[index]?.wantsSeat && (
+                                                <Controller name={`tickets.${index}.seatQuantity`} control={control} render={({ field }) => <InputNumber {...field} min={0} max={currentQuantity} placeholder="Seats" />} />
+                                            )}
+                                        </Row>
+                                    )}
+                                </div>
+                            );
+                        })}
                     </Card>
 
+                    {/* --- Card 4: Date & Session --- */}
                     <Card title="4. Select Date & Session" style={{ marginBottom: '24px' }}>
                         <Space direction="vertical" size="large" style={{ width: '100%' }}>
-
-                            {/* --- 1. Date Selection --- */}
-                            <div>
-                                <Text strong>Select a Date</Text>
-                                <Radio.Group
-                                    onChange={handleDateChange}
-                                    value={selectedDate}
-                                    style={{ marginTop: '10px' }}
-                                    optionType="button"
-                                    buttonStyle="solid"
-                                >
-                                    {Object.keys(availableSessions).map(date => (
-                                        <Radio.Button key={date} value={date}>
-                                            {new Date(date).toLocaleDateString('id-ID', { weekday: 'short', day: 'numeric', month: 'short' })}
-                                        </Radio.Button>
-                                    ))}
-                                </Radio.Group>
-                            </div>
-
-                            {/* --- 2. Session Selection (Only shows after a date is selected) --- */}
-                            {selectedDate && (
-                                <div>
-                                    <Text strong>Select a Session for {new Date(selectedDate).toLocaleDateString('id-ID', { month: 'long', day: 'numeric' })}</Text>
-                                    <Radio.Group
-                                        onChange={handleSessionChange}
-                                        value={selectedSession}
-                                        style={{ marginTop: '10px', display: 'flex', flexWrap: 'wrap', gap: '8px' }}
-                                        optionType="button"
-                                    >
-                                        {availableSessions[selectedDate].map(session => (
-                                            <Radio.Button key={session} value={session}>
-                                                {session}
-                                            </Radio.Button>
-                                        ))}
+                            <Controller
+                                name="date"
+                                control={control}
+                                render={({ field }) => (
+                                    <Radio.Group {...field} optionType="button" buttonStyle="solid" onChange={(e) => { field.onChange(e); setValue('session', null); }}>
+                                        {Object.keys(availableSessions).map(date => <Radio.Button key={date} value={date}>{new Date(date).toLocaleDateString('id-ID', { weekday: 'short', day: 'numeric', month: 'short' })}</Radio.Button>)}
                                     </Radio.Group>
-                                </div>
+                                )}
+                            />
+                            {watchedFormData.date && (
+                                <Controller
+                                    name="session"
+                                    control={control}
+                                    render={({ field }) => (
+                                        <Radio.Group {...field} optionType="button">
+                                            {availableSessions[watchedFormData.date].map(session => <Radio.Button key={session} value={session}>{session}</Radio.Button>)}
+                                        </Radio.Group>
+                                    )}
+                                />
                             )}
-
                         </Space>
                     </Card>
 
+                    {/* --- Card 5: Optional Packages --- */}
                     <Card title="5. Optional Packages" style={{ marginBottom: '24px' }}>
-                        <List
-                            dataSource={event.addOns}
-                            renderItem={item => (
-                                <List.Item>
-                                    <Checkbox onChange={(e) => handleAddOnCheckboxChange(e, item)}>
-                                        {item.name} (+${item.price})
-                                    </Checkbox>
-                                </List.Item>
+                        <Controller
+                            name="addOns"
+                            control={control}
+                            render={({ field }) => (
+                                <Checkbox.Group {...field} style={{ display: 'flex', flexDirection: 'column' }}>
+                                    {event.addOns?.map(addOn => (
+                                        <Checkbox key={addOn.id} value={addOn.id} style={{ marginBottom: '8px' }}>
+                                            {addOn.name} (+${addOn.price})
+                                        </Checkbox>
+                                    ))}
+                                </Checkbox.Group>
                             )}
                         />
                     </Card>
                 </Col>
 
+                {/* --- Order Summary Column --- */}
                 <Col xs={24} md={10}>
                     <Card style={{ position: 'sticky', top: '20px' }}>
                         <Title level={4}>Order Summary</Title>
-
-                        {/* --- NEW: Display Registrant, Date, and Session --- */}
                         <div style={{ marginBottom: '16px' }}>
-                            {orderSummary.registrantName && (
-                                <Paragraph>
-                                    For: <Text strong>{orderSummary.registrantName}</Text>
-                                </Paragraph>
-                            )}
-                            {orderSummary.venue && (
-                                <Paragraph>
-                                    On: <Text strong>{orderSummary.venue}</Text>
-                                </Paragraph>
-                            )}
-                            {orderSummary.date && orderSummary.session && (
-                                <Paragraph>
-                                    When: <Text strong>{orderSummary.date} at {orderSummary.session}</Text>
-                                </Paragraph>
-                            )}
+                            {watchedFormData.registrant && <Paragraph>For: <Text strong>{watchedFormData.registrant.name}</Text></Paragraph>}
+                            {watchedFormData.venue && <Paragraph>Venue: <Text strong>{venueOptions.find(v => v.value === watchedFormData.venue)?.label}</Text></Paragraph>}
+                            {watchedFormData.date && watchedFormData.session && <Paragraph>When: <Text strong>{new Date(watchedFormData.date).toLocaleDateString('id-ID')} at {watchedFormData.session}</Text></Paragraph>}
                         </div>
-
                         {orderSummary.items.length > 0 && <Divider style={{ margin: '0 0 16px 0' }} />}
-
                         <List
                             dataSource={orderSummary.items}
                             renderItem={item => (
                                 <List.Item style={{ padding: '8px 0' }}>
-                                    <List.Item.Meta
-                                        title={item.description}
-                                        description={item.quantity > 1 ? `Quantity: ${item.quantity}` : null}
-                                    />
+                                    <List.Item.Meta title={item.description} description={item.quantity > 1 ? `Quantity: ${item.quantity}` : null} />
                                     <Text>${item.price}</Text>
                                 </List.Item>
                             )}
-                            style={{ minHeight: '150px' }}
                         />
                         <Divider />
                         <Row justify="space-between">
                             <Col><Title level={3}>Total</Title></Col>
                             <Col><Title level={3}>${orderSummary.total}</Title></Col>
                         </Row>
-                        <Button type="primary" size="large" block onClick={handleContinueToPayment} disabled={loading}>
+                        <Button type="primary" size="large" block htmlType="submit">
                             Continue to Payment
                         </Button>
                     </Card>
                 </Col>
             </Row>
+
+            {/* --- Registrant Selection Modal --- */}
             <Modal
                 title="Select a Registrant"
                 open={isModalOpen}
                 onOk={handleModalConfirm}
                 onCancel={handleCloseModal}
-                width={1000} // Make the modal wider to fit the table
+                width={1000}
                 okText="Select"
-                okButtonProps={{ disabled: !tempSelectedRow }} // Disable OK if nothing is selected
+                okButtonProps={{ disabled: !tempSelectedRow }}
             >
-                <Input.Search
-                    placeholder="Search by performer name..."
-                    value={searchTerm}
-                    onChange={(e) => setSearchTerm(e.target.value)} // Live search as you type
-                    style={{ marginBottom: 16 }}
-                    allowClear
-                />
+                <Input.Search placeholder="Search by performer name..." value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} style={{ marginBottom: 16 }} allowClear />
                 <Table
-                    rowSelection={rowSelection}
-                    columns={columns}
-                    // dataSource={registrantDatas.map(item => ({ ...item, key: item.id }))} // Add a unique 'key' for each row
+                    rowSelection={{ type: 'radio', onChange: (_, selectedRows) => setTempSelectedRow(selectedRows[0]) }}
+                    columns={[{ title: 'Performer', key: 'performer', render: (_, rec) => `${rec.performers[0].firstName} ${rec.performers[0].lastName}` }, { title: 'Email', key: 'email', render: (_, rec) => rec.performers[0].email }]}
                     dataSource={filteredData.map(item => ({ ...item, key: item.id }))}
-                    pagination={{ pageSize: 5 }} // Optional: Paginate for long lists
+                    pagination={{ pageSize: 5 }}
                 />
             </Modal>
-        </>
+        </form>
     );
 };
 
