@@ -219,21 +219,62 @@ const SeatingEvent = () => {
     };
 
     const orderSummary = useMemo(() => {
-        if (!event) return { items: [], total: 0 };
+        // Return a default structure if the event data isn't loaded yet
+        if (!event) {
+            return { items: [], total: 0, registrantName: '', date: '', session: '' };
+        }
+
         const items = [];
         let total = 0;
-        items.push({ description: `General Admission Ticket`, quantity: ticketQuantity, price: event.baseTicketPrice * ticketQuantity });
-        total += event.baseTicketPrice * ticketQuantity;
-        selectedSeats.forEach(seat => {
-            items.push({ description: `Seat Reservation (${seat.label})`, quantity: 1, price: seat.price });
-            total += seat.price;
-        });
+
+        // 1. Add Lento tickets if selected
+        if (ticketVenue1Level1 > 0) {
+            const price = event.baseTicketPrice * ticketVenue1Level1;
+            items.push({ description: 'Lento Ticket', quantity: ticketVenue1Level1, price });
+            total += price;
+        }
+
+        // 2. Add Seat Selection add-on if selected for Lento
+        if (wantsToSelectSeats && addOnTicketVenue1Level1 > 0) {
+            const seatPrice = 10; // Example price, replace with your actual price
+            const price = seatPrice * addOnTicketVenue1Level1;
+            items.push({ description: 'Seat Selection Add-on (Lento)', quantity: addOnTicketVenue1Level1, price });
+            total += price;
+        }
+
+        // 3. Add Allegro tickets if selected
+        if (ticketVenue1Level2 > 0) {
+            const price = event.baseTicketPrice * ticketVenue1Level2;
+            items.push({ description: 'Allegro Ticket', quantity: ticketVenue1Level2, price });
+            total += price;
+        }
+
+        // 4. Add Presto tickets if selected
+        if (ticketVenue1Level3 > 0) {
+            const price = event.baseTicketPrice * ticketVenue1Level3;
+            items.push({ description: 'Presto Ticket', quantity: ticketVenue1Level3, price });
+            total += price;
+        }
+
+        // 5. Add optional packages (this part is the same as before)
         selectedAddOns.forEach(addOn => {
             items.push({ description: addOn.name, quantity: 1, price: addOn.price });
             total += addOn.price;
         });
-        return { items, total };
-    }, [event, ticketQuantity, selectedSeats, selectedAddOns]);
+
+        return {
+            items,
+            total,
+            registrantName: selectedRegistrantName,
+            date: selectedDate ? new Date(selectedDate).toLocaleDateString('id-ID', { month: 'long', day: 'numeric' }) : '',
+            session: selectedSession,
+        };
+    }, [
+        event,
+        ticketVenue1Level1, ticketVenue1Level2, ticketVenue1Level3,
+        wantsToSelectSeats, addOnTicketVenue1Level1,
+        selectedAddOns, selectedRegistrantName, selectedDate, selectedSession
+    ]); // Updated dependency array
 
 
     // --- Render Logic ---
@@ -380,13 +421,30 @@ const SeatingEvent = () => {
                 <Col xs={24} md={10}>
                     <Card style={{ position: 'sticky', top: '20px' }}>
                         <Title level={4}>Order Summary</Title>
+
+                        {/* --- NEW: Display Registrant, Date, and Session --- */}
+                        <div style={{ marginBottom: '16px' }}>
+                            {orderSummary.registrantName && (
+                                <Paragraph>
+                                    For: <Text strong>{orderSummary.registrantName}</Text>
+                                </Paragraph>
+                            )}
+                            {orderSummary.date && orderSummary.session && (
+                                <Paragraph>
+                                    When: <Text strong>{orderSummary.date} at {orderSummary.session}</Text>
+                                </Paragraph>
+                            )}
+                        </div>
+
+                        {orderSummary.items.length > 0 && <Divider style={{ margin: '0 0 16px 0' }} />}
+
                         <List
                             dataSource={orderSummary.items}
                             renderItem={item => (
-                                <List.Item>
+                                <List.Item style={{ padding: '8px 0' }}>
                                     <List.Item.Meta
                                         title={item.description}
-                                        description={item.quantity > 1 ? `Quantity: ${item.quantity}` : ''}
+                                        description={item.quantity > 1 ? `Quantity: ${item.quantity}` : null}
                                     />
                                     <Text>${item.price}</Text>
                                 </List.Item>
