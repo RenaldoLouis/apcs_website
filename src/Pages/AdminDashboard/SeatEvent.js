@@ -36,8 +36,11 @@ const SeatingEvent = () => {
 
     // State for user's choices (this is UI state, so it stays in the component)
     const [ticketVenue1Level1, setTicketVenue1Level1] = useState(0);
+    const [addOnTicketVenue1Level1, setAddOnTicketVenue1Level1] = useState(0);
     const [ticketVenue1Level2, setTicketVenue1Level2] = useState(0);
+    const [addOnTicketVenue1Level2, setAddOnTicketVenue1Level2] = useState(0);
     const [ticketVenue1Level3, setTicketVenue1Level3] = useState(0);
+    const [addOnTicketVenue1Level3, setAddOnTicketVenue1Level3] = useState(0);
 
     const [ticketVenue2Level1, setTicketVenue2Level1] = useState(0);
     const [ticketVenue2Level2, setTicketVenue2Level2] = useState(0);
@@ -53,52 +56,6 @@ const SeatingEvent = () => {
     const [wantsToSelectSeats, setWantsToSelectSeats] = useState(false);
     const [selectedSeats, setSelectedSeats] = useState([]);
     const [selectedAddOns, setSelectedAddOns] = useState([]);
-
-    const filteredData = useMemo(() => {
-        if (!registrantDatas) return [];
-        if (!searchTerm) {
-            return registrantDatas; // If no search term, return all data
-        }
-        return registrantDatas.filter(registrant => {
-            const performer = registrant.performers?.[0];
-            if (!performer) return false;
-
-            const fullName = `${performer.firstName} ${performer.lastName}`.toLowerCase();
-            return fullName.includes(searchTerm.toLowerCase());
-        });
-    }, [registrantDatas, searchTerm]);
-
-    // Memoize the formatted seats for the SeatPicker to avoid re-calculating on every render
-    const formattedSeatsForPicker = useMemo(() => {
-        if (!flatSeatList) return [];
-        const rows = flatSeatList.reduce((acc, seat) => {
-            const { row, number, status, id, areaType, rowType } = seat;
-            const price = event?.pricingTiers[areaType]?.[rowType] || 0;
-            if (!acc[row]) acc[row] = [];
-            acc[row].push({ id, number, isReserved: status === 'reserved', tooltip: `+ $${price}` });
-            return acc;
-        }, {});
-        // Ensure rows are sorted and add nulls for aisles if needed
-        return Object.keys(rows).sort().map(key => rows[key].sort((a, b) => a.number - b.number));
-    }, [flatSeatList, event]);
-
-    // Calculation logic - this remains the same
-    const orderSummary = useMemo(() => {
-        if (!event) return { items: [], total: 0 };
-        const items = [];
-        let total = 0;
-        items.push({ description: `General Admission Ticket`, quantity: ticketQuantity, price: event.baseTicketPrice * ticketQuantity });
-        total += event.baseTicketPrice * ticketQuantity;
-        selectedSeats.forEach(seat => {
-            items.push({ description: `Seat Reservation (${seat.label})`, quantity: 1, price: seat.price });
-            total += seat.price;
-        });
-        selectedAddOns.forEach(addOn => {
-            items.push({ description: addOn.name, quantity: 1, price: addOn.price });
-            total += addOn.price;
-        });
-        return { items, total };
-    }, [event, ticketQuantity, selectedSeats, selectedAddOns]);
 
     const columns = [
         {
@@ -137,6 +94,20 @@ const SeatingEvent = () => {
         },
     ];
 
+    const filteredData = useMemo(() => {
+        if (!registrantDatas) return [];
+        if (!searchTerm) {
+            return registrantDatas; // If no search term, return all data
+        }
+        return registrantDatas.filter(registrant => {
+            const performer = registrant.performers?.[0];
+            if (!performer) return false;
+
+            const fullName = `${performer.firstName} ${performer.lastName}`.toLowerCase();
+            return fullName.includes(searchTerm.toLowerCase());
+        });
+    }, [registrantDatas, searchTerm]);
+
     const rowSelection = {
         type: 'radio', // Allow only one selection at a time
         onChange: (selectedRowKeys, selectedRows) => {
@@ -148,7 +119,7 @@ const SeatingEvent = () => {
     // --- Modal Controls ---
     const showModal = () => setIsModalOpen(true);
 
-    const handleOk = () => {
+    const handleModalConfirm = () => {
         if (tempSelectedRow) {
             const performer = tempSelectedRow.performers[0];
             // Set the final state with the selected user's info
@@ -158,16 +129,20 @@ const SeatingEvent = () => {
         setIsModalOpen(false); // Close the modal
     };
 
-    const handleCancel = () => {
+    const handleCloseModal = () => {
         setIsModalOpen(false);
     };
-
 
     // UI Event Handlers - these remain the same
     const handleTicketQuantityChange1 = (value) => {
         setTicketVenue1Level1(value);
         setSelectedSeats([]);
     };
+    const handleAddsOnTicketQuantityChange1 = (value) => {
+        setAddOnTicketVenue1Level1(value);
+        setSelectedSeats([]);
+    };
+
     const handleTicketQuantityChange2 = (value) => {
         setTicketVenue1Level2(value);
         setSelectedSeats([]);
@@ -191,23 +166,6 @@ const SeatingEvent = () => {
     const handleAddOnCheckboxChange = (e, addOn) => {
         if (e.target.checked) setSelectedAddOns(prev => [...prev, addOn]);
         else setSelectedAddOns(prev => prev.filter(item => item.id !== addOn.id));
-    };
-
-
-    // Seat Picker Callbacks
-    const addSeatCallback = ({ row, number, id }, addCb) => {
-        const seatData = flatSeatList.find(s => s.id === id);
-        if (!seatData || !event) return;
-
-        const seatPrice = event.pricingTiers[seatData.areaType]?.[seatData.rowType] || 0;
-        const newSeat = { id: seatData.id, label: seatData.seatLabel, price: seatPrice };
-
-        setSelectedSeats(prev => [...prev, newSeat]);
-        addCb(row, number, id);
-    };
-    const removeSeatCallback = ({ row, number, id }, removeCb) => {
-        setSelectedSeats(prev => prev.filter(seat => seat.id !== id));
-        removeCb(row, number);
     };
 
     // --- Final Submission ---
@@ -260,19 +218,23 @@ const SeatingEvent = () => {
         }
     };
 
-    const handleChange = (selectedEmail, selectedOption) => {
-        setEmailBuyer(selectedEmail);
-        setSelectedRegistrant(selectedEmail);
-        setSelectedValueRegistrant(selectedOption.label)
-    };
+    const orderSummary = useMemo(() => {
+        if (!event) return { items: [], total: 0 };
+        const items = [];
+        let total = 0;
+        items.push({ description: `General Admission Ticket`, quantity: ticketQuantity, price: event.baseTicketPrice * ticketQuantity });
+        total += event.baseTicketPrice * ticketQuantity;
+        selectedSeats.forEach(seat => {
+            items.push({ description: `Seat Reservation (${seat.label})`, quantity: 1, price: seat.price });
+            total += seat.price;
+        });
+        selectedAddOns.forEach(addOn => {
+            items.push({ description: addOn.name, quantity: 1, price: addOn.price });
+            total += addOn.price;
+        });
+        return { items, total };
+    }, [event, ticketQuantity, selectedSeats, selectedAddOns]);
 
-    const listPerformerName = registrantDatas ? registrantDatas.map((eachData) => {
-        const performer = eachData?.performers[0];
-        return {
-            value: performer?.email,
-            label: `${performer?.firstName} (${performer?.lastName})`
-        };
-    }) : [];
 
     // --- Render Logic ---
     if (loading) {
@@ -343,7 +305,7 @@ const SeatingEvent = () => {
                                     I want to choose my specific seat (additional charges apply).
                                 </Checkbox>
                                 {wantsToSelectSeats && (
-                                    <Col> <InputNumber min={1} max={10} value={ticketVenue1Level1} onChange={handleTicketQuantityChange1} /> </Col>
+                                    <Col> <InputNumber min={1} max={10} value={addOnTicketVenue1Level1} onChange={handleAddsOnTicketQuantityChange1} /> </Col>
                                 )}
                             </Row>
                         )}
@@ -413,16 +375,6 @@ const SeatingEvent = () => {
                             )}
                         />
                     </Card>
-
-                    {/* <Card title="6. Registrant Email Address">
-                    <Paragraph type="secondary">The link to select seat will sent to this address.</Paragraph>
-                    <Input
-                        placeholder="Enter Registrant email"
-                        value={emailBuyer}
-                        onChange={(e) => setEmailBuyer(e.target.value)}
-                        size="large"
-                    />
-                </Card> */}
                 </Col>
 
                 <Col xs={24} md={10}>
@@ -455,8 +407,8 @@ const SeatingEvent = () => {
             <Modal
                 title="Select a Registrant"
                 open={isModalOpen}
-                onOk={handleOk}
-                onCancel={handleCancel}
+                onOk={handleModalConfirm}
+                onCancel={handleCloseModal}
                 width={1000} // Make the modal wider to fit the table
                 okText="Select"
                 okButtonProps={{ disabled: !tempSelectedRow }} // Disable OK if nothing is selected
