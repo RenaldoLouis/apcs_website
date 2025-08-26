@@ -3,7 +3,10 @@ import { useEffect, useMemo, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import SeatPicker from 'react-seat-picker';
 import apis from '../../apis';
+import useFetchSeatBookData from '../../hooks/useFetchSeatBookData';
 const { Title, Text } = Typography;
+
+
 
 const SelectSeatPage = () => {
     const location = useLocation();
@@ -15,6 +18,9 @@ const SelectSeatPage = () => {
     const [seatLayout, setSeatLayout] = useState([]);
     const [selectedSeats, setSelectedSeats] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
+    const [documentId, setDocumentId] = useState(false);
+
+    const { userData, loading, error, refetch } = useFetchSeatBookData("seatBook2025", documentId,);
 
     // This useEffect runs once on page load to verify the token from the URL
     useEffect(() => {
@@ -30,6 +36,9 @@ const SelectSeatPage = () => {
                 const response = await apis.bookings.verifySeatToken({ token });
                 setBookingData(response.data.bookingData);
                 setSeatLayout(response.data.seatLayout);
+                console.log(response);
+                const documentId = response.data.bookingData.id;
+                setDocumentId(documentId)
                 setStatus('valid');
             } catch (err) {
                 setStatus('invalid');
@@ -39,6 +48,8 @@ const SelectSeatPage = () => {
 
         verifyToken();
     }, [location]);
+
+    console.log("userData:", userData);
 
     const handleConfirmSelection = async () => {
         if (selectedSeats.length !== maxReservableSeats) {
