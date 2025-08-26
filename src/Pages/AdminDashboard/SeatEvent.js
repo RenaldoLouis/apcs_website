@@ -108,6 +108,7 @@ const SeatingEvent = () => {
         const bookingPayload = {
             eventId: eventId,
             userId: formData.registrant.id,
+            userName: formData.registrant.name,
             userEmail: formData.registrant.email,
             venue: formData.venue,
             date: formData.date,
@@ -131,7 +132,7 @@ const SeatingEvent = () => {
             };
             console.log("emailPayload", emailPayload)
             // 3. Send the email with the token
-            // await apis.bookings.sendSeatBookingEmail(emailPayload);
+            await apis.bookings.sendSeatBookingEmail(emailPayload);
             message.success({ content: 'Booking initiated!', key: 'booking' });
             // navigate('/payment', { state: { /* ... pass necessary data ... */ } });
         } catch (err) {
