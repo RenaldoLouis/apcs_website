@@ -29,9 +29,10 @@ import LandingPage from "./Pages/Landing/LandingPage";
 import Login from "./Pages/Login/Login";
 import Podcast from "./Pages/Podcast/Podcast";
 import Register from "./Pages/Register/Register";
+import ScannerPage from './Pages/Scanner/ScannerPage';
+import SelectSeatPage from './Pages/SelectSeat/SelectSeatPage';
 import ProtectedRoute from "./ProtectedRoute";
 import PublicRoute from "./PublicRoute";
-import ScannerPage from './Pages/Scanner/ScannerPage';
 
 const audio = new Audio(persona5);
 
@@ -75,6 +76,11 @@ const Main = () => {
         <Route path="/payment" element={
           <ProtectedRoute>
             <PaymentPage />
+          </ProtectedRoute>
+        } />
+        <Route path="/select-seat" element={
+          <ProtectedRoute>
+            <SelectSeatPage />
           </ProtectedRoute>
         } />
         <Route path="/scan" element={

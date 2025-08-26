@@ -21,6 +21,7 @@ import {
 import { useMemo, useState } from 'react';
 import { Controller, useFieldArray, useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import apis from '../../apis';
 import { useEventBookingData } from '../../hooks/useEventBookingData';
 import usePaginatedRegistrants from '../../hooks/useFetchRegistrantsData';
@@ -134,7 +135,7 @@ const SeatingEvent = () => {
             // 3. Send the email with the token
             await apis.bookings.sendSeatBookingEmail(emailPayload);
             message.success({ content: 'Booking initiated!', key: 'booking' });
-            // navigate('/payment', { state: { /* ... pass necessary data ... */ } });
+            toast.info("Please check your email to select your seat(s).");
         } catch (err) {
             message.error({ content: err.response?.data?.message || 'Failed to create booking.', key: 'booking' });
         }
