@@ -1,71 +1,107 @@
-import { Button, Card, Result, Spin, Typography, message } from 'antd';
+import { Button, Card, Divider, List, Result, Spin, Typography, message } from 'antd';
 import { useEffect, useMemo, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import SeatPicker from 'react-seat-picker';
 import apis from '../../apis';
-import useFetchSeatBookData from '../../hooks/useFetchSeatBookData';
-const { Title, Text } = Typography;
 
-
+const { Title, Text, Paragraph } = Typography;
 
 const SelectSeatPage = () => {
     const location = useLocation();
     const navigate = useNavigate();
 
-    const [status, setStatus] = useState('verifying'); // 'verifying', 'valid', 'invalid'
+    const [status, setStatus] = useState('verifying');
     const [errorMessage, setErrorMessage] = useState('');
     const [bookingData, setBookingData] = useState(null);
-    const [seatLayout, setSeatLayout] = useState([]);
-    const [selectedSeats, setSelectedSeats] = useState([]);
+    const [seatLayout, setSeatLayout] = useState([]); // This will hold the single, flat list from the backend
     const [isLoading, setIsLoading] = useState(false);
-    const [documentId, setDocumentId] = useState(false);
+    // const { userData, loading, error, refetch } = useFetchSeatBookData("seatBook2025", documentId,);
 
-    const { userData, loading, error, refetch } = useFetchSeatBookData("seatBook2025", documentId,);
+    // State to hold selections for EACH ticket type separately
+    const [selections, setSelections] = useState({});
 
-    // This useEffect runs once on page load to verify the token from the URL
     useEffect(() => {
         const token = new URLSearchParams(location.search).get('token');
         if (!token) {
             setStatus('invalid');
-            setErrorMessage('No selection token found in the URL.');
+            setErrorMessage('No selection token found.');
             return;
         }
 
         const verifyToken = async () => {
             try {
                 const response = await apis.bookings.verifySeatToken({ token });
-                setBookingData(response.data.bookingData);
+                const backendBookingData = response.data.bookingData;
+
+                setBookingData(backendBookingData);
                 setSeatLayout(response.data.seatLayout);
-                console.log(response);
-                const documentId = response.data.bookingData.id;
-                setDocumentId(documentId)
+
+                // Initialize the selections state based on the tickets that require seat selection
+                const initialSelections = {};
+                backendBookingData.tickets.forEach(ticket => {
+                    if (ticket.wantsSeat && ticket.seatQuantity > 0) {
+                        initialSelections[ticket.id] = [];
+                    }
+                });
+                setSelections(initialSelections);
+
                 setStatus('valid');
             } catch (err) {
                 setStatus('invalid');
-                setErrorMessage(err.response?.data?.message || 'An unknown error occurred.');
+                setErrorMessage(err.response?.data?.message || 'An error occurred.');
             }
         };
 
         verifyToken();
     }, [location]);
 
-    console.log("userData:", userData);
+    console.log("seatLayout", seatLayout)
 
+    // --- Memos for calculating required seats and filtering layouts ---
+    const totalRequiredSeats = useMemo(() => {
+        if (!bookingData) return 0;
+        return bookingData.tickets.reduce((total, ticket) => total + (ticket.wantsSeat ? ticket.seatQuantity : 0), 0);
+    }, [bookingData]);
+
+    const totalSelectedSeats = useMemo(() => {
+        return Object.values(selections).reduce((total, arr) => total + arr.length, 0);
+    }, [selections]);
+
+    const filteredLayouts = useMemo(() => {
+        if (!seatLayout) return {};
+        // This groups the flat seat list from the backend into separate layouts by areaType
+        return seatLayout.reduce((acc, seat) => {
+            const area = seat.areaType;
+            if (!acc[area]) acc[area] = {};
+            if (!acc[area][seat.row]) acc[area][seat.row] = [];
+            acc[area][seat.row].push({ ...seat, isReserved: seat.status !== 'available' });
+            return acc;
+        }, {});
+    }, [seatLayout]);
+
+    // --- Generic handlers for adding/removing seats ---
+    const handleAddSeat = (ticketId, { row, number, id }, addCb) => {
+        setSelections(prev => ({ ...prev, [ticketId]: [...prev[ticketId], { row, number, id }] }));
+        addCb(row, number, id);
+    };
+
+    const handleRemoveSeat = (ticketId, { row, number, id }, removeCb) => {
+        setSelections(prev => ({ ...prev, [ticketId]: prev[ticketId].filter(seat => seat.id !== id) }));
+        removeCb(row, number);
+    };
+
+    // --- Submission Logic ---
     const handleConfirmSelection = async () => {
-        if (selectedSeats.length !== maxReservableSeats) {
-            message.warn(`Please select exactly ${maxReservableSeats} seat(s).`);
+        if (totalSelectedSeats !== totalRequiredSeats) {
+            message.warn(`Please select exactly ${totalRequiredSeats} seat(s) in total.`);
             return;
         }
 
         setIsLoading(true);
         try {
-            const selectedSeatIds = selectedSeats.map(seat => seat.id);
-            await apis.bookings.confirmSeats({
-                bookingId: bookingData.id,
-                selectedSeatIds
-            });
+            const allSelectedIds = Object.values(selections).flat().map(seat => seat.id);
+            await apis.bookings.confirmSeats({ bookingId: bookingData.id, selectedSeatIds: allSelectedIds });
             message.success('Seats confirmed successfully!');
-            // Redirect to a final success page
             navigate('/booking-complete');
         } catch (err) {
             message.error(err.response?.data?.message || 'Failed to confirm seats.');
@@ -74,70 +110,69 @@ const SelectSeatPage = () => {
         }
     };
 
-    // --- Memos for calculating values ---
-    const maxReservableSeats = useMemo(() => {
-        if (!bookingData) return 0;
-        // Calculate total seats from the 'tickets' array in your booking data
-        return bookingData.tickets.reduce((total, ticket) => total + (ticket.seatQuantity || 0), 0);
-    }, [bookingData]);
-
-    const formattedSeatLayout = useMemo(() => {
-        // Logic to format your flat seat list into rows for SeatPicker
-        if (!seatLayout) return [];
-        const rows = seatLayout.reduce((acc, seat) => {
-            const { row, number, status, id } = seat;
-            if (!acc[row]) acc[row] = [];
-            acc[row].push({ id, number, isReserved: status !== 'available' });
-            return acc;
-        }, {});
-        return Object.values(rows);
-    }, [seatLayout]);
-
-
     // --- Conditional Rendering ---
     if (status === 'verifying') {
         return <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}><Spin tip="Verifying your link..." size="large" /></div>;
     }
 
     if (status === 'invalid') {
-        return <Result status="error" title="Invalid Access" subTitle={errorMessage || "This seat selection link is invalid, expired, or has already been used."} extra={<Button type="primary" onClick={() => navigate('/')}>Back Home</Button>} />;
+        return <Result status="error" title="Invalid Access" subTitle={errorMessage} extra={<Button type="primary" onClick={() => navigate('/')}>Back Home</Button>} />;
     }
 
     return (
-        <Card title="Select Your Seats" style={{ maxWidth: 800, margin: '40px auto' }}>
-            <Title level={4}>Please select {maxReservableSeats} seat(s)</Title>
-            <div style={{ display: 'flex', justifyContent: 'center', marginTop: '20px' }}>
-                <SeatPicker
-                    rows={formattedSeatLayout}
-                    maxReservableSeats={maxReservableSeats}
-                    alpha
-                    visible
-                    selectedByDefault
-                    addSeatCallback={({ row, number, id }, addCb) => {
-                        setSelectedSeats(prev => [...prev, { row, number, id }]);
-                        addCb(row, number, id);
-                    }}
-                    removeSeatCallback={({ row, number, id }, removeCb) => {
-                        setSelectedSeats(prev => prev.filter(seat => seat.id !== id));
-                        removeCb(row, number);
-                    }}
+        <div style={{ padding: '20px' }}>
+            <Card style={{ maxWidth: 900, margin: '0 auto' }}>
+                <Title level={3}>Seat Selection</Title>
+                <Paragraph><strong>Booking for:</strong> {bookingData?.userName}</Paragraph>
+                <Paragraph><strong>Venue:</strong> {bookingData?.venue} | <strong>Date:</strong> {bookingData?.date} at {bookingData?.session}</Paragraph>
+                <Divider />
+                <Title level={5}>Your Tickets Requiring Seat Selection:</Title>
+                <List
+                    dataSource={bookingData?.tickets.filter(t => t.wantsSeat && t.seatQuantity > 0)}
+                    renderItem={item => (<List.Item>• {item.seatQuantity} x Seat Selection for {item.name}</List.Item>)}
+                    bordered
+                    size="small"
                 />
-            </div>
-            <div style={{ textAlign: 'center', marginTop: '30px' }}>
-                <Text strong>Selected Seats: {selectedSeats.map(s => `${s.row}${s.number}`).join(', ')}</Text>
-                <br />
+            </Card>
+
+            {bookingData?.tickets.map(ticket => {
+                if (!ticket.wantsSeat || ticket.seatQuantity === 0) return null;
+
+                const layoutForPicker = Object.values(filteredLayouts[ticket.id] || {});
+
+                return (
+                    <Card key={ticket.id} title={`Select ${ticket.seatQuantity} Seat(s) for ${ticket.name}`} style={{ maxWidth: 900, margin: '20px auto 0' }}>
+                        <div style={{ display: 'flex', justifyContent: 'center' }}>
+                            <SeatPicker
+                                rows={layoutForPicker}
+                                maxReservableSeats={ticket.seatQuantity}
+                                alpha
+                                visible
+                                addSeatCallback={(...args) => handleAddSeat(ticket.id, ...args)}
+                                removeSeatCallback={(...args) => handleRemoveSeat(ticket.id, ...args)}
+                            />
+                        </div>
+                        <div style={{ textAlign: 'center', marginTop: '15px' }}>
+                            <Text strong>Selected: {selections[ticket.id]?.map(s => `${s.row}${s.number}`).join(', ') || 'None'}</Text>
+                        </div>
+                    </Card>
+                );
+            })}
+
+            <Card style={{ maxWidth: 900, margin: '20px auto 0', textAlign: 'center' }}>
+                <Title level={4}>Total Selected Seats: {totalSelectedSeats} / {totalRequiredSeats}</Title>
                 <Button
                     type="primary"
                     size="large"
                     style={{ marginTop: '20px' }}
                     onClick={handleConfirmSelection}
                     loading={isLoading}
-                    disabled={selectedSeats.length !== maxReservableSeats}
+                    disabled={totalSelectedSeats !== totalRequiredSeats}
                 >
-                    Confirm Selection
+                    Confirm Final Selection
                 </Button>
-            </div>
-        </Card>
+            </Card>
+        </div>
     );
 };
 

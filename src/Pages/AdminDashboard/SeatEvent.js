@@ -18,11 +18,13 @@ import {
     Table,
     Typography
 } from 'antd';
+import { doc, writeBatch } from 'firebase/firestore';
 import { useMemo, useState } from 'react';
 import { Controller, useFieldArray, useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import apis from '../../apis';
+import { db } from '../../firebase';
 import { useEventBookingData } from '../../hooks/useEventBookingData';
 import usePaginatedRegistrants from '../../hooks/useFetchRegistrantsData';
 
@@ -40,6 +42,69 @@ const availableSessions = {
     '2025-08-27': ['09:00 - 10:00', '11:00 - 12:00', '15:00 - 16:00'],
 };
 
+const generateSeatLayout = (eventId, areaType, numRows, seatsPerRow, startRowChar) => {
+    const seats = [];
+    const startCharCode = startRowChar.charCodeAt(0);
+
+    for (let i = 0; i < numRows; i++) {
+        const rowChar = String.fromCharCode(startCharCode + i);
+        for (let j = 1; j <= seatsPerRow; j++) {
+            const seatLabel = `${rowChar}${j}`;
+            const documentId = `${areaType}-${rowChar}${j}-${eventId}`; // e.g., lento-A1-galaConcert2025
+
+            seats.push({
+                id: documentId, // We'll use this for the document ID
+                eventId: eventId,
+                areaType: areaType,
+                rowType: 'Standard', // You can customize this if needed
+                seatLabel: seatLabel,
+                row: rowChar,
+                number: j,
+                status: 'available'
+            });
+        }
+    }
+    return seats;
+};
+
+export const uploadFullSeatLayout = async () => {
+    const eventId = 'galaConcert2025';
+    console.log(`Starting to generate and upload seat layout for event: ${eventId}`);
+
+    try {
+        // --- 1. Generate the data for all sections ---
+        const lentoSeats = generateSeatLayout(eventId, 'lento', 5, 20, 'A'); // 5 rows (A-E) of 20 seats
+        const allegroSeats = generateSeatLayout(eventId, 'allegro', 8, 20, 'F'); // 8 rows (F-M) of 20 seats
+        const prestoSeats = generateSeatLayout(eventId, 'presto', 8, 20, 'N'); // 8 rows (N-U) of 20 seats
+
+        const allSeats = [...lentoSeats, ...allegroSeats, ...prestoSeats];
+        console.log(`Generated a total of ${allSeats.length} seats.`);
+
+        // --- 2. Use Batched Writes to upload the data ---
+        // Firestore batches are limited to 500 operations.
+        const batchSize = 499;
+        for (let i = 0; i < allSeats.length; i += batchSize) {
+            const batch = writeBatch(db);
+            const chunk = allSeats.slice(i, i + batchSize);
+
+            console.log(`Preparing batch ${Math.floor(i / batchSize) + 1}...`);
+            chunk.forEach(seat => {
+                const docRef = doc(db, 'seats', seat.id);
+                batch.set(docRef, seat); // Use set() to create or overwrite
+            });
+
+            console.log("Committing batch...");
+            await batch.commit();
+        }
+
+        console.log("✅ Successfully uploaded all seats to Firestore!");
+        alert("Seat layout uploaded successfully!");
+
+    } catch (error) {
+        console.error("❌ Error uploading seat layout:", error);
+        alert(`An error occurred: ${error.message}`);
+    }
+};
 
 const SeatingEvent = () => {
     const navigate = useNavigate();
@@ -168,6 +233,15 @@ const SeatingEvent = () => {
         return { items, total };
     }, [watchedFormData, event]);
 
+    const handleUploadClick = async () => {
+        // setIsLoading(true);
+        message.info('Starting seat layout upload. This may take a moment...');
+
+        await uploadFullSeatLayout();
+
+        // setIsLoading(false);
+    };
+
     // --- Loading and Error States ---
     if (eventLoading || registrantsLoading) {
         return <div style={{ display: 'flex', justifyContent: 'center', padding: '50px' }}><Spin size="large" /></div>;
@@ -183,6 +257,19 @@ const SeatingEvent = () => {
                     <Title level={2}>{event.title}</Title>
                     <Paragraph>{new Date(event.date?.seconds * 1000).toLocaleDateString('en-GB', { /* ... */ })}</Paragraph>
                     <Divider />
+
+                    <Card title="Admin Database Tools" style={{ margin: '40px' }}>
+                        <p>
+                            Use this tool to generate and upload the complete seat layout for an event.
+                            <strong>Warning:</strong> This will overwrite any existing seat data for the event.
+                        </p>
+                        <Button
+                            type="primary"
+                            onClick={handleUploadClick}
+                        >
+                            Generate & Upload Full Seat Layout
+                        </Button>
+                    </Card>
 
                     {/* --- Card 1: Registrant Selection --- */}
                     <Card title="1. Select Registrant" style={{ marginBottom: '24px' }}>
