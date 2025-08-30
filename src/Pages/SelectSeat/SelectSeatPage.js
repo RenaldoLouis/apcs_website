@@ -116,7 +116,31 @@ const SelectSeatPage = () => {
     }
 
     if (status === 'invalid') {
-        return <Result status="error" title="Invalid Access" subTitle={errorMessage} extra={<Button type="primary" onClick={() => navigate('/')}>Back Home</Button>} />;
+        return (
+            // 1. Full-screen wrapper
+            <div style={{
+                height: '100vh',
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center'
+            }}>
+                <Result
+                    status="error"
+                    // 2. Apply className to Typography components
+                    title={
+                        <Typography.Title level={2} style={{ color: '#EBBC64' }}>
+                            Link Expired or Invalid
+                        </Typography.Title>
+                    }
+                    subTitle={
+                        <Typography.Paragraph className="goldenTextColor">
+                            Please check your email for a seat confirmation. If you have not selected your seats, the link you used may have expired. Please contact our admin for assistance.
+                        </Typography.Paragraph>
+                    }
+                    extra={<Button type="primary" onClick={() => navigate('/')}>Back Home</Button>}
+                />
+            </div>
+        );
     }
 
     return (

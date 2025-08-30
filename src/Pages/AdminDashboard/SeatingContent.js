@@ -11,7 +11,7 @@ const SeatingContent = () => {
     // const { eventId } = useParams();
     const navigate = useNavigate();
 
-    const eventId = "galaConcert2025"
+    const eventId = "APCS2025"
 
     // 2. Use the custom hook to fetch all data directly from Firebase
     const { event, seats: flatSeatList, loading, error } = useEventBookingData(eventId);

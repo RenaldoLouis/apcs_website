@@ -21,7 +21,6 @@ import {
 import { doc, writeBatch } from 'firebase/firestore';
 import { useMemo, useState } from 'react';
 import { Controller, useFieldArray, useForm } from 'react-hook-form';
-import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import apis from '../../apis';
 import { db } from '../../firebase';
@@ -37,68 +36,102 @@ const venueOptions = [
 ];
 
 const availableSessions = {
-    '2025-08-25': ['09:00 - 10:00', '11:00 - 12:00', '14:00 - 15:00'],
-    '2025-08-26': ['10:00 - 11:00', '13:00 - 14:00'],
-    '2025-08-27': ['09:00 - 10:00', '11:00 - 12:00', '15:00 - 16:00'],
+    '2025-08-25': ['09:00-10:00', '11:00-12:00', '14:00-15:00'],
+    '2025-08-26': ['10:00-11:00', '13:00-14:00'],
+    '2025-08-27': ['09:00-10:00', '11:00-12:00', '15:00-16:00'],
 };
 
-const generateSeatLayout = (eventId, areaType, numRows, seatsPerRow, startRowChar) => {
-    const seats = [];
-    const startCharCode = startRowChar.charCodeAt(0);
+const EVENT_SESSIONS = [
+    "2025-08-25_09:00-10:00",
+    "2025-08-25_11:00-12:00",
+    "2025-08-25_14:00-15:00",
+    "2025-08-26_10:00-11:00",
+    "2025-08-26_13:00-14:00",
+];
 
-    for (let i = 0; i < numRows; i++) {
-        const rowChar = String.fromCharCode(startCharCode + i);
-        for (let j = 1; j <= seatsPerRow; j++) {
-            const seatLabel = `${rowChar}${j}`;
-            const documentId = `${areaType}-${rowChar}${j}-${eventId}`; // e.g., lento-A1-galaConcert2025
-
-            seats.push({
-                id: documentId, // We'll use this for the document ID
-                eventId: eventId,
-                areaType: areaType,
-                rowType: 'Standard', // You can customize this if needed
-                seatLabel: seatLabel,
-                row: rowChar,
-                number: j,
-                status: 'available'
-            });
+/**
+ * Generates a flat array of seat objects for a single section's layout.
+ * @returns {Array<object>} An array of seat "template" objects.
+ */
+const generateSeatLayoutTemplates = () => {
+    // Defines the physical layout of the venue
+    const generateSection = (areaType, numRows, seatsPerRow, startRowChar) => {
+        const seats = [];
+        const startCharCode = startRowChar.charCodeAt(0);
+        for (let i = 0; i < numRows; i++) {
+            const rowChar = String.fromCharCode(startCharCode + i);
+            for (let j = 1; j <= seatsPerRow; j++) {
+                seats.push({
+                    seatLabel: `${rowChar}${j}`,
+                    areaType: areaType,
+                    row: rowChar,
+                    number: j,
+                });
+            }
         }
-    }
-    return seats;
+        return seats;
+    };
+
+    const lentoSeats = generateSection('lento', 5, 20, 'A');
+    const allegroSeats = generateSection('allegro', 8, 20, 'F');
+    const prestoSeats = generateSection('presto', 8, 20, 'N');
+
+    return [...lentoSeats, ...allegroSeats, ...prestoSeats];
 };
 
-export const uploadFullSeatLayout = async () => {
-    const eventId = 'galaConcert2025';
-    console.log(`Starting to generate and upload seat layout for event: ${eventId}`);
+/**
+ * Generates and uploads the full seat availability for all sessions of an event.
+ * WARNING: This will CREATE OR OVERWRITE all seat data for the specified event and sessions.
+ * @param {string} eventId - The ID of the event.
+ * @param {Array<string>} sessions - An array of session identifiers (e.g., "2025-08-25_09:00-10:00").
+ */
+export const uploadFullSeatLayout = async (eventId, sessions) => {
+    console.log(`Starting to generate seat availability for event: ${eventId}`);
+    if (!sessions || sessions.length === 0) {
+        console.error("No sessions provided.");
+        alert("Error: No sessions provided to generate seats for.");
+        return;
+    }
 
     try {
-        // --- 1. Generate the data for all sections ---
-        const lentoSeats = generateSeatLayout(eventId, 'lento', 5, 20, 'A'); // 5 rows (A-E) of 20 seats
-        const allegroSeats = generateSeatLayout(eventId, 'allegro', 8, 20, 'F'); // 8 rows (F-M) of 20 seats
-        const prestoSeats = generateSeatLayout(eventId, 'presto', 8, 20, 'N'); // 8 rows (N-U) of 20 seats
+        // 1. Get the physical layout of the venue
+        const seatTemplates = generateSeatLayoutTemplates();
+        const allSeatInstances = [];
 
-        const allSeats = [...lentoSeats, ...allegroSeats, ...prestoSeats];
-        console.log(`Generated a total of ${allSeats.length} seats.`);
+        // 2. Create a unique document for EACH seat in EACH session
+        for (const sessionId of sessions) {
+            for (const seatTemplate of seatTemplates) {
+                const documentId = `${seatTemplate.areaType}-${seatTemplate.seatLabel}_${eventId}_${sessionId}`;
 
-        // --- 2. Use Batched Writes to upload the data ---
-        // Firestore batches are limited to 500 operations.
+                allSeatInstances.push({
+                    id: documentId, // For the batch operation
+                    eventId: eventId,
+                    sessionId: sessionId,
+                    status: 'available',
+                    ...seatTemplate
+                });
+            }
+        }
+        console.log(`Generated a total of ${allSeatInstances.length} seat instances across ${sessions.length} sessions.`);
+
+        // 3. Use Batched Writes to upload the data efficiently
         const batchSize = 499;
-        for (let i = 0; i < allSeats.length; i += batchSize) {
+        for (let i = 0; i < allSeatInstances.length; i += batchSize) {
             const batch = writeBatch(db);
-            const chunk = allSeats.slice(i, i + batchSize);
+            const chunk = allSeatInstances.slice(i, i + batchSize);
 
             console.log(`Preparing batch ${Math.floor(i / batchSize) + 1}...`);
             chunk.forEach(seat => {
-                const docRef = doc(db, 'seats', seat.id);
-                batch.set(docRef, seat); // Use set() to create or overwrite
+                const docRef = doc(db, `seats${eventId}`, seat.id);
+                batch.set(docRef, seat);
             });
 
             console.log("Committing batch...");
             await batch.commit();
         }
 
-        console.log("✅ Successfully uploaded all seats to Firestore!");
-        alert("Seat layout uploaded successfully!");
+        console.log("✅ Successfully uploaded all seat instances to Firestore!");
+        alert("Seat layout and availability for all sessions uploaded successfully!");
 
     } catch (error) {
         console.error("❌ Error uploading seat layout:", error);
@@ -107,8 +140,7 @@ export const uploadFullSeatLayout = async () => {
 };
 
 const SeatingEvent = () => {
-    const navigate = useNavigate();
-    const eventId = "galaConcert2025";
+    const eventId = "APCS2025";
 
     // --- Data Fetching Hooks ---
     const { registrantDatas, loading: registrantsLoading } = usePaginatedRegistrants(9999, "Registrants2025", "createdAt");
@@ -235,9 +267,9 @@ const SeatingEvent = () => {
 
     const handleUploadClick = async () => {
         // setIsLoading(true);
-        message.info('Starting seat layout upload. This may take a moment...');
+        message.info('Starting full seat layout upload for all sessions. This may take a moment...');
 
-        await uploadFullSeatLayout();
+        await uploadFullSeatLayout('APCS2025', EVENT_SESSIONS);
 
         // setIsLoading(false);
     };

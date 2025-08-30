@@ -26,7 +26,7 @@ export const useEventBookingData = (eventId) => {
             try {
                 // Create references to the documents/collections
                 const eventRef = doc(db, 'events', eventId);
-                const seatsQuery = query(collection(db, 'seats'), where('eventId', '==', eventId));
+                const seatsQuery = query(collection(db, `seats${eventId}`), where('eventId', '==', eventId));
 
                 // Fetch both the event details and the seats in parallel for efficiency
                 const [eventSnapshot, seatsSnapshot] = await Promise.all([
