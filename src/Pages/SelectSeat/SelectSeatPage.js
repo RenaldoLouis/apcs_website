@@ -20,6 +20,8 @@ const SelectSeatPage = () => {
     // State to hold selections for EACH ticket type separately
     const [selections, setSelections] = useState({});
 
+    console.log("selections", selections)
+
     useEffect(() => {
         const token = new URLSearchParams(location.search).get('token');
         if (!token) {
@@ -55,7 +57,7 @@ const SelectSeatPage = () => {
         verifyToken();
     }, [location]);
 
-    console.log("seatLayout", seatLayout)
+    // console.log("seatLayout", seatLayout)
 
     // --- Memos for calculating required seats and filtering layouts ---
     const totalRequiredSeats = useMemo(() => {
@@ -78,6 +80,9 @@ const SelectSeatPage = () => {
             return acc;
         }, {});
     }, [seatLayout]);
+
+
+    // console.log("filteredLayouts", filteredLayouts)
 
     // --- Generic handlers for adding/removing seats ---
     const handleAddSeat = (ticketId, { row, number, id }, addCb) => {
@@ -109,6 +114,56 @@ const SelectSeatPage = () => {
             setIsLoading(false);
         }
     };
+
+    // --- THE KEY FIX IS IN THIS FUNCTION ---
+    const formattedLayouts = useMemo(() => {
+        if (!seatLayout || seatLayout.length === 0) return {};
+
+        // 1. Group all seats by their area (lento, allegro, presto)
+        const groupedByArea = seatLayout.reduce((acc, seat) => {
+            const area = seat.areaType;
+            if (!acc[area]) acc[area] = [];
+            acc[area].push(seat);
+            return acc;
+        }, {});
+
+        const finalLayouts = {};
+
+        // 2. For each area, create the structured rows required by SeatPicker
+        for (const area in groupedByArea) {
+            // Group seats by their row letter (C, D, E, etc.)
+            const rowsObject = groupedByArea[area].reduce((acc, seat) => {
+                const row = seat.row;
+                if (!acc[row]) acc[row] = [];
+                acc[row].push(seat);
+                return acc;
+            }, {});
+
+            // 3. Sort the rows alphabetically (ensuring C comes before D, etc.)
+            const sortedRowKeys = Object.keys(rowsObject).sort();
+
+            // 4. Map over the sorted rows to create the final structure
+            finalLayouts[area] = sortedRowKeys.map(rowKey => {
+                const rowSeats = rowsObject[rowKey];
+
+                // 5. Sort the seats within each row numerically (ensuring 1 comes before 10)
+                rowSeats.sort((a, b) => a.number - b.number);
+
+                // 6. Map to the final object structure for SeatPicker
+                return rowSeats.map(seat => ({
+                    id: seat.id,
+                    number: seat.number, // The actual seat number for the label
+                    isReserved: seat.status !== 'available',
+                    // The tooltip can be helpful for admins/users
+                    tooltip: `Seat ${seat.seatLabel} - ${seat.areaType.charAt(0).toUpperCase() + seat.areaType.slice(1)}`
+                }));
+            });
+        }
+
+        return finalLayouts;
+    }, [seatLayout]);
+    console.log("formattedLayouts", formattedLayouts)
+
 
     // --- Conditional Rendering ---
     if (status === 'verifying') {
@@ -162,20 +217,36 @@ const SelectSeatPage = () => {
             {bookingData?.tickets.map(ticket => {
                 if (!ticket.wantsSeat || ticket.seatQuantity === 0) return null;
 
-                const layoutForPicker = Object.values(filteredLayouts[ticket.id] || {});
+                const layoutForPicker = formattedLayouts[ticket.id] || [];
 
                 return (
                     <Card key={ticket.id} title={`Select ${ticket.seatQuantity} Seat(s) for ${ticket.name}`} style={{ maxWidth: 900, margin: '20px auto 0' }}>
-                        <div style={{ display: 'flex', justifyContent: 'center' }}>
-                            <SeatPicker
-                                rows={layoutForPicker}
-                                maxReservableSeats={ticket.seatQuantity}
-                                alpha
-                                visible
-                                addSeatCallback={(...args) => handleAddSeat(ticket.id, ...args)}
-                                removeSeatCallback={(...args) => handleRemoveSeat(ticket.id, ...args)}
-                            />
+                        {/* --- THIS IS THE NEW STRUCTURE FOR SCROLLING AND CUSTOM LABELS --- */}
+                        <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'flex-start' }}>
+
+                            {/* 1. Custom Row Labels Column */}
+                            <div style={{ marginRight: '10px' }}>
+                                {layoutForPicker.map((row, index) => (
+                                    <div key={index} style={{ height: '36px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                                        <Text strong>{row[0].id.split('-')[1].charAt(0)}</Text>
+                                    </div>
+                                ))}
+                            </div>
+
+                            {/* 2. Scrollable Container for the Seat Picker */}
+                            <div style={{ flex: 1, overflowX: 'auto' }}>
+                                <SeatPicker
+                                    rows={layoutForPicker}
+                                    maxReservableSeats={ticket.seatQuantity}
+                                    alpha={false} // Turn off the incorrect default labels
+                                    visible
+                                    addSeatCallback={(...args) => handleAddSeat(ticket.id, ...args)}
+                                    removeSeatCallback={(...args) => handleRemoveSeat(ticket.id, ...args)}
+                                />
+                            </div>
                         </div>
+                        {/* --- END OF NEW STRUCTURE --- */}
+
                         <div style={{ textAlign: 'center', marginTop: '15px' }}>
                             <Text strong>Selected: {selections[ticket.id]?.map(s => `${s.row}${s.number}`).join(', ') || 'None'}</Text>
                         </div>

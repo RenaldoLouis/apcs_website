@@ -54,29 +54,53 @@ const EVENT_SESSIONS = [
  * @returns {Array<object>} An array of seat "template" objects.
  */
 const generateSeatLayoutTemplates = () => {
-    // Defines the physical layout of the venue
-    const generateSection = (areaType, numRows, seatsPerRow, startRowChar) => {
-        const seats = [];
-        const startCharCode = startRowChar.charCodeAt(0);
-        for (let i = 0; i < numRows; i++) {
-            const rowChar = String.fromCharCode(startCharCode + i);
-            for (let j = 1; j <= seatsPerRow; j++) {
+    // This configuration object is the new "source of truth" for your entire venue layout.
+    const seatLayoutConfig = [
+        // Lento Section
+        { row: 'C', areaType: 'lento', seats: [[1, 28]] },
+        { row: 'D', areaType: 'lento', seats: [[1, 30]] },
+        { row: 'E', areaType: 'lento', seats: [[1, 30]] },
+        { row: 'F', areaType: 'lento', seats: [[1, 32]] },
+        { row: 'G', areaType: 'lento', seats: [[1, 32]] },
+        // Allegro Section
+        { row: 'H', areaType: 'allegro', seats: [[1, 34]] },
+        { row: 'J', areaType: 'allegro', seats: [[1, 34]] }, // Note: Row 'I' is skipped
+        { row: 'K', areaType: 'allegro', seats: [[1, 36]] },
+        { row: 'L', areaType: 'allegro', seats: [[1, 36]] },
+        { row: 'M', areaType: 'allegro', seats: [[1, 38]] },
+        { row: 'N', areaType: 'allegro', seats: [[1, 38]] },
+        // Presto Section
+        { row: 'P', areaType: 'presto', seats: [[1, 39]] }, // Note: Row 'O' is skipped
+        { row: 'R', areaType: 'presto', seats: [[1, 39]] }, // Note: Row 'Q' is skipped
+        { row: 'S', areaType: 'presto', seats: [[1, 41]] },
+        { row: 'T', areaType: 'presto', seats: [[1, 41]] },
+        { row: 'U', areaType: 'presto', seats: [[1, 42]] },
+        { row: 'V', areaType: 'presto', seats: [[1, 43]] },
+        { row: 'W', areaType: 'presto', seats: [[1, 45]] },
+        { row: 'X', areaType: 'presto', seats: [[1, 9], [10, 18]] }, // Special case for the split row
+    ];
+
+    const seats = [];
+
+    // Loop through the configuration to generate each seat
+    seatLayoutConfig.forEach(config => {
+        const { row, areaType, seats: seatRanges } = config;
+
+        // Loop through each range of seats for the row (handles split rows like 'X')
+        seatRanges.forEach(range => {
+            const [start, end] = range;
+            for (let number = start; number <= end; number++) {
                 seats.push({
-                    seatLabel: `${rowChar}${j}`,
+                    seatLabel: `${row}${number}`,
                     areaType: areaType,
-                    row: rowChar,
-                    number: j,
+                    row: row,
+                    number: number,
                 });
             }
-        }
-        return seats;
-    };
+        });
+    });
 
-    const lentoSeats = generateSection('lento', 5, 20, 'A');
-    const allegroSeats = generateSection('allegro', 8, 20, 'F');
-    const prestoSeats = generateSection('presto', 8, 20, 'N');
-
-    return [...lentoSeats, ...allegroSeats, ...prestoSeats];
+    return seats;
 };
 
 /**
