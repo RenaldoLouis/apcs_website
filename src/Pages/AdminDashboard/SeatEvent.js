@@ -451,7 +451,7 @@ const SeatingEvent = () => {
                             <Col><Title level={3}>${orderSummary.total}</Title></Col>
                         </Row>
                         <Button type="primary" size="large" block htmlType="submit">
-                            Continue to Payment
+                            Send Email Link
                         </Button>
                     </Card>
                 </Col>
@@ -470,7 +470,7 @@ const SeatingEvent = () => {
                 <Input.Search placeholder="Search by performer name..." value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} style={{ marginBottom: 16 }} allowClear />
                 <Table
                     rowSelection={{ type: 'radio', onChange: (_, selectedRows) => setTempSelectedRow(selectedRows[0]) }}
-                    columns={[{ title: 'Performer', key: 'performer', render: (_, rec) => `${rec.performers[0].firstName} ${rec.performers[0].lastName}` }, { title: 'Email', key: 'email', render: (_, rec) => rec.performers[0].email }]}
+                    columns={[{ title: 'Performer', key: 'performer', render: (_, rec) => `${rec?.performers[0]?.firstName} ${rec?.performers[0]?.lastName}` }, { title: 'Email', key: 'email', render: (_, rec) => rec?.performers[0]?.email }]}
                     dataSource={filteredData.map(item => ({ ...item, key: item.id }))}
                     pagination={{ pageSize: 5 }}
                 />

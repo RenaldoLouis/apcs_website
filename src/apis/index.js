@@ -87,12 +87,15 @@ export default {
     postSignedUrl: (directoryname, fileName) => postRequest(`/api/v1/apcs/signed-url-images?directoryname=${directoryname}&fileName=${fileName}`),
     downloadFiles: (files) => postBlobRequest(`/api/v1/apcs/download-files-aws`, files),
   },
+  paymentGatewayFlow: {
+    create: (data) => postRequest(`/api/v1/apcs/paymentIntegration/bookings`, data),
+    checkStatus: (bookingId) => postRequest(`/api/v1/apcs/paymentIntegration/bookings/status?bookingId=${bookingId}`),
+  },
   bookings: {
-    create: (data) => postRequest(`/api/v1/apcs/bookings`, data),
-    checkStatus: (bookingId) => postRequest(`/api/v1/apcs/bookings/status?bookingId=${bookingId}`),
     saveSeatBookProfileInfo: (data) => postRequest(`/api/v1/apcs/saveSeatBookProfileInfo`, data),
     sendSeatBookingEmail: (data) => postRequest(`/api/v1/apcs/sendSeatBookingEmail`, data),
     verifySeatToken: (data) => postRequest(`/api/v1/apcs/verify-seat-token`, data),
+    confirmSeatSelection: (data) => postRequest(`/api/v1/apcs/confirm-seats`, data),
   },
   tickets: {
     verify: (eventName) => getRequest(`/api/v1/apcs/getGaleries?eventName=${eventName}`),

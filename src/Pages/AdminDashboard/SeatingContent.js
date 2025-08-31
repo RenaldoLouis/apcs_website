@@ -115,7 +115,7 @@ const SeatingContent = () => {
             message.loading({ content: 'Initiating your booking...', key: 'booking' });
             // The ONLY backend call in this component, for the secure operation.
             console.log("hit api", bookingPayload)
-            const response = await apis.bookings.create(bookingPayload);
+            const response = await apis.paymentGatewayFlow.create(bookingPayload);
 
             message.success({ content: 'Booking initiated!', key: 'booking' });
 

@@ -85,9 +85,9 @@ const SelectSeatPage = () => {
         setIsLoading(true);
         try {
             const allSelectedIds = Object.values(selections).flat().map(seat => seat.id);
-            await apis.bookings.confirmSeats({ bookingId: bookingData.id, selectedSeatIds: allSelectedIds });
+            await apis.bookings.confirmSeatSelection({ eventId: "APCS2025", bookingId: bookingData.id, selectedSeatIds: allSelectedIds });
             message.success('Seats confirmed successfully!');
-            navigate('/booking-complete');
+            // navigate('/booking-complete');
         } catch (err) {
             message.error(err.response?.data?.message || 'Failed to confirm seats.');
         } finally {

@@ -34,7 +34,7 @@ const PaymentPage = () => {
 
         const pollingInterval = setInterval(async () => {
             try {
-                const response = await apis.bookings.checkStatus(bookingId);
+                const response = await apis.paymentGatewayFlow.checkStatus(bookingId);
                 if (response.data.status === 'paid') {
                     clearInterval(pollingInterval);
                     message.success("Payment successful! Your e-ticket has been sent to your email.");
