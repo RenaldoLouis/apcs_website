@@ -1,8 +1,8 @@
 import { Button, Card, Divider, List, Result, Spin, Typography, message } from 'antd';
 import { useEffect, useMemo, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import SeatPicker from 'react-seat-picker';
 import apis from '../../apis';
+import CustomSeatPicker from './CustomSeatPicker';
 
 const { Title, Text, Paragraph } = Typography;
 
@@ -19,8 +19,6 @@ const SelectSeatPage = () => {
 
     // State to hold selections for EACH ticket type separately
     const [selections, setSelections] = useState({});
-
-    console.log("selections", selections)
 
     useEffect(() => {
         const token = new URLSearchParams(location.search).get('token');
@@ -69,30 +67,12 @@ const SelectSeatPage = () => {
         return Object.values(selections).reduce((total, arr) => total + arr.length, 0);
     }, [selections]);
 
-    const filteredLayouts = useMemo(() => {
-        if (!seatLayout) return {};
-        // This groups the flat seat list from the backend into separate layouts by areaType
-        return seatLayout.reduce((acc, seat) => {
-            const area = seat.areaType;
-            if (!acc[area]) acc[area] = {};
-            if (!acc[area][seat.row]) acc[area][seat.row] = [];
-            acc[area][seat.row].push({ ...seat, isReserved: seat.status !== 'available' });
-            return acc;
-        }, {});
-    }, [seatLayout]);
 
-
-    // console.log("filteredLayouts", filteredLayouts)
-
-    // --- Generic handlers for adding/removing seats ---
-    const handleAddSeat = (ticketId, { row, number, id }, addCb) => {
-        setSelections(prev => ({ ...prev, [ticketId]: [...prev[ticketId], { row, number, id }] }));
-        addCb(row, number, id);
+    const handleSelectSeat = (ticketId, seat) => {
+        setSelections(prev => ({ ...prev, [ticketId]: [...prev[ticketId], seat] }));
     };
-
-    const handleRemoveSeat = (ticketId, { row, number, id }, removeCb) => {
-        setSelections(prev => ({ ...prev, [ticketId]: prev[ticketId].filter(seat => seat.id !== id) }));
-        removeCb(row, number);
+    const handleDeselectSeat = (ticketId, seat) => {
+        setSelections(prev => ({ ...prev, [ticketId]: prev[ticketId].filter(s => s.id !== seat.id) }));
     };
 
     // --- Submission Logic ---
@@ -162,7 +142,6 @@ const SelectSeatPage = () => {
 
         return finalLayouts;
     }, [seatLayout]);
-    console.log("formattedLayouts", formattedLayouts)
 
 
     // --- Conditional Rendering ---
@@ -221,34 +200,19 @@ const SelectSeatPage = () => {
 
                 return (
                     <Card key={ticket.id} title={`Select ${ticket.seatQuantity} Seat(s) for ${ticket.name}`} style={{ maxWidth: 900, margin: '20px auto 0' }}>
-                        {/* --- THIS IS THE NEW STRUCTURE FOR SCROLLING AND CUSTOM LABELS --- */}
-                        <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'flex-start' }}>
-
-                            {/* 1. Custom Row Labels Column */}
-                            <div style={{ marginRight: '10px' }}>
-                                {layoutForPicker.map((row, index) => (
-                                    <div key={index} style={{ height: '36px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                                        <Text strong>{row[0].id.split('-')[1].charAt(0)}</Text>
-                                    </div>
-                                ))}
-                            </div>
-
-                            {/* 2. Scrollable Container for the Seat Picker */}
-                            <div style={{ flex: 1, overflowX: 'auto' }}>
-                                <SeatPicker
-                                    rows={layoutForPicker}
-                                    maxReservableSeats={ticket.seatQuantity}
-                                    alpha={false} // Turn off the incorrect default labels
-                                    visible
-                                    addSeatCallback={(...args) => handleAddSeat(ticket.id, ...args)}
-                                    removeSeatCallback={(...args) => handleRemoveSeat(ticket.id, ...args)}
-                                />
-                            </div>
+                        <div style={{ overflowX: 'auto', padding: '10px' }}>
+                            <CustomSeatPicker
+                                layout={layoutForPicker}
+                                selectedSeats={selections[ticket.id] || []}
+                                onSelect={(seat) => handleSelectSeat(ticket.id, seat)}
+                                onDeselect={(seat) => handleDeselectSeat(ticket.id, seat)}
+                                maxSeats={ticket.seatQuantity}
+                            />
                         </div>
-                        {/* --- END OF NEW STRUCTURE --- */}
+                        {/* --- END OF CUSTOM COMPONENT USAGE --- */}
 
                         <div style={{ textAlign: 'center', marginTop: '15px' }}>
-                            <Text strong>Selected: {selections[ticket.id]?.map(s => `${s.row}${s.number}`).join(', ') || 'None'}</Text>
+                            <Text strong>Selected: {selections[ticket.id]?.map(s => s.tooltip).join(', ') || 'None'}</Text>
                         </div>
                     </Card>
                 );
