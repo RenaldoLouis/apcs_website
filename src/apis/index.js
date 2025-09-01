@@ -96,6 +96,7 @@ export default {
     sendSeatBookingEmail: (data) => postRequest(`/api/v1/apcs/sendSeatBookingEmail`, data),
     verifySeatToken: (data) => postRequest(`/api/v1/apcs/verify-seat-token`, data),
     confirmSeatSelection: (data) => postRequest(`/api/v1/apcs/confirm-seats`, data),
+    sendEmailConfirmSeatSelection: (data) => postRequest(`/api/v1/apcs/sendEmailConfirmSeatSelection`, data),
   },
   tickets: {
     verify: (eventName) => getRequest(`/api/v1/apcs/getGaleries?eventName=${eventName}`),

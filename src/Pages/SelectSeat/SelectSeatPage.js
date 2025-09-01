@@ -1,7 +1,9 @@
-import { Button, Card, Divider, List, Result, Spin, Typography, message } from 'antd';
+import { Button, Card, Carousel, Divider, List, Result, Spin, Typography, message } from 'antd';
 import { useEffect, useMemo, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import apis from '../../apis';
+import venue1_1 from "../../assets/images/venue1_1.png";
+import venue1_2 from "../../assets/images/venue1_2.png";
 import CustomSeatPicker from './CustomSeatPicker';
 
 const { Title, Text, Paragraph } = Typography;
@@ -19,6 +21,19 @@ const SelectSeatPage = () => {
 
     // State to hold selections for EACH ticket type separately
     const [selections, setSelections] = useState({});
+
+    // This object maps venue IDs to their corresponding image URLs
+    const venueImages = {
+        Venue1: [
+            venue1_1,
+            venue1_2,
+        ],
+        Venue2: [
+            venue1_1,
+            venue1_2,
+        ],
+        // Add other venues as needed
+    };
 
     useEffect(() => {
         const token = new URLSearchParams(location.search).get('token');
@@ -191,6 +206,22 @@ const SelectSeatPage = () => {
                     bordered
                     size="small"
                 />
+            </Card>
+
+            <Card style={{ maxWidth: 900, margin: '20px auto 0' }}>
+                <Title level={3}>Venue Layout</Title>
+                <Divider />
+                <Carousel arrows autoplay className="custom-carousel">
+                    {(venueImages[bookingData?.venue] || []).map((imgUrl, index) => (
+                        <div key={index}>
+                            <img
+                                src={imgUrl}
+                                alt={`${bookingData?.venue} - Image ${index + 1}`}
+                                style={{ width: '100%', height: 'auto', borderRadius: '8px', objectFit: 'cover' }}
+                            />
+                        </div>
+                    ))}
+                </Carousel>
             </Card>
 
             {bookingData?.tickets.map(ticket => {
