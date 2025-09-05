@@ -57,5 +57,5 @@ export const useEventBookingData = (eventId) => {
 
     }, [eventId]); // This effect re-runs whenever the eventId changes
 
-    return { event, seats, loading, error };
+    return { event, seats, setLoading, loading, error };
 };

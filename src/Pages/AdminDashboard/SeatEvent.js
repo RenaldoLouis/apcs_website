@@ -35,13 +35,17 @@ const venueOptions = [
     { value: 'Venue2', label: 'Venue 2 ' }
 ];
 
-const availableSessions = {
+const availableSessionsVenue1 = {
     '2025-08-25': ['09:00-10:00', '11:00-12:00', '14:00-15:00'],
     '2025-08-26': ['10:00-11:00', '13:00-14:00'],
-    '2025-08-27': ['09:00-10:00', '11:00-12:00', '15:00-16:00'],
 };
 
-const EVENT_SESSIONS = [
+const availableSessionsVenue2 = {
+    '2025-08-25': ['09:00-10:00', '11:00-12:00'],
+    '2025-08-26': ['10:00-11:00', '13:00-14:00'],
+};
+
+const EVENT_SESSIONS_VENUE1 = [
     "2025-08-25_09:00-10:00",
     "2025-08-25_11:00-12:00",
     "2025-08-25_14:00-15:00",
@@ -49,13 +53,15 @@ const EVENT_SESSIONS = [
     "2025-08-26_13:00-14:00",
 ];
 
-/**
- * Generates a flat array of seat objects for a single section's layout.
- * @returns {Array<object>} An array of seat "template" objects.
- */
-const generateSeatLayoutTemplates = () => {
-    // This configuration object is the new "source of truth" for your entire venue layout.
-    const seatLayoutConfig = [
+const EVENT_SESSIONS_VENUE2 = [
+    "2025-08-25_09:00-10:00",
+    "2025-08-25_11:00-12:00",
+    "2025-08-26_10:00-11:00",
+    "2025-08-26_13:00-14:00",
+];
+
+const venueLayoutConfigs = {
+    'Venue1': [
         // Lento Section
         { row: 'C', areaType: 'lento', seats: [[1, 28]] },
         { row: 'D', areaType: 'lento', seats: [[1, 30]] },
@@ -78,30 +84,49 @@ const generateSeatLayoutTemplates = () => {
         { row: 'V', areaType: 'presto', seats: [[1, 43]] },
         { row: 'W', areaType: 'presto', seats: [[1, 45]] },
         { row: 'X', areaType: 'presto', seats: [[1, 9], [10, 18]] }, // Special case for the split row
-    ];
+    ],
+    'Venue2': [
+        // Lento Section
+        { row: 'A', areaType: 'lento', seats: [[1, 28]] },
+        { row: 'B', areaType: 'lento', seats: [[1, 30]] },
+        { row: 'C', areaType: 'lento', seats: [[1, 30]] },
+        // Allegro Section
+        { row: 'D', areaType: 'allegro', seats: [[1, 34]] },
+        { row: 'E', areaType: 'allegro', seats: [[1, 34]] },
+        { row: 'F', areaType: 'allegro', seats: [[1, 36]] },
+        { row: 'G', areaType: 'allegro', seats: [[1, 36]] },
+    ],
+};
+
+/**
+ * Generates a flat array of seat objects for a single section's layout.
+ * @returns {Array<object>} An array of seat "template" objects.
+ */
+const generateSeatLayoutTemplates = (venueId) => {
+    const seatLayoutConfig = venueLayoutConfigs[venueId];
+    if (!seatLayoutConfig) {
+        console.error(`No layout configuration found for venueId: ${venueId}`);
+        return [];
+    }
 
     const seats = [];
-
-    // Loop through the configuration to generate each seat
     seatLayoutConfig.forEach(config => {
         const { row, areaType, seats: seatRanges } = config;
-
-        // Loop through each range of seats for the row (handles split rows like 'X')
         seatRanges.forEach(range => {
             const [start, end] = range;
             for (let number = start; number <= end; number++) {
                 seats.push({
                     seatLabel: `${row}${number}`,
-                    areaType: areaType,
-                    row: row,
-                    number: number,
+                    areaType,
+                    row,
+                    number,
                 });
             }
         });
     });
-
     return seats;
 };
+
 
 /**
  * Generates and uploads the full seat availability for all sessions of an event.
@@ -109,7 +134,7 @@ const generateSeatLayoutTemplates = () => {
  * @param {string} eventId - The ID of the event.
  * @param {Array<string>} sessions - An array of session identifiers (e.g., "2025-08-25_09:00-10:00").
  */
-export const uploadFullSeatLayout = async (eventId, sessions) => {
+export const uploadFullSeatLayout = async (eventId, venueId, sessions) => {
     console.log(`Starting to generate seat availability for event: ${eventId}`);
     if (!sessions || sessions.length === 0) {
         console.error("No sessions provided.");
@@ -119,7 +144,7 @@ export const uploadFullSeatLayout = async (eventId, sessions) => {
 
     try {
         // 1. Get the physical layout of the venue
-        const seatTemplates = generateSeatLayoutTemplates();
+        const seatTemplates = generateSeatLayoutTemplates(venueId);
         const allSeatInstances = [];
 
         // 2. Create a unique document for EACH seat in EACH session
@@ -130,6 +155,7 @@ export const uploadFullSeatLayout = async (eventId, sessions) => {
                 allSeatInstances.push({
                     id: documentId, // For the batch operation
                     eventId: eventId,
+                    venueId, // Add the venueId to each document
                     sessionId: sessionId,
                     status: 'available',
                     ...seatTemplate
@@ -168,7 +194,7 @@ const SeatingEvent = () => {
 
     // --- Data Fetching Hooks ---
     const { registrantDatas, loading: registrantsLoading } = usePaginatedRegistrants(9999, "Registrants2025", "createdAt");
-    const { event, loading: eventLoading, error } = useEventBookingData(eventId);
+    const { event, setLoading, loading: eventLoading, error } = useEventBookingData(eventId);
 
     // --- UI State (for modal, search, etc.) ---
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -290,13 +316,26 @@ const SeatingEvent = () => {
     }, [watchedFormData, event]);
 
     const handleUploadClick = async () => {
-        // setIsLoading(true);
-        message.info('Starting full seat layout upload for all sessions. This may take a moment...');
+        setLoading(true);
+        message.info('Starting full seat layout upload for all venues and sessions...');
 
-        await uploadFullSeatLayout('APCS2025', EVENT_SESSIONS);
+        // Upload layout for Venue 1
+        await uploadFullSeatLayout('APCS2025', 'Venue1', EVENT_SESSIONS_VENUE1);
 
-        // setIsLoading(false);
+        // Upload layout for Venue 2
+        await uploadFullSeatLayout('APCS2025', 'Venue2', EVENT_SESSIONS_VENUE2);
+
+        setLoading(false);
+        message.success('All layouts uploaded successfully!');
     };
+
+    const availableSession = useMemo(() => {
+        if (watchedFormData.venue === "Venue1") {
+            return availableSessionsVenue1
+        } else {
+            return availableSessionsVenue2
+        }
+    }, [watchedFormData.venue])
 
     // --- Loading and Error States ---
     if (eventLoading || registrantsLoading) {
@@ -390,7 +429,7 @@ const SeatingEvent = () => {
                                 control={control}
                                 render={({ field }) => (
                                     <Radio.Group {...field} optionType="button" buttonStyle="solid" onChange={(e) => { field.onChange(e); setValue('session', null); }}>
-                                        {Object.keys(availableSessions).map(date => <Radio.Button key={date} value={date}>{new Date(date).toLocaleDateString('id-ID', { weekday: 'short', day: 'numeric', month: 'short' })}</Radio.Button>)}
+                                        {Object.keys(availableSession).map(date => <Radio.Button key={date} value={date}>{new Date(date).toLocaleDateString('id-ID', { weekday: 'short', day: 'numeric', month: 'short' })}</Radio.Button>)}
                                     </Radio.Group>
                                 )}
                             />
@@ -400,7 +439,7 @@ const SeatingEvent = () => {
                                     control={control}
                                     render={({ field }) => (
                                         <Radio.Group {...field} optionType="button">
-                                            {availableSessions[watchedFormData.date].map(session => <Radio.Button key={session} value={session}>{session}</Radio.Button>)}
+                                            {availableSession[watchedFormData.date].map(session => <Radio.Button key={session} value={session}>{session}</Radio.Button>)}
                                         </Radio.Group>
                                     )}
                                 />
@@ -470,7 +509,11 @@ const SeatingEvent = () => {
                 <Input.Search placeholder="Search by performer name..." value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} style={{ marginBottom: 16 }} allowClear />
                 <Table
                     rowSelection={{ type: 'radio', onChange: (_, selectedRows) => setTempSelectedRow(selectedRows[0]) }}
-                    columns={[{ title: 'Performer', key: 'performer', render: (_, rec) => `${rec?.performers[0]?.firstName} ${rec?.performers[0]?.lastName}` }, { title: 'Email', key: 'email', render: (_, rec) => rec?.performers[0]?.email }]}
+                    columns={[
+                        { title: 'Performer', key: 'performer', render: (_, rec) => `${rec?.performers[0]?.firstName} ${rec?.performers[0]?.lastName}` },
+                        { title: 'Email', key: 'email', render: (_, rec) => rec?.performers[0]?.email },
+                        { title: 'Instrument Category', key: 'instrumentCategory', render: (_, rec) => rec?.instrumentCategory },
+                    ]}
                     dataSource={filteredData.map(item => ({ ...item, key: item.id }))}
                     pagination={{ pageSize: 5 }}
                 />

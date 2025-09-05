@@ -4,6 +4,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import apis from '../../apis';
 import venue1_1 from "../../assets/images/venue1_1.png";
 import venue1_2 from "../../assets/images/venue1_2.png";
+import venue2 from "../../assets/images/venue2.jpeg";
 import CustomSeatPicker from './CustomSeatPicker';
 
 const { Title, Text, Paragraph } = Typography;
@@ -29,8 +30,7 @@ const SelectSeatPage = () => {
             venue1_2,
         ],
         Venue2: [
-            venue1_1,
-            venue1_2,
+            venue2
         ],
         // Add other venues as needed
     };
@@ -110,12 +110,13 @@ const SelectSeatPage = () => {
         }
     };
 
-    // --- THE KEY FIX IS IN THIS FUNCTION ---
     const formattedLayouts = useMemo(() => {
         if (!seatLayout || seatLayout.length === 0) return {};
+        const seatsForCorrectVenue = seatLayout.filter(seat => seat.venueId === bookingData.venue);
+
 
         // 1. Group all seats by their area (lento, allegro, presto)
-        const groupedByArea = seatLayout.reduce((acc, seat) => {
+        const groupedByArea = seatsForCorrectVenue.reduce((acc, seat) => {
             const area = seat.areaType;
             if (!acc[area]) acc[area] = [];
             acc[area].push(seat);
