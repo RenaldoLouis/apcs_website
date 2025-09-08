@@ -27,7 +27,7 @@ export const RegistrantsColumns = [
     },
 ];
 
-export const getRegistrants2025Columns = (handleDownloadPDF, handleUpdateStatus) => [
+export const getRegistrants2025Columns = (handleDownloadPDF, handleUpdateStatus, showEditModal) => [
     { title: "Parent Name", dataIndex: "name" },
     { title: "Teacher Name", dataIndex: "teacherName" },
     { title: "Total Performer", dataIndex: "totalPerformer" },
@@ -75,7 +75,16 @@ export const getRegistrants2025Columns = (handleDownloadPDF, handleUpdateStatus)
                 </Button>
             </div>
         ),
-    }
+    },
+    {
+        title: 'Actions',
+        key: 'actions',
+        render: (_, record) => (
+            <Button type="link" onClick={() => showEditModal(record)}>
+                Edit Link
+            </Button>
+        ),
+    },
 ];
 
 

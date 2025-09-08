@@ -1,87 +1,87 @@
-import { collection, getDocs, limit, orderBy, query, startAt } from 'firebase/firestore';
+import { collection, getDocs, orderBy, query } from 'firebase/firestore';
 import { cloneDeep, isEmpty } from 'lodash';
 import { useCallback, useEffect, useState } from 'react';
 import { useAuth } from '../context/DataContext';
 import { db } from '../firebase';
 
-const usePaginatedRegistrants = (pageSize = 10, collectionName = "Registrants", orderData = "achievement") => {
-    const { user } = useAuth()
+const usePaginatedRegistrants = (pageSize = 10, collectionName = "Registrants", orderData = "createdAt", searchTerm = "") => {
+    const { user } = useAuth();
 
+    // State to hold all documents fetched from Firestore
+    const [allData, setAllData] = useState([]);
+    // State to hold the final, displayed data (after filtering and pagination)
     const [registrantDatas, setRegistrantDatas] = useState([]);
-    const [loading, setLoading] = useState(false);
+
+    const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [page, setPage] = useState(1);
     const [totalDocs, setTotalDocs] = useState(0);
-    const [allData, setAllData] = useState(0);
 
-    const fetchUserData = useCallback(async (pageNumber) => {
+    // This function now only fetches ALL data from Firestore ONCE.
+    const fetchData = useCallback(async () => {
         setLoading(true);
         setError(null);
-
         try {
-            const offset = (pageNumber - 1) * pageSize;
-            let q = query(
-                collection(db, collectionName),
-                orderBy(orderData),
-                limit(pageSize)
-            );
-
-            if (offset > 0) {
-                const initialQuery = query(
-                    collection(db, collectionName),
-                    orderBy(orderData),
-                    limit(offset)
-                );
-                const initialSnapshot = await getDocs(initialQuery);
-                const lastVisible = initialSnapshot.docs[initialSnapshot.docs.length - 1];
-
-                q = query(
-                    collection(db, collectionName),
-                    orderBy(orderData),
-                    startAt(lastVisible),
-                    limit(pageSize)
-                );
-            }
-
+            const q = query(collection(db, collectionName), orderBy(orderData));
             const querySnapshot = await getDocs(q);
-            const newData = querySnapshot.docs.map(doc => ({ ...doc.data(), id: doc.id }));
+            const allDocs = querySnapshot.docs.map(doc => ({ ...doc.data(), id: doc.id }));
 
-            const addPaymentStatus = newData.map((eachData) => {
-
-                const tempData = cloneDeep(eachData)
+            // Perform the 'paymentStatus' mapping once on the full dataset
+            const processedData = allDocs.map((eachData) => {
+                const tempData = cloneDeep(eachData);
                 if (!tempData.paymentStatus) {
-                    tempData.paymentStatus = "PAID"
+                    tempData.paymentStatus = "PAID";
                 }
-
                 return tempData;
-            })
-            setRegistrantDatas(addPaymentStatus);
+            });
 
-            // Calculate total documents for pagination
-            if (pageNumber === 1) {
-                const totalQuery = await getDocs(collection(db, collectionName));
-                setTotalDocs(totalQuery.size);
-
-                const newData = totalQuery.docs.map(doc => ({ ...doc.data(), id: doc.id }));
-                setAllData(newData);
-            }
+            setAllData(processedData);
         } catch (err) {
             console.error("Error getting documents: ", err);
             setError(err);
         } finally {
             setLoading(false);
         }
-    }, [pageSize]);
+    }, [collectionName, orderData]);
 
+    // Initial data fetch
     useEffect(() => {
         if (!isEmpty(user.token)) {
-            fetchUserData(page);
+            fetchData();
         }
-    }, [fetchUserData, page, user.token]);
+    }, [user.token, fetchData]);
+
+    // This new useEffect handles filtering and pagination whenever the search term or page changes.
+    useEffect(() => {
+        // Start with the full, original dataset
+        let filteredData = allData;
+
+        // Apply search filter if a search term exists
+        if (searchTerm && allData.length > 0) {
+            const lowercasedFilter = searchTerm.toLowerCase();
+            filteredData = allData.filter(registrant => {
+                // Check each performer in the performers array
+                return registrant.performers?.some(performer => {
+                    const fullName = `${performer.firstName || ''} ${performer.lastName || ''}`.toLowerCase();
+                    return fullName.includes(lowercasedFilter);
+                });
+            });
+        }
+
+        // Update the total documents count based on the filtered results
+        setTotalDocs(filteredData.length);
+
+        // Apply pagination to the filtered data
+        const offset = (page - 1) * pageSize;
+        const paginatedData = filteredData.slice(offset, offset + pageSize);
+
+        setRegistrantDatas(paginatedData);
+
+    }, [searchTerm, page, allData, pageSize]); // Re-run when search, page, or data changes
 
     const totalPages = Math.ceil(totalDocs / pageSize);
 
-    return { registrantDatas, loading, error, page, setPage, totalPages, totalDocs, allData, fetchUserData };
+    return { registrantDatas, loading, error, page, setPage, totalPages, totalDocs, fetchData };
 };
 
 export default usePaginatedRegistrants;

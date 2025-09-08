@@ -4,6 +4,7 @@ import * as FileSaver from "file-saver";
 import { saveAs } from "file-saver";
 import { doc, updateDoc } from "firebase/firestore";
 import JSZip from "jszip";
+import * as xlsx from 'xlsx';
 import apis from '../../apis';
 import { getRegistrants2025Columns } from '../../constant/RegistrantsColumn';
 import { db } from '../../firebase';
@@ -13,7 +14,7 @@ import { collection, getDocs, writeBatch } from "firebase/firestore";
 import { useState } from 'react';
 import { extractVideoId, fetchYouTubeDuration } from '../../utils/youtube';
 // Import the new utility functions
-import { Modal, Progress } from 'antd';
+import { Input, Modal, Progress } from 'antd';
 
 // ...other imports
 const { Content } = Layout;
@@ -23,7 +24,26 @@ const RegistrantDashboard = () => {
 
     const { token: { colorBgContainer, borderRadiusLG }, } = theme.useToken();
 
-    const { registrantDatas, page, setPage, totalDocs, allData, loading, fetchUserData } = usePaginatedRegistrants(pageSize, "Registrants2025", "createdAt");
+    // --- NEW STATE FOR THE EDIT MODAL ---
+    const [isEditModalVisible, setIsEditModalVisible] = useState(false);
+    const [editingRecord, setEditingRecord] = useState(null);
+    const [newYoutubeLink, setNewYoutubeLink] = useState('');
+    const [isSaving, setIsSaving] = useState(false);
+
+    // 1. Add state to hold the current search term
+    const [searchTerm, setSearchTerm] = useState('');
+
+    // 2. Pass the searchTerm to your updated hook
+    const {
+        registrantDatas,
+        loading,
+        error,
+        page,
+        setPage,
+        totalPages,
+        totalDocs,
+        fetchData: fetchUserData,
+    } = usePaginatedRegistrants(pageSize, "Registrants2025", "createdAt", searchTerm);
 
     // --- State for the new update process ---
     const [isUpdating, setIsUpdating] = useState(false);
@@ -206,7 +226,49 @@ const RegistrantDashboard = () => {
         }
     };
 
-    const columns = getRegistrants2025Columns(handleDownloadPDF, updatePaymentStatus);
+    // --- NEW HANDLER FUNCTIONS FOR THE MODAL ---
+    const showEditModal = (record) => {
+        setEditingRecord(record);
+        setNewYoutubeLink(record.youtubeLink || '');
+        setIsEditModalVisible(true);
+    };
+
+    const handleEditCancel = () => {
+        setIsEditModalVisible(false);
+        setEditingRecord(null);
+        setNewYoutubeLink('');
+    };
+
+    const handleEditSave = async () => {
+        if (!editingRecord) return;
+
+        setIsSaving(true);
+        try {
+            // 1. Get a reference to the specific document in Firestore
+            const docRef = doc(db, 'Registrants2025', editingRecord.id);
+
+            // 2. Update the document with the new youtubeLink
+            await updateDoc(docRef, {
+                youtubeLink: newYoutubeLink
+            });
+
+            message.success('YouTube link updated successfully!');
+
+            // 3. Refresh the table data to show the change
+            fetchUserData(page);
+
+            // 4. Close the modal
+            handleEditCancel();
+
+        } catch (error) {
+            console.error("Error updating YouTube link: ", error);
+            message.error('Failed to update the link.');
+        } finally {
+            setIsSaving(false);
+        }
+    };
+
+    const columns = getRegistrants2025Columns(handleDownloadPDF, updatePaymentStatus, showEditModal);
 
     const handleRecheckDurations = async () => {
         setIsUpdating(true);
@@ -271,12 +333,71 @@ const RegistrantDashboard = () => {
         }
     };
 
+    const handleUploadRegistrantAPCS2025 = (e) => {
+        e.preventDefault();
+        if (e.target.files.length > 0) {
+            const reader = new FileReader();
+            reader.onload = async (e) => {
+                const data = e.target.result;
+                const workbook = xlsx.read(data, { type: "array" });
+                console.log("workbook", workbook)
+                const sheetName = workbook.SheetNames[0];
+                const worksheet = workbook.Sheets[sheetName];
+                const json = xlsx.utils.sheet_to_json(worksheet, { raw: true });
+                console.log("json", json)
+
+                // const parsedData = json.map((row) => {
+                //     if (row.duration && typeof row.duration === "number") {
+                //         row.duration = convertExcelTimeToDuration(row.duration);
+                //     }
+                //     return row;
+                // });
+
+                // console.log("parsedData", parsedData);
+
+                // // to save to Users DB
+                // const batch = writeBatch(db);
+                // const usersCollection = collection(db, "Registrants");
+
+                // parsedData.forEach((data) => {
+                //     const newDocRef = doc(usersCollection); // Auto-generate a new document ID
+                //     batch.set(newDocRef, data);
+                // });
+
+                // try {
+                //     await batch.commit(); // Save all documents in a single batch
+                //     console.log("Batch write successful!");
+                // } catch (error) {
+                //     console.error("Error writing batch:", error);
+                // }
+            };
+            reader.readAsArrayBuffer(e.target.files[0]);
+        }
+    }
+
+    console.log("registrantDatas", registrantDatas)
+
     return (
         <Content
             style={{
                 margin: '0 16px',
             }}
         >
+            <Input.Search
+                placeholder="Search by performer name..."
+                onSearch={value => {
+                    setPage(1); // Reset to first page on new search
+                    setSearchTerm(value);
+                }}
+                onChange={e => {
+                    // Optional: live search as the user types
+                    if (e.target.value === '') {
+                        setSearchTerm('');
+                    }
+                }}
+                style={{ marginBottom: 16, maxWidth: 400 }}
+                allowClear
+            />
             <div
                 style={{
                     padding: 24,
@@ -297,6 +418,16 @@ const RegistrantDashboard = () => {
                 // onShowSizeChange={onShowSizeChange}
                 />
             </div>
+            <form style={{ background: "white" }}>
+                <label htmlFor="Save Registrand to DB" >Upload Registrant To Database </label>
+                <input
+                    type="file"
+                    name="upload"
+                    id="upload"
+                    onChange={handleUploadRegistrantAPCS2025}
+                    style={{ marginLeft: 4 }}
+                />
+            </form>
             <div
                 style={{
                     padding: 24,
@@ -324,6 +455,23 @@ const RegistrantDashboard = () => {
                 <p>{updateMessage}</p>
                 <Progress percent={progress} />
                 <p style={{ marginTop: '10px', textAlign: 'center' }}>Please keep this tab open until the process is complete.</p>
+            </Modal>
+            <Modal
+                title="Edit YouTube Link"
+                open={isEditModalVisible}
+                onOk={handleEditSave}
+                onCancel={handleEditCancel}
+                confirmLoading={isSaving}
+                okText="Save"
+            >
+                <p>
+                    Editing link for: <strong>{editingRecord?.performers[0]?.firstName} {editingRecord?.performers[0]?.lastName}</strong>
+                </p>
+                <Input
+                    value={newYoutubeLink}
+                    onChange={(e) => setNewYoutubeLink(e.target.value)}
+                    placeholder="https://youtube.com/..."
+                />
             </Modal>
         </Content>
     )
