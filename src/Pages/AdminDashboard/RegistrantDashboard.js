@@ -14,7 +14,7 @@ import { collection, getDocs, writeBatch } from "firebase/firestore";
 import { useState } from 'react';
 import { extractVideoId, fetchYouTubeDuration } from '../../utils/youtube';
 // Import the new utility functions
-import { Input, Modal, Progress } from 'antd';
+import { Form, Input, Modal, Progress } from 'antd';
 import { parseDateString } from '../../utils/Utils';
 
 // ...other imports
@@ -28,9 +28,13 @@ const RegistrantDashboard = () => {
     const [isUploading, setIsUploading] = useState(false);
 
     // --- NEW STATE FOR THE EDIT MODAL ---
+    const [editFormState, setEditFormState] = useState({
+        firstName: '',
+        lastName: '',
+        youtubeLink: '',
+    });
     const [isEditModalVisible, setIsEditModalVisible] = useState(false);
     const [editingRecord, setEditingRecord] = useState(null);
-    const [newYoutubeLink, setNewYoutubeLink] = useState('');
     const [isSaving, setIsSaving] = useState(false);
 
     // 1. Add state to hold the current search term
@@ -232,14 +236,25 @@ const RegistrantDashboard = () => {
     // --- NEW HANDLER FUNCTIONS FOR THE MODAL ---
     const showEditModal = (record) => {
         setEditingRecord(record);
-        setNewYoutubeLink(record.youtubeLink || '');
+        // Populate the form state from the selected record
+        setEditFormState({
+            firstName: record.performers[0]?.firstName || '',
+            lastName: record.performers[0]?.lastName || '',
+            youtubeLink: record.youtubeLink || '',
+        });
         setIsEditModalVisible(true);
     };
 
     const handleEditCancel = () => {
         setIsEditModalVisible(false);
         setEditingRecord(null);
-        setNewYoutubeLink('');
+        setEditFormState({ firstName: '', lastName: '', youtubeLink: '' }); // Reset state
+    };
+
+    // A single handler for all input changes in the modal
+    const handleEditFormChange = (e) => {
+        const { name, value } = e.target;
+        setEditFormState(prev => ({ ...prev, [name]: value }));
     };
 
     const handleEditSave = async () => {
@@ -247,29 +262,38 @@ const RegistrantDashboard = () => {
 
         setIsSaving(true);
         try {
-            // 1. Get a reference to the specific document in Firestore
+            // Firestore requires us to update the entire 'performers' array.
+            // 1. Make a copy of the original performers array.
+            const updatedPerformers = [...editingRecord.performers];
+
+            // 2. Update the name for the first performer in our copy.
+            updatedPerformers[0] = {
+                ...updatedPerformers[0],
+                firstName: editFormState.firstName,
+                lastName: editFormState.lastName,
+            };
+
+            // 3. Prepare the final payload with the new youtubeLink and the modified performers array.
+            const updatePayload = {
+                youtubeLink: editFormState.youtubeLink,
+                performers: updatedPerformers,
+            };
+
             const docRef = doc(db, 'Registrants2025', editingRecord.id);
+            await updateDoc(docRef, updatePayload);
 
-            // 2. Update the document with the new youtubeLink
-            await updateDoc(docRef, {
-                youtubeLink: newYoutubeLink
-            });
-
-            message.success('YouTube link updated successfully!');
-
-            // 3. Refresh the table data to show the change
+            message.success('Registrant data updated successfully!');
             fetchUserData(page);
-
-            // 4. Close the modal
             handleEditCancel();
 
         } catch (error) {
-            console.error("Error updating YouTube link: ", error);
-            message.error('Failed to update the link.');
+            console.error("Error updating registrant data: ", error);
+            message.error('Failed to update data.');
         } finally {
             setIsSaving(false);
         }
     };
+
 
     const columns = getRegistrants2025Columns(handleDownloadPDF, updatePaymentStatus, showEditModal);
 
@@ -601,21 +625,39 @@ const RegistrantDashboard = () => {
                 <p style={{ marginTop: '10px', textAlign: 'center' }}>Please keep this tab open until the process is complete.</p>
             </Modal>
             <Modal
-                title="Edit YouTube Link"
+                title="Edit Registrant Details"
                 open={isEditModalVisible}
                 onOk={handleEditSave}
                 onCancel={handleEditCancel}
                 confirmLoading={isSaving}
                 okText="Save"
             >
-                <p>
-                    Editing link for: <strong>{editingRecord?.performers[0]?.firstName} {editingRecord?.performers[0]?.lastName}</strong>
-                </p>
-                <Input
-                    value={newYoutubeLink}
-                    onChange={(e) => setNewYoutubeLink(e.target.value)}
-                    placeholder="https://youtube.com/..."
-                />
+                {editingRecord && (
+                    <Form layout="vertical">
+                        <Form.Item label="Performer First Name">
+                            <Input
+                                name="firstName"
+                                value={editFormState.firstName}
+                                onChange={handleEditFormChange}
+                            />
+                        </Form.Item>
+                        <Form.Item label="Performer Last Name">
+                            <Input
+                                name="lastName"
+                                value={editFormState.lastName}
+                                onChange={handleEditFormChange}
+                            />
+                        </Form.Item>
+                        <Form.Item label="YouTube Link">
+                            <Input
+                                name="youtubeLink"
+                                value={editFormState.youtubeLink}
+                                onChange={handleEditFormChange}
+                                placeholder="https://youtube.com/..."
+                            />
+                        </Form.Item>
+                    </Form>
+                )}
             </Modal>
         </Content>
     )
