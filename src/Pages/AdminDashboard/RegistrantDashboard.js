@@ -2,7 +2,7 @@ import { Button, Layout, message, Pagination, Table, theme } from 'antd';
 import ExcelJS from "exceljs";
 import * as FileSaver from "file-saver";
 import { saveAs } from "file-saver";
-import { doc, updateDoc } from "firebase/firestore";
+import { doc, serverTimestamp, updateDoc } from "firebase/firestore";
 import JSZip from "jszip";
 import * as xlsx from 'xlsx';
 import apis from '../../apis';
@@ -15,6 +15,7 @@ import { useState } from 'react';
 import { extractVideoId, fetchYouTubeDuration } from '../../utils/youtube';
 // Import the new utility functions
 import { Input, Modal, Progress } from 'antd';
+import { parseDateString } from '../../utils/Utils';
 
 // ...other imports
 const { Content } = Layout;
@@ -23,6 +24,8 @@ const RegistrantDashboard = () => {
     const pageSize = 10
 
     const { token: { colorBgContainer, borderRadiusLG }, } = theme.useToken();
+
+    const [isUploading, setIsUploading] = useState(false);
 
     // --- NEW STATE FOR THE EDIT MODAL ---
     const [isEditModalVisible, setIsEditModalVisible] = useState(false);
@@ -335,47 +338,188 @@ const RegistrantDashboard = () => {
 
     const handleUploadRegistrantAPCS2025 = (e) => {
         e.preventDefault();
-        if (e.target.files.length > 0) {
-            const reader = new FileReader();
-            reader.onload = async (e) => {
-                const data = e.target.result;
-                const workbook = xlsx.read(data, { type: "array" });
-                console.log("workbook", workbook)
+        const file = e.target.files[0];
+        if (!file) return;
+
+        setIsUploading(true);
+        message.loading({ content: 'Reading and processing your file...', key: 'upload' });
+
+        const reader = new FileReader();
+        reader.onload = async (event) => {
+            try {
+                const data = event.target.result;
+                const workbook = xlsx.read(data, { type: "array", cellDates: true });
                 const sheetName = workbook.SheetNames[0];
                 const worksheet = workbook.Sheets[sheetName];
-                const json = xlsx.utils.sheet_to_json(worksheet, { raw: true });
-                console.log("json", json)
 
-                // const parsedData = json.map((row) => {
-                //     if (row.duration && typeof row.duration === "number") {
-                //         row.duration = convertExcelTimeToDuration(row.duration);
-                //     }
-                //     return row;
-                // });
+                // --- CORRECTED PARSING LOGIC ---
+                // 1. Parse the entire sheet into an array of arrays to get full control.
+                const rowsAsArrays = xlsx.utils.sheet_to_json(worksheet, { header: 1 });
 
-                // console.log("parsedData", parsedData);
+                // 3. Manually extract the header row (row 2) and the data rows (row 4 onwards).
+                const headers = rowsAsArrays[0];
+                const dataRows = rowsAsArrays.slice(1); // Skips banner, header, and example row.
 
-                // // to save to Users DB
-                // const batch = writeBatch(db);
-                // const usersCollection = collection(db, "Registrants");
+                // 4. Manually convert the arrays into an array of objects using the headers.
+                const json = dataRows.map(rowArray => {
+                    const rowObject = {};
+                    headers.forEach((header, index) => {
+                        if (header) { // Only add data for columns that have a header
+                            rowObject[header] = rowArray[index];
+                        }
+                    });
+                    return rowObject;
+                });
+                // --- END OF CORRECTED PARSING LOGIC ---
 
-                // parsedData.forEach((data) => {
-                //     const newDocRef = doc(usersCollection); // Auto-generate a new document ID
-                //     batch.set(newDocRef, data);
-                // });
 
-                // try {
-                //     await batch.commit(); // Save all documents in a single batch
-                //     console.log("Batch write successful!");
-                // } catch (error) {
-                //     console.error("Error writing batch:", error);
-                // }
-            };
-            reader.readAsArrayBuffer(e.target.files[0]);
-        }
-    }
+                if (json.length === 0) {
+                    message.error({ content: 'The uploaded file has no data to process.', key: 'upload' });
+                    setIsUploading(false);
+                    return;
+                }
 
-    console.log("registrantDatas", registrantDatas)
+                message.loading({ content: `Processing ${json.length} records...`, key: 'upload' });
+
+                // Helper to parse strings like "1,5 mins" or "3 mins" into seconds
+                const parseDurationToSeconds = (durationStr) => {
+                    if (typeof durationStr !== 'string' || !durationStr) return 0;
+                    try {
+                        const cleanedStr = durationStr.replace(',', '.').replace('mins', '').trim();
+                        const minutes = parseFloat(cleanedStr);
+                        return Math.round(minutes * 60);
+                    } catch (e) {
+                        return 0;
+                    }
+                };
+
+                // Helper to split a full name into first and last names
+                const splitFullName = (fullName) => {
+                    if (typeof fullName !== 'string' || !fullName) return { firstName: '', lastName: '' };
+                    const parts = fullName.trim().split(' ');
+                    const lastName = parts.pop();
+                    const firstName = parts.join(' ');
+                    return { firstName, lastName };
+                };
+
+                const registrantsToUpload = json.map(row => {
+                    console.log("row", row)
+                    // Use the helper to split the full name
+                    const { firstName, lastName } = splitFullName(row['Full Name']);
+
+                    const performer = {
+                        firstName: firstName,
+                        lastName: lastName,
+                        email: row['Email'] || '',
+                        dob: parseDateString(row['Date of Birth']), // Use your reliable date parser
+                        gender: row['Gender'] || '',
+                        nationality: row['Nationality'] || 'Indonesia',
+                        country: row['Country'] || 'Indonesia',
+                        province: row['Province'] || '',
+                        city: row['City'] || '',
+                        zipCode: String(row['Zip Code'] || ''),
+                        addressLine: row['addressline'] || '',
+                        phoneNumber: row['Phone Number'] || '',
+                        countryCode: row['Country Code'] || '+62',
+                    };
+
+                    return {
+                        // Top-level Info (assuming these might not be in the sheet)
+                        name: row['Parent/Guardian Name'] || '',
+                        userType: row['User Type'] || 'Teacher',
+                        teacherName: row['Teacher Name'] || '',
+
+                        // Competition Details from the sheet
+                        competitionCategory: row['Competition Category'] || 'Piano', // Example default
+                        instrumentCategory: row['Instrument Category'] || '',
+                        ageCategory: String(row['Age'] || ''), // Convert age number to string for ageCategory
+                        PerformanceCategory: row['Performance Category'] || 'Solo',
+
+                        // Links from the file
+                        youtubeLink: row['YouTube Link'] || '',
+                        pdfRepertoireS3Link: row['Repertoire'] || '',
+                        profilePhotoS3Link: row['Photo'] || '', // Assuming a 'Photo' column might exist
+                        birthCertS3Link: row['Birth Certificate'] || '',
+                        examCertificateS3Link: row['Recommendation Letter / Exam Certificate'] || '',
+
+                        // Nested Performer Data
+                        performers: [performer],
+
+                        // Default / Generated Values
+                        totalPerformer: 1,
+                        agreement: true,
+                        paymentStatus: 'PAID',
+                        videoDuration: parseDurationToSeconds(row['Max Duration']),
+                        createdAt: serverTimestamp(),
+                    };
+                });
+
+                console.log("registrantsToUpload", registrantsToUpload)
+
+                // Batch Upload Step
+                message.loading({ content: `Uploading ${registrantsToUpload.length} documents to Firestore...`, key: 'upload' });
+                const batchSize = 499;
+                for (let i = 0; i < registrantsToUpload.length; i += batchSize) {
+                    const batch = writeBatch(db);
+                    const chunk = registrantsToUpload.slice(i, i + batchSize);
+
+                    chunk.forEach((registrantData) => {
+                        const newDocRef = doc(collection(db, "Registrants2025Dummy"));
+                        batch.set(newDocRef, registrantData);
+                    });
+
+                    await batch.commit();
+                }
+
+                // --- NEW: INTELLIGENTLY GROUP EMAILS BEFORE SENDING ---
+                const groupedEmails = registrantsToUpload.reduce((acc, registrant) => {
+                    const performer = registrant.performers[0];
+                    if (!performer || !performer.email) return acc; // Skip if no email
+
+                    const email = performer.email.toLowerCase();
+                    const name = `${performer.firstName} ${performer.lastName}`;
+
+                    if (!acc[email]) {
+                        // If this is the first time we see this email, create a new entry
+                        acc[email] = {
+                            email: performer.email,
+                            competitionCategory: registrant.competitionCategory,
+                            instrumentCategory: registrant.instrumentCategory,
+                            names: [name] // Start a new list of names
+                        };
+                    } else {
+                        // If we've seen this email before, just add the new name to the list
+                        acc[email].names.push(name);
+                    }
+
+                    return acc;
+                }, {});
+
+                console.log("groupedEmails", groupedEmails)
+
+                // Convert the grouped object back into an array for the API
+                const emailPayload = Object.values(groupedEmails);
+
+                // --- Send the consolidated email payload to the backend ---
+                if (emailPayload.length > 0) {
+                    await apis.email.sendEmailNotifyBulkUpdateRegistrant(emailPayload);
+                }
+
+                message.success({ content: `Successfully uploaded ${registrantsToUpload.length} registrants!`, key: 'upload' });
+                fetchUserData(1);
+
+            } catch (error) {
+                console.error("Error processing or uploading file:", error);
+                message.error({ content: 'An error occurred. Please check the console for details.', key: 'upload' });
+            } finally {
+                setIsUploading(false);
+                e.target.value = null;
+            }
+        };
+        reader.readAsArrayBuffer(file);
+    };
+
+    // console.log("registrantDatas", registrantDatas)
 
     return (
         <Content

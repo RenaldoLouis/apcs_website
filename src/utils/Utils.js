@@ -1,3 +1,4 @@
+import { format, isValid, parse, parseISO } from 'date-fns';
 import chinaflag from "../assets/images/chinaflag.jpg";
 import denmarkflag from "../assets/images/denmarkflag.jpg"; // fidland
 import indFlag from "../assets/images/indFlag.jpg";
@@ -72,3 +73,44 @@ export const formatDuration = (totalSeconds) => {
     const seconds = Math.floor(totalSeconds % 60).toString().padStart(2, "0");
     return `${hours}:${minutes}:${seconds}`;
 }
+
+export const parseDateString = (dateInput) => {
+    // Return empty if the input is null or undefined
+    if (!dateInput) return '';
+
+    let parsedDate;
+
+    // Case 1: Input is already a JavaScript Date object (from cellDates: true)
+    if (dateInput instanceof Date) {
+        parsedDate = dateInput;
+    }
+
+    // Case 2: Input is a string
+    if (typeof dateInput === 'string') {
+        // First, try to parse it as a standard ISO string (like "2013-11-19T...")
+        parsedDate = parseISO(dateInput);
+
+        // If ISO parsing fails, fallback to your custom formats
+        if (!isValid(parsedDate)) {
+            const dateFormats = [
+                'dd/MM/yyyy', // For "15/08/2012"
+                'dd-MMM-yy',  // For "20-Nov-13"
+            ];
+            for (const fmt of dateFormats) {
+                const customParsedDate = parse(dateInput, fmt, new Date());
+                if (isValid(customParsedDate)) {
+                    parsedDate = customParsedDate;
+                    break; // Stop on the first successful parse
+                }
+            }
+        }
+    }
+
+    // If we have a valid date from any of the above methods, format and return it
+    if (isValid(parsedDate)) {
+        return format(parsedDate, 'dd/MM/yyyy');
+    }
+
+    // If all parsing fails, return an empty string
+    return '';
+};
