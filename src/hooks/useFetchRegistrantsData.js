@@ -81,7 +81,7 @@ const usePaginatedRegistrants = (pageSize = 10, collectionName = "Registrants", 
 
     const totalPages = Math.ceil(totalDocs / pageSize);
 
-    return { registrantDatas, loading, error, page, setPage, totalPages, totalDocs, fetchData };
+    return { allData, registrantDatas, loading, error, page, setPage, totalPages, totalDocs, fetchData };
 };
 
 export default usePaginatedRegistrants;

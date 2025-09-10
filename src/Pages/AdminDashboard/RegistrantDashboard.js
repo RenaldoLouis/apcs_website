@@ -42,6 +42,7 @@ const RegistrantDashboard = () => {
 
     // 2. Pass the searchTerm to your updated hook
     const {
+        allData,
         registrantDatas,
         loading,
         error,
@@ -119,74 +120,93 @@ const RegistrantDashboard = () => {
     }
 
     const handleExportToExcel = () => {
-        const data = []; // assuming registrantDatas comes from your hook
-
-        registrantDatas.forEach((eachData, index) => {
-            const formattedTime = formatDuration(eachData.videoDuration);
-            const tempObj = {
-                no: index + 1,
-                Contestant: `${eachData.performers[0].firstName} ${eachData.performers[0].lastName}`,
-                PDF_Repertoire: eachData.pdfRepertoireS3Link,
-                Performance_Video: eachData.youtubeLink,
-                duration: formattedTime
-            }
-            data.push(tempObj)
-        })
-
-        const workbook = new ExcelJS.Workbook();
-        const worksheet = workbook.addWorksheet("Registrants 2025");
-
-        if (data.length > 0) {
-            const headers = Object.keys(data[0]);
-            worksheet.addRow(headers);
-
-            data.forEach((item) => {
-                const rowValues = headers.map((header) => {
-                    let value = item[header];
-
-                    if (header === "createdAt" && value?.seconds) {
-                        value = new Date(value.seconds * 1000).toLocaleString();
-                    }
-
-                    // --- THIS IS THE KEY LOGIC ---
-                    // If the column is for the public repertoire link, format it as a hyperlink
-                    if (header === "PDF_Repertoire" && value) {
-                        const s3Key = getS3KeyFromUri(value);
-
-                        if (s3Key) {
-                            const publicUrl = constructS3PublicUrl(s3Key);
-                            // ExcelJS requires this specific object format for hyperlinks
-                            value = {
-                                text: 'View Repertoire PDF', // The text that will appear in the cell
-                                hyperlink: publicUrl,
-                                tooltip: publicUrl, // Optional: show URL on hover
-                            };
-                        }
-                    }
-                    // --- END OF KEY LOGIC ---
-
-                    if (value === null || typeof value === 'undefined') {
-                        value = "";
-                    }
-                    // Handle objects that are not hyperlinks (like the performers array)
-                    if (typeof value === 'object' && !value.hyperlink) {
-                        value = JSON.stringify(value);
-                    }
-
-                    return value;
-                });
-                worksheet.addRow(rowValues);
-            });
-        } else {
-            worksheet.addRow(["No data available"]);
+        if (!allData || allData.length === 0) {
+            message.warn("No data available to export.");
+            return;
         }
 
-        // Generate Excel file
+        message.info("Preparing your complete Excel file for download...");
+
+        const dataForExport = [];
+        let rowCounter = 1; // Use a separate counter for the 'No.' column
+
+        // 1. Loop through each REGISTRATION
+        allData.forEach(registrant => {
+            // Get the shared data that's the same for all performers in this registration
+            const sharedData = {
+                'Parent/Teacher Name': registrant.name,
+                'Teacher Name': registrant.teacherName,
+                'Competition Category': registrant.competitionCategory,
+                'Instrument Category': registrant.instrumentCategory,
+                'Age Category': registrant.ageCategory,
+                'Performance Category': registrant.PerformanceCategory,
+                'YouTube Link': registrant.youtubeLink,
+                'Repertoire PDF': registrant.pdfRepertoireS3Link,
+                'Birth Certificate': registrant.birthCertS3Link,
+                'Exam Certificate': registrant.examCertificateS3Link,
+                'Profile Photo': registrant.profilePhotoS3Link,
+                'Registration Date': registrant.createdAt ? new Date(registrant.createdAt.seconds * 1000).toLocaleString('en-GB') : '',
+                'Payment Status': registrant.paymentStatus,
+            };
+
+            // 2. Then, loop through each PERFORMER within that registration
+            registrant.performers.forEach(performer => {
+                // 3. Create one Excel row for EACH performer, combining their unique info with the shared info
+                dataForExport.push({
+                    'No.': rowCounter++,
+                    // Performer-specific info
+                    'First Name': performer.firstName,
+                    'Last Name': performer.lastName,
+                    'Email': performer.email,
+                    'Date of Birth': performer.dob,
+                    'Phone Number': performer.phoneNumber,
+                    'Country': performer.country,
+                    'City': performer.city,
+                    // Shared registration info
+                    ...sharedData
+                });
+            });
+        });
+
+        const workbook = new ExcelJS.Workbook();
+        const worksheet = workbook.addWorksheet("All Registrants & Performers");
+
+        // The rest of the ExcelJS logic works perfectly with this new data structure
+        const headers = Object.keys(dataForExport[0]);
+        worksheet.getRow(1).values = headers;
+        worksheet.getRow(1).font = { bold: true };
+
+        dataForExport.forEach(item => {
+            const row = worksheet.addRow(Object.values(item));
+            const repertoireIndex = headers.indexOf('Repertoire PDF') + 1;
+            if (repertoireIndex > 0) {
+                const cell = row.getCell(repertoireIndex);
+                if (cell.value) {
+                    cell.value = {
+                        text: 'View PDF',
+                        hyperlink: constructS3PublicUrl(getS3KeyFromUri(cell.value)),
+                    };
+                    cell.font = { color: { argb: 'FF0000FF' }, underline: true };
+                }
+            }
+        });
+
+        worksheet.columns.forEach(column => {
+            let maxLength = 0;
+            column.eachCell({ includeEmpty: true }, cell => {
+                let columnLength = cell.value ? cell.value.toString().length : 10;
+                if (columnLength > maxLength) {
+                    maxLength = columnLength;
+                }
+            });
+            column.width = maxLength < 10 ? 10 : maxLength + 2;
+        });
+
         workbook.xlsx.writeBuffer().then((buffer) => {
             const blob = new Blob([buffer], {
                 type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
             });
-            FileSaver.saveAs(blob, "registrant2025.xlsx");
+            FileSaver.saveAs(blob, "All_Registrants_and_Performers_2025.xlsx");
         });
     };
 
