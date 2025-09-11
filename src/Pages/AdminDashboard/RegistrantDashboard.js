@@ -36,6 +36,7 @@ const RegistrantDashboard = () => {
     const [isEditModalVisible, setIsEditModalVisible] = useState(false);
     const [editingRecord, setEditingRecord] = useState(null);
     const [isSaving, setIsSaving] = useState(false);
+    const [isDownloadingAll, setIsDownloadingAll] = useState(false);
 
     // 1. Add state to hold the current search term
     const [searchTerm, setSearchTerm] = useState('');
@@ -141,6 +142,7 @@ const RegistrantDashboard = () => {
                 'Age Category': registrant.ageCategory,
                 'Performance Category': registrant.PerformanceCategory,
                 'YouTube Link': registrant.youtubeLink,
+                'Video Duration': formatDuration(registrant.videoDuration),
                 'Repertoire PDF': registrant.pdfRepertoireS3Link,
                 'Birth Certificate': registrant.birthCertS3Link,
                 'Exam Certificate': registrant.examCertificateS3Link,
@@ -149,23 +151,39 @@ const RegistrantDashboard = () => {
                 'Payment Status': registrant.paymentStatus,
             };
 
-            // 2. Then, loop through each PERFORMER within that registration
-            registrant.performers.forEach(performer => {
-                // 3. Create one Excel row for EACH performer, combining their unique info with the shared info
+            // Check if the registration is for an Ensemble
+            if (registrant.PerformanceCategory === 'Ensemble') {
+                // If it is, combine all performer data into a SINGLE row
+                const combinedNames = registrant.performers.map(p => `${p.firstName} ${p.lastName}`).join(' & ');
+                const combinedEmails = registrant.performers.map(p => p.email).join(', ');
+                const combinedDOBs = registrant.performers.map(p => p.dob).join(', ');
+                const combinedPhones = registrant.performers.map(p => p.phoneNumber).join(', ');
+
                 dataForExport.push({
                     'No.': rowCounter++,
-                    // Performer-specific info
-                    'First Name': performer.firstName,
-                    'Last Name': performer.lastName,
-                    'Email': performer.email,
-                    'Date of Birth': performer.dob,
-                    'Phone Number': performer.phoneNumber,
-                    'Country': performer.country,
-                    'City': performer.city,
-                    // Shared registration info
+                    'Name': combinedNames,
+                    'Email': registrant.performers[0]?.email,
+                    'Date of Birth': combinedDOBs,
+                    'Phone Number': combinedPhones,
+                    'Country': registrant.performers[0]?.country, // Take country/city from the first performer
+                    'City': registrant.performers[0]?.city,
                     ...sharedData
                 });
-            });
+            } else {
+                // Otherwise (for Solo, Duet, etc.), create a SEPARATE row for each performer
+                registrant.performers.forEach(performer => {
+                    dataForExport.push({
+                        'No.': rowCounter++,
+                        'Name': `${performer.firstName} ${performer.lastName}`,
+                        'Email': performer.email,
+                        'Date of Birth': performer.dob,
+                        'Phone Number': performer.phoneNumber,
+                        'Country': performer.country,
+                        'City': performer.city,
+                        ...sharedData
+                    });
+                });
+            }
         });
 
         const workbook = new ExcelJS.Workbook();
@@ -237,6 +255,60 @@ const RegistrantDashboard = () => {
             window.URL.revokeObjectURL(url); // Clean up blob URL
         } catch (error) {
             console.error('Download failed:', error);
+        }
+    };
+
+    const handleDownloadAll = async () => {
+        if (!allData || allData.length === 0) {
+            message.warn("No registrant data available to download.");
+            return;
+        }
+
+        setIsDownloadingAll(true);
+        message.loading({ content: `Preparing ${allData.length} registrant folders for download...`, key: 'downloadAll', duration: 0 });
+
+        try {
+            const payload = [];
+
+            // 1. Create a detailed list of every file and its desired folder path
+            allData.forEach(registrant => {
+                const category = registrant.competitionCategory || 'Uncategorized';
+                const performerName = `${registrant.performers[0]?.firstName}_${registrant.performers[0]?.lastName}`.replace(/ /g, '_');
+                const registrantFolder = `${category}/${performerName}_${registrant.id.slice(0, 6)}`;
+
+                // A helper to add files to the payload
+                const addFile = (s3Link, fileName) => {
+                    if (s3Link) {
+                        payload.push({
+                            s3Key: stripS3Prefix(s3Link),
+                            zipPath: `${registrantFolder}/${fileName}`
+                        });
+                    }
+                };
+
+                addFile(registrant.birthCertS3Link, 'birth_certificate.pdf');
+                addFile(registrant.examCertificateS3Link, 'exam_certificate.pdf');
+                addFile(registrant.pdfRepertoireS3Link, 'repertoire.pdf');
+                addFile(registrant.profilePhotoS3Link, 'profile_photo.jpg'); // Assuming jpg, adjust if needed
+            });
+
+            console.log("payload", payload)
+            // 2. Call the new backend API with the payload
+            const response = await apis.aws.downloadAllFiles(payload, {
+                responseType: 'blob' // Important: tell axios to expect binary data
+            });
+
+            // 3. Trigger the download in the browser
+            const blob = new Blob([response.data], { type: 'application/zip' });
+            saveAs(blob, "all_registrants_documents.zip");
+
+            message.success({ content: 'Your download has started!', key: 'downloadAll' });
+
+        } catch (error) {
+            console.error('Download all failed:', error);
+            message.error({ content: 'Failed to download documents.', key: 'downloadAll' });
+        } finally {
+            setIsDownloadingAll(false);
         }
     };
 
@@ -632,6 +704,14 @@ const RegistrantDashboard = () => {
                     loading={isUpdating} // Use the new loading state
                 >
                     Re-check All YouTube Durations
+                </Button>
+
+                <Button
+                    style={{ marginLeft: 8 }}
+                    onClick={handleDownloadAll}
+                    loading={isDownloadingAll}
+                >
+                    Download All Documents
                 </Button>
             </div>
             <Modal
