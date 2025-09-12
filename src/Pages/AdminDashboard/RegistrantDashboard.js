@@ -128,6 +128,27 @@ const RegistrantDashboard = () => {
 
         message.info("Preparing your complete Excel file for download...");
 
+        // --- NEW: DUPLICATE DETECTION LOGIC ---
+        // 1. Count occurrences of each YouTube link
+        const linkCounts = allData.reduce((acc, registrant) => {
+            const link = registrant.youtubeLink;
+            if (link) { // Only count non-empty links
+                acc[link] = (acc[link] || 0) + 1;
+            }
+            return acc;
+        }, {});
+
+        // 2. Create a map of tags for only the links that are duplicates
+        const duplicateTags = {};
+        let duplicateCounter = 1;
+        for (const link in linkCounts) {
+            if (linkCounts[link] > 1) {
+                duplicateTags[link] = `duplicate${duplicateCounter}`;
+                duplicateCounter++;
+            }
+        }
+        // --- END OF NEW LOGIC ---
+
         const dataForExport = [];
         let rowCounter = 1; // Use a separate counter for the 'No.' column
 
@@ -142,6 +163,7 @@ const RegistrantDashboard = () => {
                 'Age Category': registrant.ageCategory,
                 'Performance Category': registrant.PerformanceCategory,
                 'YouTube Link': registrant.youtubeLink,
+                'Duplicate Link Tag': duplicateTags[registrant.youtubeLink] || '', // Get tag or empty string
                 'Video Duration': formatDuration(registrant.videoDuration),
                 'Repertoire PDF': registrant.pdfRepertoireS3Link,
                 'Birth Certificate': registrant.birthCertS3Link,
@@ -227,7 +249,6 @@ const RegistrantDashboard = () => {
             FileSaver.saveAs(blob, "All_Registrants_and_Performers_2025.xlsx");
         });
     };
-
 
     const handleDownloadPDF = async (record) => {
         const filesToDownload = [
