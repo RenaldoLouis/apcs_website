@@ -1,4 +1,4 @@
-import { Button } from "antd";
+import { Button, Popconfirm, Space } from 'antd';
 
 export const RegistrantsColumns = [
     {
@@ -27,7 +27,7 @@ export const RegistrantsColumns = [
     },
 ];
 
-export const getRegistrants2025Columns = (handleDownloadPDF, handleUpdateStatus, showEditModal) => [
+export const getRegistrants2025Columns = (handleDownloadPDF, handleUpdateStatus, showEditModal, handleDelete, deletingId) => [
     { title: "Parent Name", dataIndex: "name" },
     { title: "Teacher Name", dataIndex: "teacherName" },
     { title: "Total Performer", dataIndex: "totalPerformer" },
@@ -80,9 +80,27 @@ export const getRegistrants2025Columns = (handleDownloadPDF, handleUpdateStatus,
         title: 'Actions',
         key: 'actions',
         render: (_, record) => (
-            <Button type="link" onClick={() => showEditModal(record)}>
-                Edit Link
-            </Button>
+            <Space size="middle">
+                <Button type="link" onClick={() => showEditModal(record)}>
+                    Edit
+                </Button>
+
+                <Popconfirm
+                    title="Delete the registrant"
+                    description="Are you sure you want to delete this registrant? This action cannot be undone."
+                    onConfirm={() => handleDelete(record.id)}
+                    okText="Yes, Delete"
+                    cancelText="No"
+                >
+                    <Button
+                        type="link"
+                        danger // This makes the button text red
+                        loading={deletingId === record.id} // Show spinner only on the clicked button
+                    >
+                        Delete
+                    </Button>
+                </Popconfirm>
+            </Space>
         ),
     },
 ];

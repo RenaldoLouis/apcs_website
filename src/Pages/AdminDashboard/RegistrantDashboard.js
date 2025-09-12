@@ -2,7 +2,7 @@ import { Button, Layout, message, Pagination, Table, theme } from 'antd';
 import ExcelJS from "exceljs";
 import * as FileSaver from "file-saver";
 import { saveAs } from "file-saver";
-import { doc, serverTimestamp, updateDoc } from "firebase/firestore";
+import { deleteDoc, doc, serverTimestamp, updateDoc } from "firebase/firestore";
 import JSZip from "jszip";
 import * as xlsx from 'xlsx';
 import apis from '../../apis';
@@ -37,6 +37,7 @@ const RegistrantDashboard = () => {
     const [editingRecord, setEditingRecord] = useState(null);
     const [isSaving, setIsSaving] = useState(false);
     const [isDownloadingAll, setIsDownloadingAll] = useState(false);
+    const [deletingId, setDeletingId] = useState(null);
 
     // 1. Add state to hold the current search term
     const [searchTerm, setSearchTerm] = useState('');
@@ -83,6 +84,29 @@ const RegistrantDashboard = () => {
         const zipBlob = await zip.generateAsync({ type: "blob" });
         saveAs(zipBlob, "registrant.zip");
     }
+
+    const handleDeleteRegistrant = async (recordId) => {
+        setDeletingId(recordId);
+        try {
+            // 1. Create a reference to the document to be deleted
+            const docRef = doc(db, 'Registrants2025', recordId);
+
+            // 2. Call Firestore's deleteDoc function
+            await deleteDoc(docRef);
+
+            message.success('Registrant deleted successfully!');
+
+            // 3. Refresh the table data. It's often best to go back to page 1.
+            if (page !== 1) setPage(1);
+            fetchUserData(1);
+
+        } catch (error) {
+            console.error("Error deleting registrant: ", error);
+            message.error('Failed to delete registrant.');
+        } finally {
+            setDeletingId(null); // Clear the loading state
+        }
+    };
 
     // 1. ADD THESE HELPER FUNCTIONS
     // This function takes an S3 URI like "s3://bucket/key..." and returns just the object key.
@@ -408,7 +432,7 @@ const RegistrantDashboard = () => {
     };
 
 
-    const columns = getRegistrants2025Columns(handleDownloadPDF, updatePaymentStatus, showEditModal);
+    const columns = getRegistrants2025Columns(handleDownloadPDF, updatePaymentStatus, showEditModal, handleDeleteRegistrant, deletingId);
 
     const handleRecheckDurations = async () => {
         setIsUpdating(true);
