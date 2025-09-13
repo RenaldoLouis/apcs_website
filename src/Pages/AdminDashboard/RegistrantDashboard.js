@@ -32,6 +32,7 @@ const RegistrantDashboard = () => {
         firstName: '',
         lastName: '',
         youtubeLink: '',
+        email: "",
     });
     const [isEditModalVisible, setIsEditModalVisible] = useState(false);
     const [editingRecord, setEditingRecord] = useState(null);
@@ -378,6 +379,8 @@ const RegistrantDashboard = () => {
             firstName: record.performers[0]?.firstName || '',
             lastName: record.performers[0]?.lastName || '',
             youtubeLink: record.youtubeLink || '',
+            email: record.performers[0]?.email || '',
+
         });
         setIsEditModalVisible(true);
     };
@@ -385,7 +388,7 @@ const RegistrantDashboard = () => {
     const handleEditCancel = () => {
         setIsEditModalVisible(false);
         setEditingRecord(null);
-        setEditFormState({ firstName: '', lastName: '', youtubeLink: '' }); // Reset state
+        setEditFormState({ firstName: '', lastName: '', youtubeLink: '', email: '' });
     };
 
     // A single handler for all input changes in the modal
@@ -408,6 +411,8 @@ const RegistrantDashboard = () => {
                 ...updatedPerformers[0],
                 firstName: editFormState.firstName,
                 lastName: editFormState.lastName,
+                email: editFormState.email,
+
             };
 
             // 3. Prepare the final payload with the new youtubeLink and the modified performers array.
@@ -790,6 +795,13 @@ const RegistrantDashboard = () => {
                             <Input
                                 name="lastName"
                                 value={editFormState.lastName}
+                                onChange={handleEditFormChange}
+                            />
+                        </Form.Item>
+                        <Form.Item label="Email">
+                            <Input
+                                name="email"
+                                value={editFormState.email}
                                 onChange={handleEditFormChange}
                             />
                         </Form.Item>

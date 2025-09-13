@@ -2,18 +2,18 @@ import { Button, Tooltip, Typography } from 'antd';
 
 const { Text } = Typography;
 
-const CustomSeatPicker = ({ layout, selectedSeats, onSelect, onDeselect, maxSeats }) => {
+const CustomSeatPicker = ({ layout, selectedSeats, onSelect, onDeselect, maxSeats, isReadOnly = false }) => {
 
     const handleSeatClick = (seat) => {
-        const isSelected = selectedSeats.some(s => s.id === seat.id);
+        // If it's read-only, do nothing.
+        if (isReadOnly) return;
 
+        const isSelected = selectedSeats?.some(s => s.id === seat.id);
         if (isSelected) {
             onDeselect(seat);
         } else {
-            if (selectedSeats.length < maxSeats) {
+            if (selectedSeats?.length < maxSeats) {
                 onSelect(seat);
-            } else {
-                // Optional: message.warn(`You can only select a maximum of ${maxSeats} seats.`);
             }
         }
     };
@@ -36,7 +36,7 @@ const CustomSeatPicker = ({ layout, selectedSeats, onSelect, onDeselect, maxSeat
                         {row.map((seat, seatIndex) => {
                             if (!seat) return <div key={seatIndex} style={{ width: '32px' }} />; // Aisle spacer
 
-                            const isSelected = selectedSeats.some(s => s.id === seat.id);
+                            const isSelected = selectedSeats?.some(s => s.id === seat.id);
 
                             return (
                                 <Tooltip key={seat.id} title={seat.tooltip}>

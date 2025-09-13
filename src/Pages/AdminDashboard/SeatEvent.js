@@ -18,14 +18,15 @@ import {
     Table,
     Typography
 } from 'antd';
-import { doc, writeBatch } from 'firebase/firestore';
-import { useMemo, useState } from 'react';
+import { collection, doc, getDocs, query, where, writeBatch } from 'firebase/firestore';
+import { useEffect, useMemo, useState } from 'react';
 import { Controller, useFieldArray, useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 import apis from '../../apis';
 import { db } from '../../firebase';
 import { useEventBookingData } from '../../hooks/useEventBookingData';
 import usePaginatedRegistrants from '../../hooks/useFetchRegistrantsData';
+import CustomSeatPicker from '../SelectSeat/CustomSeatPicker';
 
 const { Title, Text, Paragraph } = Typography;
 
@@ -201,6 +202,9 @@ const SeatingEvent = () => {
     const [tempSelectedRow, setTempSelectedRow] = useState(null);
     const [searchTerm, setSearchTerm] = useState('');
 
+    const [seatLayout, setSeatLayout] = useState([]); // This will hold the single, flat list from the backend
+    const [isSeatMapLoading, setIsSeatMapLoading] = useState(false);
+
     // --- React Hook Form Initialization ---
     const { control, handleSubmit, watch, setValue } = useForm({
         defaultValues: {
@@ -245,6 +249,84 @@ const SeatingEvent = () => {
             return fullName.includes(searchTerm.toLowerCase());
         });
     }, [registrantDatas, searchTerm]);
+
+    useEffect(() => {
+        const fetchSeatMap = async () => {
+            if (watchedFormData.venue && watchedFormData.date && watchedFormData.session) {
+                setIsSeatMapLoading(true);
+                try {
+                    const sessionId = `${watchedFormData.date}_${watchedFormData.session}`;
+                    const q = query(
+                        collection(db, `seats${eventId}`),
+                        where('venueId', '==', watchedFormData.venue),
+                        where('sessionId', '==', sessionId)
+                    );
+                    const querySnapshot = await getDocs(q);
+                    const seats = querySnapshot.docs.map(doc => doc.data());
+                    setSeatLayout(seats);
+                } catch (err) {
+                    console.error("Failed to fetch seat map:", err);
+                    message.error("Could not load the seat map for this session.");
+                } finally {
+                    setIsSeatMapLoading(false);
+                }
+            } else {
+                // If venue/date/session is deselected, clear the map
+                setSeatLayout([]);
+            }
+        };
+
+        fetchSeatMap();
+    }, [watchedFormData.venue, watchedFormData.date, watchedFormData.session]);
+
+    const formattedSessionLayout = useMemo(() => {
+        if (!seatLayout || seatLayout.length === 0) return {};
+        const seatsForCorrectVenue = seatLayout.filter(seat => seat.venueId === watchedFormData.venue);
+
+
+        // 1. Group all seats by their area (lento, allegro, presto)
+        const groupedByArea = seatsForCorrectVenue.reduce((acc, seat) => {
+            const area = seat.areaType;
+            if (!acc[area]) acc[area] = [];
+            acc[area].push(seat);
+            return acc;
+        }, {});
+
+        const finalLayouts = {};
+
+        // 2. For each area, create the structured rows required by SeatPicker
+        for (const area in groupedByArea) {
+            // Group seats by their row letter (C, D, E, etc.)
+            const rowsObject = groupedByArea[area].reduce((acc, seat) => {
+                const row = seat.row;
+                if (!acc[row]) acc[row] = [];
+                acc[row].push(seat);
+                return acc;
+            }, {});
+
+            // 3. Sort the rows alphabetically (ensuring C comes before D, etc.)
+            const sortedRowKeys = Object.keys(rowsObject).sort();
+
+            // 4. Map over the sorted rows to create the final structure
+            finalLayouts[area] = sortedRowKeys.map(rowKey => {
+                const rowSeats = rowsObject[rowKey];
+
+                // 5. Sort the seats within each row numerically (ensuring 1 comes before 10)
+                rowSeats.sort((a, b) => a.number - b.number);
+
+                // 6. Map to the final object structure for SeatPicker
+                return rowSeats.map(seat => ({
+                    id: seat.id,
+                    number: seat.number, // The actual seat number for the label
+                    isReserved: seat.status !== 'available',
+                    // The tooltip can be helpful for admins/users
+                    tooltip: `Seat ${seat.seatLabel} - ${seat.areaType.charAt(0).toUpperCase() + seat.areaType.slice(1)}`
+                }));
+            });
+        }
+        if (!seatLayout || seatLayout.length === 0) return {};
+        return finalLayouts;
+    }, [seatLayout]);
 
     // --- Form Submission ---
     const onFormSubmit = async (formData) => {
@@ -446,6 +528,31 @@ const SeatingEvent = () => {
                             )}
                         </Space>
                     </Card>
+
+                    {watchedFormData.session && (
+                        <Card title={`Live Seat Map for ${watchedFormData.session}`} style={{ marginTop: '24px' }}>
+                            {isSeatMapLoading ? (
+                                <div style={{ textAlign: 'center' }}><Spin /></div>
+                            ) : (
+                                <Space direction="vertical" style={{ width: '100%' }}>
+                                    {Object.keys(formattedSessionLayout).map(areaType => {
+                                        const layoutForPicker = formattedSessionLayout[areaType] || [];
+                                        return (
+                                            <div key={areaType}>
+                                                <Title level={5} style={{ textTransform: 'capitalize' }}>{areaType} Section</Title>
+                                                <div style={{ overflowX: 'auto', padding: '10px', background: '#fafafa', borderRadius: '8px' }}>
+                                                    <CustomSeatPicker
+                                                        layout={layoutForPicker}
+                                                        isReadOnly={true} // Set to read-only mode
+                                                    />
+                                                </div>
+                                            </div>
+                                        );
+                                    })}
+                                </Space>
+                            )}
+                        </Card>
+                    )}
 
                     {/* --- Card 5: Optional Packages --- */}
                     <Card title="5. Optional Packages" style={{ marginBottom: '24px' }}>
