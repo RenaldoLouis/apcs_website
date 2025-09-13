@@ -57,6 +57,7 @@
     "about31": "Öykü is a Turkish violinist with an active international career as an orchestral musician and performer. A graduate of the Sibelius Academy, where she studied with Merit Palas, Cecilia Zilliacus, and Sirkka-Liisa Kaakinen-Pilch, she was selected in 2022 for the prestigious Helsinki Philharmonic Apprenticeship Program. She has since performed with leading Finnish orchestras, including Lahti Symphony Orchestra and Pori Sinfonietta. Öykü has participated in masterclasses with renowned artists such as Leonidas Kavakos, Kerson Leong, and Soyoung Yoon, and continues to perform regularly with orchestras across Finland.",
     "about32": "Jennifer Tan is a classical singer and educator from Jakarta, Indonesia, currently based in Aachen, Germany. A graduate of the Hamburger Konservatorium with a Bachelor of Music in Vocal Pedagogy, she has worked with singers and ensembles since 2013. Jennifer continues to develop her artistry through ongoing studies with baritone Mikelis Rogers and participation in masterclasses. In 2024, she joined the opera chorus of Theater Aachen, strengthening her presence in Germany’s classical music scene.",
     "about33": "Jessica Januar is an Indonesian soprano with experience in both classical and musical theatre performance. She earned a Graduate Certificate from the Guildhall School of Music and Drama in 2015, studying under Sarah Pring, and returned in 2019 for a summer course in Acting in Musical Theatre. Jessica has refined her vocal artistry through masterclasses with Bettina Jensen and Katherine Ciesinski. Her performances include Gita Cinta (2013), Opera Ainun (2018), and The Oboe Virtuoso (2019).",
+    "Acv1": "Contestant who achieved an",
     "Acv1A": "OUTSTANDING PERFORMANCE.",
     "Acv2": "Contestant who achieved an ",
     "Acv2A": "outstanding performance",
@@ -139,6 +140,7 @@
             "YoungVocal": "Young (10–12 years old)",
             "JuniorVocal": "Junior (13–15 years old)",
             "YouthVocal": "Youth (16–19 years old)",
+            "Professionals": "Professionals (19+ years old)",
             "OpenAgeVocal": "Open Age (9+ years old)",
             "ProfessionalVocal": "Professional (19+ years old)",
             "FreeChoiceVocal": "Free Choice (4+ years old)"
