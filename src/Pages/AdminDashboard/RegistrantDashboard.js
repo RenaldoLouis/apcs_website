@@ -32,6 +32,7 @@ const RegistrantDashboard = () => {
         firstName: '',
         lastName: '',
         youtubeLink: '',
+        ageCategory: '',
         email: "",
     });
     const [isEditModalVisible, setIsEditModalVisible] = useState(false);
@@ -418,6 +419,7 @@ const RegistrantDashboard = () => {
             // 3. Prepare the final payload with the new youtubeLink and the modified performers array.
             const updatePayload = {
                 youtubeLink: editFormState.youtubeLink,
+                ageCategory: editFormState.ageCategory,
                 performers: updatedPerformers,
             };
 
@@ -521,6 +523,7 @@ const RegistrantDashboard = () => {
                 // --- CORRECTED PARSING LOGIC ---
                 // 1. Parse the entire sheet into an array of arrays to get full control.
                 const rowsAsArrays = xlsx.utils.sheet_to_json(worksheet, { header: 1 });
+                // const rowsAsArrays = rowsAsArraysRaw.slice(1);
 
                 // 3. Manually extract the header row (row 2) and the data rows (row 4 onwards).
                 const headers = rowsAsArrays[0];
@@ -569,25 +572,35 @@ const RegistrantDashboard = () => {
                 };
 
                 const registrantsToUpload = json.map(row => {
-                    console.log("row", row)
-                    // Use the helper to split the full name
-                    const { firstName, lastName } = splitFullName(row['Full Name']);
+                    const fullNameString = row['Full Name'] || '';
+                    const dobString = String(row['Date of Birth'] || '');
+                    const phoneString = String(row['Phone Number'] || '');
 
-                    const performer = {
-                        firstName: firstName,
-                        lastName: lastName,
-                        email: row['Email'] || '',
-                        dob: parseDateString(row['Date of Birth']), // Use your reliable date parser
-                        gender: row['Gender'] || '',
-                        nationality: row['Nationality'] || 'Indonesia',
-                        country: row['Country'] || 'Indonesia',
-                        province: row['Province'] || '',
-                        city: row['City'] || '',
-                        zipCode: String(row['Zip Code'] || ''),
-                        addressLine: row['addressline'] || '',
-                        phoneNumber: row['Phone Number'] || '',
-                        countryCode: row['Country Code'] || '+62',
-                    };
+                    // 1. Split each field by its respective separator into an array
+                    const individualNames = fullNameString.split('&').map(name => name.trim());
+                    const individualDobs = dobString.split('&').map(dob => dob.trim());
+                    const individualPhones = phoneString.split('/').map(phone => phone.trim());
+
+                    const performers = individualNames.map((name, index) => {
+                        const { firstName, lastName } = splitFullName(name);
+
+                        // This creates a complete performer object for each person
+                        return {
+                            firstName: firstName,
+                            lastName: lastName,
+                            email: row['Email'] || '',
+                            dob: parseDateString(individualDobs[index] || individualDobs[0] || ''),
+                            gender: row['Gender'] || '',
+                            nationality: row['Nationality'] || 'Indonesia',
+                            country: row['Country'] || 'Indonesia',
+                            province: row['Province'] || '',
+                            city: row['City'] || '',
+                            zipCode: String(row['Zip Code'] || ''),
+                            addressLine: row['addressline'] || '',
+                            phoneNumber: individualPhones[index] || individualPhones[0] || '',
+                            countryCode: row['Country Code'] || '+62',
+                        };
+                    });
 
                     return {
                         // Top-level Info (assuming these might not be in the sheet)
@@ -598,7 +611,7 @@ const RegistrantDashboard = () => {
                         // Competition Details from the sheet
                         competitionCategory: row['Competition Category'] || 'Piano', // Example default
                         instrumentCategory: row['Instrument Category'] || '',
-                        ageCategory: String(row['Age'] || ''), // Convert age number to string for ageCategory
+                        ageCategory: (row['Age Category'] || ''),
                         PerformanceCategory: row['Performance Category'] || 'Solo',
 
                         // Links from the file
@@ -609,7 +622,7 @@ const RegistrantDashboard = () => {
                         examCertificateS3Link: row['Recommendation Letter / Exam Certificate'] || '',
 
                         // Nested Performer Data
-                        performers: [performer],
+                        performers: performers,
 
                         // Default / Generated Values
                         totalPerformer: 1,
@@ -651,6 +664,7 @@ const RegistrantDashboard = () => {
                             email: performer.email,
                             competitionCategory: registrant.competitionCategory,
                             instrumentCategory: registrant.instrumentCategory,
+                            teacherName: registrant.teacherName,
                             names: [name] // Start a new list of names
                         };
                     } else {
@@ -811,6 +825,14 @@ const RegistrantDashboard = () => {
                                 value={editFormState.youtubeLink}
                                 onChange={handleEditFormChange}
                                 placeholder="https://youtube.com/..."
+                            />
+                        </Form.Item>
+                        <Form.Item label="Age Category">
+                            <Input
+                                name="ageCategory"
+                                value={editFormState.ageCategory}
+                                onChange={handleEditFormChange}
+                                placeholder="Young"
                             />
                         </Form.Item>
                     </Form>

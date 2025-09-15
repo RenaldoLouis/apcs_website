@@ -75,38 +75,38 @@ export const formatDuration = (totalSeconds) => {
 }
 
 export const parseDateString = (dateInput) => {
-    // Return empty if the input is null or undefined
     if (!dateInput) return '';
 
     let parsedDate;
 
-    // Case 1: Input is already a JavaScript Date object (from cellDates: true)
-    if (dateInput instanceof Date) {
-        parsedDate = dateInput;
+    // Case 1: Input is already a JavaScript Date object
+    if (dateInput instanceof Date && isValid(dateInput)) {
+        return format(dateInput, 'dd/MM/yyyy');
     }
 
     // Case 2: Input is a string
     if (typeof dateInput === 'string') {
-        // First, try to parse it as a standard ISO string (like "2013-11-19T...")
+        // Try parsing as a standard ISO string first
         parsedDate = parseISO(dateInput);
 
-        // If ISO parsing fails, fallback to your custom formats
+        // If ISO parsing fails, fallback to custom formats
         if (!isValid(parsedDate)) {
             const dateFormats = [
-                'dd/MM/yyyy', // For "15/08/2012"
-                'dd-MMM-yy',  // For "20-Nov-13"
+                'dd/MM/yyyy', // Handles "20/11/2016"
+                'dd-MMM-yy',  // Handles "20-Nov-13"
+                'dd/MMM/yy',  // NEW: Handles "20/Nov/13"
             ];
             for (const fmt of dateFormats) {
                 const customParsedDate = parse(dateInput, fmt, new Date());
                 if (isValid(customParsedDate)) {
                     parsedDate = customParsedDate;
-                    break; // Stop on the first successful parse
+                    break; // Stop on the first successful format match
                 }
             }
         }
     }
 
-    // If we have a valid date from any of the above methods, format and return it
+    // If we have a valid date, format and return it
     if (isValid(parsedDate)) {
         return format(parsedDate, 'dd/MM/yyyy');
     }
