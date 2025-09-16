@@ -625,7 +625,7 @@ const RegistrantDashboard = () => {
                         performers: performers,
 
                         // Default / Generated Values
-                        totalPerformer: 1,
+                        totalPerformer: performers.length, // Correctly count the number of performers
                         agreement: true,
                         paymentStatus: 'PAID',
                         videoDuration: parseDurationToSeconds(row['Max Duration']),
@@ -651,27 +651,25 @@ const RegistrantDashboard = () => {
                 }
 
                 // --- NEW: INTELLIGENTLY GROUP EMAILS BEFORE SENDING ---
-                const groupedEmails = registrantsToUpload.reduce((acc, registrant) => {
-                    const performer = registrant.performers[0];
-                    if (!performer || !performer.email) return acc; // Skip if no email
+                const groupedEmails = json.reduce((acc, row) => {
+                    const email = (row['Email'] || '').toLowerCase().trim();
+                    const name = (row['Full Name'] || '').trim();
 
-                    const email = performer.email.toLowerCase();
-                    const name = `${performer.firstName} ${performer.lastName}`;
+                    // Skip rows that don't have an email or a name
+                    if (!email || !name) return acc;
 
                     if (!acc[email]) {
-                        // If this is the first time we see this email, create a new entry
+                        // If we see this email for the first time, create a new entry
                         acc[email] = {
-                            email: performer.email,
-                            competitionCategory: registrant.competitionCategory,
-                            instrumentCategory: registrant.instrumentCategory,
-                            teacherName: registrant.teacherName,
-                            names: [name] // Start a new list of names
+                            email: row['Email'],
+                            teacherName: row['Teacher Name'] || 'Participant',
+                            // Use the original 'Full Name' which can be "John Doe" or "John Doe & Jane Smith"
+                            names: [name]
                         };
                     } else {
-                        // If we've seen this email before, just add the new name to the list
+                        // If this email already exists, just add the new name to its list
                         acc[email].names.push(name);
                     }
-
                     return acc;
                 }, {});
 
