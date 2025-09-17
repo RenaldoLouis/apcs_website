@@ -35,6 +35,7 @@ export const getRegistrants2025Columns = (handleDownloadPDF, handleUpdateStatus,
     { title: "Performance Category", dataIndex: "PerformanceCategory" },
     { title: "User Type", dataIndex: "userType" },
     { title: "Payment Status", dataIndex: "paymentStatus" },
+    { title: "Birth Cert", dataIndex: "birthCertS3Link" },
     {
         title: "Performers",
         dataIndex: "performers",
@@ -42,6 +43,18 @@ export const getRegistrants2025Columns = (handleDownloadPDF, handleUpdateStatus,
             if (Array.isArray(performers)) {
                 return performers.map((p, i) => (
                     <div key={i}>{i + 1}. {p.firstName} {p.lastName}</div>
+                ));
+            }
+            return "-";
+        },
+    },
+    {
+        title: "Performers Email",
+        dataIndex: "performers",
+        render: (performers) => {
+            if (Array.isArray(performers)) {
+                return performers.map((p, i) => (
+                    <div key={i}>{i + 1}. {p.email}</div>
                 ));
             }
             return "-";

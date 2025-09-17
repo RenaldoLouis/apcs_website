@@ -152,10 +152,19 @@ const RegistrantDashboard = () => {
             return;
         }
 
-        message.info("Preparing your complete Excel file for download...");
+        message.info("Grouping data and preparing your multi-sheet Excel file...");
 
-        // --- NEW: DUPLICATE DETECTION LOGIC ---
-        // 1. Count occurrences of each YouTube link
+        // --- 1. GROUP ALL DATA BY COMPETITION CATEGORY ---
+        const groupedByCategory = allData.reduce((acc, registrant) => {
+            const category = registrant.competitionCategory || 'Uncategorized';
+            if (!acc[category]) {
+                acc[category] = [];
+            }
+            acc[category].push(registrant);
+            return acc;
+        }, {});
+
+        // --- Duplicate detection logic (runs on allData, so it's consistent across sheets) ---
         const linkCounts = allData.reduce((acc, registrant) => {
             const link = registrant.youtubeLink;
             if (link) { // Only count non-empty links
@@ -164,7 +173,7 @@ const RegistrantDashboard = () => {
             return acc;
         }, {});
 
-        // 2. Create a map of tags for only the links that are duplicates
+
         const duplicateTags = {};
         let duplicateCounter = 1;
         for (const link in linkCounts) {
@@ -173,106 +182,114 @@ const RegistrantDashboard = () => {
                 duplicateCounter++;
             }
         }
-        // --- END OF NEW LOGIC ---
-
-        const dataForExport = [];
-        let rowCounter = 1; // Use a separate counter for the 'No.' column
-
-        // 1. Loop through each REGISTRATION
-        allData.forEach(registrant => {
-            // Get the shared data that's the same for all performers in this registration
-            const sharedData = {
-                'Parent/Teacher Name': registrant.name,
-                'Teacher Name': registrant.teacherName,
-                'Competition Category': registrant.competitionCategory,
-                'Instrument Category': registrant.instrumentCategory,
-                'Age Category': registrant.ageCategory,
-                'Performance Category': registrant.PerformanceCategory,
-                'YouTube Link': registrant.youtubeLink,
-                'Duplicate Link Tag': duplicateTags[registrant.youtubeLink] || '', // Get tag or empty string
-                'Video Duration': formatDuration(registrant.videoDuration),
-                'Repertoire PDF': registrant.pdfRepertoireS3Link,
-                'Birth Certificate': registrant.birthCertS3Link,
-                'Exam Certificate': registrant.examCertificateS3Link,
-                'Profile Photo': registrant.profilePhotoS3Link,
-                'Registration Date': registrant.createdAt ? new Date(registrant.createdAt.seconds * 1000).toLocaleString('en-GB') : '',
-                'Payment Status': registrant.paymentStatus,
-            };
-
-            // Check if the registration is for an Ensemble
-            if (registrant.PerformanceCategory === 'Ensemble') {
-                // If it is, combine all performer data into a SINGLE row
-                const combinedNames = registrant.performers.map(p => `${p.firstName} ${p.lastName}`).join(' & ');
-                const combinedEmails = registrant.performers.map(p => p.email).join(', ');
-                const combinedDOBs = registrant.performers.map(p => p.dob).join(', ');
-                const combinedPhones = registrant.performers.map(p => p.phoneNumber).join(', ');
-
-                dataForExport.push({
-                    'No.': rowCounter++,
-                    'Name': combinedNames,
-                    'Email': registrant.performers[0]?.email,
-                    'Date of Birth': combinedDOBs,
-                    'Phone Number': combinedPhones,
-                    'Country': registrant.performers[0]?.country, // Take country/city from the first performer
-                    'City': registrant.performers[0]?.city,
-                    ...sharedData
-                });
-            } else {
-                // Otherwise (for Solo, Duet, etc.), create a SEPARATE row for each performer
-                registrant.performers.forEach(performer => {
-                    dataForExport.push({
-                        'No.': rowCounter++,
-                        'Name': `${performer.firstName} ${performer.lastName}`,
-                        'Email': performer.email,
-                        'Date of Birth': performer.dob,
-                        'Phone Number': performer.phoneNumber,
-                        'Country': performer.country,
-                        'City': performer.city,
-                        ...sharedData
-                    });
-                });
-            }
-        });
 
         const workbook = new ExcelJS.Workbook();
-        const worksheet = workbook.addWorksheet("All Registrants & Performers");
 
-        // The rest of the ExcelJS logic works perfectly with this new data structure
-        const headers = Object.keys(dataForExport[0]);
-        worksheet.getRow(1).values = headers;
-        worksheet.getRow(1).font = { bold: true };
+        // --- 2. LOOP THROUGH EACH CATEGORY AND CREATE A SHEET FOR IT ---
+        let rowCounter = 1;
+        for (const category in groupedByCategory) {
+            const worksheet = workbook.addWorksheet(category.substring(0, 30)); // Sheet names have a 31-char limit
+            const categoryData = groupedByCategory[category];
 
-        dataForExport.forEach(item => {
-            const row = worksheet.addRow(Object.values(item));
-            const repertoireIndex = headers.indexOf('Repertoire PDF') + 1;
-            if (repertoireIndex > 0) {
-                const cell = row.getCell(repertoireIndex);
-                if (cell.value) {
-                    cell.value = {
-                        text: 'View PDF',
-                        hyperlink: constructS3PublicUrl(getS3KeyFromUri(cell.value)),
-                    };
-                    cell.font = { color: { argb: 'FF0000FF' }, underline: true };
-                }
-            }
-        });
+            // --- 3. PROCESS AND MAP DATA FOR THE CURRENT SHEET ---
+            const dataForSheet = [];
+            categoryData.forEach(registrant => {
+                // Get the shared data that's the same for all performers in this registration
+                const sharedData = {
+                    'Parent/Teacher Name': registrant.name,
+                    'Teacher Name': registrant.teacherName,
+                    'Competition Category': registrant.competitionCategory,
+                    'Instrument Category': registrant.instrumentCategory,
+                    'Age Category': registrant.ageCategory,
+                    'Performance Category': registrant.PerformanceCategory,
+                    'YouTube Link': registrant.youtubeLink,
+                    'Duplicate Link Tag': duplicateTags[registrant.youtubeLink] || '', // Get tag or empty string
+                    'Video Duration': formatDuration(registrant.videoDuration),
+                    'Repertoire PDF': registrant.pdfRepertoireS3Link,
+                    'Birth Certificate': registrant.birthCertS3Link,
+                    'Exam Certificate': registrant.examCertificateS3Link,
+                    'Profile Photo': registrant.profilePhotoS3Link,
+                    'Registration Date': registrant.createdAt ? new Date(registrant.createdAt.seconds * 1000).toLocaleString('en-GB') : '',
+                    'Payment Status': registrant.paymentStatus,
+                };
 
-        worksheet.columns.forEach(column => {
-            let maxLength = 0;
-            column.eachCell({ includeEmpty: true }, cell => {
-                let columnLength = cell.value ? cell.value.toString().length : 10;
-                if (columnLength > maxLength) {
-                    maxLength = columnLength;
+                // Check if the registration is for an Ensemble
+                if (registrant.PerformanceCategory === 'Ensemble') {
+                    // If it is, combine all performer data into a SINGLE row
+                    const combinedNames = registrant.performers.map(p => `${p.firstName} ${p.lastName}`).join(' & ');
+                    const combinedEmails = registrant.performers.map(p => p.email).join(', ');
+                    const combinedDOBs = registrant.performers.map(p => p.dob).join(', ');
+                    const combinedPhones = registrant.performers.map(p => p.phoneNumber).join(', ');
+
+                    dataForSheet.push({
+                        'No.': rowCounter++,
+                        'Name': combinedNames,
+                        'Email': registrant.performers[0]?.email,
+                        'Date of Birth': combinedDOBs,
+                        'Phone Number': combinedPhones,
+                        'Country': registrant.performers[0]?.country, // Take country/city from the first performer
+                        'City': registrant.performers[0]?.city,
+                        ...sharedData
+                    });
+                } else {
+                    // Otherwise (for Solo, Duet, etc.), create a SEPARATE row for each performer
+                    registrant.performers.forEach(performer => {
+                        dataForSheet.push({
+                            'No.': rowCounter++,
+                            'Name': `${performer.firstName} ${performer.lastName}`,
+                            'Email': performer.email,
+                            'Date of Birth': performer.dob,
+                            'Phone Number': performer.phoneNumber,
+                            'Country': performer.country,
+                            'City': performer.city,
+                            ...sharedData
+                        });
+                    });
                 }
             });
-            column.width = maxLength < 10 ? 10 : maxLength + 2;
-        });
 
+            // --- 4. POPULATE THE CURRENT WORKSHEET ---
+            if (dataForSheet.length > 0) {
+                const headers = Object.keys(dataForSheet[0]);
+                worksheet.getRow(1).values = headers;
+                worksheet.getRow(1).font = { bold: true };
+
+                dataForSheet.forEach(item => {
+                    const row = worksheet.addRow(Object.values(item));
+                    // Your hyperlink logic for 'Repertoire PDF'
+                    const repertoireIndex = headers.indexOf('Repertoire PDF') + 1;
+                    if (repertoireIndex > 0) {
+                        const cell = row.getCell(repertoireIndex);
+                        if (cell.value) {
+                            cell.value = {
+                                text: 'View PDF',
+                                hyperlink: constructS3PublicUrl(getS3KeyFromUri(cell.value)),
+                            };
+                            cell.font = { color: { argb: 'FF0000FF' }, underline: true };
+                        }
+                    }
+                });
+
+                worksheet.columns.forEach(column => {
+                    let maxLength = 0;
+                    column.eachCell({ includeEmpty: true }, cell => {
+                        let columnLength = cell.value ? cell.value.toString().length : 10;
+                        if (columnLength > maxLength) {
+                            maxLength = columnLength;
+                        }
+                    });
+                    column.width = maxLength < 10 ? 10 : maxLength + 2;
+                });
+
+            }
+        }
+
+        // --- 5. GENERATE AND DOWNLOAD THE FINAL WORKBOOK ---
         workbook.xlsx.writeBuffer().then((buffer) => {
             const blob = new Blob([buffer], {
                 type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
             });
-            FileSaver.saveAs(blob, "All_Registrants_and_Performers_2025.xlsx");
+            FileSaver.saveAs(blob, "All_Registrants_by_Category_2025.xlsx");
         });
     };
 
@@ -312,48 +329,60 @@ const RegistrantDashboard = () => {
         }
 
         setIsDownloadingAll(true);
-        message.loading({ content: `Preparing ${allData.length} registrant folders for download...`, key: 'downloadAll', duration: 0 });
 
         try {
-            const payload = [];
+            const chunkSize = 50; // Set the batch size
+            const numChunks = Math.ceil(allData.length / chunkSize);
 
-            // 1. Create a detailed list of every file and its desired folder path
-            allData.forEach(registrant => {
-                const category = registrant.competitionCategory || 'Uncategorized';
-                const performerName = `${registrant.performers[0]?.firstName}_${registrant.performers[0]?.lastName}`.replace(/ /g, '_');
-                const registrantFolder = `${category}/${performerName}_${registrant.id.slice(0, 6)}`;
+            // 1. Loop through the data in chunks of 100
+            for (let i = 300; i < allData.length; i += chunkSize) {
+                const chunk = allData.slice(i, i + chunkSize);
+                const chunkNumber = (i / chunkSize) + 1;
 
-                // A helper to add files to the payload
-                const addFile = (s3Link, fileName) => {
-                    if (s3Link) {
-                        payload.push({
-                            s3Key: stripS3Prefix(s3Link),
-                            zipPath: `${registrantFolder}/${fileName}`
-                        });
-                    }
-                };
+                message.loading({
+                    content: `Preparing batch ${chunkNumber} of ${numChunks}... (${chunk.length} registrants)`,
+                    key: 'downloadAll',
+                    duration: 0
+                });
 
-                addFile(registrant.birthCertS3Link, 'birth_certificate.pdf');
-                addFile(registrant.examCertificateS3Link, 'exam_certificate.pdf');
-                addFile(registrant.pdfRepertoireS3Link, 'repertoire.pdf');
-                addFile(registrant.profilePhotoS3Link, 'profile_photo.jpg'); // Assuming jpg, adjust if needed
-            });
+                const payload = [];
 
-            console.log("payload", payload)
-            // 2. Call the new backend API with the payload
-            const response = await apis.aws.downloadAllFiles(payload, {
-                responseType: 'blob' // Important: tell axios to expect binary data
-            });
+                // 2. Prepare the payload for just the current chunk
+                chunk.forEach(registrant => {
+                    const category = registrant.competitionCategory || 'Uncategorized';
+                    const performerName = `${registrant.performers[0]?.firstName}_${registrant.performers[0]?.lastName}`.replace(/ /g, '_');
+                    const registrantFolder = `${category}/${performerName}_${registrant.id.slice(0, 6)}`;
 
-            // 3. Trigger the download in the browser
-            const blob = new Blob([response.data], { type: 'application/zip' });
-            saveAs(blob, "all_registrants_documents.zip");
+                    const addFile = (s3Link, fileName) => {
+                        if (s3Link) {
+                            payload.push({
+                                s3Key: stripS3Prefix(s3Link),
+                                zipPath: `${registrantFolder}/${fileName}`
+                            });
+                        }
+                    };
 
-            message.success({ content: 'Your download has started!', key: 'downloadAll' });
+                    addFile(registrant.birthCertS3Link, 'birth_certificate.pdf');
+                    addFile(registrant.examCertificateS3Link, 'exam_certificate.pdf');
+                    addFile(registrant.pdfRepertoireS3Link, 'repertoire.pdf');
+                    addFile(registrant.profilePhotoS3Link, 'profile_photo.jpg');
+                });
+
+                // 3. Call the backend API for the current chunk
+                const response = await apis.aws.downloadAllFiles(payload, {
+                    responseType: 'blob'
+                });
+
+                // 4. Trigger the download for this chunk's zip file
+                const blob = new Blob([response.data], { type: 'application/zip' });
+                saveAs(blob, `registrants_documents_part_${chunkNumber}.zip`);
+            }
+
+            message.success({ content: 'All document batches have been downloaded!', key: 'downloadAll' });
 
         } catch (error) {
             console.error('Download all failed:', error);
-            message.error({ content: 'Failed to download documents.', key: 'downloadAll' });
+            message.error({ content: 'Failed to download documents. Please check the console.', key: 'downloadAll' });
         } finally {
             setIsDownloadingAll(false);
         }
@@ -381,6 +410,7 @@ const RegistrantDashboard = () => {
             lastName: record.performers[0]?.lastName || '',
             youtubeLink: record.youtubeLink || '',
             email: record.performers[0]?.email || '',
+            ageCategory: record.ageCategory || '',
 
         });
         setIsEditModalVisible(true);
