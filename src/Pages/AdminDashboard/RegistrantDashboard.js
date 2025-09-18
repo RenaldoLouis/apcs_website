@@ -1,4 +1,4 @@
-import { Button, Layout, message, Pagination, Table, theme } from 'antd';
+import { Button, Form, Input, Layout, message, Modal, Pagination, Progress, Select, Space, Table, theme } from 'antd';
 import ExcelJS from "exceljs";
 import * as FileSaver from "file-saver";
 import { saveAs } from "file-saver";
@@ -14,13 +14,19 @@ import { collection, getDocs, writeBatch } from "firebase/firestore";
 import { useState } from 'react';
 import { extractVideoId, fetchYouTubeDuration } from '../../utils/youtube';
 // Import the new utility functions
-import { Form, Input, Modal, Progress } from 'antd';
+import { ageCategories } from '../../constant/RegisterPageConst';
 import { parseDateString } from '../../utils/Utils';
 
 // ...other imports
 const { Content } = Layout;
 
 const RegistrantDashboard = () => {
+    const ageCategoryOptions = Object.keys(ageCategories).map(key => ({ value: key, label: ageCategories[key] }));
+
+    const performanceCategoryOptions = [
+        { value: 'Solo', label: 'Solo' },
+        { value: 'Ensemble', label: 'Ensemble' },
+    ];
     const pageSize = 10
 
     const { token: { colorBgContainer, borderRadiusLG }, } = theme.useToken();
@@ -40,9 +46,11 @@ const RegistrantDashboard = () => {
     const [isSaving, setIsSaving] = useState(false);
     const [isDownloadingAll, setIsDownloadingAll] = useState(false);
     const [deletingId, setDeletingId] = useState(null);
-
+    const [ageFilter, setAgeFilter] = useState(null); // null means "All"
+    const [performanceFilter, setPerformanceFilter] = useState(null);
     // 1. Add state to hold the current search term
     const [searchTerm, setSearchTerm] = useState('');
+    const [searchTeacherName, setSearchTeacherName] = useState('');
 
     // 2. Pass the searchTerm to your updated hook
     const {
@@ -55,7 +63,8 @@ const RegistrantDashboard = () => {
         totalPages,
         totalDocs,
         fetchData: fetchUserData,
-    } = usePaginatedRegistrants(pageSize, "Registrants2025", "createdAt", searchTerm);
+    } = usePaginatedRegistrants(pageSize, "Registrants2025", "createdAt", searchTerm, searchTeacherName, ageFilter,
+        performanceFilter);
 
     // --- State for the new update process ---
     const [isUpdating, setIsUpdating] = useState(false);
@@ -86,6 +95,17 @@ const RegistrantDashboard = () => {
         const zipBlob = await zip.generateAsync({ type: "blob" });
         saveAs(zipBlob, "registrant.zip");
     }
+
+    const handleAgeFilterChange = (value) => {
+        setPage(1); // Reset to page 1 when filter changes
+        setAgeFilter(value);
+    };
+
+    const handlePerformanceFilterChange = (value) => {
+        setPage(1); // Reset to page 1 when filter changes
+        setPerformanceFilter(value);
+    };
+
 
     const handleDeleteRegistrant = async (recordId) => {
         setDeletingId(recordId);
@@ -194,6 +214,8 @@ const RegistrantDashboard = () => {
             // --- 3. PROCESS AND MAP DATA FOR THE CURRENT SHEET ---
             const dataForSheet = [];
             categoryData.forEach(registrant => {
+                const originalRowNumber = allData.findIndex(item => item.id === registrant.id) + 1;
+
                 // Get the shared data that's the same for all performers in this registration
                 const sharedData = {
                     'Parent/Teacher Name': registrant.name,
@@ -222,7 +244,7 @@ const RegistrantDashboard = () => {
                     const combinedPhones = registrant.performers.map(p => p.phoneNumber).join(', ');
 
                     dataForSheet.push({
-                        'No.': rowCounter++,
+                        'No.': originalRowNumber, // Use the consistent number
                         'Name': combinedNames,
                         'Email': registrant.performers[0]?.email,
                         'Date of Birth': combinedDOBs,
@@ -235,7 +257,7 @@ const RegistrantDashboard = () => {
                     // Otherwise (for Solo, Duet, etc.), create a SEPARATE row for each performer
                     registrant.performers.forEach(performer => {
                         dataForSheet.push({
-                            'No.': rowCounter++,
+                            'No.': originalRowNumber, // Use the consistent number
                             'Name': `${performer.firstName} ${performer.lastName}`,
                             'Email': performer.email,
                             'Date of Birth': performer.dob,
@@ -781,21 +803,37 @@ const RegistrantDashboard = () => {
                 margin: '0 16px',
             }}
         >
-            <Input.Search
-                placeholder="Search by performer name..."
-                onSearch={value => {
-                    setPage(1); // Reset to first page on new search
-                    setSearchTerm(value);
-                }}
-                onChange={e => {
-                    // Optional: live search as the user types
-                    if (e.target.value === '') {
-                        setSearchTerm('');
-                    }
-                }}
-                style={{ marginBottom: 16, maxWidth: 400 }}
-                allowClear
-            />
+            <Space style={{ marginBottom: 16 }} wrap>
+                <div>
+                    Total Data: {totalDocs}
+                </div>
+                <Input.Search
+                    placeholder="Search by performer name..."
+                    onSearch={value => { setPage(1); setSearchTerm(value); }}
+                    style={{ width: 300 }}
+                    allowClear
+                />
+                <Input.Search
+                    placeholder="Search by teacher name..."
+                    onSearch={value => { setPage(1); setSearchTeacherName(value); }}
+                    style={{ width: 300 }}
+                    allowClear
+                />
+                <Select
+                    placeholder="Filter by Age Category"
+                    style={{ width: 200 }}
+                    onChange={handleAgeFilterChange}
+                    options={ageCategoryOptions}
+                    allowClear
+                />
+                <Select
+                    placeholder="Filter by Performance"
+                    style={{ width: 200 }}
+                    onChange={handlePerformanceFilterChange}
+                    options={performanceCategoryOptions}
+                    allowClear
+                />
+            </Space>
             <div
                 style={{
                     padding: 24,

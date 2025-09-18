@@ -4,7 +4,7 @@ import { useCallback, useEffect, useState } from 'react';
 import { useAuth } from '../context/DataContext';
 import { db } from '../firebase';
 
-const usePaginatedRegistrants = (pageSize = 10, collectionName = "Registrants", orderData = "createdAt", searchTerm = "") => {
+const usePaginatedRegistrants = (pageSize = 10, collectionName = "Registrants", orderData = "createdAt", searchTerm = "", searchTeacherName = "", ageCategoryFilter = null, performanceCategoryFilter = null) => {
     const { user } = useAuth();
 
     // State to hold all documents fetched from Firestore
@@ -68,6 +68,38 @@ const usePaginatedRegistrants = (pageSize = 10, collectionName = "Registrants", 
             });
         }
 
+        if (searchTeacherName && allData.length > 0) {
+            const lowercasedFilter = searchTeacherName.toLowerCase();
+            filteredData = allData.filter(registrant => {
+
+                // 1. Check if the teacher's name matches
+                const teacherNameMatch = (registrant.teacherName || '').toLowerCase().includes(lowercasedFilter);
+                if (teacherNameMatch) {
+                    return true;
+                }
+
+                // 2. If not, check if any of the performers' names match
+                const nameMatch = (registrant.name || '').toLowerCase().includes(lowercasedFilter);
+                if (nameMatch) {
+                    return true;
+                }
+            });
+        }
+
+        // --- NEW: Apply Age Category Filter ---
+        if (ageCategoryFilter && allData.length > 0) {
+            filteredData = filteredData.filter(registrant =>
+                registrant.ageCategory === ageCategoryFilter
+            );
+        }
+
+        // --- NEW: Apply Performance Category Filter ---
+        if (performanceCategoryFilter && allData.length > 0) {
+            filteredData = filteredData.filter(registrant =>
+                registrant.PerformanceCategory === performanceCategoryFilter
+            );
+        }
+
         // Update the total documents count based on the filtered results
         setTotalDocs(filteredData.length);
 
@@ -77,7 +109,7 @@ const usePaginatedRegistrants = (pageSize = 10, collectionName = "Registrants", 
 
         setRegistrantDatas(paginatedData);
 
-    }, [searchTerm, page, allData, pageSize]); // Re-run when search, page, or data changes
+    }, [searchTerm, searchTeacherName, page, allData, pageSize, ageCategoryFilter, performanceCategoryFilter]);
 
     const totalPages = Math.ceil(totalDocs / pageSize);
 
