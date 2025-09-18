@@ -254,20 +254,47 @@ const RegistrantDashboard = () => {
                 worksheet.getRow(1).values = headers;
                 worksheet.getRow(1).font = { bold: true };
 
+                const formatLinkCell = (cell) => {
+                    const link = cell.value;
+                    if (typeof link !== 'string' || !link) return;
+
+                    let hyperlinkUrl = '';
+
+                    if (link.startsWith('s3://')) {
+                        // Handle S3 links
+                        hyperlinkUrl = constructS3PublicUrl(getS3KeyFromUri(link));
+                    } else if (link.startsWith('http')) {
+                        // Handle Google Drive (or any other direct web) links
+                        hyperlinkUrl = link;
+                    }
+
+                    if (hyperlinkUrl) {
+                        cell.value = {
+                            text: 'View Link', // Use generic text for all links
+                            hyperlink: hyperlinkUrl,
+                        };
+                        cell.font = { color: { argb: 'FF0000FF' }, underline: true };
+                    }
+                };
+
+                // Identify all columns that should contain links
+                const linkColumns = [
+                    'Repertoire PDF',
+                    'Birth Certificate',
+                    'Exam Certificate',
+                    'Profile Photo'
+                ];
+
                 dataForSheet.forEach(item => {
                     const row = worksheet.addRow(Object.values(item));
-                    // Your hyperlink logic for 'Repertoire PDF'
-                    const repertoireIndex = headers.indexOf('Repertoire PDF') + 1;
-                    if (repertoireIndex > 0) {
-                        const cell = row.getCell(repertoireIndex);
-                        if (cell.value) {
-                            cell.value = {
-                                text: 'View PDF',
-                                hyperlink: constructS3PublicUrl(getS3KeyFromUri(cell.value)),
-                            };
-                            cell.font = { color: { argb: 'FF0000FF' }, underline: true };
+
+                    // Loop through our link columns and apply the formatting
+                    linkColumns.forEach(columnName => {
+                        const columnIndex = headers.indexOf(columnName) + 1;
+                        if (columnIndex > 0) {
+                            formatLinkCell(row.getCell(columnIndex));
                         }
-                    }
+                    });
                 });
 
                 worksheet.columns.forEach(column => {
@@ -294,31 +321,50 @@ const RegistrantDashboard = () => {
     };
 
     const handleDownloadPDF = async (record) => {
-        const filesToDownload = [
-            { fileName: stripS3Prefix(record.birthCertS3Link) },
-            { fileName: stripS3Prefix(record.examCertificateS3Link) },
-            { fileName: stripS3Prefix(record.pdfRepertoireS3Link) },
-            { fileName: stripS3Prefix(record.profilePhotoS3Link) },
-        ];
-
+        message.loading({ content: 'Preparing your download...', key: 'download' });
         try {
-            const response = await apis.aws.downloadFiles(filesToDownload)
+            const filesToDownload = [];
+            const performerName = `${record.performers[0]?.firstName}_${record.performers[0]?.lastName}`;
 
+            const addFilesFromField = (fieldContent, baseName) => {
+                if (typeof fieldContent === 'string' && fieldContent) {
+                    const links = fieldContent.split('&').map(link => link.trim());
+                    links.forEach((link, index) => {
+                        const fileName = links.length > 1 ? `${baseName}_${index + 1}.pdf` : `${baseName}.pdf`;
+                        if (link.startsWith('http') || link.startsWith('s3://')) {
+                            // Just send the raw link to the backend
+                            filesToDownload.push({
+                                link: link,
+                                zipPath: fileName
+                            });
+                        }
+                    });
+                }
+            };
+
+            // Process all link fields
+            addFilesFromField(record.birthCertS3Link, 'birth_certificate');
+            addFilesFromField(record.examCertificateS3Link, 'exam_certificate');
+            addFilesFromField(record.pdfRepertoireS3Link, 'repertoire');
+            addFilesFromField(record.profilePhotoS3Link, 'profile_photo');
+
+            if (filesToDownload.length === 0) {
+                message.warn({ content: "No documents are linked for this registrant.", key: 'download' });
+                return;
+            }
+
+            // Call the backend API (no change here)
+            const response = await apis.aws.downloadFiles(filesToDownload, {
+                responseType: 'blob'
+            });
 
             const blob = new Blob([response.data], { type: 'application/zip' });
+            saveAs(blob, `${performerName}_documents.zip`);
+            message.success({ content: 'Download started!', key: 'download' });
 
-            // Programmatically trigger an invisible download
-            const url = window.URL.createObjectURL(blob);
-            const link = document.createElement('a');
-            link.href = url;
-            link.download = 'documents.zip'; // 👈 Desired filename
-            link.style.display = 'none'; // Keep it hidden
-            document.body.appendChild(link);
-            link.click(); // 👈 Trigger download
-            link.remove(); // Clean up
-            window.URL.revokeObjectURL(url); // Clean up blob URL
         } catch (error) {
             console.error('Download failed:', error);
+            message.error({ content: 'Failed to download documents.', key: 'download' });
         }
     };
 
@@ -335,7 +381,7 @@ const RegistrantDashboard = () => {
             const numChunks = Math.ceil(allData.length / chunkSize);
 
             // 1. Loop through the data in chunks of 100
-            for (let i = 300; i < allData.length; i += chunkSize) {
+            for (let i = 530; i < allData.length; i += chunkSize) {
                 const chunk = allData.slice(i, i + chunkSize);
                 const chunkNumber = (i / chunkSize) + 1;
 
@@ -727,7 +773,7 @@ const RegistrantDashboard = () => {
         reader.readAsArrayBuffer(file);
     };
 
-    // console.log("registrantDatas", registrantDatas)
+    console.log("registrantDatas", registrantDatas)
 
     return (
         <Content
