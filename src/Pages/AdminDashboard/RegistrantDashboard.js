@@ -14,13 +14,15 @@ import { collection, getDocs, writeBatch } from "firebase/firestore";
 import { useState } from 'react';
 import { extractVideoId, fetchYouTubeDuration } from '../../utils/youtube';
 // Import the new utility functions
-import { ageCategories } from '../../constant/RegisterPageConst';
+import { ageCategories, competitionList } from '../../constant/RegisterPageConst';
 import { parseDateString } from '../../utils/Utils';
 
 // ...other imports
 const { Content } = Layout;
 
 const RegistrantDashboard = () => {
+    const competitionCategoryOptions = Object.values(competitionList).map(cat => ({ value: cat, label: cat }));
+
     const ageCategoryOptions = Object.keys(ageCategories).map(key => ({ value: key, label: ageCategories[key] }));
 
     const performanceCategoryOptions = [
@@ -51,6 +53,7 @@ const RegistrantDashboard = () => {
     // 1. Add state to hold the current search term
     const [searchTerm, setSearchTerm] = useState('');
     const [searchTeacherName, setSearchTeacherName] = useState('');
+    const [competitionFilter, setCompetitionFilter] = useState(null);
 
     // 2. Pass the searchTerm to your updated hook
     const {
@@ -64,7 +67,7 @@ const RegistrantDashboard = () => {
         totalDocs,
         fetchData: fetchUserData,
     } = usePaginatedRegistrants(pageSize, "Registrants2025", "createdAt", searchTerm, searchTeacherName, ageFilter,
-        performanceFilter);
+        performanceFilter, competitionFilter);
 
     // --- State for the new update process ---
     const [isUpdating, setIsUpdating] = useState(false);
@@ -81,6 +84,10 @@ const RegistrantDashboard = () => {
         return parts.slice(3).join('/');
     };
 
+    const handleCompetitionFilterChange = (value) => {
+        setPage(1); // Reset to page 1 when filter changes
+        setCompetitionFilter(value);
+    };
 
     async function createAndDownloadZip(pdfBlobs) {
         console.log("pdfBlobs", pdfBlobs)
@@ -236,7 +243,7 @@ const RegistrantDashboard = () => {
                 };
 
                 // Check if the registration is for an Ensemble
-                if (registrant.PerformanceCategory === 'Ensemble') {
+                if ((registrant.PerformanceCategory || '').trim().toLowerCase() === 'ensemble') {
                     // If it is, combine all performer data into a SINGLE row
                     const combinedNames = registrant.performers.map(p => `${p.firstName} ${p.lastName}`).join(' & ');
                     const combinedEmails = registrant.performers.map(p => p.email).join(', ');
@@ -817,6 +824,13 @@ const RegistrantDashboard = () => {
                     placeholder="Search by teacher name..."
                     onSearch={value => { setPage(1); setSearchTeacherName(value); }}
                     style={{ width: 300 }}
+                    allowClear
+                />
+                <Select
+                    placeholder="Filter by Competition"
+                    style={{ width: 200 }}
+                    onChange={handleCompetitionFilterChange}
+                    options={competitionCategoryOptions}
                     allowClear
                 />
                 <Select

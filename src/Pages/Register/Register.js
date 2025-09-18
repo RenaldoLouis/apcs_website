@@ -67,7 +67,7 @@ const Register = () => {
         defaultValues: {
             ageCategory: null,
             userType: "Teacher",
-            competitionCategory: competitionList.Piano,
+            competitionCategory: "",
             instrumentCategory: "",
             traditionalInstrument: "",
             name: "",
@@ -770,13 +770,13 @@ const Register = () => {
     const isCategoryDisabled = (key) => {
         switch (key) {
             case competitionList.Piano:
-                return false
+                return true
             case competitionList.Percussions:
                 return false
             case competitionList.Woodwinds:
-                return false
+                return true
             case competitionList.Guitar:
-                return false
+                return true
             case competitionList.VocalChoir:
                 return false
             case competitionList.Brass:

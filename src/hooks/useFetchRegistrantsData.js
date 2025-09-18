@@ -4,7 +4,15 @@ import { useCallback, useEffect, useState } from 'react';
 import { useAuth } from '../context/DataContext';
 import { db } from '../firebase';
 
-const usePaginatedRegistrants = (pageSize = 10, collectionName = "Registrants", orderData = "createdAt", searchTerm = "", searchTeacherName = "", ageCategoryFilter = null, performanceCategoryFilter = null) => {
+
+const sanitizeString = (str) => {
+    if (typeof str !== 'string') return '';
+    return str
+        .toLowerCase()
+        .replace(/[^a-z0-9\s]/g, ''); // Removes all non-alphanumeric characters except spaces
+};
+
+const usePaginatedRegistrants = (pageSize = 10, collectionName = "Registrants", orderData = "createdAt", searchTerm = "", searchTeacherName = "", ageCategoryFilter = null, performanceCategoryFilter = null, competitionCategoryFilter = null) => {
     const { user } = useAuth();
 
     // State to hold all documents fetched from Firestore
@@ -70,16 +78,18 @@ const usePaginatedRegistrants = (pageSize = 10, collectionName = "Registrants", 
 
         if (searchTeacherName && allData.length > 0) {
             const lowercasedFilter = searchTeacherName.toLowerCase();
+            const sanitizedFilter = sanitizeString(lowercasedFilter);
+
             filteredData = allData.filter(registrant => {
 
                 // 1. Check if the teacher's name matches
-                const teacherNameMatch = (registrant.teacherName || '').toLowerCase().includes(lowercasedFilter);
+                const teacherNameMatch = (registrant.teacherName || '').toLowerCase().includes(sanitizedFilter);
                 if (teacherNameMatch) {
                     return true;
                 }
 
                 // 2. If not, check if any of the performers' names match
-                const nameMatch = (registrant.name || '').toLowerCase().includes(lowercasedFilter);
+                const nameMatch = (registrant.name || '').toLowerCase().includes(sanitizedFilter);
                 if (nameMatch) {
                     return true;
                 }
@@ -100,6 +110,13 @@ const usePaginatedRegistrants = (pageSize = 10, collectionName = "Registrants", 
             );
         }
 
+        if (competitionCategoryFilter && allData.length > 0) {
+            filteredData = filteredData.filter(registrant =>
+                registrant.competitionCategory === competitionCategoryFilter
+            );
+        }
+
+
         // Update the total documents count based on the filtered results
         setTotalDocs(filteredData.length);
 
@@ -109,7 +126,7 @@ const usePaginatedRegistrants = (pageSize = 10, collectionName = "Registrants", 
 
         setRegistrantDatas(paginatedData);
 
-    }, [searchTerm, searchTeacherName, page, allData, pageSize, ageCategoryFilter, performanceCategoryFilter]);
+    }, [searchTerm, searchTeacherName, page, allData, pageSize, ageCategoryFilter, performanceCategoryFilter, competitionCategoryFilter]);
 
     const totalPages = Math.ceil(totalDocs / pageSize);
 
