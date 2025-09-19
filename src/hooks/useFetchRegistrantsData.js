@@ -103,17 +103,26 @@ const usePaginatedRegistrants = (pageSize = 10, collectionName = "Registrants", 
             );
         }
 
-        // --- NEW: Apply Performance Category Filter ---
         if (performanceCategoryFilter && allData.length > 0) {
-            filteredData = filteredData.filter(registrant =>
-                registrant.PerformanceCategory === performanceCategoryFilter
-            );
+            // Sanitize the filter value once before the loop for efficiency
+            const sanitizedFilter = performanceCategoryFilter.toLowerCase().trim();
+
+            filteredData = filteredData.filter(registrant => {
+                // Sanitize the data from your database before comparing
+                const category = (registrant.PerformanceCategory || '').toLowerCase().trim();
+                return category === sanitizedFilter;
+            });
         }
 
         if (competitionCategoryFilter && allData.length > 0) {
-            filteredData = filteredData.filter(registrant =>
-                registrant.competitionCategory === competitionCategoryFilter
-            );
+            // Sanitize the filter value once before the loop for efficiency
+            const sanitizedFilter = competitionCategoryFilter.toLowerCase().trim();
+
+            filteredData = filteredData.filter(registrant => {
+                // Sanitize the data from your database before comparing
+                const category = (registrant.competitionCategory || '').toLowerCase().trim();
+                return category === sanitizedFilter;
+            });
         }
 
 
