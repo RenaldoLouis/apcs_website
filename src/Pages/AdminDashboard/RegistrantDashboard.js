@@ -374,6 +374,7 @@ const RegistrantDashboard = () => {
             // Process all link fields
             addFilesFromField(record.birthCertS3Link, 'birth_certificate');
             addFilesFromField(record.examCertificateS3Link, 'exam_certificate');
+            addFilesFromField(record.paymentProofS3Link, 'payment_proof');
             addFilesFromField(record.pdfRepertoireS3Link, 'repertoire');
             addFilesFromField(record.profilePhotoS3Link, 'profile_photo');
 
@@ -439,6 +440,7 @@ const RegistrantDashboard = () => {
 
                     addFile(registrant.birthCertS3Link, 'birth_certificate.pdf');
                     addFile(registrant.examCertificateS3Link, 'exam_certificate.pdf');
+                    addFile(registrant.paymentProofS3Link, 'payment_proof.pdf');
                     addFile(registrant.pdfRepertoireS3Link, 'repertoire.pdf');
                     addFile(registrant.profilePhotoS3Link, 'profile_photo.jpg');
                 });

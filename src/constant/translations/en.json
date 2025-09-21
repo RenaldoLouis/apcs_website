@@ -192,15 +192,19 @@
             "birthCert": "Birth Certificate / Passport / Id",
             "repertoire": "Repertoire",
             "youtube": "YouTube Video Link",
+            "remark": "Remark",
             "youtubeNote": "Make sure to fill the title on YouTube with the format: APCSTSOA25 - (INSTRUMENT CATEGORIES) - (AGE CATEGORIES) - (FULL NAME) - (PIECE)",
+            "remarksNote": "Make sure this remark is the same in bank transfer.",
             "agreementText": "I acknowledge and agree that in order to join the APCS SOUND OF ASIA 2025 event, I will be in compliance with the terms and conditions, rules and regulations as well as the privacy policy of APCS MUSIC. I will be disqualified if I did not meet any requirement and did not obey the rules & regulations, terms & conditions and privacy policy that were given by APCS MUSIC.",
             "agree": "I agree to the terms and conditions.",
             "submit": "Submit",
             "examCertTooltip": "Please attach your latest exam certificate / essay of maximum 80 words in pdf if you are not joining any exams.",
             "profilePhotoTooltip": "Upload a clear, front-facing photo with good lighting. Avoid blurry or dark images.",
+            "paymentProofTooltip": "Please Upload payment proof with the correct remarks/notes/news with this format: (name - instrument - age category)",
             "birthCertTooltip": "Please attach your copy of Birth Certificate/Passport/KTP (identity card) in pdf.",
             "repertoireTooltip": "Please attach your PDF repertoire here.",
-            "traditionalInstrument": "Traditional Instrument"
+            "traditionalInstrument": "Traditional Instrument",
+            "paymentProof": "Payment Proof"
         },
         "ageCateogirs": {
             "child": "Child",
@@ -214,7 +218,9 @@
             "profilePhoto": "*Example: JohnDoe_ProfilePhoto.",
             "profilePhoto2": "*Use high-resolution images (at least 300 DPI or good smartphone quality) to ensure clarity.Low-quality or unclear photos may not be processed.",
             "fileFormatRepertoire": "*Example: JohnDoe_pdfRepertoire.",
-            "fileFormatBirthCert": "*Example: JohnDoe_birthCert."
+            "fileFormatBirthCert": "*Example: JohnDoe_birthCert.",
+            "paymentProof": "*Please make sure the remark in bank transfer and form below the same",
+            "paymentProof2": "*Remarks Example: johnDoe - Piano - Poco."
         },
         "errors": {
             "required": "This field is required",

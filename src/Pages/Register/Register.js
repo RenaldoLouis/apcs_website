@@ -36,10 +36,13 @@ import { PaymentStatus } from '../../constant/PaymentStatus';
 import { ageCategories, brassAgeCategoriesEnsemble, brassAgeCategoriesSolo, BrassInstrumentListEnsemble, BrassInstrumentListSolo, competitionList, ensembleAgeCategories, guitarAgeCategoriesEnsemble, guitarAgeCategoriesSolo, GuitarInstrumentListEnsemble, GuitarInstrumentListSolo, HarpInstrumentListEnsemble, HarpInstrumentListSolo, PercussionAgeCategoriesEnsemble, percussionAgeCategoriesSolo, PercussionInstrumentListEnsemble, PercussionInstrumentListSolo, PerformanceCategory, PianoInstrumentListEnsemble, PianoInstrumentListSolo, stringAgeCategoriesEnsemble, stringAgeCategoriesSolo, StringsInstrumentListEnsemble, StringsInstrumentListSolo, vocalAgeCategoriesEnsemble, vocalAgeCategoriesSolo, VocalInstrumentListEnsembleElaborated, VocalInstrumentListSolo, woodwinAgeCategoriesEnsemble, woodwinAgeCategoriesSolo, WoodwindInstrumentListEnsemble, WoodwindInstrumentListSolo } from '../../constant/RegisterPageConst';
 import { useAuth } from '../../context/DataContext';
 import { db } from '../../firebase';
+import SubmissionConfirmationModal from './SubmissionConfirmationModal';
+import WelcomeModalRegister from './WelcomeModalRegister';
 
 const Register = () => {
     const { t } = useTranslation();
     const examInputRef = useRef();
+    const paymentProofInputRef = useRef();
     const profilePhotoInputRef = useRef();
     const birthCertInputRef = useRef();
     const repertoireInputRef = useRef();
@@ -62,6 +65,8 @@ const Register = () => {
     const [totalPerformer, setTotalPerformer] = useState(1);
     const [progressLoading, setProgressLoading] = useState(10);
     const [youtubeDuration, setYoutubeDuration] = useState(0);
+    const [isWarningModalOpen, setIsWarningModalOpen] = useState(true);
+    const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
 
     const { unregister, setValue, watch, register, control, formState: { errors }, handleSubmit, reset, clearErrors } = useForm({
         defaultValues: {
@@ -72,6 +77,7 @@ const Register = () => {
             traditionalInstrument: "",
             name: "",
             youtubeLink: "",
+            remark: "",
             performers: [{
                 firstName: "",
                 lastName: "",
@@ -156,8 +162,17 @@ const Register = () => {
         if (targetElement) {
             targetElement.scrollIntoView({ behavior: "smooth", block: "center" });
             targetElement.focus?.({ preventScroll: true }); // preventScroll so it doesn't jump after scrolling
+            setIsConfirmModalOpen(false)
         }
     };
+
+    const handleCloseWarning = () => setIsWarningModalOpen(false);
+    const handleOpenConfirmationModal = (event) => {
+        if (!isSaveSuccess) {
+            event.preventDefault()
+            setIsConfirmModalOpen(true)
+        }
+    }
 
     const calculatePrice = async (data, isInternational) => {
         try {
@@ -249,7 +264,18 @@ const Register = () => {
 
     const onSubmit = async (data) => {
         try {
+            setIsConfirmModalOpen(false)
             setIsLoading(true)
+            const formattedDatePerformers = data?.performers.map((performer) => {
+                const formattedDate = performer?.dob?.format("DD/MM/YYYY") ?? null;
+
+                return { ...performer, dob: formattedDate, countryCode: performer.countryCode[0] }
+            })
+
+            if (formattedDatePerformers.length <= 0) {
+                throw new Error('No valid performer data found to process.');
+            }
+
             const now = new Date();
             const timestamp = now.toISOString().replace(/[-:.TZ]/g, "").slice(0, 14); // e.g. "20250512134501"
 
@@ -267,6 +293,18 @@ const Register = () => {
             });
             const profilePhotoS3Link = `s3://registrants2025/${directoryName}/profilePhoto.pdf`;
             setProgressLoading(10)
+
+            //save PaymentProof
+            const paymentProof = data.paymentProof[0]
+            const res1 = await apis.aws.postSignedUrl(directoryName, "paymentProof")
+            const signedUrl1 = res1.data.link
+            await axios.put(signedUrl1, paymentProof, {
+                headers: {
+                    'Content-Type': paymentProof.type, // Ensure this matches the file type
+                },
+            });
+            const paymentProofS3Link = `s3://registrants2025/${directoryName}/paymentProof.pdf`;
+            setProgressLoading(20)
 
             //save exam cert
             const pdfRepertoire = data.pdfRepertoire[0]
@@ -307,14 +345,6 @@ const Register = () => {
             const examCertificateS3Link = `s3://registrants2025/${directoryName}/examCertificate.pdf`;
             setProgressLoading(70)
 
-            // save data to Firebase
-            const formattedDatePerformers = data?.performers.map((performer) => {
-                const formattedDate = performer?.dob?.format("DD/MM/YYYY") ?? null;
-
-                return { ...performer, dob: formattedDate, countryCode: performer.countryCode[0] }
-            })
-
-
             const HUNGARY_COUNTRY_CODE = '+36';
             const IdCode = '+62';
             const isHungaryParticipant = watchedFieldsPerformer?.some(
@@ -337,9 +367,11 @@ const Register = () => {
                 performers: formattedDatePerformers,
                 name: data.name,
                 youtubeLink: data.youtubeLink,
+                remark: data.remark,
                 videoDuration: youtubeDuration ?? 0,
                 profilePhotoS3Link: profilePhotoS3Link,
                 pdfRepertoireS3Link: pdfRepertoireS3Link,
+                paymentProofS3Link: paymentProofS3Link,
                 birthCertS3Link: birthCertS3Link,
                 examCertificateS3Link: examCertificateS3Link,
                 createdAt: serverTimestamp(),
@@ -413,8 +445,14 @@ const Register = () => {
         if (examInputRef.current) {
             examInputRef.current.value = null;
         }
+        if (paymentProofInputRef.current) {
+            paymentProofInputRef.current.value = null;
+        }
         if (birthCertInputRef.current) {
             birthCertInputRef.current.value = null;
+        }
+        if (profilePhotoInputRef.current) {
+            profilePhotoInputRef.current.value = null;
         }
         if (repertoireInputRef.current) {
             repertoireInputRef.current.value = null;
@@ -946,7 +984,7 @@ const Register = () => {
                                 </li>
                             </ul>
                         </div>
-                        <form className="d-flex flex-column" onSubmit={handleSubmit(onSubmit, onError)}>
+                        <form className="d-flex flex-column" onSubmit={handleOpenConfirmationModal}>
                             <Box className="row">
                                 <Box className="col-md-8 col-sm-12">
                                     <FormControl component="fieldset" error={!!errors.userType}>
@@ -1757,6 +1795,49 @@ const Register = () => {
                             )}
 
 
+                            {/* Payment Proof */}
+                            <FileInput
+                                name="paymentProof"
+                                control={control}
+                                label={t("register.form.paymentProof")}
+                                smallNotes={<small className="note">{t("register.notes.paymentProof")}</small>}
+                                extraSmallNotes={<small className="note">{t("register.notes.paymentProof2")}</small>}
+                                rules={{ required: t("register.errors.required") }}
+                                tooltipLabel={t("register.form.paymentProofTooltip")}
+                                inputRef={paymentProofInputRef}
+                                setValue={setValue}
+                            />
+
+                            {/* Remarks */}
+                            <div className='d-flex' style={{ height: 86 }}>
+                                <Controller
+                                    name="remark"
+                                    control={control}
+                                    rules={{ required: t("register.errors.required") }}
+                                    render={({ field, fieldState: { error } }) => (
+                                        <TextField
+                                            {...field}
+                                            sx={{ mt: 2 }}
+                                            label={t("register.form.remark")}
+                                            variant="standard"
+                                            className="custom-textfield-full mb-4"
+                                            error={!!error}
+                                            helperText={error ? error.message : ""}
+                                        />
+                                    )}
+                                />
+
+                                <Tooltip title={
+                                    <div>
+                                        <p>{t("register.form.remarksNote")}</p>
+                                    </div>
+                                }>
+                                    <IconButton sx={{ color: "#e5cc92", fontSize: 16, mt: 1 }}>
+                                        <QuestionCircleOutlined />
+                                    </IconButton>
+                                </Tooltip>
+                            </div>
+
                             {/* Profile Picture Upload */}
                             <FileInput
                                 name="profilePhoto"
@@ -1951,6 +2032,12 @@ const Register = () => {
                                 </Button>
                             )}
                             <LoadingOverlay open={isLoading} progress={progressLoading} />
+
+                            <SubmissionConfirmationModal
+                                open={isConfirmModalOpen}
+                                onCancel={() => setIsConfirmModalOpen(false)}
+                                onConfirm={handleSubmit(onSubmit, onError)}
+                            />
                         </form>
                     </div>
                 </div>
@@ -1960,6 +2047,10 @@ const Register = () => {
                 onDurationFetched={(duration) => {
                     setYoutubeDuration(duration);
                 }}
+            />
+            <WelcomeModalRegister
+                open={isWarningModalOpen}
+                handleClose={handleCloseWarning}
             />
         </div >
 

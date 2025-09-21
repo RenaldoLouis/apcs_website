@@ -192,15 +192,19 @@
             "birthCert": "Akte Kelahiran / paspor / Id",
             "repertoire": "Repertoar",
             "youtube": "Link Video YouTube",
+            "remark": "Berita",
             "youtubeNote": "Pastikan judul video di YouTube mengikuti format: APCSTSOA25 - (KATEGORI INSTRUMEN) - (KATEGORI USIA) - (NAMA LENGKAP) - (JUDUL LAGU)",
+            "remarksNote": "Pastikan berita ini sama dengan berita di bank transfer.",
             "agreementText": "Saya memahami dan menyetujui bahwa untuk mengikuti acara APCS CLASSICAL FESTIVAL 2024, saya akan mematuhi syarat dan ketentuan, peraturan dan kebijakan privasi dari APCS MUSIC. Saya akan didiskualifikasi jika tidak memenuhi persyaratan dan tidak mematuhi aturan serta kebijakan yang telah ditetapkan.",
             "agree": "Saya setuju dengan syarat dan ketentuan.",
             "submit": "Kirim",
             "examCertTooltip": "Silakan lampirkan sertifikat ujian terbaru Anda / esai maksimal 80 kata dalam format PDF jika Anda tidak mengikuti ujian apa pun.",
             "profilePhotoTooltip": "Unggah foto dari depan yang jelas dan terang. Hindari gambar buram atau gelap.",
+            "paymentProofTooltip": "Mohon upload bukti transfer dengan berita yang benar dengan format : (name - instrument - kategori umur).",
             "birthCertTooltip": "Silakan lampirkan salinan Akta Kelahiran/Passport/KTP Anda dalam format PDF.",
             "repertoireTooltip": "Silakan lampirkan file PDF repertoar Anda di sini.",
-            "traditionalInstrument": "Instrumen Tradisional"
+            "traditionalInstrument": "Instrumen Tradisional",
+            "paymentProof": "Bukti Transfer"
         },
         "ageCateogirs": {
             "child": "Anak-anak",
@@ -211,10 +215,12 @@
         "notes": {
             "uploadCombined": "*Unggah sebagai satu file PDF gabungan untuk semua penampil. Pastikan nama file mencantumkan nama guru atau orang tua, atau salah satu nama siswa untuk keperluan identifikasi.",
             "fileFormatExam": "*Contoh: JohnDoe_examCert.",
-            "profilePhoto": "*Example: JohnDoe_ProfilePhoto.",
+            "profilePhoto": "*Contoh: JohnDoe_ProfilePhoto.",
             "profilePhoto2": "*Gunakan gambar beresolusi tinggi (minimal 300 DPI atau kualitas baik dari kamera ponsel) untuk memastikan kejernihan.Foto yang buram atau berkualitas rendah mungkin tidak akan diproses.",
             "fileFormatRepertoire": "*Contoh: JohnDoe_pdfRepertoire.",
-            "fileFormatBirthCert": "*Contoh: JohnDoe_birthCert."
+            "fileFormatBirthCert": "*Contoh: JohnDoe_birthCert.",
+            "paymentProof": "*Mohon pastikan berita di bank transfer dan form di bawah sama.",
+            "paymentProof2": "*Contoh berita: johnDoe - Piano - Poco."
         },
         "errors": {
             "required": "Bidang ini wajib diisi",
