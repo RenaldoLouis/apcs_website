@@ -204,7 +204,7 @@
             "birthCertTooltip": "Please attach your copy of Birth Certificate/Passport/KTP (identity card) in pdf.",
             "repertoireTooltip": "Please attach your PDF repertoire here.",
             "traditionalInstrument": "Traditional Instrument",
-            "paymentProof": "Payment Proof"
+            "paymentProof": "Upload Payment Proof"
         },
         "ageCateogirs": {
             "child": "Child",
@@ -219,7 +219,7 @@
             "profilePhoto2": "*Use high-resolution images (at least 300 DPI or good smartphone quality) to ensure clarity.Low-quality or unclear photos may not be processed.",
             "fileFormatRepertoire": "*Example: JohnDoe_pdfRepertoire.",
             "fileFormatBirthCert": "*Example: JohnDoe_birthCert.",
-            "paymentProof": "*Please make sure the remark in bank transfer and form below the same",
+            "paymentProof": "*Please upload your payment slip and make sure the remark on your bank transfer is the same as in this form.",
             "paymentProof2": "*Remarks Example: johnDoe - Piano - Poco."
         },
         "errors": {

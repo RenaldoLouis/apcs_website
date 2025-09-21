@@ -85,35 +85,38 @@ const FileInput = ({ name, control, label, rules = {}, tooltipLabel, smallNotes 
                 }}
                 style={{ display: "none" }}
             />
-            <label htmlFor={name} style={{ display: "block", marginTop: "25px", width: "fit-content" }}>
+            <label htmlFor={name} style={{ display: "block", marginTop: "25px", width: "fit-content", textWrap: "auto" }}>
                 <InputLabel
                     sx={{
                         color: "#e5cc92",
                         mb: 2,
                         "&.Mui-focused": { color: "#e5cc92 !important" },
+                        textWrap: "auto"
                     }}
                 >
-                    <div className='d-flex align-items-center' style={{ height: '16px' }}>
+
+                    {/* 1. Wrap the label in Typography to allow it to grow and shrink */}
+                    <Typography component="span" sx={{ flexGrow: 1, color: 'inherit', fontSize: 'inherit', lineHeight: '1.2' }}>
                         {label}
-                        <div>
-                            <Tooltip
-                                title={
-                                    <div>
-                                        <p>{tooltipLabel}</p>
-                                    </div>
-                                }
-                            >
-                                <IconButton sx={{ color: "#e5cc92", fontSize: 16 }}>
-                                    <QuestionCircleOutlined />
-                                </IconButton>
-                            </Tooltip>
-                        </div>
-                    </div>
-                    <div className='d-flex flex-column'>
+                    </Typography>
+
+                    {/* 2. The tooltip icon is now a flex item that won't be pushed down */}
+                    <Tooltip
+                        title={
+                            <div>
+                                <p>{tooltipLabel}</p>
+                            </div>
+                        }
+                    >
+                        <IconButton sx={{ color: "#e5cc92", fontSize: 16, p: '4px' }}>
+                            <QuestionCircleOutlined />
+                        </IconButton>
+                    </Tooltip>
+                    <Box sx={{ display: 'flex', flexDirection: 'column', mt: 1 }}>
                         {smallNotes}
                         {extraExtraSmallNotes}
                         {extraSmallNotes}
-                    </div>
+                    </Box>
                 </InputLabel>
                 <div className='d-flex align-items-center'>
                     <Button

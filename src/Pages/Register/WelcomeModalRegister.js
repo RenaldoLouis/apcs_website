@@ -41,16 +41,14 @@ const WelcomeModalRegister = ({ open, handleClose }) => {
                     <WarningOutlined style={{ fontSize: '48px', color: '#EBBC64', marginBottom: '16px' }} />
 
                     <Typography id="payment-warning-description" sx={{ color: '#ccc', mb: 3 }}>
-                        To ensure your payment is processed correctly, you <strong>MUST</strong> include your unique <strong>Payment Reference</strong> in the 'remarks', 'notes', or 'message' field of your bank transfer.
+                        Please include your <strong>Payment Reference</strong> in the <strong>remarks/notes/message </strong> of your bank transfer, and make sure it matches what you write in this form.
                     </Typography>
-                    <Typography id="payment-warning-description" sx={{ color: '#ccc', mb: 3 }}>
-                        And also make sure the remark that input in this form is the <strong>same</strong> with the remark on bank transfer!
-                    </Typography>
+
 
                     {/* Example Box */}
                     <Box sx={{ background: '#2A2A2A', padding: '12px 20px', borderRadius: '8px', mb: 3, width: '100%' }}>
                         <Typography variant="body2" sx={{ color: '#aaa', mb: 1 }}>
-                            Your unique reference will be shown on the final payment page. For example:
+                            Example:
                         </Typography>
                         <Typography sx={{ fontFamily: 'monospace', fontSize: '16px', color: '#fff' }}>
                             JohnDoe - Piano - Poco
@@ -61,7 +59,7 @@ const WelcomeModalRegister = ({ open, handleClose }) => {
                     </Box>
 
                     <Typography sx={{ color: '#ccc', mb: 3, fontStyle: 'italic', fontSize: '14px' }}>
-                        Forgetting this step will cause a significant delay and your registration may not be processed, even after payment.
+                        Without this, we may not be able to confirm your registration.
                     </Typography>
 
                     {/* Confirmation Button */}

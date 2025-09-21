@@ -204,7 +204,7 @@
             "birthCertTooltip": "Silakan lampirkan salinan Akta Kelahiran/Passport/KTP Anda dalam format PDF.",
             "repertoireTooltip": "Silakan lampirkan file PDF repertoar Anda di sini.",
             "traditionalInstrument": "Instrumen Tradisional",
-            "paymentProof": "Bukti Transfer"
+            "paymentProof": "Upload Bukti Transfer"
         },
         "ageCateogirs": {
             "child": "Anak-anak",

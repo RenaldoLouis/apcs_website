@@ -1809,34 +1809,44 @@ const Register = () => {
                             />
 
                             {/* Remarks */}
-                            <div className='d-flex' style={{ height: 86 }}>
-                                <Controller
-                                    name="remark"
-                                    control={control}
-                                    rules={{ required: t("register.errors.required") }}
-                                    render={({ field, fieldState: { error } }) => (
-                                        <TextField
-                                            {...field}
-                                            sx={{ mt: 2 }}
-                                            label={t("register.form.remark")}
-                                            variant="standard"
-                                            className="custom-textfield-full mb-4"
-                                            error={!!error}
-                                            helperText={error ? error.message : ""}
-                                        />
-                                    )}
-                                />
-
-                                <Tooltip title={
-                                    <div>
-                                        <p>{t("register.form.remarksNote")}</p>
-                                    </div>
-                                }>
-                                    <IconButton sx={{ color: "#e5cc92", fontSize: 16, mt: 1 }}>
-                                        <QuestionCircleOutlined />
-                                    </IconButton>
-                                </Tooltip>
-                            </div>
+                            <Box className="row">
+                                <Box sx={{
+                                    width: { xs: '83.33%', md: '33.33%' }, // 10/12 on mobile, 4/12 on desktop
+                                    paddingRight: 0
+                                }}>
+                                    <Controller
+                                        name="remark"
+                                        control={control}
+                                        rules={{ required: t("register.errors.required") }}
+                                        render={({ field, fieldState: { error } }) => (
+                                            <TextField
+                                                {...field}
+                                                sx={{ mt: 2 }}
+                                                label={t("register.form.remark")}
+                                                variant="standard"
+                                                className="custom-textfield-full mb-4"
+                                                error={!!error}
+                                                helperText={error ? error.message : ""}
+                                            />
+                                        )}
+                                    />
+                                </Box>
+                                <Box sx={{
+                                    width: { xs: '16.67%', md: '66.67%' }, // 2/12 on mobile, 8/12 on desktop
+                                    alignContent: "center",
+                                    paddingLeft: 0
+                                }}>
+                                    <Tooltip title={
+                                        <div>
+                                            <p>{t("register.form.remarksNote")}</p>
+                                        </div>
+                                    }>
+                                        <IconButton sx={{ color: "#e5cc92", fontSize: 16, mt: 1 }}>
+                                            <QuestionCircleOutlined />
+                                        </IconButton>
+                                    </Tooltip>
+                                </Box>
+                            </Box>
 
                             {/* Profile Picture Upload */}
                             <FileInput

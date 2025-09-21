@@ -73,6 +73,8 @@ export const getRegistrants2025Columns = (handleDownloadPDF, handleUpdateStatus,
             return "-";
         },
     },
+
+    { title: "Remark", dataIndex: "remark" },
     {
         title: 'Actions',
         key: 'actions',

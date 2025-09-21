@@ -1,6 +1,5 @@
-import React from 'react';
-import { Box, Modal, Typography } from '@mui/material';
 import { CloseOutlined, ExclamationCircleOutlined } from '@ant-design/icons';
+import { Box, Modal, Typography } from '@mui/material';
 import { Button, Divider, Space } from 'antd';
 
 const modalStyle = {
@@ -39,19 +38,19 @@ const SubmissionConfirmationModal = ({ open, onCancel, onConfirm, isLoading }) =
                 <Box sx={{ width: '100%' }}>
                     <ExclamationCircleOutlined style={{ fontSize: '32px', color: '#EBBC64', float: 'left', marginRight: '16px' }} />
                     <Typography sx={{ color: '#ccc' }}>
-                        Please take a final moment to review your registration. By submitting, you confirm that all information is correct.
+                        Before submitting, please review your registration carefully. Once submitted, your information cannot be changed.
                     </Typography>
                 </Box>
 
                 <Divider style={{ borderColor: '#444', margin: '20px 0' }} />
 
                 <Typography sx={{ color: '#fff', fontWeight: 'bold' }}>
-                    You Acknowledge That:
+                    <strong>  By submitting, you confirm that:</strong>
                 </Typography>
                 <ul style={{ color: '#ccc', paddingLeft: '20px', fontSize: '14px', marginTop: '10px' }}>
-                    <li>All names, categories, and submitted files are accurate and final.</li>
-                    <li>You are fully responsible for any errors in the data provided.</li>
-                    <li>Submissions with incorrect data (e.g., broken links, wrong category) may not be processed or judged, and entry fees for such cases will not be refunded.</li>
+                    <li>All details (name, category, and files) are correct.</li>
+                    <li>You are responsible for any mistakes or missing information.</li>
+                    <li>Incorrect submissions (e.g., wrong category, broken links) may not be accepted, and fees are non-refundable.</li>
                 </ul>
 
                 <Divider style={{ borderColor: '#444', margin: '20px 0' }} />
