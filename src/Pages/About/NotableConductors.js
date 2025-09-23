@@ -1,16 +1,14 @@
-import React from "react";
 // import textureBackground from "../../assets/images/textureBackground.png"
-import notableConductorBackground from "../../assets/images/notableConductorBackground.png"
-import wishnuProfile from "../../assets/images/wishnuProfile.svg"
-import chikita from "../../assets/images/chikita.svg"
-import nadyaAdvisor from "../../assets/images/nadyaAdvisor.svg"
-import HeaderTitle from "../../components/atom/HeaderTitle";
-import ConductorProfile from "../../components/molecules/ConductorProfile";
+import { useTranslation } from "react-i18next";
+import chikita from "../../assets/images/chikita.svg";
+import notableConductorBackground from "../../assets/images/notableConductorBackground.png";
+import wishnuProfile from "../../assets/images/wishnuProfile.svg";
 import AnimatedComponent from "../../components/atom/AnimatedComponent";
 import HeaderAbout from "../../components/atom/HeaderAbout";
+import HeaderTitle from "../../components/atom/HeaderTitle";
+import ConductorProfile from "../../components/molecules/ConductorProfile";
 import { CountryConst } from "../../constant/CountryConst";
 import { useAuth } from "../../context/DataContext";
-import { useTranslation } from "react-i18next";
 
 const NotableConductors = () => {
     const { isMobileAndSmaller } = useAuth();
@@ -76,7 +74,7 @@ const NotableConductors = () => {
                         </div>
                     </div>
 
-                    <div>
+                    {/* <div>
                         <HeaderTitle>
                             <HeaderAbout title={"ACADEMIC ADVISOR"} />
                         </HeaderTitle>
@@ -120,7 +118,7 @@ const NotableConductors = () => {
                                 </div>
                             </>
                         )}
-                    </div>
+                    </div> */}
                 </div>
             </div>
         </div >

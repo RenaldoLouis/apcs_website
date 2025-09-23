@@ -35,6 +35,7 @@ import jurist7 from "../../assets/images/jurists/jurist7.png";
 import jurist8 from "../../assets/images/jurists/jurist8.png";
 import jurist9 from "../../assets/images/jurists/jurist9.png";
 import koreaflag from "../../assets/images/koreaflag.jpg";
+import nadyaAdvisor from "../../assets/images/nadyaAdvisor.svg";
 import russiaflag from "../../assets/images/russiaflag.jpg"; //estonia
 import singaporeFlag from "../../assets/images/singaporeFlag.png";
 import turkeyFlag from "../../assets/images/turkeyFlag.png";
@@ -42,6 +43,7 @@ import AnimatedComponent from "../../components/atom/AnimatedComponent";
 import EllipsisText from "../../components/atom/EllipsisText";
 import HeaderAbout from "../../components/atom/HeaderAbout";
 import HeaderTitle from "../../components/atom/HeaderTitle";
+import ConductorProfile from "../../components/molecules/ConductorProfile";
 import { CountryConst } from "../../constant/CountryConst";
 import { useAuth } from "../../context/DataContext";
 import { flagIcon } from "../../utils/Utils";
@@ -301,6 +303,55 @@ const NotableJurist = () => {
                             </div>
                         </AnimatedComponent>
                     </div>
+
+                    <div className="text-align-center align-items-center col" style={{ paddingTop: 10 }}>
+                        {isMobileAndSmaller ? (
+                            <div >
+                                <div className="col" style={{ color: "white" }}>
+                                    <AnimatedComponent animationClass="animate__fadeInDown">
+                                        <img loading="lazy" src={nadyaAdvisor} style={{ width: "100%", height: "100%" }} alt="" />
+                                    </AnimatedComponent>
+                                </div>
+                                <ConductorProfile
+                                    title={"NADYA JANITRA"}
+                                    titleUser="Academic Advisor"
+                                    desc={t("about8")}
+                                    eventYear={'Jurist 2023'}
+                                    eventName={""}
+                                    country={CountryConst.IDN}
+                                    withSeeMore={true}
+                                    link={"https://www.instagram.com/p/CvEvFaOSOPl/?igsh=NGY1OXdlNDMwZnBw&img_index=2"}
+                                />
+                            </div>
+                        ) : (
+                            <div>
+                                <ConductorProfile
+                                    title={"NADYA JANITRA"}
+                                    titleUser="Academic Advisor"
+                                    desc={t("about8")}
+                                    eventYear={'Jurist 2023'}
+                                    eventName={""}
+                                    country={CountryConst.IDN}
+                                    withSeeMore={true}
+                                    link={"https://www.instagram.com/p/CvEvFaOSOPl/?igsh=NGY1OXdlNDMwZnBw&img_index=2"}
+                                />
+                                {/* <div className="col" style={{ color: "white" }}>
+                                    <AnimatedComponent animationClass="animate__fadeInDown">
+                                        <img loading="lazy" src={nadyaAdvisor} style={{ width: "100%", height: "100%" }} alt="" />
+                                    </AnimatedComponent>
+                                </div> */}
+                            </div>
+                        )}
+                    </div>
+                    {!isMobileAndSmaller && (
+                        <div className="col">
+                            <div className="col" style={{ color: "white" }}>
+                                <AnimatedComponent animationClass="animate__fadeInDown">
+                                    <img loading="lazy" src={nadyaAdvisor} style={{ width: "100%", height: "100%" }} alt="" />
+                                </AnimatedComponent>
+                            </div>
+                        </div>
+                    )}
                 </div>
 
                 <div className="text-align-justify align-items-start row" style={{ color: "white" }}>
