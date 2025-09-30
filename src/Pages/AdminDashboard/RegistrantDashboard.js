@@ -55,6 +55,9 @@ const RegistrantDashboard = () => {
     const [searchTeacherName, setSearchTeacherName] = useState('');
     const [competitionFilter, setCompetitionFilter] = useState(null);
 
+    const [isStatsModalVisible, setIsStatsModalVisible] = useState(false);
+    const [teacherStats, setTeacherStats] = useState([]);
+
     // 2. Pass the searchTerm to your updated hook
     const {
         allData,
@@ -113,6 +116,57 @@ const RegistrantDashboard = () => {
         setPerformanceFilter(value);
     };
 
+
+    // --- NEW FUNCTION to calculate and show teacher stats ---
+    const handleShowStatsModal = () => {
+        if (!allData || allData.length === 0) {
+            message.info("No data to generate statistics.");
+            return;
+        }
+
+        // Helper to get a consistent teacher name from a record
+        const getTeacherName = (registrant) => {
+            const name = registrant.teacherName || (registrant.userType === 'Teacher' ? registrant.name : null);
+            return name ? name.trim() : null;
+        };
+
+        // Use reduce to group registrations by teacher and count their performance types
+        const stats = allData.reduce((acc, registrant) => {
+            const teacher = getTeacherName(registrant);
+            if (teacher) {
+                // If we haven't seen this teacher before, initialize their entry
+                if (!acc[teacher]) {
+                    acc[teacher] = {
+                        key: teacher,
+                        teacherName: teacher,
+                        soloCount: 0,
+                        ensembleCount: 0,
+                    };
+                }
+
+                // Increment the count based on the performance category
+                const perfCategory = (registrant.PerformanceCategory || '').trim().toLowerCase();
+                if (perfCategory === 'solo') {
+                    acc[teacher].soloCount += 1;
+                } else if (perfCategory === 'ensemble') {
+                    acc[teacher].ensembleCount += 1;
+                }
+            }
+            return acc;
+        }, {});
+
+        // Convert the stats object to an array and sort by teacher name
+        const statsArray = Object.values(stats).sort((a, b) => a.teacherName.localeCompare(b.teacherName));
+
+        setTeacherStats(statsArray);
+        setIsStatsModalVisible(true);
+    };
+
+    const statsColumns = [
+        { title: 'Teacher Name', dataIndex: 'teacherName', key: 'teacherName', sorter: (a, b) => a.teacherName.localeCompare(b.teacherName) },
+        { title: 'Solo Registrations', dataIndex: 'soloCount', key: 'soloCount', sorter: (a, b) => a.soloCount - b.soloCount },
+        { title: 'Ensemble Registrations', dataIndex: 'ensembleCount', key: 'ensembleCount', sorter: (a, b) => a.ensembleCount - b.ensembleCount },
+    ];
 
     const handleDeleteRegistrant = async (recordId) => {
         setDeletingId(recordId);
@@ -227,6 +281,7 @@ const RegistrantDashboard = () => {
                 const sharedData = {
                     'Parent/Teacher Name': registrant.name,
                     'Teacher Name': registrant.teacherName,
+                    'Remark': registrant.remark,
                     'Competition Category': registrant.competitionCategory,
                     'Instrument Category': registrant.instrumentCategory,
                     'Age Category': registrant.ageCategory,
@@ -905,6 +960,10 @@ const RegistrantDashboard = () => {
                 >
                     Download All Documents
                 </Button>
+
+                <Button style={{ marginLeft: 8 }} onClick={handleShowStatsModal}>
+                    View Teacher Stats
+                </Button>
             </div>
             <Modal
                 title="Updating Video Durations"
@@ -965,6 +1024,23 @@ const RegistrantDashboard = () => {
                         </Form.Item>
                     </Form>
                 )}
+            </Modal>
+            <Modal
+                title="Teacher Registration Summary"
+                open={isStatsModalVisible}
+                onCancel={() => setIsStatsModalVisible(false)}
+                footer={[
+                    <Button key="close" onClick={() => setIsStatsModalVisible(false)}>
+                        Close
+                    </Button>
+                ]}
+                width={800}
+            >
+                <Table
+                    dataSource={teacherStats}
+                    columns={statsColumns}
+                    pagination={{ pageSize: 10 }}
+                />
             </Modal>
         </Content>
     )

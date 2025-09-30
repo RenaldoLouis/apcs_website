@@ -35,7 +35,7 @@ export const getRegistrants2025Columns = (handleDownloadPDF, handleUpdateStatus,
     { title: "Performance Category", dataIndex: "PerformanceCategory" },
     { title: "User Type", dataIndex: "userType" },
     { title: "Payment Status", dataIndex: "paymentStatus" },
-    { title: "Birth Cert", dataIndex: "birthCertS3Link" },
+    // { title: "Birth Cert", dataIndex: "birthCertS3Link" },
     {
         title: "Performers",
         dataIndex: "performers",

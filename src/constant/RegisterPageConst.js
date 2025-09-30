@@ -20,9 +20,9 @@ export const stringAgeCategoriesSolo = {
     Junior: "Junior (16-19 years old)",
     Professionals: "Professionals (19+ years old)",
     Youth: "Youth (20-23 years old)",
-    OpenAge: "Open Age (4+ years old)",
+    OpenAgeStrings: "Open Age (4+ years old)",
     FreeChoice: "Free Choice (4+ years old)",
-    Professional: "Professionals (19-30 years old)",
+    ProfessionalsStrings: "Professionals (19-30 years old)",
 }
 
 export const stringAgeCategoriesEnsemble = {

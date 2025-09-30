@@ -98,6 +98,7 @@
             "Junior": "Junior (16-19 years old)",
             "Youth": "Youth (20-23 years old)",
             "OpenAge": "Open Age (24+ years old)",
+            "OpenAgeStrings": "Open Age (4+ years old)",
             "FreeChoice": "Free Choice (4+ years old)",
             "JuniorEtude": "Junior Etude (4+ years old)",
             "ConcertEtude": "Concert Etude (4+ years old)",
@@ -143,7 +144,8 @@
             "Professionals": "Professionals (19+ years old)",
             "OpenAgeVocal": "Open Age (9+ years old)",
             "ProfessionalVocal": "Professional (19+ years old)",
-            "FreeChoiceVocal": "Free Choice (4+ years old)"
+            "FreeChoiceVocal": "Free Choice (4+ years old)",
+            "ProfessionalsStrings": "Professional (19-30 years old)"
         },
         "title": "REGISTRATION FORM",
         "description": {
