@@ -41,6 +41,7 @@ import WelcomeModalRegister from './WelcomeModalRegister';
 
 const Register = () => {
     const { t } = useTranslation();
+    const IdCode = '+62';
     const examInputRef = useRef();
     const paymentProofInputRef = useRef();
     const profilePhotoInputRef = useRef();
@@ -262,6 +263,18 @@ const Register = () => {
         }
     };
 
+    const isInternationalRegistrant = useMemo(() => {
+        // The calculation logic inside doesn't need to change.
+        if (!watchedFieldsPerformer) {
+            return false;
+        }
+        return watchedFieldsPerformer.some(
+            performer => performer?.countryCode?.[0] !== IdCode
+        );
+        // --- THIS IS THE FIX ---
+        // By stringifying the array, the dependency will now change whenever any value inside it changes.
+    }, [JSON.stringify(watchedFieldsPerformer), IdCode]);
+
     const onSubmit = async (data) => {
         try {
             setIsConfirmModalOpen(false)
@@ -294,16 +307,19 @@ const Register = () => {
             const profilePhotoS3Link = `s3://registrants2025/${directoryName}/profilePhoto.pdf`;
             setProgressLoading(10)
 
+            let paymentProofS3Link = ""
             //save PaymentProof
-            const paymentProof = data.paymentProof[0]
-            const res1 = await apis.aws.postSignedUrl(directoryName, "paymentProof")
-            const signedUrl1 = res1.data.link
-            await axios.put(signedUrl1, paymentProof, {
-                headers: {
-                    'Content-Type': paymentProof.type, // Ensure this matches the file type
-                },
-            });
-            const paymentProofS3Link = `s3://registrants2025/${directoryName}/paymentProof.pdf`;
+            if (!isInternationalRegistrant) {
+                const paymentProof = data.paymentProof[0]
+                const res1 = await apis.aws.postSignedUrl(directoryName, "paymentProof")
+                const signedUrl1 = res1.data.link
+                await axios.put(signedUrl1, paymentProof, {
+                    headers: {
+                        'Content-Type': paymentProof.type, // Ensure this matches the file type
+                    },
+                });
+                paymentProofS3Link = `s3://registrants2025/${directoryName}/paymentProof.pdf`;
+            }
             setProgressLoading(20)
 
             //save exam cert
@@ -346,7 +362,6 @@ const Register = () => {
             setProgressLoading(70)
 
             const HUNGARY_COUNTRY_CODE = '+36';
-            const IdCode = '+62';
             const isHungaryParticipant = watchedFieldsPerformer?.some(
                 performer => performer?.countryCode?.[0] === HUNGARY_COUNTRY_CODE
             );
@@ -367,7 +382,7 @@ const Register = () => {
                 performers: formattedDatePerformers,
                 name: data.name,
                 youtubeLink: data.youtubeLink,
-                remark: data.remark,
+                remark: data?.remark ?? "",
                 videoDuration: youtubeDuration ?? 0,
                 profilePhotoS3Link: profilePhotoS3Link,
                 pdfRepertoireS3Link: pdfRepertoireS3Link,
@@ -421,6 +436,7 @@ const Register = () => {
             if (isInternational) {
                 apis.email.sendEmailPaymentRequest(dataEmail).then((res) => {
                     if (res.status === 200) {
+                        toast.success("Succesfully Registered! Please check your email for payment information.")
                         setIsSaveSuccess(true)
                     } else {
                         throw new Error("Email payment sending failed with status " + res.status);
@@ -1795,58 +1811,62 @@ const Register = () => {
                             )}
 
 
-                            {/* Payment Proof */}
-                            <FileInput
-                                name="paymentProof"
-                                control={control}
-                                label={t("register.form.paymentProof")}
-                                smallNotes={<small className="note">{t("register.notes.paymentProof")}</small>}
-                                extraSmallNotes={<small className="note">{t("register.notes.paymentProof2")}</small>}
-                                rules={{ required: t("register.errors.required") }}
-                                tooltipLabel={t("register.form.paymentProofTooltip")}
-                                inputRef={paymentProofInputRef}
-                                setValue={setValue}
-                            />
 
-                            {/* Remarks */}
-                            <Box className="row">
-                                <Box sx={{
-                                    width: { xs: '83.33%', md: '33.33%' }, // 10/12 on mobile, 4/12 on desktop
-                                    paddingRight: 0
-                                }}>
-                                    <Controller
-                                        name="remark"
+                            {/* Payment Proof */}
+                            {!isInternationalRegistrant && (
+                                <>
+                                    < FileInput
+                                        name="paymentProof"
                                         control={control}
+                                        label={t("register.form.paymentProof")}
+                                        smallNotes={<small className="note">{t("register.notes.paymentProof")}</small>}
+                                        extraSmallNotes={<small className="note">{t("register.notes.paymentProof2")}</small>}
                                         rules={{ required: t("register.errors.required") }}
-                                        render={({ field, fieldState: { error } }) => (
-                                            <TextField
-                                                {...field}
-                                                sx={{ mt: 2 }}
-                                                label={t("register.form.remark")}
-                                                variant="standard"
-                                                className="custom-textfield-full mb-4"
-                                                error={!!error}
-                                                helperText={error ? error.message : ""}
-                                            />
-                                        )}
+                                        tooltipLabel={t("register.form.paymentProofTooltip")}
+                                        inputRef={paymentProofInputRef}
+                                        setValue={setValue}
                                     />
-                                </Box>
-                                <Box sx={{
-                                    width: { xs: '16.67%', md: '66.67%' }, // 2/12 on mobile, 8/12 on desktop
-                                    alignContent: "center",
-                                    paddingLeft: 0
-                                }}>
-                                    <Tooltip title={
-                                        <div>
-                                            <p>{t("register.form.remarksNote")}</p>
-                                        </div>
-                                    }>
-                                        <IconButton sx={{ color: "#e5cc92", fontSize: 16, mt: 1 }}>
-                                            <QuestionCircleOutlined />
-                                        </IconButton>
-                                    </Tooltip>
-                                </Box>
-                            </Box>
+
+                                    <Box className="row">
+                                        <Box sx={{
+                                            width: { xs: '83.33%', md: '33.33%' }, // 10/12 on mobile, 4/12 on desktop
+                                            paddingRight: 0
+                                        }}>
+                                            <Controller
+                                                name="remark"
+                                                control={control}
+                                                rules={{ required: t("register.errors.required") }}
+                                                render={({ field, fieldState: { error } }) => (
+                                                    <TextField
+                                                        {...field}
+                                                        sx={{ mt: 2 }}
+                                                        label={t("register.form.remark")}
+                                                        variant="standard"
+                                                        className="custom-textfield-full mb-4"
+                                                        error={!!error}
+                                                        helperText={error ? error.message : ""}
+                                                    />
+                                                )}
+                                            />
+                                        </Box>
+                                        <Box sx={{
+                                            width: { xs: '16.67%', md: '66.67%' }, // 2/12 on mobile, 8/12 on desktop
+                                            alignContent: "center",
+                                            paddingLeft: 0
+                                        }}>
+                                            <Tooltip title={
+                                                <div>
+                                                    <p>{t("register.form.remarksNote")}</p>
+                                                </div>
+                                            }>
+                                                <IconButton sx={{ color: "#e5cc92", fontSize: 16, mt: 1 }}>
+                                                    <QuestionCircleOutlined />
+                                                </IconButton>
+                                            </Tooltip>
+                                        </Box>
+                                    </Box>
+                                </>
+                            )}
 
                             {/* Profile Picture Upload */}
                             <FileInput
