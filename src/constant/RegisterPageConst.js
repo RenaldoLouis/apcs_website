@@ -18,7 +18,6 @@ export const stringAgeCategoriesSolo = {
     Primary: "Primary (8-11 years old)",
     Young: "Young (12-15 years old)",
     Junior: "Junior (16-19 years old)",
-    Professionals: "Professionals (19+ years old)",
     Youth: "Youth (20-23 years old)",
     OpenAgeStrings: "Open Age (4+ years old)",
     FreeChoice: "Free Choice (4+ years old)",
