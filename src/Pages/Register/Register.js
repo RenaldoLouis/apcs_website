@@ -178,7 +178,11 @@ const Register = () => {
     const calculatePrice = async (data, isInternational) => {
         try {
             // 1. Determine the document ID (e.g., "Piano" -> "piano")
-            const categoryId = data.competitionCategory.toLowerCase();
+            let categoryId = data.competitionCategory.toLowerCase();
+
+            if (categoryId === "percussions") {
+                categoryId = "percussion"
+            }
 
             // 2. Fetch the pricing rules for the entire category
             const priceDocRef = doc(db, 'Registration2025Fee', categoryId);
