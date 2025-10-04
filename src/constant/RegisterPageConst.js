@@ -36,7 +36,6 @@ export const vocalAgeCategoriesSolo = {
     YoungVocal: "Young (10-12 years old)",
     JuniorVocal: "Junior (13-15 years old)",
     YouthVocal: "Youth (16-19 years old)",
-    Professionals: "Professionals (19+ years old)",
     OpenAgeVocal: "Open Age (9+ years old)",
     ProfessionalVocal: "Professionals (19+ years old)",
     FreeChoiceVocal: "Free Choice (4+ years old)",

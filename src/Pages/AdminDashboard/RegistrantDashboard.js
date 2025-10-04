@@ -291,6 +291,7 @@ const RegistrantDashboard = () => {
                     'Video Duration': formatDuration(registrant.videoDuration),
                     'Repertoire PDF': registrant.pdfRepertoireS3Link,
                     'Birth Certificate': registrant.birthCertS3Link,
+                    'Payment Proof': registrant.paymentProofS3Link,
                     'Exam Certificate': registrant.examCertificateS3Link,
                     'Profile Photo': registrant.profilePhotoS3Link,
                     'Registration Date': registrant.createdAt ? new Date(registrant.createdAt.seconds * 1000).toLocaleString('en-GB') : '',
@@ -366,7 +367,8 @@ const RegistrantDashboard = () => {
                     'Repertoire PDF',
                     'Birth Certificate',
                     'Exam Certificate',
-                    'Profile Photo'
+                    'Profile Photo',
+                    'Payment Proof',
                 ];
 
                 dataForSheet.forEach(item => {
