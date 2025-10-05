@@ -62,40 +62,25 @@ const EVENT_SESSIONS_VENUE2 = [
 ];
 
 const venueLayoutConfigs = {
+    // JATAYU
     'Venue1': [
-        // Lento Section
-        { row: 'C', areaType: 'lento', seats: [[1, 28]] },
-        { row: 'D', areaType: 'lento', seats: [[1, 30]] },
-        { row: 'E', areaType: 'lento', seats: [[1, 30]] },
-        { row: 'F', areaType: 'lento', seats: [[1, 32]] },
-        { row: 'G', areaType: 'lento', seats: [[1, 32]] },
-        // Allegro Section
-        { row: 'H', areaType: 'allegro', seats: [[1, 34]] },
-        { row: 'J', areaType: 'allegro', seats: [[1, 34]] }, // Note: Row 'I' is skipped
-        { row: 'K', areaType: 'allegro', seats: [[1, 36]] },
-        { row: 'L', areaType: 'allegro', seats: [[1, 36]] },
-        { row: 'M', areaType: 'allegro', seats: [[1, 38]] },
-        { row: 'N', areaType: 'allegro', seats: [[1, 38]] },
         // Presto Section
-        { row: 'P', areaType: 'presto', seats: [[1, 39]] }, // Note: Row 'O' is skipped
-        { row: 'R', areaType: 'presto', seats: [[1, 39]] }, // Note: Row 'Q' is skipped
-        { row: 'S', areaType: 'presto', seats: [[1, 41]] },
-        { row: 'T', areaType: 'presto', seats: [[1, 41]] },
-        { row: 'U', areaType: 'presto', seats: [[1, 42]] },
-        { row: 'V', areaType: 'presto', seats: [[1, 43]] },
-        { row: 'W', areaType: 'presto', seats: [[1, 45]] },
-        { row: 'X', areaType: 'presto', seats: [[1, 9], [10, 18]] }, // Special case for the split row
+        { row: 'A', areaType: 'presto', seats: [[8, 23]] },
+        { row: 'B', areaType: 'presto', seats: [[8, 23]] },
+        { row: 'C', areaType: 'presto', seats: [[8, 23]] },
+        // Allegro Section
+        { row: 'C', areaType: 'allegro', seats: [[1, 7], [24, 30]] },
+        { row: 'D', areaType: 'allegro', seats: [[1, 30]] },
+        { row: 'E', areaType: 'allegro', seats: [[8, 23]] },
+        // Lento Section
+        { row: 'E', areaType: 'lento', seats: [[1, 7], [24, 30]] },
+        { row: 'F', areaType: 'lento', seats: [[1, 30]] },
     ],
     'Venue2': [
         // Lento Section
         { row: 'A', areaType: 'lento', seats: [[1, 28]] },
         { row: 'B', areaType: 'lento', seats: [[1, 30]] },
         { row: 'C', areaType: 'lento', seats: [[1, 30]] },
-        // Allegro Section
-        { row: 'D', areaType: 'allegro', seats: [[1, 34]] },
-        { row: 'E', areaType: 'allegro', seats: [[1, 34]] },
-        { row: 'F', areaType: 'allegro', seats: [[1, 36]] },
-        { row: 'G', areaType: 'allegro', seats: [[1, 36]] },
     ],
 };
 
@@ -182,7 +167,6 @@ export const uploadFullSeatLayout = async (eventId, venueId, sessions) => {
         }
 
         console.log("✅ Successfully uploaded all seat instances to Firestore!");
-        alert("Seat layout and availability for all sessions uploaded successfully!");
 
     } catch (error) {
         console.error("❌ Error uploading seat layout:", error);
@@ -294,39 +278,39 @@ const SeatingEvent = () => {
 
         const finalLayouts = {};
 
-        // 2. For each area, create the structured rows required by SeatPicker
-        for (const area in groupedByArea) {
-            // Group seats by their row letter (C, D, E, etc.)
-            const rowsObject = groupedByArea[area].reduce((acc, seat) => {
-                const row = seat.row;
-                if (!acc[row]) acc[row] = [];
-                acc[row].push(seat);
-                return acc;
-            }, {});
+        // --- THIS IS THE NEW SORTING LOGIC ---
+        // 1. Define your desired custom sort order.
+        const areaOrder = ['presto', 'allegro', 'lento'];
 
-            // 3. Sort the rows alphabetically (ensuring C comes before D, etc.)
-            const sortedRowKeys = Object.keys(rowsObject).sort();
+        // 2. Loop through your custom order array instead of the object keys.
+        areaOrder.forEach(area => {
+            // Make sure the area actually exists in your data before processing it
+            if (groupedByArea[area]) {
+                const rowsObject = groupedByArea[area].reduce((acc, seat) => {
+                    const row = seat.row;
+                    if (!acc[row]) acc[row] = [];
+                    acc[row].push(seat);
+                    return acc;
+                }, {});
 
-            // 4. Map over the sorted rows to create the final structure
-            finalLayouts[area] = sortedRowKeys.map(rowKey => {
-                const rowSeats = rowsObject[rowKey];
+                const sortedRowKeys = Object.keys(rowsObject).sort((a, b) => a.localeCompare(b));
 
-                // 5. Sort the seats within each row numerically (ensuring 1 comes before 10)
-                rowSeats.sort((a, b) => a.number - b.number);
+                finalLayouts[area] = sortedRowKeys.map(rowKey => {
+                    const rowSeats = rowsObject[rowKey];
+                    rowSeats.sort((a, b) => a.number - b.number);
+                    return rowSeats.map(seat => ({
+                        id: seat.id,
+                        number: seat.number,
+                        isReserved: seat.status !== 'available',
+                        tooltip: `Seat ${seat.seatLabel} - ${seat.areaType.charAt(0).toUpperCase() + seat.areaType.slice(1)}`
+                    }));
+                });
+            }
+        });
 
-                // 6. Map to the final object structure for SeatPicker
-                return rowSeats.map(seat => ({
-                    id: seat.id,
-                    number: seat.number, // The actual seat number for the label
-                    isReserved: seat.status !== 'available',
-                    // The tooltip can be helpful for admins/users
-                    tooltip: `Seat ${seat.seatLabel} - ${seat.areaType.charAt(0).toUpperCase() + seat.areaType.slice(1)}`
-                }));
-            });
-        }
         if (!seatLayout || seatLayout.length === 0) return {};
         return finalLayouts;
-    }, [seatLayout]);
+    }, [seatLayout, watchedFormData.venue]);
 
     // --- Form Submission ---
     const onFormSubmit = async (formData) => {

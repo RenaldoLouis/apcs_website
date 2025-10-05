@@ -111,11 +111,11 @@ const SelectSeatPage = () => {
     };
 
     const formattedLayouts = useMemo(() => {
-        if (!seatLayout || seatLayout.length === 0) return {};
+        // Make sure to add bookingData to the dependency array and check for it
+        if (!seatLayout || seatLayout.length === 0 || !bookingData) return {};
+
         const seatsForCorrectVenue = seatLayout.filter(seat => seat.venueId === bookingData.venue);
 
-
-        // 1. Group all seats by their area (lento, allegro, presto)
         const groupedByArea = seatsForCorrectVenue.reduce((acc, seat) => {
             const area = seat.areaType;
             if (!acc[area]) acc[area] = [];
@@ -125,39 +125,39 @@ const SelectSeatPage = () => {
 
         const finalLayouts = {};
 
-        // 2. For each area, create the structured rows required by SeatPicker
-        for (const area in groupedByArea) {
-            // Group seats by their row letter (C, D, E, etc.)
-            const rowsObject = groupedByArea[area].reduce((acc, seat) => {
-                const row = seat.row;
-                if (!acc[row]) acc[row] = [];
-                acc[row].push(seat);
-                return acc;
-            }, {});
+        // --- THIS IS THE SORTING LOGIC ---
+        // 1. Define your desired custom sort order.
+        const areaOrder = ['presto', 'allegro', 'lento'];
 
-            // 3. Sort the rows alphabetically (ensuring C comes before D, etc.)
-            const sortedRowKeys = Object.keys(rowsObject).sort();
+        // 2. Loop through your custom order array instead of the object keys.
+        areaOrder.forEach(area => {
+            // Make sure the area actually exists in your data before processing it
+            if (groupedByArea[area]) {
+                const rowsObject = groupedByArea[area].reduce((acc, seat) => {
+                    const row = seat.row;
+                    if (!acc[row]) acc[row] = [];
+                    acc[row].push(seat);
+                    return acc;
+                }, {});
 
-            // 4. Map over the sorted rows to create the final structure
-            finalLayouts[area] = sortedRowKeys.map(rowKey => {
-                const rowSeats = rowsObject[rowKey];
+                const sortedRowKeys = Object.keys(rowsObject).sort((a, b) => a.localeCompare(b));
 
-                // 5. Sort the seats within each row numerically (ensuring 1 comes before 10)
-                rowSeats.sort((a, b) => a.number - b.number);
-
-                // 6. Map to the final object structure for SeatPicker
-                return rowSeats.map(seat => ({
-                    id: seat.id,
-                    number: seat.number, // The actual seat number for the label
-                    isReserved: seat.status !== 'available',
-                    // The tooltip can be helpful for admins/users
-                    tooltip: `Seat ${seat.seatLabel} - ${seat.areaType.charAt(0).toUpperCase() + seat.areaType.slice(1)}`
-                }));
-            });
-        }
+                finalLayouts[area] = sortedRowKeys.map(rowKey => {
+                    const rowSeats = rowsObject[rowKey];
+                    rowSeats.sort((a, b) => a.number - b.number);
+                    return rowSeats.map(seat => ({
+                        id: seat.id,
+                        number: seat.number,
+                        isReserved: seat.status !== 'available',
+                        tooltip: `Seat ${seat.seatLabel} - ${seat.areaType.charAt(0).toUpperCase() + seat.areaType.slice(1)}`
+                    }));
+                });
+            }
+        });
+        // --- END OF SORTING LOGIC ---
 
         return finalLayouts;
-    }, [seatLayout]);
+    }, [seatLayout, bookingData]); // The dependency array must include bookingData
 
 
     // --- Conditional Rendering ---
