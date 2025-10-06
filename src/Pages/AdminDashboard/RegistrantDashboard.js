@@ -162,6 +162,51 @@ const RegistrantDashboard = () => {
         setIsStatsModalVisible(true);
     };
 
+    const handleExportTeacherStats = () => {
+        if (!teacherStats || teacherStats.length === 0) {
+            message.warn("No stats data to export.");
+            return;
+        }
+
+        message.info("Preparing teacher stats Excel file...");
+
+        const workbook = new ExcelJS.Workbook();
+        const worksheet = workbook.addWorksheet("Teacher Registration Stats");
+
+        // Define the headers for your table
+        worksheet.getRow(1).values = ['Teacher Name', 'Solo Registrations', 'Ensemble Registrations'];
+        worksheet.getRow(1).font = { bold: true };
+
+        // Add the data from your teacherStats array
+        teacherStats.forEach(stat => {
+            worksheet.addRow([
+                stat.teacherName,
+                stat.soloCount,
+                stat.ensembleCount
+            ]);
+        });
+
+        // Auto-fit columns
+        worksheet.columns.forEach(column => {
+            let maxLength = 0;
+            column.eachCell({ includeEmpty: true }, cell => {
+                const columnLength = cell.value ? cell.value.toString().length : 10;
+                if (columnLength > maxLength) {
+                    maxLength = columnLength;
+                }
+            });
+            column.width = maxLength < 15 ? 15 : maxLength + 2;
+        });
+
+        // Generate and download the file
+        workbook.xlsx.writeBuffer().then((buffer) => {
+            const blob = new Blob([buffer], {
+                type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+            });
+            FileSaver.saveAs(blob, "Teacher_Stats_2025.xlsx");
+        });
+    };
+
     const statsColumns = [
         { title: 'Teacher Name', dataIndex: 'teacherName', key: 'teacherName', sorter: (a, b) => a.teacherName.localeCompare(b.teacherName) },
         { title: 'Solo Registrations', dataIndex: 'soloCount', key: 'soloCount', sorter: (a, b) => a.soloCount - b.soloCount },
@@ -1034,6 +1079,9 @@ const RegistrantDashboard = () => {
                 footer={[
                     <Button key="close" onClick={() => setIsStatsModalVisible(false)}>
                         Close
+                    </Button>,
+                    <Button key="export" type="primary" onClick={handleExportTeacherStats}>
+                        Export to Excel
                     </Button>
                 ]}
                 width={800}
