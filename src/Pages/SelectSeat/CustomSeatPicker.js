@@ -2,17 +2,26 @@ import { Button, Tooltip, Typography } from 'antd';
 
 const { Text } = Typography;
 
-const CustomSeatPicker = ({ layout, selectedSeats, onSelect, onDeselect, maxSeats, isReadOnly = false }) => {
+const CustomSeatPicker = ({ layout, selectedSeats, onSelect, onDeselect, maxSeats, isReadOnly = false, onSeatClick = () => { } }) => {
 
     const handleSeatClick = (seat) => {
-        // If it's read-only, do nothing.
         if (isReadOnly) return;
 
-        const isSelected = selectedSeats?.some(s => s.id === seat.id);
+        // --- THIS IS THE NEW LOGIC ---
+        // If a specific onSeatClick function is provided, use it and stop.
+        // This is for the admin's "assign seat" feature.
+        if (onSeatClick) {
+            onSeatClick(seat);
+            return;
+        }
+        // --- END OF NEW LOGIC ---
+
+        // Otherwise, fall back to the original multi-selection logic for users.
+        const isSelected = selectedSeats.some(s => s.id === seat.id);
         if (isSelected) {
             onDeselect(seat);
         } else {
-            if (selectedSeats?.length < maxSeats) {
+            if (selectedSeats.length < maxSeats) {
                 onSelect(seat);
             }
         }

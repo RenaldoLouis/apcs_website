@@ -239,6 +239,7 @@ const SelectSeatPage = () => {
                                 onSelect={(seat) => handleSelectSeat(ticket.id, seat)}
                                 onDeselect={(seat) => handleDeselectSeat(ticket.id, seat)}
                                 maxSeats={ticket.seatQuantity}
+                                onSeatClick={null}
                             />
                         </div>
                         {/* --- END OF CUSTOM COMPONENT USAGE --- */}

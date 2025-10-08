@@ -18,7 +18,7 @@ import {
     Table,
     Typography
 } from 'antd';
-import { collection, doc, getDocs, query, where, writeBatch } from 'firebase/firestore';
+import { collection, doc, getDocs, query, updateDoc, where, writeBatch } from 'firebase/firestore';
 import { useEffect, useMemo, useState } from 'react';
 import { Controller, useFieldArray, useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
@@ -181,6 +181,11 @@ const SeatingEvent = () => {
     const { registrantDatas, loading: registrantsLoading } = usePaginatedRegistrants(9999, "Registrants2025", "createdAt");
     const { event, setLoading, loading: eventLoading, error } = useEventBookingData(eventId);
 
+    // --- NEW STATE for the assignment process ---
+    const [seatToAssign, setSeatToAssign] = useState(null); // Stores the seat that was clicked
+    const [isAssignModalOpen, setIsAssignModalOpen] = useState(false); // Controls the registrant modal
+    const [registrantToAssign, setRegistrantToAssign] = useState(null); // Stores the registrant selected in the modal
+
     // --- UI State (for modal, search, etc.) ---
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [tempSelectedRow, setTempSelectedRow] = useState(null);
@@ -301,8 +306,13 @@ const SeatingEvent = () => {
                     return rowSeats.map(seat => ({
                         id: seat.id,
                         number: seat.number,
+                        row: seat.row, // Pass the row letter for custom labels
                         isReserved: seat.status !== 'available',
-                        tooltip: `Seat ${seat.seatLabel} - ${seat.areaType.charAt(0).toUpperCase() + seat.areaType.slice(1)}`
+                        status: seat.status,
+                        // --- NEW TOOLTIP LOGIC ---
+                        tooltip: seat.status === 'reserved'
+                            ? `Reserved for: ${seat.assignedTo?.registrantName || 'N/A'}`
+                            : `Seat ${seat.seatLabel} - Available`,
                     }));
                 });
             }
@@ -380,6 +390,57 @@ const SeatingEvent = () => {
 
         return { items, total };
     }, [watchedFormData, event]);
+
+    // --- NEW HANDLERS for the assignment flow ---
+    const handleSeatClick = (seat) => {
+        console.log("seat", seat)
+        if (seat.status !== 'available') {
+            message.info(`Seat ${seat.seatLabel} is already reserved for ${seat.assignedTo?.registrantName || 'someone'}.`);
+            return;
+        }
+        setSeatToAssign(seat);
+        setIsAssignModalOpen(true);
+    };
+
+    const handleAssignModalCancel = () => {
+        setIsAssignModalOpen(false);
+        setSeatToAssign(null);
+        setRegistrantToAssign(null);
+    };
+
+    const handleAssignModalConfirm = async () => {
+        if (!seatToAssign || !registrantToAssign) {
+            message.error("No seat or registrant was selected.");
+            return;
+        }
+
+        message.loading({ content: 'Assigning seat...', key: 'assignSeat' });
+        try {
+            const docRef = doc(db, `seats${eventId}`, seatToAssign.id);
+
+            // Update the seat document in Firestore
+            await updateDoc(docRef, {
+                status: 'reserved',
+                assignedTo: {
+                    registrantId: registrantToAssign.id,
+                    registrantName: `${registrantToAssign.performers[0].firstName} ${registrantToAssign.performers[0].lastName}`
+                }
+            });
+
+            message.success({ content: `Seat ${seatToAssign.seatLabel} assigned successfully!`, key: 'assignSeat' });
+
+            // Refresh the seat map by re-fetching the data
+            // You might need to extract your `fetchSeatMap` logic into a useCallback
+            // For simplicity here, we'll just re-trigger it by briefly clearing state
+            setSeatLayout([]);
+            // This will cause the useEffect to re-fetch the updated seat map.
+
+            handleAssignModalCancel(); // Close and reset
+        } catch (error) {
+            console.error("Failed to assign seat:", error);
+            message.error({ content: 'Failed to assign seat.', key: 'assignSeat' });
+        }
+    };
 
     const handleUploadClick = async () => {
         setLoading(true);
@@ -538,6 +599,29 @@ const SeatingEvent = () => {
                         </Card>
                     )}
 
+                    {/* --- NEW CARD: Interactive Seat Map for Assignment --- */}
+                    {watchedFormData.session && (
+                        <Card title="Assign Registrant to Seat" style={{ marginTop: '24px' }}>
+                            {isSeatMapLoading ? (
+                                <div style={{ textAlign: 'center' }}><Spin /></div>
+                            ) : (
+                                <Space direction="vertical" style={{ width: '100%' }}>
+                                    {Object.keys(formattedSessionLayout).map(areaType => (
+                                        <div key={areaType}>
+                                            <Title level={5} style={{ textTransform: 'capitalize' }}>{areaType} Section</Title>
+                                            <div style={{ overflowX: 'auto', padding: '10px', background: '#fafafa', borderRadius: '8px' }}>
+                                                <CustomSeatPicker
+                                                    layout={formattedSessionLayout[areaType] || []}
+                                                    onSeatClick={handleSeatClick} // Pass the new handler
+                                                />
+                                            </div>
+                                        </div>
+                                    ))}
+                                </Space>
+                            )}
+                        </Card>
+                    )}
+
                     {/* --- Card 5: Optional Packages --- */}
                     <Card title="5. Optional Packages" style={{ marginBottom: '24px' }}>
                         <Controller
@@ -606,6 +690,28 @@ const SeatingEvent = () => {
                         { title: 'Instrument Category', key: 'instrumentCategory', render: (_, rec) => rec?.instrumentCategory },
                     ]}
                     dataSource={filteredData.map(item => ({ ...item, key: item.id }))}
+                    pagination={{ pageSize: 5 }}
+                />
+            </Modal>
+
+            <Modal
+                title={`Assign a Registrant to Seat ${seatToAssign?.seatLabel || ''}`}
+                open={isAssignModalOpen}
+                onOk={handleAssignModalConfirm}
+                onCancel={handleAssignModalCancel}
+                width={1000}
+                okText="Assign Seat"
+                okButtonProps={{ disabled: !registrantToAssign }}
+            >
+                <Input.Search placeholder="Search by performer name..." value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} style={{ marginBottom: 16 }} allowClear />
+                <Table
+                    rowSelection={{ type: 'radio', onChange: (_, selectedRows) => setRegistrantToAssign(selectedRows[0]) }}
+                    columns={[
+                        { title: 'Performer', key: 'performer', render: (_, rec) => `${rec?.performers[0]?.firstName} ${rec?.performers[0]?.lastName}` },
+                        { title: 'Email', key: 'email', render: (_, rec) => rec?.performers[0]?.email },
+                        { title: 'Instrument Category', key: 'instrumentCategory', render: (_, rec) => rec?.instrumentCategory },
+                    ]}
+                    dataSource={registrantDatas.map(item => ({ ...item, key: item.id }))}
                     pagination={{ pageSize: 5 }}
                 />
             </Modal>
