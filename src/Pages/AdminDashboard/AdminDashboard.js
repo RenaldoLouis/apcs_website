@@ -1,4 +1,5 @@
 import {
+    BookOutlined,
     DesktopOutlined,
     FileOutlined,
     PieChartOutlined,
@@ -13,6 +14,7 @@ import { useState } from 'react';
 import { useAuth } from '../../context/DataContext';
 // import { getAuth, signOut } from "firebase/auth";
 import AdminContent from './AdminContent';
+import GeneralSeat from './GeneralSeat';
 import MarketingContent from './MarketingContent';
 import RegistrantDashboard from './RegistrantDashboard';
 import SeatingEvent from './SeatEvent';
@@ -52,13 +54,14 @@ const AdminDashboard = () => {
         getItem('Registrant Data', '4', <DesktopOutlined />),
         getItem('Seating', '5', <UsergroupAddOutlined />),
         getItem('Seat Event', '6', <ReadOutlined />),
+        getItem('General Seat', '7', <BookOutlined />),
         getItem('User', 'sub1', <UserOutlined />, () => { }, [
-            getItem('Tom', '7'),
-            getItem('Bill', '8'),
-            getItem('Alex', '9'),
+            getItem('Tom', '8'),
+            getItem('Bill', '9'),
+            getItem('Alex', '10'),
         ]),
-        getItem('Team', 'sub2', <TeamOutlined />, () => { }, [getItem('Team 1', '10'), getItem('Team 2', '11')]),
-        getItem('Sign out', '12', <FileOutlined />, handleSignOut),
+        getItem('Team', 'sub2', <TeamOutlined />, () => { }, [getItem('Team 1', '11'), getItem('Team 2', '12')]),
+        getItem('Sign out', '13', <FileOutlined />, handleSignOut),
     ];
 
 
@@ -76,6 +79,8 @@ const AdminDashboard = () => {
                 return <SeatingContent />;
             case '6':
                 return <SeatingEvent />;
+            case '7':
+                return <GeneralSeat />;
             default:
                 return <UserContent />;
         }

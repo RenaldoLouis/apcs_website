@@ -7,7 +7,6 @@ import {
     Divider,
     Input,
     InputNumber,
-    List,
     message,
     Modal,
     Radio,
@@ -26,7 +25,7 @@ import apis from '../../apis';
 import { db } from '../../firebase';
 import { useEventBookingData } from '../../hooks/useEventBookingData';
 import usePaginatedRegistrants from '../../hooks/useFetchRegistrantsData';
-import CustomSeatPicker from '../SelectSeat/CustomSeatPicker';
+import CustomSeatPickerGeneral from '../SelectSeat/CustomSeatPickerGeneral';
 
 const { Title, Text, Paragraph } = Typography;
 
@@ -174,7 +173,7 @@ export const uploadFullSeatLayout = async (eventId, venueId, sessions) => {
     }
 };
 
-const SeatingEvent = () => {
+const GeneralSeat = () => {
     const eventId = "APCS2025";
 
     // --- Data Fetching Hooks ---
@@ -475,8 +474,8 @@ const SeatingEvent = () => {
 
     return (
         <form onSubmit={handleSubmit(onFormSubmit)}>
-            <Row gutter={[32, 32]} style={{ padding: '40px' }}>
-                <Col xs={24} md={14}>
+            <Row style={{ padding: '40px' }}>
+                <Col xs={24} md={24}>
                     <Title level={2}>{event.title}</Title>
                     <Paragraph>{new Date(event.date?.seconds * 1000).toLocaleDateString('en-GB', { /* ... */ })}</Paragraph>
                     <Divider />
@@ -575,31 +574,6 @@ const SeatingEvent = () => {
                         </Space>
                     </Card>
 
-                    {watchedFormData.session && (
-                        <Card title={`Live Seat Map for ${watchedFormData.session}`} style={{ marginTop: '24px' }}>
-                            {isSeatMapLoading ? (
-                                <div style={{ textAlign: 'center' }}><Spin /></div>
-                            ) : (
-                                <Space direction="vertical" style={{ width: '100%' }}>
-                                    {Object.keys(formattedSessionLayout).map(areaType => {
-                                        const layoutForPicker = formattedSessionLayout[areaType] || [];
-                                        return (
-                                            <div key={areaType}>
-                                                <Title level={5} style={{ textTransform: 'capitalize' }}>{areaType} Section</Title>
-                                                <div style={{ overflowX: 'auto', padding: '10px', background: '#fafafa', borderRadius: '8px' }}>
-                                                    <CustomSeatPicker
-                                                        layout={layoutForPicker}
-                                                        isReadOnly={true} // Set to read-only mode
-                                                    />
-                                                </div>
-                                            </div>
-                                        );
-                                    })}
-                                </Space>
-                            )}
-                        </Card>
-                    )}
-
                     {/* --- NEW CARD: Interactive Seat Map for Assignment --- */}
                     {watchedFormData.session && (
                         <Card title="Assign Registrant to Seat" style={{ marginTop: '24px' }}>
@@ -611,7 +585,7 @@ const SeatingEvent = () => {
                                         <div key={areaType}>
                                             <Title level={5} style={{ textTransform: 'capitalize' }}>{areaType} Section</Title>
                                             <div style={{ overflowX: 'auto', padding: '10px', background: '#fafafa', borderRadius: '8px' }}>
-                                                <CustomSeatPicker
+                                                <CustomSeatPickerGeneral
                                                     layout={formattedSessionLayout[areaType] || []}
                                                     onSeatClick={handleSeatClick} // Pass the new handler
                                                 />
@@ -638,36 +612,6 @@ const SeatingEvent = () => {
                                 </Checkbox.Group>
                             )}
                         />
-                    </Card>
-                </Col>
-
-                {/* --- Order Summary Column --- */}
-                <Col xs={24} md={10}>
-                    <Card style={{ position: 'sticky', top: '20px' }}>
-                        <Title level={4}>Order Summary</Title>
-                        <div style={{ marginBottom: '16px' }}>
-                            {watchedFormData.registrant && <Paragraph>For: <Text strong>{watchedFormData.registrant.name}</Text></Paragraph>}
-                            {watchedFormData.venue && <Paragraph>Venue: <Text strong>{venueOptions.find(v => v.value === watchedFormData.venue)?.label}</Text></Paragraph>}
-                            {watchedFormData.date && watchedFormData.session && <Paragraph>When: <Text strong>{new Date(watchedFormData.date).toLocaleDateString('id-ID')} at {watchedFormData.session}</Text></Paragraph>}
-                        </div>
-                        {orderSummary.items.length > 0 && <Divider style={{ margin: '0 0 16px 0' }} />}
-                        <List
-                            dataSource={orderSummary.items}
-                            renderItem={item => (
-                                <List.Item style={{ padding: '8px 0' }}>
-                                    <List.Item.Meta title={item.description} description={item.quantity > 1 ? `Quantity: ${item.quantity}` : null} />
-                                    <Text>${item.price}</Text>
-                                </List.Item>
-                            )}
-                        />
-                        <Divider />
-                        <Row justify="space-between">
-                            <Col><Title level={3}>Total</Title></Col>
-                            <Col><Title level={3}>${orderSummary.total}</Title></Col>
-                        </Row>
-                        <Button type="primary" size="large" block htmlType="submit">
-                            Send Email Link
-                        </Button>
                     </Card>
                 </Col>
             </Row>
@@ -720,4 +664,4 @@ const SeatingEvent = () => {
     );
 };
 
-export default SeatingEvent;
+export default GeneralSeat;
