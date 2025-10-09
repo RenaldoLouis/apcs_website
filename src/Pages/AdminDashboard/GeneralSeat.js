@@ -26,6 +26,7 @@ import { db } from '../../firebase';
 import { useEventBookingData } from '../../hooks/useEventBookingData';
 import usePaginatedRegistrants from '../../hooks/useFetchRegistrantsData';
 import CustomSeatPickerGeneral from '../SelectSeat/CustomSeatPickerGeneral';
+import WinnerEmailSender from './WinnerEmailSender';
 
 const { Title, Text, Paragraph } = Typography;
 
@@ -442,20 +443,6 @@ const GeneralSeat = () => {
         }
     };
 
-    const handleUploadClick = async () => {
-        setLoading(true);
-        message.info('Starting full seat layout upload for all venues and sessions...');
-
-        // Upload layout for Venue 1
-        await uploadFullSeatLayout('APCS2025', 'Venue1', EVENT_SESSIONS_VENUE1);
-
-        // Upload layout for Venue 2
-        await uploadFullSeatLayout('APCS2025', 'Venue2', EVENT_SESSIONS_VENUE2);
-
-        setLoading(false);
-        message.success('All layouts uploaded successfully!');
-    };
-
     const availableSession = useMemo(() => {
         if (watchedFormData.venue === "Venue1") {
             return availableSessionsVenue1
@@ -481,16 +468,7 @@ const GeneralSeat = () => {
                     <Divider />
 
                     <Card title="Admin Database Tools" style={{ margin: '40px' }}>
-                        <p>
-                            Use this tool to generate and upload the complete seat layout for an event.
-                            <strong>Warning:</strong> This will overwrite any existing seat data for the event.
-                        </p>
-                        <Button
-                            type="primary"
-                            onClick={handleUploadClick}
-                        >
-                            Generate & Upload Full Seat Layout
-                        </Button>
+                        <WinnerEmailSender />
                     </Card>
 
                     {/* --- Card 1: Registrant Selection --- */}
