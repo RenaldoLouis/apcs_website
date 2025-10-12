@@ -32,8 +32,8 @@ const { Title, Text, Paragraph } = Typography;
 
 // --- Component Constants ---
 const venueOptions = [
-    { value: 'Venue1', label: 'Venue 1' },
-    { value: 'Venue2', label: 'Venue 2 ' }
+    { value: 'Venue1', label: 'Jatayu' },
+    { value: 'Venue2', label: 'Melati' }
 ];
 
 const availableSessionsVenue1 = {
@@ -595,29 +595,6 @@ const SeatingEvent = () => {
                                             </div>
                                         );
                                     })}
-                                </Space>
-                            )}
-                        </Card>
-                    )}
-
-                    {/* --- NEW CARD: Interactive Seat Map for Assignment --- */}
-                    {watchedFormData.session && (
-                        <Card title="Assign Registrant to Seat" style={{ marginTop: '24px' }}>
-                            {isSeatMapLoading ? (
-                                <div style={{ textAlign: 'center' }}><Spin /></div>
-                            ) : (
-                                <Space direction="vertical" style={{ width: '100%' }}>
-                                    {Object.keys(formattedSessionLayout).map(areaType => (
-                                        <div key={areaType}>
-                                            <Title level={5} style={{ textTransform: 'capitalize' }}>{areaType} Section</Title>
-                                            <div style={{ overflowX: 'auto', padding: '10px', background: '#fafafa', borderRadius: '8px' }}>
-                                                <CustomSeatPicker
-                                                    layout={formattedSessionLayout[areaType] || []}
-                                                    onSeatClick={handleSeatClick} // Pass the new handler
-                                                />
-                                            </div>
-                                        </div>
-                                    ))}
                                 </Space>
                             )}
                         </Card>

@@ -1,4 +1,4 @@
-import { doc, getDoc } from 'firebase/firestore'; // The imports are correct for getting a single doc
+import { collection, getDocs, query } from 'firebase/firestore'; // Use collection and getDocs
 import { useCallback, useEffect, useState } from 'react';
 import { db } from '../firebase';
 
@@ -8,14 +8,14 @@ import { db } from '../firebase';
  * @param {string} documentId - The ID of the document to fetch.
  * @returns {object} An object containing the document data, loading state, and error state.
  */
-const useFetchSeatBookData = (collectionName, documentId) => {
-    const [userData, setUserData] = useState(null);
+const useFetchSeatBookData = (collectionName) => {
+    const [userBookData, setUserBookData] = useState([]); // Default to an empty array
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
     const fetchData = useCallback(async () => {
-        if (!documentId) {
-            setUserData(null);
+        if (!collectionName) {
+            setUserBookData([]);
             setLoading(false);
             return;
         }
@@ -24,30 +24,34 @@ const useFetchSeatBookData = (collectionName, documentId) => {
         setError(null);
 
         try {
-            const docRef = doc(db, collectionName, documentId);
-            const docSnap = await getDoc(docRef);
+            // 1. Create a reference to the entire collection
+            const collectionRef = collection(db, collectionName);
+            const q = query(collectionRef); // You can add 'orderBy' here if needed
 
-            if (docSnap.exists()) {
-                // --- THIS IS THE FIX ---
-                // Changed from the incorrect 'docSnap.userData()' to the correct 'docSnap.data()'
-                setUserData({ id: docSnap.id, ...docSnap.data() });
-            } else {
-                setError("Document not found.");
-                setUserData(null);
-            }
+            // 2. Fetch all documents in the collection
+            const querySnapshot = await getDocs(q);
+
+            // 3. Map over the results to get an array of data
+            const documents = querySnapshot.docs.map(doc => ({
+                id: doc.id,
+                ...doc.data()
+            }));
+
+            setUserBookData(documents);
+
         } catch (err) {
-            console.error("Error getting document:", err);
+            console.error("Error getting collection:", err);
             setError(err.message);
         } finally {
             setLoading(false);
         }
-    }, [collectionName, documentId]);
+    }, [collectionName]);
 
     useEffect(() => {
         fetchData();
     }, [fetchData]);
 
-    return { userData, loading, error, refetch: fetchData };
+    return { userBookData, loading, error, refetch: fetchData };
 };
 
 export default useFetchSeatBookData;

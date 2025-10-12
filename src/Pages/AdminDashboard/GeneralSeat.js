@@ -32,8 +32,8 @@ const { Title, Text, Paragraph } = Typography;
 
 // --- Component Constants ---
 const venueOptions = [
-    { value: 'Venue1', label: 'Venue 1' },
-    { value: 'Venue2', label: 'Venue 2 ' }
+    { value: 'Venue1', label: 'Jatayu' },
+    { value: 'Venue2', label: 'Melati' }
 ];
 
 const availableSessionsVenue1 = {
@@ -193,6 +193,7 @@ const GeneralSeat = () => {
 
     const [seatLayout, setSeatLayout] = useState([]); // This will hold the single, flat list from the backend
     const [isSeatMapLoading, setIsSeatMapLoading] = useState(false);
+    // const { userBookData, loading, error: seatBookError, refetch } = useFetchSeatBookData("seatBook2025");
 
     // --- React Hook Form Initialization ---
     const { control, handleSubmit, watch, setValue } = useForm({
@@ -267,6 +268,54 @@ const GeneralSeat = () => {
 
         fetchSeatMap();
     }, [watchedFormData.venue, watchedFormData.date, watchedFormData.session]);
+
+    const runGeneralSeatingCampaign = async () => {
+        console.log("Starting general seating email campaign...");
+
+        try {
+            // 1. Fetch all documents from 'seatBook2025' that have NOT had an email sent yet.
+            const q = query(
+                collection(db, "seatBook2025"),
+                where("isEmailSent", "!=", true)
+            );
+            const querySnapshot = await getDocs(q);
+
+            const bookingsToSend = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+
+            if (bookingsToSend.length === 0) {
+                console.log("No new bookings found that need a general seating email. Exiting.");
+                return;
+            }
+
+            console.log(`Found ${bookingsToSend.length} bookings to process.`);
+
+            let successCount = 0;
+            const batch = writeBatch(db); // Create a batch to update documents in Firestore
+
+            // 2. Loop through each booking, send the email, and update the document
+            for (const booking of bookingsToSend) {
+                const emailSent = await apis.email.sendGeneralSeatingEmail(booking);
+
+                // If the email was sent successfully, mark it in Firestore
+                if (emailSent) {
+                    successCount++;
+                    const docRef = doc(db, "seatBook2025", booking.id);
+                    batch.update(docRef, { isEmailSent: true });
+                }
+
+                // Add a small delay to avoid overwhelming the email server
+                await new Promise(resolve => setTimeout(resolve, 500));
+            }
+
+            // 3. Commit all the Firestore updates at once
+            await batch.commit();
+
+            console.log(`🎉 Campaign finished! Successfully sent ${successCount} emails.`);
+
+        } catch (error) {
+            console.error("An error occurred during the campaign:", error);
+        }
+    };
 
     const formattedSessionLayout = useMemo(() => {
         if (!seatLayout || seatLayout.length === 0) return {};
@@ -469,6 +518,7 @@ const GeneralSeat = () => {
 
                     <Card title="Admin Database Tools" style={{ margin: '40px' }}>
                         <WinnerEmailSender />
+                        <Button type="primary" onClick={runGeneralSeatingCampaign}>Select Registrant</Button>
                     </Card>
 
                     {/* --- Card 1: Registrant Selection --- */}

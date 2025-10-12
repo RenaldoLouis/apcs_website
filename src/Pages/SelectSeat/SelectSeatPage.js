@@ -18,7 +18,6 @@ const SelectSeatPage = () => {
     const [bookingData, setBookingData] = useState(null);
     const [seatLayout, setSeatLayout] = useState([]); // This will hold the single, flat list from the backend
     const [isLoading, setIsLoading] = useState(false);
-    // const { userData, loading, error, refetch } = useFetchSeatBookData("seatBook2025", documentId,);
 
     // State to hold selections for EACH ticket type separately
     const [selections, setSelections] = useState({});
