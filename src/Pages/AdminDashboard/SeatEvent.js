@@ -601,7 +601,7 @@ const SeatingEvent = () => {
                     )}
 
                     {/* --- Card 5: Optional Packages --- */}
-                    <Card title="5. Optional Packages" style={{ marginBottom: '24px' }}>
+                    {/* <Card title="5. Optional Packages" style={{ marginBottom: '24px' }}>
                         <Controller
                             name="addOns"
                             control={control}
@@ -615,7 +615,7 @@ const SeatingEvent = () => {
                                 </Checkbox.Group>
                             )}
                         />
-                    </Card>
+                    </Card> */}
                 </Col>
 
                 {/* --- Order Summary Column --- */}

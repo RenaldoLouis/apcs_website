@@ -17,7 +17,7 @@ import {
     Table,
     Typography
 } from 'antd';
-import { collection, doc, getDocs, query, updateDoc, where, writeBatch } from 'firebase/firestore';
+import { collection, doc, getDocs, query, runTransaction, serverTimestamp, where, writeBatch } from 'firebase/firestore';
 import { useEffect, useMemo, useState } from 'react';
 import { Controller, useFieldArray, useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
@@ -26,7 +26,6 @@ import { db } from '../../firebase';
 import { useEventBookingData } from '../../hooks/useEventBookingData';
 import usePaginatedRegistrants from '../../hooks/useFetchRegistrantsData';
 import CustomSeatPickerGeneral from '../SelectSeat/CustomSeatPickerGeneral';
-import WinnerEmailSender from './WinnerEmailSender';
 
 const { Title, Text, Paragraph } = Typography;
 
@@ -44,134 +43,6 @@ const availableSessionsVenue1 = {
 const availableSessionsVenue2 = {
     '2025-08-25': ['09:00-10:00', '11:00-12:00'],
     '2025-08-26': ['10:00-11:00', '13:00-14:00'],
-};
-
-const EVENT_SESSIONS_VENUE1 = [
-    "2025-08-25_09:00-10:00",
-    "2025-08-25_11:00-12:00",
-    "2025-08-25_14:00-15:00",
-    "2025-08-26_10:00-11:00",
-    "2025-08-26_13:00-14:00",
-];
-
-const EVENT_SESSIONS_VENUE2 = [
-    "2025-08-25_09:00-10:00",
-    "2025-08-25_11:00-12:00",
-    "2025-08-26_10:00-11:00",
-    "2025-08-26_13:00-14:00",
-];
-
-const venueLayoutConfigs = {
-    // JATAYU
-    'Venue1': [
-        // Presto Section
-        { row: 'A', areaType: 'presto', seats: [[8, 23]] },
-        { row: 'B', areaType: 'presto', seats: [[8, 23]] },
-        { row: 'C', areaType: 'presto', seats: [[8, 23]] },
-        // Allegro Section
-        { row: 'C', areaType: 'allegro', seats: [[1, 7], [24, 30]] },
-        { row: 'D', areaType: 'allegro', seats: [[1, 30]] },
-        { row: 'E', areaType: 'allegro', seats: [[8, 23]] },
-        // Lento Section
-        { row: 'E', areaType: 'lento', seats: [[1, 7], [24, 30]] },
-        { row: 'F', areaType: 'lento', seats: [[1, 30]] },
-    ],
-    'Venue2': [
-        // Lento Section
-        { row: 'A', areaType: 'lento', seats: [[1, 28]] },
-        { row: 'B', areaType: 'lento', seats: [[1, 30]] },
-        { row: 'C', areaType: 'lento', seats: [[1, 30]] },
-    ],
-};
-
-/**
- * Generates a flat array of seat objects for a single section's layout.
- * @returns {Array<object>} An array of seat "template" objects.
- */
-const generateSeatLayoutTemplates = (venueId) => {
-    const seatLayoutConfig = venueLayoutConfigs[venueId];
-    if (!seatLayoutConfig) {
-        console.error(`No layout configuration found for venueId: ${venueId}`);
-        return [];
-    }
-
-    const seats = [];
-    seatLayoutConfig.forEach(config => {
-        const { row, areaType, seats: seatRanges } = config;
-        seatRanges.forEach(range => {
-            const [start, end] = range;
-            for (let number = start; number <= end; number++) {
-                seats.push({
-                    seatLabel: `${row}${number}`,
-                    areaType,
-                    row,
-                    number,
-                });
-            }
-        });
-    });
-    return seats;
-};
-
-
-/**
- * Generates and uploads the full seat availability for all sessions of an event.
- * WARNING: This will CREATE OR OVERWRITE all seat data for the specified event and sessions.
- * @param {string} eventId - The ID of the event.
- * @param {Array<string>} sessions - An array of session identifiers (e.g., "2025-08-25_09:00-10:00").
- */
-export const uploadFullSeatLayout = async (eventId, venueId, sessions) => {
-    console.log(`Starting to generate seat availability for event: ${eventId}`);
-    if (!sessions || sessions.length === 0) {
-        console.error("No sessions provided.");
-        alert("Error: No sessions provided to generate seats for.");
-        return;
-    }
-
-    try {
-        // 1. Get the physical layout of the venue
-        const seatTemplates = generateSeatLayoutTemplates(venueId);
-        const allSeatInstances = [];
-
-        // 2. Create a unique document for EACH seat in EACH session
-        for (const sessionId of sessions) {
-            for (const seatTemplate of seatTemplates) {
-                const documentId = `${seatTemplate.areaType}-${seatTemplate.seatLabel}_${eventId}_${sessionId}`;
-
-                allSeatInstances.push({
-                    id: documentId, // For the batch operation
-                    eventId: eventId,
-                    venueId, // Add the venueId to each document
-                    sessionId: sessionId,
-                    status: 'available',
-                    ...seatTemplate
-                });
-            }
-        }
-        console.log(`Generated a total of ${allSeatInstances.length} seat instances across ${sessions.length} sessions.`);
-
-        // 3. Use Batched Writes to upload the data efficiently
-        const batchSize = 499;
-        for (let i = 0; i < allSeatInstances.length; i += batchSize) {
-            const batch = writeBatch(db);
-            const chunk = allSeatInstances.slice(i, i + batchSize);
-
-            console.log(`Preparing batch ${Math.floor(i / batchSize) + 1}...`);
-            chunk.forEach(seat => {
-                const docRef = doc(db, `seats${eventId}`, seat.id);
-                batch.set(docRef, seat);
-            });
-
-            console.log("Committing batch...");
-            await batch.commit();
-        }
-
-        console.log("✅ Successfully uploaded all seat instances to Firestore!");
-
-    } catch (error) {
-        console.error("❌ Error uploading seat layout:", error);
-        alert(`An error occurred: ${error.message}`);
-    }
 };
 
 const GeneralSeat = () => {
@@ -463,32 +334,89 @@ const GeneralSeat = () => {
             return;
         }
 
-        message.loading({ content: 'Assigning seat...', key: 'assignSeat' });
+        message.loading({ content: 'Assigning seat and updating booking...', key: 'assignSeat' });
         try {
-            const docRef = doc(db, `seats${eventId}`, seatToAssign.id);
-
-            // Update the seat document in Firestore
-            await updateDoc(docRef, {
-                status: 'reserved',
-                assignedTo: {
-                    registrantId: registrantToAssign.id,
-                    registrantName: `${registrantToAssign.performers[0].firstName} ${registrantToAssign.performers[0].lastName}`,
-                    registrantEmail: registrantToAssign.performers[0].email // Add the email here
+            await runTransaction(db, async (transaction) => {
+                // --- 1. Check the seat's availability ---
+                const seatDocRef = doc(db, `seats${eventId}`, seatToAssign.id);
+                const seatDoc = await transaction.get(seatDocRef);
+                if (!seatDoc.exists() || seatDoc.data().status !== 'available') {
+                    throw new Error(`Sorry, seat ${seatToAssign.seatLabel} is no longer available.`);
                 }
+
+                // --- 2. Query to find an existing booking document ---
+                const sessionId = `${watchedFormData.date}_${watchedFormData.session}`;
+                const bookingQuery = query(
+                    collection(db, "seatBook2025"),
+                    where("userId", "==", registrantToAssign.id),
+                    where("venue", "==", watchedFormData.venue),
+                    where("userEmail", "==", registrantToAssign.performers[0].email)
+                ); const bookingQuerySnap = await getDocs(bookingQuery);
+
+                let bookingId;
+
+                if (!bookingQuerySnap.empty) {
+                    // --- UPDATE PATH: Booking already exists ---
+                    const bookingDocRef = bookingQuerySnap.docs[0].ref;
+                    const bookingData = bookingQuerySnap.docs[0].data();
+                    bookingId = bookingDocRef.id;
+
+                    const updatedSelectedSeats = [...(bookingData.selectedSeats || []), seatToAssign.id];
+
+                    // You might also want to update the tickets array here if needed
+                    // For now, we'll focus on just adding the seat
+
+                    transaction.update(bookingDocRef, {
+                        seatsSelected: true,
+                        selectedSeats: updatedSelectedSeats,
+                        isEmailSent: false
+                    });
+
+                } else {
+                    // --- CREATE PATH: Create a new booking document ---
+                    const newBookingDocRef = doc(collection(db, "seatBook2025"));
+                    bookingId = newBookingDocRef.id;
+
+                    // Get the details for the ticket type we are assigning
+
+                    const newBookingData = {
+                        eventId,
+                        userId: registrantToAssign.id,
+                        userName: `${registrantToAssign.performers[0].firstName} ${registrantToAssign.performers[0].lastName}`,
+                        userEmail: registrantToAssign.performers[0].email,
+                        venue: watchedFormData.venue,
+                        date: watchedFormData.date,
+                        session: watchedFormData.session,
+                        createdAt: serverTimestamp(),
+                        seatsSelected: true,
+                        selectedSeats: [seatToAssign.id],
+                        isEmailSent: false,
+                        tickets: [
+                        ],
+                        addOns: [],
+                    };
+                    transaction.set(newBookingDocRef, newBookingData);
+                }
+
+                transaction.update(seatDocRef, {
+                    status: 'reserved',
+                    bookingId: bookingId,
+                    assignedTo: {
+                        registrantId: registrantToAssign.id,
+                        registrantName: `${registrantToAssign.performers[0].firstName} ${registrantToAssign.performers[0].lastName}`,
+                        registrantEmail: registrantToAssign.performers[0].email
+                    }
+                });
             });
 
-            message.success({ content: `Seat ${seatToAssign.seatLabel} assigned successfully!`, key: 'assignSeat' });
+            message.success({ content: `Seat ${seatToAssign.seatLabel} assigned! The booking is now queued for the next email campaign.`, key: 'assignSeat' });
 
-            // Refresh the seat map by re-fetching the data
-            // You might need to extract your `fetchSeatMap` logic into a useCallback
-            // For simplicity here, we'll just re-trigger it by briefly clearing state
-            setSeatLayout([]);
-            // This will cause the useEffect to re-fetch the updated seat map.
+            setSeatLayout([]); // Trigger a refresh
+            handleAssignModalCancel();
 
-            handleAssignModalCancel(); // Close and reset
         } catch (error) {
             console.error("Failed to assign seat:", error);
-            message.error({ content: 'Failed to assign seat.', key: 'assignSeat' });
+            message.error({ content: error.message || 'Failed to assign seat.', key: 'assignSeat' });
         }
     };
 
@@ -517,8 +445,8 @@ const GeneralSeat = () => {
                     <Divider />
 
                     <Card title="Admin Database Tools" style={{ margin: '40px' }}>
-                        <WinnerEmailSender />
-                        <Button type="primary" onClick={runGeneralSeatingCampaign}>Select Registrant</Button>
+                        {/* <WinnerEmailSender /> */}
+                        <Button type="primary" onClick={runGeneralSeatingCampaign}>Send Email General</Button>
                     </Card>
 
                     {/* --- Card 1: Registrant Selection --- */}
