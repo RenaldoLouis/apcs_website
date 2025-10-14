@@ -1,7 +1,7 @@
 import { Button, Card, message } from 'antd';
-import React, { useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import * as xlsx from 'xlsx';
-import apis from '../../apis'; // Your API handler
+import apis from '../../apis';
 
 const WinnerEmailSender = () => {
     const [isLoading, setIsLoading] = useState(false);
@@ -27,7 +27,11 @@ const WinnerEmailSender = () => {
                 const workbook = xlsx.read(data, { type: 'array' });
                 const sheetName = workbook.SheetNames[0];
                 const worksheet = workbook.Sheets[sheetName];
-                const winnerList = xlsx.utils.sheet_to_json(worksheet);
+                const winnerListRaw = xlsx.utils.sheet_to_json(worksheet);
+
+                const winnerList = winnerListRaw.filter(winner => {
+                    return winner.Name && winner.Email && winner.AWARDS;
+                });
 
                 if (winnerList.length === 0) {
                     message.error({ content: 'The selected file is empty or in the wrong format.', key: 'emailCampaign' });
