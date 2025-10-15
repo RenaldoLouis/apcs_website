@@ -26,6 +26,7 @@ import { db } from '../../firebase';
 import { useEventBookingData } from '../../hooks/useEventBookingData';
 import usePaginatedRegistrants from '../../hooks/useFetchRegistrantsData';
 import CustomSeatPickerGeneral from '../SelectSeat/CustomSeatPickerGeneral';
+import SessionEmailSender from './SessionEmailSender';
 
 const { Title, Text, Paragraph } = Typography;
 
@@ -446,6 +447,7 @@ const GeneralSeat = () => {
 
                     <Card title="Admin Database Tools" style={{ margin: '40px' }}>
                         {/* <WinnerEmailSender /> */}
+                        <SessionEmailSender />
                         <Button type="primary" onClick={runGeneralSeatingCampaign}>Send Email General</Button>
                     </Card>
 
