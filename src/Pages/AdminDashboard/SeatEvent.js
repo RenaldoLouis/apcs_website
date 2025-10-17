@@ -337,11 +337,19 @@ const SeatingEvent = () => {
 
     // --- Form Submission ---
     const onFormSubmit = async (formData) => {
-        const tickets = formData.tickets.filter(t => t.quantity > 0)
         if (!formData.registrant) {
             message.error('Please select a registrant');
             return;
         }
+
+        const sanitizedTickets = formData.tickets.map(ticket => {
+            // 2. If 'wantsSeat' is false, create a new object with seatQuantity set to 0.
+            if (!ticket.wantsSeat) {
+                return { ...ticket, seatQuantity: 0 };
+            }
+            // 3. Otherwise, return the ticket as is.
+            return ticket;
+        });
 
         const bookingPayload = {
             eventId: eventId,
@@ -351,7 +359,7 @@ const SeatingEvent = () => {
             venue: formData.venue,
             date: formData.date,
             session: formData.session,
-            tickets: formData.tickets.filter(t => t.quantity > 0),
+            tickets: sanitizedTickets.filter(t => t.quantity > 0),
             addOns: formData.addOns,
         };
 

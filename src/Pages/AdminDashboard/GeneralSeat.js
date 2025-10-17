@@ -488,29 +488,6 @@ const GeneralSeat = () => {
                         />
                     </Card>
 
-                    {/* --- Card 3: Ticket Selection --- */}
-                    {/* <Card title="3. Select Your Tickets" style={{ marginBottom: '24px' }}>
-                        {fields.map((field, index) => {
-                            const currentQuantity = watchedFormData.tickets[index]?.quantity || 0;
-                            return (
-                                <div key={field.id} style={{ marginBottom: index === fields.length - 1 ? 0 : '16px' }}>
-                                    <Row align="middle" justify="space-between">
-                                        <Col><Text>{field.name} (Base Price: ${field.basePrice})</Text></Col>
-                                        <Col><Controller name={`tickets.${index}.quantity`} control={control} render={({ field }) => <InputNumber {...field} min={0} max={10} />} /></Col>
-                                    </Row>
-                                    {currentQuantity > 0 && (
-                                        <Row align="middle" justify="space-between" style={{ marginTop: '8px', paddingLeft: '16px' }}>
-                                            <Controller name={`tickets.${index}.wantsSeat`} control={control} render={({ field }) => <Checkbox {...field} checked={field.value}>Choose specific seat (add-on)</Checkbox>} />
-                                            {watchedFormData.tickets[index]?.wantsSeat && (
-                                                <Controller name={`tickets.${index}.seatQuantity`} control={control} render={({ field }) => <InputNumber {...field} min={0} max={currentQuantity} placeholder="Seats" />} />
-                                            )}
-                                        </Row>
-                                    )}
-                                </div>
-                            );
-                        })}
-                    </Card> */}
-
                     {/* --- Card 4: Date & Session --- */}
                     <Card title="2. Select Date & Session" style={{ marginBottom: '24px' }}>
                         <Space direction="vertical" size="large" style={{ width: '100%' }}>
