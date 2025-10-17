@@ -30,7 +30,7 @@ const SessionEmailSender = () => {
                 const winnerListRaw = xlsx.utils.sheet_to_json(worksheet);
 
                 const winnerList = winnerListRaw.filter(winner => {
-                    return winner.Name && winner.Email && winner.AWARDS;
+                    return winner.Name && winner.Email;
                 });
 
                 if (winnerList.length === 0) {
@@ -40,8 +40,8 @@ const SessionEmailSender = () => {
 
                 // Basic validation to ensure required columns exist
                 const firstWinner = winnerList[0];
-                if (!firstWinner.Name || !firstWinner.Email || !firstWinner.AWARDS) {
-                    message.error({ content: "File must contain 'Name', 'Email', and 'AWARDS' columns.", key: 'emailCampaign' });
+                if (!firstWinner.Name || !firstWinner.Email) {
+                    message.error({ content: "File must contain 'Name', and 'Email' Column.", key: 'emailCampaign' });
                     return;
                 }
 
@@ -66,7 +66,7 @@ const SessionEmailSender = () => {
     };
 
     return (
-        <Card title="Winner Email Campaign" style={{ margin: '40px' }}>
+        <Card title="Session Email Campaign" style={{ margin: '40px' }}>
             <p>
                 Upload an Excel With Winner list to send Email Session.
             </p>

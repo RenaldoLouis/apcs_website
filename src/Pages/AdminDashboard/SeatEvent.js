@@ -37,50 +37,61 @@ const venueOptions = [
 ];
 
 const availableSessionsVenue1 = {
-    '2025-08-25': ['09:00-10:00', '11:00-12:00', '14:00-15:00'],
-    '2025-08-26': ['10:00-11:00', '13:00-14:00'],
+    '2025-11-01': ['10:00-12:25', '14:40-17:00', '18:50-20:40'],
+    '2025-11-02': ['10:00-12:35', '14:45-17:10', '19:10-21:40'],
 };
 
 const availableSessionsVenue2 = {
-    '2025-08-25': ['09:00-10:00', '11:00-12:00'],
-    '2025-08-26': ['10:00-11:00', '13:00-14:00'],
+    '2025-11-01': ['10:15-12:45', '14:15-16:45', '18:30-20:45'],
+    '2025-11-02': ['10:15-12:45', '14:15-16:45', '18:30-20:45'],
 };
 
 const EVENT_SESSIONS_VENUE1 = [
-    "2025-08-25_09:00-10:00",
-    "2025-08-25_11:00-12:00",
-    "2025-08-25_14:00-15:00",
-    "2025-08-26_10:00-11:00",
-    "2025-08-26_13:00-14:00",
+    "2025-11-01_10:00-12:25",
+    "2025-11-01_14:40-17:00",
+    "2025-11-01_18:50-20:40",
+    "2025-11-02_10:00-12:35",
+    "2025-11-02_14:45-17:10",
+    "2025-11-02_19:10-21:40",
 ];
 
 const EVENT_SESSIONS_VENUE2 = [
-    "2025-08-25_09:00-10:00",
-    "2025-08-25_11:00-12:00",
-    "2025-08-26_10:00-11:00",
-    "2025-08-26_13:00-14:00",
+    "2025-11-01_10:15-12:45",
+    "2025-11-01_14:15-16:45",
+    "2025-11-01_18:30-20:45",
+    "2025-11-02_10:15-12:45",
+    "2025-11-02_14:15-16:45",
+    "2025-11-02_18:30-20:45",
 ];
 
+// update this
 const venueLayoutConfigs = {
     // JATAYU
     'Venue1': [
         // Presto Section
-        { row: 'A', areaType: 'presto', seats: [[8, 23]] },
-        { row: 'B', areaType: 'presto', seats: [[8, 23]] },
-        { row: 'C', areaType: 'presto', seats: [[8, 23]] },
+        { row: 'A', areaType: 'presto', seats: [[1, 40]] },
+        { row: 'B', areaType: 'presto', seats: [[1, 41]] },
         // Allegro Section
-        { row: 'C', areaType: 'allegro', seats: [[1, 7], [24, 30]] },
-        { row: 'D', areaType: 'allegro', seats: [[1, 30]] },
-        { row: 'E', areaType: 'allegro', seats: [[8, 23]] },
+        { row: 'C', areaType: 'allegro', seats: [[1, 43]] },
+        { row: 'D', areaType: 'allegro', seats: [[1, 42]] },
+        { row: 'E', areaType: 'allegro', seats: [[1, 32], [35, 43]] },
         // Lento Section
-        { row: 'E', areaType: 'lento', seats: [[1, 7], [24, 30]] },
-        { row: 'F', areaType: 'lento', seats: [[1, 30]] },
+        { row: 'E', areaType: 'lento', seats: [[1, 10], [33, 34]] },
+        { row: 'F', areaType: 'lento', seats: [[1, 43]] },
     ],
+    // MELATI
     'Venue2': [
+        // Presto Section
+        { row: 'A', areaType: 'presto', seats: [[1, 30]] },
+        { row: 'B', areaType: 'presto', seats: [[1, 30]] },
+        { row: 'C', areaType: 'presto', seats: [[1, 30]] },
+        // Allegro Section
+        { row: 'D', areaType: 'allegro', seats: [[1, 30]] },
+        { row: 'E', areaType: 'allegro', seats: [[1, 32]] },
+        { row: 'F', areaType: 'allegro', seats: [[1, 32]] },
         // Lento Section
-        { row: 'A', areaType: 'lento', seats: [[1, 28]] },
-        { row: 'B', areaType: 'lento', seats: [[1, 30]] },
-        { row: 'C', areaType: 'lento', seats: [[1, 30]] },
+        { row: 'G', areaType: 'lento', seats: [[1, 14]] },
+        { row: 'H', areaType: 'lento', seats: [[1, 14]] },
     ],
 };
 
@@ -203,9 +214,9 @@ const SeatingEvent = () => {
             session: null,
             addOns: [],
             tickets: [
-                { id: 'lento', name: 'Lento', basePrice: event?.baseTicketPrice || 50, quantity: 0, wantsSeat: false, seatQuantity: 0 },
-                { id: 'allegro', name: 'Allegro', basePrice: event?.baseTicketPrice || 40, quantity: 0, wantsSeat: false, seatQuantity: 0 },
-                { id: 'presto', name: 'Presto', basePrice: event?.baseTicketPrice || 30, quantity: 0, wantsSeat: false, seatQuantity: 0 }
+                { id: 'lento', name: 'Lento', basePrice: event?.baseTicketPrice || 0, quantity: 0, wantsSeat: false, seatQuantity: 0 },
+                { id: 'allegro', name: 'Allegro', basePrice: event?.baseTicketPrice || 0, quantity: 0, wantsSeat: false, seatQuantity: 0 },
+                { id: 'presto', name: 'Presto', basePrice: event?.baseTicketPrice || 0, quantity: 0, wantsSeat: false, seatQuantity: 0 }
             ]
         }
     });
@@ -375,7 +386,7 @@ const SeatingEvent = () => {
                 total += ticket.basePrice * ticket.quantity;
             }
             if (ticket.wantsSeat && ticket.seatQuantity > 0) {
-                const seatPrice = 10; // Example add-on price
+                const seatPrice = 0; // Example add-on price
                 items.push({ description: `Seat Selection (${ticket.name})`, quantity: ticket.seatQuantity, price: seatPrice * ticket.seatQuantity });
                 total += seatPrice * ticket.seatQuantity;
             }
@@ -533,7 +544,7 @@ const SeatingEvent = () => {
                             return (
                                 <div key={field.id} style={{ marginBottom: index === fields.length - 1 ? 0 : '16px' }}>
                                     <Row align="middle" justify="space-between">
-                                        <Col><Text>{field.name} (Base Price: ${field.basePrice})</Text></Col>
+                                        <Col><Text>{field.name} (Base Price: Rp{field.basePrice})</Text></Col>
                                         <Col><Controller name={`tickets.${index}.quantity`} control={control} render={({ field }) => <InputNumber {...field} min={0} max={10} />} /></Col>
                                     </Row>
                                     {currentQuantity > 0 && (
@@ -601,7 +612,7 @@ const SeatingEvent = () => {
                     )}
 
                     {/* --- Card 5: Optional Packages --- */}
-                    {/* <Card title="5. Optional Packages" style={{ marginBottom: '24px' }}>
+                    <Card title="5. Optional Packages" style={{ marginBottom: '24px' }}>
                         <Controller
                             name="addOns"
                             control={control}
@@ -609,13 +620,13 @@ const SeatingEvent = () => {
                                 <Checkbox.Group {...field} style={{ display: 'flex', flexDirection: 'column' }}>
                                     {event.addOns?.map(addOn => (
                                         <Checkbox key={addOn.id} value={addOn.id} style={{ marginBottom: '8px' }}>
-                                            {addOn.name} (+${addOn.price})
+                                            {addOn.name} (+Rp {addOn.price})
                                         </Checkbox>
                                     ))}
                                 </Checkbox.Group>
                             )}
                         />
-                    </Card> */}
+                    </Card>
                 </Col>
 
                 {/* --- Order Summary Column --- */}
@@ -633,14 +644,14 @@ const SeatingEvent = () => {
                             renderItem={item => (
                                 <List.Item style={{ padding: '8px 0' }}>
                                     <List.Item.Meta title={item.description} description={item.quantity > 1 ? `Quantity: ${item.quantity}` : null} />
-                                    <Text>${item.price}</Text>
+                                    <Text>Rp {item.price}</Text>
                                 </List.Item>
                             )}
                         />
                         <Divider />
                         <Row justify="space-between">
                             <Col><Title level={3}>Total</Title></Col>
-                            <Col><Title level={3}>${orderSummary.total}</Title></Col>
+                            <Col><Title level={3}>Rp {orderSummary.total}</Title></Col>
                         </Row>
                         <Button type="primary" size="large" block htmlType="submit">
                             Send Email Link

@@ -1,12 +1,10 @@
-import { Button, Card, Carousel, Divider, List, Result, Spin, Typography, message } from 'antd';
+import { Button, Card, Carousel, Divider, Image, List, Result, Spin, Typography, message } from 'antd';
 import { useEffect, useMemo, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import apis from '../../apis';
-import venue1_1 from "../../assets/images/venue1_1.png";
-import venue1_2 from "../../assets/images/venue1_2.png";
-import venue2 from "../../assets/images/venue2.jpeg";
+import jatayu from "../../assets/images/jatayu_map.png";
+import melati from "../../assets/images/melati_map.png";
 import CustomSeatPicker from './CustomSeatPicker';
-
 const { Title, Text, Paragraph } = Typography;
 
 const SelectSeatPage = () => {
@@ -25,11 +23,10 @@ const SelectSeatPage = () => {
     // This object maps venue IDs to their corresponding image URLs
     const venueImages = {
         Venue1: [
-            venue1_1,
-            venue1_2,
+            jatayu,
         ],
         Venue2: [
-            venue2
+            melati
         ],
         // Add other venues as needed
     };
@@ -211,17 +208,21 @@ const SelectSeatPage = () => {
             <Card style={{ maxWidth: 900, margin: '20px auto 0' }}>
                 <Title level={3}>Venue Layout</Title>
                 <Divider />
-                <Carousel arrows autoplay className="custom-carousel">
-                    {(venueImages[bookingData?.venue] || []).map((imgUrl, index) => (
-                        <div key={index}>
-                            <img
-                                src={imgUrl}
-                                alt={`${bookingData?.venue} - Image ${index + 1}`}
-                                style={{ width: '100%', height: 'auto', borderRadius: '8px', objectFit: 'cover' }}
-                            />
-                        </div>
-                    ))}
-                </Carousel>
+                <Image.PreviewGroup>
+                    <Carousel autoplay className="custom-carousel">
+                        {(venueImages[bookingData?.venue] || []).map((imgUrl, index) => (
+                            <div key={index}>
+                                {/* 2. Replace the standard <img> tag with Ant Design's <Image> component */}
+                                <Image
+                                    preview={true} // This hides the default magnifying glass icon
+                                    src={imgUrl}
+                                    alt={`${bookingData?.venue} - Image ${index + 1}`}
+                                    style={{ width: '100%', height: 'auto', borderRadius: '8px', objectFit: 'cover' }}
+                                />
+                            </div>
+                        ))}
+                    </Carousel>
+                </Image.PreviewGroup>
             </Card>
 
             {bookingData?.tickets.map(ticket => {

@@ -26,7 +26,6 @@ import { db } from '../../firebase';
 import { useEventBookingData } from '../../hooks/useEventBookingData';
 import usePaginatedRegistrants from '../../hooks/useFetchRegistrantsData';
 import CustomSeatPickerGeneral from '../SelectSeat/CustomSeatPickerGeneral';
-import SessionEmailSender from './SessionEmailSender';
 
 const { Title, Text, Paragraph } = Typography;
 
@@ -37,13 +36,13 @@ const venueOptions = [
 ];
 
 const availableSessionsVenue1 = {
-    '2025-08-25': ['09:00-10:00', '11:00-12:00', '14:00-15:00'],
-    '2025-08-26': ['10:00-11:00', '13:00-14:00'],
+    '2025-11-01': ['10:00-12:25', '14:40-17:00', '18:50-20:40'],
+    '2025-11-02': ['10:00-12:35', '14:45-17:10', '19:10-21:40'],
 };
 
 const availableSessionsVenue2 = {
-    '2025-08-25': ['09:00-10:00', '11:00-12:00'],
-    '2025-08-26': ['10:00-11:00', '13:00-14:00'],
+    '2025-11-01': ['10:15-12:45', '14:15-16:45', '18:30-20:45'],
+    '2025-11-02': ['10:15-12:45', '14:15-16:45', '18:30-20:45'],
 };
 
 const GeneralSeat = () => {
@@ -143,18 +142,21 @@ const GeneralSeat = () => {
 
     const runGeneralSeatingCampaign = async () => {
         console.log("Starting general seating email campaign...");
+        message.loading("Starting general seating email campaign...")
 
         try {
             // 1. Fetch all documents from 'seatBook2025' that have NOT had an email sent yet.
             const q = query(
                 collection(db, "seatBook2025"),
-                where("isEmailSent", "!=", true)
+                where("isEmailSent", "!=", true),
+                where("isGeneralTicket", "==", true)
             );
             const querySnapshot = await getDocs(q);
 
             const bookingsToSend = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
 
             if (bookingsToSend.length === 0) {
+                message.success("No new bookings found that need a general seating email. Exiting.")
                 console.log("No new bookings found that need a general seating email. Exiting.");
                 return;
             }
@@ -182,7 +184,8 @@ const GeneralSeat = () => {
             // 3. Commit all the Firestore updates at once
             await batch.commit();
 
-            console.log(`🎉 Campaign finished! Successfully sent ${successCount} emails.`);
+
+            message.success("🎉 Campaign finished! Successfully sent ${successCount} emails.")
 
         } catch (error) {
             console.error("An error occurred during the campaign:", error);
@@ -370,7 +373,8 @@ const GeneralSeat = () => {
                     transaction.update(bookingDocRef, {
                         seatsSelected: true,
                         selectedSeats: updatedSelectedSeats,
-                        isEmailSent: false
+                        isEmailSent: false,
+                        isGeneralTicket: true,
                     });
 
                 } else {
@@ -392,6 +396,7 @@ const GeneralSeat = () => {
                         seatsSelected: true,
                         selectedSeats: [seatToAssign.id],
                         isEmailSent: false,
+                        isGeneralTicket: true,
                         tickets: [
                         ],
                         addOns: [],
@@ -447,7 +452,7 @@ const GeneralSeat = () => {
 
                     <Card title="Admin Database Tools" style={{ margin: '40px' }}>
                         {/* <WinnerEmailSender /> */}
-                        <SessionEmailSender />
+                        {/* <SessionEmailSender /> */}
                         <Button type="primary" onClick={runGeneralSeatingCampaign}>Send Email General</Button>
                     </Card>
 
