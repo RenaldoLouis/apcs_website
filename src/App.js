@@ -30,10 +30,10 @@ import Login from "./Pages/Login/Login";
 import Podcast from "./Pages/Podcast/Podcast";
 import Register from "./Pages/Register/Register";
 import ScannerPage from './Pages/Scanner/ScannerPage';
+import BookingCompletePage from './Pages/SelectSeat/BookingCompletePage';
 import SelectSeatPage from './Pages/SelectSeat/SelectSeatPage';
 import ProtectedRoute from "./ProtectedRoute";
 import PublicRoute from "./PublicRoute";
-import BookingCompletePage from './Pages/SelectSeat/BookingCompletePage';
 
 const audio = new Audio(persona5);
 
@@ -80,14 +80,10 @@ const Main = () => {
           </ProtectedRoute>
         } />
         <Route path="/select-seat" element={
-          <ProtectedRoute>
-            <SelectSeatPage />
-          </ProtectedRoute>
+          <SelectSeatPage />
         } />
         <Route path="/booking-complete" element={
-          <ProtectedRoute>
-            <BookingCompletePage />
-          </ProtectedRoute>
+          <BookingCompletePage />
         } />
         <Route path="/scan" element={
           <ProtectedRoute>
