@@ -273,7 +273,7 @@ const SelectSeatPage = () => {
             <Card style={{ maxWidth: 900, margin: '0 auto' }}>
                 <Title level={3}>Seat Selection</Title>
                 <Paragraph><strong>Booking for:</strong> {bookingData?.userName}</Paragraph>
-                <Paragraph><strong>Venue:</strong> {bookingData?.venue === "Venue1" ? "jatayu" : "Melati"} | <strong>Date:</strong> {bookingData?.date} at {bookingData?.session}</Paragraph>
+                <Paragraph><strong>Venue:</strong> {bookingData?.venue === "Venue1" ? "Jatayu" : "Melati"} | <strong>Date:</strong> {bookingData?.date} at {bookingData?.session}</Paragraph>
                 <Divider />
                 <Title level={5}>Your Tickets Requiring Seat Selection:</Title>
                 <List
