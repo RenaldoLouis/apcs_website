@@ -216,9 +216,9 @@ const SeatingEvent = () => {
             session: null,
             addOns: [],
             tickets: [
-                { id: 'lento', name: 'Lento', basePrice: event?.baseTicketPrice || 0, quantity: 0, wantsSeat: false, seatQuantity: 0 },
+                { id: 'presto', name: 'Presto', basePrice: event?.baseTicketPrice || 0, quantity: 0, wantsSeat: false, seatQuantity: 0 },
                 { id: 'allegro', name: 'Allegro', basePrice: event?.baseTicketPrice || 0, quantity: 0, wantsSeat: false, seatQuantity: 0 },
-                { id: 'presto', name: 'Presto', basePrice: event?.baseTicketPrice || 0, quantity: 0, wantsSeat: false, seatQuantity: 0 }
+                { id: 'lento', name: 'Lento', basePrice: event?.baseTicketPrice || 0, quantity: 0, wantsSeat: false, seatQuantity: 0 }
             ]
         }
     });
