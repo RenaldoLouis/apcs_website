@@ -2,8 +2,8 @@ import { Button, Card, Carousel, Divider, Image, List, Result, Spin, Typography,
 import { useEffect, useMemo, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import apis from '../../apis';
-import jatayu from "../../assets/images/jatayu_map.png";
-import melati from "../../assets/images/melati_map.png";
+import jatayu from "../../assets/images/jatayu_Map.png";
+import melati from "../../assets/images/Melati_Map.png";
 import CustomSeatPicker from './CustomSeatPicker';
 const { Title, Text, Paragraph } = Typography;
 
