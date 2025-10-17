@@ -33,6 +33,7 @@ import ScannerPage from './Pages/Scanner/ScannerPage';
 import SelectSeatPage from './Pages/SelectSeat/SelectSeatPage';
 import ProtectedRoute from "./ProtectedRoute";
 import PublicRoute from "./PublicRoute";
+import BookingCompletePage from './Pages/SelectSeat/BookingCompletePage';
 
 const audio = new Audio(persona5);
 
@@ -81,6 +82,11 @@ const Main = () => {
         <Route path="/select-seat" element={
           <ProtectedRoute>
             <SelectSeatPage />
+          </ProtectedRoute>
+        } />
+        <Route path="/booking-complete" element={
+          <ProtectedRoute>
+            <BookingCompletePage />
           </ProtectedRoute>
         } />
         <Route path="/scan" element={

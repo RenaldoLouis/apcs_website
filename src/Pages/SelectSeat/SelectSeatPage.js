@@ -95,14 +95,35 @@ const SelectSeatPage = () => {
         setIsLoading(true);
         try {
             const allSelectedIds = Object.values(selections).flat().map(seat => seat.id);
-            await apis.bookings.confirmSeatSelection({ eventId: "APCS2025", bookingId: bookingData.id, selectedSeatIds: allSelectedIds });
+            const response = await apis.bookings.confirmSeatSelection({
+                eventId: "APCS2025",
+                bookingId: bookingData.id,
+                selectedSeatIds: allSelectedIds
+            });
+
+            if (response.status !== 200) {
+                throw Error(response.data.message)
+            }
+
             message.success('Seats confirmed successfully!');
-            // navigate('/booking-complete');
+
+            // --- THIS IS THE NEW SUCCESS LOGIC ---
+            // Navigate to the success page after confirmation
+            navigate('/booking-complete');
+
         } catch (err) {
-            message.error(err.response?.data?.message || 'Failed to confirm seats.');
-        } finally {
-            setIsLoading(false);
+            // --- THIS IS THE NEW ERROR LOGIC ---
+            // Show a more specific error message to the user
+            const errorMessage = err.response?.data?.message || 'Failed to confirm seats.';
+            message.error(`${errorMessage} The page will now refresh in 5 seconds.`, 5); // Show message for 5 seconds
+
+            // Force a page refresh after a delay so the user can read the message
+            setTimeout(() => {
+                window.location.reload();
+            }, 5000); // 5-second delay before refresh
+
         }
+        setIsLoading(false);
     };
 
     const formattedLayouts = useMemo(() => {
