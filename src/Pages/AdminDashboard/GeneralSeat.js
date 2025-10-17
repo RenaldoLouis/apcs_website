@@ -2,11 +2,9 @@ import {
     Alert,
     Button,
     Card,
-    Checkbox,
     Col,
     Divider,
     Input,
-    InputNumber,
     message,
     Modal,
     Radio,
@@ -185,7 +183,7 @@ const GeneralSeat = () => {
             await batch.commit();
 
 
-            message.success("🎉 Campaign finished! Successfully sent ${successCount} emails.")
+            message.success(`🎉 Campaign finished! Successfully sent ${successCount} emails.`)
 
         } catch (error) {
             console.error("An error occurred during the campaign:", error);
@@ -354,6 +352,8 @@ const GeneralSeat = () => {
                     collection(db, "seatBook2025"),
                     where("userId", "==", registrantToAssign.id),
                     where("venue", "==", watchedFormData.venue),
+                    where("session", "==", watchedFormData.session),
+                    where("isEmailSent", "!=", true),
                     where("userEmail", "==", registrantToAssign.performers[0].email)
                 ); const bookingQuerySnap = await getDocs(bookingQuery);
 
@@ -457,7 +457,7 @@ const GeneralSeat = () => {
                     </Card>
 
                     {/* --- Card 1: Registrant Selection --- */}
-                    <Card title="1. Select Registrant" style={{ marginBottom: '24px' }}>
+                    {/* <Card title="1. Select Registrant" style={{ marginBottom: '24px' }}>
                         <Row align="middle" justify="space-between">
                             <Text strong>
                                 {watchedFormData.registrant ? `Selected: ${watchedFormData.registrant.name}` : 'No Registrant Selected'}
@@ -471,10 +471,10 @@ const GeneralSeat = () => {
                             disabled
                             style={{ marginTop: 16 }}
                         />
-                    </Card>
+                    </Card> */}
 
                     {/* --- Card 2: Venue Selection --- */}
-                    <Card title="2. Select Venue" style={{ marginBottom: '24px' }}>
+                    <Card title="1. Select Venue" style={{ marginBottom: '24px' }}>
                         <Controller
                             name="venue"
                             control={control}
@@ -489,7 +489,7 @@ const GeneralSeat = () => {
                     </Card>
 
                     {/* --- Card 3: Ticket Selection --- */}
-                    <Card title="3. Select Your Tickets" style={{ marginBottom: '24px' }}>
+                    {/* <Card title="3. Select Your Tickets" style={{ marginBottom: '24px' }}>
                         {fields.map((field, index) => {
                             const currentQuantity = watchedFormData.tickets[index]?.quantity || 0;
                             return (
@@ -509,10 +509,10 @@ const GeneralSeat = () => {
                                 </div>
                             );
                         })}
-                    </Card>
+                    </Card> */}
 
                     {/* --- Card 4: Date & Session --- */}
-                    <Card title="4. Select Date & Session" style={{ marginBottom: '24px' }}>
+                    <Card title="2. Select Date & Session" style={{ marginBottom: '24px' }}>
                         <Space direction="vertical" size="large" style={{ width: '100%' }}>
                             <Controller
                                 name="date"
@@ -561,7 +561,7 @@ const GeneralSeat = () => {
                     )}
 
                     {/* --- Card 5: Optional Packages --- */}
-                    <Card title="5. Optional Packages" style={{ marginBottom: '24px' }}>
+                    {/* <Card title="5. Optional Packages" style={{ marginBottom: '24px' }}>
                         <Controller
                             name="addOns"
                             control={control}
@@ -575,7 +575,7 @@ const GeneralSeat = () => {
                                 </Checkbox.Group>
                             )}
                         />
-                    </Card>
+                    </Card> */}
                 </Col>
             </Row>
 

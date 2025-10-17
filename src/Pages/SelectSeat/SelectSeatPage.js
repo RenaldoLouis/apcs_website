@@ -8,6 +8,7 @@ import CustomSeatPicker from './CustomSeatPicker';
 const { Title, Text, Paragraph } = Typography;
 
 const SelectSeatPage = () => {
+    const areaOrder = ['presto', 'allegro', 'lento'];
     const location = useLocation();
     const navigate = useNavigate();
 
@@ -66,8 +67,6 @@ const SelectSeatPage = () => {
         verifyToken();
     }, [location]);
 
-    // console.log("seatLayout", seatLayout)
-
     // --- Memos for calculating required seats and filtering layouts ---
     const totalRequiredSeats = useMemo(() => {
         if (!bookingData) return 0;
@@ -123,7 +122,6 @@ const SelectSeatPage = () => {
 
         // --- THIS IS THE SORTING LOGIC ---
         // 1. Define your desired custom sort order.
-        const areaOrder = ['presto', 'allegro', 'lento'];
 
         // 2. Loop through your custom order array instead of the object keys.
         areaOrder.forEach(area => {
@@ -140,10 +138,11 @@ const SelectSeatPage = () => {
 
                 finalLayouts[area] = sortedRowKeys.map(rowKey => {
                     const rowSeats = rowsObject[rowKey];
-                    rowSeats.sort((a, b) => a.number - b.number);
+                    rowSeats.sort((a, b) => b.number - a.number);
                     return rowSeats.map(seat => ({
                         id: seat.id,
                         number: seat.number,
+                        row: seat.row,
                         isReserved: seat.status !== 'available',
                         tooltip: `Seat ${seat.seatLabel} - ${seat.areaType.charAt(0).toUpperCase() + seat.areaType.slice(1)}`
                     }));
@@ -151,6 +150,38 @@ const SelectSeatPage = () => {
             }
         });
         // --- END OF SORTING LOGIC ---
+
+        if (bookingData.venue === 'Venue1') {
+            const exclusionRanges = [
+                { row: 'A', start: 30, end: 40 },
+                { row: 'A', start: 1, end: 11 },
+                { row: 'A', start: 20, end: 21 },
+                { row: 'B', start: 1, end: 11 },
+                { row: 'B', start: 19, end: 21 },
+                { row: 'C', start: 1, end: 11 },
+                { row: 'C', start: 33, end: 43 },
+                { row: 'D', start: 1, end: 11 },
+                { row: 'D', start: 33, end: 42 },
+                { row: 'E', start: 35, end: 43 },
+                { row: 'F', start: 35, end: 43 },
+            ];
+
+            // Loop through each area (presto, allegro, lento)
+            for (const area in finalLayouts) {
+                // Loop through each row of seats (A, B, C...)
+                finalLayouts[area] = finalLayouts[area].map(row => {
+                    // Filter the seats in the current row
+                    return row.filter(seat => {
+                        // Check if this seat is in any of the exclusion ranges
+                        const isExcluded = exclusionRanges.some(range =>
+                            seat.row === range.row && seat.number >= range.start && seat.number <= range.end
+                        );
+                        // Keep the seat only if it is NOT excluded
+                        return !isExcluded;
+                    });
+                }).filter(row => row.length > 0); // Remove any rows that are now empty
+            }
+        }
 
         return finalLayouts;
     }, [seatLayout, bookingData]); // The dependency array must include bookingData
@@ -194,7 +225,7 @@ const SelectSeatPage = () => {
             <Card style={{ maxWidth: 900, margin: '0 auto' }}>
                 <Title level={3}>Seat Selection</Title>
                 <Paragraph><strong>Booking for:</strong> {bookingData?.userName}</Paragraph>
-                <Paragraph><strong>Venue:</strong> {bookingData?.venue} | <strong>Date:</strong> {bookingData?.date} at {bookingData?.session}</Paragraph>
+                <Paragraph><strong>Venue:</strong> {bookingData?.venue === "Venue1" ? "jatayu" : "Melati"} | <strong>Date:</strong> {bookingData?.date} at {bookingData?.session}</Paragraph>
                 <Divider />
                 <Title level={5}>Your Tickets Requiring Seat Selection:</Title>
                 <List
@@ -225,31 +256,32 @@ const SelectSeatPage = () => {
                 </Image.PreviewGroup>
             </Card>
 
-            {bookingData?.tickets.map(ticket => {
-                if (!ticket.wantsSeat || ticket.seatQuantity === 0) return null;
+            {
+                [...(bookingData?.tickets || [])]
+                    .sort((a, b) => areaOrder.indexOf(a.id) - areaOrder.indexOf(b.id))
+                    .map(ticket => {
+                        if (!ticket.wantsSeat || ticket.seatQuantity === 0) return null;
 
-                const layoutForPicker = formattedLayouts[ticket.id] || [];
+                        const layoutForPicker = formattedLayouts[ticket.id] || [];
 
-                return (
-                    <Card key={ticket.id} title={`Select ${ticket.seatQuantity} Seat(s) for ${ticket.name}`} style={{ maxWidth: 900, margin: '20px auto 0' }}>
-                        <div style={{ overflowX: 'auto', padding: '10px' }}>
-                            <CustomSeatPicker
-                                layout={layoutForPicker}
-                                selectedSeats={selections[ticket.id] || []}
-                                onSelect={(seat) => handleSelectSeat(ticket.id, seat)}
-                                onDeselect={(seat) => handleDeselectSeat(ticket.id, seat)}
-                                maxSeats={ticket.seatQuantity}
-                                onSeatClick={null}
-                            />
-                        </div>
-                        {/* --- END OF CUSTOM COMPONENT USAGE --- */}
-
-                        <div style={{ textAlign: 'center', marginTop: '15px' }}>
-                            <Text strong>Selected: {selections[ticket.id]?.map(s => s.tooltip).join(', ') || 'None'}</Text>
-                        </div>
-                    </Card>
-                );
-            })}
+                        return (
+                            <Card key={ticket.id} title={`Select ${ticket.seatQuantity} Seat(s) for ${ticket.name}`} style={{ maxWidth: 900, margin: '20px auto 0' }}>
+                                <div style={{ overflowX: 'auto', padding: '10px' }}>
+                                    <CustomSeatPicker
+                                        layout={layoutForPicker}
+                                        selectedSeats={selections[ticket.id] || []}
+                                        onSelect={(seat) => handleSelectSeat(ticket.id, seat)}
+                                        onDeselect={(seat) => handleDeselectSeat(ticket.id, seat)}
+                                        maxSeats={ticket.seatQuantity}
+                                        onSeatClick={null} // onSeatClick is explicitly null for user selection mode
+                                    />
+                                </div>
+                                <div style={{ textAlign: 'center', marginTop: '15px' }}>
+                                    <Text strong>Selected: {selections[ticket.id]?.map(s => s.tooltip).join(', ') || 'None'}</Text>
+                                </div>
+                            </Card>
+                        );
+                    })}
 
             <Card style={{ maxWidth: 900, margin: '20px auto 0', textAlign: 'center' }}>
                 <Title level={4}>Total Selected Seats: {totalSelectedSeats} / {totalRequiredSeats}</Title>

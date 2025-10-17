@@ -205,6 +205,8 @@ const SeatingEvent = () => {
     const [seatLayout, setSeatLayout] = useState([]); // This will hold the single, flat list from the backend
     const [isSeatMapLoading, setIsSeatMapLoading] = useState(false);
 
+    const [useTestEmail, setUseTestEmail] = useState(false);
+
     // --- React Hook Form Initialization ---
     const { control, handleSubmit, watch, setValue } = useForm({
         defaultValues: {
@@ -335,8 +337,9 @@ const SeatingEvent = () => {
 
     // --- Form Submission ---
     const onFormSubmit = async (formData) => {
+        const tickets = formData.tickets.filter(t => t.quantity > 0)
         if (!formData.registrant) {
-            message.error('Please select a registrant.');
+            message.error('Please select a registrant');
             return;
         }
 
@@ -344,7 +347,7 @@ const SeatingEvent = () => {
             eventId: eventId,
             userId: formData.registrant.id,
             userName: formData.registrant.name,
-            userEmail: formData.registrant.email,
+            userEmail: useTestEmail ? 'hello@apcsmusic.com' : formData.registrant.email,
             venue: formData.venue,
             date: formData.date,
             session: formData.session,
@@ -355,7 +358,6 @@ const SeatingEvent = () => {
         try {
             message.loading({ content: 'Initiating your booking...', key: 'booking' });
             // 1. Save the booking info and get the token back
-            console.log("bookingPayload", bookingPayload)
             const saveResponse = await apis.bookings.saveSeatBookProfileInfo(bookingPayload);
             const { bookingId, seatSelectionToken } = saveResponse.data;
 
@@ -365,7 +367,7 @@ const SeatingEvent = () => {
                 bookingId: bookingId,
                 seatSelectionToken: seatSelectionToken // Add the token here
             };
-            console.log("emailPayload", emailPayload)
+
             // 3. Send the email with the token
             await apis.bookings.sendSeatBookingEmail(emailPayload);
             message.success({ content: 'Booking initiated!', key: 'booking' });
@@ -520,6 +522,13 @@ const SeatingEvent = () => {
                             disabled
                             style={{ marginTop: 16 }}
                         />
+                        <Checkbox
+                            checked={useTestEmail}
+                            onChange={(e) => setUseTestEmail(e.target.checked)}
+                            style={{ marginTop: '16px' }}
+                        >
+                            Use test email (hello@apcsmusic.com)
+                        </Checkbox>
                     </Card>
 
                     {/* --- Card 2: Venue Selection --- */}
