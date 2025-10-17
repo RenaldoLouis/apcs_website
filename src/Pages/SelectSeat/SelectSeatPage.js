@@ -181,6 +181,33 @@ const SelectSeatPage = () => {
                     });
                 }).filter(row => row.length > 0); // Remove any rows that are now empty
             }
+        } else if (bookingData.venue === 'Venue2') {
+            // --- NEW: Add exclusion ranges specifically for Venue2 ---
+            const exclusionRanges = [
+                { row: 'A', start: 23, end: 30 },
+                { row: 'B', start: 23, end: 30 },
+                { row: 'C', start: 23, end: 30 },
+                { row: 'D', start: 23, end: 30 },
+                { row: 'E', start: 24, end: 32 },
+                { row: 'F', start: 24, end: 32 },
+                { row: 'A', start: 14, end: 17 },
+                { row: 'B', start: 15, end: 16 },
+                { row: 'A', start: 1, end: 8 },
+                { row: 'B', start: 1, end: 8 },
+                { row: 'C', start: 1, end: 8 },
+            ];
+
+            // Apply the filter for Venue2
+            for (const area in finalLayouts) {
+                finalLayouts[area] = finalLayouts[area].map(row => {
+                    return row.filter(seat => {
+                        const isExcluded = exclusionRanges.some(range =>
+                            seat.row === range.row && seat.number >= range.start && seat.number <= range.end
+                        );
+                        return !isExcluded;
+                    });
+                }).filter(row => row.length > 0);
+            }
         }
 
         return finalLayouts;
