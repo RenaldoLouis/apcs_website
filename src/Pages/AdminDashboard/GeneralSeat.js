@@ -15,6 +15,8 @@ import {
     Table,
     Typography
 } from 'antd';
+import ExcelJS from "exceljs";
+import * as FileSaver from "file-saver";
 import { collection, doc, getDocs, query, runTransaction, serverTimestamp, where, writeBatch } from 'firebase/firestore';
 import { useEffect, useMemo, useState } from 'react';
 import { Controller, useFieldArray, useForm } from 'react-hook-form';
@@ -35,12 +37,12 @@ const venueOptions = [
 
 const availableSessionsVenue1 = {
     '2025-11-01': ['10:00-12:25', '14:40-17:00', '18:50-20:40'],
-    '2025-11-02': ['10:00-12:35', '14:45-17:10', '19:10-21:40'],
+    '2025-11-02': ['10:05-12:15', '14:10-16:30', '18:40-20:50'],
 };
 
 const availableSessionsVenue2 = {
-    '2025-11-01': ['10:15-12:45', '14:15-16:45', '18:30-20:45'],
-    '2025-11-02': ['10:15-12:45', '14:15-16:45', '18:30-20:45'],
+    '2025-11-01': ['10:20-12:20', '14:10-16:00', '18:05-20:15'],
+    '2025-11-02': ['10:25-12:45', '14:40-16:50', '18:35-20:35'],
 };
 
 const GeneralSeat = () => {
@@ -63,6 +65,8 @@ const GeneralSeat = () => {
     const [seatLayout, setSeatLayout] = useState([]); // This will hold the single, flat list from the backend
     const [isSeatMapLoading, setIsSeatMapLoading] = useState(false);
     // const { userBookData, loading, error: seatBookError, refetch } = useFetchSeatBookData("seatBook2025");
+
+    const [isExporting, setIsExporting] = useState(false);
 
     // --- React Hook Form Initialization ---
     const { control, handleSubmit, watch, setValue } = useForm({
@@ -330,6 +334,113 @@ const GeneralSeat = () => {
         setRegistrantToAssign(null);
     };
 
+    const handleExportSeatMap = () => {
+        if (Object.keys(formattedSessionLayout).length === 0) {
+            message.warn("No seat map data available to export.");
+            return;
+        }
+
+        setIsExporting(true);
+        message.info("Preparing visual seat map for download...");
+
+        try {
+            const workbook = new ExcelJS.Workbook();
+            const worksheet = workbook.addWorksheet('Seat Map Layout');
+
+            // --- 1. Define Styles for Cells ---
+            const availableStyle = {
+                fill: { type: 'pattern', pattern: 'solid', fgColor: { argb: 'FFC6EFCE' } }, // Light Green
+                font: { color: { argb: 'FF006100' } },
+                alignment: { vertical: 'middle', horizontal: 'center' },
+                border: { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
+            };
+            const reservedStyle = {
+                fill: { type: 'pattern', pattern: 'solid', fgColor: { argb: 'FFFFC7CE' } }, // Light Red
+                font: { color: { argb: 'FF9C0006' }, bold: true },
+                alignment: { vertical: 'middle', horizontal: 'center', wrapText: true },
+                border: { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
+            };
+
+            let currentRowIndex = 1; // Start at the first row in Excel
+            const areaOrder = ['presto', 'allegro', 'lento'];
+
+            // --- 2. Loop Through Each Section (Presto, Allegro, Lento) ---
+            areaOrder.forEach(area => {
+                if (formattedSessionLayout[area]) {
+                    // Add a styled title for the section
+                    const sectionTitleCell = worksheet.getCell(currentRowIndex, 1);
+                    sectionTitleCell.value = `${area.charAt(0).toUpperCase() + area.slice(1)} Section`;
+                    sectionTitleCell.font = { size: 16, bold: true };
+                    worksheet.mergeCells(currentRowIndex, 1, currentRowIndex, 10); // Merge cells for the title
+                    currentRowIndex += 2; // Move down a couple of rows for spacing
+
+                    // --- 3. Loop Through Each Row of Seats (A, B, C...) ---
+                    formattedSessionLayout[area].forEach(seatRow => {
+                        if (seatRow.length > 0) {
+                            // Add the row letter (e.g., 'A') to the first column
+                            const rowLabelCell = worksheet.getCell(currentRowIndex, 1);
+                            rowLabelCell.value = seatRow[0].row;
+                            rowLabelCell.font = { bold: true };
+                            rowLabelCell.alignment = { vertical: 'middle', horizontal: 'center' };
+
+                            const maxNumber = Math.max(...seatRow.map(s => s.number));
+
+                            // --- 4. Place each seat in its corresponding column ---
+                            seatRow.forEach(seat => {
+                                // Column index is seat number + 1 (because column 1 is the row label)
+                                const columnIndex = maxNumber - seat.number + 2; // +2 because col 1 is the label
+                                const cell = worksheet.getCell(currentRowIndex, columnIndex);
+
+                                if (seat.isReserved) {
+                                    let assignedTo = 'Reserved';
+                                    if (seat.tooltip.startsWith('Reserved for: ')) {
+                                        assignedTo = seat.tooltip.substring('Reserved for: '.length);
+                                    }
+                                    cell.value = assignedTo;
+                                    cell.style = reservedStyle;
+                                } else {
+                                    cell.value = seat.number; // Just show the number for available seats
+                                    cell.style = availableStyle;
+                                }
+                            });
+                            currentRowIndex++; // Move to the next row in Excel for the next seat row
+                        }
+                    });
+                    currentRowIndex += 2; // Add extra space between sections
+                }
+            });
+
+            // Auto-fit columns for better readability
+            worksheet.columns.forEach(column => {
+                let maxLength = 0;
+                column.eachCell({ includeEmpty: true }, (cell, rowNumber) => {
+                    // Don't use merged title rows for width calculation
+                    if (rowNumber > 1) {
+                        const columnLength = cell.value ? cell.value.toString().length : 0;
+                        if (columnLength > maxLength) {
+                            maxLength = columnLength;
+                        }
+                    }
+                });
+                column.width = maxLength < 5 ? 5 : maxLength + 2;
+            });
+
+
+            // --- 5. Generate and Download the File ---
+            workbook.xlsx.writeBuffer().then((buffer) => {
+                const blob = new Blob([buffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+                const fileName = `SeatMap_Layout_${watchedFormData.venue}_${watchedFormData.date}_${watchedFormData.session}.xlsx`;
+                FileSaver.saveAs(blob, fileName);
+            });
+
+        } catch (error) {
+            console.error("Failed to export seat map:", error);
+            message.error("An error occurred during the export.");
+        } finally {
+            setIsExporting(false);
+        }
+    };
+
     const handleAssignModalConfirm = async () => {
         if (!seatToAssign || !registrantToAssign) {
             message.error("No seat or registrant was selected.");
@@ -516,7 +627,17 @@ const GeneralSeat = () => {
 
                     {/* --- NEW CARD: Interactive Seat Map for Assignment --- */}
                     {watchedFormData.session && (
-                        <Card title="Assign Registrant to Seat" style={{ marginTop: '24px' }}>
+                        <Card title="Assign Registrant to Seat" style={{ marginTop: '24px' }}
+                            extra={
+                                <Button
+                                    type="primary"
+                                    onClick={handleExportSeatMap}
+                                    loading={isExporting}
+                                >
+                                    Export Seat Map
+                                </Button>
+                            }
+                        >
                             {isSeatMapLoading ? (
                                 <div style={{ textAlign: 'center' }}><Spin /></div>
                             ) : (
