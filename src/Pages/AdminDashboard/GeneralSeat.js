@@ -18,10 +18,9 @@ import {
 } from 'antd';
 import ExcelJS from "exceljs";
 import * as FileSaver from "file-saver";
-import { collection, doc, getDocs, query, runTransaction, serverTimestamp, where, writeBatch } from 'firebase/firestore';
+import { collection, doc, getDocs, query, runTransaction, serverTimestamp, where } from 'firebase/firestore';
 import { useEffect, useMemo, useState } from 'react';
 import { Controller, useFieldArray, useForm } from 'react-hook-form';
-import apis from '../../apis';
 import { db } from '../../firebase';
 import { useEventBookingData } from '../../hooks/useEventBookingData';
 import usePaginatedRegistrants from '../../hooks/useFetchRegistrantsData';
@@ -332,6 +331,7 @@ const GeneralSeat = () => {
                         row: seat.row, // Pass the row letter for custom labels
                         isReserved: seat.status !== 'available',
                         status: seat.status,
+                        seatLabel: seat.seatLabel,
                         // --- NEW TOOLTIP LOGIC ---
                         tooltip: seat.status === 'reserved'
                             ? `Reserved for: ${seat.assignedTo?.registrantName || 'N/A'}`
@@ -372,15 +372,88 @@ const GeneralSeat = () => {
         return { items, total };
     }, [watchedFormData, event]);
 
+    const handleUnassignSeat = async (seatToRelease) => {
+        console.log("seatToRelease", seatToRelease)
+        message.loading({ content: `Releasing seat ${seatToRelease.seatLabel}...`, key: 'unassign' });
+
+        try {
+            await runTransaction(db, async (transaction) => {
+                // 1. Get the seat document
+                const seatDocRef = doc(db, `seats${eventId}`, seatToRelease.id);
+                const seatDoc = await transaction.get(seatDocRef);
+
+                if (!seatDoc.exists()) {
+                    throw new Error("Seat document not found.");
+                }
+
+                const seatData = seatDoc.data();
+                const bookingId = seatData.bookingId; // Get the booking ID from the seat
+
+                console.log("seatData", seatData)
+
+
+                // 3. Update the corresponding Booking Document (if a bookingId exists)
+                if (bookingId) {
+                    const bookingDocRef = doc(db, "seatBook2025", bookingId);
+                    const bookingDoc = await transaction.get(bookingDocRef);
+
+                    transaction.update(seatDocRef, {
+                        status: 'available',
+                        assignedTo: null,
+                        bookingId: null
+                    });
+
+                    if (bookingDoc.exists()) {
+                        const bookingData = bookingDoc.data();
+
+                        console.log("bookingData", bookingData)
+
+                        // Remove the seat from the selectedSeats array
+                        const updatedSelectedSeats = (bookingData.selectedSeats || []).filter(
+                            id => id !== seatToRelease.id
+                        );
+
+                        console.log("updatedSelectedSeats", updatedSelectedSeats)
+
+                        transaction.update(bookingDocRef, {
+                            selectedSeats: updatedSelectedSeats,
+                            // If this was the last seat, mark it as no longer selected
+                            seatsSelected: updatedSelectedSeats.length > 0,
+                            isEmailSent: true // Mark for re-processing in the email campaign
+                        });
+                    }
+                }
+            });
+
+            message.success({ content: `Seat ${seatToRelease.seatLabel} has been released.`, key: 'unassign' });
+
+            setSeatLayout([]); // Trigger a refresh of the seat map
+
+        } catch (error) {
+            console.error("Failed to un-assign seat:", error);
+            message.error({ content: error.message || 'Failed to release seat.', key: 'unassign' });
+        }
+    };
+
     // --- NEW HANDLERS for the assignment flow ---
     const handleSeatClick = (seat) => {
         console.log("seat", seat)
-        if (seat.status !== 'available') {
-            message.info(`Seat ${seat.seatLabel} is already reserved for ${seat.assignedTo?.registrantName || 'someone'}.`);
-            return;
+        if (seat.status === 'available') {
+            // This is the "Assign Seat" flow
+            message.info(`Seat ${seat.seatLabel} is available. Select a registrant to assign.`);
+            setSeatToAssign(seat);
+            setIsAssignModalOpen(true);
+        } else {
+            // --- THIS IS THE NEW "UN-ASSIGN" FLOW ---
+            // The seat is already reserved, so we ask for confirmation to release it.
+            Modal.confirm({
+                title: `Release Seat ${seat.seatLabel}?`,
+                content: `This seat is currently reserved for ${seat.tooltip}. Are you sure you want to release it? This will remove the seat from their booking and make it available again.`,
+                okText: 'Yes, Release Seat',
+                okType: 'danger',
+                onOk: () => handleUnassignSeat(seat), // Call the new handler function
+            });
         }
-        setSeatToAssign(seat);
-        setIsAssignModalOpen(true);
     };
 
     const handleAssignModalCancel = () => {

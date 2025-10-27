@@ -59,7 +59,7 @@ const CustomSeatPickerGeneral = ({ layout, selectedSeats, onSelect, onDeselect, 
                                                 backgroundColor: isSelected ? '#1890ff' : (seat.isReserved ? '#fff1f0' : '#ffffff'),
                                                 color: isSelected ? '#ffffff' : (seat.isReserved ? '#f5222d' : undefined)
                                             }}
-                                            disabled={seat.isReserved}
+                                            // disabled={seat.isReserved}
                                             onClick={() => handleSeatClick(seat)}
                                         >
                                             {isSelected ? `${row[0].id.split('-')[1].charAt(0)} ${seat.number}` : `${row[0].id.split('-')[1].charAt(0)} ${seat.number} ${seat.tooltip}`}
