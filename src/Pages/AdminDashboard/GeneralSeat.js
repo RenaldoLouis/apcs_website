@@ -4,6 +4,7 @@ import {
     Card,
     Col,
     Divider,
+    Form,
     Input,
     List,
     message,
@@ -18,9 +19,10 @@ import {
 } from 'antd';
 import ExcelJS from "exceljs";
 import * as FileSaver from "file-saver";
-import { collection, doc, getDocs, query, runTransaction, serverTimestamp, where } from 'firebase/firestore';
+import { collection, doc, getDocs, query, runTransaction, serverTimestamp, where, writeBatch } from 'firebase/firestore';
 import { useEffect, useMemo, useState } from 'react';
 import { Controller, useFieldArray, useForm } from 'react-hook-form';
+import apis from '../../apis';
 import { db } from '../../firebase';
 import { useEventBookingData } from '../../hooks/useEventBookingData';
 import usePaginatedRegistrants from '../../hooks/useFetchRegistrantsData';
@@ -56,6 +58,9 @@ const GeneralSeat = () => {
     const [seatToAssign, setSeatToAssign] = useState(null); // Stores the seat that was clicked
     const [isAssignModalOpen, setIsAssignModalOpen] = useState(false); // Controls the registrant modal
     const [registrantToAssign, setRegistrantToAssign] = useState(null); // Stores the registrant selected in the modal
+    const [manualAssignName, setManualAssignName] = useState('');        // For "Manual" mode
+    const [manualAssignEmail, setManualAssignEmail] = useState('');       // For "Manual" mode
+    const [assignmentMode, setAssignmentMode] = useState('select');
 
     // --- UI State (for modal, search, etc.) ---
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -259,14 +264,15 @@ const GeneralSeat = () => {
                 return;
             }
 
-            console.log(`Found ${bookingsToSend.length} bookings to process.`);
+            console.log(`Found ${bookingsToSend.length} length bookings to process.`);
 
             let successCount = 0;
             const batch = writeBatch(db); // Create a batch to update documents in Firestore
 
-            // 2. Loop through each booking, send the email, and update the document
+            // // 2. Loop through each booking, send the email, and update the document
             for (const booking of bookingsToSend) {
                 const emailSent = await apis.email.sendGeneralSeatingEmail(booking);
+                console.log('Found booking data to process:', booking);
 
                 // If the email was sent successfully, mark it in Firestore
                 if (emailSent) {
@@ -419,6 +425,7 @@ const GeneralSeat = () => {
                             selectedSeats: updatedSelectedSeats,
                             // If this was the last seat, mark it as no longer selected
                             seatsSelected: updatedSelectedSeats.length > 0,
+                            // TODO: this emailsent might need to modify based on specific needs when unassign seat
                             isEmailSent: true // Mark for re-processing in the email campaign
                         });
                     }
@@ -460,6 +467,9 @@ const GeneralSeat = () => {
         setIsAssignModalOpen(false);
         setSeatToAssign(null);
         setRegistrantToAssign(null);
+        setAssignmentMode('select'); // Reset mode
+        setManualAssignName('');
+        setManualAssignEmail('');
     };
 
     const handleExportSeatMap = () => {
@@ -570,64 +580,103 @@ const GeneralSeat = () => {
     };
 
     const handleAssignModalConfirm = async () => {
-        if (!seatToAssign || !registrantToAssign) {
-            message.error("No seat or registrant was selected.");
+        // 1. Validate inputs based on the current mode
+        if (assignmentMode === 'select' && !registrantToAssign) {
+            message.error("Please select a registrant from the list.");
+            return;
+        }
+        if (assignmentMode === 'manual' && (!manualAssignName || !manualAssignEmail)) {
+            message.error("Please provide a name and email for manual assignment.");
             return;
         }
 
-        message.loading({ content: 'Assigning seat and updating booking...', key: 'assignSeat' });
+        message.loading({ content: 'Assigning seat...', key: 'assignSeat' });
         try {
             await runTransaction(db, async (transaction) => {
-                // --- 1. Check the seat's availability ---
+                // --- 1. Check Seat Availability (Same for both modes) ---
                 const seatDocRef = doc(db, `seats${eventId}`, seatToAssign.id);
                 const seatDoc = await transaction.get(seatDocRef);
                 if (!seatDoc.exists() || seatDoc.data().status !== 'available') {
                     throw new Error(`Sorry, seat ${seatToAssign.seatLabel} is no longer available.`);
                 }
 
-                // --- 2. Query to find an existing booking document ---
-                const sessionId = `${watchedFormData.date}_${watchedFormData.session}`;
-                const bookingQuery = query(
-                    collection(db, "seatBook2025"),
-                    where("userId", "==", registrantToAssign.id),
-                    where("venue", "==", watchedFormData.venue),
-                    where("session", "==", watchedFormData.session),
-                    where("isEmailSent", "!=", true),
-                    where("userEmail", "==", registrantToAssign.performers[0].email)
-                ); const bookingQuerySnap = await getDocs(bookingQuery);
-
                 let bookingId;
+                let assignedToData;
 
-                if (!bookingQuerySnap.empty) {
-                    // --- UPDATE PATH: Booking already exists ---
-                    const bookingDocRef = bookingQuerySnap.docs[0].ref;
-                    const bookingData = bookingQuerySnap.docs[0].data();
-                    bookingId = bookingDocRef.id;
+                // --- 2. Run logic based on Assignment Mode ---
+                if (assignmentMode === 'select') {
+                    // --- UPDATE/CREATE PATH (for existing registrants) ---
+                    const performer = registrantToAssign.performers[0];
+                    assignedToData = {
+                        registrantId: registrantToAssign.id,
+                        registrantName: `${performer.firstName} ${performer.lastName}`,
+                        registrantEmail: performer.email
+                    };
 
-                    const updatedSelectedSeats = [...(bookingData.selectedSeats || []), seatToAssign.id];
+                    const sessionId = `${watchedFormData.date}_${watchedFormData.session}`;
+                    const bookingQuery = query(
+                        collection(db, "seatBook2025"),
+                        where("userId", "==", registrantToAssign.id),
+                        where("venue", "==", watchedFormData.venue),
+                        where("session", "==", watchedFormData.session),
+                        where("isEmailSent", "!=", true),
+                    );
+                    const bookingQuerySnap = await getDocs(bookingQuery);
 
-                    // You might also want to update the tickets array here if needed
-                    // For now, we'll focus on just adding the seat
+                    if (!bookingQuerySnap.empty) {
+                        // Update existing booking
+                        const bookingDocRef = bookingQuerySnap.docs[0].ref;
+                        const bookingData = bookingQuerySnap.docs[0].data();
+                        bookingId = bookingDocRef.id;
+                        const updatedSelectedSeats = [...(bookingData.selectedSeats || []), seatToAssign.id];
 
-                    transaction.update(bookingDocRef, {
-                        seatsSelected: true,
-                        selectedSeats: updatedSelectedSeats,
-                        isEmailSent: false,
-                        isGeneralTicket: true,
-                    });
-
+                        transaction.update(bookingDocRef, {
+                            seatsSelected: true,
+                            selectedSeats: updatedSelectedSeats,
+                            isEmailSent: false,
+                            isGeneralTicket: true,
+                        });
+                    } else {
+                        // Create new booking
+                        const newBookingDocRef = doc(collection(db, "seatBook2025"));
+                        bookingId = newBookingDocRef.id;
+                        const newBookingData = {
+                            eventId,
+                            userId: registrantToAssign.id,
+                            userName: assignedToData.registrantName,
+                            userEmail: assignedToData.registrantEmail,
+                            venue: watchedFormData.venue,
+                            date: watchedFormData.date,
+                            session: watchedFormData.session,
+                            createdAt: serverTimestamp(),
+                            seatsSelected: true,
+                            selectedSeats: [seatToAssign.id],
+                            isEmailSent: false,
+                            isGeneralTicket: true,
+                            tickets: [], // Add ticket logic here if needed
+                            addOns: [],
+                        };
+                        transaction.set(newBookingDocRef, newBookingData);
+                    }
                 } else {
-                    // --- CREATE PATH: Create a new booking document ---
+                    // --- MANUAL CREATE PATH (for new guests) ---
                     const newBookingDocRef = doc(collection(db, "seatBook2025"));
                     bookingId = newBookingDocRef.id;
 
-                    // Get the details for the ticket type we are assigning
+                    assignedToData = {
+                        registrantId: 'MANUAL_ASSIGN', // Special ID for manually added
+                        registrantName: manualAssignName,
+                        registrantEmail: manualAssignEmail
+                    };
+
+                    const assignedTicketType = seatToAssign.areaType;
+                    // const ticketInfo = ticketDetailsMap[assignedTicketType] || { name: 'Unknown', basePrice: 0 };
 
                     const newBookingData = {
                         eventId,
-                        userId: registrantToAssign.id,
-                        userName: `${registrantToAssign.performers[0].firstName} ${registrantToAssign.performers[0].lastName}`,
-                        userEmail: registrantToAssign.performers[0].email,
+                        userId: 'MANUAL_ASSIGN',
+                        userName: manualAssignName,
+                        userEmail: manualAssignEmail,
                         venue: watchedFormData.venue,
                         date: watchedFormData.date,
                         session: watchedFormData.session,
@@ -636,28 +685,29 @@ const GeneralSeat = () => {
                         selectedSeats: [seatToAssign.id],
                         isEmailSent: false,
                         isGeneralTicket: true,
-                        tickets: [
-                        ],
+                        // tickets: [{
+                        //     id: assignedTicketType,
+                        //     name: ticketInfo.name,
+                        //     basePrice: ticketInfo.basePrice,
+                        //     quantity: 1, wantsSeat: true, seatQuantity: 1
+                        // }],
+                        tickets: [],
                         addOns: [],
                     };
                     transaction.set(newBookingDocRef, newBookingData);
                 }
 
+                // --- 3. Update the Seat Document (Common step) ---
                 transaction.update(seatDocRef, {
                     status: 'reserved',
                     bookingId: bookingId,
-                    assignedTo: {
-                        registrantId: registrantToAssign.id,
-                        registrantName: `${registrantToAssign.performers[0].firstName} ${registrantToAssign.performers[0].lastName}`,
-                        registrantEmail: registrantToAssign.performers[0].email
-                    }
+                    assignedTo: assignedToData
                 });
             });
 
-            message.success({ content: `Seat ${seatToAssign.seatLabel} assigned! The booking is now queued for the next email campaign.`, key: 'assignSeat' });
-
+            message.success({ content: `Seat ${seatToAssign.seatLabel} assigned!`, key: 'assignSeat' });
             setSeatLayout([]); // Trigger a refresh
-            handleAssignModalCancel();
+            handleAssignModalCancel(); // Close and reset
 
         } catch (error) {
             console.error("Failed to assign seat:", error);
@@ -837,28 +887,6 @@ const GeneralSeat = () => {
                 </Col>
             </Row>
 
-            {/* --- Registrant Selection Modal --- */}
-            <Modal
-                title="Select a Registrant"
-                open={isModalOpen}
-                onOk={handleModalConfirm}
-                onCancel={handleCloseModal}
-                width={1000}
-                okText="Select"
-                okButtonProps={{ disabled: !tempSelectedRow }}
-            >
-                <Input.Search placeholder="Search by performer name..." value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} style={{ marginBottom: 16 }} allowClear />
-                <Table
-                    rowSelection={{ type: 'radio', onChange: (_, selectedRows) => setTempSelectedRow(selectedRows[0]) }}
-                    columns={[
-                        { title: 'Performer', key: 'performer', render: (_, rec) => `${rec?.performers[0]?.firstName} ${rec?.performers[0]?.lastName}` },
-                        { title: 'Email', key: 'email', render: (_, rec) => rec?.performers[0]?.email },
-                        { title: 'Instrument Category', key: 'instrumentCategory', render: (_, rec) => rec?.instrumentCategory },
-                    ]}
-                    dataSource={filteredData.map(item => ({ ...item, key: item.id }))}
-                    pagination={{ pageSize: 5 }}
-                />
-            </Modal>
 
             <Modal
                 title={`Assign a Registrant to Seat ${seatToAssign?.seatLabel || ''}`}
@@ -867,19 +895,74 @@ const GeneralSeat = () => {
                 onCancel={handleAssignModalCancel}
                 width={1000}
                 okText="Assign Seat"
-                okButtonProps={{ disabled: !registrantToAssign }}
+                okButtonProps={{
+                    // Disable OK button if logic isn't met
+                    disabled: (assignmentMode === 'select' && !registrantToAssign) ||
+                        (assignmentMode === 'manual' && (!manualAssignName || !manualAssignEmail))
+                }}
             >
-                <Input.Search placeholder="Search by performer name..." value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} style={{ marginBottom: 16 }} allowClear />
-                <Table
-                    rowSelection={{ type: 'radio', onChange: (_, selectedRows) => setRegistrantToAssign(selectedRows[0]) }}
-                    columns={[
-                        { title: 'Performer', key: 'performer', render: (_, rec) => `${rec?.performers[0]?.firstName} ${rec?.performers[0]?.lastName}` },
-                        { title: 'Email', key: 'email', render: (_, rec) => rec?.performers[0]?.email },
-                        { title: 'Instrument Category', key: 'instrumentCategory', render: (_, rec) => rec?.instrumentCategory },
-                    ]}
-                    dataSource={registrantDatas.map(item => ({ ...item, key: item.id }))}
-                    pagination={{ pageSize: 5 }}
-                />
+                <Radio.Group
+                    onChange={(e) => setAssignmentMode(e.target.value)}
+                    value={assignmentMode}
+                    style={{ marginBottom: 16 }}
+                >
+                    <Radio.Button value="select">Select from List</Radio.Button>
+                    <Radio.Button value="manual">Enter Manually</Radio.Button>
+                </Radio.Group>
+
+                <Divider />
+
+                {/* --- Conditional: Select from List Mode --- */}
+                {assignmentMode === 'select' && (
+                    <>
+                        <Input.Search
+                            placeholder="Search by performer name..."
+                            value={searchTerm}
+                            onChange={(e) => setSearchTerm(e.target.value)}
+                            style={{ marginBottom: 16 }}
+                            allowClear
+                        />
+                        <Table
+                            rowSelection={{
+                                type: 'radio',
+                                onChange: (_, selectedRows) => setRegistrantToAssign(selectedRows[0]),
+                            }}
+                            columns={[
+                                { title: 'Performer', key: 'performer', render: (_, rec) => `${rec?.performers[0]?.firstName} ${rec?.performers[0]?.lastName}` },
+                                { title: 'Email', key: 'email', render: (_, rec) => rec?.performers[0]?.email },
+                                { title: 'Instrument Category', key: 'instrumentCategory', render: (_, rec) => rec?.instrumentCategory },
+                            ]}
+                            dataSource={registrantDatas.map(item => ({ ...item, key: item.id }))}
+                            pagination={{ pageSize: 5 }}
+                        />
+                    </>
+                )}
+
+                {/* --- Conditional: Manual Input Mode --- */}
+                {assignmentMode === 'manual' && (
+                    <Form layout="vertical">
+                        <Row gutter={16}>
+                            <Col span={12}>
+                                <Form.Item label="Registrant Name" required>
+                                    <Input
+                                        placeholder="e.g., John Doe"
+                                        value={manualAssignName}
+                                        onChange={(e) => setManualAssignName(e.target.value)}
+                                    />
+                                </Form.Item>
+                            </Col>
+                            <Col span={12}>
+                                <Form.Item label="Registrant Email" required>
+                                    <Input
+                                        placeholder="e.g., john.doe@example.com"
+                                        value={manualAssignEmail}
+                                        onChange={(e) => setManualAssignEmail(e.target.value)}
+                                    />
+                                </Form.Item>
+                            </Col>
+                        </Row>
+                    </Form>
+                )}
             </Modal>
         </form>
     );
