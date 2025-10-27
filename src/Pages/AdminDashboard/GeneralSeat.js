@@ -5,6 +5,7 @@ import {
     Col,
     Divider,
     Input,
+    List,
     message,
     Modal,
     Radio,
@@ -20,11 +21,11 @@ import * as FileSaver from "file-saver";
 import { collection, doc, getDocs, query, runTransaction, serverTimestamp, where, writeBatch } from 'firebase/firestore';
 import { useEffect, useMemo, useState } from 'react';
 import { Controller, useFieldArray, useForm } from 'react-hook-form';
-import { toast } from 'react-toastify';
 import apis from '../../apis';
 import { db } from '../../firebase';
 import { useEventBookingData } from '../../hooks/useEventBookingData';
 import usePaginatedRegistrants from '../../hooks/useFetchRegistrantsData';
+import useFetchSeatBookData from '../../hooks/useFetchSeatBookData';
 import CustomSeatPickerGeneral from '../SelectSeat/CustomSeatPickerGeneral';
 
 const { Title, Text, Paragraph } = Typography;
@@ -64,9 +65,14 @@ const GeneralSeat = () => {
 
     const [seatLayout, setSeatLayout] = useState([]); // This will hold the single, flat list from the backend
     const [isSeatMapLoading, setIsSeatMapLoading] = useState(false);
-    // const { userBookData, loading, error: seatBookError, refetch } = useFetchSeatBookData("seatBook2025");
+    const {
+        userBookData: seatBookings,
+        loading: bookingsLoading,
+        error: bookingsError
+    } = useFetchSeatBookData("seatBook2025");
 
     const [isExporting, setIsExporting] = useState(false);
+    const [isExportingStatus, setIsExportingStatus] = useState(false);
 
     // --- React Hook Form Initialization ---
     const { control, handleSubmit, watch, setValue } = useForm({
@@ -112,6 +118,97 @@ const GeneralSeat = () => {
             return fullName.includes(searchTerm.toLowerCase());
         });
     }, [registrantDatas, searchTerm]);
+
+    // This memo finds bookings assigned by an admin (ready to be emailed)
+    const adminAssignedBookings = useMemo(() => {
+        if (!seatBookings || !watchedFormData.session) return [];
+        return seatBookings.filter(b =>
+            !b.seatsSelected &&
+            !b.isEmailSent &&
+            b.venue === watchedFormData.venue &&
+            b.session === watchedFormData.session
+        );
+    }, [seatBookings, watchedFormData.venue, watchedFormData.session]);
+
+    // This memo finds bookings completed by the user
+    const userAssignedBookings = useMemo(() => {
+        if (!seatBookings || !watchedFormData.session) return [];
+        return seatBookings.filter(b =>
+            b.seatsSelected === true &&
+            b.isEmailSent === true &&
+            b.venue === watchedFormData.venue &&
+            b.session === watchedFormData.session
+        );
+    }, [seatBookings, watchedFormData.venue, watchedFormData.session]);
+
+    const handleExportBookingStatus = () => {
+        if (adminAssignedBookings.length === 0 && userAssignedBookings.length === 0) {
+            message.warn("No booking data to export.");
+            return;
+        }
+
+        setIsExportingStatus(true);
+        message.info("Preparing booking status report...");
+
+        try {
+            const workbook = new ExcelJS.Workbook();
+
+            // Helper function to extract and format seat labels
+            const formatSeats = (selectedSeats) => {
+                if (!selectedSeats || selectedSeats.length === 0) return 'N/A';
+                return selectedSeats.map(s => s.split('_')[0].split('-').slice(1).join('-')).join(', ');
+            };
+
+            // Helper function to add a sheet to the workbook
+            const addSheet = (sheetName, data) => {
+                const worksheet = workbook.addWorksheet(sheetName);
+
+                // Define Headers
+                worksheet.getRow(1).values = ['User Name', 'User Email', 'Venue', 'Session', 'Selected Seats'];
+                worksheet.getRow(1).font = { bold: true };
+
+                // Map data to rows
+                const dataForSheet = data.map(item => ({
+                    'User Name': item.userName,
+                    'User Email': item.userEmail,
+                    'Venue': item.venue === "Venue1" ? "Jatayu" : "Melati",
+                    'Session': item.session,
+                    'Selected Seats': formatSeats(item.selectedSeats)
+                }));
+
+                dataForSheet.forEach(item => {
+                    worksheet.addRow(Object.values(item));
+                });
+
+                // Auto-fit columns
+                worksheet.columns.forEach(column => {
+                    let maxLength = 0;
+                    column.eachCell({ includeEmpty: true }, (cell) => {
+                        const len = cell.value ? cell.value.toString().length : 10;
+                        if (len > maxLength) maxLength = len;
+                    });
+                    column.width = maxLength + 2;
+                });
+            };
+
+            // Create both sheets
+            addSheet('Need to Send', adminAssignedBookings);
+            addSheet('Email Sent', userAssignedBookings);
+
+            // Generate and download the file
+            workbook.xlsx.writeBuffer().then((buffer) => {
+                const blob = new Blob([buffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+                const fileName = `BookingStatus_${watchedFormData.venue}_${watchedFormData.date}_${watchedFormData.session}.xlsx`;
+                FileSaver.saveAs(blob, fileName);
+            });
+
+        } catch (error) {
+            console.error("Failed to export booking status:", error);
+            message.error("An error occurred during the export.");
+        } finally {
+            setIsExportingStatus(false);
+        }
+    };
 
     useEffect(() => {
         const fetchSeatMap = async () => {
@@ -247,48 +344,6 @@ const GeneralSeat = () => {
         if (!seatLayout || seatLayout.length === 0) return {};
         return finalLayouts;
     }, [seatLayout, watchedFormData.venue]);
-
-    // --- Form Submission ---
-    const onFormSubmit = async (formData) => {
-        if (!formData.registrant) {
-            message.error('Please select a registrant.');
-            return;
-        }
-
-        const bookingPayload = {
-            eventId: eventId,
-            userId: formData.registrant.id,
-            userName: formData.registrant.name,
-            userEmail: formData.registrant.email,
-            venue: formData.venue,
-            date: formData.date,
-            session: formData.session,
-            tickets: formData.tickets.filter(t => t.quantity > 0),
-            addOns: formData.addOns,
-        };
-
-        try {
-            message.loading({ content: 'Initiating your booking...', key: 'booking' });
-            // 1. Save the booking info and get the token back
-            console.log("bookingPayload", bookingPayload)
-            const saveResponse = await apis.bookings.saveSeatBookProfileInfo(bookingPayload);
-            const { bookingId, seatSelectionToken } = saveResponse.data;
-
-            // 2. Prepare the payload for the email, now including the token
-            const emailPayload = {
-                ...bookingPayload,
-                bookingId: bookingId,
-                seatSelectionToken: seatSelectionToken // Add the token here
-            };
-            console.log("emailPayload", emailPayload)
-            // 3. Send the email with the token
-            await apis.bookings.sendSeatBookingEmail(emailPayload);
-            message.success({ content: 'Booking initiated!', key: 'booking' });
-            toast.info("Please check your email to select your seat(s).");
-        } catch (err) {
-            message.error({ content: err.response?.data?.message || 'Failed to create booking.', key: 'booking' });
-        }
-    };
 
     // --- Order Summary Calculation ---
     const orderSummary = useMemo(() => {
@@ -554,7 +609,7 @@ const GeneralSeat = () => {
     }
 
     return (
-        <form onSubmit={handleSubmit(onFormSubmit)}>
+        <form>
             <Row style={{ padding: '40px' }}>
                 <Col xs={24} md={24}>
                     <Title level={2}>{event.title}</Title>
@@ -625,6 +680,55 @@ const GeneralSeat = () => {
                         </Space>
                     </Card>
 
+                    {watchedFormData.session && (
+                        <Card title="Booking Status Summary" style={{ marginTop: '24px' }}
+                            extra={
+                                <Button
+                                    type="primary"
+                                    onClick={handleExportBookingStatus}
+                                    loading={isExportingStatus}
+                                >
+                                    Export Status List
+                                </Button>
+                            }
+                        >
+                            <Row gutter={16}>
+                                <Col xs={24} md={12}>
+                                    <Title level={5}>Need to Send General Seat Email</Title>
+                                    <List
+                                        bordered
+                                        dataSource={adminAssignedBookings}
+                                        renderItem={item => (
+                                            <List.Item>
+                                                <List.Item.Meta
+                                                    title={item.userName}
+                                                    description={`Seats: ${(item.selectedSeats || []).map(s => s.split('_')[0].split('-')[1]).join(', ')}`}
+                                                />
+                                            </List.Item>
+                                        )}
+                                        locale={{ emptyText: 'No bookings to email' }}
+                                    />
+                                </Col>
+                                <Col xs={24} md={12}>
+                                    <Title level={5}>User-Completed (Email Already Sent)</Title>
+                                    <List
+                                        bordered
+                                        dataSource={userAssignedBookings}
+                                        renderItem={item => (
+                                            <List.Item>
+                                                <List.Item.Meta
+                                                    title={item.userName}
+                                                    description={`Seats: ${(item.selectedSeats || []).map(s => s.split('_')[0].split('-')[1]).join(', ')}`}
+                                                />
+                                            </List.Item>
+                                        )}
+                                        locale={{ emptyText: 'No completed bookings' }}
+                                    />
+                                </Col>
+                            </Row>
+                        </Card>
+                    )}
+
                     {/* --- NEW CARD: Interactive Seat Map for Assignment --- */}
                     {watchedFormData.session && (
                         <Card title="Assign Registrant to Seat" style={{ marginTop: '24px' }}
@@ -657,23 +761,6 @@ const GeneralSeat = () => {
                             )}
                         </Card>
                     )}
-
-                    {/* --- Card 5: Optional Packages --- */}
-                    {/* <Card title="5. Optional Packages" style={{ marginBottom: '24px' }}>
-                        <Controller
-                            name="addOns"
-                            control={control}
-                            render={({ field }) => (
-                                <Checkbox.Group {...field} style={{ display: 'flex', flexDirection: 'column' }}>
-                                    {event.addOns?.map(addOn => (
-                                        <Checkbox key={addOn.id} value={addOn.id} style={{ marginBottom: '8px' }}>
-                                            {addOn.name} (+${addOn.price})
-                                        </Checkbox>
-                                    ))}
-                                </Checkbox.Group>
-                            )}
-                        />
-                    </Card> */}
                 </Col>
             </Row>
 
