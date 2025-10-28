@@ -18,7 +18,7 @@ import {
     Table,
     Typography
 } from 'antd';
-import { collection, doc, getDocs, query, updateDoc, where, writeBatch } from 'firebase/firestore';
+import { collection, doc, getDocs, query, where, writeBatch } from 'firebase/firestore';
 import { useEffect, useMemo, useState } from 'react';
 import { Controller, useFieldArray, useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
@@ -207,6 +207,12 @@ const SeatingEvent = () => {
 
     const [useTestEmail, setUseTestEmail] = useState(false);
 
+    // --- NEW STATE for Modal and Submission ---
+    const [modalMode, setModalMode] = useState('select'); // 'select' or 'manual'
+    const [manualName, setManualName] = useState('');
+    const [manualEmail, setManualEmail] = useState('');
+    const [submitType, setSubmitType] = useState('standard'); // 'standard' or 'general'
+
     // --- React Hook Form Initialization ---
     const { control, handleSubmit, watch, setValue } = useForm({
         defaultValues: {
@@ -228,17 +234,43 @@ const SeatingEvent = () => {
 
     // --- Modal Logic ---
     const showModal = () => setIsModalOpen(true);
-    const handleCloseModal = () => setIsModalOpen(false);
-    const handleModalConfirm = () => {
-        if (tempSelectedRow) {
-            const performer = tempSelectedRow.performers[0];
-            setValue('registrant', {
-                id: tempSelectedRow.id,
-                name: `${performer.firstName} ${performer.lastName}`,
-                email: performer.email
-            }, { shouldValidate: true }); // Update form state
-        }
+
+    const handleCloseModal = () => {
         setIsModalOpen(false);
+        setTempSelectedRow(null);
+        setManualName('');
+        setManualEmail('');
+        setModalMode('select'); // Reset mode on close
+    };
+
+    const handleModalConfirm = () => {
+        if (modalMode === 'select') {
+            if (tempSelectedRow) {
+                const performer = tempSelectedRow.performers[0];
+                setValue('registrant', {
+                    id: tempSelectedRow.id,
+                    name: `${performer.firstName} ${performer.lastName}`,
+                    email: performer.email
+                }, { shouldValidate: true });
+                handleCloseModal();
+            } else {
+                message.error("Please select a registrant from the list.");
+            }
+        } else {
+            // Manual mode
+            if (!manualName || !manualEmail) {
+                message.error("Please enter both a name and an email.");
+                return;
+            }
+            // Create a "mock" registrant object.
+            // The ID 'manual' will be checked in the submit function.
+            setValue('registrant', {
+                id: 'manual',
+                name: manualName,
+                email: manualEmail
+            }, { shouldValidate: true });
+            handleCloseModal();
+        }
     };
 
     const filteredData = useMemo(() => {
@@ -338,22 +370,21 @@ const SeatingEvent = () => {
     // --- Form Submission ---
     const onFormSubmit = async (formData) => {
         if (!formData.registrant) {
-            message.error('Please select a registrant');
+            message.error('Please select or enter a registrant.');
             return;
         }
 
         const sanitizedTickets = formData.tickets.map(ticket => {
-            // 2. If 'wantsSeat' is false, create a new object with seatQuantity set to 0.
             if (!ticket.wantsSeat) {
                 return { ...ticket, seatQuantity: 0 };
             }
-            // 3. Otherwise, return the ticket as is.
             return ticket;
         });
 
+        // Build the payload, checking if the registrant was manually entered
         const bookingPayload = {
             eventId: eventId,
-            userId: formData.registrant.id,
+            userId: formData.registrant.id === 'manual' ? 'MANUAL_ENTRY' : formData.registrant.id,
             userName: formData.registrant.name,
             userEmail: useTestEmail ? 'hello@apcsmusic.com' : formData.registrant.email,
             venue: formData.venue,
@@ -361,28 +392,31 @@ const SeatingEvent = () => {
             session: formData.session,
             tickets: sanitizedTickets.filter(t => t.quantity > 0),
             addOns: formData.addOns,
+            isGeneralTicket: submitType === 'general', // <-- HERE IS THE NEW FLAG
         };
 
         try {
             message.loading({ content: 'Initiating your booking...', key: 'booking' });
-            // 1. Save the booking info and get the token back
             const saveResponse = await apis.bookings.saveSeatBookProfileInfo(bookingPayload);
             const { bookingId, seatSelectionToken } = saveResponse.data;
 
-            // 2. Prepare the payload for the email, now including the token
             const emailPayload = {
                 ...bookingPayload,
                 bookingId: bookingId,
-                seatSelectionToken: seatSelectionToken // Add the token here
+                seatSelectionToken: seatSelectionToken
             };
 
-            // 3. Send the email with the token
             await apis.bookings.sendSeatBookingEmail(emailPayload);
             message.success({ content: 'Booking initiated!', key: 'booking' });
             toast.info("Please check your email to select your seat(s).");
         } catch (err) {
             message.error({ content: err.response?.data?.message || 'Failed to create booking.', key: 'booking' });
         }
+    };
+
+    const handleTriggerSubmit = (type) => {
+        setSubmitType(type);
+        handleSubmit(onFormSubmit)(); // This triggers react-hook-form's validation and submit
     };
 
     // --- Order Summary Calculation ---
@@ -413,56 +447,56 @@ const SeatingEvent = () => {
     }, [watchedFormData, event]);
 
     // --- NEW HANDLERS for the assignment flow ---
-    const handleSeatClick = (seat) => {
-        console.log("seat", seat)
-        if (seat.status !== 'available') {
-            message.info(`Seat ${seat.seatLabel} is already reserved for ${seat.assignedTo?.registrantName || 'someone'}.`);
-            return;
-        }
-        setSeatToAssign(seat);
-        setIsAssignModalOpen(true);
-    };
+    // const handleSeatClick = (seat) => {
+    //     console.log("seat", seat)
+    //     if (seat.status !== 'available') {
+    //         message.info(`Seat ${seat.seatLabel} is already reserved for ${seat.assignedTo?.registrantName || 'someone'}.`);
+    //         return;
+    //     }
+    //     setSeatToAssign(seat);
+    //     setIsAssignModalOpen(true);
+    // };
 
-    const handleAssignModalCancel = () => {
-        setIsAssignModalOpen(false);
-        setSeatToAssign(null);
-        setRegistrantToAssign(null);
-    };
+    // const handleAssignModalCancel = () => {
+    //     setIsAssignModalOpen(false);
+    //     setSeatToAssign(null);
+    //     setRegistrantToAssign(null);
+    // };
 
-    const handleAssignModalConfirm = async () => {
-        if (!seatToAssign || !registrantToAssign) {
-            message.error("No seat or registrant was selected.");
-            return;
-        }
+    // const handleAssignModalConfirm = async () => {
+    //     if (!seatToAssign || !registrantToAssign) {
+    //         message.error("No seat or registrant was selected.");
+    //         return;
+    //     }
 
-        message.loading({ content: 'Assigning seat...', key: 'assignSeat' });
-        try {
-            const docRef = doc(db, `seats${eventId}`, seatToAssign.id);
+    //     message.loading({ content: 'Assigning seat...', key: 'assignSeat' });
+    //     try {
+    //         const docRef = doc(db, `seats${eventId}`, seatToAssign.id);
 
-            // Update the seat document in Firestore
-            await updateDoc(docRef, {
-                status: 'reserved',
-                assignedTo: {
-                    registrantId: registrantToAssign.id,
-                    registrantName: `${registrantToAssign.performers[0].firstName} ${registrantToAssign.performers[0].lastName}`,
-                    registrantEmail: registrantToAssign.performers[0].email // Add the email here
-                }
-            });
+    //         // Update the seat document in Firestore
+    //         await updateDoc(docRef, {
+    //             status: 'reserved',
+    //             assignedTo: {
+    //                 registrantId: registrantToAssign.id,
+    //                 registrantName: `${registrantToAssign.performers[0].firstName} ${registrantToAssign.performers[0].lastName}`,
+    //                 registrantEmail: registrantToAssign.performers[0].email // Add the email here
+    //             }
+    //         });
 
-            message.success({ content: `Seat ${seatToAssign.seatLabel} assigned successfully!`, key: 'assignSeat' });
+    //         message.success({ content: `Seat ${seatToAssign.seatLabel} assigned successfully!`, key: 'assignSeat' });
 
-            // Refresh the seat map by re-fetching the data
-            // You might need to extract your `fetchSeatMap` logic into a useCallback
-            // For simplicity here, we'll just re-trigger it by briefly clearing state
-            setSeatLayout([]);
-            // This will cause the useEffect to re-fetch the updated seat map.
+    //         // Refresh the seat map by re-fetching the data
+    //         // You might need to extract your `fetchSeatMap` logic into a useCallback
+    //         // For simplicity here, we'll just re-trigger it by briefly clearing state
+    //         setSeatLayout([]);
+    //         // This will cause the useEffect to re-fetch the updated seat map.
 
-            handleAssignModalCancel(); // Close and reset
-        } catch (error) {
-            console.error("Failed to assign seat:", error);
-            message.error({ content: 'Failed to assign seat.', key: 'assignSeat' });
-        }
-    };
+    //         handleAssignModalCancel(); // Close and reset
+    //     } catch (error) {
+    //         console.error("Failed to assign seat:", error);
+    //         message.error({ content: 'Failed to assign seat.', key: 'assignSeat' });
+    //     }
+    // };
 
     const handleUploadClick = async () => {
         setLoading(true);
@@ -495,14 +529,14 @@ const SeatingEvent = () => {
     }
 
     return (
-        <form onSubmit={handleSubmit(onFormSubmit)}>
+        <form>
             <Row gutter={[32, 32]} style={{ padding: '40px' }}>
                 <Col xs={24} md={14}>
                     <Title level={2}>{event.title}</Title>
                     <Paragraph>{new Date(event.date?.seconds * 1000).toLocaleDateString('en-GB', { /* ... */ })}</Paragraph>
                     <Divider />
 
-                    <Card title="Admin Database Tools" style={{ margin: '40px' }}>
+                    {/* <Card title="Admin Database Tools" style={{ margin: '40px' }}>
                         <p>
                             Use this tool to generate and upload the complete seat layout for an event.
                             <strong>Warning:</strong> This will overwrite any existing seat data for the event.
@@ -513,7 +547,7 @@ const SeatingEvent = () => {
                         >
                             Generate & Upload Full Seat Layout
                         </Button>
-                    </Card>
+                    </Card> */}
 
                     {/* --- Card 1: Registrant Selection --- */}
                     <Card title="1. Select Registrant" style={{ marginBottom: '24px' }}>
@@ -670,9 +704,22 @@ const SeatingEvent = () => {
                             <Col><Title level={3}>Total</Title></Col>
                             <Col><Title level={3}>Rp {orderSummary.total}</Title></Col>
                         </Row>
-                        <Button type="primary" size="large" block htmlType="submit">
+                        <Button
+                            type="primary"
+                            size="large"
+                            block
+                            onClick={() => handleTriggerSubmit('standard')}
+                        >
                             Send Email Link
                         </Button>
+                        {/* <Button
+                            size="large"
+                            block
+                            onClick={() => handleTriggerSubmit('general')}
+                            style={{ marginTop: 16 }}
+                        >
+                            Send Email Link (General People)
+                        </Button> */}
                     </Card>
                 </Col>
             </Row>
@@ -684,23 +731,66 @@ const SeatingEvent = () => {
                 onOk={handleModalConfirm}
                 onCancel={handleCloseModal}
                 width={1000}
-                okText="Select"
-                okButtonProps={{ disabled: !tempSelectedRow }}
+                okText={modalMode === 'select' ? "Select" : "Add Registrant"}
+                okButtonProps={{
+                    disabled: modalMode === 'select' && !tempSelectedRow
+                }}
             >
-                <Input.Search placeholder="Search by performer name..." value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} style={{ marginBottom: 16 }} allowClear />
-                <Table
-                    rowSelection={{ type: 'radio', onChange: (_, selectedRows) => setTempSelectedRow(selectedRows[0]) }}
-                    columns={[
-                        { title: 'Performer', key: 'performer', render: (_, rec) => `${rec?.performers[0]?.firstName} ${rec?.performers[0]?.lastName}` },
-                        { title: 'Email', key: 'email', render: (_, rec) => rec?.performers[0]?.email },
-                        { title: 'Instrument Category', key: 'instrumentCategory', render: (_, rec) => rec?.instrumentCategory },
-                    ]}
-                    dataSource={filteredData.map(item => ({ ...item, key: item.id }))}
-                    pagination={{ pageSize: 5 }}
-                />
+                <Radio.Group
+                    onChange={(e) => setModalMode(e.target.value)}
+                    value={modalMode}
+                    style={{ marginBottom: 16 }}
+                >
+                    <Radio.Button value="select">Select from List</Radio.Button>
+                    <Radio.Button value="manual">Enter Manually</Radio.Button>
+                </Radio.Group>
+
+                <Divider />
+
+                {modalMode === 'select' && (
+                    <>
+                        <Input.Search
+                            placeholder="Search by performer name..."
+                            value={searchTerm}
+                            onChange={(e) => setSearchTerm(e.target.value)}
+                            style={{ marginBottom: 16 }}
+                            allowClear
+                        />
+                        <Table
+                            rowSelection={{
+                                type: 'radio',
+                                onChange: (_, selectedRows) => setTempSelectedRow(selectedRows[0]),
+                            }}
+                            columns={[
+                                { title: 'Performer', key: 'performer', render: (_, rec) => `${rec?.performers[0]?.firstName} ${rec?.performers[0]?.lastName}` },
+                                { title: 'Email', key: 'email', render: (_, rec) => rec?.performers[0]?.email },
+                                { title: 'Instrument Category', key: 'instrumentCategory', render: (_, rec) => rec?.instrumentCategory },
+                            ]}
+                            dataSource={filteredData.map(item => ({ ...item, key: item.id }))}
+                            pagination={{ pageSize: 5 }}
+                        />
+                    </>
+                )}
+
+                {modalMode === 'manual' && (
+                    <Space direction="vertical" style={{ width: '100%' }}>
+                        <Input
+                            placeholder="Full Name"
+                            size="large"
+                            value={manualName}
+                            onChange={(e) => setManualName(e.target.value)}
+                        />
+                        <Input
+                            placeholder="Email Address"
+                            size="large"
+                            value={manualEmail}
+                            onChange={(e) => setManualEmail(e.target.value)}
+                        />
+                    </Space>
+                )}
             </Modal>
 
-            <Modal
+            {/* <Modal
                 title={`Assign a Registrant to Seat ${seatToAssign?.seatLabel || ''}`}
                 open={isAssignModalOpen}
                 onOk={handleAssignModalConfirm}
@@ -720,7 +810,7 @@ const SeatingEvent = () => {
                     dataSource={registrantDatas.map(item => ({ ...item, key: item.id }))}
                     pagination={{ pageSize: 5 }}
                 />
-            </Modal>
+            </Modal> */}
         </form>
     );
 };
