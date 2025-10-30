@@ -61,6 +61,7 @@ const GeneralSeat = () => {
     const [manualAssignName, setManualAssignName] = useState('');        // For "Manual" mode
     const [manualAssignEmail, setManualAssignEmail] = useState('');       // For "Manual" mode
     const [assignmentMode, setAssignmentMode] = useState('select');
+    const [extraSeats, setExtraSeats] = useState([]);
 
     // --- UI State (for modal, search, etc.) ---
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -489,6 +490,7 @@ const GeneralSeat = () => {
         setAssignmentMode('select'); // Reset mode
         setManualAssignName('');
         setManualAssignEmail('');
+        setExtraSeats([]); // <-- ADD THIS LINE
     };
 
     const handleExportSeatMap = () => {
@@ -609,16 +611,20 @@ const GeneralSeat = () => {
             return;
         }
 
-        message.loading({ content: 'Assigning seat...', key: 'assignSeat' });
+        // --- NEW: Combine the clicked seat + any extra seats ---
+        const allSeatsToAssign = [seatToAssign, ...extraSeats];
+
+        message.loading({ content: 'Assigning seats...', key: 'assignSeat' });
         try {
             await runTransaction(db, async (transaction) => {
                 // --- 1. Check Seat Availability (Same for both modes) ---
-                const seatDocRef = doc(db, `seats${eventId}`, seatToAssign.id);
-                const seatDoc = await transaction.get(seatDocRef);
-                if (!seatDoc.exists() || seatDoc.data().status !== 'available') {
-                    throw new Error(`Sorry, seat ${seatToAssign.seatLabel} is no longer available.`);
+                for (const seat of allSeatsToAssign) {
+                    const seatDocRef = doc(db, `seats${eventId}`, seat.id);
+                    const seatDoc = await transaction.get(seatDocRef);
+                    if (!seatDoc.exists() || seatDoc.data().status !== 'available') {
+                        throw new Error(`Sorry, seat ${seat.seatLabel} is no longer available.`);
+                    }
                 }
-
                 let bookingId;
                 let assignedToData;
                 const venue = watchedFormData.venue;
@@ -648,7 +654,10 @@ const GeneralSeat = () => {
                         const bookingDocRef = bookingQuerySnap.docs[0].ref;
                         const bookingData = bookingQuerySnap.docs[0].data();
                         bookingId = bookingDocRef.id;
-                        const updatedSelectedSeats = [...(bookingData.selectedSeats || []), seatToAssign.id];
+
+                        // --- NEW: Add ALL new seats to the array ---
+                        const newSeatIds = allSeatsToAssign.map(s => s.id);
+                        const updatedSelectedSeats = [...(bookingData.selectedSeats || []), ...newSeatIds];
 
                         transaction.update(bookingDocRef, {
                             seatsSelected: true,
@@ -670,7 +679,7 @@ const GeneralSeat = () => {
                             session: watchedFormData.session,
                             createdAt: serverTimestamp(),
                             seatsSelected: true,
-                            selectedSeats: [seatToAssign.id],
+                            selectedSeats: allSeatsToAssign.map(s => s.id), // <-- Add all seats
                             isEmailSent: false,
                             isGeneralTicket: true,
                             tickets: [], // Add ticket logic here if needed
@@ -698,12 +707,13 @@ const GeneralSeat = () => {
 
                     if (!manualBookingSnap.empty) {
                         // --- UPDATE PATH (Manual User) ---
-                        console.log("Existing manual booking found, updating...");
                         const bookingDocRef = manualBookingSnap.docs[0].ref;
                         const bookingData = manualBookingSnap.docs[0].data();
                         bookingId = bookingDocRef.id;
 
-                        const updatedSelectedSeats = [...(bookingData.selectedSeats || []), seatToAssign.id];
+                        // --- NEW: Add ALL new seats to the array ---
+                        const newSeatIds = allSeatsToAssign.map(s => s.id);
+                        const updatedSelectedSeats = [...(bookingData.selectedSeats || []), ...newSeatIds];
 
                         transaction.update(bookingDocRef, {
                             seatsSelected: true,
@@ -711,15 +721,11 @@ const GeneralSeat = () => {
                             isEmailSent: false, // Ensure it gets picked up by the email campaign
                             isGeneralTicket: true,
                         });
-
                     } else {
                         // --- CREATE PATH (Manual User) ---
                         console.log("No existing manual booking found, creating new one...");
                         const newBookingDocRef = doc(collection(db, "seatBook2025"));
                         bookingId = newBookingDocRef.id;
-
-                        const assignedTicketType = seatToAssign.areaType;
-                        // const ticketInfo = ticketDetailsMap[assignedTicketType] || { name: 'Unknown', basePrice: 0 };
 
                         const newBookingData = {
                             eventId,
@@ -731,7 +737,7 @@ const GeneralSeat = () => {
                             session: watchedFormData.session,
                             createdAt: serverTimestamp(),
                             seatsSelected: true,
-                            selectedSeats: [seatToAssign.id],
+                            selectedSeats: allSeatsToAssign.map(s => s.id), // <-- Add all seats
                             isEmailSent: false,
                             isGeneralTicket: true,
                             tickets: [],
@@ -742,22 +748,50 @@ const GeneralSeat = () => {
                 }
 
                 // --- 3. Update the Seat Document (Common step) ---
-                transaction.update(seatDocRef, {
-                    status: 'reserved',
-                    bookingId: bookingId,
-                    assignedTo: assignedToData
-                });
+                for (const seat of allSeatsToAssign) {
+                    const seatDocRef = doc(db, `seats${eventId}`, seat.id);
+                    transaction.update(seatDocRef, {
+                        status: 'reserved',
+                        bookingId: bookingId,
+                        assignedTo: assignedToData
+                    });
+                }
             });
 
-            message.success({ content: `Seat ${seatToAssign.seatLabel} assigned!`, key: 'assignSeat' });
-            setIsrefetchSeatMap(!isrefetchSeatMap); // Trigger a refresh
-            handleAssignModalCancel(); // Close and reset
+            message.success({ content: `Successfully assigned ${allSeatsToAssign.length} seats!`, key: 'assignSeat' });
+            setIsrefetchSeatMap(!isrefetchSeatMap);
+            handleAssignModalCancel();
 
         } catch (error) {
             console.error("Failed to assign seat:", error);
             message.error({ content: error.message || 'Failed to assign seat.', key: 'assignSeat' });
         }
     };
+
+    const availableSeatsForModal = useMemo(() => {
+        // 1. Return empty if there's no clicked seat or no layout
+        if (!seatToAssign || Object.keys(formattedSessionLayout).length === 0) return [];
+
+        // --- THIS IS THE FIX ---
+        // 2. Extract the areaType (e.g., "presto") from the ID of the clicked seat
+        const area = seatToAssign.id.split('-')[0];
+        // --- END OF FIX ---
+
+        // 3. Check if that area exists in the layout (it should)
+        if (!formattedSessionLayout[area]) return [];
+
+        // 4. Get all seats in that section by flattening the array of rows
+        const allSeatsInArea = formattedSessionLayout[area].flat(2);
+
+        // 5. Filter for seats that are "available" and NOT the one you just clicked
+        return allSeatsInArea
+            .filter(seat => seat.status === 'available' && seat.id !== seatToAssign.id)
+            .map(seat => ({
+                label: `Seat ${seat.seatLabel}`, // Use the seatLabel property
+                value: seat.id,
+                seatObject: seat // Store the full object
+            }));
+    }, [seatToAssign, formattedSessionLayout]); // Dependencies are correct
 
     const availableSession = useMemo(() => {
         if (watchedFormData.venue === "Venue1") {
@@ -954,6 +988,28 @@ const GeneralSeat = () => {
                 </Radio.Group>
 
                 <Divider />
+
+                {/* --- NEW MULTI-SELECT DROPDOWN --- */}
+                <Form layout="vertical">
+                    <Form.Item label={`Assign additional seats in this section (You are already assigning ${seatToAssign?.seatLabel}):`}>
+                        <Select
+                            mode="multiple"
+                            allowClear
+                            style={{ width: '100%' }}
+                            placeholder="Select other seats to assign to this person..."
+                            options={availableSeatsForModal}
+                            // When an option is selected, we get the value (the ID)
+                            // We need to find the full seat object to add to our state
+                            onChange={(selectedIds) => {
+                                const seats = selectedIds.map(id =>
+                                    availableSeatsForModal.find(opt => opt.value === id)?.seatObject
+                                );
+                                setExtraSeats(seats);
+                            }}
+                        />
+                    </Form.Item>
+                </Form>
+                {/* --- END OF NEW DROPDOWN --- */}
 
                 {assignmentMode === 'select' && (
                     <>
