@@ -446,7 +446,7 @@ const GeneralSeat = () => {
                             // If this was the last seat, mark it as no longer selected
                             seatsSelected: updatedSelectedSeats.length > 0,
                             // TODO: this emailsent might need to modify based on specific needs when unassign seat
-                            isEmailSent: false // Mark for re-processing in the email campaign
+                            isEmailSent: true // Mark for re-processing in the email campaign
                         });
                     }
                 }
@@ -759,9 +759,8 @@ const GeneralSeat = () => {
             });
 
             message.success({ content: `Successfully assigned ${allSeatsToAssign.length} seats!`, key: 'assignSeat' });
-            setIsrefetchSeatMap(!isrefetchSeatMap);
             handleAssignModalCancel();
-
+            setIsrefetchSeatMap(!isrefetchSeatMap);
         } catch (error) {
             console.error("Failed to assign seat:", error);
             message.error({ content: error.message || 'Failed to assign seat.', key: 'assignSeat' });
@@ -769,29 +768,23 @@ const GeneralSeat = () => {
     };
 
     const availableSeatsForModal = useMemo(() => {
-        // 1. Return empty if there's no clicked seat or no layout
         if (!seatToAssign || Object.keys(formattedSessionLayout).length === 0) return [];
 
-        // --- THIS IS THE FIX ---
-        // 2. Extract the areaType (e.g., "presto") from the ID of the clicked seat
         const area = seatToAssign.id.split('-')[0];
-        // --- END OF FIX ---
-
-        // 3. Check if that area exists in the layout (it should)
         if (!formattedSessionLayout[area]) return [];
 
-        // 4. Get all seats in that section by flattening the array of rows
+        // Flatten the array of rows to a single list of seat objects
         const allSeatsInArea = formattedSessionLayout[area].flat(2);
 
-        // 5. Filter for seats that are "available" and NOT the one you just clicked
         return allSeatsInArea
+            .filter(Boolean) // <-- 1. ADD THIS: Removes any null/undefined seats
             .filter(seat => seat.status === 'available' && seat.id !== seatToAssign.id)
             .map(seat => ({
-                label: `Seat ${seat.seatLabel}`, // Use the seatLabel property
+                label: `Seat ${seat.seatLabel}`,
                 value: seat.id,
-                seatObject: seat // Store the full object
+                seatObject: seat
             }));
-    }, [seatToAssign, formattedSessionLayout]); // Dependencies are correct
+    }, [seatToAssign, formattedSessionLayout]);
 
     const availableSession = useMemo(() => {
         if (watchedFormData.venue === "Venue1") {
@@ -1001,10 +994,13 @@ const GeneralSeat = () => {
                             // When an option is selected, we get the value (the ID)
                             // We need to find the full seat object to add to our state
                             onChange={(selectedIds) => {
-                                const seats = selectedIds.map(id =>
-                                    availableSeatsForModal.find(opt => opt.value === id)?.seatObject
-                                );
+                                // --- THIS IS THE FIX ---
+                                const seats = selectedIds
+                                    .map(id => availableSeatsForModal.find(opt => opt.value === id)?.seatObject)
+                                    .filter(Boolean); // <-- 2. ADD THIS: Filters out any 'undefined' results
+
                                 setExtraSeats(seats);
+                                // --- END OF FIX ---
                             }}
                         />
                     </Form.Item>
