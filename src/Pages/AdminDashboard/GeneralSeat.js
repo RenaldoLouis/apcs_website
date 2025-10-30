@@ -64,8 +64,10 @@ const GeneralSeat = () => {
 
     // --- UI State (for modal, search, etc.) ---
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [isrefetchSeatMap, setIsrefetchSeatMap] = useState(false);
     const [tempSelectedRow, setTempSelectedRow] = useState(null);
     const [searchTerm, setSearchTerm] = useState('');
+    const [modalSearchTerm, setModalSearchTerm] = useState('');
 
     const [seatLayout, setSeatLayout] = useState([]); // This will hold the single, flat list from the backend
     const [isSeatMapLoading, setIsSeatMapLoading] = useState(false);
@@ -122,6 +124,23 @@ const GeneralSeat = () => {
             return fullName.includes(searchTerm.toLowerCase());
         });
     }, [registrantDatas, searchTerm]);
+
+    const filteredModalData = useMemo(() => {
+        if (!registrantDatas) return []; // Start with the full list of registrants
+
+        // If the modal search bar is empty, show the full list
+        if (!modalSearchTerm) return registrantDatas;
+
+        const lowercasedFilter = modalSearchTerm.toLowerCase();
+
+        // Filter the full list based on the modal's search term
+        return registrantDatas.filter(registrant => {
+            const performer = registrant.performers?.[0];
+            if (!performer) return false;
+            const fullName = `${performer.firstName} ${performer.lastName}`.toLowerCase();
+            return fullName.includes(lowercasedFilter);
+        });
+    }, [registrantDatas, modalSearchTerm]);
 
     // This memo finds bookings assigned by an admin (ready to be emailed)
     const adminAssignedBookings = useMemo(() => {
@@ -241,7 +260,7 @@ const GeneralSeat = () => {
         };
 
         fetchSeatMap();
-    }, [watchedFormData.venue, watchedFormData.date, watchedFormData.session]);
+    }, [watchedFormData.venue, watchedFormData.date, watchedFormData.session, isrefetchSeatMap]);
 
     const runGeneralSeatingCampaign = async () => {
         console.log("Starting general seating email campaign...");
@@ -426,7 +445,7 @@ const GeneralSeat = () => {
                             // If this was the last seat, mark it as no longer selected
                             seatsSelected: updatedSelectedSeats.length > 0,
                             // TODO: this emailsent might need to modify based on specific needs when unassign seat
-                            isEmailSent: true // Mark for re-processing in the email campaign
+                            isEmailSent: false // Mark for re-processing in the email campaign
                         });
                     }
                 }
@@ -602,6 +621,7 @@ const GeneralSeat = () => {
 
                 let bookingId;
                 let assignedToData;
+                const venue = watchedFormData.venue;
 
                 // --- 2. Run logic based on Assignment Mode ---
                 if (assignmentMode === 'select') {
@@ -613,13 +633,13 @@ const GeneralSeat = () => {
                         registrantEmail: performer.email
                     };
 
-                    const sessionId = `${watchedFormData.date}_${watchedFormData.session}`;
                     const bookingQuery = query(
                         collection(db, "seatBook2025"),
                         where("userId", "==", registrantToAssign.id),
                         where("venue", "==", watchedFormData.venue),
                         where("session", "==", watchedFormData.session),
                         where("isEmailSent", "!=", true),
+
                     );
                     const bookingQuerySnap = await getDocs(bookingQuery);
 
@@ -637,7 +657,7 @@ const GeneralSeat = () => {
                             isGeneralTicket: true,
                         });
                     } else {
-                        // Create new booking
+                        // Create new booking for the selected registrant
                         const newBookingDocRef = doc(collection(db, "seatBook2025"));
                         bookingId = newBookingDocRef.id;
                         const newBookingData = {
@@ -645,7 +665,7 @@ const GeneralSeat = () => {
                             userId: registrantToAssign.id,
                             userName: assignedToData.registrantName,
                             userEmail: assignedToData.registrantEmail,
-                            venue: watchedFormData.venue,
+                            venue: venue,
                             date: watchedFormData.date,
                             session: watchedFormData.session,
                             createdAt: serverTimestamp(),
@@ -659,42 +679,66 @@ const GeneralSeat = () => {
                         transaction.set(newBookingDocRef, newBookingData);
                     }
                 } else {
-                    // --- MANUAL CREATE PATH (for new guests) ---
-                    const newBookingDocRef = doc(collection(db, "seatBook2025"));
-                    bookingId = newBookingDocRef.id;
-
+                    // --- MANUAL UPDATE/CREATE PATH (for new guests) ---
                     assignedToData = {
-                        registrantId: 'MANUAL_ASSIGN', // Special ID for manually added
+                        registrantId: 'MANUAL_ASSIGN',
                         registrantName: manualAssignName,
                         registrantEmail: manualAssignEmail
                     };
 
-                    const assignedTicketType = seatToAssign.areaType;
-                    // const ticketInfo = ticketDetailsMap[assignedTicketType] || { name: 'Unknown', basePrice: 0 };
+                    // --- THIS IS THE FIX ---
+                    // Query for an existing manual booking for this email and session
+                    const manualBookingQuery = query(
+                        collection(db, "seatBook2025"),
+                        where("userEmail", "==", manualAssignEmail), // Use email as the identifier
+                        where("venue", "==", venue),
+                        where("session", "==", watchedFormData.session)
+                    );
+                    const manualBookingSnap = await getDocs(manualBookingQuery);
 
-                    const newBookingData = {
-                        eventId,
-                        userId: 'MANUAL_ASSIGN',
-                        userName: manualAssignName,
-                        userEmail: manualAssignEmail,
-                        venue: watchedFormData.venue,
-                        date: watchedFormData.date,
-                        session: watchedFormData.session,
-                        createdAt: serverTimestamp(),
-                        seatsSelected: true,
-                        selectedSeats: [seatToAssign.id],
-                        isEmailSent: false,
-                        isGeneralTicket: true,
-                        // tickets: [{
-                        //     id: assignedTicketType,
-                        //     name: ticketInfo.name,
-                        //     basePrice: ticketInfo.basePrice,
-                        //     quantity: 1, wantsSeat: true, seatQuantity: 1
-                        // }],
-                        tickets: [],
-                        addOns: [],
-                    };
-                    transaction.set(newBookingDocRef, newBookingData);
+                    if (!manualBookingSnap.empty) {
+                        // --- UPDATE PATH (Manual User) ---
+                        console.log("Existing manual booking found, updating...");
+                        const bookingDocRef = manualBookingSnap.docs[0].ref;
+                        const bookingData = manualBookingSnap.docs[0].data();
+                        bookingId = bookingDocRef.id;
+
+                        const updatedSelectedSeats = [...(bookingData.selectedSeats || []), seatToAssign.id];
+
+                        transaction.update(bookingDocRef, {
+                            seatsSelected: true,
+                            selectedSeats: updatedSelectedSeats,
+                            isEmailSent: false, // Ensure it gets picked up by the email campaign
+                            isGeneralTicket: true,
+                        });
+
+                    } else {
+                        // --- CREATE PATH (Manual User) ---
+                        console.log("No existing manual booking found, creating new one...");
+                        const newBookingDocRef = doc(collection(db, "seatBook2025"));
+                        bookingId = newBookingDocRef.id;
+
+                        const assignedTicketType = seatToAssign.areaType;
+                        // const ticketInfo = ticketDetailsMap[assignedTicketType] || { name: 'Unknown', basePrice: 0 };
+
+                        const newBookingData = {
+                            eventId,
+                            userId: 'MANUAL_ASSIGN',
+                            userName: manualAssignName,
+                            userEmail: manualAssignEmail,
+                            venue: venue,
+                            date: watchedFormData.date,
+                            session: watchedFormData.session,
+                            createdAt: serverTimestamp(),
+                            seatsSelected: true,
+                            selectedSeats: [seatToAssign.id],
+                            isEmailSent: false,
+                            isGeneralTicket: true,
+                            tickets: [],
+                            addOns: [],
+                        };
+                        transaction.set(newBookingDocRef, newBookingData);
+                    }
                 }
 
                 // --- 3. Update the Seat Document (Common step) ---
@@ -706,7 +750,7 @@ const GeneralSeat = () => {
             });
 
             message.success({ content: `Seat ${seatToAssign.seatLabel} assigned!`, key: 'assignSeat' });
-            setSeatLayout([]); // Trigger a refresh
+            setIsrefetchSeatMap(!isrefetchSeatMap); // Trigger a refresh
             handleAssignModalCancel(); // Close and reset
 
         } catch (error) {
@@ -896,7 +940,6 @@ const GeneralSeat = () => {
                 width={1000}
                 okText="Assign Seat"
                 okButtonProps={{
-                    // Disable OK button if logic isn't met
                     disabled: (assignmentMode === 'select' && !registrantToAssign) ||
                         (assignmentMode === 'manual' && (!manualAssignName || !manualAssignEmail))
                 }}
@@ -912,13 +955,14 @@ const GeneralSeat = () => {
 
                 <Divider />
 
-                {/* --- Conditional: Select from List Mode --- */}
                 {assignmentMode === 'select' && (
                     <>
                         <Input.Search
                             placeholder="Search by performer name..."
-                            value={searchTerm}
-                            onChange={(e) => setSearchTerm(e.target.value)}
+                            // --- UPDATE THIS ---
+                            value={modalSearchTerm}
+                            onChange={(e) => setModalSearchTerm(e.target.value)}
+                            // --- END OF UPDATE ---
                             style={{ marginBottom: 16 }}
                             allowClear
                         />
@@ -931,8 +975,9 @@ const GeneralSeat = () => {
                                 { title: 'Performer', key: 'performer', render: (_, rec) => `${rec?.performers[0]?.firstName} ${rec?.performers[0]?.lastName}` },
                                 { title: 'Email', key: 'email', render: (_, rec) => rec?.performers[0]?.email },
                                 { title: 'Instrument Category', key: 'instrumentCategory', render: (_, rec) => rec?.instrumentCategory },
-                            ]}
-                            dataSource={registrantDatas.map(item => ({ ...item, key: item.id }))}
+                            ]}                            // --- UPDATE THIS ---
+                            dataSource={filteredModalData.map(item => ({ ...item, key: item.id }))}
+                            // --- END OF UPDATE ---
                             pagination={{ pageSize: 5 }}
                         />
                     </>
