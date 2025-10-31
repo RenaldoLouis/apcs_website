@@ -700,6 +700,7 @@ const GeneralSeat = () => {
                     const manualBookingQuery = query(
                         collection(db, "seatBook2025"),
                         where("userEmail", "==", manualAssignEmail), // Use email as the identifier
+                        where("userName", "==", manualAssignName), // Use email as the identifier
                         where("venue", "==", venue),
                         where("session", "==", watchedFormData.session)
                     );
