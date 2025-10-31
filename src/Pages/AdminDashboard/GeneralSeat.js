@@ -295,10 +295,12 @@ const GeneralSeat = () => {
                 console.log('Found booking data to process:', booking);
 
                 // If the email was sent successfully, mark it in Firestore
-                if (emailSent) {
+                if (emailSent.status === 200) {
                     successCount++;
                     const docRef = doc(db, "seatBook2025", booking.id);
                     batch.update(docRef, { isEmailSent: true });
+                } else {
+                    throw new Error(`Send Email Failed.`);
                 }
 
                 // Add a small delay to avoid overwhelming the email server
@@ -454,7 +456,7 @@ const GeneralSeat = () => {
 
             message.success({ content: `Seat ${seatToRelease.seatLabel} has been released.`, key: 'unassign' });
 
-            setSeatLayout([]); // Trigger a refresh of the seat map
+            setIsrefetchSeatMap(!isrefetchSeatMap);
 
         } catch (error) {
             console.error("Failed to un-assign seat:", error);
