@@ -114,3 +114,54 @@ export const parseDateString = (dateInput) => {
     // If all parsing fails, return an empty string
     return '';
 };
+
+export const getAge = (isoDateString) => {
+    const today = new Date();
+    const birthDate = new Date(isoDateString);
+
+    let age = today.getFullYear() - birthDate.getFullYear();
+
+    const monthDifference = today.getMonth() - birthDate.getMonth();
+
+    // Check if the birthday has not yet occurred this year.
+    // If the month is earlier, or if it's the same month but an earlier day, subtract one year.
+    if (monthDifference < 0 || (monthDifference === 0 && today.getDate() < birthDate.getDate())) {
+        age--;
+    }
+
+    return age;
+}
+
+export const isAgeInCategory = (age, descriptionString) => {
+    // Make sure we have a valid age and description
+    if (typeof age !== 'number' || !descriptionString) {
+        return false;
+    }
+
+    // 1. Find all numbers in the string (e.g., "Poco (4-5)" -> ["4", "5"])
+    const numbers = descriptionString.match(/\d+/g);
+
+    if (!numbers) {
+        return false; // No age range found in the string
+    }
+
+    const minAge = parseInt(numbers[0], 10);
+
+    // 2. Check for an open-ended range (e.g., "4+ years old")
+    if (descriptionString.includes('+')) {
+        return age >= minAge;
+    }
+
+    // 3. Check for a defined range (e.g., "12-15 years old")
+    if (numbers.length === 2) {
+        const maxAge = parseInt(numbers[1], 10);
+        return age >= minAge && age <= maxAge;
+    }
+
+    // 4. Fallback for a single number (e.g. "(12 years old)")
+    if (numbers.length === 1) {
+        return age === minAge;
+    }
+
+    return false;
+};

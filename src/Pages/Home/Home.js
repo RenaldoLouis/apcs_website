@@ -1,5 +1,5 @@
 import { logEvent } from "firebase/analytics";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import apcLogoBold from "../../assets/images/apc_logo_bold.svg";
@@ -32,7 +32,6 @@ import { useAuth } from "../../context/DataContext";
 import { analytics } from "../../firebase";
 import HomeMobile from './HomeMobile';
 import LetUsGuideTo from "./LetUsGuideTo";
-import ModalEvent from "./ModalEvent";
 
 const listOfSponsor = [
     sponsor1, sponsor10, sponsor6, sponsor11,
@@ -198,10 +197,10 @@ const Home = (props) => {
                         </>
                     )
                 }
-                <ModalEvent
+                {/* <ModalEvent
                     open={open}
                     handleClose={handleClose}
-                />
+                /> */}
             </div >
         )
 

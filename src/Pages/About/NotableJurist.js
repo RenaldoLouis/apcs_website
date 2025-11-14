@@ -299,7 +299,7 @@ const NotableJurist = () => {
                             </div>
 
                             <div className="text-align-justify mt-2">
-                                Jurist 2022, 2023, 2024
+                                Jurist 2022, 2023, 2024, 2025
                             </div>
                         </AnimatedComponent>
                     </div>

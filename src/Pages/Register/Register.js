@@ -36,6 +36,7 @@ import { PaymentStatus } from '../../constant/PaymentStatus';
 import { ageCategories, brassAgeCategoriesEnsemble, brassAgeCategoriesSolo, BrassInstrumentListEnsemble, BrassInstrumentListSolo, competitionList, ensembleAgeCategories, guitarAgeCategoriesEnsemble, guitarAgeCategoriesSolo, GuitarInstrumentListEnsemble, GuitarInstrumentListSolo, HarpInstrumentListEnsemble, HarpInstrumentListSolo, PercussionAgeCategoriesEnsemble, percussionAgeCategoriesSolo, PercussionInstrumentListEnsemble, PercussionInstrumentListSolo, PerformanceCategory, PianoInstrumentListEnsemble, PianoInstrumentListSolo, stringAgeCategoriesEnsemble, stringAgeCategoriesSolo, StringsInstrumentListEnsemble, StringsInstrumentListSolo, vocalAgeCategoriesEnsemble, vocalAgeCategoriesSolo, VocalInstrumentListEnsembleElaborated, VocalInstrumentListSolo, woodwinAgeCategoriesEnsemble, woodwinAgeCategoriesSolo, WoodwindInstrumentListEnsemble, WoodwindInstrumentListSolo } from '../../constant/RegisterPageConst';
 import { useAuth } from '../../context/DataContext';
 import { db } from '../../firebase';
+import { getAge, isAgeInCategory } from '../../utils/Utils';
 import SubmissionConfirmationModal from './SubmissionConfirmationModal';
 import WelcomeModalRegister from './WelcomeModalRegister';
 
@@ -68,6 +69,7 @@ const Register = () => {
     const [youtubeDuration, setYoutubeDuration] = useState(0);
     const [isWarningModalOpen, setIsWarningModalOpen] = useState(true);
     const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
+    const [performerAge, setPerformerAge] = useState(false);
 
     const { unregister, setValue, watch, register, control, formState: { errors }, handleSubmit, reset, clearErrors } = useForm({
         defaultValues: {
@@ -654,6 +656,31 @@ const Register = () => {
         }
     }, [selectedCompetition, PerformanceCategoryValue])
 
+    const filteredAgeCategoriesByAge = useMemo(() => {
+        // 'age' must be available in your component's scope.
+        // If no age is calculated yet, return the full list.
+        if (typeof performerAge !== 'number') {
+            return filteredAgeCategories;
+        }
+
+        if (PerformanceCategoryValue === PerformanceCategory.Ensemble) {
+            return filteredAgeCategories;
+        }
+
+        // 1. Get the [key, value] pairs from your categories object
+        // e.g., [ ['Poco', 'Poco (4-5 years old)'], ... ]
+        const entries = Object.entries(filteredAgeCategories);
+
+        // 2. Filter this array, keeping only the categories that match the age
+        const validEntries = entries.filter(([key, description]) => {
+            return isAgeInCategory(performerAge, description);
+        });
+
+        // 3. Convert the filtered array back into an object
+        return Object.fromEntries(validEntries);
+
+    }, [performerAge, filteredAgeCategories, PerformanceCategoryValue]);
+
     const minimalPerformer = useMemo(() => {
         if (PerformanceCategoryValue === PerformanceCategory.Solo) {
             return 1
@@ -790,6 +817,11 @@ const Register = () => {
             copyAddressFields(source, i);
         }
     }, [sameAddressValue, performersValue, setValue]);
+
+    useEffect(() => {
+        const age = getAge(performersValue[0].dob);
+        setPerformerAge(age)
+    }, [performersValue])
 
     const sameAddressCheckbox = useMemo(() => {
         return (
@@ -1323,60 +1355,6 @@ const Register = () => {
                                 />
                             )}
 
-                            {/* Age Category (Radio Buttons) */}
-                            <FormControl className='mt-4' component="fieldset" error={!!errors.ageCategory}>
-                                <FormLabel
-                                    className='fontSizeFormTitle'
-                                    component="legend"
-                                    sx={{
-                                        color: "#e5cc92",
-                                        "&.Mui-focused": { color: "#e5cc92 !important" },
-                                        "&:hover": { color: "#e5cc92 !important" },
-                                    }}
-                                >
-                                    {t("register.form.ageCategory")}
-                                </FormLabel>
-
-                                <Controller
-                                    name="ageCategory"
-                                    control={control}
-                                    rules={{ required: t("register.errors.required") }}
-                                    render={({ field }) => (
-                                        <RadioGroup {...field} row>
-                                            {Object.entries(filteredAgeCategories).map(([key, label]) => (
-                                                <FormControlLabel
-                                                    id={`${key}-${label}`}
-                                                    key={key}
-                                                    value={key}
-                                                    control={
-                                                        <Radio
-                                                            sx={{
-                                                                color: "#e5cc92",
-                                                                "&.Mui-checked": {
-                                                                    color: "#e5cc92",
-                                                                },
-                                                                "&.Mui-focusVisible": {
-                                                                    outline: "2px solid #e5cc92",
-                                                                },
-                                                                "&.Mui-checked.Mui-focusVisible": {
-                                                                    outline: "2px solid #e5cc92",
-                                                                },
-                                                            }}
-                                                        />
-                                                    }
-                                                    label={t(`register.ageCategories.${key}`)}
-                                                    sx={{ color: "#e5cc92" }}
-                                                />
-                                            ))}
-                                        </RadioGroup>
-                                    )}
-                                />
-                                {errors.ageCategory && (
-                                    <p style={{ color: "red" }}>{errors.ageCategory.message}</p>
-                                )}
-                            </FormControl>
-
-
                             {/* Total Performer */}
                             <Box className="row mt-2">
                                 <Box className="col-6 col-md-2">
@@ -1814,7 +1792,58 @@ const Register = () => {
                             )
                             )}
 
+                            {/* Age Category (Radio Buttons) */}
+                            <FormControl className='mt-4' component="fieldset" error={!!errors.ageCategory}>
+                                <FormLabel
+                                    className='fontSizeFormTitle'
+                                    component="legend"
+                                    sx={{
+                                        color: "#e5cc92",
+                                        "&.Mui-focused": { color: "#e5cc92 !important" },
+                                        "&:hover": { color: "#e5cc92 !important" },
+                                    }}
+                                >
+                                    {t("register.form.ageCategory")}
+                                </FormLabel>
 
+                                <Controller
+                                    name="ageCategory"
+                                    control={control}
+                                    rules={{ required: t("register.errors.required") }}
+                                    render={({ field }) => (
+                                        <RadioGroup {...field} row>
+                                            {Object.entries(filteredAgeCategoriesByAge).map(([key, label]) => (
+                                                <FormControlLabel
+                                                    id={`${key}-${label}`}
+                                                    key={key}
+                                                    value={key}
+                                                    control={
+                                                        <Radio
+                                                            sx={{
+                                                                color: "#e5cc92",
+                                                                "&.Mui-checked": {
+                                                                    color: "#e5cc92",
+                                                                },
+                                                                "&.Mui-focusVisible": {
+                                                                    outline: "2px solid #e5cc92",
+                                                                },
+                                                                "&.Mui-checked.Mui-focusVisible": {
+                                                                    outline: "2px solid #e5cc92",
+                                                                },
+                                                            }}
+                                                        />
+                                                    }
+                                                    label={t(`register.ageCategories.${key}`)}
+                                                    sx={{ color: "#e5cc92" }}
+                                                />
+                                            ))}
+                                        </RadioGroup>
+                                    )}
+                                />
+                                {errors.ageCategory && (
+                                    <p style={{ color: "red" }}>{errors.ageCategory.message}</p>
+                                )}
+                            </FormControl>
 
                             {/* Payment Proof */}
                             {!isInternationalRegistrant && (

@@ -212,10 +212,10 @@ const HomeMobile = (props) => {
                     </div>
                 </>
             )}
-            <ModalEvent
+            {/* <ModalEvent
                 open={open}
                 handleClose={handleClose}
-            />
+            /> */}
         </div >
     )
 }
