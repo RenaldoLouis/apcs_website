@@ -1,12 +1,10 @@
 import { Button, Layout, Table, theme } from 'antd';
 import { useState } from 'react';
-import { toast } from 'react-toastify';
-import apis from '../../apis';
 import usePaginatedUsers from '../../hooks/useFetchUsersData';
 
 const { Content } = Layout;
 
-const UserContent = () => {
+const ContactFormSubmitted = () => {
 
     const [isLoading, setIsLoading] = useState(true)
 
@@ -94,17 +92,17 @@ const UserContent = () => {
             email: eachData.email,
             name: eachData.name
         }))
-        try {
-            setIsLoading(true)
-            apis.email.sendEmail(listEmail).then((res) => {
-                if (res.status === 200) {
-                    toast.success("Succesfully sent email")
-                }
-                setIsLoading(false)
-            })
-        } catch (e) {
-            console.error(e)
-        }
+        // try {
+        //     setIsLoading(true)
+        //     apis.email.sendEmail(listEmail).then((res) => {
+        //         if (res.status === 200) {
+        //             toast.success("Succesfully sent email")
+        //         }
+        //         setIsLoading(false)
+        //     })
+        // } catch (e) {
+        //     console.error(e)
+        // }
     }
 
     return (
@@ -130,4 +128,4 @@ const UserContent = () => {
     )
 }
 
-export default UserContent;
+export default ContactFormSubmitted;

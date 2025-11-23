@@ -1,25 +1,23 @@
 import {
     BookOutlined,
+    ContactsOutlined,
     DesktopOutlined,
     FileOutlined,
-    PieChartOutlined,
     ReadOutlined,
-    SendOutlined,
     TeamOutlined,
     UsergroupAddOutlined,
-    UserOutlined,
+    UserOutlined
 } from '@ant-design/icons';
 import { Layout, Menu, theme } from 'antd';
 import { useState } from 'react';
 import { useAuth } from '../../context/DataContext';
 // import { getAuth, signOut } from "firebase/auth";
 import AdminContent from './AdminContent';
+import ContactFormSubmitted from './ContactFormSubmitted.js';
 import GeneralSeat from './GeneralSeat';
-import MarketingContent from './MarketingContent';
 import RegistrantDashboard from './RegistrantDashboard';
 import SeatingEvent from './SeatEvent';
 import SeatingContent from './SeatingContent';
-import UserContent from './UserContent';
 
 const { Header, Footer, Sider } = Layout;
 function getItem(label, key, icon, onClick, children) {
@@ -48,41 +46,38 @@ const AdminDashboard = () => {
     };
 
     const items = [
-        getItem('User Data', '1', <PieChartOutlined />),
-        getItem('User Winner Data', '2', <SendOutlined />),
-        getItem('Admin Page', '3', <DesktopOutlined />),
-        getItem('Registrant Data', '4', <DesktopOutlined />),
-        getItem('Seating', '5', <UsergroupAddOutlined />),
-        getItem('Seat Event', '6', <ReadOutlined />),
-        getItem('General Seat', '7', <BookOutlined />),
+        getItem('Contact Form Submitted', '1', <ContactsOutlined />),
+        getItem('Admin Page', '2', <DesktopOutlined />),
+        getItem('Registrant Data', '3', <DesktopOutlined />),
+        getItem('Seating', '4', <UsergroupAddOutlined />),
+        getItem('Seat Event', '5', <ReadOutlined />),
+        getItem('General Seat', '6', <BookOutlined />),
         getItem('User', 'sub1', <UserOutlined />, () => { }, [
-            getItem('Tom', '8'),
-            getItem('Bill', '9'),
-            getItem('Alex', '10'),
+            getItem('Tom', '7'),
+            getItem('Bill', '8'),
+            getItem('Alex', '9'),
         ]),
-        getItem('Team', 'sub2', <TeamOutlined />, () => { }, [getItem('Team 1', '11'), getItem('Team 2', '12')]),
-        getItem('Sign out', '13', <FileOutlined />, handleSignOut),
+        getItem('Team', 'sub2', <TeamOutlined />, () => { }, [getItem('Team 1', '10'), getItem('Team 2', '11')]),
+        getItem('Sign out', '12', <FileOutlined />, handleSignOut),
     ];
 
 
     const ShowWhichContent = () => {
         switch (selectedKey) {
             case '1':
-                return <UserContent />;
+                return <ContactFormSubmitted />;
             case '2':
-                return <MarketingContent />;
-            case '3':
                 return <AdminContent />;
-            case '4':
+            case '3':
                 return <RegistrantDashboard />;
-            case '5':
+            case '4':
                 return <SeatingContent />;
-            case '6':
+            case '5':
                 return <SeatingEvent />;
-            case '7':
+            case '6':
                 return <GeneralSeat />;
             default:
-                return <UserContent />;
+                return <ContactFormSubmitted />;
         }
     };
 

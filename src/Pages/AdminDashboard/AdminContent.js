@@ -1,17 +1,12 @@
-import { Layout, Table, theme, Pagination } from 'antd';
-import React, { useState } from 'react';
-import { RegistrantsColumns } from '../../constant/RegistrantsColumn';
-import usePaginatedRegistrants from '../../hooks/useFetchRegistrantsData';
-import { Page, Text, View, Document, StyleSheet } from '@react-pdf/renderer';
-import { BlobProvider } from "@react-pdf/renderer";
+import { BlobProvider, Document, Page, StyleSheet, Text, View } from '@react-pdf/renderer';
+import { Layout, Pagination, Table, theme } from 'antd';
 import { saveAs } from "file-saver";
 import JSZip from "jszip";
 import ReactDOM from "react-dom";
 import * as xlsx from 'xlsx';
 import RegistrantAssignment from '../../components/molecules/AdminContentComponent/RegistrantAssignment';
-import { db } from '../../firebase';
-import { collection, writeBatch, doc } from "firebase/firestore";
-import { convertExcelTimeToDuration } from '../../utils/Utils';
+import { RegistrantsColumns } from '../../constant/RegistrantsColumn';
+import usePaginatedRegistrants from '../../hooks/useFetchRegistrantsData';
 
 const { Content } = Layout;
 
@@ -97,7 +92,7 @@ const AdminContent = () => {
 
     const { token: { colorBgContainer, borderRadiusLG }, } = theme.useToken();
 
-    const { registrantDatas, page, setPage, totalDocs, allData, loading } = usePaginatedRegistrants(pageSize);
+    const { registrantDatas, page, setPage, totalDocs, allData, loading } = usePaginatedRegistrants(pageSize, "Registrants", "achievement");
 
     const handlePageChange = (pagination, filters, sorter, extra) => {
         setPage(pagination);

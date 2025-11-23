@@ -6,7 +6,7 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import { addDoc, collection } from "firebase/firestore";
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { toast } from 'react-toastify';
 import contactUsPageBackground from "../../assets/images/contactUsPageBackground.png";
@@ -63,8 +63,8 @@ const ContactUs = () => {
         try {
             event.preventDefault();
 
-            // Add a new document to a collection
-            const docRef = await addDoc(collection(db, "users"), formData);
+            //TODO: Send email when people submit contact us
+            const docRef = await addDoc(collection(db, "conctactUsSubmitted"), formData);
             toast.success("Data Saved, Thank you")
         } catch (e) {
             toast.error("failed to save data, please try again");
