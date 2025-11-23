@@ -193,6 +193,7 @@
             "profilePhoto": "Profile Photo",
             "birthCert": "Birth Certificate / Passport / Id",
             "repertoire": "Repertoire",
+            "videoPerformance": "Video Performance",
             "youtube": "YouTube Video Link",
             "remark": "Remark",
             "youtubeNote": "Make sure to fill the title on YouTube with the format: APCSTSOA25 - (INSTRUMENT CATEGORIES) - (AGE CATEGORIES) - (FULL NAME) - (PIECE)",
@@ -205,6 +206,7 @@
             "paymentProofTooltip": "Please Upload payment proof with the correct remarks/notes/news with this format: (name - instrument - age category)",
             "birthCertTooltip": "Please attach your copy of Birth Certificate/Passport/KTP (identity card) in pdf.",
             "repertoireTooltip": "Please attach your PDF repertoire here.",
+            "videoPerformanceTooltip": "Please upload your video performance here.",
             "traditionalInstrument": "Traditional Instrument",
             "paymentProof": "Upload Payment Proof"
         },
@@ -220,6 +222,7 @@
             "profilePhoto": "*Example: JohnDoe_ProfilePhoto.",
             "profilePhoto2": "*Use high-resolution images (at least 300 DPI or good smartphone quality) to ensure clarity.Low-quality or unclear photos may not be processed.",
             "fileFormatRepertoire": "*Example: JohnDoe_pdfRepertoire.",
+            "fileFormatVideoPerformance": "*Example: JohnDoe_Piano_Poco.",
             "fileFormatBirthCert": "*Example: JohnDoe_birthCert.",
             "paymentProof": "*Please upload your payment slip and make sure the remark on your bank transfer is the same as in this form.",
             "paymentProof2": "*Remarks Example: johnDoe - Piano - Poco."

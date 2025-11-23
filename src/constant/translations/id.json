@@ -194,6 +194,7 @@
             "birthCert": "Akte Kelahiran / paspor / Id",
             "repertoire": "Repertoar",
             "youtube": "Link Video YouTube",
+            "videoPerformance": "Video Performa",
             "remark": "Berita",
             "youtubeNote": "Pastikan judul video di YouTube mengikuti format: APCSTSOA25 - (KATEGORI INSTRUMEN) - (KATEGORI USIA) - (NAMA LENGKAP) - (JUDUL LAGU)",
             "remarksNote": "Pastikan berita ini sama dengan berita di bank transfer.",
@@ -206,6 +207,7 @@
             "birthCertTooltip": "Silakan lampirkan salinan Akta Kelahiran/Passport/KTP Anda dalam format PDF.",
             "repertoireTooltip": "Silakan lampirkan file PDF repertoar Anda di sini.",
             "traditionalInstrument": "Instrumen Tradisional",
+            "videoPerformanceTooltip": "Please upload your video performance here.",
             "paymentProof": "Upload Bukti Transfer"
         },
         "ageCateogirs": {
@@ -220,6 +222,7 @@
             "profilePhoto": "*Contoh: JohnDoe_ProfilePhoto.",
             "profilePhoto2": "*Gunakan gambar beresolusi tinggi (minimal 300 DPI atau kualitas baik dari kamera ponsel) untuk memastikan kejernihan.Foto yang buram atau berkualitas rendah mungkin tidak akan diproses.",
             "fileFormatRepertoire": "*Contoh: JohnDoe_pdfRepertoire.",
+            "fileFormatVideoPerformance": "*Contoh: JohnDoe_Piano_Poco.",
             "fileFormatBirthCert": "*Contoh: JohnDoe_birthCert.",
             "paymentProof": "*Mohon pastikan berita di bank transfer dan form di bawah sama.",
             "paymentProof2": "*Contoh berita: johnDoe - Piano - Poco."

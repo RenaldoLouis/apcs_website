@@ -341,17 +341,28 @@ const Register = () => {
             const pdfRepertoireS3Link = `s3://registrants2025/${directoryName}/pdfRepertoire.pdf`;
             setProgressLoading(30)
 
-            //save birth cert first
-            const birthCert = data.birthCertificate[0]
-            // const directoryName3 = birthCert.name.replace(/\s/g, "").replace(/\.[^/.]+$/, "");
-            const res3 = await apis.aws.postSignedUrl(directoryName, "birthCert")
-            const signedUrl3 = res3.data.link
-            await axios.put(signedUrl3, birthCert, {
+            const videoPerformance = data.videoPerformance[0]
+            const res23 = await apis.aws.postSignedUrl(directoryName, "videoPerformance")
+            const signedUrl23 = res23.data.link
+            await axios.put(signedUrl23, videoPerformance, {
                 headers: {
-                    'Content-Type': birthCert.type, // Ensure this matches the file type
+                    'Content-Type': videoPerformance.type, // Ensure this matches the file type
                 },
             });
-            const birthCertS3Link = `s3://registrants2025/${directoryName}/birthCert.pdf`;
+            const videoPerformanceS3Link = `s3://registrants2025/${directoryName}/videoPerformance.pdf`;
+            setProgressLoading(35)
+
+            //save birth cert first
+            // const birthCert = data.birthCertificate[0]
+            // // const directoryName3 = birthCert.name.replace(/\s/g, "").replace(/\.[^/.]+$/, "");
+            // const res3 = await apis.aws.postSignedUrl(directoryName, "birthCert")
+            // const signedUrl3 = res3.data.link
+            // await axios.put(signedUrl3, birthCert, {
+            //     headers: {
+            //         'Content-Type': birthCert.type, // Ensure this matches the file type
+            //     },
+            // });
+            // const birthCertS3Link = `s3://registrants2025/${directoryName}/birthCert.pdf`;
             setProgressLoading(50)
 
             //save pdf report
@@ -392,8 +403,7 @@ const Register = () => {
                 videoDuration: youtubeDuration ?? 0,
                 profilePhotoS3Link: profilePhotoS3Link,
                 pdfRepertoireS3Link: pdfRepertoireS3Link,
-                paymentProofS3Link: paymentProofS3Link,
-                birthCertS3Link: birthCertS3Link,
+                videoPerformanceS3Link: videoPerformanceS3Link,
                 examCertificateS3Link: examCertificateS3Link,
                 createdAt: serverTimestamp(),
                 ...(data.teacherName && { teacherName: data.teacherName }),
@@ -1929,7 +1939,7 @@ const Register = () => {
                             />
 
                             {/* Birth Certificate Upload */}
-                            <FileInput
+                            {/* <FileInput
                                 name="birthCertificate"
                                 control={control}
                                 label={t("register.form.birthCert")}
@@ -1939,7 +1949,7 @@ const Register = () => {
                                 tooltipLabel={t("register.form.birthCertTooltip")}
                                 inputRef={birthCertInputRef}
                                 setValue={setValue}
-                            />
+                            /> */}
 
                             {/* PDF Repertoire Upload */}
                             <FileInput
@@ -1954,36 +1964,17 @@ const Register = () => {
                                 setValue={setValue}
                             />
 
-
-                            {/* YouTube Link */}
-                            <div className='d-flex' style={{ height: 86 }}>
-                                <Controller
-                                    name="youtubeLink"
-                                    control={control}
-                                    rules={{ required: t("register.errors.required") }}
-                                    render={({ field, fieldState: { error } }) => (
-                                        <TextField
-                                            {...field}
-                                            sx={{ mt: 2 }}
-                                            label={t("register.form.youtube")}
-                                            variant="standard"
-                                            className="custom-textfield-full mb-4"
-                                            error={!!error}
-                                            helperText={error ? error.message : ""}
-                                        />
-                                    )}
-                                />
-
-                                <Tooltip title={
-                                    <div>
-                                        <p>{t("register.form.youtubeNote")}</p>
-                                    </div>
-                                }>
-                                    <IconButton sx={{ color: "#e5cc92", fontSize: 16, mt: 1 }}>
-                                        <QuestionCircleOutlined />
-                                    </IconButton>
-                                </Tooltip>
-                            </div>
+                            <FileInput
+                                name="videoPerformance"
+                                control={control}
+                                label={t("register.form.videoPerformance")}
+                                smallNotes={<small className="note">{t("register.notes.uploadCombined")}</small>}
+                                extraSmallNotes={<small className="note">{t("register.notes.fileFormatVideoPerformance")}</small>}
+                                rules={{ required: t("register.errors.required") }}
+                                tooltipLabel={t("register.form.videoPerformanceTooltip")}
+                                inputRef={repertoireInputRef}
+                                setValue={setValue}
+                            />
 
                             <small className="note">
                                 {videoExampleFormatText}
