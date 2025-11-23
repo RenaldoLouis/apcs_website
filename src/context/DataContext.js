@@ -1,6 +1,6 @@
 import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
-import { signInWithPopup } from 'firebase/auth';
+import { signInWithEmailAndPassword, signInWithPopup } from 'firebase/auth';
 import { doc, getDoc, setDoc } from "firebase/firestore";
 import { createContext, useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -29,11 +29,44 @@ export const DataContextProvider = ({ children }) => {
     useEffect(() => {
         const unsubscribe = auth.onAuthStateChanged(async (user) => {
             if (user) {
-                const token = await user.getIdToken();
-                setLoggedInUser({ ...user, token });
+                try {
+                    // 1. Get the Auth Token
+                    const token = await user.getIdToken();
+
+                    // 2. FETCH THE ROLE from Firestore using the user.uid
+                    const userDocRef = doc(db, "users", user.uid);
+                    const userDocSnap = await getDoc(userDocRef);
+
+                    let firestoreData = {};
+                    if (userDocSnap.exists()) {
+                        firestoreData = userDocSnap.data(); // This object contains { role: 'admin', ... }
+                    }
+
+                    // 3. Merge Auth data + Token + Firestore data (Role)
+                    setLoggedInUser({
+                        ...user,
+                        token,
+                        ...firestoreData // This adds the 'role' to your state object
+                    });
+
+                    if (user.role === 'admin' || user.role === 'subadmin') {
+                        navigate("/adminDashboard");
+                    } else if (user.role === 'jury') {
+                        // Handle other roles (e.g., jury)
+                        navigate("/juryComment");
+                    } else {
+                        navigate("/login");
+                    }
+
+                } catch (error) {
+                    console.error("Error fetching user details on refresh:", error);
+                    setLoggedInUser(null);
+                }
             } else {
                 setLoggedInUser(null);
             }
+
+            // 4. Stop loading ONLY after the Firestore fetch is complete
             setLoading(false);
         });
 
@@ -82,10 +115,8 @@ export const DataContextProvider = ({ children }) => {
                 setLoggedInUser({ ...user, token, role: userRole });
 
                 // Navigate based on role (optional)
-                if (userRole === 'admin') {
+                if (userRole === 'admin' || userRole === 'subadmin') {
                     navigate("/adminDashboard");
-                } else {
-                    navigate("/userDashboard");
                 }
             } else {
                 // User not in DB and not in whitelist
@@ -96,6 +127,65 @@ export const DataContextProvider = ({ children }) => {
         } catch (error) {
             console.error("Login Error:", error);
             toast.error("Login Failed");
+        }
+    };
+
+    const signInWithEmail = async (email, password) => {
+        try {
+            // 1. Authenticate with Firebase Auth
+            const userCredential = await signInWithEmailAndPassword(auth, email, password);
+            const user = userCredential.user;
+
+            // 2. Check if user exists in Firestore 'users' collection
+            const userDocRef = doc(db, "users", user.uid);
+            const userDocSnap = await getDoc(userDocRef);
+
+            let userRole = null;
+
+            if (userDocSnap.exists()) {
+                // CASE A: User already exists in DB, get their role
+                const userData = userDocSnap.data();
+                userRole = userData?.role;
+            } else {
+                // CASE B: New User -> Check Whitelist
+                const whitelistDatas = await FirebaseApi.getWhitelist();
+                const isWhitelisted = whitelistDatas.some(data => data.id === user.email);
+
+                if (isWhitelisted) {
+                    userRole = "admin"; // Default role for whitelisted users
+                    await setDoc(userDocRef, {
+                        email: user.email,
+                        role: userRole,
+                        createdAt: new Date()
+                    });
+                }
+            }
+
+            // 3. Final Access Check & State Update
+            if (userRole) {
+                const token = await user.getIdToken();
+
+                // This updates the global app state
+                setLoggedInUser({ ...user, token, role: userRole });
+
+                // Navigation
+                if (userRole === 'admin') {
+                    navigate("/adminDashboard");
+                } else {
+                    // Handle other roles (e.g., jury)
+                    navigate("/juryComment");
+                }
+            } else {
+                toast.error("Account is not authorized.");
+                await signOut(auth);
+                setLoggedInUser(null);
+            }
+
+        } catch (error) {
+            console.error("Email Login Error:", error);
+            let msg = "Login failed.";
+            if (error.code === 'auth/invalid-credential') msg = "Invalid email or password.";
+            throw new Error(msg); // Throw error so Login component can handle UI (loading state)
         }
     };
 
@@ -114,6 +204,7 @@ export const DataContextProvider = ({ children }) => {
     const DataContextValue = {
         loggedInUser,
         signInWithGoogle,
+        signInWithEmail,
         signOut,
         loading,
         setImageHomeLoaded,

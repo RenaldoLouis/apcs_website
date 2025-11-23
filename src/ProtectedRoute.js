@@ -1,8 +1,7 @@
 
-import React from 'react';
-import { useAuth } from './context/DataContext';
-import { Navigate } from 'react-router-dom';
 import { isEmpty } from 'lodash';
+import { Navigate } from 'react-router-dom';
+import { useAuth } from './context/DataContext';
 
 
 const ProtectedRoute = ({ children }) => {

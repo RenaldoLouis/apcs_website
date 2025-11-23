@@ -25,6 +25,7 @@ import PaymentPage from "./Pages/AdminDashboard/PaymentPage";
 import ContactUs from "./Pages/ContactUs/ContactUs";
 import GaleryPage from "./Pages/Galery/GaleryPage";
 import Home from "./Pages/Home/Home";
+import JuryDashboard from './Pages/JuryDashboard/JuryDashboard';
 import LandingPage from "./Pages/Landing/LandingPage";
 import Login from "./Pages/Login/Login";
 import Podcast from "./Pages/Podcast/Podcast";
@@ -84,6 +85,9 @@ const Main = () => {
         } />
         <Route path="/booking-complete" element={
           <BookingCompletePage />
+        } />
+        <Route path="/juryComment" element={
+          <JuryDashboard />
         } />
         <Route path="/scan" element={
           <ProtectedRoute>
