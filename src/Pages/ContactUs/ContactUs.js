@@ -65,7 +65,7 @@ const ContactUs = () => {
 
             //TODO: Send email when people submit contact us
             const docRef = await addDoc(collection(db, "conctactUsSubmitted"), formData);
-            toast.success("Data Saved, Thank you")
+            toast.success("We will contact you, Thank you!")
         } catch (e) {
             toast.error("failed to save data, please try again");
             console.error("Error adding document: ", e);

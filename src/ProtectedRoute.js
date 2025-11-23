@@ -6,9 +6,9 @@ import { isEmpty } from 'lodash';
 
 
 const ProtectedRoute = ({ children }) => {
-    const { user } = useAuth()
+    const { loggedInUser } = useAuth()
 
-    return !isEmpty(user) ? children : <Navigate to="/login" />;
+    return !isEmpty(loggedInUser) ? children : <Navigate to="/login" />;
 
 }
 

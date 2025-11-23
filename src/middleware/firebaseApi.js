@@ -2,7 +2,6 @@ import { collection, query, orderBy, limit, startAt, getDocs, addDoc, updateDoc,
 import { db } from '../firebase';
 
 const FirebaseApi = {
-    // Function to get user data with optional pagination
     getUserData: async (pageSize = 10, lastVisibleDoc = null) => {
         try {
             let q = query(
@@ -31,7 +30,6 @@ const FirebaseApi = {
         }
     },
 
-    // Function to add a new user
     addUser: async (userData) => {
         try {
             const docRef = await addDoc(collection(db, "users"), userData);
@@ -42,7 +40,6 @@ const FirebaseApi = {
         }
     },
 
-    // Function to update a user
     updateUser: async (userId, updatedData) => {
         try {
             const userDoc = doc(db, "users", userId);
@@ -53,7 +50,6 @@ const FirebaseApi = {
         }
     },
 
-    // Function to delete a user
     deleteUser: async (userId) => {
         try {
             const userDoc = doc(db, "users", userId);

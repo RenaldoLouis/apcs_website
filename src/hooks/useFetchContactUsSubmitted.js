@@ -5,7 +5,7 @@ import { useAuth } from '../context/DataContext';
 import { db } from '../firebase';
 
 const usePaginatedContactUsSubmitted = (pageSize = 10, setIsLoading) => {
-    const { user } = useAuth()
+    const { loggedInUser } = useAuth()
 
     const [Datas, setDatas] = useState([]);
     const [error, setError] = useState(null);
@@ -60,10 +60,10 @@ const usePaginatedContactUsSubmitted = (pageSize = 10, setIsLoading) => {
     }, [pageSize]);
 
     useEffect(() => {
-        if (!isEmpty(user.token)) {
+        if (!isEmpty(loggedInUser.token)) {
             fetchUserData(page);
         }
-    }, [fetchUserData, page, user.token]);
+    }, [fetchUserData, page, loggedInUser.token]);
 
     const totalPages = Math.ceil(totalDocs / pageSize);
 

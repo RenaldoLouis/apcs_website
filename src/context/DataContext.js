@@ -1,11 +1,12 @@
 import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { signInWithPopup } from 'firebase/auth';
-import React, { createContext, useContext, useEffect, useState } from 'react';
+import { doc, getDoc, setDoc } from "firebase/firestore";
+import { createContext, useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { YearlyEvent } from '../constant/YearlyEvent';
-import { auth, provider } from '../firebase';
+import { auth, db, provider } from '../firebase';
 import FirebaseApi from '../middleware/firebaseApi';
 
 const DataContext = createContext();
@@ -20,7 +21,7 @@ export const DataContextProvider = ({ children }) => {
     const isMobileAndBigger = useMediaQuery(theme.breakpoints.up('md'));
     const isLaptopAndSmaller = useMediaQuery(theme.breakpoints.down('lg'));
 
-    const [user, setUser] = useState(null);
+    const [loggedInUser, setLoggedInUser] = useState(null);
     const [loading, setLoading] = useState(true);
     const [imageHomeLoaded, setImageHomeLoaded] = useState(false);
     const [selectedEvent, setSelectedEvent] = useState(YearlyEvent.CLASSICALFESTIVALJKT2024);
@@ -29,9 +30,9 @@ export const DataContextProvider = ({ children }) => {
         const unsubscribe = auth.onAuthStateChanged(async (user) => {
             if (user) {
                 const token = await user.getIdToken();
-                setUser({ ...user, token });
+                setLoggedInUser({ ...user, token });
             } else {
-                setUser(null);
+                setLoggedInUser(null);
             }
             setLoading(false);
         });
@@ -40,30 +41,68 @@ export const DataContextProvider = ({ children }) => {
     }, []);
 
     const signInWithGoogle = async () => {
-        const result = await signInWithPopup(auth, provider);
-        const token = await result.user.getIdToken();
-        // const tokenResult = await result.user.getIdTokenResult();
-        const userEmail = await result.user.email;
-        const whitelistDatas = await FirebaseApi.getWhitelist();
-        let allowed = false;
-        whitelistDatas.forEach((eachData) => {
-            if (eachData.id === userEmail) {
-                allowed = true
+        try {
+            // 1. Popup Signin
+            const result = await signInWithPopup(auth, provider);
+            const user = result.user;
+
+            // 2. Check if user exists in Firestore 'users' collection
+            const userDocRef = doc(db, "users", user.uid);
+            const userDocSnap = await getDoc(userDocRef);
+
+            let userRole = null;
+
+            if (userDocSnap.exists()) {
+                // CASE A: User already exists in DB, get their role
+                const userData = userDocSnap.data();
+                userRole = userData.role;
+            } else {
+                // CASE B: User is new. Check whitelist to see if they are allowed.
+                // Note: This relies on your existing FirebaseApi.getWhitelist() logic
+                const whitelistDatas = await FirebaseApi.getWhitelist();
+                const isWhitelisted = whitelistDatas.some(data => data.id === user.email);
+
+                if (isWhitelisted) {
+                    // Create the user in DB with a role
+                    userRole = "admin"; // Or derive from whitelist if you store roles there
+                    await setDoc(userDocRef, {
+                        email: user.email,
+                        role: userRole,
+                        createdAt: new Date()
+                    });
+                }
             }
-        })
-        if (allowed) {
-            setUser({ ...result.user, token });
-            navigate("/adminDashboard");
-        } else {
-            toast.error("Account Is Not Allowed");
-            signOut(true);
+
+            // 3. Final Access Check
+            if (userRole) {
+                // Get token
+                const token = await user.getIdToken();
+
+                // Save user AND role to state
+                setLoggedInUser({ ...user, token, role: userRole });
+
+                // Navigate based on role (optional)
+                if (userRole === 'admin') {
+                    navigate("/adminDashboard");
+                } else {
+                    navigate("/userDashboard");
+                }
+            } else {
+                // User not in DB and not in whitelist
+                toast.error("Account is not authorized.");
+                await signOut(auth);
+            }
+
+        } catch (error) {
+            console.error("Login Error:", error);
+            toast.error("Login Failed");
         }
     };
 
     const signOut = async (withoutToast = false) => {
         try {
             await auth.signOut();
-            setUser(null);
+            setLoggedInUser(null);
             if (!withoutToast) {
                 toast.success("Succesfully Sign Out")
             }
@@ -73,7 +112,7 @@ export const DataContextProvider = ({ children }) => {
     };
 
     const DataContextValue = {
-        user,
+        loggedInUser,
         signInWithGoogle,
         signOut,
         loading,

@@ -5,7 +5,7 @@ import { useAuth } from '../context/DataContext';
 import { isEmpty } from 'lodash';
 
 const usePaginatedUsers = (pageSize = 10, setIsLoading) => {
-    const { user } = useAuth()
+    const { loggedInUser } = useAuth()
 
     const [userDatas, setUserDatas] = useState([]);
     const [error, setError] = useState(null);
@@ -60,10 +60,10 @@ const usePaginatedUsers = (pageSize = 10, setIsLoading) => {
     }, [pageSize]);
 
     useEffect(() => {
-        if (!isEmpty(user.token)) {
+        if (!isEmpty(loggedInUser.token)) {
             fetchUserData(page);
         }
-    }, [fetchUserData, page, user.token]);
+    }, [fetchUserData, page, loggedInUser.token]);
 
     const totalPages = Math.ceil(totalDocs / pageSize);
 

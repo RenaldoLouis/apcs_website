@@ -13,7 +13,7 @@ const sanitizeString = (str) => {
 };
 
 const usePaginatedRegistrants = (pageSize = 10, collectionName = "Registrants", orderData = "createdAt", searchTerm = "", searchTeacherName = "", ageCategoryFilter = null, performanceCategoryFilter = null, competitionCategoryFilter = null) => {
-    const { user } = useAuth();
+    const { loggedInUser } = useAuth();
 
     // State to hold all documents fetched from Firestore
     const [allData, setAllData] = useState([]);
@@ -54,10 +54,10 @@ const usePaginatedRegistrants = (pageSize = 10, collectionName = "Registrants", 
 
     // Initial data fetch
     useEffect(() => {
-        if (!isEmpty(user.token)) {
+        if (!isEmpty(loggedInUser.token)) {
             fetchData();
         }
-    }, [user.token, fetchData]);
+    }, [loggedInUser.token, fetchData]);
 
     // This new useEffect handles filtering and pagination whenever the search term or page changes.
     useEffect(() => {
