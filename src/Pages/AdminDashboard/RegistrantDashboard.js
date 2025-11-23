@@ -851,10 +851,10 @@ const RegistrantDashboard = () => {
                     const batch = writeBatch(db);
                     const chunk = registrantsToUpload.slice(i, i + batchSize);
 
-                    chunk.forEach((registrantData) => {
-                        const newDocRef = doc(collection(db, "Registrants2025Dummy"));
-                        batch.set(newDocRef, registrantData);
-                    });
+                    // chunk.forEach((registrantData) => {
+                    //     const newDocRef = doc(collection(db, "Registrants2025Dummy"));
+                    //     batch.set(newDocRef, registrantData);
+                    // });
 
                     await batch.commit();
                 }

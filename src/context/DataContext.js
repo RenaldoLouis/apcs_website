@@ -49,11 +49,12 @@ export const DataContextProvider = ({ children }) => {
                         ...firestoreData // This adds the 'role' to your state object
                     });
 
-                    if (user.role === 'admin' || user.role === 'subadmin') {
+                    const userRole = firestoreData.role
+                    if (userRole === 'admin' || userRole === 'subadmin') {
                         navigate("/adminDashboard");
-                    } else if (user.role === 'jury') {
+                    } else if (userRole === 'jury') {
                         // Handle other roles (e.g., jury)
-                        navigate("/juryComment");
+                        navigate("/juryDashboard");
                     } else {
                         navigate("/login");
                     }
@@ -173,7 +174,7 @@ export const DataContextProvider = ({ children }) => {
                     navigate("/adminDashboard");
                 } else {
                     // Handle other roles (e.g., jury)
-                    navigate("/juryComment");
+                    navigate("/juryDashboard");
                 }
             } else {
                 toast.error("Account is not authorized.");

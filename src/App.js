@@ -86,8 +86,10 @@ const Main = () => {
         <Route path="/booking-complete" element={
           <BookingCompletePage />
         } />
-        <Route path="/juryComment" element={
-          <JuryDashboard />
+        <Route path="/juryDashboard" element={
+          <ProtectedRoute>
+            <JuryDashboard />
+          </ProtectedRoute>
         } />
         <Route path="/scan" element={
           <ProtectedRoute>
