@@ -82,8 +82,7 @@ const Register = () => {
             youtubeLink: "",
             remark: "",
             performers: [{
-                firstName: "",
-                lastName: "",
+                fullName: "",
                 email: "",
                 phoneNumber: "",
                 countryCode: ["+62"],
@@ -303,7 +302,7 @@ const Register = () => {
             const baseName = profilePhoto.name.replace(/\s/g, "").replace(/\.[^/.]+$/, "");
             const directoryName = `${baseName}_${timestamp}`;
 
-            const res = await apis.aws.postSignedUrl(directoryName, "profilePhoto")
+            const res = await apis.aws.postSignedUrl(directoryName, "profilePhoto", 'application/pdf')
             const signedUrl = res.data.link
             await axios.put(signedUrl, profilePhoto, {
                 headers: {
@@ -317,7 +316,7 @@ const Register = () => {
             //save PaymentProof
             if (!isInternationalRegistrant) {
                 const paymentProof = data.paymentProof[0]
-                const res1 = await apis.aws.postSignedUrl(directoryName, "paymentProof")
+                const res1 = await apis.aws.postSignedUrl(directoryName, "paymentProof", 'application/pdf')
                 const signedUrl1 = res1.data.link
                 await axios.put(signedUrl1, paymentProof, {
                     headers: {
@@ -331,7 +330,7 @@ const Register = () => {
             //save exam cert
             const pdfRepertoire = data.pdfRepertoire[0]
             // const directoryName2 = pdfRepertoire.name.replace(/\s/g, "").replace(/\.[^/.]+$/, "");
-            const res2 = await apis.aws.postSignedUrl(directoryName, "pdfRepertoire")
+            const res2 = await apis.aws.postSignedUrl(directoryName, "pdfRepertoire", 'application/pdf')
             const signedUrl2 = res2.data.link
             await axios.put(signedUrl2, pdfRepertoire, {
                 headers: {
@@ -341,15 +340,17 @@ const Register = () => {
             const pdfRepertoireS3Link = `s3://registrants2025/${directoryName}/pdfRepertoire.pdf`;
             setProgressLoading(30)
 
-            const videoPerformance = data.videoPerformance[0]
-            const res23 = await apis.aws.postSignedUrl(directoryName, "videoPerformance")
-            const signedUrl23 = res23.data.link
+            const videoPerformance = data.videoPerformance[0];
+            const fileExtension = videoPerformance.name.split('.').pop();
+            const fileNameWithExt = `videoPerformance.${fileExtension}`;
+            const res23 = await apis.aws.postSignedUrl(directoryName, fileNameWithExt, videoPerformance.type);
+            const signedUrl23 = res23.data.link;
             await axios.put(signedUrl23, videoPerformance, {
                 headers: {
-                    'Content-Type': videoPerformance.type, // Ensure this matches the file type
+                    'Content-Type': videoPerformance.type,
                 },
             });
-            const videoPerformanceS3Link = `s3://registrants2025/${directoryName}/videoPerformance.pdf`;
+            const videoPerformanceS3Link = `s3://registrants2025/${directoryName}/${fileNameWithExt}`;
             setProgressLoading(35)
 
             //save birth cert first
@@ -368,7 +369,7 @@ const Register = () => {
             //save pdf report
             const examCertificate = data.examCertificate[0]
             // const directoryName4 = examCertificate.name.replace(/\s/g, "").replace(/\.[^/.]+$/, "");
-            const res4 = await apis.aws.postSignedUrl(directoryName, "examCertificate")
+            const res4 = await apis.aws.postSignedUrl(directoryName, "examCertificate", examCertificate.type)
             const signedUrl4 = res4.data.link
             await axios.put(signedUrl4, examCertificate, {
                 headers: {
@@ -404,6 +405,7 @@ const Register = () => {
                 profilePhotoS3Link: profilePhotoS3Link,
                 pdfRepertoireS3Link: pdfRepertoireS3Link,
                 videoPerformanceS3Link: videoPerformanceS3Link,
+                paymentProofS3Link: paymentProofS3Link,
                 examCertificateS3Link: examCertificateS3Link,
                 createdAt: serverTimestamp(),
                 ...(data.teacherName && { teacherName: data.teacherName }),
@@ -414,9 +416,9 @@ const Register = () => {
 
             const price = await calculatePrice(data, isInternational);
 
-            const dataEmail = formattedDatePerformers.map(({ email, firstName, lastName }) => ({
+            const dataEmail = formattedDatePerformers.map(({ email, fullName }) => ({
                 email,
-                name: `${firstName} ${lastName}`,
+                name: `${fullName}`,
                 competitionCategory: data.competitionCategory,
                 instrumentCategory: data.instrumentCategory,
                 price: price.formattedAmount
@@ -503,8 +505,7 @@ const Register = () => {
             if (totalPerformer > currentLength) {
                 for (let i = currentLength; i < totalPerformer; i++) {
                     append({
-                        firstName: "",
-                        lastName: "",
+                        fullName: "",
                         email: "",
                         phoneNumber: "",
                         countryCode: ["+62"],
@@ -1985,6 +1986,7 @@ const Register = () => {
                                 tooltipLabel={t("register.form.videoPerformanceTooltip")}
                                 inputRef={repertoireInputRef}
                                 setValue={setValue}
+                                acceptedFormats="video/*"
                             />
 
                             {/* <small className="note">

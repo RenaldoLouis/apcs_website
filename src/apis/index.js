@@ -90,6 +90,7 @@ export default {
     postSignedUrl: (directoryname, fileName) => postRequest(`/api/v1/apcs/signed-url-images?directoryname=${directoryname}&fileName=${fileName}`),
     downloadFiles: (files) => postBlobRequest(`/api/v1/apcs/download-files-aws`, files),
     downloadAllFiles: (files) => postBlobRequest(`/api/v1/apcs/download-all-files-aws`, files),
+    getPublicVideoLinkAws: (s3Link) => postRequest(`/api/v1/apcs/getPublicVideoLinkAws`, s3Link),
   },
   paymentGatewayFlow: {
     create: (data) => postRequest(`/api/v1/apcs/paymentIntegration/bookings`, data),

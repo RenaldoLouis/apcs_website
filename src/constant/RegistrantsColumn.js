@@ -27,7 +27,7 @@ export const RegistrantsColumns = [
     },
 ];
 
-export const getRegistrants2025Columns = (handleDownloadPDF, handleUpdateStatus, showEditModal, handleDelete, deletingId) => [
+export const getRegistrants2025Columns = (handleDownloadPDF, handleUpdateStatus, showEditModal, handleDelete, deletingId, handleViewVideo) => [
     { title: "Parent Name", dataIndex: "name" },
     { title: "Teacher Name", dataIndex: "teacherName" },
     { title: "Total Performer", dataIndex: "totalPerformer" },
@@ -42,7 +42,11 @@ export const getRegistrants2025Columns = (handleDownloadPDF, handleUpdateStatus,
         render: (performers) => {
             if (Array.isArray(performers)) {
                 return performers.map((p, i) => (
-                    <div key={i}>{i + 1}. {p.firstName} {p.lastName}</div>
+                    p.firstName ? (
+                        <div key={i}>{i + 1}. {p.firstName} {p.lastName}</div>
+                    ) : (
+                        <div key={i}>{i + 1}. {p.fullName}</div>
+                    )
                 ));
             }
             return "-";
@@ -117,6 +121,27 @@ export const getRegistrants2025Columns = (handleDownloadPDF, handleUpdateStatus,
                 </Popconfirm>
             </Space>
         ),
+    },
+    {
+        title: "Performance Video",
+        key: "video",
+        render: (_, record) => {
+            // Check if there is a YouTube link OR an S3 video file
+            const hasVideo = record.youtubeLink || record.videoPerformanceS3Link;
+
+            if (!hasVideo) return "-";
+
+            return (
+                <Button
+                    type="primary"
+                    ghost
+                    size="small"
+                    onClick={() => handleViewVideo(record)}
+                >
+                    Play Video
+                </Button>
+            );
+        },
     },
 ];
 

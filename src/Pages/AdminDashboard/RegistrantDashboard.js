@@ -77,6 +77,9 @@ const RegistrantDashboard = () => {
     const [progress, setProgress] = useState(0);
     const [updateMessage, setUpdateMessage] = useState('');
 
+    const [isVideoModalOpen, setIsVideoModalOpen] = useState(false);
+    const [videoUrl, setVideoUrl] = useState(null);
+
     const handlePageChange = (pagination, filters, sorter, extra) => {
         setPage(pagination);
     };
@@ -346,7 +349,9 @@ const RegistrantDashboard = () => {
                 // Check if the registration is for an Ensemble
                 if ((registrant.PerformanceCategory || '').trim().toLowerCase() === 'ensemble') {
                     // If it is, combine all performer data into a SINGLE row
-                    const combinedNames = registrant.performers.map(p => `${p.firstName} ${p.lastName}`).join(' & ');
+                    const combinedNames = registrant.performers
+                        .map(p => p.fullName || `${p.firstName} ${p.lastName}`)
+                        .join(' & ');
                     const combinedEmails = registrant.performers.map(p => p.email).join(', ');
                     const combinedDOBs = registrant.performers.map(p => p.dob).join(', ');
                     const combinedPhones = registrant.performers.map(p => p.phoneNumber).join(', ');
@@ -366,7 +371,7 @@ const RegistrantDashboard = () => {
                     registrant.performers.forEach(performer => {
                         dataForSheet.push({
                             'No.': originalRowNumber, // Use the consistent number
-                            'Name': `${performer.firstName} ${performer.lastName}`,
+                            'Name': performer.fullName ? `${performer.fullName}` : `${performer.firstName} ${performer.lastName}`,
                             'Email': performer.email,
                             'Date of Birth': performer.dob,
                             'Phone Number': performer.phoneNumber,
@@ -455,7 +460,7 @@ const RegistrantDashboard = () => {
         message.loading({ content: 'Preparing your download...', key: 'download' });
         try {
             const filesToDownload = [];
-            const performerName = `${record.performers[0]?.firstName}_${record.performers[0]?.lastName}`;
+            const performerName = record.performers[0]?.fullName ? `${record.performers[0]?.fullName}` : `${record.performers[0]?.firstName}_${record.performers[0]?.lastName}`;
 
             const addFilesFromField = (fieldContent, baseName) => {
                 if (typeof fieldContent === 'string' && fieldContent) {
@@ -528,7 +533,7 @@ const RegistrantDashboard = () => {
                 // 2. Prepare the payload for just the current chunk
                 chunk.forEach(registrant => {
                     const category = registrant.competitionCategory || 'Uncategorized';
-                    const performerName = `${registrant.performers[0]?.firstName}_${registrant.performers[0]?.lastName}`.replace(/ /g, '_');
+                    const performerName = registrant.performers[0]?.fullName ? `${registrant.performers[0]?.fullName}`.replace(/ /g, '_') : `${registrant.performers[0]?.firstName}_${registrant.performers[0]?.lastName}`.replace(/ /g, '_');
                     const registrantFolder = `${category}/${performerName}_${registrant.id.slice(0, 6)}`;
 
                     const addFile = (s3Link, fileName) => {
@@ -587,6 +592,7 @@ const RegistrantDashboard = () => {
         setEditFormState({
             firstName: record.performers[0]?.firstName || '',
             lastName: record.performers[0]?.lastName || '',
+            fullName: record.performers[0]?.fullName || '',
             youtubeLink: record.youtubeLink || '',
             email: record.performers[0]?.email || '',
             ageCategory: record.ageCategory || '',
@@ -621,6 +627,7 @@ const RegistrantDashboard = () => {
                 ...updatedPerformers[0],
                 firstName: editFormState.firstName,
                 lastName: editFormState.lastName,
+                fullName: editFormState.fullName,
                 email: editFormState.email,
 
             };
@@ -647,8 +654,27 @@ const RegistrantDashboard = () => {
         }
     };
 
+    const handleViewVideo = async (record) => {
+        let urlToPlay = null;
 
-    const columns = getRegistrants2025Columns(handleDownloadPDF, updatePaymentStatus, showEditModal, handleDeleteRegistrant, deletingId);
+        try {
+            const s3Link = record.videoPerformanceS3Link;
+            const response = await apis.aws.getPublicVideoLinkAws({ s3Link });
+            urlToPlay = response.data.url;
+        } catch (error) {
+            console.error("Failed to load video", error);
+            message.error("Could not load video file.");
+            return;
+        }
+
+        if (urlToPlay) {
+            setVideoUrl(urlToPlay);
+            setIsVideoModalOpen(true);
+        }
+    };
+
+
+    const columns = getRegistrants2025Columns(handleDownloadPDF, updatePaymentStatus, showEditModal, handleDeleteRegistrant, deletingId, handleViewVideo);
 
     const handleRecheckDurations = async () => {
         setIsUpdating(true);
@@ -797,6 +823,7 @@ const RegistrantDashboard = () => {
                         return {
                             firstName: firstName,
                             lastName: lastName,
+                            fullName: name,
                             email: row['Email'] || '',
                             dob: parseDateString(individualDobs[index] || individualDobs[0] || ''),
                             gender: row['Gender'] || '',
@@ -1046,6 +1073,13 @@ const RegistrantDashboard = () => {
                                 onChange={handleEditFormChange}
                             />
                         </Form.Item>
+                        <Form.Item label="Performer Last Name">
+                            <Input
+                                name="fullName"
+                                value={editFormState.fullName}
+                                onChange={handleEditFormChange}
+                            />
+                        </Form.Item>
                         <Form.Item label="Email">
                             <Input
                                 name="email"
@@ -1091,6 +1125,32 @@ const RegistrantDashboard = () => {
                     columns={statsColumns}
                     pagination={{ pageSize: 10 }}
                 />
+            </Modal>
+            <Modal
+                title="Performance Preview"
+                open={isVideoModalOpen}
+                onCancel={() => {
+                    setIsVideoModalOpen(false);
+                    setVideoUrl(null); // Stop video when closed
+                }}
+                footer={[
+                    <Button key="close" onClick={() => setIsVideoModalOpen(false)}>Close</Button>
+                ]}
+                width={800}
+                destroyOnClose
+            >
+                {videoUrl && (
+                    <div style={{ display: 'flex', justifyContent: 'center' }}>
+                        <video
+                            src={videoUrl}
+                            controls
+                            autoPlay
+                            style={{ width: '100%', maxHeight: '450px' }}
+                        >
+                            Your browser does not support the video tag.
+                        </video>
+                    </div>
+                )}
             </Modal>
         </Content>
     )

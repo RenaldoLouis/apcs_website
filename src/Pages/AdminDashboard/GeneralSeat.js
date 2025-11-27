@@ -100,32 +100,6 @@ const GeneralSeat = () => {
     const { fields } = useFieldArray({ control, name: "tickets" });
     const watchedFormData = watch(); // Watch all form data for reactive UI updates
 
-    // --- Modal Logic ---
-    const showModal = () => setIsModalOpen(true);
-    const handleCloseModal = () => setIsModalOpen(false);
-    const handleModalConfirm = () => {
-        if (tempSelectedRow) {
-            const performer = tempSelectedRow.performers[0];
-            setValue('registrant', {
-                id: tempSelectedRow.id,
-                name: `${performer.firstName} ${performer.lastName}`,
-                email: performer.email
-            }, { shouldValidate: true }); // Update form state
-        }
-        setIsModalOpen(false);
-    };
-
-    const filteredData = useMemo(() => {
-        if (!registrantDatas) return [];
-        if (!searchTerm) return registrantDatas;
-        return registrantDatas.filter(registrant => {
-            const performer = registrant.performers?.[0];
-            if (!performer) return false;
-            const fullName = `${performer.firstName} ${performer.lastName}`.toLowerCase();
-            return fullName.includes(searchTerm.toLowerCase());
-        });
-    }, [registrantDatas, searchTerm]);
-
     const filteredModalData = useMemo(() => {
         if (!registrantDatas) return []; // Start with the full list of registrants
 
@@ -138,7 +112,7 @@ const GeneralSeat = () => {
         return registrantDatas.filter(registrant => {
             const performer = registrant.performers?.[0];
             if (!performer) return false;
-            const fullName = `${performer.firstName} ${performer.lastName}`.toLowerCase();
+            const fullName = performer.fullName ? `${performer.fullName}`.toLowerCase() : `${performer.firstName} ${performer.lastName}`.toLowerCase();
             return fullName.includes(lowercasedFilter);
         });
     }, [registrantDatas, modalSearchTerm]);
@@ -637,7 +611,7 @@ const GeneralSeat = () => {
                     const performer = registrantToAssign.performers[0];
                     assignedToData = {
                         registrantId: registrantToAssign.id,
-                        registrantName: `${performer.firstName} ${performer.lastName}`,
+                        registrantName: performer.fullName ? `${performer.fullName}` : `${performer.firstName} ${performer.lastName}`,
                         registrantEmail: performer.email
                     };
 
@@ -1027,7 +1001,14 @@ const GeneralSeat = () => {
                                 onChange: (_, selectedRows) => setRegistrantToAssign(selectedRows[0]),
                             }}
                             columns={[
-                                { title: 'Performer', key: 'performer', render: (_, rec) => `${rec?.performers[0]?.firstName} ${rec?.performers[0]?.lastName}` },
+                                {
+                                    title: 'Performer',
+                                    key: 'performer',
+                                    render: (_, rec) => {
+                                        const p = rec?.performers?.[0];
+                                        return p?.fullName || `${p?.firstName} ${p?.lastName}`;
+                                    }
+                                },
                                 { title: 'Email', key: 'email', render: (_, rec) => rec?.performers[0]?.email },
                                 { title: 'Instrument Category', key: 'instrumentCategory', render: (_, rec) => rec?.instrumentCategory },
                             ]}                            // --- UPDATE THIS ---

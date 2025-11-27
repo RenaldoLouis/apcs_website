@@ -70,7 +70,7 @@ const usePaginatedRegistrants = (pageSize = 10, collectionName = "Registrants", 
             filteredData = allData.filter(registrant => {
                 // Check each performer in the performers array
                 return registrant.performers?.some(performer => {
-                    const fullName = `${performer.firstName || ''} ${performer.lastName || ''}`.toLowerCase();
+                    const fullName = performer.fullName ? `${performer.fullName}`.toLowerCase() : `${performer.firstName || ''} ${performer.lastName || ''}`.toLowerCase();
                     return fullName.includes(lowercasedFilter);
                 });
             });

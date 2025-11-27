@@ -6,31 +6,59 @@ import { Box, Button, IconButton, InputLabel, Tooltip, Typography } from "@mui/m
 import { useMemo } from "react";
 import { useController } from "react-hook-form";
 
-const FileInput = ({ name, control, label, rules = {}, tooltipLabel, smallNotes = null, extraSmallNotes = null, extraExtraSmallNotes = null, inputRef, setValue }) => {
-    // Custom validation function to check for spaces in the file name.
+const FileInput = ({
+    name,
+    control,
+    label,
+    rules = {},
+    tooltipLabel,
+    smallNotes = null,
+    extraSmallNotes = null,
+    extraExtraSmallNotes = null,
+    inputRef,
+    setValue,
+    // Default to PDF if not specified
+    acceptedFormats = "application/pdf"
+}) => {
+
+    // Custom validation function
     const customValidate = (value) => {
         if (value && value.length > 0) {
-            const file = value[0]; // define file here
+            const file = value[0];
             const fileName = value[0].name;
-            // Check if file name contains any whitespace characters.
+            const fileType = file.type; // e.g., "video/mp4", "application/pdf"
+
+            // 1. Check for spaces (existing rule)
             if (/\s/.test(fileName)) {
-                return "File name should not contain spaces or &. Use underscores (_) instead (e.g. JohnDoe_AlexanderGrahamaBell).";
+                return "File name should not contain spaces or &. Use underscores (_) instead.";
             }
 
-            // Check MIME type
-            if (file.type !== "application/pdf") {
-                return "Only PDF files are allowed.";
-            }
+            // 2. Dynamic File Type Validation
 
-            // Optional: check file extension too (extra safety)
-            if (!fileName.toLowerCase().endsWith(".pdf")) {
-                return "File must have a .pdf extension.";
+            // --- PDF CHECK ---
+            if (acceptedFormats.includes("pdf")) {
+                if (fileType !== "application/pdf") {
+                    return "Only PDF files are allowed.";
+                }
+                if (!fileName.toLowerCase().endsWith(".pdf")) {
+                    return "File must have a .pdf extension.";
+                }
+            }
+            // --- VIDEO CHECK (Modified to allow MP4, MOV, etc.) ---
+            else if (acceptedFormats.includes("video")) {
+                // Check if MIME type starts with "video/" OR if extension is a common video format
+                // (Sometimes OS doesn't report MIME type correctly for .mov, so we check extension too)
+                const isVideoMime = fileType.startsWith("video/");
+                const hasVideoExtension = /\.(mp4|mov|avi|wmv|mkv|webm)$/i.test(fileName);
+
+                if (!isVideoMime && !hasVideoExtension) {
+                    return "Invalid file type. Please upload a video file (MP4, MOV, etc).";
+                }
             }
         }
         return true;
     };
 
-    // Merge parent's rules with custom validation.
     const mergedRules = {
         ...rules,
         required: rules.required || "Upload required",
@@ -61,24 +89,22 @@ const FileInput = ({ name, control, label, rules = {}, tooltipLabel, smallNotes 
     }, [file]);
 
     return (
-        <Box
-            id={`file-input-wrapper-${name}`}
-            className='col-md-12 col-sm-12'>
+        <Box id={`file-input-wrapper-${name}`} className='col-md-12 col-sm-12'>
             <input
                 id={name}
                 name={name}
                 type="file"
-                accept="application/pdf"
-                // ref={ref}
+                // Pass the acceptedFormats directly to the input
+                // If it's "video/*", the browser allows selecting any video file
+                accept={acceptedFormats}
                 ref={(e) => {
-                    ref(e); // react-hook-form ref
-                    inputRef.current = e; // your manual ref
+                    ref(e);
+                    if (inputRef) inputRef.current = e;
                 }}
                 onChange={(e) => {
                     const files = e.target.files;
                     if (!files || files.length === 0) {
-                        // user clicked "cancel"
-                        setValue(name, null, { shouldValidate: true }); // ✅ ensure RHF state is updated
+                        setValue(name, null, { shouldValidate: true });
                     } else {
                         onChange(files);
                     }

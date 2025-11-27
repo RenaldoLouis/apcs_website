@@ -249,7 +249,7 @@ const SeatingEvent = () => {
                 const performer = tempSelectedRow.performers[0];
                 setValue('registrant', {
                     id: tempSelectedRow.id,
-                    name: `${performer.firstName} ${performer.lastName}`,
+                    name: performer.fullName ? `${performer.fullName}`.toLowerCase() : `${performer.firstName} ${performer.lastName}`,
                     email: performer.email
                 }, { shouldValidate: true });
                 handleCloseModal();
@@ -279,7 +279,7 @@ const SeatingEvent = () => {
         return registrantDatas.filter(registrant => {
             const performer = registrant.performers?.[0];
             if (!performer) return false;
-            const fullName = `${performer.firstName} ${performer.lastName}`.toLowerCase();
+            const fullName = performer.fullName ? `${performer.fullName}`.toLowerCase() : `${performer.firstName} ${performer.lastName}`.toLowerCase();
             return fullName.includes(searchTerm.toLowerCase());
         });
     }, [registrantDatas, searchTerm]);
@@ -445,58 +445,6 @@ const SeatingEvent = () => {
 
         return { items, total };
     }, [watchedFormData, event]);
-
-    // --- NEW HANDLERS for the assignment flow ---
-    // const handleSeatClick = (seat) => {
-    //     console.log("seat", seat)
-    //     if (seat.status !== 'available') {
-    //         message.info(`Seat ${seat.seatLabel} is already reserved for ${seat.assignedTo?.registrantName || 'someone'}.`);
-    //         return;
-    //     }
-    //     setSeatToAssign(seat);
-    //     setIsAssignModalOpen(true);
-    // };
-
-    // const handleAssignModalCancel = () => {
-    //     setIsAssignModalOpen(false);
-    //     setSeatToAssign(null);
-    //     setRegistrantToAssign(null);
-    // };
-
-    // const handleAssignModalConfirm = async () => {
-    //     if (!seatToAssign || !registrantToAssign) {
-    //         message.error("No seat or registrant was selected.");
-    //         return;
-    //     }
-
-    //     message.loading({ content: 'Assigning seat...', key: 'assignSeat' });
-    //     try {
-    //         const docRef = doc(db, `seats${eventId}`, seatToAssign.id);
-
-    //         // Update the seat document in Firestore
-    //         await updateDoc(docRef, {
-    //             status: 'reserved',
-    //             assignedTo: {
-    //                 registrantId: registrantToAssign.id,
-    //                 registrantName: `${registrantToAssign.performers[0].firstName} ${registrantToAssign.performers[0].lastName}`,
-    //                 registrantEmail: registrantToAssign.performers[0].email // Add the email here
-    //             }
-    //         });
-
-    //         message.success({ content: `Seat ${seatToAssign.seatLabel} assigned successfully!`, key: 'assignSeat' });
-
-    //         // Refresh the seat map by re-fetching the data
-    //         // You might need to extract your `fetchSeatMap` logic into a useCallback
-    //         // For simplicity here, we'll just re-trigger it by briefly clearing state
-    //         setSeatLayout([]);
-    //         // This will cause the useEffect to re-fetch the updated seat map.
-
-    //         handleAssignModalCancel(); // Close and reset
-    //     } catch (error) {
-    //         console.error("Failed to assign seat:", error);
-    //         message.error({ content: 'Failed to assign seat.', key: 'assignSeat' });
-    //     }
-    // };
 
     const handleUploadClick = async () => {
         setLoading(true);
@@ -762,7 +710,14 @@ const SeatingEvent = () => {
                                 onChange: (_, selectedRows) => setTempSelectedRow(selectedRows[0]),
                             }}
                             columns={[
-                                { title: 'Performer', key: 'performer', render: (_, rec) => `${rec?.performers[0]?.firstName} ${rec?.performers[0]?.lastName}` },
+                                {
+                                    title: 'Performer',
+                                    key: 'performer',
+                                    render: (_, rec) => {
+                                        const p = rec?.performers?.[0];
+                                        return p?.fullName || `${p?.firstName} ${p?.lastName}`;
+                                    }
+                                },
                                 { title: 'Email', key: 'email', render: (_, rec) => rec?.performers[0]?.email },
                                 { title: 'Instrument Category', key: 'instrumentCategory', render: (_, rec) => rec?.instrumentCategory },
                             ]}
@@ -789,28 +744,6 @@ const SeatingEvent = () => {
                     </Space>
                 )}
             </Modal>
-
-            {/* <Modal
-                title={`Assign a Registrant to Seat ${seatToAssign?.seatLabel || ''}`}
-                open={isAssignModalOpen}
-                onOk={handleAssignModalConfirm}
-                onCancel={handleAssignModalCancel}
-                width={1000}
-                okText="Assign Seat"
-                okButtonProps={{ disabled: !registrantToAssign }}
-            >
-                <Input.Search placeholder="Search by performer name..." value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} style={{ marginBottom: 16 }} allowClear />
-                <Table
-                    rowSelection={{ type: 'radio', onChange: (_, selectedRows) => setRegistrantToAssign(selectedRows[0]) }}
-                    columns={[
-                        { title: 'Performer', key: 'performer', render: (_, rec) => `${rec?.performers[0]?.firstName} ${rec?.performers[0]?.lastName}` },
-                        { title: 'Email', key: 'email', render: (_, rec) => rec?.performers[0]?.email },
-                        { title: 'Instrument Category', key: 'instrumentCategory', render: (_, rec) => rec?.instrumentCategory },
-                    ]}
-                    dataSource={registrantDatas.map(item => ({ ...item, key: item.id }))}
-                    pagination={{ pageSize: 5 }}
-                />
-            </Modal> */}
         </form>
     );
 };
