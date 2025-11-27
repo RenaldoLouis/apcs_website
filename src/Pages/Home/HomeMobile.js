@@ -1,5 +1,5 @@
 import { logEvent } from "firebase/analytics";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import apcLogoBold from "../../assets/images/apc_logo_bold.svg";
@@ -10,7 +10,6 @@ import sponsor11 from "../../assets/images/sponsors/saturdays.png";
 import sponsor1 from "../../assets/images/sponsors/sponsor1.png";
 import sponsor4 from "../../assets/images/sponsors/sponsor4.png";
 import sponsor5 from "../../assets/images/sponsors/sponsor5.png";
-import sponsor6 from "../../assets/images/sponsors/sponsor6.png";
 import sponsor7 from "../../assets/images/sponsors/sponsor7.png";
 import sponsor8 from "../../assets/images/sponsors/sponsor8.png";
 import sponsor12 from "../../assets/images/sponsors/zojirushi.png";
@@ -25,17 +24,16 @@ import { PathName } from "../../constant/PathName";
 import { useAuth } from "../../context/DataContext";
 import { analytics } from "../../firebase";
 import LetUsGuideToMobile from './LetUsGuideToMobile';
-import ModalEvent from "./ModalEvent";
 
 const listOfSponsor = [
-    sponsor1, sponsor10, sponsor6, sponsor11,
+    sponsor1, sponsor10, sponsor11,
 ]
 const listOfSponsor2 = [
     sponsor13, sponsor12, sponsor8, sponsor4, sponsor5, sponsor7
 ]
 
 const completeListOfSponsor = [
-    sponsor1, sponsor10, sponsor6, sponsor11, sponsor13, sponsor12, sponsor8, sponsor4, sponsor5, sponsor7
+    sponsor1, sponsor10, sponsor11, sponsor13, sponsor12, sponsor8, sponsor4, sponsor5, sponsor7
 ]
 
 const HomeMobile = (props) => {

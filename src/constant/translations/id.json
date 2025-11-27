@@ -198,7 +198,7 @@
             "remark": "Berita",
             "youtubeNote": "Pastikan judul video di YouTube mengikuti format: APCSTSOA25 - (KATEGORI INSTRUMEN) - (KATEGORI USIA) - (NAMA LENGKAP) - (JUDUL LAGU)",
             "remarksNote": "Pastikan berita ini sama dengan berita di bank transfer.",
-            "agreementText": "Saya memahami dan menyetujui bahwa untuk mengikuti acara APCS CLASSICAL FESTIVAL 2024, saya akan mematuhi syarat dan ketentuan, peraturan dan kebijakan privasi dari APCS MUSIC. Saya akan didiskualifikasi jika tidak memenuhi persyaratan dan tidak mematuhi aturan serta kebijakan yang telah ditetapkan.",
+            "agreementText": "Saya mengakui dan menyetujui bahwa untuk mengikuti acara APCS SOUND OF ASIA 2025, saya akan mematuhi syarat dan ketentuan, peraturan dan regulasi serta kebijakan privasi dari APCS MUSIC. Saya akan didiskualifikasi jika saya tidak memenuhi persyaratan dan tidak mematuhi peraturan & regulasi, syarat & ketentuan dan kebijakan privasi yang diberikan oleh APCS MUSIC.Saya juga mengakui bahwa memberikan informasi palsu, termasuk namun tidak terbatas pada pemalsuan usia atau tanggal lahir saya, akan mengakibatkan diskualifikasi langsung dari acara. Setiap peserta yang terbukti dengan sengaja memberikan informasi yang salah mengenai usia atau kriteria kelayakan lainnya akan dilarang secara permanen untuk berpartisipasi dalam semua acara dan kegiatan APCS MUSIC di masa mendatang.",
             "agree": "Saya setuju dengan syarat dan ketentuan.",
             "submit": "Kirim",
             "examCertTooltip": "Silakan lampirkan sertifikat ujian terbaru Anda / esai maksimal 80 kata dalam format PDF jika Anda tidak mengikuti ujian apa pun.",
@@ -208,7 +208,8 @@
             "repertoireTooltip": "Silakan lampirkan file PDF repertoar Anda di sini.",
             "traditionalInstrument": "Instrumen Tradisional",
             "videoPerformanceTooltip": "Please upload your video performance here.",
-            "paymentProof": "Upload Bukti Transfer"
+            "paymentProof": "Upload Bukti Transfer",
+            "fullName": "Nama Lengkap"
         },
         "ageCateogirs": {
             "child": "Anak-anak",

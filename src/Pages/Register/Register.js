@@ -1047,7 +1047,7 @@ const Register = () => {
                             </ul>
                         </div>
                         <form className="d-flex flex-column" onSubmit={handleOpenConfirmationModal}>
-                            <Box className="row">
+                            {/* <Box className="row">
                                 <Box className="col-md-8 col-sm-12">
                                     <FormControl component="fieldset" error={!!errors.userType}>
                                         <FormLabel
@@ -1099,11 +1099,11 @@ const Register = () => {
                                         )}
                                     </FormControl>
                                 </Box>
-                            </Box>
+                            </Box> */}
 
 
                             {/* Teacher's/Parent's Name */}
-                            <Controller
+                            {/* <Controller
                                 name="name"
                                 control={control}
                                 // Add the new rules for minLength and pattern here
@@ -1141,8 +1141,8 @@ const Register = () => {
                                         </Tooltip>
                                     </div>
                                 )}
-                            />
-                            {userTypeValue === "Personal" && (
+                            /> */}
+                            {/* {userTypeValue === "Personal" && (
                                 <Controller
                                     name="teacherName"
                                     control={control}
@@ -1173,7 +1173,7 @@ const Register = () => {
                                         )
                                     )}
                                 />
-                            )}
+                            )} */}
 
                             {/* Competition Category (Radio Button) */}
                             <FormControl className='mt-2' component="fieldset" error={!!errors.competitionCategory}>
@@ -1434,40 +1434,22 @@ const Register = () => {
                                     </FormLabel>
 
                                     {/* First & Last Name */}
-                                    <Box className="row">
-                                        <Box className="col-6">
-                                            <Controller
-                                                name={`performers.${index}.firstName`}
-                                                control={control}
-                                                rules={{ required: t("register.errors.required") }}
-                                                render={({ field, fieldState: { error } }) => (
-                                                    <TextField {...field}
-                                                        label={t("register.form.firstName")}
-                                                        variant="standard"
-                                                        className="custom-textfield-full mb-4"
-                                                        error={!!error}
-                                                        helperText={error?.message}
-                                                    />
-                                                )}
-                                            />
-                                        </Box>
-                                        <Box className="col-6">
-                                            <Controller
-                                                name={`performers.${index}.lastName`}
-                                                control={control}
-                                                rules={{ required: t("register.errors.required") }}
-                                                render={({ field, fieldState: { error } }) => (
-                                                    <TextField {...field}
-                                                        label={t("register.form.lastName")}
-                                                        variant="standard"
-                                                        className="custom-textfield-full mb-4"
-                                                        error={!!error}
-                                                        helperText={error?.message}
-                                                    />
-                                                )}
-                                            />
-                                        </Box>
-                                    </Box>
+                                    <Controller
+                                        name={`performers.${index}.fullName`}
+                                        control={control}
+                                        rules={{ required: t("register.errors.required") }}
+                                        render={({ field, fieldState: { error } }) => (
+                                            <TextField
+                                                {...field}
+                                                placeholder="John Doe"
+                                                key={`${`fullName-${index}`}`}
+                                                label={t("register.form.fullName")}
+                                                variant="standard"
+                                                className="custom-textfield-full mb-4"
+                                                error={!!error}
+                                                helperText={error?.message} />
+                                        )}
+                                    />
 
                                     {/* Nationality, DOB, Gender */}
                                     <Box className="row mt-2">
@@ -1855,6 +1837,35 @@ const Register = () => {
                                 )}
                             </FormControl>
 
+                            <Controller
+                                name="teacherName"
+                                control={control}
+                                // Add the new rules inside the existing ternary operator
+                                rules={{
+                                    required: t("register.errors.required"),
+                                    minLength: {
+                                        value: 3,
+                                        message: t("register.errors.nameMinLength")
+                                    },
+                                    pattern: {
+                                        value: /^[A-Za-z\s'-]+$/,
+                                        message: t("register.errors.nameMinLength")
+                                    }
+                                }}
+                                render={({ field, fieldState: { error } }) => (
+                                    <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+                                        <TextField
+                                            {...field}
+                                            label={t("register.form.teacherName")}
+                                            variant="standard"
+                                            className="custom-textfield-full mb-4"
+                                            error={!!error}
+                                            helperText={error ? error.message : ""}
+                                        />
+                                    </div>
+                                )}
+                            />
+
                             {/* Payment Proof */}
                             {!isInternationalRegistrant && (
                                 <>
@@ -1976,9 +1987,9 @@ const Register = () => {
                                 setValue={setValue}
                             />
 
-                            <small className="note">
+                            {/* <small className="note">
                                 {videoExampleFormatText}
-                            </small>
+                            </small> */}
 
                             {/* Agreement */}
                             <Box className="creamText" sx={{ mt: 2 }}>

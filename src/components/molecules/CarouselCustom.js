@@ -1,7 +1,7 @@
 import { LeftOutlined, RightOutlined } from '@ant-design/icons';
 import { IconButton } from "@mui/material";
 import { logEvent } from "firebase/analytics";
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { useSwipeable } from 'react-swipeable';
@@ -12,6 +12,7 @@ import banner4 from "../../assets/images/homeBanner/banner4.jpg";
 import banner5 from "../../assets/images/homeBanner/banner5.jpg";
 import banner6 from "../../assets/images/homeBanner/banner6.jpg";
 import banner7 from "../../assets/images/homeBanner/banner7.jpg";
+import banner8 from "../../assets/images/homeBanner/banner8.jpg";
 import { PathName } from '../../constant/PathName';
 import { YearlyEvent } from '../../constant/YearlyEvent';
 import { useAuth } from '../../context/DataContext';
@@ -20,6 +21,7 @@ import PillButton from '../atom/PillButton';
 
 const images = [
     banner5,
+    banner8,
     banner2,
     banner1,
     banner6,
@@ -143,6 +145,11 @@ const Carousel = ({ interval = 5000, homePage = true }) => {
                     <div style={{ '--currentIndex': currentIndex, marginTop: 36 }} className='titleCoverContainerText'>
                         <div>
                             <PillButton onClick={() => handleMovePage(PathName.contactUs, YearlyEvent.TURNINGPOINT)} text={t("moreInfo")} />
+                        </div>
+                    </div>
+                    <div style={{ '--currentIndex': currentIndex, marginTop: 180 }} className='titleCoverContainerText'>
+                        <div>
+                            <PillButton onClick={() => handleMovePage(PathName.gallery, YearlyEvent.APCSTHESOUNDOFASIA2025)} text={t("moreInfo")} />
                         </div>
                     </div>
                     <div style={{ '--currentIndex': currentIndex, marginTop: 36 }} className='titleCoverContainerText'>

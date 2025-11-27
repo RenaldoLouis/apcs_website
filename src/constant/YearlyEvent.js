@@ -7,10 +7,14 @@ export const YearlyEvent = {
     CHRISTMASWONDERLAND: "CHRISTMAS WONDERLAND",
     MASTERCLASS: "MASTERCLASS",
     CLASSICALFESTIVALJKT2024: "CLASSICAL FESTIVAL JKT - SERIES 3",
+    APCSTHESOUNDOFASIA2025: "CLASSICAL THE SOUND OF ASIA 2025",
 }
 
 export const ListEvent = [
-
+    {
+        title: YearlyEvent.APCSTHESOUNDOFASIA2025,
+        year: "2025"
+    },
     {
         title: YearlyEvent.CLASSICALFESTIVALJKT2024,
         year: "2024"

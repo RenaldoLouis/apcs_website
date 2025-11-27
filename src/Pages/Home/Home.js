@@ -12,10 +12,15 @@ import sponsor10 from "../../assets/images/sponsors/elevee.png";
 import sponsor11 from "../../assets/images/sponsors/saturdays.png";
 import sponsor1 from "../../assets/images/sponsors/sponsor1.png";
 import sponsor2 from "../../assets/images/sponsors/sponsor2.png";
+import sponsor2025_1 from "../../assets/images/sponsors/sponsor2025_1.png";
+import sponsor2025_3 from "../../assets/images/sponsors/sponsor2025_3.jpg";
+import sponsor2025_4 from "../../assets/images/sponsors/sponsor2025_4.png";
+import sponsor2025_5 from "../../assets/images/sponsors/sponsor2025_5.png";
+import sponsor2025_6 from "../../assets/images/sponsors/sponsor2025_6.png";
+import sponsor2025_7 from "../../assets/images/sponsors/sponsor2025_7.png";
 import sponsor3 from "../../assets/images/sponsors/sponsor3.png";
 import sponsor4 from "../../assets/images/sponsors/sponsor4.png";
 import sponsor5 from "../../assets/images/sponsors/sponsor5.png";
-import sponsor6 from "../../assets/images/sponsors/sponsor6.png";
 import sponsor7 from "../../assets/images/sponsors/sponsor7.png";
 import sponsor8 from "../../assets/images/sponsors/sponsor8.png";
 import sponsor9 from "../../assets/images/sponsors/sponsor9.png";
@@ -34,14 +39,14 @@ import HomeMobile from './HomeMobile';
 import LetUsGuideTo from "./LetUsGuideTo";
 
 const listOfSponsor = [
-    sponsor1, sponsor10, sponsor6, sponsor11,
+    sponsor2025_1, sponsor2025_4, sponsor2025_7, sponsor1, sponsor10, sponsor11,
 ]
 const listOfSponsor2 = [
-    sponsor13, sponsor12, sponsor8, sponsor4, sponsor5, sponsor7
+    sponsor2025_3, sponsor2025_5, sponsor2025_6, sponsor13, sponsor12, sponsor8, sponsor4, sponsor5, sponsor7
 ]
 
 const completeListOfSponsor = [
-    sponsor1, sponsor10, sponsor11, sponsor12, sponsor13, sponsor6, sponsor8, sponsor4, sponsor5, sponsor2, sponsor7, sponsor9, sponsor3
+    sponsor2025_1, sponsor1, sponsor10, sponsor11, sponsor12, sponsor13, sponsor8, sponsor4, sponsor5, sponsor2, sponsor7, sponsor9, sponsor3
 ]
 
 const Home = (props) => {

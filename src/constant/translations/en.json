@@ -198,7 +198,7 @@
             "remark": "Remark",
             "youtubeNote": "Make sure to fill the title on YouTube with the format: APCSTSOA25 - (INSTRUMENT CATEGORIES) - (AGE CATEGORIES) - (FULL NAME) - (PIECE)",
             "remarksNote": "Make sure this remark is the same in bank transfer.",
-            "agreementText": "I acknowledge and agree that in order to join the APCS SOUND OF ASIA 2025 event, I will be in compliance with the terms and conditions, rules and regulations as well as the privacy policy of APCS MUSIC. I will be disqualified if I did not meet any requirement and did not obey the rules & regulations, terms & conditions and privacy policy that were given by APCS MUSIC.",
+            "agreementText": "I acknowledge and agree that in order to join the APCS SOUND OF ASIA 2025 event, I will be in compliance with the terms and conditions, rules and regulations as well as the privacy policy of APCS MUSIC. I will be disqualified if I did not meet any requirement and did not obey the rules & regulations, terms & conditions and privacy policy that were given by APCS MUSIC. I further acknowledge that providing false information, including but not limited to falsifying my age or date of birth, will result in immediate disqualification from the event. Any participant found to have intentionally misrepresented their age or other eligibility criteria will be permanently banned from participating in all future APCS MUSIC events and activities.",
             "agree": "I agree to the terms and conditions.",
             "submit": "Submit",
             "examCertTooltip": "Please attach your latest exam certificate / essay of maximum 80 words in pdf if you are not joining any exams.",
@@ -208,7 +208,8 @@
             "repertoireTooltip": "Please attach your PDF repertoire here.",
             "videoPerformanceTooltip": "Please upload your video performance here.",
             "traditionalInstrument": "Traditional Instrument",
-            "paymentProof": "Upload Payment Proof"
+            "paymentProof": "Upload Payment Proof",
+            "fullName": "Full Name"
         },
         "ageCateogirs": {
             "child": "Child",

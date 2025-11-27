@@ -279,9 +279,9 @@ const NotableJurist = () => {
                             <div className="mangolaineFont lineHeightNormal text-align-justify" style={{ fontSize: 40 }}>
                                 FIRDY SALIM
                             </div>
-                            <div className="text-align-justify" style={{ fontSize: 20 }}>
+                            {/* <div className="text-align-justify" style={{ fontSize: 20 }}>
                                 Head Adjudicator & Principal Advisor
-                            </div>
+                            </div> */}
                             <div className="d-flex" style={{ marginTop: 16 }}>
                                 <img src={flagIcon(CountryConst.IDN)} alt={"country"} />
                             </div>
@@ -314,7 +314,7 @@ const NotableJurist = () => {
                                 </div>
                                 <ConductorProfile
                                     title={"NADYA JANITRA"}
-                                    titleUser="Academic Advisor"
+                                    // titleUser="Academic Advisor"
                                     desc={t("about8")}
                                     eventYear={'Jurist 2023'}
                                     eventName={""}
@@ -327,7 +327,7 @@ const NotableJurist = () => {
                             <div>
                                 <ConductorProfile
                                     title={"NADYA JANITRA"}
-                                    titleUser="Academic Advisor"
+                                    // titleUser="Academic Advisor"
                                     desc={t("about8")}
                                     eventYear={'Jurist 2023'}
                                     eventName={""}
