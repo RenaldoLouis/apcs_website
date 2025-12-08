@@ -30,12 +30,12 @@ import jurist24 from "../../assets/images/jurists/Jurist24.png";
 import jurist25 from "../../assets/images/jurists/Jurist25.png";
 import jurist3 from "../../assets/images/jurists/jurist3.png";
 import jurist4 from "../../assets/images/jurists/jurist4.png";
+import jurist5 from "../../assets/images/jurists/jurist5.png";
 import jurist6 from "../../assets/images/jurists/jurist6.png";
 import jurist7 from "../../assets/images/jurists/jurist7.png";
 import jurist8 from "../../assets/images/jurists/jurist8.png";
 import jurist9 from "../../assets/images/jurists/jurist9.png";
 import koreaflag from "../../assets/images/koreaflag.jpg";
-import nadyaAdvisor from "../../assets/images/nadyaAdvisor.svg";
 import russiaflag from "../../assets/images/russiaflag.jpg"; //estonia
 import singaporeFlag from "../../assets/images/singaporeFlag.png";
 import turkeyFlag from "../../assets/images/turkeyFlag.png";
@@ -43,10 +43,8 @@ import AnimatedComponent from "../../components/atom/AnimatedComponent";
 import EllipsisText from "../../components/atom/EllipsisText";
 import HeaderAbout from "../../components/atom/HeaderAbout";
 import HeaderTitle from "../../components/atom/HeaderTitle";
-import ConductorProfile from "../../components/molecules/ConductorProfile";
 import { CountryConst } from "../../constant/CountryConst";
 import { useAuth } from "../../context/DataContext";
-import { flagIcon } from "../../utils/Utils";
 
 const NotableJurist = () => {
 
@@ -87,14 +85,22 @@ const NotableJurist = () => {
             country: [CountryConst.IDN],
             link: "https://www.instagram.com/p/Cb4RXpGL4Gf/?igsh=MTIweG85aG83ejFqcw%3D%3D"
         },
-        // {
-        //     image: jurist5,
-        //     name: "NADYA JANITRA",
-        //     title: "Jurist 2023",
-        //     quote: "Nadya Janitra has both her Bachelor (2011) and Master Degree (2013) from Den Haag Royal Conservatoire, under the guidance of Ellen Corver. Before pursuing her studies in the Netherlands, Nadya debuted her first piano solo recital at 16 years old in Erasmus Huis Jakarta. Known for her musical talent, Nadya had always got the highest mark on each examination she did for 11 consecutive years in Yayasan Pendidikan Musik (YPM). She then graduated with “YPM Artist Award” in 2004 under the guidance of Aisha Adriana Pletscher. After graduating from the Netherlands, she performed many solo recitals in various cities and countries, such as Jakarta, Bali, Surabaya, Yogyakarta, Makassar, Medan, Macau and Den Haag.",
-        //     country: [CountryConst.IDN],
-        //     link: "https://www.instagram.com/p/CvEvFaOSOPl/?igsh=MW41bzh6cmp4NDl0&img_index=2"
-        // },
+        {
+            image: jurist5,
+            name: "NADYA JANITRA",
+            title: "Jurist 2023",
+            quote: t("about8"),
+            country: [CountryConst.IDN],
+            link: "https://www.instagram.com/p/CvEvFaOSOPl/?igsh=MW41bzh6cmp4NDl0&img_index=2"
+        },
+        {
+            image: jurist0,
+            name: "FIRDY SALIM",
+            title: "Jurist 2022, 2023, 2024, 2025",
+            quote: t("about9"),
+            country: [CountryConst.IDN],
+            link: "https://www.instagram.com/p/CvEvFaOSOPl/?igsh=MW41bzh6cmp4NDl0&img_index=3"
+        },
         {
             image: jurist7,
             name: "MARTIN KESUMA",
@@ -268,7 +274,7 @@ const NotableJurist = () => {
                 <HeaderTitle>
                     <HeaderAbout title={"JURISTS"} />
                 </HeaderTitle>
-                <div className="text-align-center align-items-center row row-cols-1 row-cols-md-2" style={{ paddingTop: 10, paddingBottom: 120, margin: 0 }}>
+                {/* <div className="text-align-center align-items-center row row-cols-1 row-cols-md-2" style={{ paddingTop: 10, paddingBottom: 120, margin: 0 }}>
                     <div className="col" style={{ color: "white" }}>
                         <AnimatedComponent animationClass="animate__fadeInDown">
                             <img loading="lazy" src={jurist0} style={{ width: "100%", height: "100%" }} alt="" />
@@ -279,9 +285,9 @@ const NotableJurist = () => {
                             <div className="mangolaineFont lineHeightNormal text-align-justify" style={{ fontSize: 40 }}>
                                 FIRDY SALIM
                             </div>
-                            {/* <div className="text-align-justify" style={{ fontSize: 20 }}>
+                            <div className="text-align-justify" style={{ fontSize: 20 }}>
                                 Head Adjudicator & Principal Advisor
-                            </div> */}
+                            </div>
                             <div className="d-flex" style={{ marginTop: 16 }}>
                                 <img src={flagIcon(CountryConst.IDN)} alt={"country"} />
                             </div>
@@ -335,11 +341,11 @@ const NotableJurist = () => {
                                     withSeeMore={true}
                                     link={"https://www.instagram.com/p/CvEvFaOSOPl/?igsh=NGY1OXdlNDMwZnBw&img_index=2"}
                                 />
-                                {/* <div className="col" style={{ color: "white" }}>
+                                <div className="col" style={{ color: "white" }}>
                                     <AnimatedComponent animationClass="animate__fadeInDown">
                                         <img loading="lazy" src={nadyaAdvisor} style={{ width: "100%", height: "100%" }} alt="" />
                                     </AnimatedComponent>
-                                </div> */}
+                                </div>
                             </div>
                         )}
                     </div>
@@ -352,7 +358,7 @@ const NotableJurist = () => {
                             </div>
                         </div>
                     )}
-                </div>
+                </div> */}
 
                 <div className="text-align-justify align-items-start row" style={{ color: "white" }}>
                     {juristList.map((eachData, index, array) => {
