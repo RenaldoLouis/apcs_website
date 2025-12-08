@@ -37,6 +37,7 @@ import { ageCategories, brassAgeCategoriesEnsemble, brassAgeCategoriesSolo, Bras
 import { useAuth } from '../../context/DataContext';
 import { db } from '../../firebase';
 import { getAge, isAgeInCategory } from '../../utils/Utils';
+import CustomNumberInput from './CustonNumberInput';
 import SubmissionConfirmationModal from './SubmissionConfirmationModal';
 import WelcomeModalRegister from './WelcomeModalRegister';
 
@@ -879,13 +880,13 @@ const Register = () => {
             case competitionList.Guitar:
                 return true
             case competitionList.VocalChoir:
-                return false
+                return true
             case competitionList.Brass:
                 return false
             case competitionList.Harp:
                 return false
             case competitionList.Strings:
-                return false
+                return true
             default:
                 return true
         }
@@ -1387,24 +1388,19 @@ const Register = () => {
                                             control={control}
                                             rules={{ required: t("register.errors.required") }}
                                             render={({ field, fieldState: { error } }) => (
-                                                <InputNumber
-                                                    key={"totalPerformerInput"}
-                                                    suffix={t("register.form.personSuffix")} // Optional, for localization
-                                                    min={minimalPerformer}
-                                                    max={maximalPerformer}
-                                                    onError={!!error}
-                                                    defaultValue={minimalPerformer}
-                                                    value={field.value} // <-- Controlled value
+                                                <CustomNumberInput
+                                                    value={field.value || minimalPerformer}
                                                     onChange={(value) => {
                                                         if (PerformanceCategoryValue !== PerformanceCategory.Solo) {
                                                             field.onChange(value);
                                                             handleChangePerformer(value);
                                                         }
                                                     }}
-                                                    style={{ width: '100%' }}
-                                                    controls={true}
-                                                    keyboard={PerformanceCategoryValue === PerformanceCategory.Solo ? false : true}
-                                                    onKeyDown={(e) => PerformanceCategoryValue === PerformanceCategory.Solo ? e.preventDefault() : null} // ⛔ prevent manual typing
+                                                    min={minimalPerformer}
+                                                    max={maximalPerformer}
+                                                    suffix={t("register.form.personSuffix")}
+                                                    disabled={PerformanceCategoryValue === PerformanceCategory.Solo}
+                                                    error={!!error}
                                                 />
                                             )}
                                         />
