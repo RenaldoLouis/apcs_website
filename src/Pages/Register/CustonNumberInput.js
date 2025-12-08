@@ -54,14 +54,15 @@ const CustomNumberInput = ({
                     border: 'none',
                     backgroundColor: 'transparent',
                     color: '#e5cc92',
-                    padding: '8px 12px',
+                    padding: '4px 8px',
                     cursor: value <= min || disabled ? 'not-allowed' : 'pointer',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
                     opacity: value <= min || disabled ? 0.4 : 1,
                     transition: 'all 0.2s',
-                    minWidth: '40px',
+                    minWidth: '32px',
+                    height: '32px',
                     '&:hover:not(:disabled)': {
                         backgroundColor: 'rgba(229, 204, 146, 0.1)',
                     },
@@ -70,7 +71,7 @@ const CustomNumberInput = ({
                     }
                 }}
             >
-                <RemoveIcon sx={{ fontSize: '20px' }} />
+                <RemoveIcon sx={{ fontSize: '18px' }} />
             </Box>
 
             {/* Value Display */}
@@ -80,13 +81,14 @@ const CustomNumberInput = ({
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    padding: '8px 16px',
-                    fontSize: '16px',
+                    padding: '4px 12px',
+                    fontSize: '14px',
                     fontWeight: 500,
                     color: disabled ? '#999' : '#333',
                     userSelect: 'none',
-                    minWidth: '80px',
+                    minWidth: '70px',
                     textAlign: 'center',
+                    height: '32px',
                 }}
             >
                 {value} {suffix}
@@ -102,14 +104,15 @@ const CustomNumberInput = ({
                     border: 'none',
                     backgroundColor: 'transparent',
                     color: '#e5cc92',
-                    padding: '8px 12px',
+                    padding: '4px 8px',
                     cursor: value >= max || disabled ? 'not-allowed' : 'pointer',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
                     opacity: value >= max || disabled ? 0.4 : 1,
                     transition: 'all 0.2s',
-                    minWidth: '40px',
+                    minWidth: '32px',
+                    height: '32px',
                     '&:hover:not(:disabled)': {
                         backgroundColor: 'rgba(229, 204, 146, 0.1)',
                     },
@@ -118,7 +121,7 @@ const CustomNumberInput = ({
                     }
                 }}
             >
-                <AddIcon sx={{ fontSize: '20px' }} />
+                <AddIcon sx={{ fontSize: '18px' }} />
             </Box>
         </Box>
     );
