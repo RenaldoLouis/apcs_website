@@ -88,6 +88,31 @@ export default {
   },
   aws: {
     postSignedUrl: (directoryname, fileName) => postRequest(`/api/v1/apcs/signed-url-images?directoryname=${directoryname}&fileName=${fileName}`),
+    // Initiate multipart upload
+    initiateMultipartUpload: (directoryname, fileName, fileType) =>
+      postRequest(`/api/v1/apcs/initiateMultipartUpload`, {
+        directoryname,
+        fileName,
+        fileType
+      }),
+
+    // Get signed URL for each part
+    getPartUploadUrl: (directoryname, fileName, uploadId, partNumber) =>
+      postRequest(`/api/v1/apcs/getPartUploadUrl`, {
+        directoryname,
+        fileName,
+        uploadId,
+        partNumber
+      }),
+
+    // Complete multipart upload
+    completeMultipartUpload: (directoryname, fileName, uploadId, parts) =>
+      postRequest(`/api/v1/apcs/completeMultipartUpload`, {
+        directoryname,
+        fileName,
+        uploadId,
+        parts
+      }),
     downloadFiles: (files) => postBlobRequest(`/api/v1/apcs/download-files-aws`, files),
     downloadAllFiles: (files) => postBlobRequest(`/api/v1/apcs/download-all-files-aws`, files),
     getPublicVideoLinkAws: (s3Link) => postRequest(`/api/v1/apcs/getPublicVideoLinkAws`, s3Link),

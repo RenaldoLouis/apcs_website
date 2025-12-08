@@ -281,6 +281,58 @@ const Register = () => {
         // By stringifying the array, the dependency will now change whenever any value inside it changes.
     }, [JSON.stringify(watchedFieldsPerformer), IdCode]);
 
+    const uploadLargeVideo = async (file, directoryName) => {
+        const chunkSize = 10 * 1024 * 1024; // 10MB chunks
+        const chunks = Math.ceil(file.size / chunkSize);
+
+        // Start multipart upload
+        const initRes = await apis.aws.initiateMultipartUpload(directoryName, file.name, file.type);
+        const uploadId = initRes.data.data.uploadId;
+
+        const uploadPromises = [];
+        const uploadedParts = [];
+
+        for (let i = 0; i < chunks; i++) {
+            const start = i * chunkSize;
+            const end = Math.min(start + chunkSize, file.size);
+            const chunk = file.slice(start, end);
+
+            const partNumber = i + 1;
+
+            // Upload chunks in parallel
+            const uploadPromise = (async () => {
+                const partRes = await apis.aws.getPartUploadUrl(directoryName, file.name, uploadId, partNumber);
+                const partUrl = partRes.data.data.link;
+
+                const response = await axios.put(partUrl, chunk, {
+                    headers: { 'Content-Type': file.type }
+                });
+
+                return {
+                    ETag: response.headers.etag,
+                    PartNumber: partNumber
+                };
+            })();
+
+            uploadPromises.push(uploadPromise);
+
+            // Update progress
+            uploadPromise.then(() => {
+                const progress = 35 + Math.floor(((i + 1) / chunks) * 50);
+                // setProgressLoading(progress);
+            });
+        }
+
+        // Wait for all parts
+        const parts = await Promise.all(uploadPromises);
+        uploadedParts.push(...parts.sort((a, b) => a.PartNumber - b.PartNumber));
+
+        // Complete multipart upload
+        await apis.aws.completeMultipartUpload(directoryName, file.name, uploadId, uploadedParts);
+
+        return `s3://registrants2025/${directoryName}/${file.name}`;
+    };
+
     const onSubmit = async (data) => {
         try {
             setIsConfirmModalOpen(false)
@@ -342,16 +394,17 @@ const Register = () => {
             setProgressLoading(30)
 
             const videoPerformance = data.videoPerformance[0];
-            const fileExtension = videoPerformance.name.split('.').pop();
-            const fileNameWithExt = `videoPerformance.${fileExtension}`;
-            const res23 = await apis.aws.postSignedUrl(directoryName, fileNameWithExt, videoPerformance.type);
-            const signedUrl23 = res23.data.link;
-            await axios.put(signedUrl23, videoPerformance, {
-                headers: {
-                    'Content-Type': videoPerformance.type,
-                },
-            });
-            const videoPerformanceS3Link = `s3://registrants2025/${directoryName}/${fileNameWithExt}`;
+            // const fileExtension = videoPerformance.name.split('.').pop();
+            // const fileNameWithExt = `videoPerformance.${fileExtension}`;
+            // const res23 = await apis.aws.postSignedUrl(directoryName, fileNameWithExt, videoPerformance.type);
+            // const signedUrl23 = res23.data.link;
+            // await axios.put(signedUrl23, videoPerformance, {
+            //     headers: {
+            //         'Content-Type': videoPerformance.type,
+            //     },
+            // });
+            // const videoPerformanceS3Link = `s3://registrants2025/${directoryName}/${fileNameWithExt}`;
+            const videoPerformanceS3Link = await uploadLargeVideo(videoPerformance, directoryName)
             setProgressLoading(35)
 
             //save birth cert first
