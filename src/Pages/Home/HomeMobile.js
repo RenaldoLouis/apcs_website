@@ -1,18 +1,11 @@
+import { Spin, message } from "antd";
 import { logEvent } from "firebase/analytics";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
+import apis from "../../apis";
 import apcLogoBold from "../../assets/images/apc_logo_bold.svg";
 import experienceHomeMobile from "../../assets/images/experienceHomeMobile.jpg";
-import sponsor13 from "../../assets/images/sponsors/arumii.png";
-import sponsor10 from "../../assets/images/sponsors/elevee.png";
-import sponsor11 from "../../assets/images/sponsors/saturdays.png";
-import sponsor1 from "../../assets/images/sponsors/sponsor1.png";
-import sponsor4 from "../../assets/images/sponsors/sponsor4.png";
-import sponsor5 from "../../assets/images/sponsors/sponsor5.png";
-import sponsor7 from "../../assets/images/sponsors/sponsor7.png";
-import sponsor8 from "../../assets/images/sponsors/sponsor8.png";
-import sponsor12 from "../../assets/images/sponsors/zojirushi.png";
 import webelieveBackground from '../../assets/images/webelieveBackground.jpg';
 import AnimatedComponent from "../../components/atom/AnimatedComponent";
 import PillButton from "../../components/atom/PillButton";
@@ -25,94 +18,140 @@ import { useAuth } from "../../context/DataContext";
 import { analytics } from "../../firebase";
 import LetUsGuideToMobile from './LetUsGuideToMobile';
 
-const listOfSponsor = [
-    sponsor1, sponsor10, sponsor11,
-]
-const listOfSponsor2 = [
-    sponsor13, sponsor12, sponsor8, sponsor4, sponsor5, sponsor7
-]
-
-const completeListOfSponsor = [
-    sponsor1, sponsor10, sponsor11, sponsor13, sponsor12, sponsor8, sponsor4, sponsor5, sponsor7
-]
-
 const HomeMobile = (props) => {
-    const { homeImagehero } = props
-    const { t, i18n } = useTranslation();
+    const { homeImagehero } = props;
+    const { t } = useTranslation();
     const navigate = useNavigate();
-
     const { isMobileAndSmaller } = useAuth();
+
+    const [sponsorList, setSponsorList] = useState([]);
+    const [loadingSponsors, setLoadingSponsors] = useState(true);
+    const [open, setOpen] = useState(false);
+
+    useEffect(() => {
+        logEvent(analytics, 'visit_Home_Mobile');
+    }, []);
+
+    useEffect(() => {
+        handleOpen();
+    }, []);
+
+    useEffect(() => {
+        fetchSponsors();
+    }, []);
+
+    const fetchSponsors = async () => {
+        try {
+            setLoadingSponsors(true);
+            const res = await apis.home.getSponsors();
+
+            if (res.status === 200 && res.data) {
+                setSponsorList(res.data);
+            }
+        } catch (error) {
+            console.error("Error fetching sponsors:", error);
+            message.error("Failed to load sponsors");
+        } finally {
+            setLoadingSponsors(false);
+        }
+    };
 
     const handleMovePage = (path) => {
         window.scrollTo(0, 0);
         navigate(path);
-    }
+    };
 
-    useEffect(() => {
-        logEvent(analytics, 'visit_Home');
-    }, [])
-
-    const [open, setOpen] = useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
 
-    useEffect(() => {
-        handleOpen()
-    }, [])
-
     return (
         <div style={{ background: "black" }}>
-            <CoverImageHomeMobile background={homeImagehero}
+            <CoverImageHomeMobile
+                background={homeImagehero}
                 logo={apcLogoBold}
             />
 
             <LetUsGuideToMobile />
 
+            {/* We Believe Section */}
             <div className="image-container-fadedTopBottom autoHeight" style={{ position: "relative" }}>
-                <img loading="lazy" src={webelieveBackground} alt={`webelieveBackground`} style={{ width: "100%" }} />
+                <img
+                    loading="lazy"
+                    src={webelieveBackground}
+                    alt="We Believe Background"
+                    style={{ width: "100%" }}
+                />
                 <div className="musicForEveryone" style={{ zIndex: 1000 }}>
                     <div className="weOfferContainer" style={{ color: 'white', justifyItems: "center", textAlign: "center" }}>
                         <AnimatedComponent animationClass={AnimationClass.fadeIn}>
-                            <div className="font-size-b-mob creamText mangolaineFont textWithShadow" style={{ width: 350, letterSpacing: 3 }}>
+                            <div
+                                className="font-size-b-mob creamText mangolaineFont textWithShadow"
+                                style={{
+                                    width: '100%',
+                                    maxWidth: 350,
+                                    letterSpacing: 3,
+                                    padding: '0 20px'
+                                }}
+                            >
                                 {t("home3M")}
                             </div>
                         </AnimatedComponent>
                         <AnimatedComponent animationClass={AnimationClass.fadeIn}>
-                            <div className="flex justify-center"
+                            <div
+                                className="flex justify-center"
                                 style={{
                                     color: "#FFF2DB",
                                     position: 'absolute',
+                                    left: '50%',
                                     transform: 'translate(-50%, 50%)',
-                                    width: "350px",
-                                    zIndex: 1000
+                                    width: "100%",
+                                    maxWidth: 350,
+                                    zIndex: 1000,
+                                    padding: '0 20px'
                                 }}
                             >
-                                <PillButton text={t("home4")} onClick={() => handleMovePage(PathName.about)} />
+                                <PillButton
+                                    text={t("home4")}
+                                    onClick={() => handleMovePage(PathName.about)}
+                                />
                             </div>
                         </AnimatedComponent>
                     </div>
                 </div>
             </div>
 
-            <div className="image-container-fadedTopBottom autoHeight">
-                <img loading="lazy" src={experienceHomeMobile} alt={`experienceHomeMobile`} style={{ width: "100%" }} />
+            {/* Experience APCS Section */}
+            <div className="image-container-fadedTopBottom autoHeight" style={{ position: 'relative' }}>
+                <img
+                    loading="lazy"
+                    src={experienceHomeMobile}
+                    alt="Experience APCS"
+                    style={{ width: "100%" }}
+                />
 
+                {/* Title */}
                 <div style={{
                     color: "#FFF2DB",
                     position: 'absolute',
                     top: '47%',
                     left: '50%',
                     transform: 'translate(-50%, -50%)',
-                    width: "350px",
-                    zIndex: 1000
+                    width: "100%",
+                    maxWidth: 350,
+                    zIndex: 1000,
+                    padding: '0 20px'
                 }}>
                     <AnimatedComponent animationClass={AnimationClass.fadeIn}>
-                        <div className="font-size-b-mob mangolaineFont text-align-center textWithShadow" style={{ letterSpacing: 8 }} >
+                        <div
+                            className="font-size-b-mob mangolaineFont text-align-center textWithShadow"
+                            style={{ letterSpacing: 8 }}
+                        >
                             EXPERIENCE<br />APCS
                         </div>
                     </AnimatedComponent>
                 </div>
 
+                {/* Description 1 */}
                 <div
                     className='font-size-m-mob'
                     style={{
@@ -121,9 +160,12 @@ const HomeMobile = (props) => {
                         top: '77%',
                         left: '50%',
                         transform: 'translate(-50%, -50%)',
-                        width: "350px",
-                        zIndex: 1000
-                    }}>
+                        width: "100%",
+                        maxWidth: 350,
+                        zIndex: 1000,
+                        padding: '0 20px'
+                    }}
+                >
                     <AnimatedComponent animationClass={AnimationClass.fadeIn}>
                         <div className="textWithShadow" style={{ textAlign: "center" }}>
                             {t("home5")}
@@ -131,6 +173,7 @@ const HomeMobile = (props) => {
                     </AnimatedComponent>
                 </div>
 
+                {/* Description 2 */}
                 <div
                     className='font-size-m-mob'
                     style={{
@@ -139,40 +182,51 @@ const HomeMobile = (props) => {
                         top: '84%',
                         left: '50%',
                         transform: 'translate(-50%, -50%)',
-                        width: "350px",
-                        justifySelf: 'center',
-                        zIndex: 1000
-                    }}>
+                        width: "100%",
+                        maxWidth: 350,
+                        zIndex: 1000,
+                        padding: '0 20px'
+                    }}
+                >
                     <AnimatedComponent animationClass={AnimationClass.fadeIn}>
-                        <div className="textWithShadow" style={{ justifySelf: "center" }}>
+                        <div className="textWithShadow" style={{ textAlign: 'center' }}>
                             {t('home5A')}
                         </div>
                     </AnimatedComponent>
                 </div>
 
+                {/* CTA Button */}
                 <div style={{
                     color: "#FFF2DB",
                     position: 'absolute',
                     top: '92%',
                     left: '50%',
                     transform: 'translate(-50%, -50%)',
-                    width: "350px",
-                    zIndex: 1000
+                    width: "100%",
+                    maxWidth: 350,
+                    zIndex: 1000,
+                    padding: '0 20px'
                 }}>
                     <AnimatedComponent animationClass={AnimationClass.fadeIn}>
                         <div className="flex justify-center">
-                            <PillButton text={t("home6")} onClick={() => handleMovePage(PathName.contactUs)} />
+                            <PillButton
+                                text={t("home6")}
+                                onClick={() => handleMovePage(PathName.contactUs)}
+                            />
                         </div>
                     </AnimatedComponent>
                 </div>
-
             </div>
 
             <JuryCarousel />
 
+            {/* Our Latest Events */}
             <div className="container-fluid" style={{ background: "black" }}>
                 <div className="row">
-                    <div className="col  mangolaineFont goldenTextColor text-align-center" style={{ fontSize: '9vmin' }}>
+                    <div
+                        className="col mangolaineFont goldenTextColor text-align-center"
+                        style={{ fontSize: '9vmin' }}
+                    >
                         OUR LATEST EVENTS
                     </div>
                 </div>
@@ -180,42 +234,78 @@ const HomeMobile = (props) => {
 
             <Carousel />
 
-            {isMobileAndSmaller ? (
-                <div className="container" style={{ background: "black", marginTop: 32 }}>
-                    <div className="row text-align-center ">
-                        <div className="col gx-5 gy-3">
-                            {completeListOfSponsor.map((eachSponsor, index) => (
-                                <img key={`completeListOfSponsor1-${index}`} className="mb-2" src={eachSponsor} alt={"eachSponsor"} style={{ marginRight: 12, width: index === 1 ? "18vmin" : index === 3 ? "13vmin" : index === 6 ? "10vmin" : "12vmin" }} />
-                            ))}
+            {/* Dynamic Sponsors Section - Mobile Optimized */}
+            <div className="container" style={{ background: "black", marginTop: 32, marginBottom: 32, padding: "20px" }}>
+                {loadingSponsors ? (
+                    <div className="row">
+                        <div className="col text-align-center" style={{ padding: "40px 0" }}>
+                            <Spin size="large" />
                         </div>
                     </div>
-                </div>
-            ) : (
-                <>
-                    <div className="container" style={{ background: "black", marginTop: 32 }}>
-                        <div className="row text-align-center">
-                            <div className="col">
-                                {listOfSponsor.map((eachSponsor, index) => (
-                                    <img key={`eachSponsor1-${index}`} src={eachSponsor} alt={"eachSponsor"} className=" me-5" style={{ width: index === 1 ? "18vmin" : index === 3 ? "13vmin" : "15vmin" }} />
-                                ))}
+                ) : sponsorList.length > 0 ? (
+                    <div
+                        style={{
+                            display: "grid",
+                            // This creates dynamic columns: Minimum 120px wide, expanding to fill space
+                            gridTemplateColumns: "repeat(auto-fit, minmax(120px, 1fr))",
+                            gap: "24px",
+                            alignItems: "center",
+                            justifyItems: "center",
+                            width: "100%"
+                        }}
+                    >
+                        {sponsorList.map((sponsorUrl, index) => (
+                            <div
+                                key={`sponsor-mobile-${index}`}
+                                style={{
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                    width: '100%',
+                                    height: '100px', // Fixed container height for alignment
+                                }}
+                            >
+                                <img
+                                    src={sponsorUrl}
+                                    alt={`Sponsor ${index + 1}`}
+                                    loading="lazy"
+                                    style={{
+                                        maxWidth: '100%',
+                                        maxHeight: '100%',
+                                        width: 'auto',
+                                        height: 'auto',
+                                        objectFit: 'contain',
+                                        filter: 'brightness(0.95)',
+                                        transition: 'transform 0.3s ease',
+                                        cursor: 'pointer'
+                                    }}
+                                    onMouseOver={(e) => e.currentTarget.style.transform = "scale(1.05)"}
+                                    onMouseOut={(e) => e.currentTarget.style.transform = "scale(1)"}
+                                    onError={(e) => {
+                                        console.error(`Failed to load sponsor image: ${sponsorUrl}`);
+                                        e.target.parentElement.style.display = 'none'; // Hide the parent div if image fails
+                                    }}
+                                />
                             </div>
-                        </div>
-                        <div className="row text-align-center">
-                            <div className="col">
-                                {listOfSponsor2.map((eachSponsor, index) => (
-                                    <img key={`eachSponsor2-${index}`} src={eachSponsor} alt={"eachSponsor"} className=" me-5" style={{ width: index === 2 ? "8vmin" : "15vmin" }} />
-                                ))}
-                            </div>
+                        ))}
+                    </div>
+                ) : (
+                    <div className="row">
+                        <div
+                            className="col text-align-center"
+                            style={{
+                                color: '#999',
+                                padding: '40px 0',
+                                fontSize: '14px'
+                            }}
+                        >
+                            No sponsors available
                         </div>
                     </div>
-                </>
-            )}
-            {/* <ModalEvent
-                open={open}
-                handleClose={handleClose}
-            /> */}
-        </div >
-    )
-}
+                )}
+            </div>
+        </div>
+    );
+};
 
 export default HomeMobile;

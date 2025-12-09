@@ -86,6 +86,9 @@ export default {
     getGalery: (eventName) => getRequest(`/api/v1/apcs/getGaleries?eventName=${eventName}`),
     getVideos: () => getRequest(`/api/v1/apcs/getVideos`)
   },
+  home: {
+    getSponsors: () => getRequest(`/api/v1/apcs/getSponsors`)
+  },
   aws: {
     postSignedUrl: (directoryname, fileName) => postRequest(`/api/v1/apcs/signed-url-images?directoryname=${directoryname}&fileName=${fileName}`),
     // Initiate multipart upload

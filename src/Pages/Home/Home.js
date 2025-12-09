@@ -2,30 +2,13 @@ import { logEvent } from "firebase/analytics";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
+import apis from "../../apis";
 import apcLogoBold from "../../assets/images/apc_logo_bold.svg";
 import experienceHomeCropped from "../../assets/images/experienceHomeCropped.jpg";
 import goldenLine from "../../assets/images/goldenLine.png";
 import musicForEveryone from "../../assets/images/musicForEveryone.svg";
 import musicForEveryoneID from "../../assets/images/musicForEveryoneID.svg";
 import pianoKeys from '../../assets/images/pianoKeys.jpg';
-import sponsor10 from "../../assets/images/sponsors/elevee.png";
-import sponsor11 from "../../assets/images/sponsors/saturdays.png";
-import sponsor1 from "../../assets/images/sponsors/sponsor1.png";
-import sponsor2 from "../../assets/images/sponsors/sponsor2.png";
-import sponsor2025_1 from "../../assets/images/sponsors/sponsor2025_1.png";
-import sponsor2025_3 from "../../assets/images/sponsors/sponsor2025_3.jpg";
-import sponsor2025_4 from "../../assets/images/sponsors/sponsor2025_4.png";
-import sponsor2025_5 from "../../assets/images/sponsors/sponsor2025_5.png";
-import sponsor2025_6 from "../../assets/images/sponsors/sponsor2025_6.png";
-import sponsor2025_7 from "../../assets/images/sponsors/sponsor2025_7.png";
-import sponsor3 from "../../assets/images/sponsors/sponsor3.png";
-import sponsor4 from "../../assets/images/sponsors/sponsor4.png";
-import sponsor5 from "../../assets/images/sponsors/sponsor5.png";
-import sponsor7 from "../../assets/images/sponsors/sponsor7.png";
-import sponsor8 from "../../assets/images/sponsors/sponsor8.png";
-import sponsor9 from "../../assets/images/sponsors/sponsor9.png";
-import sponsor13 from "../../assets/images/sponsors/yamaha.png";
-import sponsor12 from "../../assets/images/sponsors/zojirushi.png";
 import AnimatedComponent from "../../components/atom/AnimatedComponent";
 import PillButton from "../../components/atom/PillButton";
 import Carousel from "../../components/molecules/CarouselCustom";
@@ -38,40 +21,54 @@ import { analytics } from "../../firebase";
 import HomeMobile from './HomeMobile';
 import LetUsGuideTo from "./LetUsGuideTo";
 
-const listOfSponsor = [
-    sponsor2025_1, sponsor2025_4, sponsor2025_7, sponsor1, sponsor10, sponsor11,
-]
-const listOfSponsor2 = [
-    sponsor2025_3, sponsor2025_5, sponsor2025_6, sponsor13, sponsor12, sponsor8, sponsor4, sponsor5, sponsor7
-]
+import { Spin, message } from "antd";
 
-const completeListOfSponsor = [
-    sponsor2025_1, sponsor1, sponsor10, sponsor11, sponsor12, sponsor13, sponsor8, sponsor4, sponsor5, sponsor2, sponsor7, sponsor9, sponsor3
-]
 
 const Home = (props) => {
     const { homeImagehero } = props
-    const { t, i18n } = useTranslation();
-    const navigate = useNavigate();
 
+    const navigate = useNavigate();
+    const { t, i18n } = useTranslation();
     const { isMobileAndSmaller, isSmallMobileAndSmaller } = useAuth();
 
-    const handleMovePage = (path) => {
-        window.scrollTo(0, 0);
-        navigate(path);
-    }
+    const [loadingSponsors, setLoadingSponsors] = useState(true);
+    const [sponsorList, setSponsorList] = useState();
+    const [open, setOpen] = useState(false);
 
     useEffect(() => {
         logEvent(analytics, 'visit_Home');
     }, [])
 
-    const [open, setOpen] = useState(false);
-    const handleOpen = () => setOpen(true);
-    const handleClose = () => setOpen(false);
-
     useEffect(() => {
         handleOpen()
     }, [])
+
+    useEffect(() => {
+        fetchSponsors();
+    }, []);
+
+    const fetchSponsors = async () => {
+        try {
+            setLoadingSponsors(true);
+            const res = await apis.home.getSponsors();
+
+            if (res.status === 200 && res.data) {
+                setSponsorList(res.data);
+            }
+        } catch (error) {
+            console.error("Error fetching sponsors:", error);
+            message.error("Failed to load sponsors");
+        } finally {
+            setLoadingSponsors(false);
+        }
+    };
+
+    const handleMovePage = (path) => {
+        window.scrollTo(0, 0);
+        navigate(path);
+    }
+    const handleOpen = () => setOpen(true);
+    const handleClose = () => setOpen(false);
 
     return (
 
@@ -170,38 +167,62 @@ const Home = (props) => {
 
                 <Carousel />
 
-                {
-                    isMobileAndSmaller ? (
-                        <div className="container" style={{ background: "black", marginTop: 32 }}>
-                            <div className="row text-align-center ">
-                                <div className="col gx-5 gy-3">
-                                    {completeListOfSponsor.map((eachSponsor, index) => (
-                                        <img key={`completeListOfSponsor1-${index}`} className="mb-2" src={eachSponsor} alt={"eachSponsor"} style={{ marginRight: 12, width: index === 1 ? "18vmin" : index === 3 ? "13vmin" : index === 6 ? "10vmin" : "12vmin" }} />
-                                    ))}
-                                </div>
+                <div className="container" style={{ background: "black", marginTop: 32, marginBottom: 32 }}>
+                    {loadingSponsors ? (
+                        <div className="row">
+                            <div className="col text-align-center" style={{ padding: "40px 0" }}>
+                                <Spin size="large" />
                             </div>
                         </div>
+                    ) : sponsorList.length > 0 ? (
+                        <div className="row justify-content-center align-items-center g-4">
+                            {sponsorList.map((sponsorUrl, index) => (
+                                <div
+                                    key={`sponsor-${index}`}
+                                    className={`col-auto`}
+                                    style={{
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        justifyContent: 'center'
+                                    }}
+                                >
+                                    <img
+                                        src={sponsorUrl}
+                                        alt={`Sponsor ${index + 1}`}
+                                        loading="lazy"
+                                        style={{
+                                            maxWidth: isMobileAndSmaller ? '120px' : '180px',
+                                            maxHeight: isMobileAndSmaller ? '80px' : '120px',
+                                            width: 'auto',
+                                            height: 'auto',
+                                            objectFit: 'contain',
+                                            filter: 'brightness(0.95)',
+                                            transition: 'all 0.3s ease'
+                                        }}
+                                        onMouseEnter={(e) => {
+                                            e.target.style.filter = 'brightness(1.1)';
+                                            e.target.style.transform = 'scale(1.05)';
+                                        }}
+                                        onMouseLeave={(e) => {
+                                            e.target.style.filter = 'brightness(0.95)';
+                                            e.target.style.transform = 'scale(1)';
+                                        }}
+                                        onError={(e) => {
+                                            console.error(`Failed to load sponsor image: ${sponsorUrl}`);
+                                            e.target.style.display = 'none';
+                                        }}
+                                    />
+                                </div>
+                            ))}
+                        </div>
                     ) : (
-                        <>
-                            <div className="container" style={{ background: "black", marginTop: 32 }}>
-                                <div className="row text-align-center">
-                                    <div className="col">
-                                        {listOfSponsor.map((eachSponsor, index) => (
-                                            <img key={`eachSponsor1-${index}`} src={eachSponsor} alt={"eachSponsor"} className=" me-5" style={{ width: index === 1 ? "18vmin" : index === 3 ? "13vmin" : "15vmin" }} />
-                                        ))}
-                                    </div>
-                                </div>
-                                <div className="row text-align-center">
-                                    <div className="col">
-                                        {listOfSponsor2.map((eachSponsor, index) => (
-                                            <img key={`eachSponsor2-${index}`} src={eachSponsor} alt={"eachSponsor"} className=" me-5" style={{ width: index === 2 ? "8vmin" : "15vmin" }} />
-                                        ))}
-                                    </div>
-                                </div>
+                        <div className="row">
+                            <div className="col text-align-center" style={{ color: '#999', padding: '40px 0' }}>
+                                No sponsors available
                             </div>
-                        </>
-                    )
-                }
+                        </div>
+                    )}
+                </div>
                 {/* <ModalEvent
                     open={open}
                     handleClose={handleClose}
