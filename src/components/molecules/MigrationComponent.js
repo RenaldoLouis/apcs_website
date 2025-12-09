@@ -1,7 +1,6 @@
 import { CheckCircleOutlined, UploadOutlined } from '@ant-design/icons';
 import { Alert, Button, Card, Progress, Space } from 'antd';
 import { useState } from 'react';
-import { dataDiamond } from '../../constant/datas/DiamondAchieverData';
 import { migrateAchieversToFirestore } from '../../utils/AchieversMigration';
 
 /**
@@ -31,7 +30,8 @@ const MigrationComponent = () => {
         }, 500);
 
         try {
-            const migrationResult = await migrateAchieversToFirestore(dataDiamond);
+            const migrationResult = await migrateAchieversToFirestore();
+            // const migrationResult = await migrateAchieversToFirestore(dataDiamond);
 
             clearInterval(progressInterval);
             setProgress(100);
@@ -85,9 +85,9 @@ const MigrationComponent = () => {
                         borderRadius: '8px',
                         marginBottom: 24
                     }}>
-                        <p style={{ color: '#e5cc92', margin: 0 }}>
+                        {/* <p style={{ color: '#e5cc92', margin: 0 }}>
                             <strong>Total Achievers to Migrate:</strong> {dataDiamond.length}
-                        </p>
+                        </p> */}
                     </div>
 
                     {migrating && (

@@ -1,14 +1,15 @@
-import React from "react";
-import SapphireWinnerSection from "./SapphireWinnerSection";
-import achieverBackground from "../../assets/images/achieverBackground.jpg"
-import saphireAchieverText from "../../assets/images/saphireAchieverText.svg"
+import { message } from "antd";
+import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
+import achieverBackground from "../../assets/images/achieverBackground.jpg";
+import saphireAchieverText from "../../assets/images/saphireAchieverText.svg";
+import AnimatedComponent from "../../components/atom/AnimatedComponent";
 import PillButton from "../../components/atom/PillButton";
-import { dataDiamond } from "../../constant/datas/DiamondAchieverData";
 import CoverImageHome from "../../components/molecules/CoverImageHome";
 import { ContentPosition } from "../../constant/ContentPosition";
-import AnimatedComponent from "../../components/atom/AnimatedComponent";
-import { useTranslation } from "react-i18next";
 import { SapphireWinners } from "../../constant/datas/SaphireAchieverData";
+import { fetchAchieversFromFirestore } from "../../utils/AchieversMigration";
+import SapphireWinnerSection from "./SapphireWinnerSection";
 
 const handleOpenYoutube = () => {
     window.open("https://www.youtube.com/@apcsmusic", '_blank');
@@ -16,6 +17,26 @@ const handleOpenYoutube = () => {
 
 const Achievers = () => {
     const { t } = useTranslation();
+
+    const [dataDiamond, setDataDiamond] = useState([])
+
+    useEffect(() => {
+        loadAchievers();
+    }, []);
+
+    const loadAchievers = async () => {
+        // setLoading(true);
+        try {
+            const data = await fetchAchieversFromFirestore();
+            setDataDiamond(data);
+        } catch (error) {
+            console.error('Error loading achievers:', error);
+            message.error('Failed to load achievers');
+        } finally {
+            // setLoading(false);
+        }
+    };
+
     return (
         <div>
             <CoverImageHome background={achieverBackground}
