@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import diamondAchieversText from "../../assets/images/diamondAchieversText.svg";
 import saphireAchieverText from "../../assets/images/saphireAchieverText.svg";
@@ -123,6 +123,7 @@ const SapphireWinnerSection = (props) => {
                     </div>
                 )}
             </div>
+            {/* <DiamondAchievers /> */}
 
             <GoldSection />
         </div>

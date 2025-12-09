@@ -3,14 +3,6 @@ import { ListOfCity } from "../../constant/ListOfCity";
 import { ListOfEventAchiever } from "../../constant/ListOfEventAchiever";
 
 import saphireAchievers1 from "../../assets/images/saphireAchiever/saphireAchievers1.png";
-import saphireAchievers2 from "../../assets/images/saphireAchiever/saphireAchievers2.png";
-import saphireAchievers3 from "../../assets/images/saphireAchiever/saphireAchievers3.png";
-import saphireAchievers4 from "../../assets/images/saphireAchiever/saphireAchievers4.png";
-import saphireAchievers5 from "../../assets/images/saphireAchiever/saphireAchievers5.png";
-import saphireAchievers6 from "../../assets/images/saphireAchiever/saphireAchievers6.png";
-import saphireAchievers7 from "../../assets/images/saphireAchiever/saphireAchievers7.png";
-import saphireAchievers8 from "../../assets/images/saphireAchiever/saphireAchievers8.png";
-import saphireAchievers9 from "../../assets/images/saphireAchiever/saphireAchievers9.png";
 import saphireAchievers10 from "../../assets/images/saphireAchiever/saphireAchievers10.png";
 import saphireAchievers11 from "../../assets/images/saphireAchiever/saphireAchievers11.png";
 import saphireAchievers12 from "../../assets/images/saphireAchiever/saphireAchievers12.png";
@@ -21,6 +13,7 @@ import saphireAchievers16 from "../../assets/images/saphireAchiever/saphireAchie
 import saphireAchievers17 from "../../assets/images/saphireAchiever/saphireAchievers17.png";
 import saphireAchievers18 from "../../assets/images/saphireAchiever/saphireAchievers18.png";
 import saphireAchievers19 from "../../assets/images/saphireAchiever/saphireAchievers19.png";
+import saphireAchievers2 from "../../assets/images/saphireAchiever/saphireAchievers2.png";
 import saphireAchievers20 from "../../assets/images/saphireAchiever/saphireAchievers20.png";
 import saphireAchievers21 from "../../assets/images/saphireAchiever/saphireAchievers21.png";
 import saphireAchievers22 from "../../assets/images/saphireAchiever/saphireAchievers22.png";
@@ -31,10 +24,17 @@ import saphireAchievers26 from "../../assets/images/saphireAchiever/saphireAchie
 import saphireAchievers27 from "../../assets/images/saphireAchiever/saphireAchievers27.png";
 import saphireAchievers28 from "../../assets/images/saphireAchiever/saphireAchievers28.jpg";
 import saphireAchievers29 from "../../assets/images/saphireAchiever/saphireAchievers29.jpg";
+import saphireAchievers3 from "../../assets/images/saphireAchiever/saphireAchievers3.png";
 import saphireAchievers30 from "../../assets/images/saphireAchiever/saphireAchievers30.jpg";
 import saphireAchievers31 from "../../assets/images/saphireAchiever/saphireAchievers31.jpg";
 import saphireAchievers32 from "../../assets/images/saphireAchiever/saphireAchievers32.jpg";
 import saphireAchievers33 from "../../assets/images/saphireAchiever/saphireAchievers33.jpeg";
+import saphireAchievers4 from "../../assets/images/saphireAchiever/saphireAchievers4.png";
+import saphireAchievers5 from "../../assets/images/saphireAchiever/saphireAchievers5.png";
+import saphireAchievers6 from "../../assets/images/saphireAchiever/saphireAchievers6.png";
+import saphireAchievers7 from "../../assets/images/saphireAchiever/saphireAchievers7.png";
+import saphireAchievers8 from "../../assets/images/saphireAchiever/saphireAchievers8.png";
+import saphireAchievers9 from "../../assets/images/saphireAchiever/saphireAchievers9.png";
 
 
 export const SapphireWinners = [
@@ -92,14 +92,14 @@ export const SapphireWinners = [
         image: saphireAchievers8,
         country: ListOfCity.SRB,
         YoutubeLink: "https://www.youtube.com/watch?v=__sIBAeIqCE&ab_channel=APIANOCONCERTOSERIES",
-        event: [ListOfEventAchiever["2023CHRISTMAS"]]
+        event: [ListOfEventAchiever["2025SOUNDASIA"], ListOfEventAchiever["2022MAGICMUSIC"], ListOfEventAchiever["2023CHRISTMAS"]]
     },
     {
         name: "Alf Elijah Beloved Sigarlaki",
         image: saphireAchievers9,
         country: ListOfCity.JKT,
         YoutubeLink: "https://www.youtube.com/watch?v=1sqUiE7SP30&ab_channel=APIANOCONCERTOSERIES",
-        event: [ListOfEventAchiever["2022MAGICMUSIC"], ListOfEventAchiever["2023CHRISTMAS"], ListOfEventAchiever["2023CLASSICJKT"]]
+        event: [ListOfEventAchiever["2025SOUNDASIA"], ListOfEventAchiever["2022MAGICMUSIC"], ListOfEventAchiever["2023CHRISTMAS"], ListOfEventAchiever["2023CLASSICJKT"]]
     },
     {
         name: "Sydney Mikaela Tan",
