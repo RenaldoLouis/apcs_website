@@ -242,6 +242,7 @@ const AdminContent = () => {
                     style={{ marginLeft: 4 }}
                 />
             </form>
+            {/* <MigrationComponent /> */}
             <div
                 style={{
                     padding: 24,

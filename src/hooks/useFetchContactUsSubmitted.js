@@ -19,14 +19,14 @@ const usePaginatedContactUsSubmitted = (pageSize = 10, setIsLoading) => {
         try {
             const offset = (pageNumber - 1) * pageSize;
             let q = query(
-                collection(db, "contactUs"),
+                collection(db, "conctactUsSubmitted"),
                 orderBy("name"),
                 limit(pageSize)
             );
 
             if (offset > 0) {
                 const initialQuery = query(
-                    collection(db, "contactUs"),
+                    collection(db, "conctactUsSubmitted"),
                     orderBy("name"),
                     limit(offset)
                 );
@@ -34,7 +34,7 @@ const usePaginatedContactUsSubmitted = (pageSize = 10, setIsLoading) => {
                 const lastVisible = initialSnapshot.docs[initialSnapshot.docs.length - 1];
 
                 q = query(
-                    collection(db, "contactUs"),
+                    collection(db, "conctactUsSubmitted"),
                     orderBy("name"),
                     startAt(lastVisible),
                     limit(pageSize)
@@ -48,7 +48,7 @@ const usePaginatedContactUsSubmitted = (pageSize = 10, setIsLoading) => {
 
             // Calculate total documents for pagination
             if (pageNumber === 1) {
-                const totalQuery = await getDocs(collection(db, "contactUs"));
+                const totalQuery = await getDocs(collection(db, "conctactUsSubmitted"));
                 setTotalDocs(totalQuery.size);
             }
         } catch (err) {
