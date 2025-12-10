@@ -333,13 +333,13 @@ const Register = () => {
         return `s3://registrants2025/${directoryName}/${file.name}`;
     };
 
+
     const onSubmit = async (data) => {
         try {
             setIsConfirmModalOpen(false)
             setIsLoading(true)
             const formattedDatePerformers = data?.performers.map((performer) => {
                 const formattedDate = performer?.dob?.format("DD/MM/YYYY") ?? null;
-
                 return { ...performer, dob: formattedDate, countryCode: performer.countryCode[0] }
             })
 
@@ -348,7 +348,7 @@ const Register = () => {
             }
 
             const now = new Date();
-            const timestamp = now.toISOString().replace(/[-:.TZ]/g, "").slice(0, 14); // e.g. "20250512134501"
+            const timestamp = now.toISOString().replace(/[-:.TZ]/g, "").slice(0, 14);
 
             //save ProfilePhoto
             const profilePhoto = data.profilePhoto[0]
@@ -359,7 +359,7 @@ const Register = () => {
             const signedUrl = res.data.link
             await axios.put(signedUrl, profilePhoto, {
                 headers: {
-                    'Content-Type': profilePhoto.type, // Ensure this matches the file type
+                    'Content-Type': profilePhoto.type,
                 },
             });
             const profilePhotoS3Link = `s3://registrants2025/${directoryName}/profilePhoto.pdf`;
@@ -373,7 +373,7 @@ const Register = () => {
                 const signedUrl1 = res1.data.link
                 await axios.put(signedUrl1, paymentProof, {
                     headers: {
-                        'Content-Type': paymentProof.type, // Ensure this matches the file type
+                        'Content-Type': paymentProof.type,
                     },
                 });
                 paymentProofS3Link = `s3://registrants2025/${directoryName}/paymentProof.pdf`;
@@ -382,52 +382,29 @@ const Register = () => {
 
             //save exam cert
             const pdfRepertoire = data.pdfRepertoire[0]
-            // const directoryName2 = pdfRepertoire.name.replace(/\s/g, "").replace(/\.[^/.]+$/, "");
             const res2 = await apis.aws.postSignedUrl(directoryName, "pdfRepertoire", 'application/pdf')
             const signedUrl2 = res2.data.link
             await axios.put(signedUrl2, pdfRepertoire, {
                 headers: {
-                    'Content-Type': pdfRepertoire.type, // Ensure this matches the file type
+                    'Content-Type': pdfRepertoire.type,
                 },
             });
             const pdfRepertoireS3Link = `s3://registrants2025/${directoryName}/pdfRepertoire.pdf`;
             setProgressLoading(30)
 
             const videoPerformance = data.videoPerformance[0];
-            // const fileExtension = videoPerformance.name.split('.').pop();
-            // const fileNameWithExt = `videoPerformance.${fileExtension}`;
-            // const res23 = await apis.aws.postSignedUrl(directoryName, fileNameWithExt, videoPerformance.type);
-            // const signedUrl23 = res23.data.link;
-            // await axios.put(signedUrl23, videoPerformance, {
-            //     headers: {
-            //         'Content-Type': videoPerformance.type,
-            //     },
-            // });
-            // const videoPerformanceS3Link = `s3://registrants2025/${directoryName}/${fileNameWithExt}`;
             const videoPerformanceS3Link = await uploadLargeVideo(videoPerformance, directoryName)
             setProgressLoading(35)
 
-            //save birth cert first
-            // const birthCert = data.birthCertificate[0]
-            // // const directoryName3 = birthCert.name.replace(/\s/g, "").replace(/\.[^/.]+$/, "");
-            // const res3 = await apis.aws.postSignedUrl(directoryName, "birthCert")
-            // const signedUrl3 = res3.data.link
-            // await axios.put(signedUrl3, birthCert, {
-            //     headers: {
-            //         'Content-Type': birthCert.type, // Ensure this matches the file type
-            //     },
-            // });
-            // const birthCertS3Link = `s3://registrants2025/${directoryName}/birthCert.pdf`;
             setProgressLoading(50)
 
             //save pdf report
             const examCertificate = data.examCertificate[0]
-            // const directoryName4 = examCertificate.name.replace(/\s/g, "").replace(/\.[^/.]+$/, "");
             const res4 = await apis.aws.postSignedUrl(directoryName, "examCertificate", examCertificate.type)
             const signedUrl4 = res4.data.link
             await axios.put(signedUrl4, examCertificate, {
                 headers: {
-                    'Content-Type': examCertificate.type, // Ensure this matches the file type
+                    'Content-Type': examCertificate.type,
                 },
             });
             const examCertificateS3Link = `s3://registrants2025/${directoryName}/examCertificate.pdf`;
@@ -470,22 +447,43 @@ const Register = () => {
 
             const price = await calculatePrice(data, isInternational);
 
-            const dataEmail = formattedDatePerformers.map(({ email, fullName }) => ({
-                email,
-                name: `${fullName}`,
-                competitionCategory: data.competitionCategory,
-                instrumentCategory: data.instrumentCategory,
-                price: price.formattedAmount
-            }))
+            // FIX: Group performers by email
+            const emailGroups = formattedDatePerformers.reduce((acc, performer) => {
+                const email = performer.email;
+
+                if (!acc[email]) {
+                    acc[email] = {
+                        email: email,
+                        names: [],
+                        competitionCategory: data.competitionCategory,
+                        instrumentCategory: data.instrumentCategory,
+                        price: price.formattedAmount
+                    };
+                }
+
+                // Add performer name to the group
+                acc[email].names.push(performer.fullName);
+
+                return acc;
+            }, {});
+
+            // Convert to array and format names
+            const dataEmail = Object.values(emailGroups).map(group => ({
+                email: group.email,
+                name: group.names.join(' and '), // "Susi and Budi" or just "Susi"
+                competitionCategory: group.competitionCategory,
+                instrumentCategory: group.instrumentCategory,
+                price: group.price
+            }));
 
             setProgressLoading(90)
+
             // send email welcome to Indonesia registrant after register
             if (!isInternational) {
                 apis.email.sendEmail(dataEmail).then((res) => {
                     if (res.status === 200) {
-                        toast.success("Succesfully Registered! Please check your email for confirmation.")
+                        toast.success("Successfully Registered! Please check your email for confirmation.")
                         setIsSaveSuccess(true)
-
                         setProgressLoading(100)
                     } else {
                         throw new Error("Email sending failed with status " + res.status);
@@ -499,7 +497,7 @@ const Register = () => {
                 if (res.status === 200) {
                     setIsSaveSuccess(true)
                 } else {
-                    throw new Error("Email notificaion sending failed with status " + res.status);
+                    throw new Error("Email notification sending failed with status " + res.status);
                 }
                 setIsLoading(false)
             })
@@ -508,7 +506,7 @@ const Register = () => {
             if (isInternational) {
                 apis.email.sendEmailPaymentRequest(dataEmail).then((res) => {
                     if (res.status === 200) {
-                        toast.success("Succesfully Registered! Please check your email for payment information.")
+                        toast.success("Successfully Registered! Please check your email for payment information.")
                         setIsSaveSuccess(true)
                     } else {
                         throw new Error("Email payment sending failed with status " + res.status);
