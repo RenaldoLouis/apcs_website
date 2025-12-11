@@ -141,11 +141,13 @@ export const DataContextProvider = ({ children }) => {
             const userDocRef = doc(db, "users", user.uid);
             const userDocSnap = await getDoc(userDocRef);
 
+            let userData = null;
             let userRole = null;
 
             if (userDocSnap.exists()) {
                 // CASE A: User already exists in DB, get their role
-                const userData = userDocSnap.data();
+                const userDataSnap = userDocSnap.data();
+                userData = userDataSnap;
                 userRole = userData?.role;
             } else {
                 // CASE B: New User -> Check Whitelist
@@ -167,7 +169,12 @@ export const DataContextProvider = ({ children }) => {
                 const token = await user.getIdToken();
 
                 // This updates the global app state
-                setLoggedInUser({ ...user, token, role: userRole });
+                setLoggedInUser({
+                    ...user,
+                    ...userData,
+                    token,
+                    createdAt: userData.createdAt?.toDate()
+                });
 
                 // Navigation
                 if (userRole === 'admin') {

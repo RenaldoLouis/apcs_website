@@ -27,7 +27,7 @@ export const RegistrantsColumns = [
     },
 ];
 
-export const getRegistrants2025Columns = (handleDownloadPDF, handleUpdateStatus, showEditModal, handleDelete, deletingId, handleViewVideo) => [
+export const getRegistrants2025Columns = (getAgeCategoryLabel, handleDownloadPDF, handleUpdateStatus, showEditModal, handleDelete, deletingId, handleViewVideo) => [
     { title: "Parent Name", dataIndex: "name" },
     { title: "Teacher Name", dataIndex: "teacherName" },
     { title: "Total Performer", dataIndex: "totalPerformer" },
@@ -65,7 +65,13 @@ export const getRegistrants2025Columns = (handleDownloadPDF, handleUpdateStatus,
         },
     },
     { title: "YouTube Link", dataIndex: "youtubeLink" },
-    { title: "Age Category", dataIndex: "ageCategory" },
+    {
+        title: "Age Category", dataIndex: "ageCategory", render: (ageCategory) => {
+
+
+            return getAgeCategoryLabel(ageCategory, "", "");
+        },
+    },
     { title: "Instrument Category", dataIndex: "instrumentCategory" },
     {
         title: "Created At", dataIndex: "createdAt",

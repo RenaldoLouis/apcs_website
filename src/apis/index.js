@@ -62,13 +62,6 @@ export default {
   auth: {
     login: (payload) => postRequest('/admin/login', payload),
   },
-  medicalStaff: {
-    // getMedicalStaff: (status) => getRequest(`/secure/admin/staff?status=${status}`),
-    getMedicalStaff: (status, role) => getRequest(`/secure/admin/staff`, { status, role }),
-    editStaff: (status) => getRequest(`/secure/admin/staff?status=${status}`),
-    approveStaff: (staffData) => putRequest(`/secure/admin/staff/approval`, staffData),
-    updateStaff: (staffID, staffData) => patchRequest(`/secure/admin/staff/${staffID}`, staffData),
-  },
   payment: {
     createPayment: (data) => postRequest(`/api/v1/apcs/createPayment`, data)
   },

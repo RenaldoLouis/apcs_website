@@ -14,7 +14,25 @@ import { collection, getDocs, writeBatch } from "firebase/firestore";
 import { useState } from 'react';
 import { extractVideoId, fetchYouTubeDuration } from '../../utils/youtube';
 // Import the new utility functions
-import { ageCategories, competitionList } from '../../constant/RegisterPageConst';
+import {
+    ageCategories,
+    stringAgeCategoriesSolo,
+    stringAgeCategoriesEnsemble,
+    vocalAgeCategoriesSolo,
+    vocalAgeCategoriesEnsemble,
+    ensembleAgeCategories,
+    woodwinAgeCategoriesSolo,
+    woodwinAgeCategoriesEnsemble,
+    percussionAgeCategoriesSolo,
+    PercussionAgeCategoriesEnsemble,
+    guitarAgeCategoriesSolo,
+    guitarAgeCategoriesEnsemble,
+    brassAgeCategoriesSolo,
+    brassAgeCategoriesEnsemble,
+    harpAgeCategoriesSolo,
+    harpAgeCategoriesEnsemble,
+    competitionList
+} from '../../constant/RegisterPageConst';
 import { parseDateString } from '../../utils/Utils';
 
 // ...other imports
@@ -79,6 +97,48 @@ const RegistrantDashboard = () => {
 
     const [isVideoModalOpen, setIsVideoModalOpen] = useState(false);
     const [videoUrl, setVideoUrl] = useState(null);
+
+    const getAgeCategoryLabel = (ageCategoryKey, competitionCategory, performanceCategory) => {
+        if (!ageCategoryKey) return '';
+
+        // Create a combined map of all age categories
+        const allAgeCategories = {
+            // Piano
+            ...ageCategories,
+            ...ensembleAgeCategories,
+
+            // Strings
+            ...stringAgeCategoriesSolo,
+            ...stringAgeCategoriesEnsemble,
+
+            // Vocal/Choir
+            ...vocalAgeCategoriesSolo,
+            ...vocalAgeCategoriesEnsemble,
+
+            // Woodwinds
+            ...woodwinAgeCategoriesSolo,
+            ...woodwinAgeCategoriesEnsemble,
+
+            // Percussion
+            ...percussionAgeCategoriesSolo,
+            ...PercussionAgeCategoriesEnsemble,
+
+            // Guitar
+            ...guitarAgeCategoriesSolo,
+            ...guitarAgeCategoriesEnsemble,
+
+            // Brass
+            ...brassAgeCategoriesSolo,
+            ...brassAgeCategoriesEnsemble,
+
+            // Harp
+            ...harpAgeCategoriesSolo,
+            ...harpAgeCategoriesEnsemble,
+        };
+
+        // Return the full description or the key if not found
+        return allAgeCategories[ageCategoryKey] || ageCategoryKey;
+    };
 
     const handlePageChange = (pagination, filters, sorter, extra) => {
         setPage(pagination);
@@ -293,15 +353,14 @@ const RegistrantDashboard = () => {
             return acc;
         }, {});
 
-        // --- Duplicate detection logic (runs on allData, so it's consistent across sheets) ---
+        // --- Duplicate detection logic ---
         const linkCounts = allData.reduce((acc, registrant) => {
             const link = registrant.youtubeLink;
-            if (link) { // Only count non-empty links
+            if (link) {
                 acc[link] = (acc[link] || 0) + 1;
             }
             return acc;
         }, {});
-
 
         const duplicateTags = {};
         let duplicateCounter = 1;
@@ -315,15 +374,21 @@ const RegistrantDashboard = () => {
         const workbook = new ExcelJS.Workbook();
 
         // --- 2. LOOP THROUGH EACH CATEGORY AND CREATE A SHEET FOR IT ---
-        let rowCounter = 1;
         for (const category in groupedByCategory) {
-            const worksheet = workbook.addWorksheet(category.substring(0, 30)); // Sheet names have a 31-char limit
+            const worksheet = workbook.addWorksheet(category.substring(0, 30));
             const categoryData = groupedByCategory[category];
 
             // --- 3. PROCESS AND MAP DATA FOR THE CURRENT SHEET ---
             const dataForSheet = [];
             categoryData.forEach(registrant => {
                 const originalRowNumber = allData.findIndex(item => item.id === registrant.id) + 1;
+
+                // ✨ MAP AGE CATEGORY TO FULL DESCRIPTION
+                const ageCategoryLabel = getAgeCategoryLabel(
+                    registrant.ageCategory,
+                    registrant.competitionCategory,
+                    registrant.PerformanceCategory
+                );
 
                 // Get the shared data that's the same for all performers in this registration
                 const sharedData = {
@@ -332,10 +397,10 @@ const RegistrantDashboard = () => {
                     'Remark': registrant.remark,
                     'Competition Category': registrant.competitionCategory,
                     'Instrument Category': registrant.instrumentCategory,
-                    'Age Category': registrant.ageCategory,
+                    'Age Category': ageCategoryLabel, // ✨ USE MAPPED LABEL
                     'Performance Category': registrant.PerformanceCategory,
                     'YouTube Link': registrant.youtubeLink,
-                    'Duplicate Link Tag': duplicateTags[registrant.youtubeLink] || '', // Get tag or empty string
+                    'Duplicate Link Tag': duplicateTags[registrant.youtubeLink] || '',
                     'Video Duration': formatDuration(registrant.videoDuration),
                     'Repertoire PDF': registrant.pdfRepertoireS3Link,
                     'Birth Certificate': registrant.birthCertS3Link,
@@ -348,7 +413,6 @@ const RegistrantDashboard = () => {
 
                 // Check if the registration is for an Ensemble
                 if ((registrant.PerformanceCategory || '').trim().toLowerCase() === 'ensemble') {
-                    // If it is, combine all performer data into a SINGLE row
                     const combinedNames = registrant.performers
                         .map(p => p.fullName || `${p.firstName} ${p.lastName}`)
                         .join(' & ');
@@ -357,20 +421,20 @@ const RegistrantDashboard = () => {
                     const combinedPhones = registrant.performers.map(p => p.phoneNumber).join(', ');
 
                     dataForSheet.push({
-                        'No.': originalRowNumber, // Use the consistent number
+                        'No.': originalRowNumber,
                         'Name': combinedNames,
                         'Email': registrant.performers[0]?.email,
                         'Date of Birth': combinedDOBs,
                         'Phone Number': combinedPhones,
-                        'Country': registrant.performers[0]?.country, // Take country/city from the first performer
+                        'Country': registrant.performers[0]?.country,
                         'City': registrant.performers[0]?.city,
                         ...sharedData
                     });
                 } else {
-                    // Otherwise (for Solo, Duet, etc.), create a SEPARATE row for each performer
+                    // Solo - separate row for each performer
                     registrant.performers.forEach(performer => {
                         dataForSheet.push({
-                            'No.': originalRowNumber, // Use the consistent number
+                            'No.': originalRowNumber,
                             'Name': performer.fullName ? `${performer.fullName}` : `${performer.firstName} ${performer.lastName}`,
                             'Email': performer.email,
                             'Date of Birth': performer.dob,
@@ -396,23 +460,20 @@ const RegistrantDashboard = () => {
                     let hyperlinkUrl = '';
 
                     if (link.startsWith('s3://')) {
-                        // Handle S3 links
                         hyperlinkUrl = constructS3PublicUrl(getS3KeyFromUri(link));
                     } else if (link.startsWith('http')) {
-                        // Handle Google Drive (or any other direct web) links
                         hyperlinkUrl = link;
                     }
 
                     if (hyperlinkUrl) {
                         cell.value = {
-                            text: 'View Link', // Use generic text for all links
+                            text: 'View Link',
                             hyperlink: hyperlinkUrl,
                         };
                         cell.font = { color: { argb: 'FF0000FF' }, underline: true };
                     }
                 };
 
-                // Identify all columns that should contain links
                 const linkColumns = [
                     'Repertoire PDF',
                     'Birth Certificate',
@@ -424,7 +485,6 @@ const RegistrantDashboard = () => {
                 dataForSheet.forEach(item => {
                     const row = worksheet.addRow(Object.values(item));
 
-                    // Loop through our link columns and apply the formatting
                     linkColumns.forEach(columnName => {
                         const columnIndex = headers.indexOf(columnName) + 1;
                         if (columnIndex > 0) {
@@ -443,7 +503,6 @@ const RegistrantDashboard = () => {
                     });
                     column.width = maxLength < 10 ? 10 : maxLength + 2;
                 });
-
             }
         }
 
@@ -674,7 +733,7 @@ const RegistrantDashboard = () => {
     };
 
 
-    const columns = getRegistrants2025Columns(handleDownloadPDF, updatePaymentStatus, showEditModal, handleDeleteRegistrant, deletingId, handleViewVideo);
+    const columns = getRegistrants2025Columns(getAgeCategoryLabel, handleDownloadPDF, updatePaymentStatus, showEditModal, handleDeleteRegistrant, deletingId, handleViewVideo);
 
     const handleRecheckDurations = async () => {
         setIsUpdating(true);
@@ -1019,13 +1078,13 @@ const RegistrantDashboard = () => {
             >
                 <Button type="primary" onClick={handleExportToExcel}>Export to excel</Button>
 
-                <Button
+                {/* <Button
                     style={{ marginLeft: 8 }}
                     onClick={handleRecheckDurations}
                     loading={isUpdating} // Use the new loading state
                 >
                     Re-check All YouTube Durations
-                </Button>
+                </Button> */}
 
                 <Button
                     style={{ marginLeft: 8 }}
