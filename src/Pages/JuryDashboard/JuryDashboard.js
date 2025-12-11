@@ -21,8 +21,8 @@ import {
 } from 'antd';
 import { collection, doc, getDocs, query, serverTimestamp, setDoc, where } from 'firebase/firestore';
 import { useEffect, useState } from 'react';
-import ReactPlayer from 'react-player';
 import { useNavigate } from 'react-router-dom';
+import apis from '../../apis';
 import {
     ageCategories,
     guitarAgeCategoriesEnsemble,
@@ -264,25 +264,46 @@ const JuryDashboard = () => {
     /**
      * Open video modal with S3 presigned URL
      */
-    const openVideo = async (s3Link) => {
-        // setLoadingVideo(true);
-        // setVideoModalOpen(true);
+    // const openVideo = async (s3Link) => {
+    //     setLoadingVideo(true);
+    //     setVideoModalOpen(true);
 
-        // try {
-        //     const videoUrl = await getPresignedUrl(s3Link);
-        //     if (videoUrl) {
-        //         setCurrentVideo(videoUrl);
-        //     } else {
-        //         message.error('Failed to load video');
-        //         setVideoModalOpen(false);
-        //     }
-        // } catch (error) {
-        //     console.error('Error loading video:', error);
-        //     message.error('Failed to load video');
-        //     setVideoModalOpen(false);
-        // } finally {
-        //     setLoadingVideo(false);
-        // }
+    //     try {
+    //         const videoUrl = await getPresignedUrl(s3Link);
+    //         if (videoUrl) {
+    //             setCurrentVideo(videoUrl);
+    //         } else {
+    //             message.error('Failed to load video');
+    //             setVideoModalOpen(false);
+    //         }
+    //     } catch (error) {
+    //         console.error('Error loading video:', error);
+    //         message.error('Failed to load video');
+    //         setVideoModalOpen(false);
+    //     } finally {
+    //         setLoadingVideo(false);
+    //     }
+    // };
+
+    const openVideo = async (s3Link) => {
+        setLoadingVideo(true);
+        setVideoModalOpen(true);
+        let urlToPlay = null;
+
+        try {
+            const response = await apis.aws.getPublicVideoLinkAws({ s3Link });
+            console.log("response", response)
+            urlToPlay = response.data.url;
+        } catch (error) {
+            console.error("Failed to load video", error);
+            message.error("Could not load video file.");
+            return;
+        }
+
+        if (urlToPlay) {
+            setCurrentVideo(urlToPlay);
+        }
+        setLoadingVideo(false);
     };
 
     /**
@@ -569,14 +590,15 @@ const JuryDashboard = () => {
                         <div style={{ color: '#fff', marginTop: 20 }}>Loading video...</div>
                     </div>
                 ) : currentVideo ? (
-                    <div style={{ position: 'relative', paddingTop: '56.25%' }}>
-                        <ReactPlayer
-                            url={currentVideo}
+                    <div style={{ display: 'flex', justifyContent: 'center' }}>
+                        <video
+                            src={currentVideo}
                             controls
-                            width="100%"
-                            height="100%"
-                            style={{ position: 'absolute', top: 0, left: 0 }}
-                        />
+                            autoPlay
+                            style={{ width: '100%', maxHeight: '450px' }}
+                        >
+                            Your browser does not support the video tag.
+                        </video>
                     </div>
                 ) : null}
             </Modal>
