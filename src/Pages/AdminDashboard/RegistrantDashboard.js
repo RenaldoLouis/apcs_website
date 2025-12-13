@@ -10,10 +10,16 @@ import { getRegistrants2025Columns } from '../../constant/RegistrantsColumn';
 import { db } from '../../firebase';
 import usePaginatedRegistrants from '../../hooks/useFetchRegistrantsData';
 
+import {
+    SyncOutlined
+} from '@ant-design/icons';
 import { collection, getDocs, writeBatch } from "firebase/firestore";
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { extractVideoId, fetchYouTubeDuration } from '../../utils/youtube';
 // Import the new utility functions
+import {
+    List
+} from 'antd';
 import {
     ageCategories,
     brassAgeCategoriesEnsemble,
@@ -1475,6 +1481,113 @@ const RegistrantDashboard = () => {
 
     console.log("registrantDatas", registrantDatas)
 
+    // --- BATCH VIDEO DURATION SYNC STATE ---
+    const [isSyncModalOpen, setIsSyncModalOpen] = useState(false);
+    const [syncProgress, setSyncProgress] = useState(0);
+    const [syncLogs, setSyncLogs] = useState([]); // To show what's happening
+    const [isSyncing, setIsSyncing] = useState(false);
+    const stopSyncRef = useRef(false); // To cancel the process if needed
+
+    // Helper: Get duration from a playable URL (Hidden Video Element)
+    const fetchDurationFromUrl = (url) => {
+        return new Promise((resolve, reject) => {
+            const video = document.createElement('video');
+            video.src = url;
+            video.preload = 'metadata';
+            video.muted = true;
+
+            // Timeout after 15 seconds to prevent hanging
+            const timeout = setTimeout(() => {
+                video.remove();
+                resolve(0); // Return 0 on timeout
+            }, 15000);
+
+            video.onloadedmetadata = () => {
+                clearTimeout(timeout);
+                const duration = video.duration;
+                video.remove();
+                resolve(duration);
+            };
+
+            video.onerror = () => {
+                clearTimeout(timeout);
+                video.remove();
+                resolve(0); // Return 0 on error
+            };
+        });
+    };
+
+    const handleSyncDurations = async () => {
+        // 1. Filter registrants that HAVE a video link but NO valid duration
+        //    (You can remove the `!r.videoDuration` check if you want to force update ALL of them)
+        const targets = allData.filter(r =>
+            r.videoPerformanceS3Link &&
+            (!r.videoDuration || r.videoDuration === 0)
+        );
+
+        if (targets.length === 0) {
+            message.info("All videos already have durations synced!");
+            return;
+        }
+
+        setIsSyncModalOpen(true);
+        setIsSyncing(true);
+        setSyncProgress(0);
+        setSyncLogs([]);
+        stopSyncRef.current = false;
+
+        const total = targets.length;
+        let processedCount = 0;
+        const BATCH_SIZE = 3; // Process 3 videos at a time to be safe
+
+        // 2. Process in Batches
+        for (let i = 0; i < total; i += BATCH_SIZE) {
+            if (stopSyncRef.current) break;
+
+            const batch = targets.slice(i, i + BATCH_SIZE);
+
+            // Process the batch in parallel
+            await Promise.all(batch.map(async (record) => {
+                try {
+                    // A. Get Signed URL from Backend
+                    const response = await apis.aws.getPublicVideoLinkAws({
+                        s3Link: record.videoPerformanceS3Link
+                    });
+                    console.log("response", response)
+                    const playableUrl = response.data.url;
+
+                    // B. Get Duration from File
+                    const durationSec = await fetchDurationFromUrl(playableUrl);
+
+                    if (durationSec > 0) {
+                        // C. Update Firestore
+                        const docRef = doc(db, "Registrants2025", record.id);
+                        await updateDoc(docRef, {
+                            videoDuration: durationSec
+                        });
+
+                        setSyncLogs(prev => [`✅ Updated ${record.name}: ${durationSec.toFixed(2)}s`, ...prev]);
+                    } else {
+                        setSyncLogs(prev => [`⚠️ Could not read duration for ${record.name}`, ...prev]);
+                    }
+
+                } catch (error) {
+                    console.error(error);
+                    setSyncLogs(prev => [`❌ Error updating ${record.name}`, ...prev]);
+                }
+            }));
+
+            processedCount += batch.length;
+            const percentage = Math.round((Math.min(processedCount, total) / total) * 100);
+            setSyncProgress(percentage);
+        }
+
+        setIsSyncing(false);
+        message.success("Sync process finished.");
+        // Optional: Refresh your table data here
+        // fetchData(); 
+    };
+
     return (
         <Content
             style={{
@@ -1560,7 +1673,18 @@ const RegistrantDashboard = () => {
                 <Button type="primary" onClick={handleExportToExcel}>Export to excel</Button>
                 <Button type="primary" onClick={() => handleExportByCategoryWithAgeTabsRaw(allData, "Harp")}>Export to excel Age Raw</Button>
                 <Button type="primary" onClick={() => handleExportByCategoryWithAgeTabs(allData, "Harp")}>Export to excel Age</Button>
-
+                <Button
+                    icon={<SyncOutlined />}
+                    onClick={handleSyncDurations}
+                    style={{
+                        backgroundColor: '#1E1E1E',
+                        color: '#e5cc92',
+                        border: '1px solid #e5cc92',
+                        marginLeft: 10
+                    }}
+                >
+                    Sync Video Durations
+                </Button>
                 {/* <Button
                     style={{ marginLeft: 8 }}
                     onClick={handleRecheckDurations}
@@ -1694,6 +1818,60 @@ const RegistrantDashboard = () => {
                         </video>
                     </div>
                 )}
+            </Modal>
+            <Modal
+                title="Syncing Video Durations"
+                open={isSyncModalOpen}
+                closable={!isSyncing}
+                maskClosable={false}
+                footer={[
+                    <Button
+                        key="close"
+                        disabled={isSyncing}
+                        onClick={() => setIsSyncModalOpen(false)}
+                    >
+                        Close
+                    </Button>
+                ]}
+                onCancel={() => {
+                    if (isSyncing) {
+                        // Optional: Logic to stop the loop if you want
+                        stopSyncRef.current = true;
+                    }
+                    setIsSyncModalOpen(false);
+                }}
+            >
+                <div style={{ textAlign: 'center', marginBottom: 20 }}>
+                    <Progress
+                        type="circle"
+                        percent={syncProgress}
+                        status={isSyncing ? "active" : "success"}
+                        strokeColor="#e5cc92"
+                    />
+                    <p style={{ marginTop: 10 }}>
+                        {isSyncing ? "Processing videos... Please do not close this window." : "Process Complete!"}
+                    </p>
+                </div>
+
+                {/* Log Window */}
+                <div style={{
+                    height: '200px',
+                    overflowY: 'auto',
+                    background: '#f5f5f5',
+                    padding: '10px',
+                    borderRadius: '4px',
+                    border: '1px solid #d9d9d9'
+                }}>
+                    <List
+                        size="small"
+                        dataSource={syncLogs}
+                        renderItem={(item) => (
+                            <List.Item style={{ padding: '4px 0', fontSize: '12px' }}>
+                                {item}
+                            </List.Item>
+                        )}
+                    />
+                </div>
             </Modal>
         </Content>
     )
