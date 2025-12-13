@@ -515,7 +515,7 @@ const RegistrantDashboard = () => {
         });
     };
 
-    const handleExportByCategoryWithAgeTabs = (allData, competitionCategory) => {
+    const handleExportByCategoryWithAgeTabsRaw = (allData, competitionCategory) => {
         if (!allData || allData.length === 0) {
             message.warn("No data available to export.");
             return;
@@ -713,6 +713,223 @@ const RegistrantDashboard = () => {
                     'Profile Photo',
                     'Payment Proof',
                     'YouTube Link'
+                ];
+
+                // Add data rows
+                dataForSheet.forEach(item => {
+                    const row = worksheet.addRow(Object.values(item));
+
+                    // Format link columns
+                    linkColumns.forEach(columnName => {
+                        const columnIndex = headers.indexOf(columnName) + 1;
+                        if (columnIndex > 0) {
+                            formatLinkCell(row.getCell(columnIndex));
+                        }
+                    });
+
+                    // Alternate row colors for better readability
+                    if (row.number % 2 === 0) {
+                        row.fill = {
+                            type: 'pattern',
+                            pattern: 'solid',
+                            fgColor: { argb: 'FFF2F2F2' }
+                        };
+                    }
+                });
+
+                // Auto-fit columns
+                worksheet.columns.forEach(column => {
+                    let maxLength = 0;
+                    column.eachCell({ includeEmpty: true }, cell => {
+                        let columnLength = cell.value ? cell.value.toString().length : 10;
+                        if (columnLength > maxLength) {
+                            maxLength = columnLength;
+                        }
+                    });
+                    column.width = maxLength < 10 ? 10 : Math.min(maxLength + 2, 50);
+                });
+
+                // Freeze first row
+                worksheet.views = [
+                    { state: 'frozen', xSplit: 0, ySplit: 1 }
+                ];
+            }
+        });
+
+        // --- GENERATE AND DOWNLOAD ---
+        workbook.xlsx.writeBuffer().then((buffer) => {
+            const blob = new Blob([buffer], {
+                type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+            });
+            const fileName = `${competitionCategory}_Registrants_by_Age_2025.xlsx`;
+            FileSaver.saveAs(blob, fileName);
+            message.success(`Excel file for ${competitionCategory} exported successfully!`);
+        }).catch(error => {
+            console.error('Export error:', error);
+            message.error('Failed to export Excel file');
+        });
+    };
+
+    const getVideoDuration = (url) => {
+        return new Promise((resolve) => {
+            const video = document.createElement('video');
+            video.preload = 'metadata';
+            video.src = url;
+            // Low volume just in case, though it shouldn't play
+            video.muted = true;
+
+            video.onloadedmetadata = () => {
+                resolve(video.duration); // Duration in seconds
+                video.remove();
+            };
+
+            video.onerror = () => {
+                console.warn("Could not load video metadata for:", url);
+                resolve(0); // Fallback to 0 if fails
+                video.remove();
+            };
+        });
+    };
+
+    const handleExportByCategoryWithAgeTabs = (allData, competitionCategory) => {
+        if (!allData || allData.length === 0) {
+            message.warn("No data available to export.");
+            return;
+        }
+
+        if (!competitionCategory) {
+            message.error("Please specify a competition category.");
+            return;
+        }
+
+        // Filter data by competition category
+        const categoryData = allData.filter(
+            registrant => registrant.competitionCategory === competitionCategory
+        );
+
+        if (categoryData.length === 0) {
+            message.warn(`No registrants found for ${competitionCategory}.`);
+            return;
+        }
+
+        message.info(`Preparing Excel export for ${competitionCategory}...`);
+
+        // --- GROUP BY AGE CATEGORY ---
+        const groupedByAge = categoryData.reduce((acc, registrant) => {
+            // Get age category label
+            const ageCategoryLabel = getAgeCategoryLabel(
+                registrant.ageCategory,
+                registrant.competitionCategory,
+                registrant.PerformanceCategory
+            );
+
+            // Use "Ensemble" as a separate category if needed
+            const categoryKey = registrant.PerformanceCategory === 'Ensemble'
+                ? 'Ensemble'
+                : ageCategoryLabel;
+
+            if (!acc[categoryKey]) {
+                acc[categoryKey] = [];
+            }
+            acc[categoryKey].push(registrant);
+            return acc;
+        }, {});
+
+        const workbook = new ExcelJS.Workbook();
+
+        // Sort age categories (optional: custom sort order)
+        const sortedAgeCategories = Object.keys(groupedByAge).sort((a, b) => {
+            // Put Ensemble at the end
+            if (a === 'Ensemble') return 1;
+            if (b === 'Ensemble') return -1;
+            return a.localeCompare(b);
+        });
+
+        // --- CREATE A SHEET FOR EACH AGE CATEGORY ---
+        sortedAgeCategories.forEach(ageCategory => {
+            const ageCategoryData = groupedByAge[ageCategory];
+
+            // Sheet name (max 31 characters)
+            const sheetName = ageCategory.length > 30
+                ? ageCategory.substring(0, 30)
+                : ageCategory;
+
+            const worksheet = workbook.addWorksheet(sheetName);
+
+            // --- PROCESS DATA FOR THIS AGE CATEGORY ---
+            const dataForSheet = [];
+
+            ageCategoryData.forEach((registrant, index) => {
+                // Check if Ensemble
+                if ((registrant.PerformanceCategory || '').trim().toLowerCase() === 'ensemble') {
+                    const combinedNames = registrant.performers
+                        .map(p => p.fullName || `${p.firstName} ${p.lastName}`)
+                        .join(' & ');
+
+                    dataForSheet.push({
+                        'No.': index + 1,
+                        'Name': combinedNames,
+                        'Instrument Category': registrant.instrumentCategory || '-',
+                        'Repertoire PDF': registrant.pdfRepertoireS3Link || '-',
+                        'Video Performance': registrant.videoPerformanceS3Link || '-',
+                        'Duration': formatDuration(registrant.videoDuration)
+                    });
+                } else {
+                    // Solo - separate row for each performer (though usually just 1)
+                    registrant.performers.forEach(performer => {
+                        dataForSheet.push({
+                            'No.': index + 1,
+                            'Name': performer.fullName
+                                ? performer.fullName
+                                : `${performer.firstName} ${performer.lastName}`,
+                            'Instrument Category': registrant.instrumentCategory || '-',
+                            'Repertoire PDF': registrant.pdfRepertoireS3Link || '-',
+                            'Video Performance': registrant.videoPerformanceS3Link || '-',
+                            'Duration': formatDuration(registrant.videoDuration)
+                        });
+                    });
+                }
+            });
+
+            // --- POPULATE WORKSHEET ---
+            if (dataForSheet.length > 0) {
+                const headers = Object.keys(dataForSheet[0]);
+
+                // Add header row
+                worksheet.getRow(1).values = headers;
+                worksheet.getRow(1).font = { bold: true, color: { argb: 'FFFFFFFF' } };
+                worksheet.getRow(1).fill = {
+                    type: 'pattern',
+                    pattern: 'solid',
+                    fgColor: { argb: 'FF4472C4' }
+                };
+                worksheet.getRow(1).alignment = { vertical: 'middle', horizontal: 'center' };
+
+                // Format link cells
+                const formatLinkCell = (cell) => {
+                    const link = cell.value;
+                    if (typeof link !== 'string' || !link || link === '-') return;
+
+                    let hyperlinkUrl = '';
+
+                    if (link.startsWith('s3://')) {
+                        hyperlinkUrl = constructS3PublicUrl(getS3KeyFromUri(link));
+                    } else if (link.startsWith('http')) {
+                        hyperlinkUrl = link;
+                    }
+
+                    if (hyperlinkUrl) {
+                        cell.value = {
+                            text: 'View Link',
+                            hyperlink: hyperlinkUrl,
+                        };
+                        cell.font = { color: { argb: 'FF0000FF' }, underline: true };
+                    }
+                };
+
+                const linkColumns = [
+                    'Repertoire PDF',
+                    'Video Performance'
                 ];
 
                 // Add data rows
@@ -1341,6 +1558,7 @@ const RegistrantDashboard = () => {
                 }}
             >
                 <Button type="primary" onClick={handleExportToExcel}>Export to excel</Button>
+                <Button type="primary" onClick={() => handleExportByCategoryWithAgeTabsRaw(allData, "Harp")}>Export to excel Age Raw</Button>
                 <Button type="primary" onClick={() => handleExportByCategoryWithAgeTabs(allData, "Harp")}>Export to excel Age</Button>
 
                 {/* <Button
