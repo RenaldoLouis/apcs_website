@@ -581,7 +581,7 @@ const JuryDashboard = () => {
                 footer={null}
                 width={900}
                 centered
-                bodyStyle={{ backgroundColor: '#000', padding: 0 }}
+                styles={{ backgroundColor: '#000', padding: 0 }}
                 closeIcon={<span style={{ color: '#fff', fontSize: 20 }}>×</span>}
             >
                 {loadingVideo ? (
@@ -595,6 +595,7 @@ const JuryDashboard = () => {
                             src={currentVideo}
                             controls
                             autoPlay
+                            preload="metadata" // Only download the "Index" first, not the video
                             style={{ width: '100%', maxHeight: '450px' }}
                         >
                             Your browser does not support the video tag.

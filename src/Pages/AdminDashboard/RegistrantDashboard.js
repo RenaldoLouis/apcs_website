@@ -16,22 +16,22 @@ import { extractVideoId, fetchYouTubeDuration } from '../../utils/youtube';
 // Import the new utility functions
 import {
     ageCategories,
-    stringAgeCategoriesSolo,
-    stringAgeCategoriesEnsemble,
-    vocalAgeCategoriesSolo,
-    vocalAgeCategoriesEnsemble,
-    ensembleAgeCategories,
-    woodwinAgeCategoriesSolo,
-    woodwinAgeCategoriesEnsemble,
-    percussionAgeCategoriesSolo,
-    PercussionAgeCategoriesEnsemble,
-    guitarAgeCategoriesSolo,
-    guitarAgeCategoriesEnsemble,
-    brassAgeCategoriesSolo,
     brassAgeCategoriesEnsemble,
-    harpAgeCategoriesSolo,
+    brassAgeCategoriesSolo,
+    competitionList,
+    ensembleAgeCategories,
+    guitarAgeCategoriesEnsemble,
+    guitarAgeCategoriesSolo,
     harpAgeCategoriesEnsemble,
-    competitionList
+    harpAgeCategoriesSolo,
+    PercussionAgeCategoriesEnsemble,
+    percussionAgeCategoriesSolo,
+    stringAgeCategoriesEnsemble,
+    stringAgeCategoriesSolo,
+    vocalAgeCategoriesEnsemble,
+    vocalAgeCategoriesSolo,
+    woodwinAgeCategoriesEnsemble,
+    woodwinAgeCategoriesSolo
 } from '../../constant/RegisterPageConst';
 import { parseDateString } from '../../utils/Utils';
 
@@ -544,13 +544,22 @@ const RegistrantDashboard = () => {
             addFilesFromField(record.pdfRepertoireS3Link, 'repertoire');
             addFilesFromField(record.profilePhotoS3Link, 'profile_photo');
 
-            if (filesToDownload.length === 0) {
+            // TODO: might need to fix this on BE
+            const modifiedFiles = filesToDownload.map(file => {
+                return {
+                    ...file, // Keep other properties like zipPath
+                    // Replace '.pdf' with an empty string, but only if it's at the end of the string ($)
+                    link: file.link.replace(/\.pdf$/, "")
+                };
+            });
+
+            if (modifiedFiles.length === 0) {
                 message.warn({ content: "No documents are linked for this registrant.", key: 'download' });
                 return;
             }
 
             // Call the backend API (no change here)
-            const response = await apis.aws.downloadFiles(filesToDownload, {
+            const response = await apis.aws.downloadFiles(modifiedFiles, {
                 responseType: 'blob'
             });
 
@@ -1204,6 +1213,7 @@ const RegistrantDashboard = () => {
                             src={videoUrl}
                             controls
                             autoPlay
+                            preload="metadata" // Only download the "Index" first, not the video
                             style={{ width: '100%', maxHeight: '450px' }}
                         >
                             Your browser does not support the video tag.
