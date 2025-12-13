@@ -42,7 +42,7 @@ const Carousel = ({ interval = 5000, homePage = true }) => {
         let intervalId;
         if (!isPaused) {
             intervalId = setInterval(() => {
-                setCurrentIndex((prevIndex) => (prevIndex === images.length - 1 ? 0 : prevIndex + 1));
+                setCurrentIndex((prevIndex) => (prevIndex === images?.length - 1 ? 0 : prevIndex + 1));
             }, interval);
         }
 
@@ -50,11 +50,11 @@ const Carousel = ({ interval = 5000, homePage = true }) => {
     }, [interval, isPaused]);
 
     const goToPrevSlide = () => {
-        setCurrentIndex((prevIndex) => (prevIndex === 0 ? images.length - 1 : prevIndex - 1));
+        setCurrentIndex((prevIndex) => (prevIndex === 0 ? images?.length - 1 : prevIndex - 1));
     };
 
     const goToNextSlide = () => {
-        setCurrentIndex((prevIndex) => (prevIndex === images.length - 1 ? 0 : prevIndex + 1));
+        setCurrentIndex((prevIndex) => (prevIndex === images?.length - 1 ? 0 : prevIndex + 1));
     };
 
     const handleClickRegisterNow = () => {

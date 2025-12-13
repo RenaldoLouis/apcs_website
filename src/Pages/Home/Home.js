@@ -174,7 +174,7 @@ const Home = (props) => {
                                 <Spin size="large" />
                             </div>
                         </div>
-                    ) : sponsorList.length > 0 ? (
+                    ) : sponsorList?.length > 0 ? (
                         <div className="row justify-content-center align-items-center g-4">
                             {sponsorList.map((sponsorUrl, index) => (
                                 <div
