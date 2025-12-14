@@ -10,9 +10,6 @@ import { getRegistrants2025Columns } from '../../constant/RegistrantsColumn';
 import { db } from '../../firebase';
 import usePaginatedRegistrants from '../../hooks/useFetchRegistrantsData';
 
-import {
-    SyncOutlined
-} from '@ant-design/icons';
 import { collection, getDocs, writeBatch } from "firebase/firestore";
 import { useRef, useState } from 'react';
 import { extractVideoId, fetchYouTubeDuration } from '../../utils/youtube';
@@ -330,8 +327,8 @@ const RegistrantDashboard = () => {
         // 1. Calculate the minutes by dividing by 60 and taking the integer part
         const minutes = Math.floor(totalSeconds / 60);
 
-        // 2. Calculate the remaining seconds using the modulo operator
-        const seconds = totalSeconds % 60;
+        // 2. Calculate the remaining seconds using modulo and REMOVE decimals using Math.floor
+        const seconds = Math.floor(totalSeconds % 60);
 
         // 3. Pad both numbers with a leading zero if they are less than 10
         const paddedMinutes = String(minutes).padStart(2, '0');
@@ -776,27 +773,6 @@ const RegistrantDashboard = () => {
         });
     };
 
-    const getVideoDuration = (url) => {
-        return new Promise((resolve) => {
-            const video = document.createElement('video');
-            video.preload = 'metadata';
-            video.src = url;
-            // Low volume just in case, though it shouldn't play
-            video.muted = true;
-
-            video.onloadedmetadata = () => {
-                resolve(video.duration); // Duration in seconds
-                video.remove();
-            };
-
-            video.onerror = () => {
-                console.warn("Could not load video metadata for:", url);
-                resolve(0); // Fallback to 0 if fails
-                video.remove();
-            };
-        });
-    };
-
     const handleExportByCategoryWithAgeTabs = (allData, competitionCategory) => {
         if (!allData || allData.length === 0) {
             message.warn("No data available to export.");
@@ -820,8 +796,36 @@ const RegistrantDashboard = () => {
 
         message.info(`Preparing Excel export for ${competitionCategory}...`);
 
+        // TODO: this is hacky stupid way because we missed to upload the file type for harp on december 2025
+        // when first time update to upload the file directly to out s3 bucket
+        // --- NEW: MODIFY DATA FOR REGISTRANTS BETWEEN NOV 23 AND DEC 14, 2025 ---
+        const startDate = new Date('2025-11-23T00:00:00');
+        // Set end date to end of day to include all registrations on the 14th
+        const endDate = new Date('2025-12-14T23:59:59');
+
+        const processedData = categoryData.map(registrant => {
+            // Create a shallow copy so we don't mutate the original state
+            const r = { ...registrant };
+
+            // 1. Safely parse the creation date
+            let regDate = null;
+            if (r.createdAt?.seconds) {
+                regDate = new Date(r.createdAt.seconds * 1000);
+            } else if (r.createdAt) {
+                regDate = new Date(r.createdAt);
+            }
+
+            // 2. Check Range: (Start Date <= regDate <= End Date)
+            if (regDate && regDate >= startDate && regDate <= endDate && r.pdfRepertoireS3Link) {
+                // 3. Remove .pdf extension (case insensitive)
+                r.pdfRepertoireS3Link = r.pdfRepertoireS3Link.replace(/\.pdf$/i, "");
+            }
+
+            return r;
+        });
+
         // --- GROUP BY AGE CATEGORY ---
-        const groupedByAge = categoryData.reduce((acc, registrant) => {
+        const groupedByAge = processedData.reduce((acc, registrant) => {
             // Get age category label
             const ageCategoryLabel = getAgeCategoryLabel(
                 registrant.ageCategory,
@@ -878,7 +882,8 @@ const RegistrantDashboard = () => {
                         'Instrument Category': registrant.instrumentCategory || '-',
                         'Repertoire PDF': registrant.pdfRepertoireS3Link || '-',
                         'Video Performance': registrant.videoPerformanceS3Link || '-',
-                        'Duration': formatDuration(registrant.videoDuration)
+                        'Duration': formatDuration(registrant.videoDuration),
+                        'Teacher Name': registrant.teacherName || '-',
                     });
                 } else {
                     // Solo - separate row for each performer (though usually just 1)
@@ -891,7 +896,8 @@ const RegistrantDashboard = () => {
                             'Instrument Category': registrant.instrumentCategory || '-',
                             'Repertoire PDF': registrant.pdfRepertoireS3Link || '-',
                             'Video Performance': registrant.videoPerformanceS3Link || '-',
-                            'Duration': formatDuration(registrant.videoDuration)
+                            'Duration': formatDuration(registrant.videoDuration),
+                            'Teacher Name': registrant.teacherName || '-',
                         });
                     });
                 }
@@ -1673,7 +1679,7 @@ const RegistrantDashboard = () => {
                 <Button type="primary" onClick={handleExportToExcel}>Export to excel</Button>
                 <Button type="primary" onClick={() => handleExportByCategoryWithAgeTabsRaw(allData, "Harp")}>Export to excel Age Raw</Button>
                 <Button type="primary" onClick={() => handleExportByCategoryWithAgeTabs(allData, "Harp")}>Export to excel Age</Button>
-                <Button
+                {/* <Button
                     icon={<SyncOutlined />}
                     onClick={handleSyncDurations}
                     style={{
@@ -1684,7 +1690,7 @@ const RegistrantDashboard = () => {
                     }}
                 >
                     Sync Video Durations
-                </Button>
+                </Button> */}
                 {/* <Button
                     style={{ marginLeft: 8 }}
                     onClick={handleRecheckDurations}

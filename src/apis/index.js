@@ -83,7 +83,7 @@ export default {
     getSponsors: () => getRequest(`/api/v1/apcs/getSponsors`)
   },
   aws: {
-    postSignedUrl: (directoryname, fileName) => postRequest(`/api/v1/apcs/signed-url-images?directoryname=${directoryname}&fileName=${fileName}`),
+    postSignedUrl: (directoryname, fileName, fileType) => postRequest(`/api/v1/apcs/signed-url-images?directoryname=${directoryname}&fileName=${fileName}&fileType=${fileType}`),
     // Initiate multipart upload
     initiateMultipartUpload: (directoryname, fileName, fileType) =>
       postRequest(`/api/v1/apcs/initiateMultipartUpload`, {

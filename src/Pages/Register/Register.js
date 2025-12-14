@@ -49,6 +49,7 @@ const Register = () => {
     const profilePhotoInputRef = useRef();
     const birthCertInputRef = useRef();
     const repertoireInputRef = useRef();
+    const videoPerformanceInputRef = useRef();
 
     const userType = {
         Teacher: t("register.imTeacher"),
@@ -115,6 +116,28 @@ const Register = () => {
         control,
         name: "performers"
     });
+
+    const getVideoDuration = (file) => {
+        return new Promise((resolve, reject) => {
+            try {
+                const video = document.createElement('video');
+                video.preload = 'metadata';
+
+                video.onloadedmetadata = function () {
+                    window.URL.revokeObjectURL(video.src);
+                    resolve(video.duration); // Duration in seconds
+                }
+
+                video.onerror = function () {
+                    resolve(0); // Return 0 if fails
+                }
+
+                video.src = URL.createObjectURL(file);
+            } catch (e) {
+                resolve(0);
+            }
+        });
+    };
 
     const extractVideoId = (url) => {
         try {
@@ -355,7 +378,7 @@ const Register = () => {
             const baseName = profilePhoto.name.replace(/\s/g, "").replace(/\.[^/.]+$/, "");
             const directoryName = `${baseName}_${timestamp}`;
 
-            const res = await apis.aws.postSignedUrl(directoryName, "profilePhoto", 'application/pdf')
+            const res = await apis.aws.postSignedUrl(directoryName, "profilePhoto.pdf", 'application/pdf')
             const signedUrl = res.data.link
             await axios.put(signedUrl, profilePhoto, {
                 headers: {
@@ -369,7 +392,7 @@ const Register = () => {
             //save PaymentProof
             if (!isInternationalRegistrant) {
                 const paymentProof = data.paymentProof[0]
-                const res1 = await apis.aws.postSignedUrl(directoryName, "paymentProof", 'application/pdf')
+                const res1 = await apis.aws.postSignedUrl(directoryName, "paymentProof.pdf", 'application/pdf')
                 const signedUrl1 = res1.data.link
                 await axios.put(signedUrl1, paymentProof, {
                     headers: {
@@ -380,9 +403,9 @@ const Register = () => {
             }
             setProgressLoading(20)
 
-            //save exam cert
+            //save pdf report
             const pdfRepertoire = data.pdfRepertoire[0]
-            const res2 = await apis.aws.postSignedUrl(directoryName, "pdfRepertoire", 'application/pdf')
+            const res2 = await apis.aws.postSignedUrl(directoryName, "pdfRepertoire.pdf", 'application/pdf')
             const signedUrl2 = res2.data.link
             await axios.put(signedUrl2, pdfRepertoire, {
                 headers: {
@@ -392,15 +415,21 @@ const Register = () => {
             const pdfRepertoireS3Link = `s3://registrants2025/${directoryName}/pdfRepertoire.pdf`;
             setProgressLoading(30)
 
+            //save video Perforamnce
             const videoPerformance = data.videoPerformance[0];
+            let calculatedDuration = 0;
+            try {
+                calculatedDuration = await getVideoDuration(videoPerformance);
+            } catch (err) {
+                console.warn("Failed to calculate video duration locally", err);
+            }
             const videoPerformanceS3Link = await uploadLargeVideo(videoPerformance, directoryName)
             setProgressLoading(35)
 
             setProgressLoading(50)
-
-            //save pdf report
+            //save exam cert
             const examCertificate = data.examCertificate[0]
-            const res4 = await apis.aws.postSignedUrl(directoryName, "examCertificate", examCertificate.type)
+            const res4 = await apis.aws.postSignedUrl(directoryName, "examCertificate.pdf", examCertificate.type)
             const signedUrl4 = res4.data.link
             await axios.put(signedUrl4, examCertificate, {
                 headers: {
@@ -432,7 +461,7 @@ const Register = () => {
                 name: data.name,
                 youtubeLink: data.youtubeLink,
                 remark: data?.remark ?? "",
-                videoDuration: youtubeDuration ?? 0,
+                videoDuration: calculatedDuration || 0,
                 profilePhotoS3Link: profilePhotoS3Link,
                 pdfRepertoireS3Link: pdfRepertoireS3Link,
                 videoPerformanceS3Link: videoPerformanceS3Link,
@@ -447,7 +476,6 @@ const Register = () => {
 
             const price = await calculatePrice(data, isInternational);
 
-            // FIX: Group performers by email
             const emailGroups = formattedDatePerformers.reduce((acc, performer) => {
                 const email = performer.email;
 
@@ -542,6 +570,9 @@ const Register = () => {
         }
         if (repertoireInputRef.current) {
             repertoireInputRef.current.value = null;
+        }
+        if (videoPerformanceInputRef.current) {
+            videoPerformanceInputRef.current.value = null;
         }
         window.scrollTo({
             top: 0,
@@ -2031,7 +2062,7 @@ const Register = () => {
                                 extraSmallNotes={<small className="note">{t("register.notes.fileFormatVideoPerformance")}</small>}
                                 rules={{ required: t("register.errors.required") }}
                                 tooltipLabel={t("register.form.videoPerformanceTooltip")}
-                                inputRef={repertoireInputRef}
+                                inputRef={videoPerformanceInputRef}
                                 setValue={setValue}
                                 acceptedFormats="video/*"
                             />
