@@ -956,7 +956,7 @@ const Register = () => {
             case competitionList.Piano:
                 return true
             case competitionList.Percussions:
-                return false
+                return true
             case competitionList.Woodwinds:
                 return true
             case competitionList.Guitar:
