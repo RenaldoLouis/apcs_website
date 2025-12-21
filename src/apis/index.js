@@ -119,6 +119,7 @@ export default {
   },
   payment: {
     createRegistrationInvoice: (data) => postRequest(`/api/v1/apcs/payment/createInvoice`, data),
+    getRegistrantStatus: (id) => getRequest(`/api/v1/apcs/payment/registrant-status/${id}`),
   },
   bookings: {
     saveSeatBookProfileInfo: (data) => postRequest(`/api/v1/apcs/saveSeatBookProfileInfo`, data),

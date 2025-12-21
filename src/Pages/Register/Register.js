@@ -24,6 +24,7 @@ import { addDoc, collection, doc, getDoc, serverTimestamp } from 'firebase/fires
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { Controller, useFieldArray, useForm, useWatch } from "react-hook-form";
 import { useTranslation } from "react-i18next";
+import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import apis from '../../apis';
 import banner from "../../assets/images/banner.png";
@@ -42,6 +43,7 @@ import SubmissionConfirmationModal from './SubmissionConfirmationModal';
 import WelcomeModalRegister from './WelcomeModalRegister';
 
 const Register = () => {
+    const navigate = useNavigate();
     const { t } = useTranslation();
     const IdCode = '+62';
     const examInputRef = useRef();
@@ -524,7 +526,8 @@ const Register = () => {
 
                     // 7. Redirect User to Paper.id Payment Page
                     setTimeout(() => {
-                        window.location.href = paperResponse?.data?.paymentUrl;
+                        window.open(paperResponse.data.paymentUrl, '_blank');
+                        navigate(`/waiting-payment/${firebaseId}`);
                     }, 1500);
 
                     return; // Stop here, user is leaving the site
@@ -587,19 +590,6 @@ const Register = () => {
                 }
                 setIsLoading(false)
             })
-
-            // send email for International Client ask for payment
-            if (isInternational) {
-                apis.email.sendEmailPaymentRequest(dataEmail).then((res) => {
-                    if (res.status === 200) {
-                        toast.success("Successfully Registered! Please check your email for payment information.")
-                        setIsSaveSuccess(true)
-                    } else {
-                        throw new Error("Email payment sending failed with status " + res.status);
-                    }
-                    setIsLoading(false)
-                })
-            }
 
             setIsLoading(false);
             setIsSaveSuccess(true);
