@@ -30,6 +30,7 @@ import LandingPage from "./Pages/Landing/LandingPage";
 import Login from "./Pages/Login/Login";
 import Podcast from "./Pages/Podcast/Podcast";
 import Register from "./Pages/Register/Register";
+import WaitingPaymentPage from './Pages/Register/WaitingPayment';
 import ScannerPage from './Pages/Scanner/ScannerPage';
 import BookingCompletePage from './Pages/SelectSeat/BookingCompletePage';
 import SelectSeatPage from './Pages/SelectSeat/SelectSeatPage';
@@ -68,6 +69,9 @@ const Main = () => {
         <Route path={PathName.podcast} element={<MainLayout children={<Podcast />} />} />
         <Route path={PathName.contactUs} element={<MainLayout children={<ContactUs />} />} />
         <Route path={PathName.register} element={<MainLayout children={<Register />} hidden={true} />} />
+        <Route path={PathName.waitingPayment} element={<MainLayout children={<Register />} hidden={true} />} />
+        <Route path="/waiting-payment/:id" element={<WaitingPaymentPage />} />
+
         {/* <Route path={"/payment"} element={<MainLayout children={<Payment />} />} /> */}
         <Route path="/login" element={<Login />} />
         <Route path="/adminDashboard" element={
