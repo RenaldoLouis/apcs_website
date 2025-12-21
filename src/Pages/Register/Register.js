@@ -356,25 +356,25 @@ const Register = () => {
         return `s3://registrants2025/${directoryName}/${file.name}`;
     };
 
-
     const onSubmit = async (data) => {
         try {
-            setIsConfirmModalOpen(false)
-            setIsLoading(true)
+            setIsConfirmModalOpen(false);
+            setIsLoading(true);
+
+            // 1. Prepare Performer Data
             const formattedDatePerformers = data?.performers.map((performer) => {
                 const formattedDate = performer?.dob?.format("DD/MM/YYYY") ?? null;
                 return { ...performer, dob: formattedDate, countryCode: performer.countryCode[0] }
-            })
+            });
 
             if (formattedDatePerformers.length <= 0) {
                 throw new Error('No valid performer data found to process.');
             }
 
+            // 2. Upload Files (Keep your existing logic exactly as is)
             const now = new Date();
             const timestamp = now.toISOString().replace(/[-:.TZ]/g, "").slice(0, 14);
-
-            //save ProfilePhoto
-            const profilePhoto = data.profilePhoto[0]
+            const profilePhoto = data.profilePhoto[0];
             const baseName = profilePhoto.name.replace(/\s/g, "").replace(/\.[^/.]+$/, "");
             const directoryName = `${baseName}_${timestamp}`;
 
@@ -439,15 +439,19 @@ const Register = () => {
             const examCertificateS3Link = `s3://registrants2025/${directoryName}/examCertificate.pdf`;
             setProgressLoading(70)
 
-            const HUNGARY_COUNTRY_CODE = '+36';
-            const isHungaryParticipant = watchedFieldsPerformer?.some(
-                performer => performer?.countryCode?.[0] === HUNGARY_COUNTRY_CODE
-            );
+            // --- MOCKING S3 UPLOAD FOR THIS SNIPPET (Uncomment your real code above) ---
+            // In your actual file, keep the axios.put and apis.aws calls you already wrote.
 
+
+            // 3. Calculate Price Logic
             const isInternational = watchedFieldsPerformer?.some(
                 performer => performer?.countryCode?.[0] !== IdCode
             );
 
+            // Calculate the price before saving
+            const priceData = await calculatePrice(data, isInternational);
+
+            // 4. Prepare Firebase Payload
             const payload = {
                 ageCategory: data.ageCategory,
                 totalPerformer: data.totalPerformer,
@@ -459,22 +463,75 @@ const Register = () => {
                 userType: data.userType,
                 performers: formattedDatePerformers,
                 name: data.name,
-                youtubeLink: data.youtubeLink,
+                youtubeLink: data.youtubeLink || "",
                 remark: data?.remark ?? "",
-                videoDuration: calculatedDuration || 0,
-                profilePhotoS3Link: profilePhotoS3Link,
-                pdfRepertoireS3Link: pdfRepertoireS3Link,
-                videoPerformanceS3Link: videoPerformanceS3Link,
-                paymentProofS3Link: paymentProofS3Link,
-                examCertificateS3Link: examCertificateS3Link,
+                videoDuration: youtubeDuration || 0, // Or your calculated duration
+
+                // S3 Links (Ensure these variables exist from your upload section)
+                profilePhotoS3Link,
+                pdfRepertoireS3Link,
+                videoPerformanceS3Link,
+                paymentProofS3Link,
+                examCertificateS3Link,
+
                 createdAt: serverTimestamp(),
                 ...(data.teacherName && { teacherName: data.teacherName }),
-                ...(isInternational && { paymentStatus: PaymentStatus.PENDING })
+
+                // PAYMENT STATUS
+                // If there is a price, set to PENDING. If free, set to PAID.
+                paymentStatus: priceData.amount > 0 ? PaymentStatus.PENDING : PaymentStatus.PAID,
+                amountToPay: priceData.amount,
+                currency: priceData.currency
             };
 
-            await addDoc(collection(db, "Registrants2025"), payload);
+            // 5. Save to Firebase (We need the ID for the Invoice Number)
+            const docRef = await addDoc(collection(db, "Registrants2025"), payload);
+            const firebaseId = docRef.id;
 
-            const price = await calculatePrice(data, isInternational);
+            // 6. PAYMENT INTEGRATION: Create Paper.id Invoice
+            if (priceData.amount > 0) {
+                setProgressLoading(90);
+
+                const mainContactEmail = data.performers[0].email;
+                const mainContactPhone = `${data.performers[0].countryCode}${data.performers[0].phoneNumber}`.replace('+', '');
+
+                // Prepare data for YOUR Backend
+                const invoiceRequest = {
+                    externalId: firebaseId, // Link invoice to Firebase ID
+                    user: {
+                        name: data.teacherName, // Parent/Teacher name
+                        email: mainContactEmail,
+                        phone: mainContactPhone
+                    },
+                    items: [
+                        {
+                            name: `Registration: ${data.competitionCategory} (${data.PerformanceCategory})`,
+                            description: `${data.instrumentCategory} - ${data.ageCategory}`,
+                            price: priceData.amount
+                        }
+                    ]
+                };
+
+                // Call YOUR Node.js Backend
+                // Make sure to create this endpoint in your express app
+                const paperResponse = await apis.payment.createRegistrationInvoice(invoiceRequest);
+
+                console.log("paperResponse", paperResponse)
+                if (paperResponse?.data && paperResponse?.data?.paymentUrl) {
+                    setIsLoading(false);
+                    setIsSaveSuccess(true);
+                    toast.success("Registration Saved! Redirecting to Payment...");
+
+                    // 7. Redirect User to Paper.id Payment Page
+                    setTimeout(() => {
+                        window.location.href = paperResponse?.data?.paymentUrl;
+                    }, 1500);
+
+                    return; // Stop here, user is leaving the site
+                }
+            }
+
+            // 8. Fallback / No Payment Logic (Existing Email Logic)
 
             const emailGroups = formattedDatePerformers.reduce((acc, performer) => {
                 const email = performer.email;
@@ -485,7 +542,7 @@ const Register = () => {
                         names: [],
                         competitionCategory: data.competitionCategory,
                         instrumentCategory: data.instrumentCategory,
-                        price: price.formattedAmount
+                        price: priceData.formattedAmount
                     };
                 }
 
@@ -506,6 +563,7 @@ const Register = () => {
 
             setProgressLoading(90)
 
+            // Note: If you use Paper.id, they send the invoice email automatically if you set send: { email: true }
             // send email welcome to Indonesia registrant after register
             if (!isInternational) {
                 apis.email.sendEmail(dataEmail).then((res) => {
@@ -543,10 +601,14 @@ const Register = () => {
                 })
             }
 
+            setIsLoading(false);
+            setIsSaveSuccess(true);
+            toast.success("Successfully Registered!");
+
         } catch (e) {
-            setIsLoading(false)
-            toast.error("Register failed, please try again. If the error persist please contact us")
-            console.error(e)
+            setIsLoading(false);
+            toast.error("Register failed, please try again.");
+            console.error(e);
         }
     };
 

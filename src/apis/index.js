@@ -117,6 +117,9 @@ export default {
     create: (data) => postRequest(`/api/v1/apcs/paymentIntegration/bookings`, data),
     checkStatus: (bookingId) => postRequest(`/api/v1/apcs/paymentIntegration/bookings/status?bookingId=${bookingId}`),
   },
+  payment: {
+    createRegistrationInvoice: (data) => postRequest(`/api/v1/apcs/payment/createInvoice`, data),
+  },
   bookings: {
     saveSeatBookProfileInfo: (data) => postRequest(`/api/v1/apcs/saveSeatBookProfileInfo`, data),
     sendSeatBookingEmail: (data) => postRequest(`/api/v1/apcs/sendSeatBookingEmail`, data),
