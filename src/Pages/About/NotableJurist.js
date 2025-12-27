@@ -1,5 +1,6 @@
 import { useTranslation } from "react-i18next";
 import amrFlag from "../../assets/images/amrFlag.jpg";
+import chikita from "../../assets/images/chikita.svg";
 import chinaflag from "../../assets/images/chinaflag.jpg";
 import denmarkflag from "../../assets/images/denmarkflag.jpg"; // fidland
 import estoniaFlag from "../../assets/images/estoniaFlag.png";
@@ -39,6 +40,7 @@ import koreaflag from "../../assets/images/koreaflag.jpg";
 import russiaflag from "../../assets/images/russiaflag.jpg"; //estonia
 import singaporeFlag from "../../assets/images/singaporeFlag.png";
 import turkeyFlag from "../../assets/images/turkeyFlag.png";
+import wishnuProfile from "../../assets/images/wishnuProfile.svg";
 import AnimatedComponent from "../../components/atom/AnimatedComponent";
 import EllipsisText from "../../components/atom/EllipsisText";
 import HeaderAbout from "../../components/atom/HeaderAbout";
@@ -60,6 +62,22 @@ const NotableJurist = () => {
             quote: t("about10"),
             country: [CountryConst.IDN, CountryConst.CHI],
             link: "https://www.instagram.com/p/CpcHUoUPkeM/?igsh=MXV6ZXl0cG5jNXR4aw%3D%3D&img_index=6"
+        },
+        {
+            image: wishnuProfile,
+            name: "WISHNU DEWANTA",
+            title: "APCS 2019",
+            quote: t("about6"),
+            country: [CountryConst.IDN],
+            // link: "https://www.instagram.com/p/CpcHUoUPkeM/?igsh=MXV6ZXl0cG5jNXR4aw%3D%3D&img_index=8"
+        },
+        {
+            image: chikita,
+            name: "CHIKITA AMANDA",
+            title: "APCS 2020, 2022, 2023",
+            quote: t("about7"),
+            country: [CountryConst.IDN],
+            // link: "https://www.instagram.com/p/CpcHUoUPkeM/?igsh=MXV6ZXl0cG5jNXR4aw%3D%3D&img_index=8"
         },
         {
             image: jurist2,

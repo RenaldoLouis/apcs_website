@@ -1,25 +1,20 @@
-import React, { useEffect, useState } from "react";
-import NotableConductors from "./NotableConductors";
-import AnimationWWScroll from "../../components/molecules/Animation3dScroll/AnimationWWScroll";
-import CoverImage from "../../components/molecules/CoverImage";
-import musiciswhatapcs from "../../assets/images/musiciswhatapcs.svg"
-import aboutCover from "../../assets/images/AboutCover.jpg"
-import aboutCover2 from "../../assets/images/aboutCover2.jpg"
-import apcLogo from "../../assets/images/apc_logo.svg"
-import goldenLine from "../../assets/images/goldenLine.png"
-import michaelaAbout from "../../assets/images/michaelaAbout.png"
-import saphireAbout from "../../assets/images/saphireAbout.png"
-import contactUsPicture from "../../assets/images/contactUsPicture.png"
-import saphireAchiever from "../../assets/images/saphireAchiever.svg"
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import i18n from '../../i18n';
-import NotableJurist from "./NotableJurist";
-import GuestArtist from "./GuestArtist";
-import BackgroundWithText from "../../components/molecules/BacgkroundWithText";
-import { ContentPosition } from "../../constant/ContentPosition";
-import CoverImageHome from "../../components/molecules/CoverImageHome";
 import { useNavigate } from "react-router-dom";
+import aboutCover2 from "../../assets/images/aboutCover2.jpg";
+import apcLogo from "../../assets/images/apc_logo.svg";
+import contactUsPicture from "../../assets/images/contactUsPicture.png";
+import goldenLine from "../../assets/images/goldenLine.png";
+import michaelaAbout from "../../assets/images/michaelaAbout.png";
+import musiciswhatapcs from "../../assets/images/musiciswhatapcs.svg";
+import saphireAbout from "../../assets/images/saphireAbout.png";
+import saphireAchiever from "../../assets/images/saphireAchiever.svg";
+import BackgroundWithText from "../../components/molecules/BacgkroundWithText";
+import CoverImageHome from "../../components/molecules/CoverImageHome";
+import { ContentPosition } from "../../constant/ContentPosition";
 import { PathName } from "../../constant/PathName";
+import GuestArtist from "./GuestArtist";
+import NotableJurist from "./NotableJurist";
 
 const About = () => {
     const { t, i18n } = useTranslation();
@@ -137,7 +132,7 @@ const About = () => {
                 buttonOnclick={() => handleMovePage(PathName.achievers)}
             />
 
-            <NotableConductors />
+            {/* <NotableConductors /> */}
             <NotableJurist />
             <GuestArtist />
             <BackgroundWithText

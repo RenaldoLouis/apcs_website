@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 const EllipsisText = ({ quote, link, seeMore = false }) => {
     const [isTruncated, setIsTruncated] = useState(false);
@@ -29,7 +29,7 @@ const EllipsisText = ({ quote, link, seeMore = false }) => {
             >
                 {quote}
             </p>
-            {isTruncated && !isExpanded && (
+            {isTruncated && !isExpanded && link && (
                 // <button className="see-more-btn" onClick={() => setIsExpanded(true)}>
                 <button className="see-more-btn" onClick={() => seeMore ? setIsExpanded(true) : handleOpenInstagram()}>
                     ... See More
