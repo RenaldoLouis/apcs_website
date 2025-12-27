@@ -1693,14 +1693,6 @@ const RegistrantDashboard = () => {
                 </Button> */}
                 {/* <Button
                     style={{ marginLeft: 8 }}
-                    onClick={handleRecheckDurations}
-                    loading={isUpdating} // Use the new loading state
-                >
-                    Re-check All YouTube Durations
-                </Button> */}
-
-                {/* <Button
-                    style={{ marginLeft: 8 }}
                     onClick={handleDownloadAll}
                     loading={isDownloadingAll}
                 >

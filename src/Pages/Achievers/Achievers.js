@@ -9,7 +9,7 @@ import CoverImageHome from "../../components/molecules/CoverImageHome";
 import { ContentPosition } from "../../constant/ContentPosition";
 import { SapphireWinners } from "../../constant/datas/SaphireAchieverData";
 import { fetchAchieversFromFirestore } from "../../utils/AchieversMigration";
-import SapphireWinnerSection from "./SapphireWinnerSection";
+import ContentAchievers from "./ContentAchievers";
 
 const handleOpenYoutube = () => {
     window.open("https://www.youtube.com/@apcsmusic", '_blank');
@@ -62,7 +62,7 @@ const Achievers = () => {
                     </>
                 }
             />
-            <SapphireWinnerSection dataSaphire={SapphireWinners} dataDiamond={dataDiamond} />
+            <ContentAchievers dataSaphire={SapphireWinners} dataDiamond={dataDiamond} />
         </div>
     )
 }

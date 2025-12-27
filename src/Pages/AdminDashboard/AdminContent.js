@@ -5,6 +5,7 @@ import JSZip from "jszip";
 import ReactDOM from "react-dom";
 import * as xlsx from 'xlsx';
 import RegistrantAssignment from '../../components/molecules/AdminContentComponent/RegistrantAssignment';
+import MigrationComponent from '../../components/molecules/MigrationComponent';
 import { RegistrantsColumns } from '../../constant/RegistrantsColumn';
 import usePaginatedRegistrants from '../../hooks/useFetchRegistrantsData';
 
@@ -242,7 +243,7 @@ const AdminContent = () => {
                     style={{ marginLeft: 4 }}
                 />
             </form>
-            {/* <MigrationComponent /> */}
+            <MigrationComponent />
             <div
                 style={{
                     padding: 24,
