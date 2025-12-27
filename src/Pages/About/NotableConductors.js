@@ -34,7 +34,7 @@ const NotableConductors = () => {
                                 <ConductorProfile
                                     title={"WISHNU DEWANTA"}
                                     desc={t("about6")}
-                                    eventYear={'APCS 2019 '}
+                                    eventYear={'APCS 2019'}
                                     eventName={"The Initial Turning Point"}
                                     country={CountryConst.IDN}
                                 />

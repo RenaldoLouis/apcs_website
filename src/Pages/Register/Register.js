@@ -1,4 +1,5 @@
 import {
+    CreditCardOutlined,
     QuestionCircleOutlined
 } from '@ant-design/icons';
 import {
@@ -74,6 +75,7 @@ const Register = () => {
     const [isWarningModalOpen, setIsWarningModalOpen] = useState(true);
     const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
     const [performerAge, setPerformerAge] = useState(false);
+    const [paymentLink, setPaymentLink] = useState("");
 
     const { unregister, setValue, watch, register, control, formState: { errors }, handleSubmit, reset, clearErrors } = useForm({
         defaultValues: {
@@ -527,6 +529,7 @@ const Register = () => {
                     // 7. Redirect User to Paper.id Payment Page
                     setTimeout(() => {
                         window.open(paperResponse.data.paymentUrl, '_blank');
+                        setPaymentLink(paperResponse.data.paymentUrl)
                         navigate(`/waiting-payment/${firebaseId}`);
                     }, 1500);
 
@@ -601,6 +604,10 @@ const Register = () => {
             console.error(e);
         }
     };
+
+    const handleClickOpenPaymentLink = () => {
+        window.open(paymentLink, '_blank');
+    }
 
     const handleClickReset = () => {
         reset()
@@ -2199,34 +2206,29 @@ const Register = () => {
                                     }}
                                 >
                                     {t("register.submit")}
-                                    {/* {isLoading && (
-                                        <Box
-                                            sx={{
-                                                color: "blue",
-                                                position: 'absolute',
-                                                top: '30%',
-                                                left: '50%',
-                                                marginTop: '-12px',
-                                                marginLeft: '-12px',
-                                            }}
-                                        >
-                                            <CircularProgress variant="determinate" value={progressLoading} />
-                                            <Box
-                                                sx={{
-                                                    top: '50%',
-                                                    left: '50%',
-                                                    marginTop: '-12px',
-                                                    marginLeft: '-14px',
-                                                    position: 'absolute',
-                                                    display: 'flex',
-                                                    alignItems: 'center',
-                                                    justifyContent: 'center',
-                                                }}
-                                            >
-                                            </Box>
-                                        </Box>
-                                    )} */}
                                 </Button>
+                            )}
+                            {paymentLink && (
+                                <div style={{ marginTop: 30, textAlign: 'center' }}>
+                                    <p style={{ color: '#e5cc92', marginBottom: 10, fontSize: '14px' }}>
+                                        Payment page didn't open?
+                                    </p>
+                                    <Button
+                                        type="default"
+                                        shape="round"
+                                        icon={<CreditCardOutlined />}
+                                        size="large"
+                                        onClick={handleClickOpenPaymentLink}
+                                        style={{
+                                            backgroundColor: 'transparent',
+                                            color: '#e5cc92',
+                                            borderColor: '#e5cc92',
+                                            fontWeight: 'bold'
+                                        }}
+                                    >
+                                        Pay Now via Paper.id
+                                    </Button>
+                                </div>
                             )}
                             <LoadingOverlay open={isLoading} progress={progressLoading} />
 
