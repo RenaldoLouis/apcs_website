@@ -7,9 +7,10 @@ import AchieversHeader from "../../components/molecules/AchieversHeader";
 import ProfileToYoutube from "../../components/molecules/ProfileToYoutube";
 import { ListOfEventAchiever } from "../../constant/ListOfEventAchiever";
 import { useAuth } from "../../context/DataContext";
+import DiamondAchievers from "./DiamondAchievers";
 import GoldSection from "./GoldSection";
 
-const SapphireWinnerSection = (props) => {
+const ContentAchievers = (props) => {
     const { dataSaphire, dataDiamond } = props
     const { isMobileAndSmaller } = useAuth();
     const { t } = useTranslation();
@@ -123,11 +124,11 @@ const SapphireWinnerSection = (props) => {
                     </div>
                 )}
             </div>
-            {/* <DiamondAchievers /> */}
+            <DiamondAchievers />
 
             <GoldSection />
         </div>
     )
 }
 
-export default SapphireWinnerSection;
+export default ContentAchievers;

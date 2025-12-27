@@ -1,4 +1,3 @@
-import React from "react";
 import playButton from "../../assets/icons/playButton.svg";
 import indFlag from "../../assets/images/indFlag.jpg";
 import { useAuth } from "../../context/DataContext";
@@ -39,7 +38,7 @@ const ProfileToYoutube = (props) => {
                         )}
                     </div>
                     <div style={{ marginTop: 8 }}>
-                        <img src={indFlag} alt={indFlag} style={{ marginRight: 13, width: isMobileAndSmaller ? 35 : 50 }} />
+                        <img src={indFlag} alt={"indFlag"} style={{ marginRight: 13, width: isMobileAndSmaller ? 35 : 50 }} />
                         IDN | {country}
                     </div>
                     <div style={{ marginTop: 16, fontSize: isMobileAndSmaller ? "5vmin" : 20, fontWeight: "semi-bold" }}>

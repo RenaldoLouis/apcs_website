@@ -1,6 +1,24 @@
 import { PlusOutlined, SearchOutlined, YoutubeOutlined } from '@ant-design/icons';
 import { Button, Card, Empty, Form, Input, message, Modal, Select, Spin } from 'antd';
 import { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import amrFlag from "../../assets/images/amrFlag.jpg";
+import chinaflag from "../../assets/images/chinaflag.jpg";
+import denmarkflag from "../../assets/images/denmarkflag.jpg"; // fidland
+import diamondAchieversText from "../../assets/images/diamondAchieversText.svg";
+import estoniaFlag from "../../assets/images/estoniaFlag.png";
+import finlandFlag from "../../assets/images/finlandFlag.png";
+import japanFlag from "../../assets/images/Flag_of_Japan.png";
+import hongkongFLag from "../../assets/images/hongkongFlag.png";
+import hungaryFlag from "../../assets/images/hungaryFlag.png";
+import indFlag from "../../assets/images/indFlag.jpg";
+import italyFlag from "../../assets/images/italyFlag.png";
+import koreaflag from "../../assets/images/koreaflag.jpg";
+import russiaflag from "../../assets/images/russiaflag.jpg"; //estonia
+import singaporeFlag from "../../assets/images/singaporeFlag.png";
+import turkeyFlag from "../../assets/images/turkeyFlag.png";
+import AchieversHeader from '../../components/molecules/AchieversHeader';
+import { CountryAchiever } from '../../constant/CountryConst';
 import { ListOfCity } from '../../constant/ListOfCity';
 import { ListOfEventAchiever } from '../../constant/ListOfEventAchiever';
 import { useAuth } from '../../context/DataContext';
@@ -16,7 +34,8 @@ const { Option } = Select;
 const { Search } = Input;
 
 const DiamondAchievers = () => {
-    const { currentUser } = useAuth();
+    const { currentUser, isMobileAndSmaller } = useAuth();
+    const { t } = useTranslation();
     const isAdmin = currentUser?.role === 'admin';
 
     // State Management
@@ -117,19 +136,16 @@ const DiamondAchievers = () => {
     };
 
     return (
-        <div style={{ background: '#121212', minHeight: '100vh', padding: '40px 20px' }}>
+        <div style={{ minHeight: '100vh', padding: '40px 20px' }}>
             <div className="container">
                 {/* Header */}
-                <div className="row mb-4">
-                    <div className="col text-center">
-                        <h1 className="mangolaineFont goldenTextColor" style={{ fontSize: '8vmin', marginBottom: 16 }}>
-                            DIAMOND ACHIEVERS
-                        </h1>
-                        <p style={{ color: '#e5cc92', fontSize: '18px' }}>
-                            Celebrating our talented performers
-                        </p>
-                    </div>
-                </div>
+                <AchieversHeader
+                    title={`${t("Acv3")}`}
+                    subTitle={t("Acv3A")}
+                    image={diamondAchieversText}
+                    description={t("Acv4")}
+                    description2={t("Acv4A")}
+                    description3={t("Acv4B")} />
 
                 {/* Filters */}
                 <div className="row mb-4" style={{ background: '#1E1E1E', padding: '24px', borderRadius: '12px' }}>
@@ -237,92 +253,145 @@ const DiamondAchievers = () => {
                     </div>
                 ) : (
                     <div className="row g-4">
-                        {filteredAchievers.map((achiever, index) => (
-                            <div key={achiever.id || index} className="col-md-4 col-sm-6">
-                                <Card
-                                    style={{
-                                        background: '#1E1E1E',
-                                        borderColor: '#333',
-                                        borderRadius: '12px',
-                                        height: '100%',
-                                        transition: 'all 0.3s ease'
-                                    }}
-                                    hoverable
-                                    onMouseEnter={(e) => {
-                                        e.currentTarget.style.borderColor = '#EBBC64';
-                                        e.currentTarget.style.transform = 'translateY(-4px)';
-                                    }}
-                                    onMouseLeave={(e) => {
-                                        e.currentTarget.style.borderColor = '#333';
-                                        e.currentTarget.style.transform = 'translateY(0)';
-                                    }}
-                                >
-                                    <div style={{ marginBottom: 16 }}>
-                                        <h3 style={{
-                                            color: '#EBBC64',
-                                            fontSize: '18px',
-                                            marginBottom: 8,
-                                            minHeight: '48px'
-                                        }}>
-                                            {achiever.name}
-                                        </h3>
-                                        <p style={{ color: '#e5cc92', marginBottom: 4 }}>
-                                            📍 {achiever.country}
-                                        </p>
-                                    </div>
+                        {filteredAchievers.map((achiever, index) => {
+                            const flagIcon = (country) => {
+                                switch (country) {
+                                    case CountryAchiever.DNMRK:
+                                        return denmarkflag;
 
-                                    {/* Events */}
-                                    <div style={{ marginBottom: 16 }}>
-                                        <div style={{
-                                            color: '#999',
-                                            fontSize: '12px',
-                                            marginBottom: 8
-                                        }}>
-                                            Events:
+                                    case CountryAchiever.IDN:
+                                        return indFlag;
+
+                                    case CountryAchiever.KR:
+                                        return koreaflag;
+
+                                    case CountryAchiever.RSA:
+                                        return russiaflag;
+
+                                    case CountryAchiever.CHI:
+                                        return chinaflag;
+
+                                    case CountryAchiever.AMR:
+                                        return amrFlag;
+
+                                    case CountryAchiever.JP:
+                                        return japanFlag;
+
+                                    case CountryAchiever.ITL:
+                                        return italyFlag;
+
+                                    case CountryAchiever.FIN:
+                                        return finlandFlag;
+
+                                    case CountryAchiever.HUN:
+                                        return hungaryFlag;
+
+                                    case CountryAchiever.HK:
+                                        return hongkongFLag;
+
+                                    case CountryAchiever.SR:
+                                        return singaporeFlag;
+
+                                    case CountryAchiever.TRK:
+                                        return turkeyFlag;
+
+                                    case CountryAchiever.EST:
+                                        return estoniaFlag;
+
+                                    default:
+                                        return indFlag;
+
+                                }
+                            }
+                            return (
+                                <div key={achiever.id || index} className="col-md-4 col-sm-6">
+                                    <Card
+                                        style={{
+                                            background: '#1E1E1E',
+                                            borderColor: '#333',
+                                            borderRadius: '12px',
+                                            height: '100%',
+                                            transition: 'all 0.3s ease'
+                                        }}
+                                        hoverable
+                                        onMouseEnter={(e) => {
+                                            e.currentTarget.style.borderColor = '#EBBC64';
+                                            e.currentTarget.style.transform = 'translateY(-4px)';
+                                        }}
+                                        onMouseLeave={(e) => {
+                                            e.currentTarget.style.borderColor = '#333';
+                                            e.currentTarget.style.transform = 'translateY(0)';
+                                        }}
+                                    >
+                                        <div style={{ marginBottom: 16 }}>
+                                            <h3 style={{
+                                                color: '#EBBC64',
+                                                fontSize: '18px',
+                                                marginBottom: 8,
+                                                minHeight: '48px'
+                                            }}>
+                                                {achiever.name}
+                                            </h3>
+
+                                            <p style={{ color: '#e5cc92', marginBottom: 4 }}>
+
+                                                <img src={flagIcon(achiever.country)} alt={"indFlag"} style={{ marginRight: 13, width: 25 }} /> {achiever.city}
+                                            </p>
                                         </div>
-                                        {achiever.event && achiever.event.length > 0 ? (
-                                            achiever.event.map((eventKey, idx) => (
-                                                <div
-                                                    key={idx}
+
+                                        {/* Events */}
+                                        <div style={{ marginBottom: 16 }}>
+                                            <div style={{
+                                                color: '#999',
+                                                fontSize: '12px',
+                                                marginBottom: 8
+                                            }}>
+                                                Events:
+                                            </div>
+                                            {achiever.event && achiever.event.length > 0 ? (
+                                                achiever.event.map((eventKey, idx) => (
+                                                    <div
+                                                        key={idx}
+                                                        style={{
+                                                            background: '#2a2a2a',
+                                                            padding: '4px 8px',
+                                                            borderRadius: '4px',
+                                                            marginBottom: '4px',
+                                                            fontSize: '11px',
+                                                            color: '#ccc'
+                                                        }}
+                                                    >
+                                                        {ListOfEventAchiever[eventKey] || eventKey}
+                                                    </div>
+                                                ))
+                                            ) : (
+                                                <span style={{ color: '#666', fontSize: '12px' }}>
+                                                    No events listed
+                                                </span>
+                                            )}
+                                        </div>
+
+                                        {/* YouTube Button */}
+                                        {achiever.YoutubeLink &&
+                                            achiever.YoutubeLink !== "-" &&
+                                            achiever.YoutubeLink !== "" && (
+                                                <Button
+                                                    type="primary"
+                                                    icon={<YoutubeOutlined />}
+                                                    onClick={() => openYoutubeLink(achiever.YoutubeLink)}
                                                     style={{
-                                                        background: '#2a2a2a',
-                                                        padding: '4px 8px',
-                                                        borderRadius: '4px',
-                                                        marginBottom: '4px',
-                                                        fontSize: '11px',
-                                                        color: '#ccc'
+                                                        width: '100%',
+                                                        background: '#FF0000',
+                                                        borderColor: '#FF0000'
                                                     }}
                                                 >
-                                                    {ListOfEventAchiever[eventKey] || eventKey}
-                                                </div>
-                                            ))
-                                        ) : (
-                                            <span style={{ color: '#666', fontSize: '12px' }}>
-                                                No events listed
-                                            </span>
-                                        )}
-                                    </div>
-
-                                    {/* YouTube Button */}
-                                    {achiever.YoutubeLink &&
-                                        achiever.YoutubeLink !== "-" &&
-                                        achiever.YoutubeLink !== "" && (
-                                            <Button
-                                                type="primary"
-                                                icon={<YoutubeOutlined />}
-                                                onClick={() => openYoutubeLink(achiever.YoutubeLink)}
-                                                style={{
-                                                    width: '100%',
-                                                    background: '#FF0000',
-                                                    borderColor: '#FF0000'
-                                                }}
-                                            >
-                                                Watch Performance
-                                            </Button>
-                                        )}
-                                </Card>
-                            </div>
-                        ))}
+                                                    Watch Performance
+                                                </Button>
+                                            )}
+                                    </Card>
+                                </div>
+                            )
+                        })}
                     </div>
                 )}
             </div>

@@ -24,7 +24,8 @@ export const migrateAchieversToFirestore = async (dataDiamond) => {
 
             batch.set(achieverDoc, {
                 name: achiever.name,
-                country: achiever.country,
+                city: achiever.country,
+                country: "indonesia",
                 YoutubeLink: achiever.YoutubeLink || "",
                 event: achiever.event || [],
                 createdAt: new Date().toISOString(),
