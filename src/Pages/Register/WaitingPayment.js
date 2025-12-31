@@ -58,7 +58,7 @@ const WaitingPaymentPage = () => {
 
     if (status === 'PAID') {
         return (
-            <div className="container" style={{ paddingTop: '100px', textAlign: 'center', color: '#e5cc92' }}>
+            <div className="container" style={{ height: '100vh', paddingTop: '100px', textAlign: 'center', color: '#e5cc92' }}>
 
                 <Result
                     status="success"

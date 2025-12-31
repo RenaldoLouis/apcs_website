@@ -880,6 +880,7 @@ const RegistrantDashboard = () => {
                         'No.': index + 1,
                         'Name': combinedNames,
                         'Instrument Category': registrant.instrumentCategory || '-',
+                        // 'birthCert': registrant.birthCertS3Link || '-',
                         'Repertoire PDF': registrant.pdfRepertoireS3Link || '-',
                         'Video Performance': registrant.videoPerformanceS3Link || '-',
                         'Duration': formatDuration(registrant.videoDuration),
@@ -893,6 +894,7 @@ const RegistrantDashboard = () => {
                             'Name': performer.fullName
                                 ? performer.fullName
                                 : `${performer.firstName} ${performer.lastName}`,
+                            // 'birthCert': registrant.birthCertS3Link || '-',
                             'Instrument Category': registrant.instrumentCategory || '-',
                             'Repertoire PDF': registrant.pdfRepertoireS3Link || '-',
                             'Video Performance': registrant.videoPerformanceS3Link || '-',
@@ -940,6 +942,7 @@ const RegistrantDashboard = () => {
                 };
 
                 const linkColumns = [
+                    // 'birthCert',
                     'Repertoire PDF',
                     'Video Performance'
                 ];
