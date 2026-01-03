@@ -10,6 +10,7 @@ import { auth, db, provider } from '../firebase';
 import FirebaseApi from '../middleware/firebaseApi';
 
 const DataContext = createContext();
+const SESSION_DURATION_MS = 60 * 60 * 1000; // 1 Hour in milliseconds
 
 export const useAuth = () => useContext(DataContext);
 
@@ -28,46 +29,88 @@ export const DataContextProvider = ({ children }) => {
 
     useEffect(() => {
         const unsubscribe = auth.onAuthStateChanged(async (user) => {
-            if (user) {
-                try {
-                    // 1. Get the Auth Token
-                    const token = await user.getIdToken();
+            const sessionStart = localStorage.getItem("sessionStart");
 
-                    // 2. FETCH THE ROLE from Firestore using the user.uid
+            // Helper function to handle logout
+            const forceLogout = async () => {
+                await signOut(auth);
+                localStorage.removeItem("sessionStart");
+                setLoggedInUser(null);
+                navigate("/login");
+                toast.info("Session expired. Please log in again.");
+            };
+
+            if (user && sessionStart) {
+                const now = Date.now();
+                const timeElapsed = now - parseInt(sessionStart, 10);
+
+                // CHECK 1: Has the session already expired?
+                if (timeElapsed > SESSION_DURATION_MS) {
+                    console.log("Session expired on load");
+                    await forceLogout();
+                    setLoading(false);
+                    return; // Stop execution here
+                }
+
+                // CHECK 2: If valid, set a timer to auto-logout when the hour ends
+                const timeRemaining = SESSION_DURATION_MS - timeElapsed;
+                console.log(`Session valid. Auto-logout in ${Math.round(timeRemaining / 60000)} minutes.`);
+
+                // const autoLogoutTimer = setTimeout(() => {
+                //     console.log("Time limit reached. Logging out...");
+                //     forceLogout();
+                // }, timeRemaining);
+
+                try {
+                    // --- Your Existing Logic ---
+                    const token = await user.getIdToken();
                     const userDocRef = doc(db, "users", user.uid);
                     const userDocSnap = await getDoc(userDocRef);
 
                     let firestoreData = {};
                     if (userDocSnap.exists()) {
-                        firestoreData = userDocSnap.data(); // This object contains { role: 'admin', ... }
+                        firestoreData = userDocSnap.data();
                     }
 
-                    // 3. Merge Auth data + Token + Firestore data (Role)
                     setLoggedInUser({
                         ...user,
                         token,
-                        ...firestoreData // This adds the 'role' to your state object
+                        ...firestoreData
                     });
 
-                    const userRole = firestoreData.role
-                    if (userRole === 'admin' || userRole === 'subadmin') {
-                        navigate("/adminDashboard");
-                    } else if (userRole === 'jury') {
-                        // Handle other roles (e.g., jury)
-                        navigate("/juryDashboard");
-                    } else {
-                        navigate("/login");
+                    const userRole = firestoreData.role;
+
+                    // Only navigate if we are currently on the login page
+                    // (Prevents redirection loops if user is already on a dashboard)
+                    if (window.location.pathname === '/login') {
+                        if (userRole === 'admin' || userRole === 'subadmin') {
+                            navigate("/adminDashboard");
+                        } else if (userRole === 'jury') {
+                            navigate("/juryDashboard");
+                        } else {
+                            navigate("/login");
+                        }
                     }
 
                 } catch (error) {
-                    console.error("Error fetching user details on refresh:", error);
+                    console.error("Error fetching user details:", error);
                     setLoggedInUser(null);
                 }
-            } else {
+
+                // Clean up the timer if the component unmounts or auth state changes
+                // return () => clearTimeout(autoLogoutTimer);
+
+            }
+            // else if (user && !sessionStart) {
+            //     // Edge case: User is logged in but has no timestamp (e.g. from before this update)
+            //     // Either force logout OR set a new timestamp. For security, usually force logout.
+            //     await forceLogout();
+            // }
+            else {
+                // No user found
                 setLoggedInUser(null);
             }
 
-            // 4. Stop loading ONLY after the Firestore fetch is complete
             setLoading(false);
         });
 
@@ -80,25 +123,20 @@ export const DataContextProvider = ({ children }) => {
             const result = await signInWithPopup(auth, provider);
             const user = result.user;
 
-            // 2. Check if user exists in Firestore 'users' collection
+            // 2. Check if user exists in Firestore
             const userDocRef = doc(db, "users", user.uid);
             const userDocSnap = await getDoc(userDocRef);
 
             let userRole = null;
 
             if (userDocSnap.exists()) {
-                // CASE A: User already exists in DB, get their role
-                const userData = userDocSnap.data();
-                userRole = userData.role;
+                userRole = userDocSnap.data().role;
             } else {
-                // CASE B: User is new. Check whitelist to see if they are allowed.
-                // Note: This relies on your existing FirebaseApi.getWhitelist() logic
                 const whitelistDatas = await FirebaseApi.getWhitelist();
                 const isWhitelisted = whitelistDatas.some(data => data.id === user.email);
 
                 if (isWhitelisted) {
-                    // Create the user in DB with a role
-                    userRole = "admin"; // Or derive from whitelist if you store roles there
+                    userRole = "admin";
                     await setDoc(userDocRef, {
                         email: user.email,
                         role: userRole,
@@ -109,18 +147,16 @@ export const DataContextProvider = ({ children }) => {
 
             // 3. Final Access Check
             if (userRole) {
-                // Get token
-                const token = await user.getIdToken();
+                localStorage.setItem("sessionStart", Date.now().toString());
+                // ---------------------------------------
 
-                // Save user AND role to state
+                const token = await user.getIdToken();
                 setLoggedInUser({ ...user, token, role: userRole });
 
-                // Navigate based on role (optional)
                 if (userRole === 'admin' || userRole === 'subadmin') {
                     navigate("/adminDashboard");
                 }
             } else {
-                // User not in DB and not in whitelist
                 toast.error("Account is not authorized.");
                 await signOut(auth);
             }
@@ -143,26 +179,28 @@ export const DataContextProvider = ({ children }) => {
 
             let userData = null;
             let userRole = null;
+            localStorage.setItem("sessionStart", Date.now().toString());
 
             if (userDocSnap.exists()) {
                 // CASE A: User already exists in DB, get their role
                 const userDataSnap = userDocSnap.data();
                 userData = userDataSnap;
                 userRole = userData?.role;
-            } else {
-                // CASE B: New User -> Check Whitelist
-                const whitelistDatas = await FirebaseApi.getWhitelist();
-                const isWhitelisted = whitelistDatas.some(data => data.id === user.email);
-
-                if (isWhitelisted) {
-                    userRole = "admin"; // Default role for whitelisted users
-                    await setDoc(userDocRef, {
-                        email: user.email,
-                        role: userRole,
-                        createdAt: new Date()
-                    });
-                }
             }
+            // else {
+            //     // CASE B: New User -> Check Whitelist
+            //     const whitelistDatas = await FirebaseApi.getWhitelist();
+            //     const isWhitelisted = whitelistDatas.some(data => data.id === user.email);
+
+            //     if (isWhitelisted) {
+            //         userRole = "admin"; // Default role for whitelisted users
+            //         await setDoc(userDocRef, {
+            //             email: user.email,
+            //             role: userRole,
+            //             createdAt: new Date()
+            //         });
+            //     }
+            // }
 
             // 3. Final Access Check & State Update
             if (userRole) {
@@ -200,11 +238,17 @@ export const DataContextProvider = ({ children }) => {
     const signOut = async (withoutToast = false) => {
         try {
             await auth.signOut();
+
+            // --- NEW: Clear session timer ---
+            localStorage.removeItem("sessionStart");
+            // --------------------------------
+
             setLoggedInUser(null);
             if (!withoutToast) {
-                toast.success("Succesfully Sign Out")
+                toast.success("Successfully Sign Out");
             }
         } catch (e) {
+            console.error("Sign out error", e);
             toast.error("Sign Out Failed");
         }
     };
