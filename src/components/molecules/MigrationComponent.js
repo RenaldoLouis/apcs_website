@@ -1,7 +1,8 @@
 import { CheckCircleOutlined, UploadOutlined } from '@ant-design/icons';
 import { Alert, Button, Card, Progress, Space } from 'antd';
 import { useState } from 'react';
-import { migrateAchieversToFirestore } from '../../utils/AchieversMigration';
+import { dataDiamond } from '../../constant/datas/DummyDiamondAchieverData';
+import { migrateAchieversToFirestore, syncAchieversWithFirestore } from '../../utils/AchieversMigration';
 
 /**
  * ONE-TIME MIGRATION COMPONENT
@@ -47,6 +48,15 @@ const MigrationComponent = () => {
         } finally {
             setMigrating(false);
         }
+    };
+
+    const handleSync = async () => {
+        setMigrating(true);
+        // ...
+        // Call the new sync function with your data
+        await syncAchieversWithFirestore(dataDiamond);
+
+        setMigrating(false);
     };
 
     return (
@@ -139,6 +149,21 @@ const MigrationComponent = () => {
                             }}
                         >
                             {migrated ? 'Migration Complete' : 'Start Migration'}
+                        </Button>
+                        <Button
+                            type="secondary"
+                            size="medium"
+                            icon={<UploadOutlined />}
+                            onClick={handleSync}
+                            loading={migrating}
+                            disabled={migrated}
+                            style={{
+                                background: migrated ? '#52c41a' : '#EBBC64',
+                                borderColor: migrated ? '#52c41a' : '#EBBC64',
+                                color: '#000'
+                            }}
+                        >
+                            {migrated ? 'Sync Complete' : 'Start Sync'}
                         </Button>
 
                         {migrated && (
