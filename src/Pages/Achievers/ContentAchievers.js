@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import diamondAchieversText from "../../assets/images/diamondAchieversText.svg";
 import saphireAchieverText from "../../assets/images/saphireAchieverText.svg";
 import textureBackgroundLong from "../../assets/images/textureBackgroundLong.png";
 import AchieversHeader from "../../components/molecules/AchieversHeader";
@@ -101,7 +100,7 @@ const ContentAchievers = (props) => {
                 </div>
             )}
 
-            <div style={{ paddingTop: 150 }}>
+            {/* <div style={{ paddingTop: 150 }}>
                 <AchieversHeader
                     title={`${t("Acv3")}`}
                     subTitle={t("Acv3A")}
@@ -123,7 +122,7 @@ const ContentAchievers = (props) => {
                         </div>
                     </div>
                 )}
-            </div>
+            </div> */}
             <DiamondAchievers />
 
             <GoldSection />

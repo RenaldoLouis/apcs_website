@@ -376,13 +376,15 @@ const DiamondAchievers = () => {
                                             achiever.YoutubeLink !== "-" &&
                                             achiever.YoutubeLink !== "" && (
                                                 <Button
-                                                    type="primary"
                                                     icon={<YoutubeOutlined />}
                                                     onClick={() => openYoutubeLink(achiever.YoutubeLink)}
                                                     style={{
                                                         width: '100%',
-                                                        background: '#FF0000',
-                                                        borderColor: '#FF0000'
+                                                        backgroundColor: 'transparent',
+                                                        borderColor: '#e5cc92', // Elegant gold
+                                                        color: '#e5cc92',
+                                                        borderWidth: '2px',
+                                                        fontWeight: 600,
                                                     }}
                                                 >
                                                     Watch Performance
