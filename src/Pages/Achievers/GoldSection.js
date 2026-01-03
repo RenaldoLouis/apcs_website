@@ -51,10 +51,50 @@ const GoldSection = () => {
                     </div>
                 </div>
             </div>
-
-            <div className="container">
-                <div className="row">
-                    <div className="col-12 col-md-3 gy-5 gy-md-1">
+            <div className="container ">
+                <div className="row py-4 gy-5">
+                    <div className="col-12 col-md-3">
+                        <FormControl fullWidth>
+                            <InputLabel
+                                className="mosafinFont"
+                                id="soundOfAsiaSelectInput"
+                                sx={{
+                                    color: 'white',
+                                    '&.Mui-focused': {
+                                        color: 'white',
+                                    },
+                                }}
+                            >
+                                Sound Of Asia
+                            </InputLabel>
+                            <Select
+                                className="mosafinFont"
+                                labelId="soundOfAsiaSelectLabel"
+                                id="soundOfAsiaSelect"
+                                label="SoundOfAsia"
+                                onChange={handleChange}
+                                sx={{
+                                    color: 'white',
+                                    '.MuiOutlinedInput-notchedOutline': {
+                                        borderColor: 'white',
+                                    },
+                                    '&:hover .MuiOutlinedInput-notchedOutline': {
+                                        borderColor: 'white',
+                                    },
+                                    '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                                        borderColor: 'white',
+                                    },
+                                    '& .MuiSvgIcon-root': {
+                                        color: 'white',
+                                    },
+                                }}
+                            >
+                                <MenuItem value={"https://www.instagram.com/p/DPtxueUD9ii/?img_index=2"}>Gold</MenuItem>
+                                <MenuItem value={"https://www.instagram.com/p/DPtwwbzj_0s/?img_index=2"}>Silver</MenuItem>
+                            </Select>
+                        </FormControl>
+                    </div>
+                    <div className="col-12 col-md-3">
                         {/* <Button
                             style={{
                                 borderRadius: 5,
@@ -102,7 +142,7 @@ const GoldSection = () => {
                             </Select>
                         </FormControl>
                     </div>
-                    <div className="col-12 col-md-3 gy-5 gy-md-1">
+                    <div className="col-12 col-md-3">
                         {/* <Button
                             style={{
                                 borderRadius: 5,
@@ -151,7 +191,7 @@ const GoldSection = () => {
                             </Select>
                         </FormControl>
                     </div>
-                    <div className="col-12 col-md-3 gy-5 gy-md-1">
+                    <div className="col-12 col-md-3">
                         {/* <Button
                             style={{
                                 borderRadius: 5,
@@ -200,7 +240,7 @@ const GoldSection = () => {
                             </Select>
                         </FormControl>
                     </div>
-                    <div className="col-12 col-md-3 gy-5 gy-md-1">
+                    <div className="col-12 col-md-3">
                         <FormControl fullWidth>
                             <InputLabel
                                 className="mosafinFont"
