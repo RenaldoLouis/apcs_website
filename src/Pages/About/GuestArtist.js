@@ -1,27 +1,31 @@
-import React from "react";
+import artist1 from "../../assets/images/guestArtist/artist1.png";
+import artist10 from "../../assets/images/guestArtist/artist10.png";
+import artist11 from "../../assets/images/guestArtist/artist11.png";
+import artist12 from "../../assets/images/guestArtist/artist12.png";
+import artist13 from "../../assets/images/guestArtist/artist13.png";
+import artist14 from "../../assets/images/guestArtist/artist14.png";
+import artist15 from "../../assets/images/guestArtist/artist15.png";
+import artist16 from "../../assets/images/guestArtist/artist16.png";
+import artist2 from "../../assets/images/guestArtist/artist2.png";
+import artist3 from "../../assets/images/guestArtist/artist3.png";
+import artist4 from "../../assets/images/guestArtist/artist4.png";
+import artist5 from "../../assets/images/guestArtist/artist5.png";
+import artist6 from "../../assets/images/guestArtist/artist6.png";
+import artist7 from "../../assets/images/guestArtist/artist7.png";
+import artist8 from "../../assets/images/guestArtist/artist8.png";
+import artist9 from "../../assets/images/guestArtist/artist9.png";
+import dionysus from "../../assets/images/guestArtist/dionysus.jpg";
+import DSV from "../../assets/images/guestArtist/DSV.jpg";
+import parami from "../../assets/images/guestArtist/parami.jpg";
+import svara from "../../assets/images/guestArtist/svara.jpg";
+import woodies from "../../assets/images/guestArtist/woodies.jpg";
+import indFlag from "../../assets/images/indFlag.jpg";
+import AnimatedComponent from "../../components/atom/AnimatedComponent";
+import HeaderAbout from "../../components/atom/HeaderAbout";
 import HeaderTitle from "../../components/atom/HeaderTitle";
-import artist1 from "../../assets/images/guestArtist/artist1.png"
-import artist2 from "../../assets/images/guestArtist/artist2.png"
-import artist3 from "../../assets/images/guestArtist/artist3.png"
-import artist4 from "../../assets/images/guestArtist/artist4.png"
-import artist5 from "../../assets/images/guestArtist/artist5.png"
-import artist6 from "../../assets/images/guestArtist/artist6.png"
-import artist7 from "../../assets/images/guestArtist/artist7.png"
-import artist8 from "../../assets/images/guestArtist/artist8.png"
-import artist9 from "../../assets/images/guestArtist/artist9.png"
-import artist10 from "../../assets/images/guestArtist/artist10.png"
-import artist11 from "../../assets/images/guestArtist/artist11.png"
-import artist12 from "../../assets/images/guestArtist/artist12.png"
-import artist13 from "../../assets/images/guestArtist/artist13.png"
-import artist14 from "../../assets/images/guestArtist/artist14.png"
-import artist15 from "../../assets/images/guestArtist/artist15.png"
-import artist16 from "../../assets/images/guestArtist/artist16.png"
 import GuestArtistCard from "../../components/molecules/GuestArtisCard";
 import { CountryConst } from "../../constant/CountryConst";
-import HeaderAbout from "../../components/atom/HeaderAbout";
-import indFlag from "../../assets/images/indFlag.jpg"
 import { useAuth } from "../../context/DataContext";
-import AnimatedComponent from "../../components/atom/AnimatedComponent";
 
 const GuestArtist = () => {
 
@@ -118,6 +122,12 @@ const GuestArtist = () => {
             country: [CountryConst.IDN],
             title: "Guitarist",
         },
+        {
+            name: "Dionisius Clyde",
+            image: dionysus,
+            country: [CountryConst.IDN],
+            title: "Pianist",
+        },
     ]
 
     return (
@@ -145,8 +155,78 @@ const GuestArtist = () => {
                                         <img src={artist16} alt="artist16" style={{ width: "100%" }} />
                                         <div className="d-flex justify-content-center" style={{ fontSize: 40, marginTop: 30 }}>
                                             CMC Choir
-                                            {/* <img src={indFlag} alt={"indFlag"} style={{}} /> */}
+                                        </div>
+                                    </div>
+                                    <div className="col-12 col-md-12" style={{ marginTop: 0 }}>
+                                        <div className="d-flex justify-content-center" style={{ fontSize: 40 }}>
+                                            <img src={indFlag} alt={"indFlag"} style={{}} />
 
+                                        </div>
+                                    </div>
+                                    <div className="col-12 col-md-2" style={{ padding: 50 }} />
+                                </div>
+                            </AnimatedComponent>
+                            <AnimatedComponent animationClass="animate__fadeIn">
+                                <div className="row gx-5 gy-5">
+                                    <div className="col-12 col-md-2" style={{ padding: 50 }} />
+                                    <div className="col-12 col-md-8">
+                                        <img src={svara} alt="svara" style={{ width: "100%" }} />
+                                        <div className="d-flex justify-content-center" style={{ fontSize: 40, marginTop: 30 }}>
+                                            Svara Prasetya
+                                        </div>
+                                    </div>
+                                    <div className="col-12 col-md-12" style={{ marginTop: 0 }}>
+                                        <div className="d-flex justify-content-center" style={{ fontSize: 40 }}>
+                                            <img src={indFlag} alt={"indFlag"} style={{}} />
+
+                                        </div>
+                                    </div>
+                                    <div className="col-12 col-md-2" style={{ padding: 50 }} />
+                                </div>
+                            </AnimatedComponent>
+                            <AnimatedComponent animationClass="animate__fadeIn">
+                                <div className="row gx-5 gy-5">
+                                    <div className="col-12 col-md-2" style={{ padding: 50 }} />
+                                    <div className="col-12 col-md-8">
+                                        <img src={DSV} alt="DSV" style={{ width: "100%" }} />
+                                        <div className="d-flex justify-content-center" style={{ fontSize: 40, marginTop: 30 }}>
+                                            Dux Stella Voce Choir
+                                        </div>
+                                    </div>
+                                    <div className="col-12 col-md-12" style={{ marginTop: 0 }}>
+                                        <div className="d-flex justify-content-center" style={{ fontSize: 40 }}>
+                                            <img src={indFlag} alt={"indFlag"} style={{}} />
+
+                                        </div>
+                                    </div>
+                                    <div className="col-12 col-md-2" style={{ padding: 50 }} />
+                                </div>
+                            </AnimatedComponent>
+                            <AnimatedComponent animationClass="animate__fadeIn">
+                                <div className="row gx-5 gy-5">
+                                    <div className="col-12 col-md-2" style={{ padding: 50 }} />
+                                    <div className="col-12 col-md-8">
+                                        <img src={parami} alt="parami" style={{ width: "100%" }} />
+                                        <div className="d-flex justify-content-center" style={{ fontSize: 40, marginTop: 30 }}>
+                                            Parami Harmony
+                                        </div>
+                                    </div>
+                                    <div className="col-12 col-md-12" style={{ marginTop: 0 }}>
+                                        <div className="d-flex justify-content-center" style={{ fontSize: 40 }}>
+                                            <img src={indFlag} alt={"indFlag"} style={{}} />
+
+                                        </div>
+                                    </div>
+                                    <div className="col-12 col-md-2" style={{ padding: 50 }} />
+                                </div>
+                            </AnimatedComponent>
+                            <AnimatedComponent animationClass="animate__fadeIn">
+                                <div className="row gx-5 gy-5">
+                                    <div className="col-12 col-md-2" style={{ padding: 50 }} />
+                                    <div className="col-12 col-md-8">
+                                        <img src={woodies} alt="woodies" style={{ width: "100%" }} />
+                                        <div className="d-flex justify-content-center" style={{ fontSize: 40, marginTop: 30 }}>
+                                            Woodies Symphony
                                         </div>
                                     </div>
                                     <div className="col-12 col-md-12" style={{ marginTop: 0 }}>
