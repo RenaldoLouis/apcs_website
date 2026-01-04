@@ -47,26 +47,6 @@ const COLORS = {
     subText: '#aaaaaa',
     border: '#333333'
 };
-
-/**
- * Get S3 presigned URL for private files
- */
-// const getPresignedUrl = async (s3Link) => {
-//     if (!s3Link || !s3Link.startsWith('s3://')) return null;
-
-//     try {
-//         const key = s3Link.replace('s3://registrants2025/', '');
-//         const command = new GetObjectCommand({
-//             Bucket: 'registrants2025',
-//             Key: key
-//         });
-//         return await getSignedUrl(s3, command, { expiresIn: 3600 }); // 1 hour
-//     } catch (error) {
-//         console.error('Error generating presigned URL:', error);
-//         return null;
-//     }
-// };
-
 /**
  * Map age category key to full description
  */
@@ -261,30 +241,6 @@ const JuryDashboard = () => {
         }
     };
 
-    /**
-     * Open video modal with S3 presigned URL
-     */
-    // const openVideo = async (s3Link) => {
-    //     setLoadingVideo(true);
-    //     setVideoModalOpen(true);
-
-    //     try {
-    //         const videoUrl = await getPresignedUrl(s3Link);
-    //         if (videoUrl) {
-    //             setCurrentVideo(videoUrl);
-    //         } else {
-    //             message.error('Failed to load video');
-    //             setVideoModalOpen(false);
-    //         }
-    //     } catch (error) {
-    //         console.error('Error loading video:', error);
-    //         message.error('Failed to load video');
-    //         setVideoModalOpen(false);
-    //     } finally {
-    //         setLoadingVideo(false);
-    //     }
-    // };
-
     const openVideo = async (s3Link) => {
         setLoadingVideo(true);
         setVideoModalOpen(true);
@@ -309,6 +265,7 @@ const JuryDashboard = () => {
     /**
      * Open PDF in new tab
      */
+    // TODO: create signed URL from service to prevent denied access
     const openPDF = async (s3Link) => {
         // try {
         //     const pdfUrl = await getPresignedUrl(s3Link);
