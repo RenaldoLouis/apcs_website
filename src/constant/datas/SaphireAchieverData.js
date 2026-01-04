@@ -2,6 +2,10 @@
 import { ListOfCity } from "../../constant/ListOfCity";
 import { ListOfEventAchiever } from "../../constant/ListOfEventAchiever";
 
+import cathleen from "../../assets/images/saphireAchiever/cathleen.jpg";
+import charice from "../../assets/images/saphireAchiever/charice.jpg";
+import fatima from "../../assets/images/saphireAchiever/fatima.jpg";
+import glow from "../../assets/images/saphireAchiever/glow.jpg";
 import saphireAchievers1 from "../../assets/images/saphireAchiever/saphireAchievers1.png";
 import saphireAchievers10 from "../../assets/images/saphireAchiever/saphireAchievers10.png";
 import saphireAchievers11 from "../../assets/images/saphireAchiever/saphireAchievers11.png";
@@ -35,6 +39,7 @@ import saphireAchievers6 from "../../assets/images/saphireAchiever/saphireAchiev
 import saphireAchievers7 from "../../assets/images/saphireAchiever/saphireAchievers7.png";
 import saphireAchievers8 from "../../assets/images/saphireAchiever/saphireAchievers8.png";
 import saphireAchievers9 from "../../assets/images/saphireAchiever/saphireAchievers9.png";
+import sherleen from "../../assets/images/saphireAchiever/sherleen.jpg";
 
 
 export const SapphireWinners = [
@@ -268,5 +273,40 @@ export const SapphireWinners = [
         "country": "Tangerang",
         "YoutubeLink": "",
         "event": [ListOfEventAchiever["2022MAGICMUSIC"]],
-    }
+    },
+    {
+        "name": "Cathleen Arabella",
+        "image": cathleen,
+        "country": "Surabaya",
+        "YoutubeLink": "",
+        "event": [ListOfEventAchiever["2025SOUNDASIA"]],
+    },
+    {
+        "name": "Charice Elleanore",
+        "image": charice,
+        "country": "Surabaya",
+        "YoutubeLink": "",
+        "event": [ListOfEventAchiever["2025SOUNDASIA"]],
+    },
+    {
+        "name": "Sherleen Emmanuel",
+        "image": sherleen,
+        "country": "Tangerang",
+        "YoutubeLink": "",
+        "event": [ListOfEventAchiever["2025SOUNDASIA"]],
+    },
+    {
+        "name": "Glow Presley",
+        "image": glow,
+        "country": "Surabaya",
+        "YoutubeLink": "",
+        "event": [ListOfEventAchiever["2025SOUNDASIA"]],
+    },
+    {
+        "name": "Fatima Sofia",
+        "image": fatima,
+        "country": "Tangerang",
+        "YoutubeLink": "",
+        "event": [ListOfEventAchiever["2025SOUNDASIA"]],
+    },
 ];
