@@ -327,9 +327,7 @@ const GaleryPage = () => {
                 return event;
             });
             setListGaleryContent(updatedEvents)
-            setIsLoading(false)
         }
-        setIsLoading(false)
     }, [videoList, photosList])
 
     useEffect(() => {
