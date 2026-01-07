@@ -90,7 +90,7 @@ const WaitingPaymentPage = () => {
             <Spin indicator={<LoadingOutlined style={{ fontSize: 48, color: '#e5cc92' }} spin />} />
             <h2 style={{ marginTop: 30, color: '#e5cc92' }}>Waiting for Payment...</h2>
             <p style={{ color: '#aaa', textAlign: 'center' }}>
-                We have opened a new tab for you to complete your payment.<br />
+                We have opened a new tab for you to complete your payment or you can check your email or Whatsapp for the invoice if it's no opened.<br />
                 <strong>Please do not close this page.</strong><br />
                 It will update automatically once we receive the confirmation.
             </p>

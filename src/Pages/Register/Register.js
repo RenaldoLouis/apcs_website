@@ -516,8 +516,6 @@ const Register = () => {
                     ]
                 };
 
-                // Call YOUR Node.js Backend
-                // Make sure to create this endpoint in your express app
                 const paperResponse = await apis.payment.createRegistrationInvoice(invoiceRequest);
 
                 console.log("paperResponse", paperResponse)
