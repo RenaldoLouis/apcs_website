@@ -48,7 +48,7 @@ const WinnerEmailSender = () => {
                 message.loading({ content: `Found ${winnerList.length} winners. Preparing to send emails...`, key: 'emailCampaign' });
 
                 // Send the parsed list to your backend API
-                await apis.email.sendEmailWinner(winnerList);
+                await apis.email.sendEmailAnnouncement(winnerList);
 
                 message.success({ content: `Successfully sent campaign for ${winnerList.length} winners!`, key: 'emailCampaign' });
 
