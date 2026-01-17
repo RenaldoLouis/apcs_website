@@ -67,7 +67,7 @@ export default {
   },
   email: {
     sendEmail: (data) => postRequest(`/api/v1/apcs/sendEmail`, data),
-    sendEmailWinner: (data) => postRequest(`/api/v1/apcs/sendEmailWinner`, data),
+    sendEmailAnnouncement: (data) => postRequest(`/api/v1/apcs/sendEmailAnnouncement`, data),
     sendEmailSessionWinner: (data) => postRequest(`/api/v1/apcs/sendEmailSessionWinner`, data),
     sendGeneralSeatingEmail: (data) => postRequest(`/api/v1/apcs/sendGeneralSeatingEmail`, data),
     sendEmailPaymentRequest: (data) => postRequest(`/api/v1/apcs/sendEmailPaymentRequest`, data),
