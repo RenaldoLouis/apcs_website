@@ -1,5 +1,7 @@
-import { Button, Popconfirm, Space } from 'antd';
-
+import {
+    FilePdfOutlined
+} from '@ant-design/icons';
+import { Button, Popconfirm, Space, Tag, Tooltip } from 'antd';
 export const RegistrantsColumns = [
     {
         title: 'Name',
@@ -27,7 +29,7 @@ export const RegistrantsColumns = [
     },
 ];
 
-export const getRegistrants2025Columns = (getAgeCategoryLabel, handleDownloadPDF, handleUpdateStatus, showEditModal, handleDelete, deletingId, handleViewVideo) => [
+export const getRegistrants2025Columns = (getAgeCategoryLabel, handleDownloadPDF, handleUpdateStatus, showEditModal, handleDelete, deletingId, handleViewVideo, handleOpenUploadModal) => [
     { title: "Parent Name", dataIndex: "name" },
     { title: "Teacher Name", dataIndex: "teacherName" },
     { title: "Total Performer", dataIndex: "totalPerformer" },
@@ -148,6 +150,26 @@ export const getRegistrants2025Columns = (getAgeCategoryLabel, handleDownloadPDF
                 </Button>
             );
         },
+    },
+    {
+        title: 'Jury Files',
+        key: 'jury_files',
+        align: 'center',
+        render: (_, record) => (
+            <Space>
+                <Tooltip title="Upload Certificate/Comment Sheet">
+                    <Button
+                        size="small"
+                        type="primary"
+                        ghost
+                        icon={<FilePdfOutlined />}
+                        onClick={() => handleOpenUploadModal(record)}
+                    />
+                </Tooltip>
+                {/* You could add indicators here if files already exist */}
+                {record.certificateS3Link && <Tag color="gold">Cert</Tag>}
+            </Space>
+        )
     },
 ];
 
