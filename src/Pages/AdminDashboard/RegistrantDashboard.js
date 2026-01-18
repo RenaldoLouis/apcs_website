@@ -1,22 +1,16 @@
-import { Button, Form, Input, Layout, message, Modal, Pagination, Progress, Select, Space, Table, theme } from 'antd';
+import {
+    CloudUploadOutlined
+} from '@ant-design/icons';
+import { Button, Form, Input, Layout, List, message, Modal, Pagination, Progress, Select, Space, Table, theme, Upload } from 'antd';
+import axios from 'axios';
 import ExcelJS from "exceljs";
 import * as FileSaver from "file-saver";
 import { saveAs } from "file-saver";
-import { deleteDoc, doc, serverTimestamp, updateDoc } from "firebase/firestore";
+import { collection, deleteDoc, doc, getDocs, serverTimestamp, updateDoc, writeBatch } from "firebase/firestore";
 import JSZip from "jszip";
+import { useRef, useState } from 'react';
 import * as xlsx from 'xlsx';
 import apis from '../../apis';
-import { getRegistrants2025Columns } from '../../constant/RegistrantsColumn';
-import { db } from '../../firebase';
-import usePaginatedRegistrants from '../../hooks/useFetchRegistrantsData';
-
-import { collection, getDocs, writeBatch } from "firebase/firestore";
-import { useRef, useState } from 'react';
-import { extractVideoId, fetchYouTubeDuration } from '../../utils/youtube';
-// Import the new utility functions
-import {
-    List
-} from 'antd';
 import {
     ageCategories,
     brassAgeCategoriesEnsemble,
@@ -36,7 +30,11 @@ import {
     woodwinAgeCategoriesEnsemble,
     woodwinAgeCategoriesSolo
 } from '../../constant/RegisterPageConst';
+import { getRegistrants2025Columns } from '../../constant/RegistrantsColumn';
+import { db } from '../../firebase';
+import usePaginatedRegistrants from '../../hooks/useFetchRegistrantsData';
 import { parseDateString } from '../../utils/Utils';
+import { extractVideoId, fetchYouTubeDuration } from '../../utils/youtube';
 
 // ...other imports
 const { Content } = Layout;
@@ -78,6 +76,12 @@ const RegistrantDashboard = () => {
 
     const [isStatsModalVisible, setIsStatsModalVisible] = useState(false);
     const [teacherStats, setTeacherStats] = useState([]);
+
+    // --- State: Upload Certificate/Comment Sheet ---
+    const [isUploadModalOpen, setIsUploadModalOpen] = useState(false);
+    const [uploadingRecord, setUploadingRecord] = useState(null);
+    const [uploadFileList, setUploadFileList] = useState([]);
+    const [isUploadingCert, setIsUploadingCert] = useState(false);
 
     // 2. Pass the searchTerm to your updated hook
     const {
@@ -1228,9 +1232,6 @@ const RegistrantDashboard = () => {
         }
     };
 
-
-    const columns = getRegistrants2025Columns(getAgeCategoryLabel, handleDownloadPDF, updatePaymentStatus, showEditModal, handleDeleteRegistrant, deletingId, handleViewVideo);
-
     const handleRecheckDurations = async () => {
         setIsUpdating(true);
         setProgress(0);
@@ -1597,6 +1598,78 @@ const RegistrantDashboard = () => {
         // fetchData(); 
     };
 
+    // 4. Upload Certificates / Comments (NEW)
+    const handleOpenUploadModal = (record) => {
+        setUploadingRecord(record);
+        setUploadFileList([]);
+        setIsUploadModalOpen(true);
+    };
+
+    const handleUploadFiles = async () => {
+        if (uploadFileList.length === 0) {
+            message.warning("Please select files to upload.");
+            return;
+        }
+        setIsUploadingCert(true);
+        try {
+            // Determine folder path: Use existing examCert path OR create new one
+            let folderPath = '';
+            if (uploadingRecord.examCertificateS3Link) {
+                // Extract folder from s3 link: s3://bucket/folder/file.pdf
+                const parts = uploadingRecord.examCertificateS3Link.split('/');
+                // parts[3] is usually the folder name in your structure
+                folderPath = parts[3];
+            } else {
+                // Fallback generation
+                const baseName = uploadingRecord.name.replace(/\s/g, "");
+                const timestamp = new Date().toISOString().replace(/[-:.TZ]/g, "").slice(0, 14);
+                folderPath = `${baseName}_${timestamp}`;
+            }
+
+            const updates = {};
+
+            for (const file of uploadFileList) {
+                // Determine file type based on name or user selection (simplifying to name check here)
+                const isCommentSheet = file.name.toLowerCase().includes('comment');
+                const isCertificate = file.name.toLowerCase().includes('certificate');
+
+                // Get Signed URL
+                const res = await apis.aws.postSignedUrl(folderPath, file.name, file.type);
+                const signedUrl = res.data.link;
+
+                // Upload to S3
+                await axios.put(signedUrl, file, {
+                    headers: {
+                        'Content-Type': file.type,
+                    },
+                });
+
+                const s3Link = `s3://registrants2025/${folderPath}/${file.name}`;
+
+                if (isCommentSheet) updates.commentSheetS3Link = s3Link;
+                if (isCertificate) updates.certificateS3Link = s3Link;
+                // Fallback: append to generic array if you have one, or just update arbitrary fields
+            }
+
+            console.log("uploadingRecord.id", uploadingRecord.id)
+            // Update Firestore
+            const docRef = doc(db, 'Registrants2025', uploadingRecord.id);
+            await updateDoc(docRef, updates);
+
+            message.success("Files uploaded successfully!");
+            setIsUploadModalOpen(false);
+            fetchUserData(page);
+
+        } catch (error) {
+            console.error("Upload failed", error);
+            message.error("Failed to upload files.");
+        } finally {
+            setIsUploadingCert(false);
+        }
+    };
+
+    const columns = getRegistrants2025Columns(getAgeCategoryLabel, handleDownloadPDF, updatePaymentStatus, showEditModal, handleDeleteRegistrant, deletingId, handleViewVideo, handleOpenUploadModal);
+
     return (
         <Content
             style={{
@@ -1873,6 +1946,30 @@ const RegistrantDashboard = () => {
                         )}
                     />
                 </div>
+            </Modal>
+            <Modal
+                title="Upload Jury Documents"
+                open={isUploadModalOpen}
+                onCancel={() => setIsUploadModalOpen(false)}
+                onOk={handleUploadFiles}
+                confirmLoading={isUploadingCert}
+                okText="Upload"
+            >
+                <p>Upload <strong>Certificate</strong> or <strong>Comment Sheet</strong> for {uploadingRecord?.name}.</p>
+                <p style={{ fontSize: '12px', color: '#888', marginBottom: '16px' }}>
+                    * Please ensure files are named clearly (e.g., "Certificate.pdf" or "CommentSheet.pdf").
+                    The system will categorize them based on the filename.
+                </p>
+
+                <Upload
+                    beforeUpload={() => false} // Prevent auto upload
+                    fileList={uploadFileList}
+                    onChange={({ fileList }) => setUploadFileList(fileList)}
+                    multiple
+                    accept=".pdf,.jpg,.jpeg,.png"
+                >
+                    <Button icon={<CloudUploadOutlined />}>Select Files</Button>
+                </Upload>
             </Modal>
         </Content>
     )
