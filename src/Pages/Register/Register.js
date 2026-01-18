@@ -1,6 +1,5 @@
 import {
-    CreditCardOutlined,
-    QuestionCircleOutlined
+    CreditCardOutlined
 } from '@ant-design/icons';
 import {
     Box,
@@ -9,11 +8,9 @@ import {
     FormControl,
     FormControlLabel,
     FormLabel,
-    IconButton,
     Radio,
     RadioGroup,
-    TextField,
-    Tooltip
+    TextField
 } from "@mui/material";
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
@@ -21,8 +18,9 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { Cascader, InputNumber } from 'antd';
 import axios from 'axios';
 import dayjs from 'dayjs';
-import { addDoc, collection, doc, getDoc, serverTimestamp } from 'firebase/firestore';
+import { doc, getDoc, serverTimestamp } from 'firebase/firestore';
 import React, { useEffect, useMemo, useRef, useState } from "react";
+import ReCAPTCHA from "react-google-recaptcha";
 import { Controller, useFieldArray, useForm, useWatch } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from 'react-router-dom';
@@ -32,7 +30,6 @@ import banner from "../../assets/images/banner.png";
 import FileInput from '../../components/molecules/FileInput';
 import RadioForm from '../../components/molecules/Form/RadioForm';
 import LoadingOverlay from '../../components/molecules/LoadingOverlay';
-import YoutubeDurationFetcher from '../../components/molecules/YoutubeVideoFetcher';
 import { countryCodes } from '../../constant/CountryCodePhone';
 import { PaymentStatus } from '../../constant/PaymentStatus';
 import { ageCategories, brassAgeCategoriesEnsemble, brassAgeCategoriesSolo, BrassInstrumentListEnsemble, BrassInstrumentListSolo, competitionList, ensembleAgeCategories, guitarAgeCategoriesEnsemble, guitarAgeCategoriesSolo, GuitarInstrumentListEnsemble, GuitarInstrumentListSolo, HarpInstrumentListEnsemble, HarpInstrumentListSolo, PercussionAgeCategoriesEnsemble, percussionAgeCategoriesSolo, PercussionInstrumentListEnsemble, PercussionInstrumentListSolo, PerformanceCategory, PianoInstrumentListEnsemble, PianoInstrumentListSolo, stringAgeCategoriesEnsemble, stringAgeCategoriesSolo, StringsInstrumentListEnsemble, StringsInstrumentListSolo, vocalAgeCategoriesEnsemble, vocalAgeCategoriesSolo, VocalInstrumentListEnsembleElaborated, VocalInstrumentListSolo, woodwinAgeCategoriesEnsemble, woodwinAgeCategoriesSolo, WoodwindInstrumentListEnsemble, WoodwindInstrumentListSolo } from '../../constant/RegisterPageConst';
@@ -41,7 +38,6 @@ import { db } from '../../firebase';
 import { getAge, isAgeInCategory } from '../../utils/Utils';
 import CustomNumberInput from './CustonNumberInput';
 import SubmissionConfirmationModal from './SubmissionConfirmationModal';
-import WelcomeModalRegister from './WelcomeModalRegister';
 
 const Register = () => {
     const navigate = useNavigate();
@@ -53,6 +49,7 @@ const Register = () => {
     const birthCertInputRef = useRef();
     const repertoireInputRef = useRef();
     const videoPerformanceInputRef = useRef();
+    const recaptchaRef = useRef();
 
     const userType = {
         Teacher: t("register.imTeacher"),
@@ -71,7 +68,6 @@ const Register = () => {
     const [isSaveSuccess, setIsSaveSuccess] = useState(false);
     const [totalPerformer, setTotalPerformer] = useState(1);
     const [progressLoading, setProgressLoading] = useState(10);
-    const [youtubeDuration, setYoutubeDuration] = useState(0);
     const [isWarningModalOpen, setIsWarningModalOpen] = useState(true);
     const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
     const [performerAge, setPerformerAge] = useState(false);
@@ -361,6 +357,12 @@ const Register = () => {
     };
 
     const onSubmit = async (data) => {
+        const token = recaptchaRef.current.getValue();
+        if (!token) {
+            toast.error("Please complete the ReCAPTCHA challenge.");
+            return;
+        }
+
         try {
             setIsConfirmModalOpen(false);
             setIsLoading(true);
@@ -392,19 +394,19 @@ const Register = () => {
             const profilePhotoS3Link = `s3://registrants2025/${directoryName}/profilePhoto.pdf`;
             setProgressLoading(10)
 
-            let paymentProofS3Link = ""
-            //save PaymentProof
-            if (!isInternationalRegistrant) {
-                const paymentProof = data.paymentProof[0]
-                const res1 = await apis.aws.postSignedUrl(directoryName, "paymentProof.pdf", 'application/pdf')
-                const signedUrl1 = res1.data.link
-                await axios.put(signedUrl1, paymentProof, {
-                    headers: {
-                        'Content-Type': paymentProof.type,
-                    },
-                });
-                paymentProofS3Link = `s3://registrants2025/${directoryName}/paymentProof.pdf`;
-            }
+            // let paymentProofS3Link = ""
+            // //save PaymentProof
+            // if (!isInternationalRegistrant) {
+            //     const paymentProof = data.paymentProof[0]
+            //     const res1 = await apis.aws.postSignedUrl(directoryName, "paymentProof.pdf", 'application/pdf')
+            //     const signedUrl1 = res1.data.link
+            //     await axios.put(signedUrl1, paymentProof, {
+            //         headers: {
+            //             'Content-Type': paymentProof.type,
+            //         },
+            //     });
+            //     paymentProofS3Link = `s3://registrants2025/${directoryName}/paymentProof.pdf`;
+            // }
             setProgressLoading(20)
 
             //save pdf report
@@ -469,13 +471,13 @@ const Register = () => {
                 name: data.name,
                 youtubeLink: data.youtubeLink || "",
                 remark: data?.remark ?? "",
-                videoDuration: youtubeDuration || 0, // Or your calculated duration
+                videoDuration: calculatedDuration || 0, // Or your calculated duration
 
                 // S3 Links (Ensure these variables exist from your upload section)
                 profilePhotoS3Link,
                 pdfRepertoireS3Link,
                 videoPerformanceS3Link,
-                paymentProofS3Link,
+                // paymentProofS3Link,
                 examCertificateS3Link,
 
                 createdAt: serverTimestamp(),
@@ -485,12 +487,13 @@ const Register = () => {
                 // If there is a price, set to PENDING. If free, set to PAID.
                 paymentStatus: priceData.amount > 0 ? PaymentStatus.PENDING : PaymentStatus.PAID,
                 amountToPay: priceData.amount,
-                currency: priceData.currency
+                currency: priceData.currency,
+                recaptchaToken: token
             };
 
-            // 5. Save to Firebase (We need the ID for the Invoice Number)
-            const docRef = await addDoc(collection(db, "Registrants2025"), payload);
-            const firebaseId = docRef.id;
+            //change to BE
+            const response = await apis.register.submitRegistration(payload);
+            const firebaseId = response.data.id;
 
             // 6. PAYMENT INTEGRATION: Create Paper.id Invoice
             if (priceData.amount > 0) {
@@ -518,7 +521,6 @@ const Register = () => {
 
                 const paperResponse = await apis.payment.createRegistrationInvoice(invoiceRequest);
 
-                console.log("paperResponse", paperResponse)
                 if (paperResponse?.data && paperResponse?.data?.paymentUrl) {
                     setIsLoading(false);
                     setIsSaveSuccess(true);
@@ -2003,7 +2005,7 @@ const Register = () => {
                             />
 
                             {/* Payment Proof */}
-                            {!isInternationalRegistrant && (
+                            {/* {!isInternationalRegistrant && (
                                 <>
                                     < FileInput
                                         name="paymentProof"
@@ -2056,7 +2058,7 @@ const Register = () => {
                                         </Box>
                                     </Box>
                                 </>
-                            )}
+                            )} */}
 
                             {/* Profile Picture Upload */}
                             <FileInput
@@ -2163,6 +2165,14 @@ const Register = () => {
                             />
                             {errors.agreement && <p style={{ color: "red" }}>{errors.agreement.message}</p>}
 
+
+                            {/* TODO move this to env */}
+                            <ReCAPTCHA
+                                ref={recaptchaRef}
+                                sitekey="6LczRE4sAAAAAM2c5xyARIsoZuxcWcm3jWx1voP-"
+                                theme="dark"
+                            />
+
                             {/* Submit Button */}
                             {isSaveSuccess ? (
                                 <Button
@@ -2239,16 +2249,10 @@ const Register = () => {
                     </div>
                 </div>
             </div >
-            <YoutubeDurationFetcher
-                videoId={extractVideoId(youtubeLinkValue)}
-                onDurationFetched={(duration) => {
-                    setYoutubeDuration(duration);
-                }}
-            />
-            <WelcomeModalRegister
+            {/* <WelcomeModalRegister
                 open={isWarningModalOpen}
                 handleClose={handleCloseWarning}
-            />
+            /> */}
         </div >
 
     )
