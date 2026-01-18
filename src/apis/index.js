@@ -84,6 +84,9 @@ export default {
   home: {
     getSponsors: () => getRequest(`/api/v1/apcs/getSponsors`)
   },
+  jury: {
+    createJury: (data) => postRequest(`/api/v1/apcs/createJury`, data),
+  },
   aws: {
     postSignedUrl: (directoryname, fileName, fileType) => postRequest(`/api/v1/apcs/signed-url-images?directoryname=${directoryname}&fileName=${fileName}&fileType=${fileType}`),
     // Initiate multipart upload
