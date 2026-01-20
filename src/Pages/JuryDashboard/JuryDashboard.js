@@ -119,6 +119,7 @@ const JuryDashboard = () => {
                 collection(db, 'JuryScores2025'),
                 where('juryUserId', '==', loggedInUser.uid)
             );
+
             const scoresSnap = await getDocs(scoresQuery);
 
             const scoresMap = {};
@@ -265,7 +266,6 @@ const JuryDashboard = () => {
     /**
      * Open PDF in new tab
      */
-    // TODO: create signed URL from service to prevent denied access
     const openPDF = async (rawLink) => {
         if (!rawLink) return;
         console.log("rawLink", rawLink)
@@ -369,6 +369,7 @@ const JuryDashboard = () => {
                     <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
                         <Text style={{ color: COLORS.subText }}>Score (0-100):</Text>
                         <InputNumber
+                            className="jury-score-input" // <--- Add this class
                             min={0}
                             max={100}
                             value={juryScores[record.id]?.score}
@@ -376,7 +377,6 @@ const JuryDashboard = () => {
                             style={{
                                 width: '80px',
                                 backgroundColor: '#121212',
-                                color: COLORS.gold,
                                 borderColor: '#444'
                             }}
                         />
@@ -626,6 +626,14 @@ const JuryDashboard = () => {
                 .jury-table .ant-pagination-prev .ant-pagination-item-link,
                 .jury-table .ant-pagination-next .ant-pagination-item-link {
                     color: #fff;
+                }
+                .jury-score-input input {
+                    color: ${COLORS.gold} !important;
+                }
+
+                /* Optional: Style the placeholder if needed */
+                .jury-score-input input::placeholder {
+                    color: #666 !important;
                 }
             `}</style>
         </Layout>
