@@ -32,6 +32,7 @@ const WaitingPaymentPage = () => {
                     setStatus('PAID');
                     setLoading(false);
                     stopPolling.current = true; // Stop the loop
+
                 }
             } catch (error) {
                 console.error("Polling error", error);
