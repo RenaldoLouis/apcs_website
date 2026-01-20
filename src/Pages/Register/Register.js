@@ -569,30 +569,29 @@ const Register = () => {
 
             setProgressLoading(90)
 
-            // Note: If you use Paper.id, they send the invoice email automatically if you set send: { email: true }
-            // send email welcome to Indonesia registrant after register
-            if (!isInternational) {
-                apis.email.sendEmail(dataEmail).then((res) => {
-                    if (res.status === 200) {
-                        toast.success("Successfully Registered! Please check your email for confirmation.")
-                        setIsSaveSuccess(true)
-                        setProgressLoading(100)
-                    } else {
-                        throw new Error("Email sending failed with status " + res.status);
-                    }
-                    setIsLoading(false)
-                })
-            }
+            // Send Email After User has paid the registration
+            // if (!isInternational) {
+            // apis.email.sendEmail(dataEmail).then((res) => {
+            //     if (res.status === 200) {
+            //         toast.success("Successfully Registered! Please check your email for confirmation.")
+            //         setIsSaveSuccess(true)
+            //         setProgressLoading(100)
+            //     } else {
+            //         throw new Error("Email sending failed with status " + res.status);
+            //     }
+            //     setIsLoading(false)
+            // })
+            // }
 
             //send email to notify APCS
-            apis.email.sendEmailNotifyApcs(dataEmail).then((res) => {
-                if (res.status === 200) {
-                    setIsSaveSuccess(true)
-                } else {
-                    throw new Error("Email notification sending failed with status " + res.status);
-                }
-                setIsLoading(false)
-            })
+            // apis.email.sendEmailNotifyApcs(dataEmail).then((res) => {
+            //     if (res.status === 200) {
+            //         setIsSaveSuccess(true)
+            //     } else {
+            //         throw new Error("Email notification sending failed with status " + res.status);
+            //     }
+            //     setIsLoading(false)
+            // })
 
             setIsLoading(false);
             setIsSaveSuccess(true);
