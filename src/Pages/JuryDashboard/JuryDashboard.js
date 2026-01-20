@@ -266,18 +266,40 @@ const JuryDashboard = () => {
      * Open PDF in new tab
      */
     // TODO: create signed URL from service to prevent denied access
-    const openPDF = async (s3Link) => {
-        // try {
-        //     const pdfUrl = await getPresignedUrl(s3Link);
-        //     if (pdfUrl) {
-        //         window.open(pdfUrl, '_blank');
-        //     } else {
-        //         message.error('Failed to open PDF');
-        //     }
-        // } catch (error) {
-        //     console.error('Error opening PDF:', error);
-        //     message.error('Failed to open PDF');
-        // }
+    const openPDF = async (rawLink) => {
+        if (!rawLink) return;
+        console.log("rawLink", rawLink)
+        // 1. Handle case where multiple links are stored (separated by '&')
+        // We take the first one. You could add a modal selector if needed.
+        const s3Link = rawLink.split('&')[0].trim();
+
+        // 2. If it's already a public URL (e.g. Google Drive), open directly
+        if (s3Link.startsWith('http')) {
+            window.open(s3Link, '_blank');
+            return;
+        }
+
+        // 3. If it's an S3 link, get a Signed URL from backend
+        const hideLoading = message.loading('Opening document...', 0);
+
+        try {
+            // We reuse the existing API you use for videos. 
+            // Ideally, rename this API endpoint to 'getPublicFileLink' in the future.
+            const response = await apis.aws.getPublicVideoLinkAws({ s3Link });
+
+            const signedUrl = response.data?.url;
+
+            if (signedUrl) {
+                window.open(signedUrl, '_blank');
+            } else {
+                throw new Error("No URL returned");
+            }
+        } catch (error) {
+            console.error("Failed to open PDF", error);
+            message.error("Could not load the document.");
+        } finally {
+            hideLoading();
+        }
     };
 
     /**
