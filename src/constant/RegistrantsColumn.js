@@ -1,7 +1,7 @@
 import {
     FilePdfOutlined
 } from '@ant-design/icons';
-import { Button, Popconfirm, Space, Tag, Tooltip } from 'antd';
+import { Button, List, Popconfirm, Popover, Space, Tag, Tooltip } from 'antd';
 export const RegistrantsColumns = [
     {
         title: 'Name',
@@ -29,7 +29,7 @@ export const RegistrantsColumns = [
     },
 ];
 
-export const getRegistrants2025Columns = (getAgeCategoryLabel, handleDownloadPDF, handleUpdateStatus, showEditModal, handleDelete, deletingId, handleViewVideo, handleOpenUploadModal) => [
+export const getRegistrants2025Columns = (getScoreData, getAgeCategoryLabel, handleDownloadPDF, handleUpdateStatus, showEditModal, handleDelete, deletingId, handleViewVideo, handleOpenUploadModal) => [
     { title: "Parent Name", dataIndex: "name" },
     { title: "Teacher Name", dataIndex: "teacherName" },
     { title: "Total Performer", dataIndex: "totalPerformer" },
@@ -170,6 +170,41 @@ export const getRegistrants2025Columns = (getAgeCategoryLabel, handleDownloadPDF
                 {record.certificateS3Link && <Tag color="gold">Cert</Tag>}
             </Space>
         )
+    },
+    {
+        title: 'Avg Score',
+        key: 'score',
+        width: 120,
+        align: 'center',
+        render: (_, record) => {
+            const { avg, details } = getScoreData(record.id);
+
+            if (avg === '-') return <Tag>N/A</Tag>;
+
+            // Content for the Popover (Individual Jury Breakdown)
+            const content = (
+                <List
+                    size="small"
+                    dataSource={details}
+                    renderItem={item => (
+                        <List.Item>
+                            <div>
+                                <strong>{item.juryName}:</strong> {item.score}
+                                {item.comment && <div style={{ fontSize: '10px', color: '#888', maxWidth: '200px' }}>"{item.comment}"</div>}
+                            </div>
+                        </List.Item>
+                    )}
+                />
+            );
+
+            return (
+                <Popover content={content} title="Jury Breakdown" trigger="hover">
+                    <Tag color="gold" style={{ fontSize: '14px', fontWeight: 'bold', cursor: 'pointer' }}>
+                        {avg}
+                    </Tag>
+                </Popover>
+            );
+        }
     },
 ];
 

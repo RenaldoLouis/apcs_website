@@ -6,9 +6,9 @@ import axios from 'axios';
 import ExcelJS from "exceljs";
 import * as FileSaver from "file-saver";
 import { saveAs } from "file-saver";
-import { collection, deleteDoc, doc, getDocs, serverTimestamp, updateDoc, writeBatch } from "firebase/firestore";
+import { collection, deleteDoc, doc, getDocs, query, serverTimestamp, updateDoc, where, writeBatch } from "firebase/firestore";
 import JSZip from "jszip";
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import * as xlsx from 'xlsx';
 import apis from '../../apis';
 import {
@@ -35,7 +35,6 @@ import { db } from '../../firebase';
 import usePaginatedRegistrants from '../../hooks/useFetchRegistrantsData';
 import { parseDateString } from '../../utils/Utils';
 import { extractVideoId, fetchYouTubeDuration } from '../../utils/youtube';
-
 // ...other imports
 const { Content } = Layout;
 
@@ -82,6 +81,8 @@ const RegistrantDashboard = () => {
     const [uploadingRecord, setUploadingRecord] = useState(null);
     const [uploadFileList, setUploadFileList] = useState([]);
     const [isUploadingCert, setIsUploadingCert] = useState(false);
+
+    const [scoresMap, setScoresMap] = useState({});
 
     // 2. Pass the searchTerm to your updated hook
     const {
@@ -1668,7 +1669,60 @@ const RegistrantDashboard = () => {
         }
     };
 
-    const columns = getRegistrants2025Columns(getAgeCategoryLabel, handleDownloadPDF, updatePaymentStatus, showEditModal, handleDeleteRegistrant, deletingId, handleViewVideo, handleOpenUploadModal);
+    useEffect(() => {
+        const fetchRelevantScores = async () => {
+            // 1. If no registrants on this page, do nothing
+            if (!registrantDatas || registrantDatas.length === 0) return;
+
+            try {
+                // 2. Extract the IDs of the 10 people on screen
+                const visibleIds = registrantDatas.map(r => r.id);
+
+                // 3. Query scores ONLY for these IDs
+                // Note: Firestore 'in' operator supports up to 10-30 items, perfectly safe for page size 10
+                const scoresQuery = query(
+                    collection(db, "JuryScores2025"),
+                    where("registrantId", "in", visibleIds)
+                );
+
+                const querySnapshot = await getDocs(scoresQuery);
+
+                // 4. Map them exactly as before
+                const mapping = {};
+                querySnapshot.forEach((doc) => {
+                    const data = doc.data();
+                    const regId = data.registrantId;
+                    if (!mapping[regId]) mapping[regId] = [];
+                    mapping[regId].push({
+                        juryName: data.juryName || "Unknown",
+                        score: Number(data.score) || 0,
+                        comment: data.comment
+                    });
+                });
+
+                // 5. Update state (merging with existing cache if you want, or just setting fresh)
+                setScoresMap(mapping);
+
+            } catch (error) {
+                console.error("Error fetching specific scores:", error);
+            }
+        };
+
+        fetchRelevantScores();
+    }, [registrantDatas]);
+
+    // --- HELPER TO CALCULATE AVERAGE ---
+    const getScoreData = (registrantId) => {
+        const scores = scoresMap[registrantId] || [];
+        if (scores.length === 0) return { avg: '-', details: [] };
+
+        const total = scores.reduce((sum, item) => sum + item.score, 0);
+        const avg = (total / scores.length).toFixed(2); // Keep 2 decimal places
+
+        return { avg, details: scores };
+    };
+
+    const columns = getRegistrants2025Columns(getScoreData, getAgeCategoryLabel, handleDownloadPDF, updatePaymentStatus, showEditModal, handleDeleteRegistrant, deletingId, handleViewVideo, handleOpenUploadModal);
 
     return (
         <Content
