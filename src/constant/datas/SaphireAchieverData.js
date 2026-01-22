@@ -3,7 +3,6 @@ import { ListOfCity } from "../../constant/ListOfCity";
 import { ListOfEventAchiever } from "../../constant/ListOfEventAchiever";
 
 import cathleen from "../../assets/images/saphireAchiever/cathleen.jpg";
-import charice from "../../assets/images/saphireAchiever/charice.jpg";
 import fatima from "../../assets/images/saphireAchiever/fatima.jpg";
 import glow from "../../assets/images/saphireAchiever/glow.jpg";
 import saphireAchievers1 from "../../assets/images/saphireAchiever/saphireAchievers1.png";
@@ -275,15 +274,8 @@ export const SapphireWinners = [
         "event": [ListOfEventAchiever["2022MAGICMUSIC"]],
     },
     {
-        "name": "Cathleen Arabella",
+        "name": "Cathleen Arabella Wijaya",
         "image": cathleen,
-        "country": "Surabaya",
-        "YoutubeLink": "",
-        "event": [ListOfEventAchiever["2025SOUNDASIA"]],
-    },
-    {
-        "name": "Charice Elleanore",
-        "image": charice,
         "country": "Surabaya",
         "YoutubeLink": "",
         "event": [ListOfEventAchiever["2025SOUNDASIA"]],
@@ -291,12 +283,12 @@ export const SapphireWinners = [
     {
         "name": "Sherleen Emmanuel",
         "image": sherleen,
-        "country": "Tangerang",
+        "country": "Jakarta",
         "YoutubeLink": "",
         "event": [ListOfEventAchiever["2025SOUNDASIA"]],
     },
     {
-        "name": "Glow Presley",
+        "name": "Glow Presley Wangsa",
         "image": glow,
         "country": "Surabaya",
         "YoutubeLink": "",
@@ -305,7 +297,7 @@ export const SapphireWinners = [
     {
         "name": "Fatima Sofia",
         "image": fatima,
-        "country": "Tangerang",
+        "country": "Jakarta",
         "YoutubeLink": "",
         "event": [ListOfEventAchiever["2025SOUNDASIA"]],
     },

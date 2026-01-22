@@ -63,22 +63,22 @@ const NotableJurist = () => {
             country: [CountryConst.IDN, CountryConst.CHI],
             link: "https://www.instagram.com/p/CpcHUoUPkeM/?igsh=MXV6ZXl0cG5jNXR4aw%3D%3D&img_index=6"
         },
-        {
-            image: wishnuProfile,
-            name: "WISHNU DEWANTA",
-            title: "APCS 2019",
-            quote: t("about6"),
-            country: [CountryConst.IDN],
-            // link: "https://www.instagram.com/p/CpcHUoUPkeM/?igsh=MXV6ZXl0cG5jNXR4aw%3D%3D&img_index=8"
-        },
-        {
-            image: chikita,
-            name: "CHIKITA AMANDA",
-            title: "APCS 2020, 2022, 2023",
-            quote: t("about7"),
-            country: [CountryConst.IDN],
-            // link: "https://www.instagram.com/p/CpcHUoUPkeM/?igsh=MXV6ZXl0cG5jNXR4aw%3D%3D&img_index=8"
-        },
+        // {
+        //     image: wishnuProfile,
+        //     name: "WISHNU DEWANTA",
+        //     title: "APCS 2019",
+        //     quote: t("about6"),
+        //     country: [CountryConst.IDN],
+        //     // link: "https://www.instagram.com/p/CpcHUoUPkeM/?igsh=MXV6ZXl0cG5jNXR4aw%3D%3D&img_index=8"
+        // },
+        // {
+        //     image: chikita,
+        //     name: "CHIKITA AMANDA",
+        //     title: "APCS 2020, 2022, 2023",
+        //     quote: t("about7"),
+        //     country: [CountryConst.IDN],
+        //     // link: "https://www.instagram.com/p/CpcHUoUPkeM/?igsh=MXV6ZXl0cG5jNXR4aw%3D%3D&img_index=8"
+        // },
         {
             image: jurist2,
             name: "ISWARGIA SUDARNO",

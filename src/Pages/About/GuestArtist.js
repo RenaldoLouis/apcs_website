@@ -18,8 +18,8 @@ import dionysus from "../../assets/images/guestArtist/dionysus.jpg";
 import DSV from "../../assets/images/guestArtist/DSV.jpg";
 import parami from "../../assets/images/guestArtist/parami.jpg";
 import svara from "../../assets/images/guestArtist/svara.jpg";
-import woodies from "../../assets/images/guestArtist/woodies.jpg";
 import indFlag from "../../assets/images/indFlag.jpg";
+import wishnuProfile from "../../assets/images/wishnuProfile.svg";
 import AnimatedComponent from "../../components/atom/AnimatedComponent";
 import HeaderAbout from "../../components/atom/HeaderAbout";
 import HeaderTitle from "../../components/atom/HeaderTitle";
@@ -27,6 +27,7 @@ import GuestArtistCard from "../../components/molecules/GuestArtisCard";
 import { CountryConst } from "../../constant/CountryConst";
 import { useAuth } from "../../context/DataContext";
 
+import chikita from "../../assets/images/chikita.svg";
 const GuestArtist = () => {
 
     const { isSmallMobileAndSmaller } = useAuth();
@@ -72,7 +73,7 @@ const GuestArtist = () => {
             name: "Firdy Salim",
             image: artist7,
             country: [CountryConst.IDN],
-            title: "Juries",
+            title: "Pianist",
         },
         {
             name: "Amelia Tionanda",
@@ -127,6 +128,18 @@ const GuestArtist = () => {
             image: dionysus,
             country: [CountryConst.IDN],
             title: "Pianist",
+        },
+        {
+            name: "Wishnu Dewanta",
+            image: wishnuProfile,
+            country: [CountryConst.IDN],
+            title: "Conductor",
+        },
+        {
+            name: "Chikita Amanda",
+            image: chikita,
+            country: [CountryConst.IDN],
+            title: "Conductor",
         },
     ]
 
@@ -209,24 +222,6 @@ const GuestArtist = () => {
                                         <img src={parami} alt="parami" style={{ width: "100%" }} />
                                         <div className="d-flex justify-content-center" style={{ fontSize: 40, marginTop: 30 }}>
                                             Parami Harmony
-                                        </div>
-                                    </div>
-                                    <div className="col-12 col-md-12" style={{ marginTop: 0 }}>
-                                        <div className="d-flex justify-content-center" style={{ fontSize: 40 }}>
-                                            <img src={indFlag} alt={"indFlag"} style={{}} />
-
-                                        </div>
-                                    </div>
-                                    <div className="col-12 col-md-2" style={{ padding: 50 }} />
-                                </div>
-                            </AnimatedComponent>
-                            <AnimatedComponent animationClass="animate__fadeIn">
-                                <div className="row gx-5 gy-5">
-                                    <div className="col-12 col-md-2" style={{ padding: 50 }} />
-                                    <div className="col-12 col-md-8">
-                                        <img src={woodies} alt="woodies" style={{ width: "100%" }} />
-                                        <div className="d-flex justify-content-center" style={{ fontSize: 40, marginTop: 30 }}>
-                                            Woodies Symphony
                                         </div>
                                     </div>
                                     <div className="col-12 col-md-12" style={{ marginTop: 0 }}>

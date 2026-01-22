@@ -1,7 +1,7 @@
 export const PathName = {
     home: "/home",
     about: "/about",
-    podcast: "/podcast",
+    // podcast: "/podcast",
     gallery: "/gallery",
     achievers: "/achievers",
     contactUs: "/contactUs",
