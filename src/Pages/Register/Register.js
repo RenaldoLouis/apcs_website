@@ -521,7 +521,9 @@ const Register = () => {
                     setTimeout(() => {
                         window.open(paperResponse.data.paymentUrl, '_blank');
                         setPaymentLink(paperResponse.data.paymentUrl)
-                        navigate(`/waiting-payment/${firebaseId}`);
+                        navigate(`/waiting-payment/${firebaseId}`, {
+                            state: { paymentLink: paperResponse.data.paymentUrl }
+                        });
                     }, 1500);
 
                     return; // Stop here, user is leaving the site
