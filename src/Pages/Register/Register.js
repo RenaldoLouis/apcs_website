@@ -139,15 +139,6 @@ const Register = () => {
         });
     };
 
-    const extractVideoId = (url) => {
-        try {
-            const parsed = new URL(url);
-            return parsed.searchParams.get("v") || parsed.pathname.split("/").pop();
-        } catch {
-            return null;
-        }
-    };
-
     const getFirstErrorKey = (errorObj, path = '') => {
         for (const key in errorObj) {
             const newPath = path ? `${path}.${key}` : key;
@@ -1012,21 +1003,21 @@ const Register = () => {
     const isCategoryDisabled = (key) => {
         switch (key) {
             case competitionList.Piano:
-                return true
+                return false
             case competitionList.Percussions:
-                return true
+                return false
             case competitionList.Woodwinds:
-                return true
+                return false
             case competitionList.Guitar:
-                return true
+                return false
             case competitionList.VocalChoir:
-                return true
+                return false
             case competitionList.Brass:
                 return false
             case competitionList.Harp:
                 return false
             case competitionList.Strings:
-                return true
+                return false
             default:
                 return true
         }

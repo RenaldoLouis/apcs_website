@@ -1036,22 +1036,23 @@ const RegistrantDashboard = () => {
             addFilesFromField(record.pdfRepertoireS3Link, 'repertoire');
             addFilesFromField(record.profilePhotoS3Link, 'profile_photo');
 
-            // TODO: might need to fix this on BE
-            const modifiedFiles = filesToDownload.map(file => {
-                return {
-                    ...file, // Keep other properties like zipPath
-                    // Replace '.pdf' with an empty string, but only if it's at the end of the string ($)
-                    link: file.link.replace(/\.pdf$/, "")
-                };
-            });
+            // TODO: might need to remove this becuase all of the newest file already have
+            // extension file pdf.
+            // const modifiedFiles = filesToDownload.map(file => {
+            //     return {
+            //         ...file, // Keep other properties like zipPath
+            //         // Replace '.pdf' with an empty string, but only if it's at the end of the string ($)
+            //         link: file.link.replace(/\.pdf$/, "")
+            //     };
+            // });
 
-            if (modifiedFiles.length === 0) {
-                message.warn({ content: "No documents are linked for this registrant.", key: 'download' });
-                return;
-            }
+            // if (modifiedFiles.length === 0) {
+            //     message.warn({ content: "No documents are linked for this registrant.", key: 'download' });
+            //     return;
+            // }
 
             // Call the backend API (no change here)
-            const response = await apis.aws.downloadFiles(modifiedFiles, {
+            const response = await apis.aws.downloadFiles(filesToDownload, {
                 responseType: 'blob'
             });
 
