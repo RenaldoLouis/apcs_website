@@ -122,12 +122,6 @@ const GaleryPage = () => {
             title: "THE FIRST NATIONAL CLASSICAL SERIES FOR ALL GENERATIONS",
             subTitle: "SHANGRI-LA Surabaya",
             featuring: [
-                // {
-                //     name: "Michaela Sutejo",
-                //     title: "main soloist",
-                //     role: "Pianist",
-                //     founder: true
-                // },
                 {
                     name: "Firdy Salim",
                     role: "Pianist"
@@ -159,12 +153,6 @@ const GaleryPage = () => {
             title: "THE SECOND NATIONAL CLASSICAL SERIES FOR ALL GENERATIONS",
             subTitle: "SOEHANNA HALL Jakarta",
             featuring: [
-                // {
-                //     name: "Michaela Sutejo",
-                //     title: "main soloist",
-                //     role: "Pianist",
-                //     founder: true
-                // },
                 {
                     name: "Firdy Salim",
                     role: "Pianist"
@@ -252,16 +240,29 @@ const GaleryPage = () => {
                 },
                 {
                     name: "Piano Duo Winner of APCS Cassical Festival Jakarta 2023 & Winners of APCS Classical Festival Jakarta 2024",
-                    // role: "Guest Coach"
                 },
-                // {
-                //     name: "Christine Utomo",
-                //     role: "Guest Coach"
-                // },
-                // {
-                //     name: "Iswargia Sudarno",
-                //     role: "Guest Coach"
-                // },
+            ],
+            images: []
+        },
+        {
+            name: YearlyEvent.APCSTHESOUNDOFASIA2025,
+            video: null,
+            title: "Harmony in Diversity ",
+            subTitle: "Jakarta Intercultural School, Jakarta",
+            featuring: [
+                {
+                    name: "Dionisius Clyde,",
+                    role: "APCS 2025 Winners"
+                },
+                {
+                    name: "Dux Stella Voce",
+                },
+                {
+                    name: "Svara Prasetiya",
+                },
+                {
+                    name: "Parami Harmony & Woodies Symphony",
+                },
             ],
             images: []
         },
