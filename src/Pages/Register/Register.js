@@ -497,7 +497,7 @@ const Register = () => {
                 const invoiceRequest = {
                     externalId: firebaseId, // Link invoice to Firebase ID
                     user: {
-                        name: data.teacherName, // Parent/Teacher name
+                        name: data.performers[0].fullName,
                         email: mainContactEmail,
                         phone: mainContactPhone
                     },

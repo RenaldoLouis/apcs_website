@@ -9,7 +9,6 @@ import banner1 from "../../assets/images/homeBanner/banner1.jpg";
 import banner2 from "../../assets/images/homeBanner/banner2.jpg";
 import banner3 from "../../assets/images/homeBanner/banner3.jpg";
 import banner4 from "../../assets/images/homeBanner/banner4.jpg";
-import banner5 from "../../assets/images/homeBanner/banner5.jpg";
 import banner6 from "../../assets/images/homeBanner/banner6.jpg";
 import banner7 from "../../assets/images/homeBanner/banner7.jpg";
 import banner8 from "../../assets/images/homeBanner/banner8.jpg";
@@ -20,7 +19,7 @@ import { analytics } from '../../firebase';
 import PillButton from '../atom/PillButton';
 
 const images = [
-    banner5,
+    // banner5,
     banner8,
     banner2,
     banner1,
