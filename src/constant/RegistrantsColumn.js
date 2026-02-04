@@ -176,6 +176,7 @@ export const getRegistrants2025Columns = (getScoreData, getAgeCategoryLabel, han
         key: 'score',
         width: 120,
         align: 'center',
+        sorter: (a, b) => parseFloat(a.avg) - parseFloat(b.avg),
         render: (_, record) => {
             const { avg, details } = getScoreData(record.id);
 
@@ -204,6 +205,25 @@ export const getRegistrants2025Columns = (getScoreData, getAgeCategoryLabel, han
                     </Tag>
                 </Popover>
             );
+        }
+    },
+    {
+        title: 'Result',
+        key: 'finalAward',
+        width: 120,
+        align: 'center',
+        render: (_, record) => {
+            // Prefer value from DB
+            if (record.finalAward) {
+                let color = 'default';
+                if (record.finalAward === 'Sapphire') color = 'purple';
+                if (record.finalAward === 'Diamond') color = 'cyan';
+                if (record.finalAward === 'Gold') color = 'gold';
+                if (record.finalAward === 'Silver') color = 'geekblue';
+
+                return <Tag color={color}>{record.finalAward}</Tag>;
+            }
+            return <Tag>-</Tag>;
         }
     },
 ];

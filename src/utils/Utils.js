@@ -165,3 +165,12 @@ export const isAgeInCategory = (age, descriptionString) => {
 
     return false;
 };
+
+export const calculateAward = (score) => {
+    if (score >= 99 && score <= 100) return "Sapphire";
+    if (score >= 93 && score <= 98.99) return "Diamond";
+    if (score >= 87 && score <= 92.99) return "Gold";
+    if (score >= 80 && score <= 86.99) return "Silver";
+    if (score >= 0 && score <= 79.99) return "All Participant";
+    return "N/A";
+};

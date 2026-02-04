@@ -1,4 +1,5 @@
 import {
+    CalculatorOutlined,
     CloudUploadOutlined
 } from '@ant-design/icons';
 import { Button, Form, Input, Layout, List, message, Modal, Pagination, Progress, Select, Space, Table, theme, Upload } from 'antd';
@@ -33,7 +34,7 @@ import {
 import { getRegistrants2025Columns } from '../../constant/RegistrantsColumn';
 import { db } from '../../firebase';
 import usePaginatedRegistrants from '../../hooks/useFetchRegistrantsData';
-import { parseDateString } from '../../utils/Utils';
+import { calculateAward, parseDateString } from '../../utils/Utils';
 import { extractVideoId, fetchYouTubeDuration } from '../../utils/youtube';
 // ...other imports
 const { Content } = Layout;
@@ -83,6 +84,7 @@ const RegistrantDashboard = () => {
     const [isUploadingCert, setIsUploadingCert] = useState(false);
 
     const [scoresMap, setScoresMap] = useState({});
+    const [isScoreSyncing, setIsScoreSyncing] = useState(false);
 
     // 2. Pass the searchTerm to your updated hook
     const {
@@ -417,6 +419,8 @@ const RegistrantDashboard = () => {
                     'Profile Photo': registrant.profilePhotoS3Link,
                     'Registration Date': registrant.createdAt ? new Date(registrant.createdAt.seconds * 1000).toLocaleString('en-GB') : '',
                     'Payment Status': registrant.paymentStatus,
+                    'Average Score': registrant?.averageScore || 0,
+                    'Final Award': registrant?.finalAward || '-',
                 };
 
                 // Check if the registration is for an Ensemble
@@ -638,6 +642,8 @@ const RegistrantDashboard = () => {
                         ? new Date(registrant.createdAt.seconds * 1000).toLocaleString('en-GB')
                         : '-',
                     'Payment Status': registrant.paymentStatus || 'PENDING',
+                    'Average Score': registrant?.averageScore || 0,
+                    'Final Award': registrant?.finalAward || '-',
                 };
 
                 // Check if Ensemble
@@ -1066,73 +1072,6 @@ const RegistrantDashboard = () => {
         }
     };
 
-    const handleDownloadAll = async () => {
-        if (!allData || allData.length === 0) {
-            message.warn("No registrant data available to download.");
-            return;
-        }
-
-        setIsDownloadingAll(true);
-
-        try {
-            const chunkSize = 50; // Set the batch size
-            const numChunks = Math.ceil(allData.length / chunkSize);
-
-            // 1. Loop through the data in chunks of 100
-            for (let i = 530; i < allData.length; i += chunkSize) {
-                const chunk = allData.slice(i, i + chunkSize);
-                const chunkNumber = (i / chunkSize) + 1;
-
-                message.loading({
-                    content: `Preparing batch ${chunkNumber} of ${numChunks}... (${chunk.length} registrants)`,
-                    key: 'downloadAll',
-                    duration: 0
-                });
-
-                const payload = [];
-
-                // 2. Prepare the payload for just the current chunk
-                chunk.forEach(registrant => {
-                    const category = registrant.competitionCategory || 'Uncategorized';
-                    const performerName = registrant.performers[0]?.fullName ? `${registrant.performers[0]?.fullName}`.replace(/ /g, '_') : `${registrant.performers[0]?.firstName}_${registrant.performers[0]?.lastName}`.replace(/ /g, '_');
-                    const registrantFolder = `${category}/${performerName}_${registrant.id.slice(0, 6)}`;
-
-                    const addFile = (s3Link, fileName) => {
-                        if (s3Link) {
-                            payload.push({
-                                s3Key: stripS3Prefix(s3Link),
-                                zipPath: `${registrantFolder}/${fileName}`
-                            });
-                        }
-                    };
-
-                    addFile(registrant.birthCertS3Link, 'birth_certificate.pdf');
-                    addFile(registrant.examCertificateS3Link, 'exam_certificate.pdf');
-                    addFile(registrant.paymentProofS3Link, 'payment_proof.pdf');
-                    addFile(registrant.pdfRepertoireS3Link, 'repertoire.pdf');
-                    addFile(registrant.profilePhotoS3Link, 'profile_photo.jpg');
-                });
-
-                // 3. Call the backend API for the current chunk
-                const response = await apis.aws.downloadAllFiles(payload, {
-                    responseType: 'blob'
-                });
-
-                // 4. Trigger the download for this chunk's zip file
-                const blob = new Blob([response.data], { type: 'application/zip' });
-                saveAs(blob, `registrants_documents_part_${chunkNumber}.zip`);
-            }
-
-            message.success({ content: 'All document batches have been downloaded!', key: 'downloadAll' });
-
-        } catch (error) {
-            console.error('Download all failed:', error);
-            message.error({ content: 'Failed to download documents. Please check the console.', key: 'downloadAll' });
-        } finally {
-            setIsDownloadingAll(false);
-        }
-    };
-
     const updatePaymentStatus = async (record) => {
         try {
             const docRef = doc(db, 'Registrants2025', record.id);
@@ -1529,77 +1468,6 @@ const RegistrantDashboard = () => {
         });
     };
 
-    const handleSyncDurations = async () => {
-        // 1. Filter registrants that HAVE a video link but NO valid duration
-        //    (You can remove the `!r.videoDuration` check if you want to force update ALL of them)
-        const targets = allData.filter(r =>
-            r.videoPerformanceS3Link &&
-            (!r.videoDuration || r.videoDuration === 0)
-        );
-
-        if (targets.length === 0) {
-            message.info("All videos already have durations synced!");
-            return;
-        }
-
-        setIsSyncModalOpen(true);
-        setIsSyncing(true);
-        setSyncProgress(0);
-        setSyncLogs([]);
-        stopSyncRef.current = false;
-
-        const total = targets.length;
-        let processedCount = 0;
-        const BATCH_SIZE = 3; // Process 3 videos at a time to be safe
-
-        // 2. Process in Batches
-        for (let i = 0; i < total; i += BATCH_SIZE) {
-            if (stopSyncRef.current) break;
-
-            const batch = targets.slice(i, i + BATCH_SIZE);
-
-            // Process the batch in parallel
-            await Promise.all(batch.map(async (record) => {
-                try {
-                    // A. Get Signed URL from Backend
-                    const response = await apis.aws.getPublicVideoLinkAws({
-                        s3Link: record.videoPerformanceS3Link
-                    });
-                    console.log("response", response)
-                    const playableUrl = response.data.url;
-
-                    // B. Get Duration from File
-                    const durationSec = await fetchDurationFromUrl(playableUrl);
-
-                    if (durationSec > 0) {
-                        // C. Update Firestore
-                        const docRef = doc(db, "Registrants2025", record.id);
-                        await updateDoc(docRef, {
-                            videoDuration: durationSec
-                        });
-
-                        setSyncLogs(prev => [`✅ Updated ${record.name}: ${durationSec.toFixed(2)}s`, ...prev]);
-                    } else {
-                        setSyncLogs(prev => [`⚠️ Could not read duration for ${record.name}`, ...prev]);
-                    }
-
-                } catch (error) {
-                    console.error(error);
-                    setSyncLogs(prev => [`❌ Error updating ${record.name}`, ...prev]);
-                }
-            }));
-
-            processedCount += batch.length;
-            const percentage = Math.round((Math.min(processedCount, total) / total) * 100);
-            setSyncProgress(percentage);
-        }
-
-        setIsSyncing(false);
-        message.success("Sync process finished.");
-        // Optional: Refresh your table data here
-        // fetchData(); 
-    };
-
     // 4. Upload Certificates / Comments (NEW)
     const handleOpenUploadModal = (record) => {
         setUploadingRecord(record);
@@ -1723,6 +1591,83 @@ const RegistrantDashboard = () => {
         return { avg, details: scores };
     };
 
+    const handleSyncScores = async () => {
+        setIsScoreSyncing(true);
+        message.loading({ content: "Calculating awards and syncing to database...", key: 'scoreSync' });
+
+        try {
+            // 1. Fetch ALL Registrants
+            // Note: For production with thousands of docs, you might need pagination or cloud function.
+            // For < 2000 docs, client-side batching is okay.
+            const registrantsSnapshot = await getDocs(collection(db, "Registrants2025"));
+
+            // 2. Fetch ALL Scores
+            const scoresSnapshot = await getDocs(collection(db, "JuryScores2025"));
+
+            // 3. Map Scores by Registrant ID
+            const scoresMap = {};
+            scoresSnapshot.docs.forEach(doc => {
+                const data = doc.data();
+                const regId = data.registrantId;
+                if (!scoresMap[regId]) scoresMap[regId] = [];
+                scoresMap[regId].push(Number(data.score) || 0);
+            });
+
+            // 4. Prepare Batch Updates
+            let batch = writeBatch(db);
+            let operationCount = 0;
+            let updatedCount = 0;
+
+            registrantsSnapshot.docs.forEach((docSnap) => {
+                const regId = docSnap.id;
+                const scores = scoresMap[regId] || [];
+
+                let finalAward = "N/A";
+                let averageScore = 0;
+
+                if (scores.length > 0) {
+                    const total = scores.reduce((a, b) => a + b, 0);
+                    // Use standard rounding to match your Excel logic if needed, 
+                    // or simple division. Your render logic used .toFixed(2) for display.
+                    averageScore = parseFloat((total / scores.length).toFixed(2));
+                    finalAward = calculateAward(averageScore);
+                }
+
+                // Check if update is needed (optimization)
+                const currentData = docSnap.data();
+                if (currentData.finalAward !== finalAward || currentData.averageScore !== averageScore) {
+                    batch.update(docSnap.ref, {
+                        finalAward: finalAward,
+                        averageScore: averageScore
+                    });
+                    operationCount++;
+                    updatedCount++;
+                }
+
+                // Commit batch every 500 operations
+                if (operationCount === 499) {
+                    batch.commit();
+                    batch = writeBatch(db);
+                    operationCount = 0;
+                }
+            });
+
+            // Commit remaining
+            if (operationCount > 0) {
+                await batch.commit();
+            }
+
+            message.success({ content: `Successfully synced awards for ${updatedCount} registrants!`, key: 'scoreSync' });
+            fetchUserData(page); // Refresh table
+
+        } catch (error) {
+            console.error("Score sync failed:", error);
+            message.error({ content: "Failed to sync scores.", key: 'scoreSync' });
+        } finally {
+            setIsScoreSyncing(false);
+        }
+    };
+
     const columns = getRegistrants2025Columns(getScoreData, getAgeCategoryLabel, handleDownloadPDF, updatePaymentStatus, showEditModal, handleDeleteRegistrant, deletingId, handleViewVideo, handleOpenUploadModal);
 
     return (
@@ -1810,28 +1755,16 @@ const RegistrantDashboard = () => {
                 <Button type="primary" onClick={handleExportToExcel}>Export to excel</Button>
                 <Button type="primary" onClick={() => handleExportByCategoryWithAgeTabsRaw(allData, "Harp")}>Export to excel Age Raw</Button>
                 <Button type="primary" onClick={() => handleExportByCategoryWithAgeTabs(allData, "Harp")}>Export to excel Age</Button>
-                {/* <Button
-                    icon={<SyncOutlined />}
-                    onClick={handleSyncDurations}
-                    style={{
-                        backgroundColor: '#1E1E1E',
-                        color: '#e5cc92',
-                        border: '1px solid #e5cc92',
-                        marginLeft: 10
-                    }}
-                >
-                    Sync Video Durations
-                </Button> */}
-                {/* <Button
-                    style={{ marginLeft: 8 }}
-                    onClick={handleDownloadAll}
-                    loading={isDownloadingAll}
-                >
-                    Download All Documents
-                </Button> */}
-
                 <Button style={{ marginLeft: 8 }} onClick={handleShowStatsModal}>
                     View Teacher Stats
+                </Button>
+                <Button
+                    icon={<CalculatorOutlined />}
+                    onClick={handleSyncScores}
+                    loading={isScoreSyncing}
+                    style={{ marginLeft: 8 }}
+                >
+                    Sync Awards
                 </Button>
             </div>
             <Modal
