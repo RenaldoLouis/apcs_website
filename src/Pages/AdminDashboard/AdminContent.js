@@ -147,7 +147,7 @@ const AdminContent = () => {
             // Using your existing 'apis' structure
             await apis.jury.createJury(values);
 
-            message.success(`Jury member ${values.name} created successfully!`);
+            message.success(`Jury member ${values.name} created successfully and email sent!`);
             setIsModalOpen(false);
             form.resetFields();
         } catch (error) {
