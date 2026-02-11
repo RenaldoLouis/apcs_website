@@ -284,15 +284,12 @@ const Register = () => {
     };
 
     const isInternationalRegistrant = useMemo(() => {
-        // The calculation logic inside doesn't need to change.
         if (!watchedFieldsPerformer) {
             return false;
         }
         return watchedFieldsPerformer.some(
             performer => performer?.countryCode?.[0] !== IdCode
         );
-        // --- THIS IS THE FIX ---
-        // By stringifying the array, the dependency will now change whenever any value inside it changes.
     }, [JSON.stringify(watchedFieldsPerformer), IdCode]);
 
     const uploadLargeVideo = async (file, directoryName) => {
@@ -385,19 +382,16 @@ const Register = () => {
             const profilePhotoS3Link = `s3://registrants2025/${directoryName}/profilePhoto.pdf`;
             setProgressLoading(10)
 
-            // let paymentProofS3Link = ""
-            // //save PaymentProof
-            // if (!isInternationalRegistrant) {
-            //     const paymentProof = data.paymentProof[0]
-            //     const res1 = await apis.aws.postSignedUrl(directoryName, "paymentProof.pdf", 'application/pdf')
-            //     const signedUrl1 = res1.data.link
-            //     await axios.put(signedUrl1, paymentProof, {
-            //         headers: {
-            //             'Content-Type': paymentProof.type,
-            //         },
-            //     });
-            //     paymentProofS3Link = `s3://registrants2025/${directoryName}/paymentProof.pdf`;
-            // }
+            //save birth cert first
+            const birthCert = data.birthCertificate[0]
+            const resBirthCert = await apis.aws.postSignedUrl(directoryName, "birthCert.pdf", 'application/pdf')
+            const signedUrlBirthCert = resBirthCert.data.link
+            await axios.put(signedUrlBirthCert, birthCert, {
+                headers: {
+                    'Content-Type': birthCert.type, // Ensure this matches the file type
+                },
+            });
+            const birthCertS3Link = `s3://registrants2025/${directoryName}/birthCert.pdf`;
             setProgressLoading(20)
 
             //save pdf report
@@ -436,9 +430,6 @@ const Register = () => {
             const examCertificateS3Link = `s3://registrants2025/${directoryName}/examCertificate.pdf`;
             setProgressLoading(70)
 
-            // --- MOCKING S3 UPLOAD FOR THIS SNIPPET (Uncomment your real code above) ---
-            // In your actual file, keep the axios.put and apis.aws calls you already wrote.
-
 
             // 3. Calculate Price Logic
             const isInternational = watchedFieldsPerformer?.some(
@@ -467,6 +458,7 @@ const Register = () => {
                 // S3 Links (Ensure these variables exist from your upload section)
                 profilePhotoS3Link,
                 pdfRepertoireS3Link,
+                birthCertS3Link,
                 videoPerformanceS3Link,
                 // paymentProofS3Link,
                 examCertificateS3Link,
@@ -1176,6 +1168,9 @@ const Register = () => {
                             <strong className='fontSizeFormTitle'>{t("register.description.importantNotes")}</strong>
                             <ul>
                                 <li>{t("register.description.ageInfo")}</li>
+                                <li>
+                                    Country information reflects my current residence and/or passport nationality. Incorrect information may result in disqualification or additional payment
+                                </li>
                                 <li>
                                     <strong>APCS Music </strong>{t("register.description.disclaimer")}
                                 </li>
@@ -2079,8 +2074,8 @@ const Register = () => {
                                 setValue={setValue}
                             />
 
-                            {/* Birth Certificate Upload */}
-                            {/* <FileInput
+                            {/* Pasport Upload */}
+                            <FileInput
                                 name="birthCertificate"
                                 control={control}
                                 label={t("register.form.birthCert")}
@@ -2090,7 +2085,7 @@ const Register = () => {
                                 tooltipLabel={t("register.form.birthCertTooltip")}
                                 inputRef={birthCertInputRef}
                                 setValue={setValue}
-                            /> */}
+                            />
 
                             {/* PDF Repertoire Upload */}
                             <FileInput
