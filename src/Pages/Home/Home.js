@@ -22,6 +22,7 @@ import HomeMobile from './HomeMobile';
 import LetUsGuideTo from "./LetUsGuideTo";
 
 import { Spin, message } from "antd";
+import ModalEvent from "./ModalEvent";
 
 
 const Home = (props) => {
@@ -223,10 +224,10 @@ const Home = (props) => {
                         </div>
                     )}
                 </div>
-                {/* <ModalEvent
+                <ModalEvent
                     open={open}
                     handleClose={handleClose}
-                /> */}
+                />
             </div >
         )
 

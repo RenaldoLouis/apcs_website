@@ -6,7 +6,7 @@ import {
 import { Box, Link } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useLocation, useNavigate } from "react-router-dom";
 import apcLogo from "../../assets/images/apc_logo.svg";
@@ -115,9 +115,7 @@ const Footer = () => {
                                         if (navbarName === "contactUs") {
                                             navbarName = "CONTACT US"
                                         }
-                                        if (navbarName === "register") {
-                                            return null
-                                        } else {
+                                        else {
                                             return (
                                                 <div
                                                     key={`footer-${eachPath}`}
@@ -195,9 +193,7 @@ const Footer = () => {
                                 if (navbarName === "contactUs") {
                                     navbarName = "CONTACT_US"
                                 }
-                                if (navbarName === "register") {
-                                    return null
-                                } else {
+                                else {
                                     return (
                                         <div
                                             key={`footer2-${eachPath}`}

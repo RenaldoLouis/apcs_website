@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
-import { Box, Modal, Typography } from "@mui/material";
-import poster from "../../assets/images/poster.jpeg";
 import {
     CloseOutlined,
 } from '@ant-design/icons';
+import { Box, Modal, Typography } from "@mui/material";
+import { useEffect, useState } from "react";
+import poster from "../../assets/images/poster.jpeg";
 
 const modalStyle = {
     position: 'absolute',
